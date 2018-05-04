@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+      <ProjectReference Include="C:\Users\Jeremy\Desktop\LibrariesAndTools\markdig\src\Markdig\Markdig.csproj" />
+  </ItemGroup>
+
+</Project>
