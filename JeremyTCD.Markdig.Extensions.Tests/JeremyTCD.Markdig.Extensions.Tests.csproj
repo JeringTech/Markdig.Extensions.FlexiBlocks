@@ -15,4 +15,23 @@
     <ProjectReference Include="..\JeremyTCD.Markdig.Extensions\JeremyTCD.Markdig.Extensions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="SpecsTests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SpecsTests.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="SpecsTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SpecsTests.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

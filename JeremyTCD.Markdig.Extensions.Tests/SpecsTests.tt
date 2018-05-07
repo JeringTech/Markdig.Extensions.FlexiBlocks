@@ -1,0 +1,248 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Threading" #>
+<#
+    var specFiles = new KeyValuePair<string, string>[] {
+		new KeyValuePair<string, string>(Host.ResolvePath("../Specs/CommonMarkSpecs.md"), "CommonMark"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../Specs/SectionsSpecs.md"), "Sections|All")
+	};
+#>
+using Markdig;
+using Xunit;
+
+namespace JeremyTCD.Markdig.Extensions.Tests
+{
+<#
+foreach (KeyValuePair<string, string> specFileItem in specFiles)
+{
+	string specFile = specFileItem.Key;
+    string[] pipelines = specFileItem.Value.Split('|');
+    List<Extension> extensions = ReadSpecs(specFile);
+
+    foreach (Extension extension in extensions)
+    {
+        if(!string.IsNullOrWhiteSpace(extension.Description))
+        {
+#>
+<#= extension.Description #>  
+<#
+        }   
+#>    public class <#= extension.Name #>Tests
+    {
+<#  
+        foreach (Spec spec in extension.Specs)
+        {
+            foreach (string pipeline in pipelines)
+            {
+                if(!string.IsNullOrWhiteSpace(spec.Description))
+                {
+#>
+<#= spec.Description #><#
+                }
+#>        
+        [Fact]
+        public void <#= extension.Name #>_Spec<#= spec.Number #>_<#= pipeline #>()
+        {
+            // The following Markdown:
+<#= spec.MarkdownAsComment #>
+            //
+            // Should be rendered as:
+<#= spec.HtmlAsComment #>
+
+            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("<#= pipeline #>");
+            string result = Markdown.ToHtml("<#= Escape(spec.Markdown) #>", pipeline);
+            result = PipelineHelper.Compact(result);
+            string expectedResult = PipelineHelper.Compact("<#= Escape(spec.Html) #>");
+
+            Assert.Equal(expectedResult, result);
+        }
+<#
+            }
+        }
+#>    }
+<#
+    }
+}
+#>}
+
+<#+
+private class Extension
+{
+    public string Name { get; set; }
+    public List<Spec> Specs { get; set; } = new List<Spec>();
+    public string Description { get; set; }
+}
+
+private class Spec
+{
+    public string Markdown { get; set; }
+    public string MarkdownAsComment { get; set; }
+    public string Html { get; set; }
+    public string HtmlAsComment { get; set; }
+    public int Number { get; set; }
+    public string Description { get; set; }
+}
+
+private enum ParseStage
+{
+    PreSpec,
+    Markdown,
+    Html
+}
+
+private List<Extension> ReadSpecs(string fileName)
+{
+    ParseStage stage = ParseStage.PreSpec;
+    string content = File.ReadAllText(fileName);
+    string closestHeading = null;
+    string line;
+    var end = false;
+    List<string> markdownLines = new List<string>();
+    List<string> htmlLines = new List<string>();
+    string currentDescription = "";
+    List<Extension> result = new List<Extension>();
+    Extension currentExtension = null;
+    int currentSpecNumber = 1;
+
+    using (var reader = new StringReader(content))
+    {
+        while (!end && (line = reader.ReadLine()) != null)
+        {
+            if (stage == ParseStage.PreSpec)
+            {
+                if (line == "```````````````````````````````` example")
+                {
+                    if (currentExtension == null)
+                    {
+                        int descriptionEnd = currentDescription.Trim().LastIndexOf("\n\n");
+                        string description = string.Empty;
+                        if (descriptionEnd != -1)
+                        {
+                            description = currentDescription.Substring(0, descriptionEnd);
+                            currentDescription = currentDescription.Substring(descriptionEnd + 2);
+                        }
+                        else
+                        {
+                            description = currentDescription;
+                            currentDescription = "";
+                        }
+
+                        currentExtension = new Extension()
+                        {
+                            Name = NormalizeHeading(closestHeading),
+                            Description = ToComment(description.Trim(), "    ")
+                        };
+                        result.Add(currentExtension);
+                    }
+
+                    stage = ParseStage.Markdown; // parse markdown
+                    continue;
+                }
+
+                if (line == "<!-- END TESTS -->")
+                {
+                    end = true;
+                }
+                else
+                {
+                    Match match = Regex.Match(line, @"## ([ \w]+)");
+                    if (match.Success)
+                    {
+                        closestHeading = match.Groups[1].Value;
+
+                        if (currentExtension != null)
+                        {
+                            currentExtension = null;
+                        }
+
+                        currentDescription = "";
+                    }
+                    else
+                    {
+                        currentDescription += line + '\n';
+                    }
+                }
+            }
+            else if (stage == ParseStage.Markdown)
+            {
+                if (line == ".")
+                {
+                    stage = ParseStage.Html;
+                    continue;
+                }
+
+                markdownLines.Add(line);
+            }
+            else if (stage == ParseStage.Html)
+            {
+                if (line == "````````````````````````````````")
+                {
+                    string markdown = string.Join("\n", markdownLines.ToArray());
+                    string html = string.Join("\n", htmlLines.ToArray());
+
+                    currentExtension.
+                        Specs.
+                        Add(new Spec()
+                        {
+                            Html = html,
+                            HtmlAsComment = ToComment(html, "            ", "     "),
+                            Markdown = markdown,
+                            MarkdownAsComment = ToComment(markdown, "            ", "     "),
+                            Number = currentSpecNumber,
+                            Description = ToComment(currentDescription.Trim(), "        ")
+                        });
+
+                    htmlLines.Clear();
+                    markdownLines.Clear();
+                    currentDescription = "";
+                    currentSpecNumber++;
+
+                    stage = ParseStage.PreSpec;
+                    continue;
+                }
+
+                htmlLines.Add(line);
+            }
+        }
+    }
+
+    return result;
+}
+
+private string ToComment(string text, string commentIndentation = "", string contentIndentation = " ")
+{
+    if (string.IsNullOrWhiteSpace(text))
+    {
+        return string.Empty;
+    }
+
+    return $"{commentIndentation}//{contentIndentation}" + text.Replace("\n", $"\n{commentIndentation}//{contentIndentation}");
+}
+
+private string NormalizeHeading(string heading)
+{
+    return Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(heading).Replace(" ", "");
+}
+
+private string Escape(string input)
+{
+    return input
+        .Replace("→", "\t")
+        .Replace("\\", "\\\\")
+        .Replace("\"", "\\\"")
+        .Replace("\0", "\\0")
+        .Replace("\a", "\\a")
+        .Replace("\b", "\\b")
+        .Replace("\f", "\\f")
+        .Replace("\n", "\\n")
+        .Replace("\r", "\\r")
+        .Replace("\t", "\\t")
+        .Replace("\v", "\\v");
+}
+#>
