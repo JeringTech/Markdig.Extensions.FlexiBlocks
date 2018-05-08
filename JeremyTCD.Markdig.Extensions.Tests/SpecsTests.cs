@@ -11240,12 +11240,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
     }
 
-    // Extension Description.  
+    // A typical article is divided into logical sections. Often, the HTML for logical sections are demarcated by heading elements.
+    // The [HTML spec](https://html.spec.whatwg.org/multipage/sections.html#headings-and-sections) encourages wrapping of 
+    // logical sections in [sectioning content elements](https://html.spec.whatwg.org/multipage/dom.html#sectioning-content-2).
+    // This extension wraps logical sections in `<section>` elements, with nesting dependent on [ATX heading](https://spec.commonmark.org/0.28/#atx-headings)
+    // levels.  
     public class SectionsTests
     {
 
-        // Description 1.
-        // test.        
+        // Increasing levels (note that the `<h1>` element is not wrapped, it should be inserted as a child of an `<article>` element):        
         [Fact]
         public void Sections_Spec1_Sections()
         {
@@ -11266,8 +11269,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo", "<h1>foo</h1>\n<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>", "Sections");
         }
 
-        // Description 1.
-        // test.        
+        // Increasing levels (note that the `<h1>` element is not wrapped, it should be inserted as a child of an `<article>` element):        
         [Fact]
         public void Sections_Spec1_All()
         {
@@ -11288,48 +11290,196 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo", "<h1>foo</h1>\n<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>", "All");
         }
 
-        // Description 2.
-        // test.        
+        // Decreasing levels:        
         [Fact]
         public void Sections_Spec2_Sections()
         {
             // The following Markdown:
-            //     # foo
-            //     ## foo
             //     ### foo
+            //     ## foo
+            //     # foo
             //
             // Should be rendered as:
-            //     <h1>foo</h1>
-            //     <section>
-            //     <h2>foo</h2>
             //     <section>
             //     <h3>foo</h3>
             //     </section>
+            //     <section>
+            //     <h2>foo</h2>
             //     </section>
+            //     <h1>foo</h1>
 
-            SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo", "<h1>foo</h1>\n<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>", "Sections");
+            SpecTestHelper.AssertCompliance("### foo\n## foo\n# foo", "<section>\n<h3>foo</h3>\n</section>\n<section>\n<h2>foo</h2>\n</section>\n<h1>foo</h1>", "Sections");
         }
 
-        // Description 2.
-        // test.        
+        // Decreasing levels:        
         [Fact]
         public void Sections_Spec2_All()
         {
             // The following Markdown:
-            //     # foo
-            //     ## foo
             //     ### foo
+            //     ## foo
+            //     # foo
             //
             // Should be rendered as:
+            //     <section>
+            //     <h3>foo</h3>
+            //     </section>
+            //     <section>
+            //     <h2>foo</h2>
+            //     </section>
             //     <h1>foo</h1>
+
+            SpecTestHelper.AssertCompliance("### foo\n## foo\n# foo", "<section>\n<h3>foo</h3>\n</section>\n<section>\n<h2>foo</h2>\n</section>\n<h1>foo</h1>", "All");
+        }
+
+        // Mixed levels:        
+        [Fact]
+        public void Sections_Spec3_Sections()
+        {
+            // The following Markdown:
+            //     ## foo
+            //     ### foo
+            //     # foo
+            //
+            // Should be rendered as:
             //     <section>
             //     <h2>foo</h2>
             //     <section>
             //     <h3>foo</h3>
             //     </section>
             //     </section>
+            //     <h1>foo</h1>
 
-            SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo", "<h1>foo</h1>\n<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>", "All");
+            SpecTestHelper.AssertCompliance("## foo\n### foo\n# foo", "<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>\n<h1>foo</h1>", "Sections");
+        }
+
+        // Mixed levels:        
+        [Fact]
+        public void Sections_Spec3_All()
+        {
+            // The following Markdown:
+            //     ## foo
+            //     ### foo
+            //     # foo
+            //
+            // Should be rendered as:
+            //     <section>
+            //     <h2>foo</h2>
+            //     <section>
+            //     <h3>foo</h3>
+            //     </section>
+            //     </section>
+            //     <h1>foo</h1>
+
+            SpecTestHelper.AssertCompliance("## foo\n### foo\n# foo", "<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>\n<h1>foo</h1>", "All");
+        }
+
+        // Same levels:        
+        [Fact]
+        public void Sections_Spec4_Sections()
+        {
+            // The following Markdown:
+            //     ## foo
+            //     ## foo
+            //
+            // Should be rendered as:
+            //     <section>
+            //     <h2>foo</h2>
+            //     </section>
+            //     <section>
+            //     <h2>foo</h2>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("## foo\n## foo", "<section>\n<h2>foo</h2>\n</section>\n<section>\n<h2>foo</h2>\n</section>", "Sections");
+        }
+
+        // Same levels:        
+        [Fact]
+        public void Sections_Spec4_All()
+        {
+            // The following Markdown:
+            //     ## foo
+            //     ## foo
+            //
+            // Should be rendered as:
+            //     <section>
+            //     <h2>foo</h2>
+            //     </section>
+            //     <section>
+            //     <h2>foo</h2>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("## foo\n## foo", "<section>\n<h2>foo</h2>\n</section>\n<section>\n<h2>foo</h2>\n</section>", "All");
+        }
+
+        // Sections with content (child containers):        
+        [Fact]
+        public void Sections_Spec5_Sections()
+        {
+            // The following Markdown:
+            //     # foo
+            //     Level 1 content.
+            //     ## foo
+            //     - Level 2 content line 1.
+            //     - Level 2 content line 2.
+            //     ### foo
+            //     > Level 3 content line 1.
+            //     > Level 3 content line 2.
+            //
+            // Should be rendered as:
+            //     <h1>foo</h1>
+            //     <p>Level 1 content.</p>
+            //     <section>
+            //     <h2>foo</h2>
+            //     <ul>
+            //     <li>Level 2 content line 1.</li>
+            //     <li>Level 2 content line 2.</li>
+            //     </ul>
+            //     <section>
+            //     <h3>foo</h3>
+            //     <blockquote>
+            //     <p>Level 3 content line 1.
+            //     Level 3 content line 2.</p>
+            //     </blockquote>
+            //     </section>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", "<h1>foo</h1>\n<p>Level 1 content.</p>\n<section>\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section>\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", "Sections");
+        }
+
+        // Sections with content (child containers):        
+        [Fact]
+        public void Sections_Spec5_All()
+        {
+            // The following Markdown:
+            //     # foo
+            //     Level 1 content.
+            //     ## foo
+            //     - Level 2 content line 1.
+            //     - Level 2 content line 2.
+            //     ### foo
+            //     > Level 3 content line 1.
+            //     > Level 3 content line 2.
+            //
+            // Should be rendered as:
+            //     <h1>foo</h1>
+            //     <p>Level 1 content.</p>
+            //     <section>
+            //     <h2>foo</h2>
+            //     <ul>
+            //     <li>Level 2 content line 1.</li>
+            //     <li>Level 2 content line 2.</li>
+            //     </ul>
+            //     <section>
+            //     <h3>foo</h3>
+            //     <blockquote>
+            //     <p>Level 3 content line 1.
+            //     Level 3 content line 2.</p>
+            //     </blockquote>
+            //     </section>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", "<h1>foo</h1>\n<p>Level 1 content.</p>\n<section>\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section>\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", "All");
         }
     }
 }
