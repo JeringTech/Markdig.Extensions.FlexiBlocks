@@ -6536,12 +6536,12 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         public void CodeSpans_Spec319_CommonMark()
         {
             // The following Markdown:
-            //     `a  b`
+            //     `a  b`
             //
             // Should be rendered as:
-            //     <p><code>a  b</code></p>
+            //     <p><code>a  b</code></p>
 
-            SpecTestHelper.AssertCompliance("`a  b`", "<p><code>a  b</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`a  b`", "<p><code>a  b</code></p>", "CommonMark");
         }
 
         // Q: Why not just leave the spaces, since browsers will collapse them
@@ -6960,12 +6960,12 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         public void EmphasisAndStrongEmphasis_Spec334_CommonMark()
         {
             // The following Markdown:
-            //     * a *
+            //     * a *
             //
             // Should be rendered as:
-            //     <p>* a *</p>
+            //     <p>* a *</p>
 
-            SpecTestHelper.AssertCompliance("* a *", "<p>* a *</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("* a *", "<p>* a *</p>", "CommonMark");
         }
 
         // Intraword emphasis with `*` is permitted:        
@@ -8945,12 +8945,12 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         public void Links_Spec478_CommonMark()
         {
             // The following Markdown:
-            //     [link](/url "title")
+            //     [link](/url "title")
             //
             // Should be rendered as:
             //     <p><a href="/url%C2%A0%22title%22">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](/url \"title\")", "<p><a href=\"/url%C2%A0%22title%22\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](/url \"title\")", "<p><a href=\"/url%C2%A0%22title%22\">link</a></p>", "CommonMark");
         }
 
         // Nested balanced quotes are not allowed without escaping:        

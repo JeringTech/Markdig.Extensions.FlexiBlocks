@@ -5728,9 +5728,9 @@ Not all [Unicode whitespace] (for instance, non-breaking space) is
 collapsed, however:
 
 ```````````````````````````````` example
-`a  b`
+`a  b`
 .
-<p><code>a  b</code></p>
+<p><code>a  b</code></p>
 ````````````````````````````````
 
 
@@ -6089,9 +6089,9 @@ a*"foo"*
 Unicode nonbreaking spaces count as whitespace, too:
 
 ```````````````````````````````` example
-* a *
+* a *
 .
-<p>* a *</p>
+<p>* a *</p>
 ````````````````````````````````
 
 
@@ -7427,7 +7427,7 @@ Titles must be separated from the link using a [whitespace].
 Other [Unicode whitespace] like non-breaking space doesn't work.
 
 ```````````````````````````````` example
-[link](/url "title")
+[link](/url "title")
 .
 <p><a href="/url%C2%A0%22title%22">link</a></p>
 ````````````````````````````````
