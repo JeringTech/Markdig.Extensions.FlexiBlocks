@@ -35,12 +35,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>foo→baz→→bim
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("\tfoo\tbaz\t\tbim", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>foo\tbaz\t\tbim\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("\tfoo\tbaz\t\tbim", "<pre><code>foo\tbaz\t\tbim\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -53,12 +48,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>foo→baz→→bim
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("  \tfoo\tbaz\t\tbim", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>foo\tbaz\t\tbim\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("  \tfoo\tbaz\t\tbim", "<pre><code>foo\tbaz\t\tbim\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -73,12 +63,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ὐ→a
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    a\ta\n    ὐ\ta", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>a\ta\nὐ\ta\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    a\ta\n    ὐ\ta", "<pre><code>a\ta\nὐ\ta\n</code></pre>", "CommonMark");
         }
 
         // In the following example, a continuation paragraph of a list
@@ -100,12 +85,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("  - foo\n\n\tbar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("  - foo\n\n\tbar", "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", "CommonMark");
         }
         
         [Fact]
@@ -125,12 +105,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- foo\n\n\t\tbar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>foo</p>\n<pre><code>  bar\n</code></pre>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- foo\n\n\t\tbar", "<ul>\n<li>\n<p>foo</p>\n<pre><code>  bar\n</code></pre>\n</li>\n</ul>", "CommonMark");
         }
 
         // Normally the `>` that begins a block quote may be followed
@@ -153,12 +128,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(">\t\tfoo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<pre><code>  foo\n</code></pre>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(">\t\tfoo", "<blockquote>\n<pre><code>  foo\n</code></pre>\n</blockquote>", "CommonMark");
         }
         
         [Fact]
@@ -175,12 +145,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("-\t\tfoo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<pre><code>  foo\n</code></pre>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("-\t\tfoo", "<ul>\n<li>\n<pre><code>  foo\n</code></pre>\n</li>\n</ul>", "CommonMark");
         }
         
         [Fact]
@@ -195,12 +160,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     bar
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    foo\n\tbar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>foo\nbar\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    foo\n\tbar", "<pre><code>foo\nbar\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -224,12 +184,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(" - foo\n   - bar\n\t - baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>baz</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(" - foo\n   - bar\n\t - baz", "<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>baz</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>", "CommonMark");
         }
         
         [Fact]
@@ -241,12 +196,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h1>Foo</h1>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("#\tFoo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h1>Foo</h1>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("#\tFoo", "<h1>Foo</h1>", "CommonMark");
         }
         
         [Fact]
@@ -258,12 +208,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*\t*\t*\t", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*\t*\t*\t", "<hr />", "CommonMark");
         }
     }
 
@@ -286,12 +231,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>two`</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- `one\n- two`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>`one</li>\n<li>two`</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- `one\n- two`", "<ul>\n<li>`one</li>\n<li>two`</li>\n</ul>", "CommonMark");
         }
     }
 
@@ -315,12 +255,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <hr />
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("***\n---\n___", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<hr />\n<hr />\n<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("***\n---\n___", "<hr />\n<hr />\n<hr />", "CommonMark");
         }
 
         // Wrong characters:        
@@ -333,12 +268,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>+++</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("+++", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>+++</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("+++", "<p>+++</p>", "CommonMark");
         }
         
         [Fact]
@@ -350,12 +280,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>===</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("===", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>===</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("===", "<p>===</p>", "CommonMark");
         }
 
         // Not enough characters:        
@@ -372,12 +297,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     **
             //     __</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("--\n**\n__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>--\n**\n__</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("--\n**\n__", "<p>--\n**\n__</p>", "CommonMark");
         }
 
         // One to three spaces indent are allowed:        
@@ -394,12 +314,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <hr />
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(" ***\n  ***\n   ***", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<hr />\n<hr />\n<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(" ***\n  ***\n   ***", "<hr />\n<hr />\n<hr />", "CommonMark");
         }
 
         // Four spaces is too many:        
@@ -413,12 +328,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>***
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    ***", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>***\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    ***", "<pre><code>***\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -432,12 +342,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>Foo
             //     ***</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\n    ***", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo\n***</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\n    ***", "<p>Foo\n***</p>", "CommonMark");
         }
 
         // More than three characters may be used:        
@@ -450,12 +355,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_____________________________________", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_____________________________________", "<hr />", "CommonMark");
         }
 
         // Spaces are allowed between the characters:        
@@ -468,12 +368,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(" - - -", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(" - - -", "<hr />", "CommonMark");
         }
         
         [Fact]
@@ -485,12 +380,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(" **  * ** * ** * **", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(" **  * ** * ** * **", "<hr />", "CommonMark");
         }
         
         [Fact]
@@ -502,12 +392,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("-     -      -      -", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("-     -      -      -", "<hr />", "CommonMark");
         }
 
         // Spaces are allowed at the end:        
@@ -520,12 +405,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- - - -    ", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- - - -    ", "<hr />", "CommonMark");
         }
 
         // However, no other characters may occur in the line:        
@@ -544,12 +424,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>a------</p>
             //     <p>---a---</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_ _ _ _ a\n\na------\n\n---a---", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>_ _ _ _ a</p>\n<p>a------</p>\n<p>---a---</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_ _ _ _ a\n\na------\n\n---a---", "<p>_ _ _ _ a</p>\n<p>a------</p>\n<p>---a---</p>", "CommonMark");
         }
 
         // It is required that all of the [non-whitespace characters] be the same.
@@ -563,12 +438,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>-</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(" *-*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>-</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(" *-*", "<p><em>-</em></p>", "CommonMark");
         }
 
         // Thematic breaks do not need blank lines before or after:        
@@ -589,12 +459,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>bar</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- foo\n***\n- bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>foo</li>\n</ul>\n<hr />\n<ul>\n<li>bar</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- foo\n***\n- bar", "<ul>\n<li>foo</li>\n</ul>\n<hr />\n<ul>\n<li>bar</li>\n</ul>", "CommonMark");
         }
 
         // Thematic breaks can interrupt a paragraph:        
@@ -611,12 +476,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <hr />
             //     <p>bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\n***\nbar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo</p>\n<hr />\n<p>bar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\n***\nbar", "<p>Foo</p>\n<hr />\n<p>bar</p>", "CommonMark");
         }
 
         // If a line of dashes that meets the above conditions for being a
@@ -636,12 +496,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>Foo</h2>
             //     <p>bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\n---\nbar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h2>Foo</h2>\n<p>bar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\n---\nbar", "<h2>Foo</h2>\n<p>bar</p>", "CommonMark");
         }
 
         // When both a thematic break and a list item are possible
@@ -663,12 +518,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>Bar</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("* Foo\n* * *\n* Bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>Foo</li>\n</ul>\n<hr />\n<ul>\n<li>Bar</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("* Foo\n* * *\n* Bar", "<ul>\n<li>Foo</li>\n</ul>\n<hr />\n<ul>\n<li>Bar</li>\n</ul>", "CommonMark");
         }
 
         // If you want a thematic break in a list item, use a different bullet:        
@@ -687,12 +537,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- Foo\n- * * *", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>Foo</li>\n<li>\n<hr />\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- Foo\n- * * *", "<ul>\n<li>Foo</li>\n<li>\n<hr />\n</li>\n</ul>", "CommonMark");
         }
     }
 
@@ -730,12 +575,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h5>foo</h5>
             //     <h6>foo</h6>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("# foo\n## foo\n### foo\n#### foo\n##### foo\n###### foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h1>foo</h1>\n<h2>foo</h2>\n<h3>foo</h3>\n<h4>foo</h4>\n<h5>foo</h5>\n<h6>foo</h6>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n#### foo\n##### foo\n###### foo", "<h1>foo</h1>\n<h2>foo</h2>\n<h3>foo</h3>\n<h4>foo</h4>\n<h5>foo</h5>\n<h6>foo</h6>", "CommonMark");
         }
 
         // More than six `#` characters is not a heading:        
@@ -748,12 +588,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>####### foo</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("####### foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>####### foo</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("####### foo", "<p>####### foo</p>", "CommonMark");
         }
 
         // At least one space is required between the `#` characters and the
@@ -775,12 +610,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>#5 bolt</p>
             //     <p>#hashtag</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("#5 bolt\n\n#hashtag", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>#5 bolt</p>\n<p>#hashtag</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("#5 bolt\n\n#hashtag", "<p>#5 bolt</p>\n<p>#hashtag</p>", "CommonMark");
         }
 
         // This is not a heading, because the first `#` is escaped:        
@@ -793,12 +623,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>## foo</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("\\## foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>## foo</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("\\## foo", "<p>## foo</p>", "CommonMark");
         }
 
         // Contents are parsed as inlines:        
@@ -811,12 +636,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h1>foo <em>bar</em> *baz*</h1>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("# foo *bar* \\*baz\\*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h1>foo <em>bar</em> *baz*</h1>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("# foo *bar* \\*baz\\*", "<h1>foo <em>bar</em> *baz*</h1>", "CommonMark");
         }
 
         // Leading and trailing blanks are ignored in parsing inline content:        
@@ -829,12 +649,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h1>foo</h1>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("#                  foo                     ", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h1>foo</h1>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("#                  foo                     ", "<h1>foo</h1>", "CommonMark");
         }
 
         // One to three spaces indentation are allowed:        
@@ -851,12 +666,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>foo</h2>
             //     <h1>foo</h1>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(" ### foo\n  ## foo\n   # foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h3>foo</h3>\n<h2>foo</h2>\n<h1>foo</h1>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(" ### foo\n  ## foo\n   # foo", "<h3>foo</h3>\n<h2>foo</h2>\n<h1>foo</h1>", "CommonMark");
         }
 
         // Four spaces are too much:        
@@ -870,12 +680,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code># foo
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    # foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code># foo\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    # foo", "<pre><code># foo\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -889,12 +694,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo
             //     # bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo\n    # bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo\n# bar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo\n    # bar", "<p>foo\n# bar</p>", "CommonMark");
         }
 
         // A closing sequence of `#` characters is optional:        
@@ -909,12 +709,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>foo</h2>
             //     <h3>bar</h3>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("## foo ##\n  ###   bar    ###", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h2>foo</h2>\n<h3>bar</h3>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("## foo ##\n  ###   bar    ###", "<h2>foo</h2>\n<h3>bar</h3>", "CommonMark");
         }
 
         // It need not be the same length as the opening sequence:        
@@ -929,12 +724,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h1>foo</h1>
             //     <h5>foo</h5>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("# foo ##################################\n##### foo ##", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h1>foo</h1>\n<h5>foo</h5>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("# foo ##################################\n##### foo ##", "<h1>foo</h1>\n<h5>foo</h5>", "CommonMark");
         }
 
         // Spaces are allowed after the closing sequence:        
@@ -947,12 +737,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h3>foo</h3>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("### foo ###     ", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h3>foo</h3>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("### foo ###     ", "<h3>foo</h3>", "CommonMark");
         }
 
         // A sequence of `#` characters with anything but [spaces] following it
@@ -967,12 +752,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h3>foo ### b</h3>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("### foo ### b", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h3>foo ### b</h3>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("### foo ### b", "<h3>foo ### b</h3>", "CommonMark");
         }
 
         // The closing sequence must be preceded by a space:        
@@ -985,12 +765,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h1>foo#</h1>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("# foo#", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h1>foo#</h1>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("# foo#", "<h1>foo#</h1>", "CommonMark");
         }
 
         // Backslash-escaped `#` characters do not count as part
@@ -1008,12 +783,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>foo ###</h2>
             //     <h1>foo #</h1>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("### foo \\###\n## foo #\\##\n# foo \\#", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h3>foo ###</h3>\n<h2>foo ###</h2>\n<h1>foo #</h1>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("### foo \\###\n## foo #\\##\n# foo \\#", "<h3>foo ###</h3>\n<h2>foo ###</h2>\n<h1>foo #</h1>", "CommonMark");
         }
 
         // ATX headings need not be separated from surrounding content by blank
@@ -1031,12 +801,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>foo</h2>
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("****\n## foo\n****", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<hr />\n<h2>foo</h2>\n<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("****\n## foo\n****", "<hr />\n<h2>foo</h2>\n<hr />", "CommonMark");
         }
         
         [Fact]
@@ -1052,12 +817,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h1>baz</h1>
             //     <p>Bar foo</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo bar\n# baz\nBar foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo bar</p>\n<h1>baz</h1>\n<p>Bar foo</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo bar\n# baz\nBar foo", "<p>Foo bar</p>\n<h1>baz</h1>\n<p>Bar foo</p>", "CommonMark");
         }
 
         // ATX headings can be empty:        
@@ -1074,12 +834,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h1></h1>
             //     <h3></h3>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("## \n#\n### ###", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h2></h2>\n<h1></h1>\n<h3></h3>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("## \n#\n### ###", "<h2></h2>\n<h1></h1>\n<h3></h3>", "CommonMark");
         }
     }
 
@@ -1128,12 +883,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h1>Foo <em>bar</em></h1>
             //     <h2>Foo <em>bar</em></h2>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo *bar*\n=========\n\nFoo *bar*\n---------", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h1>Foo <em>bar</em></h1>\n<h2>Foo <em>bar</em></h2>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo *bar*\n=========\n\nFoo *bar*\n---------", "<h1>Foo <em>bar</em></h1>\n<h2>Foo <em>bar</em></h2>", "CommonMark");
         }
 
         // The content of the header may span more than one line:        
@@ -1149,12 +899,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h1>Foo <em>bar
             //     baz</em></h1>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo *bar\nbaz*\n====", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h1>Foo <em>bar\nbaz</em></h1>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo *bar\nbaz*\n====", "<h1>Foo <em>bar\nbaz</em></h1>", "CommonMark");
         }
 
         // The underlining can be any length:        
@@ -1172,12 +917,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>Foo</h2>
             //     <h1>Foo</h1>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\n-------------------------\n\nFoo\n=", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h2>Foo</h2>\n<h1>Foo</h1>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\n-------------------------\n\nFoo\n=", "<h2>Foo</h2>\n<h1>Foo</h1>", "CommonMark");
         }
 
         // The heading content can be indented up to three spaces, and need
@@ -1200,12 +940,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>Foo</h2>
             //     <h1>Foo</h1>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("   Foo\n---\n\n  Foo\n-----\n\n  Foo\n  ===", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h2>Foo</h2>\n<h2>Foo</h2>\n<h1>Foo</h1>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("   Foo\n---\n\n  Foo\n-----\n\n  Foo\n  ===", "<h2>Foo</h2>\n<h2>Foo</h2>\n<h1>Foo</h1>", "CommonMark");
         }
 
         // Four spaces indent is too much:        
@@ -1227,12 +962,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    Foo\n    ---\n\n    Foo\n---", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>Foo\n---\n\nFoo\n</code></pre>\n<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    Foo\n    ---\n\n    Foo\n---", "<pre><code>Foo\n---\n\nFoo\n</code></pre>\n<hr />", "CommonMark");
         }
 
         // The setext heading underline can be indented up to three spaces, and
@@ -1247,12 +977,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h2>Foo</h2>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\n   ----      ", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h2>Foo</h2>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\n   ----      ", "<h2>Foo</h2>", "CommonMark");
         }
 
         // Four spaces is too much:        
@@ -1267,12 +992,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>Foo
             //     ---</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\n    ---", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo\n---</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\n    ---", "<p>Foo\n---</p>", "CommonMark");
         }
 
         // The setext heading underline cannot contain internal spaces:        
@@ -1292,12 +1012,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>Foo</p>
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\n= =\n\nFoo\n--- -", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo\n= =</p>\n<p>Foo</p>\n<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\n= =\n\nFoo\n--- -", "<p>Foo\n= =</p>\n<p>Foo</p>\n<hr />", "CommonMark");
         }
 
         // Trailing spaces in the content line do not cause a line break:        
@@ -1311,12 +1026,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h2>Foo</h2>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo  \n-----", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h2>Foo</h2>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo  \n-----", "<h2>Foo</h2>", "CommonMark");
         }
 
         // Nor does a backslash at the end:        
@@ -1330,12 +1040,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h2>Foo\</h2>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\\\n----", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h2>Foo\\</h2>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\\\n----", "<h2>Foo\\</h2>", "CommonMark");
         }
 
         // Since indicators of block structure take precedence over
@@ -1358,12 +1063,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>&lt;a title=&quot;a lot</h2>
             //     <p>of dashes&quot;/&gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`Foo\n----\n`\n\n<a title=\"a lot\n---\nof dashes\"/>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h2>`Foo</h2>\n<p>`</p>\n<h2>&lt;a title=&quot;a lot</h2>\n<p>of dashes&quot;/&gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`Foo\n----\n`\n\n<a title=\"a lot\n---\nof dashes\"/>", "<h2>`Foo</h2>\n<p>`</p>\n<h2>&lt;a title=&quot;a lot</h2>\n<p>of dashes&quot;/&gt;</p>", "CommonMark");
         }
 
         // The setext heading underline cannot be a [lazy continuation
@@ -1381,12 +1081,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> Foo\n---", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<p>Foo</p>\n</blockquote>\n<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> Foo\n---", "<blockquote>\n<p>Foo</p>\n</blockquote>\n<hr />", "CommonMark");
         }
         
         [Fact]
@@ -1404,12 +1099,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ===</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> foo\nbar\n===", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<p>foo\nbar\n===</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> foo\nbar\n===", "<blockquote>\n<p>foo\nbar\n===</p>\n</blockquote>", "CommonMark");
         }
         
         [Fact]
@@ -1425,12 +1115,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ul>
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- Foo\n---", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>Foo</li>\n</ul>\n<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- Foo\n---", "<ul>\n<li>Foo</li>\n</ul>\n<hr />", "CommonMark");
         }
 
         // A blank line is needed between a paragraph and a following
@@ -1448,12 +1133,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>Foo
             //     Bar</h2>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\nBar\n---", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h2>Foo\nBar</h2>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\nBar\n---", "<h2>Foo\nBar</h2>", "CommonMark");
         }
 
         // But in general a blank line is not required before or after
@@ -1475,12 +1155,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>Bar</h2>
             //     <p>Baz</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("---\nFoo\n---\nBar\n---\nBaz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<hr />\n<h2>Foo</h2>\n<h2>Bar</h2>\n<p>Baz</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("---\nFoo\n---\nBar\n---\nBaz", "<hr />\n<h2>Foo</h2>\n<h2>Bar</h2>\n<p>Baz</p>", "CommonMark");
         }
 
         // Setext headings cannot be empty:        
@@ -1494,12 +1169,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>====</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("\n====", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>====</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("\n====", "<p>====</p>", "CommonMark");
         }
 
         // Setext heading text lines must not be interpretable as block
@@ -1516,12 +1186,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <hr />
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("---\n---", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<hr />\n<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("---\n---", "<hr />\n<hr />", "CommonMark");
         }
         
         [Fact]
@@ -1537,12 +1202,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ul>
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- foo\n-----", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>foo</li>\n</ul>\n<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- foo\n-----", "<ul>\n<li>foo</li>\n</ul>\n<hr />", "CommonMark");
         }
         
         [Fact]
@@ -1557,12 +1217,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    foo\n---", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>foo\n</code></pre>\n<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    foo\n---", "<pre><code>foo\n</code></pre>\n<hr />", "CommonMark");
         }
         
         [Fact]
@@ -1578,12 +1233,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> foo\n-----", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<p>foo</p>\n</blockquote>\n<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> foo\n-----", "<blockquote>\n<p>foo</p>\n</blockquote>\n<hr />", "CommonMark");
         }
 
         // If you want a heading with `> foo` as its literal text, you can
@@ -1598,12 +1248,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h2>&gt; foo</h2>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("\\> foo\n------", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h2>&gt; foo</h2>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("\\> foo\n------", "<h2>&gt; foo</h2>", "CommonMark");
         }
 
         // **Compatibility note:**  Most existing Markdown implementations
@@ -1643,12 +1288,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>bar</h2>
             //     <p>baz</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\n\nbar\n---\nbaz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo</p>\n<h2>bar</h2>\n<p>baz</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\n\nbar\n---\nbaz", "<p>Foo</p>\n<h2>bar</h2>\n<p>baz</p>", "CommonMark");
         }
 
         // Authors who want interpretation 2 can put blank lines around
@@ -1670,12 +1310,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <hr />
             //     <p>baz</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\nbar\n\n---\n\nbaz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo\nbar</p>\n<hr />\n<p>baz</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\nbar\n\n---\n\nbaz", "<p>Foo\nbar</p>\n<hr />\n<p>baz</p>", "CommonMark");
         }
 
         // or use a thematic break that cannot count as a [setext heading
@@ -1695,12 +1330,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <hr />
             //     <p>baz</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\nbar\n* * *\nbaz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo\nbar</p>\n<hr />\n<p>baz</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\nbar\n* * *\nbaz", "<p>Foo\nbar</p>\n<hr />\n<p>baz</p>", "CommonMark");
         }
 
         // Authors who want interpretation 3 can use backslash escapes:        
@@ -1719,12 +1349,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ---
             //     baz</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\nbar\n\\---\nbaz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo\nbar\n---\nbaz</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\nbar\n\\---\nbaz", "<p>Foo\nbar\n---\nbaz</p>", "CommonMark");
         }
     }
 
@@ -1754,12 +1379,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //       indented code block
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    a simple\n      indented code block", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>a simple\n  indented code block\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    a simple\n      indented code block", "<pre><code>a simple\n  indented code block\n</code></pre>", "CommonMark");
         }
 
         // If there is any ambiguity between an interpretation of indentation
@@ -1781,12 +1401,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("  - foo\n\n    bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("  - foo\n\n    bar", "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", "CommonMark");
         }
         
         [Fact]
@@ -1807,12 +1422,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("1.  foo\n\n    - bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol>\n<li>\n<p>foo</p>\n<ul>\n<li>bar</li>\n</ul>\n</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("1.  foo\n\n    - bar", "<ol>\n<li>\n<p>foo</p>\n<ul>\n<li>bar</li>\n</ul>\n</li>\n</ol>", "CommonMark");
         }
 
         // The contents of a code block are literal text, and do not get parsed
@@ -1833,12 +1443,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     - one
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    <a/>\n    *hi*\n\n    - one", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>&lt;a/&gt;\n*hi*\n\n- one\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    <a/>\n    *hi*\n\n    - one", "<pre><code>&lt;a/&gt;\n*hi*\n\n- one\n</code></pre>", "CommonMark");
         }
 
         // Here we have three chunks separated by blank lines:        
@@ -1864,12 +1469,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     chunk3
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    chunk1\n\n    chunk2\n  \n \n \n    chunk3", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>chunk1\n\nchunk2\n\n\n\nchunk3\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    chunk1\n\n    chunk2\n  \n \n \n    chunk3", "<pre><code>chunk1\n\nchunk2\n\n\n\nchunk3\n</code></pre>", "CommonMark");
         }
 
         // Any initial spaces beyond four will be included in the content, even
@@ -1888,12 +1488,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //       chunk2
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    chunk1\n      \n      chunk2", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>chunk1\n  \n  chunk2\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    chunk1\n      \n      chunk2", "<pre><code>chunk1\n  \n  chunk2\n</code></pre>", "CommonMark");
         }
 
         // An indented code block cannot interrupt a paragraph.  (This
@@ -1910,12 +1505,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>Foo
             //     bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\n    bar\n", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo\nbar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\n    bar\n", "<p>Foo\nbar</p>", "CommonMark");
         }
 
         // However, any non-blank line with fewer than four leading spaces ends
@@ -1933,12 +1523,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <p>bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    foo\nbar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>foo\n</code></pre>\n<p>bar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    foo\nbar", "<pre><code>foo\n</code></pre>\n<p>bar</p>", "CommonMark");
         }
 
         // And indented code can occur immediately before and after other kinds of
@@ -1963,12 +1548,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("# Heading\n    foo\nHeading\n------\n    foo\n----", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h1>Heading</h1>\n<pre><code>foo\n</code></pre>\n<h2>Heading</h2>\n<pre><code>foo\n</code></pre>\n<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("# Heading\n    foo\nHeading\n------\n    foo\n----", "<h1>Heading</h1>\n<pre><code>foo\n</code></pre>\n<h2>Heading</h2>\n<pre><code>foo\n</code></pre>\n<hr />", "CommonMark");
         }
 
         // The first line can be indented more than four spaces:        
@@ -1984,12 +1564,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     bar
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("        foo\n    bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>    foo\nbar\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("        foo\n    bar", "<pre><code>    foo\nbar\n</code></pre>", "CommonMark");
         }
 
         // Blank lines preceding or following an indented code block
@@ -2008,12 +1583,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>foo
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("\n    \n    foo\n    \n", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>foo\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("\n    \n    foo\n    \n", "<pre><code>foo\n</code></pre>", "CommonMark");
         }
 
         // Trailing spaces are included in the code block's content:        
@@ -2027,12 +1597,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>foo  
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    foo  ", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>foo  \n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    foo  ", "<pre><code>foo  \n</code></pre>", "CommonMark");
         }
     }
 
@@ -2095,12 +1660,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //      &gt;
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("```\n<\n >\n```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>&lt;\n &gt;\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("```\n<\n >\n```", "<pre><code>&lt;\n &gt;\n</code></pre>", "CommonMark");
         }
 
         // With tildes:        
@@ -2118,12 +1678,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //      &gt;
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("~~~\n<\n >\n~~~", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>&lt;\n &gt;\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("~~~\n<\n >\n~~~", "<pre><code>&lt;\n &gt;\n</code></pre>", "CommonMark");
         }
 
         // Fewer than three backticks is not enough:        
@@ -2138,12 +1693,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>foo</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("``\nfoo\n``", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>foo</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("``\nfoo\n``", "<p><code>foo</code></p>", "CommonMark");
         }
 
         // The closing code fence must use the same character as the opening
@@ -2162,12 +1712,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ~~~
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("```\naaa\n~~~\n```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>aaa\n~~~\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("```\naaa\n~~~\n```", "<pre><code>aaa\n~~~\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -2184,12 +1729,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ```
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("~~~\naaa\n```\n~~~", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>aaa\n```\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("~~~\naaa\n```\n~~~", "<pre><code>aaa\n```\n</code></pre>", "CommonMark");
         }
 
         // The closing code fence must be at least as long as the opening fence:        
@@ -2207,12 +1747,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ```
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("````\naaa\n```\n``````", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>aaa\n```\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("````\naaa\n```\n``````", "<pre><code>aaa\n```\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -2229,12 +1764,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ~~~
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("~~~~\naaa\n~~~\n~~~~", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>aaa\n~~~\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("~~~~\naaa\n~~~\n~~~~", "<pre><code>aaa\n~~~\n</code></pre>", "CommonMark");
         }
 
         // Unclosed code blocks are closed by the end of the document
@@ -2248,12 +1778,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <pre><code></code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code></code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("```", "<pre><code></code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -2271,12 +1796,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     aaa
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`````\n\n```\naaa", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>\n```\naaa\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`````\n\n```\naaa", "<pre><code>\n```\naaa\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -2295,12 +1815,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     <p>bbb</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> ```\n> aaa\n\nbbb", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<pre><code>aaa\n</code></pre>\n</blockquote>\n<p>bbb</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> ```\n> aaa\n\nbbb", "<blockquote>\n<pre><code>aaa\n</code></pre>\n</blockquote>\n<p>bbb</p>", "CommonMark");
         }
 
         // A code block can have all empty lines as its content:        
@@ -2318,12 +1833,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //       
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("```\n\n  \n```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>\n  \n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("```\n\n  \n```", "<pre><code>\n  \n</code></pre>", "CommonMark");
         }
 
         // A code block can be empty:        
@@ -2337,12 +1847,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <pre><code></code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("```\n```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code></code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("```\n```", "<pre><code></code></pre>", "CommonMark");
         }
 
         // Fences can be indented.  If the opening fence is indented,
@@ -2362,12 +1867,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     aaa
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(" ```\n aaa\naaa\n```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>aaa\naaa\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(" ```\n aaa\naaa\n```", "<pre><code>aaa\naaa\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -2386,12 +1886,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     aaa
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("  ```\naaa\n  aaa\naaa\n  ```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>aaa\naaa\naaa\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("  ```\naaa\n  aaa\naaa\n  ```", "<pre><code>aaa\naaa\naaa\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -2410,12 +1905,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     aaa
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("   ```\n   aaa\n    aaa\n  aaa\n   ```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>aaa\n aaa\naaa\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("   ```\n   aaa\n    aaa\n  aaa\n   ```", "<pre><code>aaa\n aaa\naaa\n</code></pre>", "CommonMark");
         }
 
         // Four spaces indentation produces an indented code block:        
@@ -2433,12 +1923,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ```
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    ```\n    aaa\n    ```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>```\naaa\n```\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    ```\n    aaa\n    ```", "<pre><code>```\naaa\n```\n</code></pre>", "CommonMark");
         }
 
         // Closing fences may be indented by 0-3 spaces, and their indentation
@@ -2455,12 +1940,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>aaa
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("```\naaa\n  ```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>aaa\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("```\naaa\n  ```", "<pre><code>aaa\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -2475,12 +1955,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>aaa
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("   ```\naaa\n  ```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>aaa\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("   ```\naaa\n  ```", "<pre><code>aaa\n</code></pre>", "CommonMark");
         }
 
         // This is not a closing fence, because it is indented 4 spaces:        
@@ -2497,12 +1972,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //         ```
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("```\naaa\n    ```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>aaa\n    ```\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("```\naaa\n    ```", "<pre><code>aaa\n    ```\n</code></pre>", "CommonMark");
         }
 
         // Code fences (opening and closing) cannot contain internal spaces:        
@@ -2517,12 +1987,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><code></code>
             //     aaa</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("``` ```\naaa", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code></code>\naaa</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("``` ```\naaa", "<p><code></code>\naaa</p>", "CommonMark");
         }
         
         [Fact]
@@ -2538,12 +2003,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ~~~ ~~
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("~~~~~~\naaa\n~~~ ~~", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>aaa\n~~~ ~~\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("~~~~~~\naaa\n~~~ ~~", "<pre><code>aaa\n~~~ ~~\n</code></pre>", "CommonMark");
         }
 
         // Fenced code blocks can interrupt paragraphs, and can be followed
@@ -2564,12 +2024,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <p>baz</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo\n```\nbar\n```\nbaz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo</p>\n<pre><code>bar\n</code></pre>\n<p>baz</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo\n```\nbar\n```\nbaz", "<p>foo</p>\n<pre><code>bar\n</code></pre>\n<p>baz</p>", "CommonMark");
         }
 
         // Other blocks can also occur before and after fenced code blocks
@@ -2591,12 +2046,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <h1>baz</h1>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo\n---\n~~~\nbar\n~~~\n# baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h2>foo</h2>\n<pre><code>bar\n</code></pre>\n<h1>baz</h1>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo\n---\n~~~\nbar\n~~~\n# baz", "<h2>foo</h2>\n<pre><code>bar\n</code></pre>\n<h1>baz</h1>", "CommonMark");
         }
 
         // An [info string] can be provided after the opening code fence.
@@ -2619,12 +2069,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     end
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("```ruby\ndef foo(x)\n  return 3\nend\n```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code class=\"language-ruby\">def foo(x)\n  return 3\nend\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("```ruby\ndef foo(x)\n  return 3\nend\n```", "<pre><code class=\"language-ruby\">def foo(x)\n  return 3\nend\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -2643,12 +2088,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     end
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("~~~~    ruby startline=3 $%@#$\ndef foo(x)\n  return 3\nend\n~~~~~~~", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code class=\"language-ruby\">def foo(x)\n  return 3\nend\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("~~~~    ruby startline=3 $%@#$\ndef foo(x)\n  return 3\nend\n~~~~~~~", "<pre><code class=\"language-ruby\">def foo(x)\n  return 3\nend\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -2661,12 +2101,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <pre><code class="language-;"></code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("````;\n````", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code class=\"language-;\"></code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("````;\n````", "<pre><code class=\"language-;\"></code></pre>", "CommonMark");
         }
 
         // [Info strings] for backtick code blocks cannot contain backticks:        
@@ -2681,12 +2116,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><code>aa</code>
             //     foo</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("``` aa ```\nfoo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>aa</code>\nfoo</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("``` aa ```\nfoo", "<p><code>aa</code>\nfoo</p>", "CommonMark");
         }
 
         // Closing code fences cannot have [info strings]:        
@@ -2702,12 +2132,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>``` aaa
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("```\n``` aaa\n```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>``` aaa\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("```\n``` aaa\n```", "<pre><code>``` aaa\n</code></pre>", "CommonMark");
         }
     }
 
@@ -2796,12 +2221,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </pre></p>
             //     </td></tr></table>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<table><tr><td>\n<pre>\n**Hello**,\n\n_world_.\n</pre>\n</td></tr></table>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<table><tr><td>\n<pre>\n**Hello**,\n<p><em>world</em>.\n</pre></p>\n</td></tr></table>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<table><tr><td>\n<pre>\n**Hello**,\n\n_world_.\n</pre>\n</td></tr></table>", "<table><tr><td>\n<pre>\n**Hello**,\n<p><em>world</em>.\n</pre></p>\n</td></tr></table>", "CommonMark");
         }
 
         // In this case, the HTML block is terminated by the newline — the `**hello**`
@@ -2839,12 +2259,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </table>
             //     <p>okay.</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<table>\n  <tr>\n    <td>\n           hi\n    </td>\n  </tr>\n</table>\n\nokay.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<table>\n  <tr>\n    <td>\n           hi\n    </td>\n  </tr>\n</table>\n<p>okay.</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<table>\n  <tr>\n    <td>\n           hi\n    </td>\n  </tr>\n</table>\n\nokay.", "<table>\n  <tr>\n    <td>\n           hi\n    </td>\n  </tr>\n</table>\n<p>okay.</p>", "CommonMark");
         }
         
         [Fact]
@@ -2860,12 +2275,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //       *hello*
             //              <foo><a>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(" <div>\n  *hello*\n         <foo><a>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact(" <div>\n  *hello*\n         <foo><a>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(" <div>\n  *hello*\n         <foo><a>", " <div>\n  *hello*\n         <foo><a>", "CommonMark");
         }
 
         // A block can also start with a closing tag:        
@@ -2880,12 +2290,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </div>
             //     *foo*
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("</div>\n*foo*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("</div>\n*foo*");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("</div>\n*foo*", "</div>\n*foo*", "CommonMark");
         }
 
         // Here we have two HTML blocks with a Markdown paragraph between them:        
@@ -2904,12 +2309,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><em>Markdown</em></p>
             //     </DIV>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<DIV CLASS=\"foo\">\n\n*Markdown*\n\n</DIV>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<DIV CLASS=\"foo\">\n<p><em>Markdown</em></p>\n</DIV>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<DIV CLASS=\"foo\">\n\n*Markdown*\n\n</DIV>", "<DIV CLASS=\"foo\">\n<p><em>Markdown</em></p>\n</DIV>", "CommonMark");
         }
 
         // The tag on the first line can be partial, as long
@@ -2927,12 +2327,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //       class="bar">
             //     </div>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<div id=\"foo\"\n  class=\"bar\">\n</div>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<div id=\"foo\"\n  class=\"bar\">\n</div>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<div id=\"foo\"\n  class=\"bar\">\n</div>", "<div id=\"foo\"\n  class=\"bar\">\n</div>", "CommonMark");
         }
         
         [Fact]
@@ -2948,12 +2343,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //       baz">
             //     </div>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<div id=\"foo\" class=\"bar\n  baz\">\n</div>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<div id=\"foo\" class=\"bar\n  baz\">\n</div>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<div id=\"foo\" class=\"bar\n  baz\">\n</div>", "<div id=\"foo\" class=\"bar\n  baz\">\n</div>", "CommonMark");
         }
 
         // An open tag need not be closed:        
@@ -2971,12 +2361,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     *foo*
             //     <p><em>bar</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<div>\n*foo*\n\n*bar*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<div>\n*foo*\n<p><em>bar</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<div>\n*foo*\n\n*bar*", "<div>\n*foo*\n<p><em>bar</em></p>", "CommonMark");
         }
 
         // A partial tag need not even be completed (garbage
@@ -2992,12 +2377,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <div id="foo"
             //     *hi*
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<div id=\"foo\"\n*hi*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<div id=\"foo\"\n*hi*");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<div id=\"foo\"\n*hi*", "<div id=\"foo\"\n*hi*", "CommonMark");
         }
         
         [Fact]
@@ -3011,12 +2391,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <div class
             //     foo
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<div class\nfoo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<div class\nfoo");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<div class\nfoo", "<div class\nfoo", "CommonMark");
         }
 
         // The initial tag doesn't even need to be a valid
@@ -3032,12 +2407,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <div *???-&&&-<---
             //     *foo*
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<div *???-&&&-<---\n*foo*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<div *???-&&&-<---\n*foo*");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<div *???-&&&-<---\n*foo*", "<div *???-&&&-<---\n*foo*", "CommonMark");
         }
 
         // In type 6 blocks, the initial tag need not be on a line by
@@ -3051,12 +2421,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <div><a href="bar">*foo*</a></div>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<div><a href=\"bar\">*foo*</a></div>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<div><a href=\"bar\">*foo*</a></div>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<div><a href=\"bar\">*foo*</a></div>", "<div><a href=\"bar\">*foo*</a></div>", "CommonMark");
         }
         
         [Fact]
@@ -3072,12 +2437,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     foo
             //     </td></tr></table>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<table><tr><td>\nfoo\n</td></tr></table>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<table><tr><td>\nfoo\n</td></tr></table>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<table><tr><td>\nfoo\n</td></tr></table>", "<table><tr><td>\nfoo\n</td></tr></table>", "CommonMark");
         }
 
         // Everything until the next blank line or end of document
@@ -3100,12 +2460,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     int x = 33;
             //     ```
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<div></div>\n``` c\nint x = 33;\n```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<div></div>\n``` c\nint x = 33;\n```");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<div></div>\n``` c\nint x = 33;\n```", "<div></div>\n``` c\nint x = 33;\n```", "CommonMark");
         }
 
         // To start an [HTML block] with a tag that is *not* in the
@@ -3124,12 +2479,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     *bar*
             //     </a>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<a href=\"foo\">\n*bar*\n</a>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<a href=\"foo\">\n*bar*\n</a>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<a href=\"foo\">\n*bar*\n</a>", "<a href=\"foo\">\n*bar*\n</a>", "CommonMark");
         }
 
         // In type 7 blocks, the [tag name] can be anything:        
@@ -3146,12 +2496,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     *bar*
             //     </Warning>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<Warning>\n*bar*\n</Warning>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<Warning>\n*bar*\n</Warning>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<Warning>\n*bar*\n</Warning>", "<Warning>\n*bar*\n</Warning>", "CommonMark");
         }
         
         [Fact]
@@ -3167,12 +2512,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     *bar*
             //     </i>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<i class=\"foo\">\n*bar*\n</i>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<i class=\"foo\">\n*bar*\n</i>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<i class=\"foo\">\n*bar*\n</i>", "<i class=\"foo\">\n*bar*\n</i>", "CommonMark");
         }
         
         [Fact]
@@ -3186,12 +2526,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ins>
             //     *bar*
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("</ins>\n*bar*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("</ins>\n*bar*");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("</ins>\n*bar*", "</ins>\n*bar*", "CommonMark");
         }
 
         // These rules are designed to allow us to work with tags that
@@ -3212,12 +2547,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     *foo*
             //     </del>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<del>\n*foo*\n</del>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<del>\n*foo*\n</del>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<del>\n*foo*\n</del>", "<del>\n*foo*\n</del>", "CommonMark");
         }
 
         // In this case, we get a raw HTML block that just includes
@@ -3238,12 +2568,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><em>foo</em></p>
             //     </del>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<del>\n\n*foo*\n\n</del>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<del>\n<p><em>foo</em></p>\n</del>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<del>\n\n*foo*\n\n</del>", "<del>\n<p><em>foo</em></p>\n</del>", "CommonMark");
         }
 
         // Finally, in this case, the `<del>` tags are interpreted
@@ -3259,12 +2584,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><del><em>foo</em></del></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<del>*foo*</del>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><del><em>foo</em></del></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<del>*foo*</del>", "<p><del><em>foo</em></del></p>", "CommonMark");
         }
 
         // HTML tags designed to contain literal content
@@ -3296,12 +2616,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <p>okay</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<pre language=\"haskell\"><code>\nimport Text.HTML.TagSoup\n\nmain :: IO ()\nmain = print $ parseTags tags\n</code></pre>\nokay", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre language=\"haskell\"><code>\nimport Text.HTML.TagSoup\n\nmain :: IO ()\nmain = print $ parseTags tags\n</code></pre>\n<p>okay</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<pre language=\"haskell\"><code>\nimport Text.HTML.TagSoup\n\nmain :: IO ()\nmain = print $ parseTags tags\n</code></pre>\nokay", "<pre language=\"haskell\"><code>\nimport Text.HTML.TagSoup\n\nmain :: IO ()\nmain = print $ parseTags tags\n</code></pre>\n<p>okay</p>", "CommonMark");
         }
 
         // A script tag (type 1):        
@@ -3324,12 +2639,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </script>
             //     <p>okay</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<script type=\"text/javascript\">\n// JavaScript example\n\ndocument.getElementById(\"demo\").innerHTML = \"Hello JavaScript!\";\n</script>\nokay", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<script type=\"text/javascript\">\n// JavaScript example\n\ndocument.getElementById(\"demo\").innerHTML = \"Hello JavaScript!\";\n</script>\n<p>okay</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<script type=\"text/javascript\">\n// JavaScript example\n\ndocument.getElementById(\"demo\").innerHTML = \"Hello JavaScript!\";\n</script>\nokay", "<script type=\"text/javascript\">\n// JavaScript example\n\ndocument.getElementById(\"demo\").innerHTML = \"Hello JavaScript!\";\n</script>\n<p>okay</p>", "CommonMark");
         }
 
         // A style tag (type 1):        
@@ -3354,12 +2664,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </style>
             //     <p>okay</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<style\n  type=\"text/css\">\nh1 {color:red;}\n\np {color:blue;}\n</style>\nokay", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<style\n  type=\"text/css\">\nh1 {color:red;}\n\np {color:blue;}\n</style>\n<p>okay</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<style\n  type=\"text/css\">\nh1 {color:red;}\n\np {color:blue;}\n</style>\nokay", "<style\n  type=\"text/css\">\nh1 {color:red;}\n\np {color:blue;}\n</style>\n<p>okay</p>", "CommonMark");
         }
 
         // If there is no matching end tag, the block will end at the
@@ -3380,12 +2685,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     
             //     foo
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<style\n  type=\"text/css\">\n\nfoo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<style\n  type=\"text/css\">\n\nfoo");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<style\n  type=\"text/css\">\n\nfoo", "<style\n  type=\"text/css\">\n\nfoo", "CommonMark");
         }
         
         [Fact]
@@ -3404,12 +2704,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     <p>bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> <div>\n> foo\n\nbar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<div>\nfoo\n</blockquote>\n<p>bar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> <div>\n> foo\n\nbar", "<blockquote>\n<div>\nfoo\n</blockquote>\n<p>bar</p>", "CommonMark");
         }
         
         [Fact]
@@ -3427,12 +2722,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>foo</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- <div>\n- foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<div>\n</li>\n<li>foo</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- <div>\n- foo", "<ul>\n<li>\n<div>\n</li>\n<li>foo</li>\n</ul>", "CommonMark");
         }
 
         // The end tag can occur on the same line as the start tag:        
@@ -3447,12 +2737,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <style>p{color:red;}</style>
             //     <p><em>foo</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<style>p{color:red;}</style>\n*foo*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<style>p{color:red;}</style>\n<p><em>foo</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<style>p{color:red;}</style>\n*foo*", "<style>p{color:red;}</style>\n<p><em>foo</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -3466,12 +2751,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <!-- foo -->*bar*
             //     <p><em>baz</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<!-- foo -->*bar*\n*baz*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<!-- foo -->*bar*\n<p><em>baz</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<!-- foo -->*bar*\n*baz*", "<!-- foo -->*bar*\n<p><em>baz</em></p>", "CommonMark");
         }
 
         // Note that anything on the last line after the
@@ -3489,12 +2769,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     foo
             //     </script>1. *bar*
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<script>\nfoo\n</script>1. *bar*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<script>\nfoo\n</script>1. *bar*");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<script>\nfoo\n</script>1. *bar*", "<script>\nfoo\n</script>1. *bar*", "CommonMark");
         }
 
         // A comment (type 2):        
@@ -3515,12 +2790,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //        baz -->
             //     <p>okay</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<!-- Foo\n\nbar\n   baz -->\nokay", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<!-- Foo\n\nbar\n   baz -->\n<p>okay</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<!-- Foo\n\nbar\n   baz -->\nokay", "<!-- Foo\n\nbar\n   baz -->\n<p>okay</p>", "CommonMark");
         }
 
         // A processing instruction (type 3):        
@@ -3543,12 +2813,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ?>
             //     <p>okay</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<?php\n\n  echo '>';\n\n?>\nokay", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<?php\n\n  echo '>';\n\n?>\n<p>okay</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<?php\n\n  echo '>';\n\n?>\nokay", "<?php\n\n  echo '>';\n\n?>\n<p>okay</p>", "CommonMark");
         }
 
         // A declaration (type 4):        
@@ -3561,12 +2826,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <!DOCTYPE html>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<!DOCTYPE html>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<!DOCTYPE html>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<!DOCTYPE html>", "<!DOCTYPE html>", "CommonMark");
         }
 
         // CDATA (type 5):        
@@ -3603,12 +2863,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ]]>
             //     <p>okay</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<![CDATA[\nfunction matchwo(a,b)\n{\n  if (a < b && a < 0) then {\n    return 1;\n\n  } else {\n\n    return 0;\n  }\n}\n]]>\nokay", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<![CDATA[\nfunction matchwo(a,b)\n{\n  if (a < b && a < 0) then {\n    return 1;\n\n  } else {\n\n    return 0;\n  }\n}\n]]>\n<p>okay</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<![CDATA[\nfunction matchwo(a,b)\n{\n  if (a < b && a < 0) then {\n    return 1;\n\n  } else {\n\n    return 0;\n  }\n}\n]]>\nokay", "<![CDATA[\nfunction matchwo(a,b)\n{\n  if (a < b && a < 0) then {\n    return 1;\n\n  } else {\n\n    return 0;\n  }\n}\n]]>\n<p>okay</p>", "CommonMark");
         }
 
         // The opening tag can be indented 1-3 spaces, but not 4:        
@@ -3625,12 +2880,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>&lt;!-- foo --&gt;
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("  <!-- foo -->\n\n    <!-- foo -->", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("  <!-- foo -->\n<pre><code>&lt;!-- foo --&gt;\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("  <!-- foo -->\n\n    <!-- foo -->", "  <!-- foo -->\n<pre><code>&lt;!-- foo --&gt;\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -3646,12 +2896,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>&lt;div&gt;
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("  <div>\n\n    <div>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("  <div>\n<pre><code>&lt;div&gt;\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("  <div>\n\n    <div>", "  <div>\n<pre><code>&lt;div&gt;\n</code></pre>", "CommonMark");
         }
 
         // An HTML block of types 1--6 can interrupt a paragraph, and need not be
@@ -3671,12 +2916,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     bar
             //     </div>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\n<div>\nbar\n</div>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo</p>\n<div>\nbar\n</div>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\n<div>\nbar\n</div>", "<p>Foo</p>\n<div>\nbar\n</div>", "CommonMark");
         }
 
         // However, a following blank line is needed, except at the end of
@@ -3696,12 +2936,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </div>
             //     *foo*
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<div>\nbar\n</div>\n*foo*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<div>\nbar\n</div>\n*foo*");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<div>\nbar\n</div>\n*foo*", "<div>\nbar\n</div>\n*foo*", "CommonMark");
         }
 
         // HTML blocks of type 7 cannot interrupt a paragraph:        
@@ -3718,12 +2953,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <a href="bar">
             //     baz</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\n<a href=\"bar\">\nbaz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo\n<a href=\"bar\">\nbaz</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\n<a href=\"bar\">\nbaz", "<p>Foo\n<a href=\"bar\">\nbaz</p>", "CommonMark");
         }
 
         // This rule differs from John Gruber's original Markdown syntax
@@ -3770,12 +3000,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><em>Emphasized</em> text.</p>
             //     </div>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<div>\n\n*Emphasized* text.\n\n</div>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<div>\n<p><em>Emphasized</em> text.</p>\n</div>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<div>\n\n*Emphasized* text.\n\n</div>", "<div>\n<p><em>Emphasized</em> text.</p>\n</div>", "CommonMark");
         }
         
         [Fact]
@@ -3791,12 +3016,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     *Emphasized* text.
             //     </div>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<div>\n*Emphasized* text.\n</div>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<div>\n*Emphasized* text.\n</div>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<div>\n*Emphasized* text.\n</div>", "<div>\n*Emphasized* text.\n</div>", "CommonMark");
         }
 
         // Some Markdown implementations have adopted a convention of
@@ -3834,12 +3054,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </tr>
             //     </table>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<table>\n\n<tr>\n\n<td>\nHi\n</td>\n\n</tr>\n\n</table>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<table>\n<tr>\n<td>\nHi\n</td>\n</tr>\n</table>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<table>\n\n<tr>\n\n<td>\nHi\n</td>\n\n</tr>\n\n</table>", "<table>\n<tr>\n<td>\nHi\n</td>\n</tr>\n</table>", "CommonMark");
         }
 
         // There are problems, however, if the inner tags are indented
@@ -3871,12 +3086,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //       </tr>
             //     </table>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<table>\n\n  <tr>\n\n    <td>\n      Hi\n    </td>\n\n  </tr>\n\n</table>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<table>\n  <tr>\n<pre><code>&lt;td&gt;\n  Hi\n&lt;/td&gt;\n</code></pre>\n  </tr>\n</table>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<table>\n\n  <tr>\n\n    <td>\n      Hi\n    </td>\n\n  </tr>\n\n</table>", "<table>\n  <tr>\n<pre><code>&lt;td&gt;\n  Hi\n&lt;/td&gt;\n</code></pre>\n  </tr>\n</table>", "CommonMark");
         }
     }
 
@@ -3909,12 +3119,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]: /url \"title\"\n\n[foo]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\" title=\"title\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]: /url \"title\"\n\n[foo]", "<p><a href=\"/url\" title=\"title\">foo</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -3930,12 +3135,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="the title">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("   [foo]: \n      /url  \n           'the title'  \n\n[foo]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\" title=\"the title\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("   [foo]: \n      /url  \n           'the title'  \n\n[foo]", "<p><a href=\"/url\" title=\"the title\">foo</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -3949,12 +3149,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="my_(url)" title="title (with parens)">Foo*bar]</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[Foo*bar\\]]:my_(url) 'title (with parens)'\n\n[Foo*bar\\]]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"my_(url)\" title=\"title (with parens)\">Foo*bar]</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[Foo*bar\\]]:my_(url) 'title (with parens)'\n\n[Foo*bar\\]]", "<p><a href=\"my_(url)\" title=\"title (with parens)\">Foo*bar]</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -3970,12 +3165,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="my%20url" title="title">Foo bar</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[Foo bar]:\n<my%20url>\n'title'\n\n[Foo bar]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"my%20url\" title=\"title\">Foo bar</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[Foo bar]:\n<my%20url>\n'title'\n\n[Foo bar]", "<p><a href=\"my%20url\" title=\"title\">Foo bar</a></p>", "CommonMark");
         }
 
         // The title may extend over multiple lines:        
@@ -3998,12 +3188,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     line2
             //     ">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]: /url '\ntitle\nline1\nline2\n'\n\n[foo]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\" title=\"\ntitle\nline1\nline2\n\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]: /url '\ntitle\nline1\nline2\n'\n\n[foo]", "<p><a href=\"/url\" title=\"\ntitle\nline1\nline2\n\">foo</a></p>", "CommonMark");
         }
 
         // However, it may not contain a [blank line]:        
@@ -4022,12 +3207,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>with blank line'</p>
             //     <p>[foo]</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]: /url 'title\n\nwith blank line'\n\n[foo]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo]: /url 'title</p>\n<p>with blank line'</p>\n<p>[foo]</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]: /url 'title\n\nwith blank line'\n\n[foo]", "<p>[foo]: /url 'title</p>\n<p>with blank line'</p>\n<p>[foo]</p>", "CommonMark");
         }
 
         // The title may be omitted:        
@@ -4043,12 +3223,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]:\n/url\n\n[foo]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]:\n/url\n\n[foo]", "<p><a href=\"/url\">foo</a></p>", "CommonMark");
         }
 
         // The link destination may not be omitted:        
@@ -4064,12 +3239,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[foo]:</p>
             //     <p>[foo]</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]:\n\n[foo]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo]:</p>\n<p>[foo]</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]:\n\n[foo]", "<p>[foo]:</p>\n<p>[foo]</p>", "CommonMark");
         }
 
         // Both title and destination can contain backslash escapes
@@ -4085,12 +3255,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url%5Cbar*baz" title="foo&quot;bar\baz">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]: /url\\bar\\*baz \"foo\\\"bar\\baz\"\n\n[foo]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url%5Cbar*baz\" title=\"foo&quot;bar\\baz\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]: /url\\bar\\*baz \"foo\\\"bar\\baz\"\n\n[foo]", "<p><a href=\"/url%5Cbar*baz\" title=\"foo&quot;bar\\baz\">foo</a></p>", "CommonMark");
         }
 
         // A link can come before its corresponding definition:        
@@ -4105,12 +3270,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="url">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]\n\n[foo]: url", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"url\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: url", "<p><a href=\"url\">foo</a></p>", "CommonMark");
         }
 
         // If there are several matching definitions, the first one takes
@@ -4127,12 +3287,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="first">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]\n\n[foo]: first\n[foo]: second", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"first\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: first\n[foo]: second", "<p><a href=\"first\">foo</a></p>", "CommonMark");
         }
 
         // As noted in the section on [Links], matching of labels is
@@ -4148,12 +3303,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url">Foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[FOO]: /url\n\n[Foo]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\">Foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[FOO]: /url\n\n[Foo]", "<p><a href=\"/url\">Foo</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -4167,12 +3317,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/%CF%86%CE%BF%CF%85">αγω</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[ΑΓΩ]: /φου\n\n[αγω]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/%CF%86%CE%BF%CF%85\">αγω</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[ΑΓΩ]: /φου\n\n[αγω]", "<p><a href=\"/%CF%86%CE%BF%CF%85\">αγω</a></p>", "CommonMark");
         }
 
         // Here is a link reference definition with no corresponding link.
@@ -4186,12 +3331,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
 
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]: /url", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]: /url", "", "CommonMark");
         }
 
         // Here is another one:        
@@ -4207,12 +3347,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[\nfoo\n]: /url\nbar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>bar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[\nfoo\n]: /url\nbar", "<p>bar</p>", "CommonMark");
         }
 
         // This is not a link reference definition, because there are
@@ -4226,12 +3361,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo]: /url &quot;title&quot; ok</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]: /url \"title\" ok", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo]: /url &quot;title&quot; ok</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]: /url \"title\" ok", "<p>[foo]: /url &quot;title&quot; ok</p>", "CommonMark");
         }
 
         // This is a link reference definition, but it has no title:        
@@ -4245,12 +3375,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&quot;title&quot; ok</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]: /url\n\"title\" ok", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&quot;title&quot; ok</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]: /url\n\"title\" ok", "<p>&quot;title&quot; ok</p>", "CommonMark");
         }
 
         // This is not a link reference definition, because it is indented
@@ -4268,12 +3393,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <p>[foo]</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    [foo]: /url \"title\"\n\n[foo]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>[foo]: /url &quot;title&quot;\n</code></pre>\n<p>[foo]</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    [foo]: /url \"title\"\n\n[foo]", "<pre><code>[foo]: /url &quot;title&quot;\n</code></pre>\n<p>[foo]</p>", "CommonMark");
         }
 
         // This is not a link reference definition, because it occurs inside
@@ -4293,12 +3413,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <p>[foo]</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("```\n[foo]: /url\n```\n\n[foo]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>[foo]: /url\n</code></pre>\n<p>[foo]</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("```\n[foo]: /url\n```\n\n[foo]", "<pre><code>[foo]: /url\n</code></pre>\n<p>[foo]</p>", "CommonMark");
         }
 
         // A [link reference definition] cannot interrupt a paragraph.        
@@ -4316,12 +3431,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     [bar]: /baz</p>
             //     <p>[bar]</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\n[bar]: /baz\n\n[bar]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo\n[bar]: /baz</p>\n<p>[bar]</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\n[bar]: /baz\n\n[bar]", "<p>Foo\n[bar]: /baz</p>\n<p>[bar]</p>", "CommonMark");
         }
 
         // However, it can directly follow other block elements, such as headings
@@ -4340,12 +3450,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>bar</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("# [Foo]\n[foo]: /url\n> bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h1><a href=\"/url\">Foo</a></h1>\n<blockquote>\n<p>bar</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("# [Foo]\n[foo]: /url\n> bar", "<h1><a href=\"/url\">Foo</a></h1>\n<blockquote>\n<p>bar</p>\n</blockquote>", "CommonMark");
         }
 
         // Several [link reference definitions]
@@ -4368,12 +3473,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <a href="/bar-url" title="bar">bar</a>,
             //     <a href="/baz-url">baz</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]: /foo-url \"foo\"\n[bar]: /bar-url\n  \"bar\"\n[baz]: /baz-url\n\n[foo],\n[bar],\n[baz]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/foo-url\" title=\"foo\">foo</a>,\n<a href=\"/bar-url\" title=\"bar\">bar</a>,\n<a href=\"/baz-url\">baz</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]: /foo-url \"foo\"\n[bar]: /bar-url\n  \"bar\"\n[baz]: /baz-url\n\n[foo],\n[bar],\n[baz]", "<p><a href=\"/foo-url\" title=\"foo\">foo</a>,\n<a href=\"/bar-url\" title=\"bar\">bar</a>,\n<a href=\"/baz-url\">baz</a></p>", "CommonMark");
         }
 
         // [Link reference definitions] can occur
@@ -4393,12 +3493,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <blockquote>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]\n\n> [foo]: /url", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\">foo</a></p>\n<blockquote>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]\n\n> [foo]: /url", "<p><a href=\"/url\">foo</a></p>\n<blockquote>\n</blockquote>", "CommonMark");
         }
     }
 
@@ -4424,12 +3519,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>aaa</p>
             //     <p>bbb</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("aaa\n\nbbb", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>aaa</p>\n<p>bbb</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("aaa\n\nbbb", "<p>aaa</p>\n<p>bbb</p>", "CommonMark");
         }
 
         // Paragraphs can contain multiple lines, but no blank lines:        
@@ -4449,12 +3539,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>ccc
             //     ddd</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("aaa\nbbb\n\nccc\nddd", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>aaa\nbbb</p>\n<p>ccc\nddd</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("aaa\nbbb\n\nccc\nddd", "<p>aaa\nbbb</p>\n<p>ccc\nddd</p>", "CommonMark");
         }
 
         // Multiple blank lines between paragraph have no effect:        
@@ -4471,12 +3556,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>aaa</p>
             //     <p>bbb</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("aaa\n\n\nbbb", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>aaa</p>\n<p>bbb</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("aaa\n\n\nbbb", "<p>aaa</p>\n<p>bbb</p>", "CommonMark");
         }
 
         // Leading spaces are skipped:        
@@ -4491,12 +3571,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>aaa
             //     bbb</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("  aaa\n bbb", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>aaa\nbbb</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("  aaa\n bbb", "<p>aaa\nbbb</p>", "CommonMark");
         }
 
         // Lines after the first may be indented any amount, since indented
@@ -4514,12 +3589,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     bbb
             //     ccc</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("aaa\n             bbb\n                                       ccc", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>aaa\nbbb\nccc</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("aaa\n             bbb\n                                       ccc", "<p>aaa\nbbb\nccc</p>", "CommonMark");
         }
 
         // However, the first line may be indented at most three spaces,
@@ -4535,12 +3605,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>aaa
             //     bbb</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("   aaa\nbbb", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>aaa\nbbb</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("   aaa\nbbb", "<p>aaa\nbbb</p>", "CommonMark");
         }
         
         [Fact]
@@ -4555,12 +3620,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <p>bbb</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    aaa\nbbb", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>aaa\n</code></pre>\n<p>bbb</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    aaa\nbbb", "<pre><code>aaa\n</code></pre>\n<p>bbb</p>", "CommonMark");
         }
 
         // Final spaces are stripped before inline parsing, so a paragraph
@@ -4577,12 +3637,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>aaa<br />
             //     bbb</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("aaa     \nbbb     ", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>aaa<br />\nbbb</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("aaa     \nbbb     ", "<p>aaa<br />\nbbb</p>", "CommonMark");
         }
     }
 
@@ -4610,12 +3665,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>aaa</p>
             //     <h1>aaa</h1>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("  \n\naaa\n  \n\n# aaa\n\n  ", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>aaa</p>\n<h1>aaa</h1>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("  \n\naaa\n  \n\n# aaa\n\n  ", "<p>aaa</p>\n<h1>aaa</h1>", "CommonMark");
         }
     }
 
@@ -4663,12 +3713,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     baz</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> # Foo\n> bar\n> baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> # Foo\n> bar\n> baz", "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", "CommonMark");
         }
 
         // The spaces after the `>` characters can be omitted:        
@@ -4687,12 +3732,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     baz</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("># Foo\n>bar\n> baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("># Foo\n>bar\n> baz", "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", "CommonMark");
         }
 
         // The `>` characters can be indented 1-3 spaces:        
@@ -4711,12 +3751,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     baz</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("   > # Foo\n   > bar\n > baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("   > # Foo\n   > bar\n > baz", "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", "CommonMark");
         }
 
         // Four spaces gives us a code block:        
@@ -4734,12 +3769,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     &gt; baz
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    > # Foo\n    > bar\n    > baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>&gt; # Foo\n&gt; bar\n&gt; baz\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    > # Foo\n    > bar\n    > baz", "<pre><code>&gt; # Foo\n&gt; bar\n&gt; baz\n</code></pre>", "CommonMark");
         }
 
         // The Laziness clause allows us to omit the `>` before
@@ -4759,12 +3789,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     baz</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> # Foo\n> bar\nbaz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> # Foo\n> bar\nbaz", "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", "CommonMark");
         }
 
         // A block quote can contain some lazy and some non-lazy
@@ -4784,12 +3809,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     foo</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> bar\nbaz\n> foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<p>bar\nbaz\nfoo</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> bar\nbaz\n> foo", "<blockquote>\n<p>bar\nbaz\nfoo</p>\n</blockquote>", "CommonMark");
         }
 
         // Laziness only applies to lines that would have been continuations of
@@ -4815,12 +3835,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     <hr />
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> foo\n---", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<p>foo</p>\n</blockquote>\n<hr />");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> foo\n---", "<blockquote>\n<p>foo</p>\n</blockquote>\n<hr />", "CommonMark");
         }
 
         // Similarly, if we omit the `> ` in the second line of
@@ -4848,12 +3863,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>bar</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> - foo\n- bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<ul>\n<li>foo</li>\n</ul>\n</blockquote>\n<ul>\n<li>bar</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> - foo\n- bar", "<blockquote>\n<ul>\n<li>foo</li>\n</ul>\n</blockquote>\n<ul>\n<li>bar</li>\n</ul>", "CommonMark");
         }
 
         // For the same reason, we can't omit the `> ` in front of
@@ -4873,12 +3883,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>bar
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(">     foo\n    bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<pre><code>foo\n</code></pre>\n</blockquote>\n<pre><code>bar\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(">     foo\n    bar", "<blockquote>\n<pre><code>foo\n</code></pre>\n</blockquote>\n<pre><code>bar\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -4896,12 +3901,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo</p>
             //     <pre><code></code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> ```\nfoo\n```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<pre><code></code></pre>\n</blockquote>\n<p>foo</p>\n<pre><code></code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> ```\nfoo\n```", "<blockquote>\n<pre><code></code></pre>\n</blockquote>\n<p>foo</p>\n<pre><code></code></pre>", "CommonMark");
         }
 
         // Note that in the following case, we have a [lazy
@@ -4919,12 +3919,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     - bar</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> foo\n    - bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<p>foo\n- bar</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> foo\n    - bar", "<blockquote>\n<p>foo\n- bar</p>\n</blockquote>", "CommonMark");
         }
 
         // To see why, note that in
@@ -4949,12 +3944,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <blockquote>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(">", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(">", "<blockquote>\n</blockquote>", "CommonMark");
         }
         
         [Fact]
@@ -4969,12 +3959,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <blockquote>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(">\n>  \n> ", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(">\n>  \n> ", "<blockquote>\n</blockquote>", "CommonMark");
         }
 
         // A block quote can have initial or final blank lines:        
@@ -4991,12 +3976,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(">\n> foo\n>  ", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<p>foo</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(">\n> foo\n>  ", "<blockquote>\n<p>foo</p>\n</blockquote>", "CommonMark");
         }
 
         // A blank line always separates block quotes:        
@@ -5016,12 +3996,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>bar</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> foo\n\n> bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<p>foo</p>\n</blockquote>\n<blockquote>\n<p>bar</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> foo\n\n> bar", "<blockquote>\n<p>foo</p>\n</blockquote>\n<blockquote>\n<p>bar</p>\n</blockquote>", "CommonMark");
         }
 
         // (Most current Markdown implementations, including John Gruber's
@@ -5044,12 +4019,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     bar</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> foo\n> bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<p>foo\nbar</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> foo\n> bar", "<blockquote>\n<p>foo\nbar</p>\n</blockquote>", "CommonMark");
         }
 
         // To get a block quote with two paragraphs, use:        
@@ -5067,12 +4037,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>bar</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> foo\n>\n> bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<p>foo</p>\n<p>bar</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> foo\n>\n> bar", "<blockquote>\n<p>foo</p>\n<p>bar</p>\n</blockquote>", "CommonMark");
         }
 
         // Block quotes can interrupt paragraphs:        
@@ -5089,12 +4054,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>bar</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo\n> bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo</p>\n<blockquote>\n<p>bar</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo\n> bar", "<p>foo</p>\n<blockquote>\n<p>bar</p>\n</blockquote>", "CommonMark");
         }
 
         // In general, blank lines are not needed before or after block
@@ -5116,12 +4076,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>bbb</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> aaa\n***\n> bbb", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<p>aaa</p>\n</blockquote>\n<hr />\n<blockquote>\n<p>bbb</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> aaa\n***\n> bbb", "<blockquote>\n<p>aaa</p>\n</blockquote>\n<hr />\n<blockquote>\n<p>bbb</p>\n</blockquote>", "CommonMark");
         }
 
         // However, because of laziness, a blank line is needed between
@@ -5139,12 +4094,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     baz</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> bar\nbaz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<p>bar\nbaz</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> bar\nbaz", "<blockquote>\n<p>bar\nbaz</p>\n</blockquote>", "CommonMark");
         }
         
         [Fact]
@@ -5161,12 +4111,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     <p>baz</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> bar\n\nbaz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<p>bar</p>\n</blockquote>\n<p>baz</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> bar\n\nbaz", "<blockquote>\n<p>bar</p>\n</blockquote>\n<p>baz</p>", "CommonMark");
         }
         
         [Fact]
@@ -5183,12 +4128,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     <p>baz</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> bar\n>\nbaz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<p>bar</p>\n</blockquote>\n<p>baz</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> bar\n>\nbaz", "<blockquote>\n<p>bar</p>\n</blockquote>\n<p>baz</p>", "CommonMark");
         }
 
         // It is a consequence of the Laziness rule that any number
@@ -5211,12 +4151,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> > > foo\nbar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<blockquote>\n<blockquote>\n<p>foo\nbar</p>\n</blockquote>\n</blockquote>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> > > foo\nbar", "<blockquote>\n<blockquote>\n<blockquote>\n<p>foo\nbar</p>\n</blockquote>\n</blockquote>\n</blockquote>", "CommonMark");
         }
         
         [Fact]
@@ -5238,12 +4173,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(">>> foo\n> bar\n>>baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<blockquote>\n<blockquote>\n<p>foo\nbar\nbaz</p>\n</blockquote>\n</blockquote>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(">>> foo\n> bar\n>>baz", "<blockquote>\n<blockquote>\n<blockquote>\n<p>foo\nbar\nbaz</p>\n</blockquote>\n</blockquote>\n</blockquote>", "CommonMark");
         }
 
         // When including an indented code block in a block quote,
@@ -5267,12 +4197,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>not code</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(">     code\n\n>    not code", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<pre><code>code\n</code></pre>\n</blockquote>\n<blockquote>\n<p>not code</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(">     code\n\n>    not code", "<blockquote>\n<pre><code>code\n</code></pre>\n</blockquote>\n<blockquote>\n<p>not code</p>\n</blockquote>", "CommonMark");
         }
     }
 
@@ -5334,12 +4259,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>A block quote.</p>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("A paragraph\nwith two lines.\n\n    indented code\n\n> A block quote.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("A paragraph\nwith two lines.\n\n    indented code\n\n> A block quote.", "<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>", "CommonMark");
         }
 
         // And let *M* be the marker `1.`, and *N* = 2.  Then rule #1 says
@@ -5369,12 +4289,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("1.  A paragraph\n    with two lines.\n\n        indented code\n\n    > A block quote.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("1.  A paragraph\n    with two lines.\n\n        indented code\n\n    > A block quote.", "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", "CommonMark");
         }
 
         // The most important thing to notice is that the position of
@@ -5401,12 +4316,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ul>
             //     <p>two</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- one\n\n two", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>one</li>\n</ul>\n<p>two</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- one\n\n two", "<ul>\n<li>one</li>\n</ul>\n<p>two</p>", "CommonMark");
         }
         
         [Fact]
@@ -5425,12 +4335,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- one\n\n  two", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- one\n\n  two", "<ul>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ul>", "CommonMark");
         }
         
         [Fact]
@@ -5448,12 +4353,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code> two
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(" -    one\n\n     two", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>one</li>\n</ul>\n<pre><code> two\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(" -    one\n\n     two", "<ul>\n<li>one</li>\n</ul>\n<pre><code> two\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -5472,12 +4372,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(" -    one\n\n      two", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(" -    one\n\n      two", "<ul>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ul>", "CommonMark");
         }
 
         // It is tempting to think of this in terms of columns:  the continuation
@@ -5507,12 +4402,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("   > > 1.  one\n>>\n>>     two", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<blockquote>\n<ol>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ol>\n</blockquote>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("   > > 1.  one\n>>\n>>     two", "<blockquote>\n<blockquote>\n<ol>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ol>\n</blockquote>\n</blockquote>", "CommonMark");
         }
 
         // Here `two` occurs in the same column as the list marker `1.`,
@@ -5541,12 +4431,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(">>- one\n>>\n  >  > two", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<blockquote>\n<ul>\n<li>one</li>\n</ul>\n<p>two</p>\n</blockquote>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(">>- one\n>>\n  >  > two", "<blockquote>\n<blockquote>\n<ul>\n<li>one</li>\n</ul>\n<p>two</p>\n</blockquote>\n</blockquote>", "CommonMark");
         }
 
         // Note that at least one space is needed between the list marker and
@@ -5563,12 +4448,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>-one</p>
             //     <p>2.two</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("-one\n\n2.two", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>-one</p>\n<p>2.two</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("-one\n\n2.two", "<p>-one</p>\n<p>2.two</p>", "CommonMark");
         }
 
         // A list item may contain blocks that are separated by more than
@@ -5590,12 +4470,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- foo\n\n\n  bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- foo\n\n\n  bar", "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", "CommonMark");
         }
 
         // A list item may contain any kind of block:        
@@ -5626,12 +4501,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("1.  foo\n\n    ```\n    bar\n    ```\n\n    baz\n\n    > bam", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol>\n<li>\n<p>foo</p>\n<pre><code>bar\n</code></pre>\n<p>baz</p>\n<blockquote>\n<p>bam</p>\n</blockquote>\n</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("1.  foo\n\n    ```\n    bar\n    ```\n\n    baz\n\n    > bam", "<ol>\n<li>\n<p>foo</p>\n<pre><code>bar\n</code></pre>\n<p>baz</p>\n<blockquote>\n<p>bam</p>\n</blockquote>\n</li>\n</ol>", "CommonMark");
         }
 
         // A list item that contains an indented code block will preserve
@@ -5659,12 +4529,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- Foo\n\n      bar\n\n\n      baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>Foo</p>\n<pre><code>bar\n\n\nbaz\n</code></pre>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- Foo\n\n      bar\n\n\n      baz", "<ul>\n<li>\n<p>Foo</p>\n<pre><code>bar\n\n\nbaz\n</code></pre>\n</li>\n</ul>", "CommonMark");
         }
 
         // Note that ordered list start numbers must be nine digits or less:        
@@ -5679,12 +4544,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>ok</li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("123456789. ok", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol start=\"123456789\">\n<li>ok</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("123456789. ok", "<ol start=\"123456789\">\n<li>ok</li>\n</ol>", "CommonMark");
         }
         
         [Fact]
@@ -5696,12 +4556,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>1234567890. not ok</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("1234567890. not ok", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>1234567890. not ok</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("1234567890. not ok", "<p>1234567890. not ok</p>", "CommonMark");
         }
 
         // A start number may begin with 0s:        
@@ -5716,12 +4571,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>ok</li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("0. ok", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol start=\"0\">\n<li>ok</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("0. ok", "<ol start=\"0\">\n<li>ok</li>\n</ol>", "CommonMark");
         }
         
         [Fact]
@@ -5735,12 +4585,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>ok</li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("003. ok", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol start=\"3\">\n<li>ok</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("003. ok", "<ol start=\"3\">\n<li>ok</li>\n</ol>", "CommonMark");
         }
 
         // A start number may not be negative:        
@@ -5753,12 +4598,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>-1. not ok</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("-1. not ok", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>-1. not ok</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("-1. not ok", "<p>-1. not ok</p>", "CommonMark");
         }
 
         // 2.  **Item starting with indented code.**  If a sequence of lines *Ls*
@@ -5793,12 +4633,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- foo\n\n      bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>foo</p>\n<pre><code>bar\n</code></pre>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- foo\n\n      bar", "<ul>\n<li>\n<p>foo</p>\n<pre><code>bar\n</code></pre>\n</li>\n</ul>", "CommonMark");
         }
 
         // And in this case it is 11 spaces:        
@@ -5819,12 +4654,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("  10.  foo\n\n           bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol start=\"10\">\n<li>\n<p>foo</p>\n<pre><code>bar\n</code></pre>\n</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("  10.  foo\n\n           bar", "<ol start=\"10\">\n<li>\n<p>foo</p>\n<pre><code>bar\n</code></pre>\n</li>\n</ol>", "CommonMark");
         }
 
         // If the *first* block in the list item is an indented code block,
@@ -5847,12 +4677,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>more code
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    indented code\n\nparagraph\n\n    more code", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    indented code\n\nparagraph\n\n    more code", "<pre><code>indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -5876,12 +4701,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("1.     indented code\n\n   paragraph\n\n       more code", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol>\n<li>\n<pre><code>indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>\n</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("1.     indented code\n\n   paragraph\n\n       more code", "<ol>\n<li>\n<pre><code>indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>\n</li>\n</ol>", "CommonMark");
         }
 
         // Note that an additional space indent is interpreted as space
@@ -5907,12 +4727,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("1.      indented code\n\n   paragraph\n\n       more code", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol>\n<li>\n<pre><code> indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>\n</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("1.      indented code\n\n   paragraph\n\n       more code", "<ol>\n<li>\n<pre><code> indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>\n</li>\n</ol>", "CommonMark");
         }
 
         // Note that rules #1 and #2 only apply to two cases:  (a) cases
@@ -5934,12 +4749,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo</p>
             //     <p>bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("   foo\n\nbar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo</p>\n<p>bar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("   foo\n\nbar", "<p>foo</p>\n<p>bar</p>", "CommonMark");
         }
         
         [Fact]
@@ -5956,12 +4766,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ul>
             //     <p>bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("-    foo\n\n  bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>foo</li>\n</ul>\n<p>bar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("-    foo\n\n  bar", "<ul>\n<li>foo</li>\n</ul>\n<p>bar</p>", "CommonMark");
         }
 
         // This is not a significant restriction, because when a block begins
@@ -5984,12 +4789,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("-  foo\n\n   bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("-  foo\n\n   bar", "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", "CommonMark");
         }
 
         // 3.  **Item starting with a blank line.**  If a sequence of lines *Ls*
@@ -6031,12 +4831,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("-\n  foo\n-\n  ```\n  bar\n  ```\n-\n      baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>foo</li>\n<li>\n<pre><code>bar\n</code></pre>\n</li>\n<li>\n<pre><code>baz\n</code></pre>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("-\n  foo\n-\n  ```\n  bar\n  ```\n-\n      baz", "<ul>\n<li>foo</li>\n<li>\n<pre><code>bar\n</code></pre>\n</li>\n<li>\n<pre><code>baz\n</code></pre>\n</li>\n</ul>", "CommonMark");
         }
 
         // When the list item starts with a blank line, the number of spaces
@@ -6053,12 +4848,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>foo</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("-   \n  foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>foo</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("-   \n  foo", "<ul>\n<li>foo</li>\n</ul>", "CommonMark");
         }
 
         // A list item can begin with at most one blank line.
@@ -6078,12 +4868,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ul>
             //     <p>foo</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("-\n\n  foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li></li>\n</ul>\n<p>foo</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("-\n\n  foo", "<ul>\n<li></li>\n</ul>\n<p>foo</p>", "CommonMark");
         }
 
         // Here is an empty bullet list item:        
@@ -6102,12 +4887,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>bar</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- foo\n-\n- bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>foo</li>\n<li></li>\n<li>bar</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- foo\n-\n- bar", "<ul>\n<li>foo</li>\n<li></li>\n<li>bar</li>\n</ul>", "CommonMark");
         }
 
         // It does not matter whether there are spaces following the [list marker]:        
@@ -6126,12 +4906,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>bar</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- foo\n-   \n- bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>foo</li>\n<li></li>\n<li>bar</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- foo\n-   \n- bar", "<ul>\n<li>foo</li>\n<li></li>\n<li>bar</li>\n</ul>", "CommonMark");
         }
 
         // Here is an empty ordered list item:        
@@ -6150,12 +4925,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>bar</li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("1. foo\n2.\n3. bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol>\n<li>foo</li>\n<li></li>\n<li>bar</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("1. foo\n2.\n3. bar", "<ol>\n<li>foo</li>\n<li></li>\n<li>bar</li>\n</ol>", "CommonMark");
         }
 
         // A list may start or end with an empty list item:        
@@ -6170,12 +4940,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li></li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li></li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*", "<ul>\n<li></li>\n</ul>", "CommonMark");
         }
 
         // However, an empty list item cannot interrupt a paragraph:        
@@ -6195,12 +4960,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo
             //     1.</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo\n*\n\nfoo\n1.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo\n*</p>\n<p>foo\n1.</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo\n*\n\nfoo\n1.", "<p>foo\n*</p>\n<p>foo\n1.</p>", "CommonMark");
         }
 
         // 4.  **Indentation.**  If a sequence of lines *Ls* constitutes a list item
@@ -6234,12 +4994,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml(" 1.  A paragraph\n     with two lines.\n\n         indented code\n\n     > A block quote.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance(" 1.  A paragraph\n     with two lines.\n\n         indented code\n\n     > A block quote.", "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", "CommonMark");
         }
 
         // Indented two spaces:        
@@ -6267,12 +5022,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("  1.  A paragraph\n      with two lines.\n\n          indented code\n\n      > A block quote.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("  1.  A paragraph\n      with two lines.\n\n          indented code\n\n      > A block quote.", "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", "CommonMark");
         }
 
         // Indented three spaces:        
@@ -6300,12 +5050,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("   1.  A paragraph\n       with two lines.\n\n           indented code\n\n       > A block quote.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("   1.  A paragraph\n       with two lines.\n\n           indented code\n\n       > A block quote.", "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", "CommonMark");
         }
 
         // Four spaces indent gives a code block:        
@@ -6329,12 +5074,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //         &gt; A block quote.
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    1.  A paragraph\n        with two lines.\n\n            indented code\n\n        > A block quote.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>1.  A paragraph\n    with two lines.\n\n        indented code\n\n    &gt; A block quote.\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    1.  A paragraph\n        with two lines.\n\n            indented code\n\n        > A block quote.", "<pre><code>1.  A paragraph\n    with two lines.\n\n        indented code\n\n    &gt; A block quote.\n</code></pre>", "CommonMark");
         }
 
         // 5.  **Laziness.**  If a string of lines *Ls* constitute a [list
@@ -6371,12 +5111,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("  1.  A paragraph\nwith two lines.\n\n          indented code\n\n      > A block quote.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("  1.  A paragraph\nwith two lines.\n\n          indented code\n\n      > A block quote.", "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", "CommonMark");
         }
 
         // Indentation can be partially deleted:        
@@ -6393,12 +5128,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     with two lines.</li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("  1.  A paragraph\n    with two lines.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol>\n<li>A paragraph\nwith two lines.</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("  1.  A paragraph\n    with two lines.", "<ol>\n<li>A paragraph\nwith two lines.</li>\n</ol>", "CommonMark");
         }
 
         // These examples show how laziness can work in nested structures:        
@@ -6421,12 +5151,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ol>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> 1. > Blockquote\ncontinued here.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<ol>\n<li>\n<blockquote>\n<p>Blockquote\ncontinued here.</p>\n</blockquote>\n</li>\n</ol>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> 1. > Blockquote\ncontinued here.", "<blockquote>\n<ol>\n<li>\n<blockquote>\n<p>Blockquote\ncontinued here.</p>\n</blockquote>\n</li>\n</ol>\n</blockquote>", "CommonMark");
         }
         
         [Fact]
@@ -6448,12 +5173,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ol>
             //     </blockquote>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("> 1. > Blockquote\n> continued here.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<blockquote>\n<ol>\n<li>\n<blockquote>\n<p>Blockquote\ncontinued here.</p>\n</blockquote>\n</li>\n</ol>\n</blockquote>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("> 1. > Blockquote\n> continued here.", "<blockquote>\n<ol>\n<li>\n<blockquote>\n<p>Blockquote\ncontinued here.</p>\n</blockquote>\n</li>\n</ol>\n</blockquote>", "CommonMark");
         }
 
         // 6.  **That's all.** Nothing that is not counted as a list item by rules
@@ -6490,12 +5210,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- foo\n  - bar\n    - baz\n      - boo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>baz\n<ul>\n<li>boo</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- foo\n  - bar\n    - baz\n      - boo", "<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>baz\n<ul>\n<li>boo</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>", "CommonMark");
         }
 
         // One is not enough:        
@@ -6516,12 +5231,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>boo</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- foo\n - bar\n  - baz\n   - boo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>foo</li>\n<li>bar</li>\n<li>baz</li>\n<li>boo</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- foo\n - bar\n  - baz\n   - boo", "<ul>\n<li>foo</li>\n<li>bar</li>\n<li>baz</li>\n<li>boo</li>\n</ul>", "CommonMark");
         }
 
         // Here we need four, because the list marker is wider:        
@@ -6541,12 +5251,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("10) foo\n    - bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol start=\"10\">\n<li>foo\n<ul>\n<li>bar</li>\n</ul>\n</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("10) foo\n    - bar", "<ol start=\"10\">\n<li>foo\n<ul>\n<li>bar</li>\n</ul>\n</li>\n</ol>", "CommonMark");
         }
 
         // Three is not enough:        
@@ -6565,12 +5270,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>bar</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("10) foo\n   - bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol start=\"10\">\n<li>foo</li>\n</ol>\n<ul>\n<li>bar</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("10) foo\n   - bar", "<ol start=\"10\">\n<li>foo</li>\n</ol>\n<ul>\n<li>bar</li>\n</ul>", "CommonMark");
         }
 
         // A list may be the first block in a list item:        
@@ -6589,12 +5289,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- - foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<ul>\n<li>foo</li>\n</ul>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- - foo", "<ul>\n<li>\n<ul>\n<li>foo</li>\n</ul>\n</li>\n</ul>", "CommonMark");
         }
         
         [Fact]
@@ -6616,12 +5311,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("1. - 2. foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol>\n<li>\n<ul>\n<li>\n<ol start=\"2\">\n<li>foo</li>\n</ol>\n</li>\n</ul>\n</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("1. - 2. foo", "<ol>\n<li>\n<ul>\n<li>\n<ol start=\"2\">\n<li>foo</li>\n</ol>\n</li>\n</ul>\n</li>\n</ol>", "CommonMark");
         }
 
         // A list item can contain a heading:        
@@ -6644,12 +5334,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     baz</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- # Foo\n- Bar\n  ---\n  baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<h1>Foo</h1>\n</li>\n<li>\n<h2>Bar</h2>\nbaz</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- # Foo\n- Bar\n  ---\n  baz", "<ul>\n<li>\n<h1>Foo</h1>\n</li>\n<li>\n<h2>Bar</h2>\nbaz</li>\n</ul>", "CommonMark");
         }
     }
 
@@ -6702,12 +5387,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>baz</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- foo\n- bar\n+ baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>foo</li>\n<li>bar</li>\n</ul>\n<ul>\n<li>baz</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- foo\n- bar\n+ baz", "<ul>\n<li>foo</li>\n<li>bar</li>\n</ul>\n<ul>\n<li>baz</li>\n</ul>", "CommonMark");
         }
         
         [Fact]
@@ -6727,12 +5407,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>baz</li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("1. foo\n2. bar\n3) baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol>\n<li>foo</li>\n<li>bar</li>\n</ol>\n<ol start=\"3\">\n<li>baz</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("1. foo\n2. bar\n3) baz", "<ol>\n<li>foo</li>\n<li>bar</li>\n</ol>\n<ol start=\"3\">\n<li>baz</li>\n</ol>", "CommonMark");
         }
 
         // In CommonMark, a list can interrupt a paragraph. That is,
@@ -6753,12 +5428,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>baz</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo\n- bar\n- baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo</p>\n<ul>\n<li>bar</li>\n<li>baz</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo\n- bar\n- baz", "<p>Foo</p>\n<ul>\n<li>bar</li>\n<li>baz</li>\n</ul>", "CommonMark");
         }
 
         // `Markdown.pl` does not allow this, through fear of triggering a list
@@ -6836,12 +5506,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>The number of windows in my house is
             //     14.  The number of doors is 6.</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("The number of windows in my house is\n14.  The number of doors is 6.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>The number of windows in my house is\n14.  The number of doors is 6.</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("The number of windows in my house is\n14.  The number of doors is 6.", "<p>The number of windows in my house is\n14.  The number of doors is 6.</p>", "CommonMark");
         }
 
         // We may still get an unintended result in cases like        
@@ -6858,12 +5523,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>The number of doors is 6.</li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("The number of windows in my house is\n1.  The number of doors is 6.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>The number of windows in my house is</p>\n<ol>\n<li>The number of doors is 6.</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("The number of windows in my house is\n1.  The number of doors is 6.", "<p>The number of windows in my house is</p>\n<ol>\n<li>The number of doors is 6.</li>\n</ol>", "CommonMark");
         }
 
         // but this rule should prevent most spurious list captures.
@@ -6893,12 +5553,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- foo\n\n- bar\n\n\n- baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>foo</p>\n</li>\n<li>\n<p>bar</p>\n</li>\n<li>\n<p>baz</p>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- foo\n\n- bar\n\n\n- baz", "<ul>\n<li>\n<p>foo</p>\n</li>\n<li>\n<p>bar</p>\n</li>\n<li>\n<p>baz</p>\n</li>\n</ul>", "CommonMark");
         }
         
         [Fact]
@@ -6928,12 +5583,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- foo\n  - bar\n    - baz\n\n\n      bim", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>\n<p>baz</p>\n<p>bim</p>\n</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- foo\n  - bar\n    - baz\n\n\n      bim", "<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>\n<p>baz</p>\n<p>bim</p>\n</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>", "CommonMark");
         }
 
         // To separate consecutive lists of the same type, or to separate a
@@ -6963,12 +5613,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>bim</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- foo\n- bar\n\n<!-- -->\n\n- baz\n- bim", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>foo</li>\n<li>bar</li>\n</ul>\n<!-- -->\n<ul>\n<li>baz</li>\n<li>bim</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- foo\n- bar\n\n<!-- -->\n\n- baz\n- bim", "<ul>\n<li>foo</li>\n<li>bar</li>\n</ul>\n<!-- -->\n<ul>\n<li>baz</li>\n<li>bim</li>\n</ul>", "CommonMark");
         }
         
         [Fact]
@@ -6999,12 +5644,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>code
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("-   foo\n\n    notcode\n\n-   foo\n\n<!-- -->\n\n    code", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>foo</p>\n<p>notcode</p>\n</li>\n<li>\n<p>foo</p>\n</li>\n</ul>\n<!-- -->\n<pre><code>code\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("-   foo\n\n    notcode\n\n-   foo\n\n<!-- -->\n\n    code", "<ul>\n<li>\n<p>foo</p>\n<p>notcode</p>\n</li>\n<li>\n<p>foo</p>\n</li>\n</ul>\n<!-- -->\n<pre><code>code\n</code></pre>", "CommonMark");
         }
 
         // List items need not be indented to the same level.  The following
@@ -7038,12 +5678,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>i</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- a\n - b\n  - c\n   - d\n    - e\n   - f\n  - g\n - h\n- i", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>a</li>\n<li>b</li>\n<li>c</li>\n<li>d</li>\n<li>e</li>\n<li>f</li>\n<li>g</li>\n<li>h</li>\n<li>i</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- a\n - b\n  - c\n   - d\n    - e\n   - f\n  - g\n - h\n- i", "<ul>\n<li>a</li>\n<li>b</li>\n<li>c</li>\n<li>d</li>\n<li>e</li>\n<li>f</li>\n<li>g</li>\n<li>h</li>\n<li>i</li>\n</ul>", "CommonMark");
         }
         
         [Fact]
@@ -7069,12 +5704,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("1. a\n\n  2. b\n\n    3. c", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n</li>\n<li>\n<p>c</p>\n</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("1. a\n\n  2. b\n\n    3. c", "<ol>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n</li>\n<li>\n<p>c</p>\n</li>\n</ol>", "CommonMark");
         }
 
         // This is a loose list, because there is a blank line between
@@ -7101,12 +5731,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- a\n- b\n\n- c", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n</li>\n<li>\n<p>c</p>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- a\n- b\n\n- c", "<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n</li>\n<li>\n<p>c</p>\n</li>\n</ul>", "CommonMark");
         }
 
         // So is this, with a empty second item:        
@@ -7130,12 +5755,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("* a\n*\n\n* c", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>a</p>\n</li>\n<li></li>\n<li>\n<p>c</p>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("* a\n*\n\n* c", "<ul>\n<li>\n<p>a</p>\n</li>\n<li></li>\n<li>\n<p>c</p>\n</li>\n</ul>", "CommonMark");
         }
 
         // These are loose lists, even though there is no space between the items,
@@ -7165,12 +5785,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- a\n- b\n\n  c\n- d", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n<p>c</p>\n</li>\n<li>\n<p>d</p>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- a\n- b\n\n  c\n- d", "<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n<p>c</p>\n</li>\n<li>\n<p>d</p>\n</li>\n</ul>", "CommonMark");
         }
         
         [Fact]
@@ -7196,12 +5811,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- a\n- b\n\n  [ref]: /url\n- d", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n</li>\n<li>\n<p>d</p>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- a\n- b\n\n  [ref]: /url\n- d", "<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n</li>\n<li>\n<p>d</p>\n</li>\n</ul>", "CommonMark");
         }
 
         // This is a tight list, because the blank lines are in a code block:        
@@ -7229,12 +5839,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>c</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- a\n- ```\n  b\n\n\n  ```\n- c", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>a</li>\n<li>\n<pre><code>b\n\n\n</code></pre>\n</li>\n<li>c</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- a\n- ```\n  b\n\n\n  ```\n- c", "<ul>\n<li>a</li>\n<li>\n<pre><code>b\n\n\n</code></pre>\n</li>\n<li>c</li>\n</ul>", "CommonMark");
         }
 
         // This is a tight list, because the blank line is between two
@@ -7263,12 +5868,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>d</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- a\n  - b\n\n    c\n- d", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>a\n<ul>\n<li>\n<p>b</p>\n<p>c</p>\n</li>\n</ul>\n</li>\n<li>d</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- a\n  - b\n\n    c\n- d", "<ul>\n<li>a\n<ul>\n<li>\n<p>b</p>\n<p>c</p>\n</li>\n</ul>\n</li>\n<li>d</li>\n</ul>", "CommonMark");
         }
 
         // This is a tight list, because the blank line is inside the
@@ -7292,12 +5892,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>c</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("* a\n  > b\n  >\n* c", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>a\n<blockquote>\n<p>b</p>\n</blockquote>\n</li>\n<li>c</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("* a\n  > b\n  >\n* c", "<ul>\n<li>a\n<blockquote>\n<p>b</p>\n</blockquote>\n</li>\n<li>c</li>\n</ul>", "CommonMark");
         }
 
         // This list is tight, because the consecutive block elements
@@ -7325,12 +5920,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>d</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- a\n  > b\n  ```\n  c\n  ```\n- d", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>a\n<blockquote>\n<p>b</p>\n</blockquote>\n<pre><code>c\n</code></pre>\n</li>\n<li>d</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- a\n  > b\n  ```\n  c\n  ```\n- d", "<ul>\n<li>a\n<blockquote>\n<p>b</p>\n</blockquote>\n<pre><code>c\n</code></pre>\n</li>\n<li>d</li>\n</ul>", "CommonMark");
         }
 
         // A single-paragraph list is tight:        
@@ -7345,12 +5935,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>a</li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- a", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>a</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- a", "<ul>\n<li>a</li>\n</ul>", "CommonMark");
         }
         
         [Fact]
@@ -7369,12 +5954,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- a\n  - b", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>a\n<ul>\n<li>b</li>\n</ul>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- a\n  - b", "<ul>\n<li>a\n<ul>\n<li>b</li>\n</ul>\n</li>\n</ul>", "CommonMark");
         }
 
         // This list is loose, because of the blank line between the
@@ -7398,12 +5978,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("1. ```\n   foo\n   ```\n\n   bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ol>\n<li>\n<pre><code>foo\n</code></pre>\n<p>bar</p>\n</li>\n</ol>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("1. ```\n   foo\n   ```\n\n   bar", "<ol>\n<li>\n<pre><code>foo\n</code></pre>\n<p>bar</p>\n</li>\n</ol>", "CommonMark");
         }
 
         // Here the outer list is loose, the inner list tight:        
@@ -7427,12 +6002,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("* foo\n  * bar\n\n  baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>foo</p>\n<ul>\n<li>bar</li>\n</ul>\n<p>baz</p>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("* foo\n  * bar\n\n  baz", "<ul>\n<li>\n<p>foo</p>\n<ul>\n<li>bar</li>\n</ul>\n<p>baz</p>\n</li>\n</ul>", "CommonMark");
         }
         
         [Fact]
@@ -7465,12 +6035,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("- a\n  - b\n  - c\n\n- d\n  - e\n  - f", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<ul>\n<li>\n<p>a</p>\n<ul>\n<li>b</li>\n<li>c</li>\n</ul>\n</li>\n<li>\n<p>d</p>\n<ul>\n<li>e</li>\n<li>f</li>\n</ul>\n</li>\n</ul>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("- a\n  - b\n  - c\n\n- d\n  - e\n  - f", "<ul>\n<li>\n<p>a</p>\n<ul>\n<li>b</li>\n<li>c</li>\n</ul>\n</li>\n<li>\n<p>d</p>\n<ul>\n<li>e</li>\n<li>f</li>\n</ul>\n</li>\n</ul>", "CommonMark");
         }
 
         // # Inlines
@@ -7487,12 +6052,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>hi</code>lo`</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`hi`lo`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>hi</code>lo`</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`hi`lo`", "<p><code>hi</code>lo`</p>", "CommonMark");
         }
     }
 
@@ -7509,12 +6069,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>!&quot;#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("\\!\\\"\\#\\$\\%\\&\\'\\(\\)\\*\\+\\,\\-\\.\\/\\:\\;\\<\\=\\>\\?\\@\\[\\\\\\]\\^\\_\\`\\{\\|\\}\\~", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>!&quot;#$%&amp;'()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("\\!\\\"\\#\\$\\%\\&\\'\\(\\)\\*\\+\\,\\-\\.\\/\\:\\;\\<\\=\\>\\?\\@\\[\\\\\\]\\^\\_\\`\\{\\|\\}\\~", "<p>!&quot;#$%&amp;'()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~</p>", "CommonMark");
         }
 
         // Backslashes before other characters are treated as literal
@@ -7528,12 +6083,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>\→\A\a\ \3\φ\«</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("\\\t\\A\\a\\ \\3\\φ\\«", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>\\\t\\A\\a\\ \\3\\φ\\«</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("\\\t\\A\\a\\ \\3\\φ\\«", "<p>\\\t\\A\\a\\ \\3\\φ\\«</p>", "CommonMark");
         }
 
         // Escaped characters are treated as regular characters and do
@@ -7561,12 +6111,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     # not a heading
             //     [foo]: /url &quot;not a reference&quot;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("\\*not emphasized*\n\\<br/> not a tag\n\\[not a link](/foo)\n\\`not code`\n1\\. not a list\n\\* not a list\n\\# not a heading\n\\[foo]: /url \"not a reference\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>*not emphasized*\n&lt;br/&gt; not a tag\n[not a link](/foo)\n`not code`\n1. not a list\n* not a list\n# not a heading\n[foo]: /url &quot;not a reference&quot;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("\\*not emphasized*\n\\<br/> not a tag\n\\[not a link](/foo)\n\\`not code`\n1\\. not a list\n\\* not a list\n\\# not a heading\n\\[foo]: /url \"not a reference\"", "<p>*not emphasized*\n&lt;br/&gt; not a tag\n[not a link](/foo)\n`not code`\n1. not a list\n* not a list\n# not a heading\n[foo]: /url &quot;not a reference&quot;</p>", "CommonMark");
         }
 
         // If a backslash is itself escaped, the following character is not:        
@@ -7579,12 +6124,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>\<em>emphasis</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("\\\\*emphasis*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>\\<em>emphasis</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("\\\\*emphasis*", "<p>\\<em>emphasis</em></p>", "CommonMark");
         }
 
         // A backslash at the end of the line is a [hard line break]:        
@@ -7599,12 +6139,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo<br />
             //     bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo\\\nbar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo<br />\nbar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo\\\nbar", "<p>foo<br />\nbar</p>", "CommonMark");
         }
 
         // Backslash escapes do not work in code blocks, code spans, autolinks, or
@@ -7618,12 +6153,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>\[\`</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`` \\[\\` ``", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>\\[\\`</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`` \\[\\` ``", "<p><code>\\[\\`</code></p>", "CommonMark");
         }
         
         [Fact]
@@ -7636,12 +6166,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>\[\]
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    \\[\\]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>\\[\\]\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    \\[\\]", "<pre><code>\\[\\]\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -7656,12 +6181,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>\[\]
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("~~~\n\\[\\]\n~~~", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>\\[\\]\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("~~~\n\\[\\]\n~~~", "<pre><code>\\[\\]\n</code></pre>", "CommonMark");
         }
         
         [Fact]
@@ -7673,12 +6193,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="http://example.com?find=%5C*">http://example.com?find=\*</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<http://example.com?find=\\*>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"http://example.com?find=%5C*\">http://example.com?find=\\*</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<http://example.com?find=\\*>", "<p><a href=\"http://example.com?find=%5C*\">http://example.com?find=\\*</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -7690,12 +6205,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <a href="/bar\/)">
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<a href=\"/bar\\/)\">", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<a href=\"/bar\\/)\">");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<a href=\"/bar\\/)\">", "<a href=\"/bar\\/)\">", "CommonMark");
         }
 
         // But they work in all other contexts, including URLs and link titles,
@@ -7709,12 +6219,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/bar*" title="ti*tle">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo](/bar\\* \"ti\\*tle\")", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/bar*\" title=\"ti*tle\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo](/bar\\* \"ti\\*tle\")", "<p><a href=\"/bar*\" title=\"ti*tle\">foo</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -7728,12 +6233,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/bar*" title="ti*tle">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]\n\n[foo]: /bar\\* \"ti\\*tle\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/bar*\" title=\"ti*tle\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: /bar\\* \"ti\\*tle\"", "<p><a href=\"/bar*\" title=\"ti*tle\">foo</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -7748,12 +6248,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code class="language-foo+bar">foo
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("``` foo\\+bar\nfoo\n```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code class=\"language-foo+bar\">foo\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("``` foo\\+bar\nfoo\n```", "<pre><code class=\"language-foo+bar\">foo\n</code></pre>", "CommonMark");
         }
     }
 
@@ -7785,12 +6280,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ¾ ℋ ⅆ
             //     ∲ ≧̸</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("&nbsp; &amp; &copy; &AElig; &Dcaron;\n&frac34; &HilbertSpace; &DifferentialD;\n&ClockwiseContourIntegral; &ngE;", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>  &amp; © Æ Ď\n¾ ℋ ⅆ\n∲ ≧̸</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("&nbsp; &amp; &copy; &AElig; &Dcaron;\n&frac34; &HilbertSpace; &DifferentialD;\n&ClockwiseContourIntegral; &ngE;", "<p>  &amp; © Æ Ď\n¾ ℋ ⅆ\n∲ ≧̸</p>", "CommonMark");
         }
 
         // [Decimal numeric character
@@ -7809,12 +6299,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p># Ӓ Ϡ � �</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("&#35; &#1234; &#992; &#98765432; &#0;", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p># Ӓ Ϡ � �</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("&#35; &#1234; &#992; &#98765432; &#0;", "<p># Ӓ Ϡ � �</p>", "CommonMark");
         }
 
         // [Hexadecimal numeric character
@@ -7831,12 +6316,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&quot; ആ ಫ</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("&#X22; &#XD06; &#xcab;", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&quot; ആ ಫ</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("&#X22; &#XD06; &#xcab;", "<p>&quot; ആ ಫ</p>", "CommonMark");
         }
 
         // Here are some nonentities:        
@@ -7851,12 +6331,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>&amp;nbsp &amp;x; &amp;#; &amp;#x;
             //     &amp;ThisIsNotDefined; &amp;hi?;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("&nbsp &x; &#; &#x;\n&ThisIsNotDefined; &hi?;", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&amp;nbsp &amp;x; &amp;#; &amp;#x;\n&amp;ThisIsNotDefined; &amp;hi?;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("&nbsp &x; &#; &#x;\n&ThisIsNotDefined; &hi?;", "<p>&amp;nbsp &amp;x; &amp;#; &amp;#x;\n&amp;ThisIsNotDefined; &amp;hi?;</p>", "CommonMark");
         }
 
         // Although HTML5 does accept some entity references
@@ -7871,12 +6346,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&amp;copy</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("&copy", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&amp;copy</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("&copy", "<p>&amp;copy</p>", "CommonMark");
         }
 
         // Strings that are not on the list of HTML5 named entities are not
@@ -7890,12 +6360,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&amp;MadeUpEntity;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("&MadeUpEntity;", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&amp;MadeUpEntity;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("&MadeUpEntity;", "<p>&amp;MadeUpEntity;</p>", "CommonMark");
         }
 
         // Entity and numeric character references are recognized in any
@@ -7910,12 +6375,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <a href="&ouml;&ouml;.html">
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<a href=\"&ouml;&ouml;.html\">", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<a href=\"&ouml;&ouml;.html\">");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<a href=\"&ouml;&ouml;.html\">", "<a href=\"&ouml;&ouml;.html\">", "CommonMark");
         }
         
         [Fact]
@@ -7927,12 +6387,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/f%C3%B6%C3%B6" title="föö">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo](/f&ouml;&ouml; \"f&ouml;&ouml;\")", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/f%C3%B6%C3%B6\" title=\"föö\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo](/f&ouml;&ouml; \"f&ouml;&ouml;\")", "<p><a href=\"/f%C3%B6%C3%B6\" title=\"föö\">foo</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -7946,12 +6401,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/f%C3%B6%C3%B6" title="föö">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]\n\n[foo]: /f&ouml;&ouml; \"f&ouml;&ouml;\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/f%C3%B6%C3%B6\" title=\"föö\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: /f&ouml;&ouml; \"f&ouml;&ouml;\"", "<p><a href=\"/f%C3%B6%C3%B6\" title=\"föö\">foo</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -7966,12 +6416,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code class="language-föö">foo
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("``` f&ouml;&ouml;\nfoo\n```", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code class=\"language-föö\">foo\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("``` f&ouml;&ouml;\nfoo\n```", "<pre><code class=\"language-föö\">foo\n</code></pre>", "CommonMark");
         }
 
         // Entity and numeric character references are treated as literal
@@ -7985,12 +6430,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>f&amp;ouml;&amp;ouml;</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`f&ouml;&ouml;`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>f&amp;ouml;&amp;ouml;</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`f&ouml;&ouml;`", "<p><code>f&amp;ouml;&amp;ouml;</code></p>", "CommonMark");
         }
         
         [Fact]
@@ -8003,12 +6443,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>f&amp;ouml;f&amp;ouml;
             //     </code></pre>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("    f&ouml;f&ouml;", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<pre><code>f&amp;ouml;f&amp;ouml;\n</code></pre>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("    f&ouml;f&ouml;", "<pre><code>f&amp;ouml;f&amp;ouml;\n</code></pre>", "CommonMark");
         }
     }
 
@@ -8034,12 +6469,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>foo</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`foo`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>foo</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`foo`", "<p><code>foo</code></p>", "CommonMark");
         }
 
         // Here two backticks are used, because the code contains a backtick.
@@ -8053,12 +6483,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>foo ` bar</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`` foo ` bar  ``", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>foo ` bar</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`` foo ` bar  ``", "<p><code>foo ` bar</code></p>", "CommonMark");
         }
 
         // This example shows the motivation for stripping leading and trailing
@@ -8072,12 +6497,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>``</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("` `` `", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>``</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("` `` `", "<p><code>``</code></p>", "CommonMark");
         }
 
         // [Line endings] are treated like spaces:        
@@ -8092,12 +6512,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>foo</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("``\nfoo\n``", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>foo</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("``\nfoo\n``", "<p><code>foo</code></p>", "CommonMark");
         }
 
         // Interior spaces and [line endings] are collapsed into
@@ -8112,12 +6527,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>foo bar baz</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`foo   bar\n  baz`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>foo bar baz</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`foo   bar\n  baz`", "<p><code>foo bar baz</code></p>", "CommonMark");
         }
 
         // Not all [Unicode whitespace] (for instance, non-breaking space) is
@@ -8131,12 +6541,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>a  b</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`a  b`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>a  b</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`a  b`", "<p><code>a  b</code></p>", "CommonMark");
         }
 
         // Q: Why not just leave the spaces, since browsers will collapse them
@@ -8160,12 +6565,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>foo `` bar</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`foo `` bar`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>foo `` bar</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`foo `` bar`", "<p><code>foo `` bar</code></p>", "CommonMark");
         }
 
         // Note that backslash escapes do not work in code spans. All backslashes
@@ -8179,12 +6579,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>foo\</code>bar`</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`foo\\`bar`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>foo\\</code>bar`</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`foo\\`bar`", "<p><code>foo\\</code>bar`</p>", "CommonMark");
         }
 
         // Backslash escapes are never needed, because one can always choose a
@@ -8204,12 +6599,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*foo<code>*</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo`*`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>*foo<code>*</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo`*`", "<p>*foo<code>*</code></p>", "CommonMark");
         }
 
         // And this is not parsed as a link:        
@@ -8222,12 +6612,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[not a <code>link](/foo</code>)</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[not a `link](/foo`)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[not a <code>link](/foo</code>)</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[not a `link](/foo`)", "<p>[not a <code>link](/foo</code>)</p>", "CommonMark");
         }
 
         // Code spans, HTML tags, and autolinks have the same precedence.
@@ -8241,12 +6626,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>&lt;a href=&quot;</code>&quot;&gt;`</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`<a href=\"`\">`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>&lt;a href=&quot;</code>&quot;&gt;`</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`<a href=\"`\">`", "<p><code>&lt;a href=&quot;</code>&quot;&gt;`</p>", "CommonMark");
         }
 
         // But this is an HTML tag:        
@@ -8259,12 +6639,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="`">`</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<a href=\"`\">`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"`\">`</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<a href=\"`\">`", "<p><a href=\"`\">`</p>", "CommonMark");
         }
 
         // And this is code:        
@@ -8277,12 +6652,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>&lt;http://foo.bar.</code>baz&gt;`</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`<http://foo.bar.`baz>`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>&lt;http://foo.bar.</code>baz&gt;`</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`<http://foo.bar.`baz>`", "<p><code>&lt;http://foo.bar.</code>baz&gt;`</p>", "CommonMark");
         }
 
         // But this is an autolink:        
@@ -8295,12 +6665,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="http://foo.bar.%60baz">http://foo.bar.`baz</a>`</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<http://foo.bar.`baz>`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"http://foo.bar.%60baz\">http://foo.bar.`baz</a>`</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<http://foo.bar.`baz>`", "<p><a href=\"http://foo.bar.%60baz\">http://foo.bar.`baz</a>`</p>", "CommonMark");
         }
 
         // When a backtick string is not closed by a matching backtick string,
@@ -8314,12 +6679,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>```foo``</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("```foo``", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>```foo``</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("```foo``", "<p>```foo``</p>", "CommonMark");
         }
         
         [Fact]
@@ -8331,12 +6691,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>`foo</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>`foo</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`foo", "<p>`foo</p>", "CommonMark");
         }
 
         // The following case also illustrates the need for opening and
@@ -8350,12 +6705,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>`foo<code>bar</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`foo``bar``", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>`foo<code>bar</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`foo``bar``", "<p>`foo<code>bar</code></p>", "CommonMark");
         }
     }
 
@@ -8573,12 +6923,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo bar</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo bar*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo bar</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo bar*", "<p><em>foo bar</em></p>", "CommonMark");
         }
 
         // This is not emphasis, because the opening `*` is followed by
@@ -8592,12 +6937,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>a * foo bar*</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("a * foo bar*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>a * foo bar*</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("a * foo bar*", "<p>a * foo bar*</p>", "CommonMark");
         }
 
         // This is not emphasis, because the opening `*` is preceded
@@ -8612,12 +6952,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>a*&quot;foo&quot;*</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("a*\"foo\"*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>a*&quot;foo&quot;*</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("a*\"foo\"*", "<p>a*&quot;foo&quot;*</p>", "CommonMark");
         }
 
         // Unicode nonbreaking spaces count as whitespace, too:        
@@ -8630,12 +6965,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>* a *</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("* a *", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>* a *</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("* a *", "<p>* a *</p>", "CommonMark");
         }
 
         // Intraword emphasis with `*` is permitted:        
@@ -8648,12 +6978,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo<em>bar</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo*bar*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo<em>bar</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo*bar*", "<p>foo<em>bar</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -8665,12 +6990,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>5<em>6</em>78</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("5*6*78", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>5<em>6</em>78</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("5*6*78", "<p>5<em>6</em>78</p>", "CommonMark");
         }
 
         // Rule 2:        
@@ -8683,12 +7003,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo bar</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_foo bar_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo bar</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_foo bar_", "<p><em>foo bar</em></p>", "CommonMark");
         }
 
         // This is not emphasis, because the opening `_` is followed by
@@ -8702,12 +7017,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_ foo bar_</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_ foo bar_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>_ foo bar_</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_ foo bar_", "<p>_ foo bar_</p>", "CommonMark");
         }
 
         // This is not emphasis, because the opening `_` is preceded
@@ -8721,12 +7031,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>a_&quot;foo&quot;_</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("a_\"foo\"_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>a_&quot;foo&quot;_</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("a_\"foo\"_", "<p>a_&quot;foo&quot;_</p>", "CommonMark");
         }
 
         // Emphasis with `_` is not allowed inside words:        
@@ -8739,12 +7044,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo_bar_</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo_bar_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo_bar_</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo_bar_", "<p>foo_bar_</p>", "CommonMark");
         }
         
         [Fact]
@@ -8756,12 +7056,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>5_6_78</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("5_6_78", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>5_6_78</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("5_6_78", "<p>5_6_78</p>", "CommonMark");
         }
         
         [Fact]
@@ -8773,12 +7068,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>пристаням_стремятся_</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("пристаням_стремятся_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>пристаням_стремятся_</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("пристаням_стремятся_", "<p>пристаням_стремятся_</p>", "CommonMark");
         }
 
         // Here `_` does not generate emphasis, because the first delimiter run
@@ -8792,12 +7082,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>aa_&quot;bb&quot;_cc</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("aa_\"bb\"_cc", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>aa_&quot;bb&quot;_cc</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("aa_\"bb\"_cc", "<p>aa_&quot;bb&quot;_cc</p>", "CommonMark");
         }
 
         // This is emphasis, even though the opening delimiter is
@@ -8812,12 +7097,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo-<em>(bar)</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo-_(bar)_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo-<em>(bar)</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo-_(bar)_", "<p>foo-<em>(bar)</em></p>", "CommonMark");
         }
 
         // Rule 3:
@@ -8833,12 +7113,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_foo*</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_foo*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>_foo*</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_foo*", "<p>_foo*</p>", "CommonMark");
         }
 
         // This is not emphasis, because the closing `*` is preceded by
@@ -8852,12 +7127,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*foo bar *</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo bar *", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>*foo bar *</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo bar *", "<p>*foo bar *</p>", "CommonMark");
         }
 
         // A newline also counts as whitespace:        
@@ -8872,12 +7142,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>*foo bar
             //     *</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo bar\n*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>*foo bar\n*</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo bar\n*", "<p>*foo bar\n*</p>", "CommonMark");
         }
 
         // This is not emphasis, because the second `*` is
@@ -8892,12 +7157,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*(*foo)</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*(*foo)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>*(*foo)</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*(*foo)", "<p>*(*foo)</p>", "CommonMark");
         }
 
         // The point of this restriction is more easily appreciated
@@ -8911,12 +7171,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>(<em>foo</em>)</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*(*foo*)*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>(<em>foo</em>)</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*(*foo*)*", "<p><em>(<em>foo</em>)</em></p>", "CommonMark");
         }
 
         // Intraword emphasis with `*` is allowed:        
@@ -8929,12 +7184,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo</em>bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo*bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo</em>bar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo*bar", "<p><em>foo</em>bar</p>", "CommonMark");
         }
 
         // Rule 4:
@@ -8950,12 +7200,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_foo bar _</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_foo bar _", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>_foo bar _</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_foo bar _", "<p>_foo bar _</p>", "CommonMark");
         }
 
         // This is not emphasis, because the second `_` is
@@ -8969,12 +7214,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_(_foo)</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_(_foo)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>_(_foo)</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_(_foo)", "<p>_(_foo)</p>", "CommonMark");
         }
 
         // This is emphasis within emphasis:        
@@ -8987,12 +7227,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>(<em>foo</em>)</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_(_foo_)_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>(<em>foo</em>)</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_(_foo_)_", "<p><em>(<em>foo</em>)</em></p>", "CommonMark");
         }
 
         // Intraword emphasis is disallowed for `_`:        
@@ -9005,12 +7240,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_foo_bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_foo_bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>_foo_bar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_foo_bar", "<p>_foo_bar</p>", "CommonMark");
         }
         
         [Fact]
@@ -9022,12 +7252,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_пристаням_стремятся</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_пристаням_стремятся", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>_пристаням_стремятся</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_пристаням_стремятся", "<p>_пристаням_стремятся</p>", "CommonMark");
         }
         
         [Fact]
@@ -9039,12 +7264,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo_bar_baz</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_foo_bar_baz_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo_bar_baz</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_foo_bar_baz_", "<p><em>foo_bar_baz</em></p>", "CommonMark");
         }
 
         // This is emphasis, even though the closing delimiter is
@@ -9059,12 +7279,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>(bar)</em>.</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_(bar)_.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>(bar)</em>.</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_(bar)_.", "<p><em>(bar)</em>.</p>", "CommonMark");
         }
 
         // Rule 5:        
@@ -9077,12 +7292,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo bar</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo bar**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo bar</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo bar**", "<p><strong>foo bar</strong></p>", "CommonMark");
         }
 
         // This is not strong emphasis, because the opening delimiter is
@@ -9096,12 +7306,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>** foo bar**</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("** foo bar**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>** foo bar**</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("** foo bar**", "<p>** foo bar**</p>", "CommonMark");
         }
 
         // This is not strong emphasis, because the opening `**` is preceded
@@ -9116,12 +7321,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>a**&quot;foo&quot;**</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("a**\"foo\"**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>a**&quot;foo&quot;**</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("a**\"foo\"**", "<p>a**&quot;foo&quot;**</p>", "CommonMark");
         }
 
         // Intraword strong emphasis with `**` is permitted:        
@@ -9134,12 +7334,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo<strong>bar</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo**bar**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo<strong>bar</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo**bar**", "<p>foo<strong>bar</strong></p>", "CommonMark");
         }
 
         // Rule 6:        
@@ -9152,12 +7347,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo bar</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__foo bar__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo bar</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__foo bar__", "<p><strong>foo bar</strong></p>", "CommonMark");
         }
 
         // This is not strong emphasis, because the opening delimiter is
@@ -9171,12 +7361,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__ foo bar__</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__ foo bar__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>__ foo bar__</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__ foo bar__", "<p>__ foo bar__</p>", "CommonMark");
         }
 
         // A newline counts as whitespace:        
@@ -9191,12 +7376,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>__
             //     foo bar__</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__\nfoo bar__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>__\nfoo bar__</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__\nfoo bar__", "<p>__\nfoo bar__</p>", "CommonMark");
         }
 
         // This is not strong emphasis, because the opening `__` is preceded
@@ -9210,12 +7390,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>a__&quot;foo&quot;__</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("a__\"foo\"__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>a__&quot;foo&quot;__</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("a__\"foo\"__", "<p>a__&quot;foo&quot;__</p>", "CommonMark");
         }
 
         // Intraword strong emphasis is forbidden with `__`:        
@@ -9228,12 +7403,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo__bar__</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo__bar__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo__bar__</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo__bar__", "<p>foo__bar__</p>", "CommonMark");
         }
         
         [Fact]
@@ -9245,12 +7415,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>5__6__78</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("5__6__78", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>5__6__78</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("5__6__78", "<p>5__6__78</p>", "CommonMark");
         }
         
         [Fact]
@@ -9262,12 +7427,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>пристаням__стремятся__</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("пристаням__стремятся__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>пристаням__стремятся__</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("пристаням__стремятся__", "<p>пристаням__стремятся__</p>", "CommonMark");
         }
         
         [Fact]
@@ -9279,12 +7439,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo, <strong>bar</strong>, baz</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__foo, __bar__, baz__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo, <strong>bar</strong>, baz</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__foo, __bar__, baz__", "<p><strong>foo, <strong>bar</strong>, baz</strong></p>", "CommonMark");
         }
 
         // This is strong emphasis, even though the opening delimiter is
@@ -9299,12 +7454,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo-<strong>(bar)</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo-__(bar)__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo-<strong>(bar)</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo-__(bar)__", "<p>foo-<strong>(bar)</strong></p>", "CommonMark");
         }
 
         // Rule 7:
@@ -9320,12 +7470,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>**foo bar **</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo bar **", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>**foo bar **</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo bar **", "<p>**foo bar **</p>", "CommonMark");
         }
 
         // (Nor can it be interpreted as an emphasized `*foo bar *`, because of
@@ -9342,12 +7487,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>**(**foo)</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**(**foo)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>**(**foo)</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**(**foo)", "<p>**(**foo)</p>", "CommonMark");
         }
 
         // The point of this restriction is more easily appreciated
@@ -9361,12 +7501,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>(<strong>foo</strong>)</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*(**foo**)*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>(<strong>foo</strong>)</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*(**foo**)*", "<p><em>(<strong>foo</strong>)</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -9380,12 +7515,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><strong>Gomphocarpus (<em>Gomphocarpus physocarpus</em>, syn.
             //     <em>Asclepias physocarpa</em>)</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**Gomphocarpus (*Gomphocarpus physocarpus*, syn.\n*Asclepias physocarpa*)**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>Gomphocarpus (<em>Gomphocarpus physocarpus</em>, syn.\n<em>Asclepias physocarpa</em>)</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**Gomphocarpus (*Gomphocarpus physocarpus*, syn.\n*Asclepias physocarpa*)**", "<p><strong>Gomphocarpus (<em>Gomphocarpus physocarpus</em>, syn.\n<em>Asclepias physocarpa</em>)</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -9397,12 +7527,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo &quot;<em>bar</em>&quot; foo</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo \"*bar*\" foo**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo &quot;<em>bar</em>&quot; foo</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo \"*bar*\" foo**", "<p><strong>foo &quot;<em>bar</em>&quot; foo</strong></p>", "CommonMark");
         }
 
         // Intraword emphasis:        
@@ -9415,12 +7540,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo</strong>bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo**bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo</strong>bar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo**bar", "<p><strong>foo</strong>bar</p>", "CommonMark");
         }
 
         // Rule 8:
@@ -9436,12 +7556,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__foo bar __</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__foo bar __", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>__foo bar __</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__foo bar __", "<p>__foo bar __</p>", "CommonMark");
         }
 
         // This is not strong emphasis, because the second `__` is
@@ -9455,12 +7570,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__(__foo)</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__(__foo)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>__(__foo)</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__(__foo)", "<p>__(__foo)</p>", "CommonMark");
         }
 
         // The point of this restriction is more easily appreciated
@@ -9474,12 +7584,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>(<strong>foo</strong>)</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_(__foo__)_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>(<strong>foo</strong>)</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_(__foo__)_", "<p><em>(<strong>foo</strong>)</em></p>", "CommonMark");
         }
 
         // Intraword strong emphasis is forbidden with `__`:        
@@ -9492,12 +7597,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__foo__bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__foo__bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>__foo__bar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__foo__bar", "<p>__foo__bar</p>", "CommonMark");
         }
         
         [Fact]
@@ -9509,12 +7609,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__пристаням__стремятся</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__пристаням__стремятся", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>__пристаням__стремятся</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__пристаням__стремятся", "<p>__пристаням__стремятся</p>", "CommonMark");
         }
         
         [Fact]
@@ -9526,12 +7621,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo__bar__baz</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__foo__bar__baz__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo__bar__baz</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__foo__bar__baz__", "<p><strong>foo__bar__baz</strong></p>", "CommonMark");
         }
 
         // This is strong emphasis, even though the closing delimiter is
@@ -9546,12 +7636,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>(bar)</strong>.</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__(bar)__.", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>(bar)</strong>.</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__(bar)__.", "<p><strong>(bar)</strong>.</p>", "CommonMark");
         }
 
         // Rule 9:
@@ -9567,12 +7652,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <a href="/url">bar</a></em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo [bar](/url)*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo <a href=\"/url\">bar</a></em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo [bar](/url)*", "<p><em>foo <a href=\"/url\">bar</a></em></p>", "CommonMark");
         }
         
         [Fact]
@@ -9586,12 +7666,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><em>foo
             //     bar</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo\nbar*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo\nbar</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo\nbar*", "<p><em>foo\nbar</em></p>", "CommonMark");
         }
 
         // In particular, emphasis and strong emphasis can be nested
@@ -9605,12 +7680,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <strong>bar</strong> baz</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_foo __bar__ baz_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo <strong>bar</strong> baz</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_foo __bar__ baz_", "<p><em>foo <strong>bar</strong> baz</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -9622,12 +7692,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <em>bar</em> baz</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_foo _bar_ baz_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo <em>bar</em> baz</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_foo _bar_ baz_", "<p><em>foo <em>bar</em> baz</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -9639,12 +7704,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em><em>foo</em> bar</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__foo_ bar_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em><em>foo</em> bar</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__foo_ bar_", "<p><em><em>foo</em> bar</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -9656,12 +7716,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <em>bar</em></em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo *bar**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo <em>bar</em></em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo *bar**", "<p><em>foo <em>bar</em></em></p>", "CommonMark");
         }
         
         [Fact]
@@ -9673,12 +7728,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <strong>bar</strong> baz</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo **bar** baz*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo <strong>bar</strong> baz</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo **bar** baz*", "<p><em>foo <strong>bar</strong> baz</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -9690,12 +7740,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo<strong>bar</strong>baz</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo**bar**baz*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo<strong>bar</strong>baz</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo**bar**baz*", "<p><em>foo<strong>bar</strong>baz</em></p>", "CommonMark");
         }
 
         // Note that in the preceding case, the interpretation
@@ -9724,12 +7769,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em><strong>foo</strong> bar</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("***foo** bar*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em><strong>foo</strong> bar</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("***foo** bar*", "<p><em><strong>foo</strong> bar</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -9741,12 +7781,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <strong>bar</strong></em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo **bar***", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo <strong>bar</strong></em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo **bar***", "<p><em>foo <strong>bar</strong></em></p>", "CommonMark");
         }
         
         [Fact]
@@ -9758,12 +7793,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo<strong>bar</strong></em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo**bar***", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo<strong>bar</strong></em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo**bar***", "<p><em>foo<strong>bar</strong></em></p>", "CommonMark");
         }
 
         // Indefinite levels of nesting are possible:        
@@ -9776,12 +7806,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <strong>bar <em>baz</em> bim</strong> bop</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo **bar *baz* bim** bop*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo <strong>bar <em>baz</em> bim</strong> bop</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo **bar *baz* bim** bop*", "<p><em>foo <strong>bar <em>baz</em> bim</strong> bop</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -9793,12 +7818,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <a href="/url"><em>bar</em></a></em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo [*bar*](/url)*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo <a href=\"/url\"><em>bar</em></a></em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo [*bar*](/url)*", "<p><em>foo <a href=\"/url\"><em>bar</em></a></em></p>", "CommonMark");
         }
 
         // There can be no empty emphasis or strong emphasis:        
@@ -9811,12 +7831,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>** is not an empty emphasis</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("** is not an empty emphasis", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>** is not an empty emphasis</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("** is not an empty emphasis", "<p>** is not an empty emphasis</p>", "CommonMark");
         }
         
         [Fact]
@@ -9828,12 +7843,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>**** is not an empty strong emphasis</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**** is not an empty strong emphasis", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>**** is not an empty strong emphasis</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**** is not an empty strong emphasis", "<p>**** is not an empty strong emphasis</p>", "CommonMark");
         }
 
         // Rule 10:
@@ -9849,12 +7859,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo <a href="/url">bar</a></strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo [bar](/url)**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo <a href=\"/url\">bar</a></strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo [bar](/url)**", "<p><strong>foo <a href=\"/url\">bar</a></strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -9868,12 +7873,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><strong>foo
             //     bar</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo\nbar**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo\nbar</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo\nbar**", "<p><strong>foo\nbar</strong></p>", "CommonMark");
         }
 
         // In particular, emphasis and strong emphasis can be nested
@@ -9887,12 +7887,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo <em>bar</em> baz</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__foo _bar_ baz__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo <em>bar</em> baz</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__foo _bar_ baz__", "<p><strong>foo <em>bar</em> baz</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -9904,12 +7899,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo <strong>bar</strong> baz</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__foo __bar__ baz__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo <strong>bar</strong> baz</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__foo __bar__ baz__", "<p><strong>foo <strong>bar</strong> baz</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -9921,12 +7911,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong><strong>foo</strong> bar</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("____foo__ bar__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong><strong>foo</strong> bar</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("____foo__ bar__", "<p><strong><strong>foo</strong> bar</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -9938,12 +7923,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo <strong>bar</strong></strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo **bar****", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo <strong>bar</strong></strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo **bar****", "<p><strong>foo <strong>bar</strong></strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -9955,12 +7935,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo <em>bar</em> baz</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo *bar* baz**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo <em>bar</em> baz</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo *bar* baz**", "<p><strong>foo <em>bar</em> baz</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -9972,12 +7947,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo<em>bar</em>baz</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo*bar*baz**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo<em>bar</em>baz</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo*bar*baz**", "<p><strong>foo<em>bar</em>baz</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -9989,12 +7959,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong><em>foo</em> bar</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("***foo* bar**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong><em>foo</em> bar</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("***foo* bar**", "<p><strong><em>foo</em> bar</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -10006,12 +7971,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo <em>bar</em></strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo *bar***", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo <em>bar</em></strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo *bar***", "<p><strong>foo <em>bar</em></strong></p>", "CommonMark");
         }
 
         // Indefinite levels of nesting are possible:        
@@ -10026,12 +7986,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><strong>foo <em>bar <strong>baz</strong>
             //     bim</em> bop</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo *bar **baz**\nbim* bop**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo <em>bar <strong>baz</strong>\nbim</em> bop</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo *bar **baz**\nbim* bop**", "<p><strong>foo <em>bar <strong>baz</strong>\nbim</em> bop</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -10043,12 +7998,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo <a href="/url"><em>bar</em></a></strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo [*bar*](/url)**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo <a href=\"/url\"><em>bar</em></a></strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo [*bar*](/url)**", "<p><strong>foo <a href=\"/url\"><em>bar</em></a></strong></p>", "CommonMark");
         }
 
         // There can be no empty emphasis or strong emphasis:        
@@ -10061,12 +8011,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__ is not an empty emphasis</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__ is not an empty emphasis", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>__ is not an empty emphasis</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__ is not an empty emphasis", "<p>__ is not an empty emphasis</p>", "CommonMark");
         }
         
         [Fact]
@@ -10078,12 +8023,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>____ is not an empty strong emphasis</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("____ is not an empty strong emphasis", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>____ is not an empty strong emphasis</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("____ is not an empty strong emphasis", "<p>____ is not an empty strong emphasis</p>", "CommonMark");
         }
 
         // Rule 11:        
@@ -10096,12 +8036,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo ***</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo ***", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo ***</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo ***", "<p>foo ***</p>", "CommonMark");
         }
         
         [Fact]
@@ -10113,12 +8048,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <em>*</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo *\\**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo <em>*</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo *\\**", "<p>foo <em>*</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -10130,12 +8060,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <em>_</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo *_*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo <em>_</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo *_*", "<p>foo <em>_</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -10147,12 +8072,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo *****</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo *****", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo *****</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo *****", "<p>foo *****</p>", "CommonMark");
         }
         
         [Fact]
@@ -10164,12 +8084,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <strong>*</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo **\\***", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo <strong>*</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo **\\***", "<p>foo <strong>*</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -10181,12 +8096,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <strong>_</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo **_**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo <strong>_</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo **_**", "<p>foo <strong>_</strong></p>", "CommonMark");
         }
 
         // Note that when delimiters do not match evenly, Rule 11 determines
@@ -10201,12 +8111,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*<em>foo</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>*<em>foo</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo*", "<p>*<em>foo</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -10218,12 +8123,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo</em>*</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo</em>*</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo**", "<p><em>foo</em>*</p>", "CommonMark");
         }
         
         [Fact]
@@ -10235,12 +8135,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*<strong>foo</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("***foo**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>*<strong>foo</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("***foo**", "<p>*<strong>foo</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -10252,12 +8147,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>***<em>foo</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("****foo*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>***<em>foo</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("****foo*", "<p>***<em>foo</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -10269,12 +8159,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo</strong>*</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo***", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo</strong>*</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo***", "<p><strong>foo</strong>*</p>", "CommonMark");
         }
         
         [Fact]
@@ -10286,12 +8171,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo</em>***</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo****", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo</em>***</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo****", "<p><em>foo</em>***</p>", "CommonMark");
         }
 
         // Rule 12:        
@@ -10304,12 +8184,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo ___</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo ___", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo ___</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo ___", "<p>foo ___</p>", "CommonMark");
         }
         
         [Fact]
@@ -10321,12 +8196,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <em>_</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo _\\__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo <em>_</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo _\\__", "<p>foo <em>_</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -10338,12 +8208,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <em>*</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo _*_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo <em>*</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo _*_", "<p>foo <em>*</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -10355,12 +8220,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo _____</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo _____", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo _____</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo _____", "<p>foo _____</p>", "CommonMark");
         }
         
         [Fact]
@@ -10372,12 +8232,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <strong>_</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo __\\___", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo <strong>_</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo __\\___", "<p>foo <strong>_</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -10389,12 +8244,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <strong>*</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo __*__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo <strong>*</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo __*__", "<p>foo <strong>*</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -10406,12 +8256,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_<em>foo</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__foo_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>_<em>foo</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__foo_", "<p>_<em>foo</em></p>", "CommonMark");
         }
 
         // Note that when delimiters do not match evenly, Rule 12 determines
@@ -10426,12 +8271,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo</em>_</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_foo__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo</em>_</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_foo__", "<p><em>foo</em>_</p>", "CommonMark");
         }
         
         [Fact]
@@ -10443,12 +8283,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_<strong>foo</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("___foo__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>_<strong>foo</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("___foo__", "<p>_<strong>foo</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -10460,12 +8295,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>___<em>foo</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("____foo_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>___<em>foo</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("____foo_", "<p>___<em>foo</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -10477,12 +8307,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo</strong>_</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__foo___", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo</strong>_</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__foo___", "<p><strong>foo</strong>_</p>", "CommonMark");
         }
         
         [Fact]
@@ -10494,12 +8319,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo</em>___</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_foo____", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo</em>___</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_foo____", "<p><em>foo</em>___</p>", "CommonMark");
         }
 
         // Rule 13 implies that if you want emphasis nested directly inside
@@ -10513,12 +8333,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo**", "<p><strong>foo</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -10530,12 +8345,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em><em>foo</em></em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*_foo_*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em><em>foo</em></em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*_foo_*", "<p><em><em>foo</em></em></p>", "CommonMark");
         }
         
         [Fact]
@@ -10547,12 +8357,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__foo__", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong>foo</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__foo__", "<p><strong>foo</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -10564,12 +8369,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em><em>foo</em></em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_*foo*_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em><em>foo</em></em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_*foo*_", "<p><em><em>foo</em></em></p>", "CommonMark");
         }
 
         // However, strong emphasis within strong emphasis is possible without
@@ -10583,12 +8383,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong><strong>foo</strong></strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("****foo****", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong><strong>foo</strong></strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("****foo****", "<p><strong><strong>foo</strong></strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -10600,12 +8395,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong><strong>foo</strong></strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("____foo____", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong><strong>foo</strong></strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("____foo____", "<p><strong><strong>foo</strong></strong></p>", "CommonMark");
         }
 
         // Rule 13 can be applied to arbitrarily long sequences of
@@ -10619,12 +8409,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong><strong><strong>foo</strong></strong></strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("******foo******", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><strong><strong><strong>foo</strong></strong></strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("******foo******", "<p><strong><strong><strong>foo</strong></strong></strong></p>", "CommonMark");
         }
 
         // Rule 14:        
@@ -10637,12 +8422,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em><strong>foo</strong></em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("***foo***", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em><strong>foo</strong></em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("***foo***", "<p><em><strong>foo</strong></em></p>", "CommonMark");
         }
         
         [Fact]
@@ -10654,12 +8434,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em><strong><strong>foo</strong></strong></em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_____foo_____", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em><strong><strong>foo</strong></strong></em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_____foo_____", "<p><em><strong><strong>foo</strong></strong></em></p>", "CommonMark");
         }
 
         // Rule 15:        
@@ -10672,12 +8447,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo _bar</em> baz_</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo _bar* baz_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo _bar</em> baz_</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo _bar* baz_", "<p><em>foo _bar</em> baz_</p>", "CommonMark");
         }
         
         [Fact]
@@ -10689,12 +8459,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <strong>bar *baz bim</strong> bam</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo __bar *baz bim__ bam*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo <strong>bar *baz bim</strong> bam</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo __bar *baz bim__ bam*", "<p><em>foo <strong>bar *baz bim</strong> bam</em></p>", "CommonMark");
         }
 
         // Rule 16:        
@@ -10707,12 +8472,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>**foo <strong>bar baz</strong></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**foo **bar baz**", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>**foo <strong>bar baz</strong></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**foo **bar baz**", "<p>**foo <strong>bar baz</strong></p>", "CommonMark");
         }
         
         [Fact]
@@ -10724,12 +8484,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*foo <em>bar baz</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo *bar baz*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>*foo <em>bar baz</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo *bar baz*", "<p>*foo <em>bar baz</em></p>", "CommonMark");
         }
 
         // Rule 17:        
@@ -10742,12 +8497,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*<a href="/url">bar*</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*[bar*](/url)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>*<a href=\"/url\">bar*</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*[bar*](/url)", "<p>*<a href=\"/url\">bar*</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -10759,12 +8509,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_foo <a href="/url">bar_</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_foo [bar_](/url)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>_foo <a href=\"/url\">bar_</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_foo [bar_](/url)", "<p>_foo <a href=\"/url\">bar_</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -10776,12 +8521,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*<img src="foo" title="*"/></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*<img src=\"foo\" title=\"*\"/>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>*<img src=\"foo\" title=\"*\"/></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*<img src=\"foo\" title=\"*\"/>", "<p>*<img src=\"foo\" title=\"*\"/></p>", "CommonMark");
         }
         
         [Fact]
@@ -10793,12 +8533,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>**<a href="**"></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**<a href=\"**\">", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>**<a href=\"**\"></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**<a href=\"**\">", "<p>**<a href=\"**\"></p>", "CommonMark");
         }
         
         [Fact]
@@ -10810,12 +8545,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__<a href="__"></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__<a href=\"__\">", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>__<a href=\"__\"></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__<a href=\"__\">", "<p>__<a href=\"__\"></p>", "CommonMark");
         }
         
         [Fact]
@@ -10827,12 +8557,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>a <code>*</code></em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*a `*`*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>a <code>*</code></em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*a `*`*", "<p><em>a <code>*</code></em></p>", "CommonMark");
         }
         
         [Fact]
@@ -10844,12 +8569,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>a <code>_</code></em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("_a `_`_", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>a <code>_</code></em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("_a `_`_", "<p><em>a <code>_</code></em></p>", "CommonMark");
         }
         
         [Fact]
@@ -10861,12 +8581,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>**a<a href="http://foo.bar/?q=**">http://foo.bar/?q=**</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("**a<http://foo.bar/?q=**>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>**a<a href=\"http://foo.bar/?q=**\">http://foo.bar/?q=**</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("**a<http://foo.bar/?q=**>", "<p>**a<a href=\"http://foo.bar/?q=**\">http://foo.bar/?q=**</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -10878,12 +8593,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__a<a href="http://foo.bar/?q=__">http://foo.bar/?q=__</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("__a<http://foo.bar/?q=__>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>__a<a href=\"http://foo.bar/?q=__\">http://foo.bar/?q=__</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("__a<http://foo.bar/?q=__>", "<p>__a<a href=\"http://foo.bar/?q=__\">http://foo.bar/?q=__</a></p>", "CommonMark");
         }
     }
 
@@ -10968,12 +8678,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri" title="title">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](/uri \"title\")", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/uri\" title=\"title\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](/uri \"title\")", "<p><a href=\"/uri\" title=\"title\">link</a></p>", "CommonMark");
         }
 
         // The title may be omitted:        
@@ -10986,12 +8691,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](/uri)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/uri\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](/uri)", "<p><a href=\"/uri\">link</a></p>", "CommonMark");
         }
 
         // Both the title and the destination may be omitted:        
@@ -11004,12 +8704,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link]()", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link]()", "<p><a href=\"\">link</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -11021,12 +8716,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](<>)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](<>)", "<p><a href=\"\">link</a></p>", "CommonMark");
         }
 
         // The destination cannot contain spaces or line breaks,
@@ -11040,12 +8730,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[link](/my uri)</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](/my uri)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[link](/my uri)</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](/my uri)", "<p>[link](/my uri)</p>", "CommonMark");
         }
         
         [Fact]
@@ -11057,12 +8742,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[link](&lt;/my uri&gt;)</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](</my uri>)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[link](&lt;/my uri&gt;)</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](</my uri>)", "<p>[link](&lt;/my uri&gt;)</p>", "CommonMark");
         }
         
         [Fact]
@@ -11076,12 +8756,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[link](foo
             //     bar)</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](foo\nbar)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[link](foo\nbar)</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](foo\nbar)", "<p>[link](foo\nbar)</p>", "CommonMark");
         }
         
         [Fact]
@@ -11095,12 +8770,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[link](<foo
             //     bar>)</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](<foo\nbar>)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[link](<foo\nbar>)</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](<foo\nbar>)", "<p>[link](<foo\nbar>)</p>", "CommonMark");
         }
 
         // Parentheses inside the link destination may be escaped:        
@@ -11113,12 +8783,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="(foo)">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](\\(foo\\))", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"(foo)\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](\\(foo\\))", "<p><a href=\"(foo)\">link</a></p>", "CommonMark");
         }
 
         // Any number of parentheses are allowed without escaping, as long as they are
@@ -11132,12 +8797,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="foo(and(bar))">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](foo(and(bar)))", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"foo(and(bar))\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](foo(and(bar)))", "<p><a href=\"foo(and(bar))\">link</a></p>", "CommonMark");
         }
 
         // However, if you have unbalanced parentheses, you need to escape or use the
@@ -11151,12 +8811,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="foo(and(bar)">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](foo\\(and\\(bar\\))", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"foo(and(bar)\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](foo\\(and\\(bar\\))", "<p><a href=\"foo(and(bar)\">link</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -11168,12 +8823,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="foo(and(bar)">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](<foo(and(bar)>)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"foo(and(bar)\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](<foo(and(bar)>)", "<p><a href=\"foo(and(bar)\">link</a></p>", "CommonMark");
         }
 
         // Parentheses and other symbols can also be escaped, as usual
@@ -11187,12 +8837,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="foo):">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](foo\\)\\:)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"foo):\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](foo\\)\\:)", "<p><a href=\"foo):\">link</a></p>", "CommonMark");
         }
 
         // A link can contain fragment identifiers and queries:        
@@ -11211,12 +8856,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><a href="http://example.com#fragment">link</a></p>
             //     <p><a href="http://example.com?foo=3#frag">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](#fragment)\n\n[link](http://example.com#fragment)\n\n[link](http://example.com?foo=3#frag)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"#fragment\">link</a></p>\n<p><a href=\"http://example.com#fragment\">link</a></p>\n<p><a href=\"http://example.com?foo=3#frag\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](#fragment)\n\n[link](http://example.com#fragment)\n\n[link](http://example.com?foo=3#frag)", "<p><a href=\"#fragment\">link</a></p>\n<p><a href=\"http://example.com#fragment\">link</a></p>\n<p><a href=\"http://example.com?foo=3#frag\">link</a></p>", "CommonMark");
         }
 
         // Note that a backslash before a non-escapable character is
@@ -11230,12 +8870,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="foo%5Cbar">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](foo\\bar)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"foo%5Cbar\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](foo\\bar)", "<p><a href=\"foo%5Cbar\">link</a></p>", "CommonMark");
         }
 
         // URL-escaping should be left alone inside the destination, as all
@@ -11255,12 +8890,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="foo%20b%C3%A4">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](foo%20b&auml;)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"foo%20b%C3%A4\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](foo%20b&auml;)", "<p><a href=\"foo%20b%C3%A4\">link</a></p>", "CommonMark");
         }
 
         // Note that, because titles can often be parsed as destinations,
@@ -11275,12 +8905,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="%22title%22">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](\"title\")", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"%22title%22\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](\"title\")", "<p><a href=\"%22title%22\">link</a></p>", "CommonMark");
         }
 
         // Titles may be in single quotes, double quotes, or parentheses:        
@@ -11297,12 +8922,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <a href="/url" title="title">link</a>
             //     <a href="/url" title="title">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](/url \"title\")\n[link](/url 'title')\n[link](/url (title))", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\" title=\"title\">link</a>\n<a href=\"/url\" title=\"title\">link</a>\n<a href=\"/url\" title=\"title\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](/url \"title\")\n[link](/url 'title')\n[link](/url (title))", "<p><a href=\"/url\" title=\"title\">link</a>\n<a href=\"/url\" title=\"title\">link</a>\n<a href=\"/url\" title=\"title\">link</a></p>", "CommonMark");
         }
 
         // Backslash escapes and entity and numeric character references
@@ -11316,12 +8936,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title &quot;&quot;">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](/url \"title \\\"&quot;\")", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\" title=\"title &quot;&quot;\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](/url \"title \\\"&quot;\")", "<p><a href=\"/url\" title=\"title &quot;&quot;\">link</a></p>", "CommonMark");
         }
 
         // Titles must be separated from the link using a [whitespace].
@@ -11335,12 +8950,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url%C2%A0%22title%22">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](/url \"title\")", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url%C2%A0%22title%22\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](/url \"title\")", "<p><a href=\"/url%C2%A0%22title%22\">link</a></p>", "CommonMark");
         }
 
         // Nested balanced quotes are not allowed without escaping:        
@@ -11353,12 +8963,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[link](/url &quot;title &quot;and&quot; title&quot;)</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](/url \"title \"and\" title\")", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[link](/url &quot;title &quot;and&quot; title&quot;)</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](/url \"title \"and\" title\")", "<p>[link](/url &quot;title &quot;and&quot; title&quot;)</p>", "CommonMark");
         }
 
         // But it is easy to work around this by using a different quote type:        
@@ -11371,12 +8976,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title &quot;and&quot; title">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](/url 'title \"and\" title')", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\" title=\"title &quot;and&quot; title\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](/url 'title \"and\" title')", "<p><a href=\"/url\" title=\"title &quot;and&quot; title\">link</a></p>", "CommonMark");
         }
 
         // (Note:  `Markdown.pl` did allow double quotes inside a double-quoted
@@ -11405,12 +9005,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri" title="title">link</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link](   /uri\n  \"title\"  )", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/uri\" title=\"title\">link</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link](   /uri\n  \"title\"  )", "<p><a href=\"/uri\" title=\"title\">link</a></p>", "CommonMark");
         }
 
         // But it is not allowed between the link text and the
@@ -11424,12 +9019,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[link] (/uri)</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link] (/uri)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[link] (/uri)</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link] (/uri)", "<p>[link] (/uri)</p>", "CommonMark");
         }
 
         // The link text may contain balanced brackets, but not unbalanced ones,
@@ -11443,12 +9033,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">link [foo [bar]]</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link [foo [bar]]](/uri)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/uri\">link [foo [bar]]</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link [foo [bar]]](/uri)", "<p><a href=\"/uri\">link [foo [bar]]</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -11460,12 +9045,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[link] bar](/uri)</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link] bar](/uri)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[link] bar](/uri)</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link] bar](/uri)", "<p>[link] bar](/uri)</p>", "CommonMark");
         }
         
         [Fact]
@@ -11477,12 +9057,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[link <a href="/uri">bar</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link [bar](/uri)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[link <a href=\"/uri\">bar</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link [bar](/uri)", "<p>[link <a href=\"/uri\">bar</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -11494,12 +9069,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">link [bar</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link \\[bar](/uri)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/uri\">link [bar</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link \\[bar](/uri)", "<p><a href=\"/uri\">link [bar</a></p>", "CommonMark");
         }
 
         // The link text may contain inline content:        
@@ -11512,12 +9082,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link *foo **bar** `#`*](/uri)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/uri\">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link *foo **bar** `#`*](/uri)", "<p><a href=\"/uri\">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>", "CommonMark");
         }
         
         [Fact]
@@ -11529,12 +9094,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri"><img src="moon.jpg" alt="moon" /></a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[![moon](moon.jpg)](/uri)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/uri\"><img src=\"moon.jpg\" alt=\"moon\" /></a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[![moon](moon.jpg)](/uri)", "<p><a href=\"/uri\"><img src=\"moon.jpg\" alt=\"moon\" /></a></p>", "CommonMark");
         }
 
         // However, links may not contain other links, at any level of nesting.        
@@ -11547,12 +9107,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo <a href="/uri">bar</a>](/uri)</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo [bar](/uri)](/uri)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo <a href=\"/uri\">bar</a>](/uri)</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo [bar](/uri)](/uri)", "<p>[foo <a href=\"/uri\">bar</a>](/uri)</p>", "CommonMark");
         }
         
         [Fact]
@@ -11564,12 +9119,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo <em>[bar <a href="/uri">baz</a>](/uri)</em>](/uri)</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo *[bar [baz](/uri)](/uri)*](/uri)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo <em>[bar <a href=\"/uri\">baz</a>](/uri)</em>](/uri)</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo *[bar [baz](/uri)](/uri)*](/uri)", "<p>[foo <em>[bar <a href=\"/uri\">baz</a>](/uri)</em>](/uri)</p>", "CommonMark");
         }
         
         [Fact]
@@ -11581,12 +9131,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="uri3" alt="[foo](uri2)" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![[[foo](uri1)](uri2)](uri3)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"uri3\" alt=\"[foo](uri2)\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![[[foo](uri1)](uri2)](uri3)", "<p><img src=\"uri3\" alt=\"[foo](uri2)\" /></p>", "CommonMark");
         }
 
         // These cases illustrate the precedence of link text grouping over
@@ -11600,12 +9145,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*<a href="/uri">foo*</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*[foo*](/uri)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>*<a href=\"/uri\">foo*</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*[foo*](/uri)", "<p>*<a href=\"/uri\">foo*</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -11617,12 +9157,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="baz*">foo *bar</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo *bar](baz*)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"baz*\">foo *bar</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo *bar](baz*)", "<p><a href=\"baz*\">foo *bar</a></p>", "CommonMark");
         }
 
         // Note that brackets that *aren't* part of links do not take
@@ -11636,12 +9171,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo [bar</em> baz]</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo [bar* baz]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo [bar</em> baz]</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo [bar* baz]", "<p><em>foo [bar</em> baz]</p>", "CommonMark");
         }
 
         // These cases illustrate the precedence of HTML tags, code spans,
@@ -11655,12 +9185,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo <bar attr="](baz)"></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo <bar attr=\"](baz)\">", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo <bar attr=\"](baz)\"></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo <bar attr=\"](baz)\">", "<p>[foo <bar attr=\"](baz)\"></p>", "CommonMark");
         }
         
         [Fact]
@@ -11672,12 +9197,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo<code>](/uri)</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo`](/uri)`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo<code>](/uri)</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo`](/uri)`", "<p>[foo<code>](/uri)</code></p>", "CommonMark");
         }
         
         [Fact]
@@ -11689,12 +9209,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo<a href="http://example.com/?search=%5D(uri)">http://example.com/?search=](uri)</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo<http://example.com/?search=](uri)>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo<a href=\"http://example.com/?search=%5D(uri)\">http://example.com/?search=](uri)</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo<http://example.com/?search=](uri)>", "<p>[foo<a href=\"http://example.com/?search=%5D(uri)\">http://example.com/?search=](uri)</a></p>", "CommonMark");
         }
 
         // There are three kinds of [reference link](@)s:
@@ -11738,12 +9253,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo][bar]\n\n[bar]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\" title=\"title\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo][bar]\n\n[bar]: /url \"title\"", "<p><a href=\"/url\" title=\"title\">foo</a></p>", "CommonMark");
         }
 
         // The rules for the [link text] are the same as with
@@ -11762,12 +9272,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">link [foo [bar]]</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link [foo [bar]]][ref]\n\n[ref]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/uri\">link [foo [bar]]</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link [foo [bar]]][ref]\n\n[ref]: /uri", "<p><a href=\"/uri\">link [foo [bar]]</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -11781,12 +9286,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">link [bar</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link \\[bar][ref]\n\n[ref]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/uri\">link [bar</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link \\[bar][ref]\n\n[ref]: /uri", "<p><a href=\"/uri\">link [bar</a></p>", "CommonMark");
         }
 
         // The link text may contain inline content:        
@@ -11801,12 +9301,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[link *foo **bar** `#`*][ref]\n\n[ref]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/uri\">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[link *foo **bar** `#`*][ref]\n\n[ref]: /uri", "<p><a href=\"/uri\">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>", "CommonMark");
         }
         
         [Fact]
@@ -11820,12 +9315,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri"><img src="moon.jpg" alt="moon" /></a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[![moon](moon.jpg)][ref]\n\n[ref]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/uri\"><img src=\"moon.jpg\" alt=\"moon\" /></a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[![moon](moon.jpg)][ref]\n\n[ref]: /uri", "<p><a href=\"/uri\"><img src=\"moon.jpg\" alt=\"moon\" /></a></p>", "CommonMark");
         }
 
         // However, links may not contain other links, at any level of nesting.        
@@ -11840,12 +9330,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo <a href="/uri">bar</a>]<a href="/uri">ref</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo [bar](/uri)][ref]\n\n[ref]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo <a href=\"/uri\">bar</a>]<a href=\"/uri\">ref</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo [bar](/uri)][ref]\n\n[ref]: /uri", "<p>[foo <a href=\"/uri\">bar</a>]<a href=\"/uri\">ref</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -11859,12 +9344,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo <em>bar <a href="/uri">baz</a></em>]<a href="/uri">ref</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo *bar [baz][ref]*][ref]\n\n[ref]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo <em>bar <a href=\"/uri\">baz</a></em>]<a href=\"/uri\">ref</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo *bar [baz][ref]*][ref]\n\n[ref]: /uri", "<p>[foo <em>bar <a href=\"/uri\">baz</a></em>]<a href=\"/uri\">ref</a></p>", "CommonMark");
         }
 
         // (In the examples above, we have two [shortcut reference links]
@@ -11883,12 +9363,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*<a href="/uri">foo*</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*[foo*][ref]\n\n[ref]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>*<a href=\"/uri\">foo*</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*[foo*][ref]\n\n[ref]: /uri", "<p>*<a href=\"/uri\">foo*</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -11902,12 +9377,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">foo *bar</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo *bar][ref]\n\n[ref]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/uri\">foo *bar</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo *bar][ref]\n\n[ref]: /uri", "<p><a href=\"/uri\">foo *bar</a></p>", "CommonMark");
         }
 
         // These cases illustrate the precedence of HTML tags, code spans,
@@ -11923,12 +9393,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo <bar attr="][ref]"></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo <bar attr=\"][ref]\">\n\n[ref]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo <bar attr=\"][ref]\"></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo <bar attr=\"][ref]\">\n\n[ref]: /uri", "<p>[foo <bar attr=\"][ref]\"></p>", "CommonMark");
         }
         
         [Fact]
@@ -11942,12 +9407,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo<code>][ref]</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo`][ref]`\n\n[ref]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo<code>][ref]</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo`][ref]`\n\n[ref]: /uri", "<p>[foo<code>][ref]</code></p>", "CommonMark");
         }
         
         [Fact]
@@ -11961,12 +9421,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo<a href="http://example.com/?search=%5D%5Bref%5D">http://example.com/?search=][ref]</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo<http://example.com/?search=][ref]>\n\n[ref]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo<a href=\"http://example.com/?search=%5D%5Bref%5D\">http://example.com/?search=][ref]</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo<http://example.com/?search=][ref]>\n\n[ref]: /uri", "<p>[foo<a href=\"http://example.com/?search=%5D%5Bref%5D\">http://example.com/?search=][ref]</a></p>", "CommonMark");
         }
 
         // Matching is case-insensitive:        
@@ -11981,12 +9436,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo][BaR]\n\n[bar]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\" title=\"title\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo][BaR]\n\n[bar]: /url \"title\"", "<p><a href=\"/url\" title=\"title\">foo</a></p>", "CommonMark");
         }
 
         // Unicode case fold is used:        
@@ -12001,12 +9451,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url">Толпой</a> is a Russian word.</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[Толпой][Толпой] is a Russian word.\n\n[ТОЛПОЙ]: /url", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\">Толпой</a> is a Russian word.</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[Толпой][Толпой] is a Russian word.\n\n[ТОЛПОЙ]: /url", "<p><a href=\"/url\">Толпой</a> is a Russian word.</p>", "CommonMark");
         }
 
         // Consecutive internal [whitespace] is treated as one space for
@@ -12023,12 +9468,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url">Baz</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[Foo\n  bar]: /url\n\n[Baz][Foo bar]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\">Baz</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[Foo\n  bar]: /url\n\n[Baz][Foo bar]", "<p><a href=\"/url\">Baz</a></p>", "CommonMark");
         }
 
         // No [whitespace] is allowed between the [link text] and the
@@ -12044,12 +9484,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo] <a href="/url" title="title">bar</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo] [bar]\n\n[bar]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo] <a href=\"/url\" title=\"title\">bar</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo] [bar]\n\n[bar]: /url \"title\"", "<p>[foo] <a href=\"/url\" title=\"title\">bar</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -12065,12 +9500,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[foo]
             //     <a href="/url" title="title">bar</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]\n[bar]\n\n[bar]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo]\n<a href=\"/url\" title=\"title\">bar</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]\n[bar]\n\n[bar]: /url \"title\"", "<p>[foo]\n<a href=\"/url\" title=\"title\">bar</a></p>", "CommonMark");
         }
 
         // This is a departure from John Gruber's original Markdown syntax
@@ -12115,12 +9545,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url1">bar</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]: /url1\n\n[foo]: /url2\n\n[bar][foo]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url1\">bar</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]: /url1\n\n[foo]: /url2\n\n[bar][foo]", "<p><a href=\"/url1\">bar</a></p>", "CommonMark");
         }
 
         // Note that matching is performed on normalized strings, not parsed
@@ -12137,12 +9562,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[bar][foo!]</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[bar][foo\\!]\n\n[foo!]: /url", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[bar][foo!]</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[bar][foo\\!]\n\n[foo!]: /url", "<p>[bar][foo!]</p>", "CommonMark");
         }
 
         // [Link labels] cannot contain brackets, unless they are
@@ -12159,12 +9579,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[foo][ref[]</p>
             //     <p>[ref[]: /uri</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo][ref[]\n\n[ref[]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo][ref[]</p>\n<p>[ref[]: /uri</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo][ref[]\n\n[ref[]: /uri", "<p>[foo][ref[]</p>\n<p>[ref[]: /uri</p>", "CommonMark");
         }
         
         [Fact]
@@ -12179,12 +9594,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[foo][ref[bar]]</p>
             //     <p>[ref[bar]]: /uri</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo][ref[bar]]\n\n[ref[bar]]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo][ref[bar]]</p>\n<p>[ref[bar]]: /uri</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo][ref[bar]]\n\n[ref[bar]]: /uri", "<p>[foo][ref[bar]]</p>\n<p>[ref[bar]]: /uri</p>", "CommonMark");
         }
         
         [Fact]
@@ -12199,12 +9609,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[[[foo]]]</p>
             //     <p>[[[foo]]]: /url</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[[[foo]]]\n\n[[[foo]]]: /url", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[[[foo]]]</p>\n<p>[[[foo]]]: /url</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[[[foo]]]\n\n[[[foo]]]: /url", "<p>[[[foo]]]</p>\n<p>[[[foo]]]: /url</p>", "CommonMark");
         }
         
         [Fact]
@@ -12218,12 +9623,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo][ref\\[]\n\n[ref\\[]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/uri\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo][ref\\[]\n\n[ref\\[]: /uri", "<p><a href=\"/uri\">foo</a></p>", "CommonMark");
         }
 
         // Note that in this example `]` is not backslash-escaped:        
@@ -12238,12 +9638,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">bar\</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[bar\\\\]: /uri\n\n[bar\\\\]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/uri\">bar\\</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[bar\\\\]: /uri\n\n[bar\\\\]", "<p><a href=\"/uri\">bar\\</a></p>", "CommonMark");
         }
 
         // A [link label] must contain at least one [non-whitespace character]:        
@@ -12259,12 +9654,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[]</p>
             //     <p>[]: /uri</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[]\n\n[]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[]</p>\n<p>[]: /uri</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[]\n\n[]: /uri", "<p>[]</p>\n<p>[]: /uri</p>", "CommonMark");
         }
         
         [Fact]
@@ -12283,12 +9673,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[
             //     ]: /uri</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[\n ]\n\n[\n ]: /uri", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[\n]</p>\n<p>[\n]: /uri</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[\n ]\n\n[\n ]: /uri", "<p>[\n]</p>\n<p>[\n]: /uri</p>", "CommonMark");
         }
 
         // A [collapsed reference link](@)
@@ -12310,12 +9695,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo][]\n\n[foo]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\" title=\"title\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo][]\n\n[foo]: /url \"title\"", "<p><a href=\"/url\" title=\"title\">foo</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -12329,12 +9709,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title"><em>foo</em> bar</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[*foo* bar][]\n\n[*foo* bar]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\" title=\"title\"><em>foo</em> bar</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[*foo* bar][]\n\n[*foo* bar]: /url \"title\"", "<p><a href=\"/url\" title=\"title\"><em>foo</em> bar</a></p>", "CommonMark");
         }
 
         // The link labels are case-insensitive:        
@@ -12349,12 +9724,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title">Foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[Foo][]\n\n[foo]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\" title=\"title\">Foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[Foo][]\n\n[foo]: /url \"title\"", "<p><a href=\"/url\" title=\"title\">Foo</a></p>", "CommonMark");
         }
 
         // As with full reference links, [whitespace] is not
@@ -12372,12 +9742,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><a href="/url" title="title">foo</a>
             //     []</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo] \n[]\n\n[foo]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\" title=\"title\">foo</a>\n[]</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo] \n[]\n\n[foo]: /url \"title\"", "<p><a href=\"/url\" title=\"title\">foo</a>\n[]</p>", "CommonMark");
         }
 
         // A [shortcut reference link](@)
@@ -12399,12 +9764,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]\n\n[foo]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\" title=\"title\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: /url \"title\"", "<p><a href=\"/url\" title=\"title\">foo</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -12418,12 +9778,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title"><em>foo</em> bar</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[*foo* bar]\n\n[*foo* bar]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\" title=\"title\"><em>foo</em> bar</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[*foo* bar]\n\n[*foo* bar]: /url \"title\"", "<p><a href=\"/url\" title=\"title\"><em>foo</em> bar</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -12437,12 +9792,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[<a href="/url" title="title"><em>foo</em> bar</a>]</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[[*foo* bar]]\n\n[*foo* bar]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[<a href=\"/url\" title=\"title\"><em>foo</em> bar</a>]</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[[*foo* bar]]\n\n[*foo* bar]: /url \"title\"", "<p>[<a href=\"/url\" title=\"title\"><em>foo</em> bar</a>]</p>", "CommonMark");
         }
         
         [Fact]
@@ -12456,12 +9806,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[[bar <a href="/url">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[[bar [foo]\n\n[foo]: /url", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[[bar <a href=\"/url\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[[bar [foo]\n\n[foo]: /url", "<p>[[bar <a href=\"/url\">foo</a></p>", "CommonMark");
         }
 
         // The link labels are case-insensitive:        
@@ -12476,12 +9821,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title">Foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[Foo]\n\n[foo]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\" title=\"title\">Foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[Foo]\n\n[foo]: /url \"title\"", "<p><a href=\"/url\" title=\"title\">Foo</a></p>", "CommonMark");
         }
 
         // A space after the link text should be preserved:        
@@ -12496,12 +9836,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url">foo</a> bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo] bar\n\n[foo]: /url", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url\">foo</a> bar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo] bar\n\n[foo]: /url", "<p><a href=\"/url\">foo</a> bar</p>", "CommonMark");
         }
 
         // If you just want bracketed text, you can backslash-escape the
@@ -12517,12 +9852,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo]</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("\\[foo]\n\n[foo]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo]</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("\\[foo]\n\n[foo]: /url \"title\"", "<p>[foo]</p>", "CommonMark");
         }
 
         // Note that this is a link, because a link label ends with the first
@@ -12538,12 +9868,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*<a href="/url">foo*</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo*]: /url\n\n*[foo*]", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>*<a href=\"/url\">foo*</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo*]: /url\n\n*[foo*]", "<p>*<a href=\"/url\">foo*</a></p>", "CommonMark");
         }
 
         // Full and compact references take precedence over shortcut
@@ -12560,12 +9885,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url2">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo][bar]\n\n[foo]: /url1\n[bar]: /url2", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url2\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo][bar]\n\n[foo]: /url1\n[bar]: /url2", "<p><a href=\"/url2\">foo</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -12579,12 +9899,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url1">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo][]\n\n[foo]: /url1", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url1\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo][]\n\n[foo]: /url1", "<p><a href=\"/url1\">foo</a></p>", "CommonMark");
         }
 
         // Inline links also take precedence:        
@@ -12599,12 +9914,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo]()\n\n[foo]: /url1", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo]()\n\n[foo]: /url1", "<p><a href=\"\">foo</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -12618,12 +9928,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url1">foo</a>(not a link)</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo](not a link)\n\n[foo]: /url1", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url1\">foo</a>(not a link)</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo](not a link)\n\n[foo]: /url1", "<p><a href=\"/url1\">foo</a>(not a link)</p>", "CommonMark");
         }
 
         // In the following case `[bar][baz]` is parsed as a reference,
@@ -12639,12 +9944,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo]<a href="/url">bar</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo][bar][baz]\n\n[baz]: /url", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo]<a href=\"/url\">bar</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo][bar][baz]\n\n[baz]: /url", "<p>[foo]<a href=\"/url\">bar</a></p>", "CommonMark");
         }
 
         // Here, though, `[foo][bar]` is parsed as a reference, since
@@ -12661,12 +9961,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url2">foo</a><a href="/url1">baz</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo][bar][baz]\n\n[baz]: /url1\n[bar]: /url2", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"/url2\">foo</a><a href=\"/url1\">baz</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo][bar][baz]\n\n[baz]: /url1\n[bar]: /url2", "<p><a href=\"/url2\">foo</a><a href=\"/url1\">baz</a></p>", "CommonMark");
         }
 
         // Here `[foo]` is not parsed as a shortcut reference, because it
@@ -12683,12 +9978,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo]<a href="/url1">bar</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("[foo][bar][baz]\n\n[baz]: /url1\n[foo]: /url2", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>[foo]<a href=\"/url1\">bar</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("[foo][bar][baz]\n\n[baz]: /url1\n[foo]: /url2", "<p>[foo]<a href=\"/url1\">bar</a></p>", "CommonMark");
         }
     }
 
@@ -12713,12 +10003,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="foo" title="title" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![foo](/url \"title\")", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![foo](/url \"title\")", "<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>", "CommonMark");
         }
         
         [Fact]
@@ -12732,12 +10017,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="train.jpg" alt="foo bar" title="train &amp; tracks" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![foo *bar*]\n\n[foo *bar*]: train.jpg \"train & tracks\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![foo *bar*]\n\n[foo *bar*]: train.jpg \"train & tracks\"", "<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>", "CommonMark");
         }
         
         [Fact]
@@ -12749,12 +10029,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url2" alt="foo bar" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![foo ![bar](/url)](/url2)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"/url2\" alt=\"foo bar\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![foo ![bar](/url)](/url2)", "<p><img src=\"/url2\" alt=\"foo bar\" /></p>", "CommonMark");
         }
         
         [Fact]
@@ -12766,12 +10041,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url2" alt="foo bar" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![foo [bar](/url)](/url2)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"/url2\" alt=\"foo bar\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![foo [bar](/url)](/url2)", "<p><img src=\"/url2\" alt=\"foo bar\" /></p>", "CommonMark");
         }
 
         // Though this spec is concerned with parsing, not rendering, it is
@@ -12791,12 +10061,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="train.jpg" alt="foo bar" title="train &amp; tracks" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![foo *bar*][]\n\n[foo *bar*]: train.jpg \"train & tracks\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![foo *bar*][]\n\n[foo *bar*]: train.jpg \"train & tracks\"", "<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>", "CommonMark");
         }
         
         [Fact]
@@ -12810,12 +10075,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="train.jpg" alt="foo bar" title="train &amp; tracks" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![foo *bar*][foobar]\n\n[FOOBAR]: train.jpg \"train & tracks\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![foo *bar*][foobar]\n\n[FOOBAR]: train.jpg \"train & tracks\"", "<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>", "CommonMark");
         }
         
         [Fact]
@@ -12827,12 +10087,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="train.jpg" alt="foo" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![foo](train.jpg)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"train.jpg\" alt=\"foo\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![foo](train.jpg)", "<p><img src=\"train.jpg\" alt=\"foo\" /></p>", "CommonMark");
         }
         
         [Fact]
@@ -12844,12 +10099,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>My <img src="/path/to/train.jpg" alt="foo bar" title="title" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("My ![foo bar](/path/to/train.jpg  \"title\"   )", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>My <img src=\"/path/to/train.jpg\" alt=\"foo bar\" title=\"title\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("My ![foo bar](/path/to/train.jpg  \"title\"   )", "<p>My <img src=\"/path/to/train.jpg\" alt=\"foo bar\" title=\"title\" /></p>", "CommonMark");
         }
         
         [Fact]
@@ -12861,12 +10111,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="url" alt="foo" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![foo](<url>)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"url\" alt=\"foo\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![foo](<url>)", "<p><img src=\"url\" alt=\"foo\" /></p>", "CommonMark");
         }
         
         [Fact]
@@ -12878,12 +10123,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![](/url)", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"/url\" alt=\"\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![](/url)", "<p><img src=\"/url\" alt=\"\" /></p>", "CommonMark");
         }
 
         // Reference-style:        
@@ -12898,12 +10138,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="foo" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![foo][bar]\n\n[bar]: /url", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"/url\" alt=\"foo\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![foo][bar]\n\n[bar]: /url", "<p><img src=\"/url\" alt=\"foo\" /></p>", "CommonMark");
         }
         
         [Fact]
@@ -12917,12 +10152,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="foo" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![foo][bar]\n\n[BAR]: /url", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"/url\" alt=\"foo\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![foo][bar]\n\n[BAR]: /url", "<p><img src=\"/url\" alt=\"foo\" /></p>", "CommonMark");
         }
 
         // Collapsed:        
@@ -12937,12 +10167,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="foo" title="title" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![foo][]\n\n[foo]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![foo][]\n\n[foo]: /url \"title\"", "<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>", "CommonMark");
         }
         
         [Fact]
@@ -12956,12 +10181,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="foo bar" title="title" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![*foo* bar][]\n\n[*foo* bar]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"/url\" alt=\"foo bar\" title=\"title\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![*foo* bar][]\n\n[*foo* bar]: /url \"title\"", "<p><img src=\"/url\" alt=\"foo bar\" title=\"title\" /></p>", "CommonMark");
         }
 
         // The labels are case-insensitive:        
@@ -12976,12 +10196,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="Foo" title="title" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![Foo][]\n\n[foo]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"/url\" alt=\"Foo\" title=\"title\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![Foo][]\n\n[foo]: /url \"title\"", "<p><img src=\"/url\" alt=\"Foo\" title=\"title\" /></p>", "CommonMark");
         }
 
         // As with reference links, [whitespace] is not allowed
@@ -12999,12 +10214,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><img src="/url" alt="foo" title="title" />
             //     []</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![foo] \n[]\n\n[foo]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"/url\" alt=\"foo\" title=\"title\" />\n[]</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![foo] \n[]\n\n[foo]: /url \"title\"", "<p><img src=\"/url\" alt=\"foo\" title=\"title\" />\n[]</p>", "CommonMark");
         }
 
         // Shortcut:        
@@ -13019,12 +10229,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="foo" title="title" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![foo]\n\n[foo]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![foo]\n\n[foo]: /url \"title\"", "<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>", "CommonMark");
         }
         
         [Fact]
@@ -13038,12 +10243,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="foo bar" title="title" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![*foo* bar]\n\n[*foo* bar]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"/url\" alt=\"foo bar\" title=\"title\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![*foo* bar]\n\n[*foo* bar]: /url \"title\"", "<p><img src=\"/url\" alt=\"foo bar\" title=\"title\" /></p>", "CommonMark");
         }
 
         // Note that link labels cannot contain unescaped brackets:        
@@ -13059,12 +10259,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>![[foo]]</p>
             //     <p>[[foo]]: /url &quot;title&quot;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![[foo]]\n\n[[foo]]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>![[foo]]</p>\n<p>[[foo]]: /url &quot;title&quot;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![[foo]]\n\n[[foo]]: /url \"title\"", "<p>![[foo]]</p>\n<p>[[foo]]: /url &quot;title&quot;</p>", "CommonMark");
         }
 
         // The link labels are case-insensitive:        
@@ -13079,12 +10274,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="Foo" title="title" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("![Foo]\n\n[foo]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><img src=\"/url\" alt=\"Foo\" title=\"title\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("![Foo]\n\n[foo]: /url \"title\"", "<p><img src=\"/url\" alt=\"Foo\" title=\"title\" /></p>", "CommonMark");
         }
 
         // If you just want a literal `!` followed by bracketed text, you can
@@ -13100,12 +10290,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>![foo]</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("!\\[foo]\n\n[foo]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>![foo]</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("!\\[foo]\n\n[foo]: /url \"title\"", "<p>![foo]</p>", "CommonMark");
         }
 
         // If you want a link after a literal `!`, backslash-escape the
@@ -13121,12 +10306,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>!<a href="/url" title="title">foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("\\![foo]\n\n[foo]: /url \"title\"", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>!<a href=\"/url\" title=\"title\">foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("\\![foo]\n\n[foo]: /url \"title\"", "<p>!<a href=\"/url\" title=\"title\">foo</a></p>", "CommonMark");
         }
     }
 
@@ -13162,12 +10342,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="http://foo.bar.baz">http://foo.bar.baz</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<http://foo.bar.baz>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"http://foo.bar.baz\">http://foo.bar.baz</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<http://foo.bar.baz>", "<p><a href=\"http://foo.bar.baz\">http://foo.bar.baz</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -13179,12 +10354,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean">http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<http://foo.bar.baz/test?q=hello&id=22&boolean>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean\">http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<http://foo.bar.baz/test?q=hello&id=22&boolean>", "<p><a href=\"http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean\">http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -13196,12 +10366,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="irc://foo.bar:2233/baz">irc://foo.bar:2233/baz</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<irc://foo.bar:2233/baz>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"irc://foo.bar:2233/baz\">irc://foo.bar:2233/baz</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<irc://foo.bar:2233/baz>", "<p><a href=\"irc://foo.bar:2233/baz\">irc://foo.bar:2233/baz</a></p>", "CommonMark");
         }
 
         // Uppercase is also fine:        
@@ -13214,12 +10379,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="MAILTO:FOO@BAR.BAZ">MAILTO:FOO@BAR.BAZ</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<MAILTO:FOO@BAR.BAZ>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"MAILTO:FOO@BAR.BAZ\">MAILTO:FOO@BAR.BAZ</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<MAILTO:FOO@BAR.BAZ>", "<p><a href=\"MAILTO:FOO@BAR.BAZ\">MAILTO:FOO@BAR.BAZ</a></p>", "CommonMark");
         }
 
         // Note that many strings that count as [absolute URIs] for
@@ -13235,12 +10395,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="a+b+c:d">a+b+c:d</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<a+b+c:d>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"a+b+c:d\">a+b+c:d</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<a+b+c:d>", "<p><a href=\"a+b+c:d\">a+b+c:d</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -13252,12 +10407,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="made-up-scheme://foo,bar">made-up-scheme://foo,bar</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<made-up-scheme://foo,bar>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"made-up-scheme://foo,bar\">made-up-scheme://foo,bar</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<made-up-scheme://foo,bar>", "<p><a href=\"made-up-scheme://foo,bar\">made-up-scheme://foo,bar</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -13269,12 +10419,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="http://../">http://../</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<http://../>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"http://../\">http://../</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<http://../>", "<p><a href=\"http://../\">http://../</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -13286,12 +10431,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="localhost:5001/foo">localhost:5001/foo</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<localhost:5001/foo>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"localhost:5001/foo\">localhost:5001/foo</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<localhost:5001/foo>", "<p><a href=\"localhost:5001/foo\">localhost:5001/foo</a></p>", "CommonMark");
         }
 
         // Spaces are not allowed in autolinks:        
@@ -13304,12 +10444,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;http://foo.bar/baz bim&gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<http://foo.bar/baz bim>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&lt;http://foo.bar/baz bim&gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<http://foo.bar/baz bim>", "<p>&lt;http://foo.bar/baz bim&gt;</p>", "CommonMark");
         }
 
         // Backslash-escapes do not work inside autolinks:        
@@ -13322,12 +10457,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="http://example.com/%5C%5B%5C">http://example.com/\[\</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<http://example.com/\\[\\>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"http://example.com/%5C%5B%5C\">http://example.com/\\[\\</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<http://example.com/\\[\\>", "<p><a href=\"http://example.com/%5C%5B%5C\">http://example.com/\\[\\</a></p>", "CommonMark");
         }
 
         // An [email autolink](@)
@@ -13353,12 +10483,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="mailto:foo@bar.example.com">foo@bar.example.com</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<foo@bar.example.com>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"mailto:foo@bar.example.com\">foo@bar.example.com</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<foo@bar.example.com>", "<p><a href=\"mailto:foo@bar.example.com\">foo@bar.example.com</a></p>", "CommonMark");
         }
         
         [Fact]
@@ -13370,12 +10495,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="mailto:foo+special@Bar.baz-bar0.com">foo+special@Bar.baz-bar0.com</a></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<foo+special@Bar.baz-bar0.com>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"mailto:foo+special@Bar.baz-bar0.com\">foo+special@Bar.baz-bar0.com</a></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<foo+special@Bar.baz-bar0.com>", "<p><a href=\"mailto:foo+special@Bar.baz-bar0.com\">foo+special@Bar.baz-bar0.com</a></p>", "CommonMark");
         }
 
         // Backslash-escapes do not work inside email autolinks:        
@@ -13388,12 +10508,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;foo+@bar.example.com&gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<foo\\+@bar.example.com>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&lt;foo+@bar.example.com&gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<foo\\+@bar.example.com>", "<p>&lt;foo+@bar.example.com&gt;</p>", "CommonMark");
         }
 
         // These are not autolinks:        
@@ -13406,12 +10521,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;&gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&lt;&gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<>", "<p>&lt;&gt;</p>", "CommonMark");
         }
         
         [Fact]
@@ -13423,12 +10533,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt; http://foo.bar &gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("< http://foo.bar >", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&lt; http://foo.bar &gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("< http://foo.bar >", "<p>&lt; http://foo.bar &gt;</p>", "CommonMark");
         }
         
         [Fact]
@@ -13440,12 +10545,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;m:abc&gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<m:abc>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&lt;m:abc&gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<m:abc>", "<p>&lt;m:abc&gt;</p>", "CommonMark");
         }
         
         [Fact]
@@ -13457,12 +10557,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;foo.bar.baz&gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<foo.bar.baz>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&lt;foo.bar.baz&gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<foo.bar.baz>", "<p>&lt;foo.bar.baz&gt;</p>", "CommonMark");
         }
         
         [Fact]
@@ -13474,12 +10569,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>http://example.com</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("http://example.com", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>http://example.com</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("http://example.com", "<p>http://example.com</p>", "CommonMark");
         }
         
         [Fact]
@@ -13491,12 +10581,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo@bar.example.com</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo@bar.example.com", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo@bar.example.com</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo@bar.example.com", "<p>foo@bar.example.com</p>", "CommonMark");
         }
     }
 
@@ -13583,12 +10668,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a><bab><c2c></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<a><bab><c2c>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a><bab><c2c></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<a><bab><c2c>", "<p><a><bab><c2c></p>", "CommonMark");
         }
 
         // Empty elements:        
@@ -13601,12 +10681,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a/><b2/></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<a/><b2/>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a/><b2/></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<a/><b2/>", "<p><a/><b2/></p>", "CommonMark");
         }
 
         // [Whitespace] is allowed:        
@@ -13621,12 +10696,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><a  /><b2
             //     data="foo" ></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<a  /><b2\ndata=\"foo\" >", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a  /><b2\ndata=\"foo\" ></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<a  /><b2\ndata=\"foo\" >", "<p><a  /><b2\ndata=\"foo\" ></p>", "CommonMark");
         }
 
         // With attributes:        
@@ -13641,12 +10711,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><a foo="bar" bam = 'baz <em>"</em>'
             //     _boolean zoop:33=zoop:33 /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<a foo=\"bar\" bam = 'baz <em>\"</em>'\n_boolean zoop:33=zoop:33 />", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a foo=\"bar\" bam = 'baz <em>\"</em>'\n_boolean zoop:33=zoop:33 /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<a foo=\"bar\" bam = 'baz <em>\"</em>'\n_boolean zoop:33=zoop:33 />", "<p><a foo=\"bar\" bam = 'baz <em>\"</em>'\n_boolean zoop:33=zoop:33 /></p>", "CommonMark");
         }
 
         // Custom tag names can be used:        
@@ -13659,12 +10724,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>Foo <responsive-image src="foo.jpg" /></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo <responsive-image src=\"foo.jpg\" />", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo <responsive-image src=\"foo.jpg\" /></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo <responsive-image src=\"foo.jpg\" />", "<p>Foo <responsive-image src=\"foo.jpg\" /></p>", "CommonMark");
         }
 
         // Illegal tag names, not parsed as HTML:        
@@ -13677,12 +10737,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;33&gt; &lt;__&gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<33> <__>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&lt;33&gt; &lt;__&gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<33> <__>", "<p>&lt;33&gt; &lt;__&gt;</p>", "CommonMark");
         }
 
         // Illegal attribute names:        
@@ -13695,12 +10750,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;a h*#ref=&quot;hi&quot;&gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<a h*#ref=\"hi\">", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&lt;a h*#ref=&quot;hi&quot;&gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<a h*#ref=\"hi\">", "<p>&lt;a h*#ref=&quot;hi&quot;&gt;</p>", "CommonMark");
         }
 
         // Illegal attribute values:        
@@ -13713,12 +10763,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;a href=&quot;hi'&gt; &lt;a href=hi'&gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<a href=\"hi'> <a href=hi'>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&lt;a href=&quot;hi'&gt; &lt;a href=hi'&gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<a href=\"hi'> <a href=hi'>", "<p>&lt;a href=&quot;hi'&gt; &lt;a href=hi'&gt;</p>", "CommonMark");
         }
 
         // Illegal [whitespace]:        
@@ -13733,12 +10778,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>&lt; a&gt;&lt;
             //     foo&gt;&lt;bar/ &gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("< a><\nfoo><bar/ >", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&lt; a&gt;&lt;\nfoo&gt;&lt;bar/ &gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("< a><\nfoo><bar/ >", "<p>&lt; a&gt;&lt;\nfoo&gt;&lt;bar/ &gt;</p>", "CommonMark");
         }
 
         // Missing [whitespace]:        
@@ -13751,12 +10791,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;a href='bar'title=title&gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<a href='bar'title=title>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&lt;a href='bar'title=title&gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<a href='bar'title=title>", "<p>&lt;a href='bar'title=title&gt;</p>", "CommonMark");
         }
 
         // Closing tags:        
@@ -13769,12 +10804,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p></a></foo ></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("</a></foo >", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p></a></foo ></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("</a></foo >", "<p></a></foo ></p>", "CommonMark");
         }
 
         // Illegal attributes in closing tag:        
@@ -13787,12 +10817,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;/a href=&quot;foo&quot;&gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("</a href=\"foo\">", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&lt;/a href=&quot;foo&quot;&gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("</a href=\"foo\">", "<p>&lt;/a href=&quot;foo&quot;&gt;</p>", "CommonMark");
         }
 
         // Comments:        
@@ -13807,12 +10832,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo <!-- this is a
             //     comment - with hyphen --></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo <!-- this is a\ncomment - with hyphen -->", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo <!-- this is a\ncomment - with hyphen --></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo <!-- this is a\ncomment - with hyphen -->", "<p>foo <!-- this is a\ncomment - with hyphen --></p>", "CommonMark");
         }
         
         [Fact]
@@ -13824,12 +10844,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo &lt;!-- not a comment -- two hyphens --&gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo <!-- not a comment -- two hyphens -->", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo &lt;!-- not a comment -- two hyphens --&gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo <!-- not a comment -- two hyphens -->", "<p>foo &lt;!-- not a comment -- two hyphens --&gt;</p>", "CommonMark");
         }
 
         // Not comments:        
@@ -13845,12 +10860,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo &lt;!--&gt; foo --&gt;</p>
             //     <p>foo &lt;!-- foo---&gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo <!--> foo -->\n\nfoo <!-- foo--->", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo &lt;!--&gt; foo --&gt;</p>\n<p>foo &lt;!-- foo---&gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo <!--> foo -->\n\nfoo <!-- foo--->", "<p>foo &lt;!--&gt; foo --&gt;</p>\n<p>foo &lt;!-- foo---&gt;</p>", "CommonMark");
         }
 
         // Processing instructions:        
@@ -13863,12 +10873,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <?php echo $a; ?></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo <?php echo $a; ?>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo <?php echo $a; ?></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo <?php echo $a; ?>", "<p>foo <?php echo $a; ?></p>", "CommonMark");
         }
 
         // Declarations:        
@@ -13881,12 +10886,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <!ELEMENT br EMPTY></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo <!ELEMENT br EMPTY>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo <!ELEMENT br EMPTY></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo <!ELEMENT br EMPTY>", "<p>foo <!ELEMENT br EMPTY></p>", "CommonMark");
         }
 
         // CDATA sections:        
@@ -13899,12 +10899,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <![CDATA[>&<]]></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo <![CDATA[>&<]]>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo <![CDATA[>&<]]></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo <![CDATA[>&<]]>", "<p>foo <![CDATA[>&<]]></p>", "CommonMark");
         }
 
         // Entity and numeric character references are preserved in HTML
@@ -13918,12 +10913,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <a href="&ouml;"></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo <a href=\"&ouml;\">", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo <a href=\"&ouml;\"></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo <a href=\"&ouml;\">", "<p>foo <a href=\"&ouml;\"></p>", "CommonMark");
         }
 
         // Backslash escapes do not work in HTML attributes:        
@@ -13936,12 +10926,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <a href="\*"></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo <a href=\"\\*\">", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo <a href=\"\\*\"></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo <a href=\"\\*\">", "<p>foo <a href=\"\\*\"></p>", "CommonMark");
         }
         
         [Fact]
@@ -13953,12 +10938,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;a href=&quot;&quot;&quot;&gt;</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<a href=\"\\\"\">", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>&lt;a href=&quot;&quot;&quot;&gt;</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<a href=\"\\\"\">", "<p>&lt;a href=&quot;&quot;&quot;&gt;</p>", "CommonMark");
         }
     }
 
@@ -13980,12 +10960,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo<br />
             //     baz</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo  \nbaz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo<br />\nbaz</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo  \nbaz", "<p>foo<br />\nbaz</p>", "CommonMark");
         }
 
         // For a more visible alternative, a backslash before the
@@ -14001,12 +10976,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo<br />
             //     baz</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo\\\nbaz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo<br />\nbaz</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo\\\nbaz", "<p>foo<br />\nbaz</p>", "CommonMark");
         }
 
         // More than two spaces can be used:        
@@ -14021,12 +10991,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo<br />
             //     baz</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo       \nbaz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo<br />\nbaz</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo       \nbaz", "<p>foo<br />\nbaz</p>", "CommonMark");
         }
 
         // Leading spaces at the beginning of the next line are ignored:        
@@ -14041,12 +11006,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo<br />
             //     bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo  \n     bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo<br />\nbar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo  \n     bar", "<p>foo<br />\nbar</p>", "CommonMark");
         }
         
         [Fact]
@@ -14060,12 +11020,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo<br />
             //     bar</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo\\\n     bar", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo<br />\nbar</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo\\\n     bar", "<p>foo<br />\nbar</p>", "CommonMark");
         }
 
         // Line breaks can occur inside emphasis, links, and other constructs
@@ -14081,12 +11036,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><em>foo<br />
             //     bar</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo  \nbar*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo<br />\nbar</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo  \nbar*", "<p><em>foo<br />\nbar</em></p>", "CommonMark");
         }
         
         [Fact]
@@ -14100,12 +11050,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><em>foo<br />
             //     bar</em></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("*foo\\\nbar*", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><em>foo<br />\nbar</em></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("*foo\\\nbar*", "<p><em>foo<br />\nbar</em></p>", "CommonMark");
         }
 
         // Line breaks do not occur inside code spans        
@@ -14119,12 +11064,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>code span</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`code  \nspan`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>code span</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`code  \nspan`", "<p><code>code span</code></p>", "CommonMark");
         }
         
         [Fact]
@@ -14137,12 +11077,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>code\ span</code></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("`code\\\nspan`", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><code>code\\ span</code></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("`code\\\nspan`", "<p><code>code\\ span</code></p>", "CommonMark");
         }
 
         // or HTML tags:        
@@ -14157,12 +11092,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><a href="foo  
             //     bar"></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<a href=\"foo  \nbar\">", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"foo  \nbar\"></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<a href=\"foo  \nbar\">", "<p><a href=\"foo  \nbar\"></p>", "CommonMark");
         }
         
         [Fact]
@@ -14176,12 +11106,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><a href="foo\
             //     bar"></p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("<a href=\"foo\\\nbar\">", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p><a href=\"foo\\\nbar\"></p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<a href=\"foo\\\nbar\">", "<p><a href=\"foo\\\nbar\"></p>", "CommonMark");
         }
 
         // Hard line breaks are for separating inline content within a block.
@@ -14196,12 +11121,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo\</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo\\", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo\\</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo\\", "<p>foo\\</p>", "CommonMark");
         }
         
         [Fact]
@@ -14213,12 +11133,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo  ", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo  ", "<p>foo</p>", "CommonMark");
         }
         
         [Fact]
@@ -14230,12 +11145,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h3>foo\</h3>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("### foo\\", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h3>foo\\</h3>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("### foo\\", "<h3>foo\\</h3>", "CommonMark");
         }
         
         [Fact]
@@ -14247,12 +11157,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h3>foo</h3>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("### foo  ", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h3>foo</h3>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("### foo  ", "<h3>foo</h3>", "CommonMark");
         }
     }
 
@@ -14275,12 +11180,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo
             //     baz</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo\nbaz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo\nbaz</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo\nbaz", "<p>foo\nbaz</p>", "CommonMark");
         }
 
         // Spaces at the end of the line and beginning of the next line are
@@ -14296,12 +11196,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo
             //     baz</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("foo \n baz", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>foo\nbaz</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("foo \n baz", "<p>foo\nbaz</p>", "CommonMark");
         }
     }
 
@@ -14319,12 +11214,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>hello $.;'there</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("hello $.;'there", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>hello $.;'there</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("hello $.;'there", "<p>hello $.;'there</p>", "CommonMark");
         }
         
         [Fact]
@@ -14336,12 +11226,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>Foo χρῆν</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Foo χρῆν", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Foo χρῆν</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Foo χρῆν", "<p>Foo χρῆν</p>", "CommonMark");
         }
 
         // Internal spaces are preserved verbatim:        
@@ -14354,12 +11239,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>Multiple     spaces</p>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("CommonMark");
-            string result = Markdown.ToHtml("Multiple     spaces", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<p>Multiple     spaces</p>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("Multiple     spaces", "<p>Multiple     spaces</p>", "CommonMark");
         }
     }
 
@@ -14386,12 +11266,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </section>
             //     </section>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("Sections");
-            string result = Markdown.ToHtml("# foo\n## foo\n### foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h1>foo</h1>\n<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo", "<h1>foo</h1>\n<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>", "Sections");
         }
 
         // Description 1.
@@ -14413,12 +11288,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </section>
             //     </section>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("All");
-            string result = Markdown.ToHtml("# foo\n## foo\n### foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h1>foo</h1>\n<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo", "<h1>foo</h1>\n<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>", "All");
         }
 
         // Description 2.
@@ -14440,12 +11310,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </section>
             //     </section>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("Sections");
-            string result = Markdown.ToHtml("# foo\n## foo\n### foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h1>foo</h1>\n<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo", "<h1>foo</h1>\n<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>", "Sections");
         }
 
         // Description 2.
@@ -14467,12 +11332,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </section>
             //     </section>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("All");
-            string result = Markdown.ToHtml("# foo\n## foo\n### foo", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<h1>foo</h1>\n<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo", "<h1>foo</h1>\n<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>", "All");
         }
     }
 }

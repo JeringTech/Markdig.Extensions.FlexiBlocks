@@ -55,12 +55,7 @@ foreach (KeyValuePair<string, string> specFileItem in specFiles)
             // Should be rendered as:
 <#= spec.HtmlAsComment #>
 
-            MarkdownPipeline pipeline = PipelineHelper.CreatePipeline("<#= pipeline #>");
-            string result = Markdown.ToHtml("<#= Escape(spec.Markdown) #>", pipeline);
-            result = PipelineHelper.Compact(result);
-            string expectedResult = PipelineHelper.Compact("<#= Escape(spec.Html) #>");
-
-            Assert.Equal(expectedResult, result);
+            SpecTestHelper.AssertCompliance("<#= Escape(spec.Markdown) #>", "<#= Escape(spec.Html) #>", "<#= pipeline #>");
         }
 <#
             }

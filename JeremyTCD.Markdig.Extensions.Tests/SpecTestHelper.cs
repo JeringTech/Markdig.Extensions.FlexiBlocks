@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using Xunit;
 
 namespace JeremyTCD.Markdig.Extensions.Tests
 {
-    public class PipelineHelper
+    public class SpecTestHelper
     {
         private static Dictionary<string, Action<MarkdownPipelineBuilder>> ExtensionsAdders =
             new Dictionary<string, Action<MarkdownPipelineBuilder>>
@@ -16,9 +17,19 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 {"commonmark", (MarkdownPipelineBuilder builder) => { } }
             };
 
-        public static MarkdownPipeline CreatePipeline(string extensionsOption)
+        public static void AssertCompliance(string markdown, string expectedHtml, string pipelineOptions)
         {
-            string[] extensions = extensionsOption.Split('_');
+            MarkdownPipeline pipeline = CreatePipeline(pipelineOptions);
+            string result = Markdown.ToHtml(markdown, pipeline);
+            result = Compact(result);
+            string expectedResult = Compact(expectedHtml);
+
+            Assert.Equal(expectedResult, result);
+        }
+
+        private static MarkdownPipeline CreatePipeline(string pipelineOptions)
+        {
+            string[] extensions = pipelineOptions.Split('_');
 
             MarkdownPipelineBuilder builder = new MarkdownPipelineBuilder();
 
@@ -30,7 +41,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             return builder.Build();
         }
 
-        public static string Compact(string html)
+        private static string Compact(string html)
         {
             // Normalize the output to make it compatible with CommonMark specs
             html = html.Replace("\r\n", "\n").Replace(@"\r", @"\n").Trim();
