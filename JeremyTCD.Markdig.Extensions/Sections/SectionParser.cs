@@ -1,6 +1,6 @@
-﻿using Markdig.Helpers;
-using Markdig.Parsers;
+﻿using Markdig.Parsers;
 using Markdig.Syntax;
+using System;
 
 namespace JeremyTCD.Markdig.Extensions
 {
@@ -25,6 +25,11 @@ namespace JeremyTCD.Markdig.Extensions
             }
 
             HeadingBlock newHeadingBlock = processor.NewBlocks.Peek() as HeadingBlock;
+
+            if(newHeadingBlock == null)
+            {
+                throw new InvalidOperationException($"Opened a heading block but BlockProcessor.NewBlocks does not contain any blocks.");
+            }
 
             if (newHeadingBlock.Level > 1)
             {
@@ -63,6 +68,12 @@ namespace JeremyTCD.Markdig.Extensions
             }
 
             HeadingBlock newHeadingBlock = processor.NewBlocks.Peek() as HeadingBlock;
+
+            if (newHeadingBlock == null)
+            {
+                throw new InvalidOperationException($"Opened a heading block but BlockProcessor.NewBlocks does not contain any blocks.");
+            }
+
             SectionBlock currentSectionBlock = block as SectionBlock;
 
             // Nest if new heading block has higher level than current section block
