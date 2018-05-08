@@ -6,9 +6,6 @@
 
 
 
-
-
-using Markdig;
 using Xunit;
 
 namespace JeremyTCD.Markdig.Extensions.Tests

@@ -1,9 +1,7 @@
-﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ output extension=".cs" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.IO" #>
-<#@ import namespace="System.Linq" #>
-<#@ import namespace="System.Text" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Threading" #>
@@ -13,7 +11,6 @@
 		new KeyValuePair<string, string>(Host.ResolvePath("../Specs/SectionsSpecs.md"), "Sections|All")
 	};
 #>
-using Markdig;
 using Xunit;
 
 namespace JeremyTCD.Markdig.Extensions.Tests
