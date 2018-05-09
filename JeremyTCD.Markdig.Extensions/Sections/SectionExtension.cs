@@ -2,9 +2,11 @@
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Renderers;
+using Markdig.Renderers.Html;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -17,6 +19,7 @@ namespace JeremyTCD.Markdig.Extensions
     /// </summary>
     public class SectionExtension : IMarkdownExtension
     {
+        private const string SECTION_IDS_KEY = "SectionIDs";
         private SectionOptions _options;
         private readonly HtmlRenderer _stripRenderer;
         private readonly StringWriter _headingWriter;
@@ -75,32 +78,44 @@ namespace JeremyTCD.Markdig.Extensions
 
         private void HeadingBlockProcessInlinesEndCallback(InlineProcessor processor, Inline inline)
         {
-            HeadingBlock headingBlock = (HeadingBlock)processor.Block;
-            SectionBlock sectionBlock = (SectionBlock)headingBlock.Parent;
+            // Retrieve or create document level HashSet of ids - use to prevent duplicate ids
+            var identifiers = processor.Document.GetData(SECTION_IDS_KEY) as Dictionary<string, int>;
+            if (identifiers == null)
+            {
+                identifiers = new Dictionary<string, int>();
+                processor.Document.SetData(SECTION_IDS_KEY, identifiers);
+            }
 
-            // Use a HtmlRenderer with 
+            var headingBlock = (HeadingBlock)processor.Block;
+            var sectionBlock = (SectionBlock)headingBlock.Parent;
+
+            // If section block already has an id, return
+            HtmlAttributes attributes = sectionBlock.GetAttributes();
+            if (!string.IsNullOrWhiteSpace(attributes.Id))
+            {
+                return;
+            }
+
+            // Get heading text
             _stripRenderer.Render(headingBlock.Inline);
-            var headingText = _headingWriter.ToString();
+            string headingText = _headingWriter.ToString();
             _headingWriter.GetStringBuilder().Length = 0;
 
-            // Urilize the link
-            headingText = LinkHelper.UrilizeAsGfm(headingText);
+            // Urilize the heading text
+            string uri = LinkHelper.UrilizeAsGfm(headingText);
 
             // If the heading is empty, use the word "section" instead
-            var baseHeadingId = string.IsNullOrEmpty(headingText) ? "section" : headingText;
+            string headingId = string.IsNullOrWhiteSpace(uri) ? "section" : uri;
 
-            // Add a trailing -1, -2, -3...etc. in case of collision
-            int index = 0;
-            var headingId = baseHeadingId;
-            var headingBuffer = StringBuilderCache.Local();
-            while (!identifiers.Add(headingId))
+            // Check for duplicate ids and append integer if necessary
+            if (identifiers.TryGetValue(headingId, out int duplicates))
             {
-                index++;
-                headingBuffer.Append(baseHeadingId);
-                headingBuffer.Append('-');
-                headingBuffer.Append(index);
-                headingId = headingBuffer.ToString();
-                headingBuffer.Length = 0;
+                identifiers[headingId] = ++duplicates;
+                headingId = $"{headingId}-{duplicates}";
+            }
+            else
+            {
+                identifiers.Add(headingId, 0);
             }
 
             attributes.Id = headingId;

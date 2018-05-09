@@ -11248,49 +11248,51 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     public class SectionsTests
     {
 
-        // Increasing levels (note that the `<h1>` element is not wrapped, it should be inserted as a child of an `<article>` element):        
+        // Sequential higher level sections are nested. Kebab-case IDs are generated for each section.
+        // Note that the `<h1>` element is not wrapped, it should be inserted as a child of an `<article>` element.:        
         [Fact]
         public void Sections_Spec1_Sections()
         {
             // The following Markdown:
-            //     # foo
-            //     ## foo
-            //     ### foo
+            //     # Foo
+            //     ## Foo Bar
+            //     ### Foo Bar Baz
             //
             // Should be rendered as:
-            //     <h1>foo</h1>
-            //     <section>
-            //     <h2>foo</h2>
-            //     <section>
-            //     <h3>foo</h3>
+            //     <h1>Foo</h1>
+            //     <section id="foo-bar">
+            //     <h2>Foo Bar</h2>
+            //     <section id="foo-bar-baz">
+            //     <h3>Foo Bar Baz</h3>
             //     </section>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo", "<h1>foo</h1>\n<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>", "Sections");
+            SpecTestHelper.AssertCompliance("# Foo\n## Foo Bar\n### Foo Bar Baz", "<h1>Foo</h1>\n<section id=\"foo-bar\">\n<h2>Foo Bar</h2>\n<section id=\"foo-bar-baz\">\n<h3>Foo Bar Baz</h3>\n</section>\n</section>", "Sections");
         }
 
-        // Increasing levels (note that the `<h1>` element is not wrapped, it should be inserted as a child of an `<article>` element):        
+        // Sequential higher level sections are nested. Kebab-case IDs are generated for each section.
+        // Note that the `<h1>` element is not wrapped, it should be inserted as a child of an `<article>` element.:        
         [Fact]
         public void Sections_Spec1_All()
         {
             // The following Markdown:
-            //     # foo
-            //     ## foo
-            //     ### foo
+            //     # Foo
+            //     ## Foo Bar
+            //     ### Foo Bar Baz
             //
             // Should be rendered as:
-            //     <h1>foo</h1>
-            //     <section>
-            //     <h2>foo</h2>
-            //     <section>
-            //     <h3>foo</h3>
+            //     <h1>Foo</h1>
+            //     <section id="foo-bar">
+            //     <h2>Foo Bar</h2>
+            //     <section id="foo-bar-baz">
+            //     <h3>Foo Bar Baz</h3>
             //     </section>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo", "<h1>foo</h1>\n<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>", "All");
+            SpecTestHelper.AssertCompliance("# Foo\n## Foo Bar\n### Foo Bar Baz", "<h1>Foo</h1>\n<section id=\"foo-bar\">\n<h2>Foo Bar</h2>\n<section id=\"foo-bar-baz\">\n<h3>Foo Bar Baz</h3>\n</section>\n</section>", "All");
         }
 
-        // Decreasing levels:        
+        // Sequential lower level sections are not nested. IDs with appended integers are generated to avoid duplicate IDs.:        
         [Fact]
         public void Sections_Spec2_Sections()
         {
@@ -11300,18 +11302,18 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     # foo
             //
             // Should be rendered as:
-            //     <section>
+            //     <section id="foo">
             //     <h3>foo</h3>
             //     </section>
-            //     <section>
+            //     <section id="foo-1">
             //     <h2>foo</h2>
             //     </section>
             //     <h1>foo</h1>
 
-            SpecTestHelper.AssertCompliance("### foo\n## foo\n# foo", "<section>\n<h3>foo</h3>\n</section>\n<section>\n<h2>foo</h2>\n</section>\n<h1>foo</h1>", "Sections");
+            SpecTestHelper.AssertCompliance("### foo\n## foo\n# foo", "<section id=\"foo\">\n<h3>foo</h3>\n</section>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n<h1>foo</h1>", "Sections");
         }
 
-        // Decreasing levels:        
+        // Sequential lower level sections are not nested. IDs with appended integers are generated to avoid duplicate IDs.:        
         [Fact]
         public void Sections_Spec2_All()
         {
@@ -11321,15 +11323,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     # foo
             //
             // Should be rendered as:
-            //     <section>
+            //     <section id="foo">
             //     <h3>foo</h3>
             //     </section>
-            //     <section>
+            //     <section id="foo-1">
             //     <h2>foo</h2>
             //     </section>
             //     <h1>foo</h1>
 
-            SpecTestHelper.AssertCompliance("### foo\n## foo\n# foo", "<section>\n<h3>foo</h3>\n</section>\n<section>\n<h2>foo</h2>\n</section>\n<h1>foo</h1>", "All");
+            SpecTestHelper.AssertCompliance("### foo\n## foo\n# foo", "<section id=\"foo\">\n<h3>foo</h3>\n</section>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n<h1>foo</h1>", "All");
         }
 
         // Mixed levels:        
@@ -11342,15 +11344,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     # foo
             //
             // Should be rendered as:
-            //     <section>
+            //     <section id="foo">
             //     <h2>foo</h2>
-            //     <section>
+            //     <section id="foo-1">
             //     <h3>foo</h3>
             //     </section>
             //     </section>
             //     <h1>foo</h1>
 
-            SpecTestHelper.AssertCompliance("## foo\n### foo\n# foo", "<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>\n<h1>foo</h1>", "Sections");
+            SpecTestHelper.AssertCompliance("## foo\n### foo\n# foo", "<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-1\">\n<h3>foo</h3>\n</section>\n</section>\n<h1>foo</h1>", "Sections");
         }
 
         // Mixed levels:        
@@ -11363,15 +11365,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     # foo
             //
             // Should be rendered as:
-            //     <section>
+            //     <section id="foo">
             //     <h2>foo</h2>
-            //     <section>
+            //     <section id="foo-1">
             //     <h3>foo</h3>
             //     </section>
             //     </section>
             //     <h1>foo</h1>
 
-            SpecTestHelper.AssertCompliance("## foo\n### foo\n# foo", "<section>\n<h2>foo</h2>\n<section>\n<h3>foo</h3>\n</section>\n</section>\n<h1>foo</h1>", "All");
+            SpecTestHelper.AssertCompliance("## foo\n### foo\n# foo", "<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-1\">\n<h3>foo</h3>\n</section>\n</section>\n<h1>foo</h1>", "All");
         }
 
         // Same levels:        
@@ -11383,14 +11385,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ## foo
             //
             // Should be rendered as:
-            //     <section>
+            //     <section id="foo">
             //     <h2>foo</h2>
             //     </section>
-            //     <section>
+            //     <section id="foo-1">
             //     <h2>foo</h2>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("## foo\n## foo", "<section>\n<h2>foo</h2>\n</section>\n<section>\n<h2>foo</h2>\n</section>", "Sections");
+            SpecTestHelper.AssertCompliance("## foo\n## foo", "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>", "Sections");
         }
 
         // Same levels:        
@@ -11402,14 +11404,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ## foo
             //
             // Should be rendered as:
-            //     <section>
+            //     <section id="foo">
             //     <h2>foo</h2>
             //     </section>
-            //     <section>
+            //     <section id="foo-1">
             //     <h2>foo</h2>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("## foo\n## foo", "<section>\n<h2>foo</h2>\n</section>\n<section>\n<h2>foo</h2>\n</section>", "All");
+            SpecTestHelper.AssertCompliance("## foo\n## foo", "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>", "All");
         }
 
         // Sections with content (child containers):        
@@ -11429,13 +11431,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h1>foo</h1>
             //     <p>Level 1 content.</p>
-            //     <section>
+            //     <section id="foo">
             //     <h2>foo</h2>
             //     <ul>
             //     <li>Level 2 content line 1.</li>
             //     <li>Level 2 content line 2.</li>
             //     </ul>
-            //     <section>
+            //     <section id="foo-1">
             //     <h3>foo</h3>
             //     <blockquote>
             //     <p>Level 3 content line 1.
@@ -11444,7 +11446,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </section>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", "<h1>foo</h1>\n<p>Level 1 content.</p>\n<section>\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section>\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", "Sections");
+            SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", "<h1>foo</h1>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", "Sections");
         }
 
         // Sections with content (child containers):        
@@ -11464,13 +11466,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h1>foo</h1>
             //     <p>Level 1 content.</p>
-            //     <section>
+            //     <section id="foo">
             //     <h2>foo</h2>
             //     <ul>
             //     <li>Level 2 content line 1.</li>
             //     <li>Level 2 content line 2.</li>
             //     </ul>
-            //     <section>
+            //     <section id="foo-1">
             //     <h3>foo</h3>
             //     <blockquote>
             //     <p>Level 3 content line 1.
@@ -11479,7 +11481,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </section>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", "<h1>foo</h1>\n<p>Level 1 content.</p>\n<section>\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section>\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", "All");
+            SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", "<h1>foo</h1>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", "All");
         }
     }
 }

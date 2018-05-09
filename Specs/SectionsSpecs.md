@@ -5,33 +5,34 @@ logical sections in [sectioning content elements](https://html.spec.whatwg.org/m
 This extension wraps logical sections in `<section>` elements, with nesting dependent on [ATX heading](https://spec.commonmark.org/0.28/#atx-headings)
 levels.
 
-Increasing levels (note that the `<h1>` element is not wrapped, it should be inserted as a child of an `<article>` element):
+Sequential higher level sections are nested. Kebab-case IDs are generated for each section.
+Note that the `<h1>` element is not wrapped, it should be inserted as a child of an `<article>` element.:
 
 ```````````````````````````````` example
-# foo
-## foo
-### foo
+# Foo
+## Foo Bar
+### Foo Bar Baz
 .
-<h1>foo</h1>
-<section>
-<h2>foo</h2>
-<section>
-<h3>foo</h3>
+<h1>Foo</h1>
+<section id="foo-bar">
+<h2>Foo Bar</h2>
+<section id="foo-bar-baz">
+<h3>Foo Bar Baz</h3>
 </section>
 </section>
 ````````````````````````````````
 
-Decreasing levels:
+Sequential lower level sections are not nested. IDs with appended integers are generated to avoid duplicate IDs.:
 
 ```````````````````````````````` example
 ### foo
 ## foo
 # foo
 .
-<section>
+<section id="foo">
 <h3>foo</h3>
 </section>
-<section>
+<section id="foo-1">
 <h2>foo</h2>
 </section>
 <h1>foo</h1>
@@ -44,9 +45,9 @@ Mixed levels:
 ### foo
 # foo
 .
-<section>
+<section id="foo">
 <h2>foo</h2>
-<section>
+<section id="foo-1">
 <h3>foo</h3>
 </section>
 </section>
@@ -59,10 +60,10 @@ Same levels:
 ## foo
 ## foo
 .
-<section>
+<section id="foo">
 <h2>foo</h2>
 </section>
-<section>
+<section id="foo-1">
 <h2>foo</h2>
 </section>
 ````````````````````````````````
@@ -81,13 +82,13 @@ Level 1 content.
 .
 <h1>foo</h1>
 <p>Level 1 content.</p>
-<section>
+<section id="foo">
 <h2>foo</h2>
 <ul>
 <li>Level 2 content line 1.</li>
 <li>Level 2 content line 2.</li>
 </ul>
-<section>
+<section id="foo-1">
 <h3>foo</h3>
 <blockquote>
 <p>Level 3 content line 1.
