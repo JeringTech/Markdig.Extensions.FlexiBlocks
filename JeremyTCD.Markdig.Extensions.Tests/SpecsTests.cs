@@ -11248,137 +11248,93 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     public class SectionsTests
     {
 
-        // Sequential higher level sections are nested. Kebab-case IDs are generated for each section.
-        // Note that the `<h1>` element is not wrapped, it should be inserted as a child of an `<article>` element.:        
+        // Sequential higher-level sections are nested:        
         [Fact]
         public void Sections_Spec1_Sections()
         {
             // The following Markdown:
-            //     # Foo
-            //     ## Foo Bar
-            //     ### Foo Bar Baz
+            //     # foo
+            //     ## foo bar
+            //     ### foo bar baz
             //
             // Should be rendered as:
-            //     <h1>Foo</h1>
+            //     <article id="foo">
+            //     <h1>foo</h1>
             //     <section id="foo-bar">
-            //     <h2>Foo Bar</h2>
+            //     <h2>foo bar</h2>
             //     <section id="foo-bar-baz">
-            //     <h3>Foo Bar Baz</h3>
+            //     <h3>foo bar baz</h3>
             //     </section>
             //     </section>
+            //     </article>
 
-            SpecTestHelper.AssertCompliance("# Foo\n## Foo Bar\n### Foo Bar Baz", "<h1>Foo</h1>\n<section id=\"foo-bar\">\n<h2>Foo Bar</h2>\n<section id=\"foo-bar-baz\">\n<h3>Foo Bar Baz</h3>\n</section>\n</section>", "Sections");
+            SpecTestHelper.AssertCompliance("# foo\n## foo bar\n### foo bar baz", "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-bar\">\n<h2>foo bar</h2>\n<section id=\"foo-bar-baz\">\n<h3>foo bar baz</h3>\n</section>\n</section>\n</article>", "Sections");
         }
 
-        // Sequential higher level sections are nested. Kebab-case IDs are generated for each section.
-        // Note that the `<h1>` element is not wrapped, it should be inserted as a child of an `<article>` element.:        
+        // Sequential higher-level sections are nested:        
         [Fact]
         public void Sections_Spec1_All()
         {
             // The following Markdown:
-            //     # Foo
-            //     ## Foo Bar
-            //     ### Foo Bar Baz
+            //     # foo
+            //     ## foo bar
+            //     ### foo bar baz
             //
             // Should be rendered as:
-            //     <h1>Foo</h1>
+            //     <article id="foo">
+            //     <h1>foo</h1>
             //     <section id="foo-bar">
-            //     <h2>Foo Bar</h2>
+            //     <h2>foo bar</h2>
             //     <section id="foo-bar-baz">
-            //     <h3>Foo Bar Baz</h3>
+            //     <h3>foo bar baz</h3>
             //     </section>
             //     </section>
+            //     </article>
 
-            SpecTestHelper.AssertCompliance("# Foo\n## Foo Bar\n### Foo Bar Baz", "<h1>Foo</h1>\n<section id=\"foo-bar\">\n<h2>Foo Bar</h2>\n<section id=\"foo-bar-baz\">\n<h3>Foo Bar Baz</h3>\n</section>\n</section>", "All");
+            SpecTestHelper.AssertCompliance("# foo\n## foo bar\n### foo bar baz", "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-bar\">\n<h2>foo bar</h2>\n<section id=\"foo-bar-baz\">\n<h3>foo bar baz</h3>\n</section>\n</section>\n</article>", "All");
         }
 
-        // Sequential lower level sections are not nested. IDs with appended integers are generated to avoid duplicate IDs.:        
+        // Sequential lower-level sections are not nested.:        
         [Fact]
         public void Sections_Spec2_Sections()
         {
             // The following Markdown:
-            //     ### foo
             //     ## foo
             //     # foo
             //
             // Should be rendered as:
             //     <section id="foo">
-            //     <h3>foo</h3>
-            //     </section>
-            //     <section id="foo-1">
             //     <h2>foo</h2>
             //     </section>
+            //     <article id="foo-1">
             //     <h1>foo</h1>
+            //     </article>
 
-            SpecTestHelper.AssertCompliance("### foo\n## foo\n# foo", "<section id=\"foo\">\n<h3>foo</h3>\n</section>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n<h1>foo</h1>", "Sections");
+            SpecTestHelper.AssertCompliance("## foo\n# foo", "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<article id=\"foo-1\">\n<h1>foo</h1>\n</article>", "Sections");
         }
 
-        // Sequential lower level sections are not nested. IDs with appended integers are generated to avoid duplicate IDs.:        
+        // Sequential lower-level sections are not nested.:        
         [Fact]
         public void Sections_Spec2_All()
         {
             // The following Markdown:
-            //     ### foo
             //     ## foo
             //     # foo
             //
             // Should be rendered as:
             //     <section id="foo">
-            //     <h3>foo</h3>
-            //     </section>
-            //     <section id="foo-1">
             //     <h2>foo</h2>
             //     </section>
+            //     <article id="foo-1">
             //     <h1>foo</h1>
+            //     </article>
 
-            SpecTestHelper.AssertCompliance("### foo\n## foo\n# foo", "<section id=\"foo\">\n<h3>foo</h3>\n</section>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n<h1>foo</h1>", "All");
+            SpecTestHelper.AssertCompliance("## foo\n# foo", "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<article id=\"foo-1\">\n<h1>foo</h1>\n</article>", "All");
         }
 
-        // Mixed levels:        
+        // Sequential same-level sections are not nested:        
         [Fact]
         public void Sections_Spec3_Sections()
-        {
-            // The following Markdown:
-            //     ## foo
-            //     ### foo
-            //     # foo
-            //
-            // Should be rendered as:
-            //     <section id="foo">
-            //     <h2>foo</h2>
-            //     <section id="foo-1">
-            //     <h3>foo</h3>
-            //     </section>
-            //     </section>
-            //     <h1>foo</h1>
-
-            SpecTestHelper.AssertCompliance("## foo\n### foo\n# foo", "<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-1\">\n<h3>foo</h3>\n</section>\n</section>\n<h1>foo</h1>", "Sections");
-        }
-
-        // Mixed levels:        
-        [Fact]
-        public void Sections_Spec3_All()
-        {
-            // The following Markdown:
-            //     ## foo
-            //     ### foo
-            //     # foo
-            //
-            // Should be rendered as:
-            //     <section id="foo">
-            //     <h2>foo</h2>
-            //     <section id="foo-1">
-            //     <h3>foo</h3>
-            //     </section>
-            //     </section>
-            //     <h1>foo</h1>
-
-            SpecTestHelper.AssertCompliance("## foo\n### foo\n# foo", "<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-1\">\n<h3>foo</h3>\n</section>\n</section>\n<h1>foo</h1>", "All");
-        }
-
-        // Same levels:        
-        [Fact]
-        public void Sections_Spec4_Sections()
         {
             // The following Markdown:
             //     ## foo
@@ -11395,9 +11351,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             SpecTestHelper.AssertCompliance("## foo\n## foo", "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>", "Sections");
         }
 
-        // Same levels:        
+        // Sequential same-level sections are not nested:        
         [Fact]
-        public void Sections_Spec4_All()
+        public void Sections_Spec3_All()
         {
             // The following Markdown:
             //     ## foo
@@ -11414,7 +11370,55 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             SpecTestHelper.AssertCompliance("## foo\n## foo", "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>", "All");
         }
 
-        // Sections with content (child containers):        
+        // Mixed sections:        
+        [Fact]
+        public void Sections_Spec4_Sections()
+        {
+            // The following Markdown:
+            //     # foo
+            //     ## foo
+            //     # foo
+            //     
+            //
+            // Should be rendered as:
+            //     <article id="foo">
+            //     <h1>foo</h1>
+            //     <section id="foo-1">
+            //     <h2>foo</h2>
+            //     </section>
+            //     </article>
+            //     <article id="foo-2">
+            //     <h1>foo</h1>
+            //     </article>
+
+            SpecTestHelper.AssertCompliance("# foo\n## foo\n# foo\n", "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n</article>\n<article id=\"foo-2\">\n<h1>foo</h1>\n</article>", "Sections");
+        }
+
+        // Mixed sections:        
+        [Fact]
+        public void Sections_Spec4_All()
+        {
+            // The following Markdown:
+            //     # foo
+            //     ## foo
+            //     # foo
+            //     
+            //
+            // Should be rendered as:
+            //     <article id="foo">
+            //     <h1>foo</h1>
+            //     <section id="foo-1">
+            //     <h2>foo</h2>
+            //     </section>
+            //     </article>
+            //     <article id="foo-2">
+            //     <h1>foo</h1>
+            //     </article>
+
+            SpecTestHelper.AssertCompliance("# foo\n## foo\n# foo\n", "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n</article>\n<article id=\"foo-2\">\n<h1>foo</h1>\n</article>", "All");
+        }
+
+        // Sections wrap content:        
         [Fact]
         public void Sections_Spec5_Sections()
         {
@@ -11429,15 +11433,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     > Level 3 content line 2.
             //
             // Should be rendered as:
+            //     <article id="foo">
             //     <h1>foo</h1>
             //     <p>Level 1 content.</p>
-            //     <section id="foo">
+            //     <section id="foo-1">
             //     <h2>foo</h2>
             //     <ul>
             //     <li>Level 2 content line 1.</li>
             //     <li>Level 2 content line 2.</li>
             //     </ul>
-            //     <section id="foo-1">
+            //     <section id="foo-2">
             //     <h3>foo</h3>
             //     <blockquote>
             //     <p>Level 3 content line 1.
@@ -11445,11 +11450,12 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     </section>
             //     </section>
+            //     </article>
 
-            SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", "<h1>foo</h1>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", "Sections");
+            SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", "<article id=\"foo\">\n<h1>foo</h1>\n<p>Level 1 content.</p>\n<section id=\"foo-1\">\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-2\">\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>\n</article>", "Sections");
         }
 
-        // Sections with content (child containers):        
+        // Sections wrap content:        
         [Fact]
         public void Sections_Spec5_All()
         {
@@ -11464,15 +11470,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     > Level 3 content line 2.
             //
             // Should be rendered as:
+            //     <article id="foo">
             //     <h1>foo</h1>
             //     <p>Level 1 content.</p>
-            //     <section id="foo">
+            //     <section id="foo-1">
             //     <h2>foo</h2>
             //     <ul>
             //     <li>Level 2 content line 1.</li>
             //     <li>Level 2 content line 2.</li>
             //     </ul>
-            //     <section id="foo-1">
+            //     <section id="foo-2">
             //     <h3>foo</h3>
             //     <blockquote>
             //     <p>Level 3 content line 1.
@@ -11480,8 +11487,111 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     </section>
             //     </section>
+            //     </article>
 
-            SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", "<h1>foo</h1>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", "All");
+            SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", "<article id=\"foo\">\n<h1>foo</h1>\n<p>Level 1 content.</p>\n<section id=\"foo-1\">\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-2\">\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>\n</article>", "All");
+        }
+
+        // TODO: id style, github etc
+        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section.        
+        [Fact]
+        public void Sections_Spec6_Sections()
+        {
+            // The following Markdown:
+            //     # Foo
+            //     ## Foo Bar
+            //
+            // Should be rendered as:
+            //     <article id="foo">
+            //     <h1>Foo</h1>
+            //     <section id="foo-bar">
+            //     <h2>Foo Bar</h2>
+            //     </section>
+            //     </article>
+
+            SpecTestHelper.AssertCompliance("# Foo\n## Foo Bar", "<article id=\"foo\">\n<h1>Foo</h1>\n<section id=\"foo-bar\">\n<h2>Foo Bar</h2>\n</section>\n</article>", "Sections");
+        }
+
+        // TODO: id style, github etc
+        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section.        
+        [Fact]
+        public void Sections_Spec6_All()
+        {
+            // The following Markdown:
+            //     # Foo
+            //     ## Foo Bar
+            //
+            // Should be rendered as:
+            //     <article id="foo">
+            //     <h1>Foo</h1>
+            //     <section id="foo-bar">
+            //     <h2>Foo Bar</h2>
+            //     </section>
+            //     </article>
+
+            SpecTestHelper.AssertCompliance("# Foo\n## Foo Bar", "<article id=\"foo\">\n<h1>Foo</h1>\n<section id=\"foo-bar\">\n<h2>Foo Bar</h2>\n</section>\n</article>", "All");
+        }
+
+        // AutoLinks allow linking to sections using the text in their headings:        
+        [Fact]
+        public void Sections_Spec7_Sections()
+        {
+            // The following Markdown:
+            //     [foo]
+            //     
+            //     # foo
+            //     ## foo bar
+            //     [foo bar]
+            //     ### foo bar baz
+            //     
+            //     [foo bar baz]
+            //
+            // Should be rendered as:
+            //     <p><a href="#foo">foo</a></p>
+            //     <article id="foo">
+            //     <h1>foo</h1>
+            //     <section id="foo-bar">
+            //     <h2>foo bar</h2>
+            //     <p><a href="#foo-bar">foo bar</a></p>
+            //     <section id="foo-bar-baz">
+            //     <h3>foo bar baz</h3>
+            //     <p><a href="#foo-bar-baz">foo bar baz</a></p>
+            //     </section>
+            //     </section>
+            //     </article>
+
+            SpecTestHelper.AssertCompliance("[foo]\n\n# foo\n## foo bar\n[foo bar]\n### foo bar baz\n\n[foo bar baz]", "<p><a href=\"#foo\">foo</a></p>\n<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-bar\">\n<h2>foo bar</h2>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<h3>foo bar baz</h3>\n<p><a href=\"#foo-bar-baz\">foo bar baz</a></p>\n</section>\n</section>\n</article>", "Sections");
+        }
+
+        // AutoLinks allow linking to sections using the text in their headings:        
+        [Fact]
+        public void Sections_Spec7_All()
+        {
+            // The following Markdown:
+            //     [foo]
+            //     
+            //     # foo
+            //     ## foo bar
+            //     [foo bar]
+            //     ### foo bar baz
+            //     
+            //     [foo bar baz]
+            //
+            // Should be rendered as:
+            //     <p><a href="#foo">foo</a></p>
+            //     <article id="foo">
+            //     <h1>foo</h1>
+            //     <section id="foo-bar">
+            //     <h2>foo bar</h2>
+            //     <p><a href="#foo-bar">foo bar</a></p>
+            //     <section id="foo-bar-baz">
+            //     <h3>foo bar baz</h3>
+            //     <p><a href="#foo-bar-baz">foo bar baz</a></p>
+            //     </section>
+            //     </section>
+            //     </article>
+
+            SpecTestHelper.AssertCompliance("[foo]\n\n# foo\n## foo bar\n[foo bar]\n### foo bar baz\n\n[foo bar baz]", "<p><a href=\"#foo\">foo</a></p>\n<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-bar\">\n<h2>foo bar</h2>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<h3>foo bar baz</h3>\n<p><a href=\"#foo-bar-baz\">foo bar baz</a></p>\n</section>\n</section>\n</article>", "All");
         }
     }
 }

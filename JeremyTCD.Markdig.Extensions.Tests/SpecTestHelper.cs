@@ -12,9 +12,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         private static Dictionary<string, Action<MarkdownPipelineBuilder>> ExtensionsAdders =
             new Dictionary<string, Action<MarkdownPipelineBuilder>>
             {
-                {"sections", (MarkdownPipelineBuilder builder) => builder.UseSections() },
+                { "sections", (MarkdownPipelineBuilder builder) => builder.UseSections() },
                 {"all", (MarkdownPipelineBuilder builder) => builder.UseSections() },
-                {"commonmark", (MarkdownPipelineBuilder builder) => { } }
+                { "commonmark", (MarkdownPipelineBuilder builder) => { } }
             };
 
         public static void AssertCompliance(string markdown, string expectedHtml, string pipelineOptions)
