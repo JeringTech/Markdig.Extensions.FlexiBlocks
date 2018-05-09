@@ -10,5 +10,7 @@ namespace JeremyTCD.Markdig.Extensions
         }
 
         public int Level { get; set; }
+
+        public SectioningContentElement HeadingWrapperElement { get; set; }
     }
 }

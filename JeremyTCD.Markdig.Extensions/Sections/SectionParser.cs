@@ -7,11 +7,13 @@ namespace JeremyTCD.Markdig.Extensions
     public class SectionParser : BlockParser
     {
         private HeadingBlockParser _headingBlockParser;
+        private SectionOptions _options;
 
-        public SectionParser()
+        public SectionParser(SectionOptions options)
         {
             OpeningCharacters = new[] { '#' };
             _headingBlockParser = new HeadingBlockParser();
+            _options = options;
         }
 
         public override BlockState TryOpen(BlockProcessor processor)
@@ -24,16 +26,19 @@ namespace JeremyTCD.Markdig.Extensions
                 return BlockState.None;
             }
 
-            HeadingBlock newHeadingBlock = processor.NewBlocks.Peek() as HeadingBlock;
 
-            if(newHeadingBlock == null)
+            if (!(processor.NewBlocks.Peek() is HeadingBlock newHeadingBlock))
             {
                 throw new InvalidOperationException($"Opened a heading block but BlockProcessor.NewBlocks does not contain any blocks.");
             }
 
-            if (newHeadingBlock.Level > 1)
+            if (_options.H1WrapperElement != SectioningContentElement.None || newHeadingBlock.Level > 1)
             {
-                var sectionBlock = new SectionBlock(this) { Level = newHeadingBlock.Level };
+                var sectionBlock = new SectionBlock(this)
+                {
+                    Level = newHeadingBlock.Level,
+                    HeadingWrapperElement = newHeadingBlock.Level == 1 ? _options.H1WrapperElement : SectioningContentElement.Section
+                };
 
                 processor.NewBlocks.Push(sectionBlock);
 
@@ -48,7 +53,7 @@ namespace JeremyTCD.Markdig.Extensions
         public override BlockState TryContinue(BlockProcessor processor, Block block)
         {
             // If first non-whitespace char is not #, continue
-            if(processor.CurrentChar != _headingBlockParser.OpeningCharacters[0])
+            if (processor.CurrentChar != _headingBlockParser.OpeningCharacters[0])
             {
                 return BlockState.Continue;
             }

@@ -47,7 +47,7 @@ namespace JeremyTCD.Markdig.Extensions
                     pipelineBuilder.BlockParsers.Remove(headingBlockParser);
                 }
 
-                var sectionParser = new SectionParser();
+                var sectionParser = new SectionParser(_options);
                 sectionParser.Closed += SectionParserOnClosed;
 
                 // Insert the parser before any other parsers

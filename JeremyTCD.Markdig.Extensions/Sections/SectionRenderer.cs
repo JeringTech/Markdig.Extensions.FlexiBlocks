@@ -7,11 +7,19 @@ namespace JeremyTCD.Markdig.Extensions
     {
         protected override void Write(HtmlRenderer renderer, SectionBlock obj)
         {
+            string elementName = obj.HeadingWrapperElement.ToString().ToLower();
+
             renderer.EnsureLine();
-            renderer.Write("<section").WriteAttributes(obj).Write(">");
-            renderer.EnsureLine();
+            renderer.
+                Write("<").
+                Write(elementName).
+                WriteAttributes(obj).
+                WriteLine(">");
             renderer.WriteChildren(obj);
-            renderer.WriteLine("</section>");
+            renderer.
+                Write("</").
+                Write(elementName).
+                WriteLine(">");
         }
     }
 }
