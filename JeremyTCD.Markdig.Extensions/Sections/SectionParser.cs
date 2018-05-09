@@ -66,38 +66,51 @@ namespace JeremyTCD.Markdig.Extensions
                 return BlockState.Continue;
             }
 
-            // Blocks can only be added to the last open block, close any open children of the section block
-            if(processor.NextContinue != null) // TODO is it ever null?
-            {
-                processor.Close(processor.NextContinue);
-            }
-
-            HeadingBlock newHeadingBlock = processor.NewBlocks.Peek() as HeadingBlock;
-
-            if (newHeadingBlock == null)
+            if (!(processor.NewBlocks.Peek() is HeadingBlock newHeadingBlock))
             {
                 throw new InvalidOperationException($"Opened a heading block but BlockProcessor.NewBlocks does not contain any blocks.");
             }
 
             SectionBlock currentSectionBlock = block as SectionBlock;
 
-            // Nest if new heading block has higher level than current section block
-            if(newHeadingBlock.Level > currentSectionBlock.Level)
+            if (newHeadingBlock.Level <= currentSectionBlock.Level)
             {
-                var sectionBlock = new SectionBlock(this) { Level = newHeadingBlock.Level };
+                // Equal or lower level, remove new heading block (ListBlockParser does somthing similar for thematic breaks)
+                processor.NewBlocks.Pop();
+                processor.GoToColumn(0);
 
-                processor.NewBlocks.Push(sectionBlock);
-
-                // Keep section block open (heading block remains open unecessarily)
-                return BlockState.Continue;
+                // Close current section
+                return BlockState.None;
             }
 
-            // Equal or lower level, remove new heading block (ListBlockParser does somthing similar for thematic breaks)
-            processor.NewBlocks.Pop();
-            processor.GoToColumn(0);
+            // Nest if new heading block has higher level than current section block and current section block has no child section block
+            // or has a child section block with level higher than or equal to the new heading block's level
+            if (!(processor.NextContinue is SectionBlock) ||
+                (processor.NextContinue as SectionBlock).Level >= newHeadingBlock.Level)
+            {
+                // Blocks can only be added to the last open block, close any open children of the section block
+                if (processor.NextContinue != null)
+                {
+                    processor.Close(processor.NextContinue);
+                }
 
-            // Close current section
-            return BlockState.None;
+                var sectionBlock = new SectionBlock(this)
+                {
+                    Level = newHeadingBlock.Level,
+                    HeadingWrapperElement = SectioningContentElement.Section
+                };
+
+                processor.NewBlocks.Push(sectionBlock);
+            }
+            else
+            {
+                // New heading block should be a child of a child section block
+                processor.NewBlocks.Pop();
+                processor.GoToColumn(0);
+            }
+
+            // Keep section block open
+            return BlockState.Continue;
         }
     }
 }
