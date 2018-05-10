@@ -180,7 +180,7 @@ namespace JeremyTCD.Markdig.Extensions
             string headingText = _headingWriter.ToString();
             _headingWriter.GetStringBuilder().Length = 0;
 
-            // Urilize the heading text
+            // Convert heading text to kebab case
             string uri = LinkHelper.UrilizeAsGfm(headingText);
 
             // If the heading is empty, use the word "section" instead
