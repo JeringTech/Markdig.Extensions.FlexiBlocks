@@ -20,13 +20,13 @@ namespace JeremyTCD.Markdig.Extensions
     public class SectionExtension : IMarkdownExtension
     {
         private const string SECTION_IDS_KEY = "SectionIDs";
-        private SectionOptions _options;
+        private SectionExtensionOptions _options;
         private readonly HtmlRenderer _stripRenderer;
         private readonly StringWriter _headingWriter;
 
-        public SectionExtension(SectionOptions options)
+        public SectionExtension(SectionExtensionOptions options)
         {
-            _options = options ?? new SectionOptions();
+            _options = options ?? new SectionExtensionOptions();
             _headingWriter = new StringWriter();
             // Use internally a HtmlRenderer to strip links from a heading
             _stripRenderer = new HtmlRenderer(_headingWriter)
@@ -81,27 +81,30 @@ namespace JeremyTCD.Markdig.Extensions
 
             // Assign delegate to headingBlock.ProcessInlinesEnd - sectionBlock is a container block, so sectionBlock.ProcessInlinesEnd does 
             // not receive a reference to the SectionBlock that owns the delegate
-            headingBlock.ProcessInlinesEnd += HeadingBlockOnProcessInlinesEnd;
-
-            // If auto link is enabled, create and store a SectionLinkReferenceDefinition in the MarkdownDocument
-            if (_options.AutoLink)
+            if (_options.AutoIdentifiers)
             {
-                string headingBlockText = headingBlock.Lines.Lines[0].ToString();
+                headingBlock.ProcessInlinesEnd += HeadingBlockOnProcessInlinesEnd;
 
-                var sectionLinkReferenceDefinition = new SectionLinkReferenceDefinition()
+                // If auto linking is enabled, create and store a SectionLinkReferenceDefinition in the MarkdownDocument
+                if (_options.AutoLinking)
                 {
-                    SectionBlock = sectionBlock,
-                    CreateLinkInline = CreateLinkInlineForHeading
-                };
+                    string headingBlockText = headingBlock.Lines.Lines[0].ToString();
 
-                MarkdownDocument document = processor.Document;
-                if (!(document.GetData(this) is Dictionary<string, SectionLinkReferenceDefinition> sectionLinkReferenceDefinitions))
-                {
-                    sectionLinkReferenceDefinitions = new Dictionary<string, SectionLinkReferenceDefinition>();
-                    document.SetData(this, sectionLinkReferenceDefinitions);
-                    document.ProcessInlinesBegin += DocumentOnProcessInlinesBegin;
+                    var sectionLinkReferenceDefinition = new SectionLinkReferenceDefinition()
+                    {
+                        SectionBlock = sectionBlock,
+                        CreateLinkInline = CreateLinkInlineForHeading
+                    };
+
+                    MarkdownDocument document = processor.Document;
+                    if (!(document.GetData(this) is Dictionary<string, SectionLinkReferenceDefinition> sectionLinkReferenceDefinitions))
+                    {
+                        sectionLinkReferenceDefinitions = new Dictionary<string, SectionLinkReferenceDefinition>();
+                        document.SetData(this, sectionLinkReferenceDefinitions);
+                        document.ProcessInlinesBegin += DocumentOnProcessInlinesBegin;
+                    }
+                    sectionLinkReferenceDefinitions[headingBlockText] = sectionLinkReferenceDefinition;
                 }
-                sectionLinkReferenceDefinitions[headingBlockText] = sectionLinkReferenceDefinition;
             }
         }
 

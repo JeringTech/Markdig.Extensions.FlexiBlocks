@@ -7,9 +7,9 @@ namespace JeremyTCD.Markdig.Extensions
     public class SectionParser : BlockParser
     {
         private HeadingBlockParser _headingBlockParser;
-        private SectionOptions _options;
+        private SectionExtensionOptions _options;
 
-        public SectionParser(SectionOptions options)
+        public SectionParser(SectionExtensionOptions options)
         {
             OpeningCharacters = new[] { '#' };
             _headingBlockParser = new HeadingBlockParser();
@@ -32,12 +32,19 @@ namespace JeremyTCD.Markdig.Extensions
                 throw new InvalidOperationException($"Opened a heading block but BlockProcessor.NewBlocks does not contain any blocks.");
             }
 
-            if (_options.H1WrapperElement != SectioningContentElement.None || newHeadingBlock.Level > 1)
+            // TODO merge default section options with section options
+            SectionOptions sectionOptions = _options.DefaultSectionOptions;
+
+            // Section has a section element specified
+            if (sectionOptions.WrapperElement.CompareTo(SectioningContentElement.None) > 0 || 
+                newHeadingBlock.Level == 1 && _options.Level1WrapperElement.CompareTo(SectioningContentElement.None) > 0 ||
+                newHeadingBlock.Level > 1 && _options.Level2PlusWrapperElement.CompareTo(SectioningContentElement.None) > 0)
             {
                 var sectionBlock = new SectionBlock(this)
                 {
                     Level = newHeadingBlock.Level,
-                    HeadingWrapperElement = newHeadingBlock.Level == 1 ? _options.H1WrapperElement : SectioningContentElement.Section
+                    HeadingWrapperElement = sectionOptions.WrapperElement != SectioningContentElement.Undefined ? sectionOptions.WrapperElement :
+                        newHeadingBlock.Level == 1 ? _options.Level1WrapperElement : _options.Level2PlusWrapperElement
                 };
 
                 processor.NewBlocks.Push(sectionBlock);

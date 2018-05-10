@@ -3,6 +3,7 @@
 /// </summary>
 public enum SectioningContentElement
 {
+    Undefined = 0,
     None,
     Section,
     Article,

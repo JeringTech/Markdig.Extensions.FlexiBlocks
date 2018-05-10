@@ -1,4 +1,5 @@
 ﻿using Markdig;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,17 +10,21 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 {
     public class SpecTestHelper
     {
-        private static Dictionary<string, Action<MarkdownPipelineBuilder>> ExtensionsAdders =
-            new Dictionary<string, Action<MarkdownPipelineBuilder>>
+        private static readonly Dictionary<string, Action<MarkdownPipelineBuilder, JObject>> _extensionAdders =
+            new Dictionary<string, Action<MarkdownPipelineBuilder, JObject>>
             {
-                { "sections", (MarkdownPipelineBuilder builder) => builder.UseSections() },
-                {"all", (MarkdownPipelineBuilder builder) => builder.UseSections() },
-                { "commonmark", (MarkdownPipelineBuilder builder) => { } }
+                { "genericattributes", (MarkdownPipelineBuilder builder, JObject options) => builder.UseGenericAttributes() },
+                { "sections", (MarkdownPipelineBuilder builder, JObject options) => builder.UseSections(options?["sections"]?.ToObject<SectionExtensionOptions>()) },
+                { "all", (MarkdownPipelineBuilder builder, JObject options) => builder.UseSections(options?["sections"]?.ToObject<SectionExtensionOptions>()) },
+                { "commonmark", (MarkdownPipelineBuilder builder, JObject options) => { } }
             };
 
-        public static void AssertCompliance(string markdown, string expectedHtml, string pipelineOptions)
+        public static void AssertCompliance(string markdown, 
+            string expectedHtml, 
+            string pipelineOptions,
+            string extensionOptionsJson = null)
         {
-            MarkdownPipeline pipeline = CreatePipeline(pipelineOptions);
+            MarkdownPipeline pipeline = CreatePipeline(pipelineOptions, extensionOptionsJson);
             string result = Markdown.ToHtml(markdown, pipeline);
             result = Compact(result);
             string expectedResult = Compact(expectedHtml);
@@ -27,15 +32,22 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             Assert.Equal(expectedResult, result);
         }
 
-        private static MarkdownPipeline CreatePipeline(string pipelineOptions)
+        private static MarkdownPipeline CreatePipeline(string pipelineOptions, string extensionOptionsJson)
         {
+            JObject extensionOptions = null;
+
+            if (extensionOptionsJson != null)
+            {
+                extensionOptions = JObject.Parse(extensionOptionsJson);
+            }
+
             string[] extensions = pipelineOptions.Split('_');
 
             MarkdownPipelineBuilder builder = new MarkdownPipelineBuilder();
 
             foreach (string extension in extensions)
             {
-                ExtensionsAdders[extension.ToLower()](builder);
+                _extensionAdders[extension.ToLower()](builder, extensionOptions);
             }
 
             return builder.Build();

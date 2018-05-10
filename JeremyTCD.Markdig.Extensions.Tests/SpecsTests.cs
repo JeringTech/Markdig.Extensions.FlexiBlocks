@@ -23,7 +23,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // tabs are passed through as literal tabs, not expanded to
         // spaces.)        
         [Fact]
-        public void Tabs_Spec1_CommonMark()
+        public void Tabs_Spec1_commonmark()
         {
             // The following Markdown:
             //     →foo→baz→→bim
@@ -32,11 +32,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>foo→baz→→bim
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("\tfoo\tbaz\t\tbim", "<pre><code>foo\tbaz\t\tbim\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("\tfoo\tbaz\t\tbim", 
+                "<pre><code>foo\tbaz\t\tbim\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Tabs_Spec2_CommonMark()
+        public void Tabs_Spec2_commonmark()
         {
             // The following Markdown:
             //       →foo→baz→→bim
@@ -45,11 +47,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>foo→baz→→bim
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("  \tfoo\tbaz\t\tbim", "<pre><code>foo\tbaz\t\tbim\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("  \tfoo\tbaz\t\tbim", 
+                "<pre><code>foo\tbaz\t\tbim\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Tabs_Spec3_CommonMark()
+        public void Tabs_Spec3_commonmark()
         {
             // The following Markdown:
             //         a→a
@@ -60,14 +64,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ὐ→a
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("    a\ta\n    ὐ\ta", "<pre><code>a\ta\nὐ\ta\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    a\ta\n    ὐ\ta", 
+                "<pre><code>a\ta\nὐ\ta\n</code></pre>", 
+                "commonmark");
         }
 
         // In the following example, a continuation paragraph of a list
         // item is indented with a tab; this has exactly the same effect
         // as indentation with four spaces would:        
         [Fact]
-        public void Tabs_Spec4_CommonMark()
+        public void Tabs_Spec4_commonmark()
         {
             // The following Markdown:
             //       - foo
@@ -82,11 +88,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("  - foo\n\n\tbar", "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("  - foo\n\n\tbar", 
+                "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Tabs_Spec5_CommonMark()
+        public void Tabs_Spec5_commonmark()
         {
             // The following Markdown:
             //     - foo
@@ -102,7 +110,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- foo\n\n\t\tbar", "<ul>\n<li>\n<p>foo</p>\n<pre><code>  bar\n</code></pre>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- foo\n\n\t\tbar", 
+                "<ul>\n<li>\n<p>foo</p>\n<pre><code>  bar\n</code></pre>\n</li>\n</ul>", 
+                "commonmark");
         }
 
         // Normally the `>` that begins a block quote may be followed
@@ -114,7 +124,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // inside the block quote context, so we get an indented
         // code block starting with two spaces.        
         [Fact]
-        public void Tabs_Spec6_CommonMark()
+        public void Tabs_Spec6_commonmark()
         {
             // The following Markdown:
             //     >→→foo
@@ -125,11 +135,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance(">\t\tfoo", "<blockquote>\n<pre><code>  foo\n</code></pre>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance(">\t\tfoo", 
+                "<blockquote>\n<pre><code>  foo\n</code></pre>\n</blockquote>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Tabs_Spec7_CommonMark()
+        public void Tabs_Spec7_commonmark()
         {
             // The following Markdown:
             //     -→→foo
@@ -142,11 +154,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("-\t\tfoo", "<ul>\n<li>\n<pre><code>  foo\n</code></pre>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("-\t\tfoo", 
+                "<ul>\n<li>\n<pre><code>  foo\n</code></pre>\n</li>\n</ul>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Tabs_Spec8_CommonMark()
+        public void Tabs_Spec8_commonmark()
         {
             // The following Markdown:
             //         foo
@@ -157,11 +171,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     bar
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("    foo\n\tbar", "<pre><code>foo\nbar\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    foo\n\tbar", 
+                "<pre><code>foo\nbar\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Tabs_Spec9_CommonMark()
+        public void Tabs_Spec9_commonmark()
         {
             // The following Markdown:
             //      - foo
@@ -181,11 +197,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance(" - foo\n   - bar\n\t - baz", "<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>baz</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance(" - foo\n   - bar\n\t - baz", 
+                "<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>baz</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Tabs_Spec10_CommonMark()
+        public void Tabs_Spec10_commonmark()
         {
             // The following Markdown:
             //     #→Foo
@@ -193,11 +211,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h1>Foo</h1>
 
-            SpecTestHelper.AssertCompliance("#\tFoo", "<h1>Foo</h1>", "CommonMark");
+            SpecTestHelper.AssertCompliance("#\tFoo", 
+                "<h1>Foo</h1>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Tabs_Spec11_CommonMark()
+        public void Tabs_Spec11_commonmark()
         {
             // The following Markdown:
             //     *→*→*→
@@ -205,7 +225,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("*\t*\t*\t", "<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("*\t*\t*\t", 
+                "<hr />", 
+                "commonmark");
         }
     }
 
@@ -216,7 +238,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     {
         
         [Fact]
-        public void Precedence_Spec12_CommonMark()
+        public void Precedence_Spec12_commonmark()
         {
             // The following Markdown:
             //     - `one
@@ -228,7 +250,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>two`</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- `one\n- two`", "<ul>\n<li>`one</li>\n<li>two`</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- `one\n- two`", 
+                "<ul>\n<li>`one</li>\n<li>two`</li>\n</ul>", 
+                "commonmark");
         }
     }
 
@@ -240,7 +264,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     {
         
         [Fact]
-        public void ThematicBreaks_Spec13_CommonMark()
+        public void ThematicBreaks_Spec13_commonmark()
         {
             // The following Markdown:
             //     ***
@@ -252,12 +276,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <hr />
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("***\n---\n___", "<hr />\n<hr />\n<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("***\n---\n___", 
+                "<hr />\n<hr />\n<hr />", 
+                "commonmark");
         }
 
         // Wrong characters:        
         [Fact]
-        public void ThematicBreaks_Spec14_CommonMark()
+        public void ThematicBreaks_Spec14_commonmark()
         {
             // The following Markdown:
             //     +++
@@ -265,11 +291,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>+++</p>
 
-            SpecTestHelper.AssertCompliance("+++", "<p>+++</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("+++", 
+                "<p>+++</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void ThematicBreaks_Spec15_CommonMark()
+        public void ThematicBreaks_Spec15_commonmark()
         {
             // The following Markdown:
             //     ===
@@ -277,12 +305,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>===</p>
 
-            SpecTestHelper.AssertCompliance("===", "<p>===</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("===", 
+                "<p>===</p>", 
+                "commonmark");
         }
 
         // Not enough characters:        
         [Fact]
-        public void ThematicBreaks_Spec16_CommonMark()
+        public void ThematicBreaks_Spec16_commonmark()
         {
             // The following Markdown:
             //     --
@@ -294,12 +324,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     **
             //     __</p>
 
-            SpecTestHelper.AssertCompliance("--\n**\n__", "<p>--\n**\n__</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("--\n**\n__", 
+                "<p>--\n**\n__</p>", 
+                "commonmark");
         }
 
         // One to three spaces indent are allowed:        
         [Fact]
-        public void ThematicBreaks_Spec17_CommonMark()
+        public void ThematicBreaks_Spec17_commonmark()
         {
             // The following Markdown:
             //      ***
@@ -311,12 +343,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <hr />
             //     <hr />
 
-            SpecTestHelper.AssertCompliance(" ***\n  ***\n   ***", "<hr />\n<hr />\n<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance(" ***\n  ***\n   ***", 
+                "<hr />\n<hr />\n<hr />", 
+                "commonmark");
         }
 
         // Four spaces is too many:        
         [Fact]
-        public void ThematicBreaks_Spec18_CommonMark()
+        public void ThematicBreaks_Spec18_commonmark()
         {
             // The following Markdown:
             //         ***
@@ -325,11 +359,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>***
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("    ***", "<pre><code>***\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    ***", 
+                "<pre><code>***\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void ThematicBreaks_Spec19_CommonMark()
+        public void ThematicBreaks_Spec19_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -339,12 +375,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>Foo
             //     ***</p>
 
-            SpecTestHelper.AssertCompliance("Foo\n    ***", "<p>Foo\n***</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\n    ***", 
+                "<p>Foo\n***</p>", 
+                "commonmark");
         }
 
         // More than three characters may be used:        
         [Fact]
-        public void ThematicBreaks_Spec20_CommonMark()
+        public void ThematicBreaks_Spec20_commonmark()
         {
             // The following Markdown:
             //     _____________________________________
@@ -352,12 +390,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("_____________________________________", "<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("_____________________________________", 
+                "<hr />", 
+                "commonmark");
         }
 
         // Spaces are allowed between the characters:        
         [Fact]
-        public void ThematicBreaks_Spec21_CommonMark()
+        public void ThematicBreaks_Spec21_commonmark()
         {
             // The following Markdown:
             //      - - -
@@ -365,11 +405,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <hr />
 
-            SpecTestHelper.AssertCompliance(" - - -", "<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance(" - - -", 
+                "<hr />", 
+                "commonmark");
         }
         
         [Fact]
-        public void ThematicBreaks_Spec22_CommonMark()
+        public void ThematicBreaks_Spec22_commonmark()
         {
             // The following Markdown:
             //      **  * ** * ** * **
@@ -377,11 +419,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <hr />
 
-            SpecTestHelper.AssertCompliance(" **  * ** * ** * **", "<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance(" **  * ** * ** * **", 
+                "<hr />", 
+                "commonmark");
         }
         
         [Fact]
-        public void ThematicBreaks_Spec23_CommonMark()
+        public void ThematicBreaks_Spec23_commonmark()
         {
             // The following Markdown:
             //     -     -      -      -
@@ -389,12 +433,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("-     -      -      -", "<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("-     -      -      -", 
+                "<hr />", 
+                "commonmark");
         }
 
         // Spaces are allowed at the end:        
         [Fact]
-        public void ThematicBreaks_Spec24_CommonMark()
+        public void ThematicBreaks_Spec24_commonmark()
         {
             // The following Markdown:
             //     - - - -    
@@ -402,12 +448,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("- - - -    ", "<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("- - - -    ", 
+                "<hr />", 
+                "commonmark");
         }
 
         // However, no other characters may occur in the line:        
         [Fact]
-        public void ThematicBreaks_Spec25_CommonMark()
+        public void ThematicBreaks_Spec25_commonmark()
         {
             // The following Markdown:
             //     _ _ _ _ a
@@ -421,13 +469,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>a------</p>
             //     <p>---a---</p>
 
-            SpecTestHelper.AssertCompliance("_ _ _ _ a\n\na------\n\n---a---", "<p>_ _ _ _ a</p>\n<p>a------</p>\n<p>---a---</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_ _ _ _ a\n\na------\n\n---a---", 
+                "<p>_ _ _ _ a</p>\n<p>a------</p>\n<p>---a---</p>", 
+                "commonmark");
         }
 
         // It is required that all of the [non-whitespace characters] be the same.
         // So, this is not a thematic break:        
         [Fact]
-        public void ThematicBreaks_Spec26_CommonMark()
+        public void ThematicBreaks_Spec26_commonmark()
         {
             // The following Markdown:
             //      *-*
@@ -435,12 +485,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>-</em></p>
 
-            SpecTestHelper.AssertCompliance(" *-*", "<p><em>-</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance(" *-*", 
+                "<p><em>-</em></p>", 
+                "commonmark");
         }
 
         // Thematic breaks do not need blank lines before or after:        
         [Fact]
-        public void ThematicBreaks_Spec27_CommonMark()
+        public void ThematicBreaks_Spec27_commonmark()
         {
             // The following Markdown:
             //     - foo
@@ -456,12 +508,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>bar</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- foo\n***\n- bar", "<ul>\n<li>foo</li>\n</ul>\n<hr />\n<ul>\n<li>bar</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- foo\n***\n- bar", 
+                "<ul>\n<li>foo</li>\n</ul>\n<hr />\n<ul>\n<li>bar</li>\n</ul>", 
+                "commonmark");
         }
 
         // Thematic breaks can interrupt a paragraph:        
         [Fact]
-        public void ThematicBreaks_Spec28_CommonMark()
+        public void ThematicBreaks_Spec28_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -473,7 +527,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <hr />
             //     <p>bar</p>
 
-            SpecTestHelper.AssertCompliance("Foo\n***\nbar", "<p>Foo</p>\n<hr />\n<p>bar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\n***\nbar", 
+                "<p>Foo</p>\n<hr />\n<p>bar</p>", 
+                "commonmark");
         }
 
         // If a line of dashes that meets the above conditions for being a
@@ -482,7 +538,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // [setext heading] takes precedence. Thus, for example,
         // this is a setext heading, not a paragraph followed by a thematic break:        
         [Fact]
-        public void ThematicBreaks_Spec29_CommonMark()
+        public void ThematicBreaks_Spec29_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -493,13 +549,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>Foo</h2>
             //     <p>bar</p>
 
-            SpecTestHelper.AssertCompliance("Foo\n---\nbar", "<h2>Foo</h2>\n<p>bar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\n---\nbar", 
+                "<h2>Foo</h2>\n<p>bar</p>", 
+                "commonmark");
         }
 
         // When both a thematic break and a list item are possible
         // interpretations of a line, the thematic break takes precedence:        
         [Fact]
-        public void ThematicBreaks_Spec30_CommonMark()
+        public void ThematicBreaks_Spec30_commonmark()
         {
             // The following Markdown:
             //     * Foo
@@ -515,12 +573,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>Bar</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("* Foo\n* * *\n* Bar", "<ul>\n<li>Foo</li>\n</ul>\n<hr />\n<ul>\n<li>Bar</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("* Foo\n* * *\n* Bar", 
+                "<ul>\n<li>Foo</li>\n</ul>\n<hr />\n<ul>\n<li>Bar</li>\n</ul>", 
+                "commonmark");
         }
 
         // If you want a thematic break in a list item, use a different bullet:        
         [Fact]
-        public void ThematicBreaks_Spec31_CommonMark()
+        public void ThematicBreaks_Spec31_commonmark()
         {
             // The following Markdown:
             //     - Foo
@@ -534,7 +594,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- Foo\n- * * *", "<ul>\n<li>Foo</li>\n<li>\n<hr />\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- Foo\n- * * *", 
+                "<ul>\n<li>Foo</li>\n<li>\n<hr />\n</li>\n</ul>", 
+                "commonmark");
         }
     }
 
@@ -554,7 +616,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Simple headings:        
         [Fact]
-        public void ATXHeadings_Spec32_CommonMark()
+        public void ATXHeadings_Spec32_commonmark()
         {
             // The following Markdown:
             //     # foo
@@ -572,12 +634,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h5>foo</h5>
             //     <h6>foo</h6>
 
-            SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n#### foo\n##### foo\n###### foo", "<h1>foo</h1>\n<h2>foo</h2>\n<h3>foo</h3>\n<h4>foo</h4>\n<h5>foo</h5>\n<h6>foo</h6>", "CommonMark");
+            SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n#### foo\n##### foo\n###### foo", 
+                "<h1>foo</h1>\n<h2>foo</h2>\n<h3>foo</h3>\n<h4>foo</h4>\n<h5>foo</h5>\n<h6>foo</h6>", 
+                "commonmark");
         }
 
         // More than six `#` characters is not a heading:        
         [Fact]
-        public void ATXHeadings_Spec33_CommonMark()
+        public void ATXHeadings_Spec33_commonmark()
         {
             // The following Markdown:
             //     ####### foo
@@ -585,7 +649,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>####### foo</p>
 
-            SpecTestHelper.AssertCompliance("####### foo", "<p>####### foo</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("####### foo", 
+                "<p>####### foo</p>", 
+                "commonmark");
         }
 
         // At least one space is required between the `#` characters and the
@@ -596,7 +662,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // and it helps prevent things like the following from being parsed as
         // headings:        
         [Fact]
-        public void ATXHeadings_Spec34_CommonMark()
+        public void ATXHeadings_Spec34_commonmark()
         {
             // The following Markdown:
             //     #5 bolt
@@ -607,12 +673,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>#5 bolt</p>
             //     <p>#hashtag</p>
 
-            SpecTestHelper.AssertCompliance("#5 bolt\n\n#hashtag", "<p>#5 bolt</p>\n<p>#hashtag</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("#5 bolt\n\n#hashtag", 
+                "<p>#5 bolt</p>\n<p>#hashtag</p>", 
+                "commonmark");
         }
 
         // This is not a heading, because the first `#` is escaped:        
         [Fact]
-        public void ATXHeadings_Spec35_CommonMark()
+        public void ATXHeadings_Spec35_commonmark()
         {
             // The following Markdown:
             //     \## foo
@@ -620,12 +688,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>## foo</p>
 
-            SpecTestHelper.AssertCompliance("\\## foo", "<p>## foo</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("\\## foo", 
+                "<p>## foo</p>", 
+                "commonmark");
         }
 
         // Contents are parsed as inlines:        
         [Fact]
-        public void ATXHeadings_Spec36_CommonMark()
+        public void ATXHeadings_Spec36_commonmark()
         {
             // The following Markdown:
             //     # foo *bar* \*baz\*
@@ -633,12 +703,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h1>foo <em>bar</em> *baz*</h1>
 
-            SpecTestHelper.AssertCompliance("# foo *bar* \\*baz\\*", "<h1>foo <em>bar</em> *baz*</h1>", "CommonMark");
+            SpecTestHelper.AssertCompliance("# foo *bar* \\*baz\\*", 
+                "<h1>foo <em>bar</em> *baz*</h1>", 
+                "commonmark");
         }
 
         // Leading and trailing blanks are ignored in parsing inline content:        
         [Fact]
-        public void ATXHeadings_Spec37_CommonMark()
+        public void ATXHeadings_Spec37_commonmark()
         {
             // The following Markdown:
             //     #                  foo                     
@@ -646,12 +718,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h1>foo</h1>
 
-            SpecTestHelper.AssertCompliance("#                  foo                     ", "<h1>foo</h1>", "CommonMark");
+            SpecTestHelper.AssertCompliance("#                  foo                     ", 
+                "<h1>foo</h1>", 
+                "commonmark");
         }
 
         // One to three spaces indentation are allowed:        
         [Fact]
-        public void ATXHeadings_Spec38_CommonMark()
+        public void ATXHeadings_Spec38_commonmark()
         {
             // The following Markdown:
             //      ### foo
@@ -663,12 +737,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>foo</h2>
             //     <h1>foo</h1>
 
-            SpecTestHelper.AssertCompliance(" ### foo\n  ## foo\n   # foo", "<h3>foo</h3>\n<h2>foo</h2>\n<h1>foo</h1>", "CommonMark");
+            SpecTestHelper.AssertCompliance(" ### foo\n  ## foo\n   # foo", 
+                "<h3>foo</h3>\n<h2>foo</h2>\n<h1>foo</h1>", 
+                "commonmark");
         }
 
         // Four spaces are too much:        
         [Fact]
-        public void ATXHeadings_Spec39_CommonMark()
+        public void ATXHeadings_Spec39_commonmark()
         {
             // The following Markdown:
             //         # foo
@@ -677,11 +753,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code># foo
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("    # foo", "<pre><code># foo\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    # foo", 
+                "<pre><code># foo\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void ATXHeadings_Spec40_CommonMark()
+        public void ATXHeadings_Spec40_commonmark()
         {
             // The following Markdown:
             //     foo
@@ -691,12 +769,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo
             //     # bar</p>
 
-            SpecTestHelper.AssertCompliance("foo\n    # bar", "<p>foo\n# bar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo\n    # bar", 
+                "<p>foo\n# bar</p>", 
+                "commonmark");
         }
 
         // A closing sequence of `#` characters is optional:        
         [Fact]
-        public void ATXHeadings_Spec41_CommonMark()
+        public void ATXHeadings_Spec41_commonmark()
         {
             // The following Markdown:
             //     ## foo ##
@@ -706,12 +786,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>foo</h2>
             //     <h3>bar</h3>
 
-            SpecTestHelper.AssertCompliance("## foo ##\n  ###   bar    ###", "<h2>foo</h2>\n<h3>bar</h3>", "CommonMark");
+            SpecTestHelper.AssertCompliance("## foo ##\n  ###   bar    ###", 
+                "<h2>foo</h2>\n<h3>bar</h3>", 
+                "commonmark");
         }
 
         // It need not be the same length as the opening sequence:        
         [Fact]
-        public void ATXHeadings_Spec42_CommonMark()
+        public void ATXHeadings_Spec42_commonmark()
         {
             // The following Markdown:
             //     # foo ##################################
@@ -721,12 +803,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h1>foo</h1>
             //     <h5>foo</h5>
 
-            SpecTestHelper.AssertCompliance("# foo ##################################\n##### foo ##", "<h1>foo</h1>\n<h5>foo</h5>", "CommonMark");
+            SpecTestHelper.AssertCompliance("# foo ##################################\n##### foo ##", 
+                "<h1>foo</h1>\n<h5>foo</h5>", 
+                "commonmark");
         }
 
         // Spaces are allowed after the closing sequence:        
         [Fact]
-        public void ATXHeadings_Spec43_CommonMark()
+        public void ATXHeadings_Spec43_commonmark()
         {
             // The following Markdown:
             //     ### foo ###     
@@ -734,14 +818,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h3>foo</h3>
 
-            SpecTestHelper.AssertCompliance("### foo ###     ", "<h3>foo</h3>", "CommonMark");
+            SpecTestHelper.AssertCompliance("### foo ###     ", 
+                "<h3>foo</h3>", 
+                "commonmark");
         }
 
         // A sequence of `#` characters with anything but [spaces] following it
         // is not a closing sequence, but counts as part of the contents of the
         // heading:        
         [Fact]
-        public void ATXHeadings_Spec44_CommonMark()
+        public void ATXHeadings_Spec44_commonmark()
         {
             // The following Markdown:
             //     ### foo ### b
@@ -749,12 +835,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h3>foo ### b</h3>
 
-            SpecTestHelper.AssertCompliance("### foo ### b", "<h3>foo ### b</h3>", "CommonMark");
+            SpecTestHelper.AssertCompliance("### foo ### b", 
+                "<h3>foo ### b</h3>", 
+                "commonmark");
         }
 
         // The closing sequence must be preceded by a space:        
         [Fact]
-        public void ATXHeadings_Spec45_CommonMark()
+        public void ATXHeadings_Spec45_commonmark()
         {
             // The following Markdown:
             //     # foo#
@@ -762,13 +850,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h1>foo#</h1>
 
-            SpecTestHelper.AssertCompliance("# foo#", "<h1>foo#</h1>", "CommonMark");
+            SpecTestHelper.AssertCompliance("# foo#", 
+                "<h1>foo#</h1>", 
+                "commonmark");
         }
 
         // Backslash-escaped `#` characters do not count as part
         // of the closing sequence:        
         [Fact]
-        public void ATXHeadings_Spec46_CommonMark()
+        public void ATXHeadings_Spec46_commonmark()
         {
             // The following Markdown:
             //     ### foo \###
@@ -780,13 +870,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>foo ###</h2>
             //     <h1>foo #</h1>
 
-            SpecTestHelper.AssertCompliance("### foo \\###\n## foo #\\##\n# foo \\#", "<h3>foo ###</h3>\n<h2>foo ###</h2>\n<h1>foo #</h1>", "CommonMark");
+            SpecTestHelper.AssertCompliance("### foo \\###\n## foo #\\##\n# foo \\#", 
+                "<h3>foo ###</h3>\n<h2>foo ###</h2>\n<h1>foo #</h1>", 
+                "commonmark");
         }
 
         // ATX headings need not be separated from surrounding content by blank
         // lines, and they can interrupt paragraphs:        
         [Fact]
-        public void ATXHeadings_Spec47_CommonMark()
+        public void ATXHeadings_Spec47_commonmark()
         {
             // The following Markdown:
             //     ****
@@ -798,11 +890,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>foo</h2>
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("****\n## foo\n****", "<hr />\n<h2>foo</h2>\n<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("****\n## foo\n****", 
+                "<hr />\n<h2>foo</h2>\n<hr />", 
+                "commonmark");
         }
         
         [Fact]
-        public void ATXHeadings_Spec48_CommonMark()
+        public void ATXHeadings_Spec48_commonmark()
         {
             // The following Markdown:
             //     Foo bar
@@ -814,12 +908,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h1>baz</h1>
             //     <p>Bar foo</p>
 
-            SpecTestHelper.AssertCompliance("Foo bar\n# baz\nBar foo", "<p>Foo bar</p>\n<h1>baz</h1>\n<p>Bar foo</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo bar\n# baz\nBar foo", 
+                "<p>Foo bar</p>\n<h1>baz</h1>\n<p>Bar foo</p>", 
+                "commonmark");
         }
 
         // ATX headings can be empty:        
         [Fact]
-        public void ATXHeadings_Spec49_CommonMark()
+        public void ATXHeadings_Spec49_commonmark()
         {
             // The following Markdown:
             //     ## 
@@ -831,7 +927,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h1></h1>
             //     <h3></h3>
 
-            SpecTestHelper.AssertCompliance("## \n#\n### ###", "<h2></h2>\n<h1></h1>\n<h3></h3>", "CommonMark");
+            SpecTestHelper.AssertCompliance("## \n#\n### ###", 
+                "<h2></h2>\n<h1></h1>\n<h3></h3>", 
+                "commonmark");
         }
     }
 
@@ -867,7 +965,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Simple examples:        
         [Fact]
-        public void SetextHeadings_Spec50_CommonMark()
+        public void SetextHeadings_Spec50_commonmark()
         {
             // The following Markdown:
             //     Foo *bar*
@@ -880,12 +978,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h1>Foo <em>bar</em></h1>
             //     <h2>Foo <em>bar</em></h2>
 
-            SpecTestHelper.AssertCompliance("Foo *bar*\n=========\n\nFoo *bar*\n---------", "<h1>Foo <em>bar</em></h1>\n<h2>Foo <em>bar</em></h2>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo *bar*\n=========\n\nFoo *bar*\n---------", 
+                "<h1>Foo <em>bar</em></h1>\n<h2>Foo <em>bar</em></h2>", 
+                "commonmark");
         }
 
         // The content of the header may span more than one line:        
         [Fact]
-        public void SetextHeadings_Spec51_CommonMark()
+        public void SetextHeadings_Spec51_commonmark()
         {
             // The following Markdown:
             //     Foo *bar
@@ -896,12 +996,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h1>Foo <em>bar
             //     baz</em></h1>
 
-            SpecTestHelper.AssertCompliance("Foo *bar\nbaz*\n====", "<h1>Foo <em>bar\nbaz</em></h1>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo *bar\nbaz*\n====", 
+                "<h1>Foo <em>bar\nbaz</em></h1>", 
+                "commonmark");
         }
 
         // The underlining can be any length:        
         [Fact]
-        public void SetextHeadings_Spec52_CommonMark()
+        public void SetextHeadings_Spec52_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -914,13 +1016,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>Foo</h2>
             //     <h1>Foo</h1>
 
-            SpecTestHelper.AssertCompliance("Foo\n-------------------------\n\nFoo\n=", "<h2>Foo</h2>\n<h1>Foo</h1>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\n-------------------------\n\nFoo\n=", 
+                "<h2>Foo</h2>\n<h1>Foo</h1>", 
+                "commonmark");
         }
 
         // The heading content can be indented up to three spaces, and need
         // not line up with the underlining:        
         [Fact]
-        public void SetextHeadings_Spec53_CommonMark()
+        public void SetextHeadings_Spec53_commonmark()
         {
             // The following Markdown:
             //        Foo
@@ -937,12 +1041,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>Foo</h2>
             //     <h1>Foo</h1>
 
-            SpecTestHelper.AssertCompliance("   Foo\n---\n\n  Foo\n-----\n\n  Foo\n  ===", "<h2>Foo</h2>\n<h2>Foo</h2>\n<h1>Foo</h1>", "CommonMark");
+            SpecTestHelper.AssertCompliance("   Foo\n---\n\n  Foo\n-----\n\n  Foo\n  ===", 
+                "<h2>Foo</h2>\n<h2>Foo</h2>\n<h1>Foo</h1>", 
+                "commonmark");
         }
 
         // Four spaces indent is too much:        
         [Fact]
-        public void SetextHeadings_Spec54_CommonMark()
+        public void SetextHeadings_Spec54_commonmark()
         {
             // The following Markdown:
             //         Foo
@@ -959,13 +1065,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("    Foo\n    ---\n\n    Foo\n---", "<pre><code>Foo\n---\n\nFoo\n</code></pre>\n<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("    Foo\n    ---\n\n    Foo\n---", 
+                "<pre><code>Foo\n---\n\nFoo\n</code></pre>\n<hr />", 
+                "commonmark");
         }
 
         // The setext heading underline can be indented up to three spaces, and
         // may have trailing spaces:        
         [Fact]
-        public void SetextHeadings_Spec55_CommonMark()
+        public void SetextHeadings_Spec55_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -974,12 +1082,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h2>Foo</h2>
 
-            SpecTestHelper.AssertCompliance("Foo\n   ----      ", "<h2>Foo</h2>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\n   ----      ", 
+                "<h2>Foo</h2>", 
+                "commonmark");
         }
 
         // Four spaces is too much:        
         [Fact]
-        public void SetextHeadings_Spec56_CommonMark()
+        public void SetextHeadings_Spec56_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -989,12 +1099,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>Foo
             //     ---</p>
 
-            SpecTestHelper.AssertCompliance("Foo\n    ---", "<p>Foo\n---</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\n    ---", 
+                "<p>Foo\n---</p>", 
+                "commonmark");
         }
 
         // The setext heading underline cannot contain internal spaces:        
         [Fact]
-        public void SetextHeadings_Spec57_CommonMark()
+        public void SetextHeadings_Spec57_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -1009,12 +1121,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>Foo</p>
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("Foo\n= =\n\nFoo\n--- -", "<p>Foo\n= =</p>\n<p>Foo</p>\n<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\n= =\n\nFoo\n--- -", 
+                "<p>Foo\n= =</p>\n<p>Foo</p>\n<hr />", 
+                "commonmark");
         }
 
         // Trailing spaces in the content line do not cause a line break:        
         [Fact]
-        public void SetextHeadings_Spec58_CommonMark()
+        public void SetextHeadings_Spec58_commonmark()
         {
             // The following Markdown:
             //     Foo  
@@ -1023,12 +1137,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h2>Foo</h2>
 
-            SpecTestHelper.AssertCompliance("Foo  \n-----", "<h2>Foo</h2>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo  \n-----", 
+                "<h2>Foo</h2>", 
+                "commonmark");
         }
 
         // Nor does a backslash at the end:        
         [Fact]
-        public void SetextHeadings_Spec59_CommonMark()
+        public void SetextHeadings_Spec59_commonmark()
         {
             // The following Markdown:
             //     Foo\
@@ -1037,13 +1153,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h2>Foo\</h2>
 
-            SpecTestHelper.AssertCompliance("Foo\\\n----", "<h2>Foo\\</h2>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\\\n----", 
+                "<h2>Foo\\</h2>", 
+                "commonmark");
         }
 
         // Since indicators of block structure take precedence over
         // indicators of inline structure, the following are setext headings:        
         [Fact]
-        public void SetextHeadings_Spec60_CommonMark()
+        public void SetextHeadings_Spec60_commonmark()
         {
             // The following Markdown:
             //     `Foo
@@ -1060,13 +1178,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>&lt;a title=&quot;a lot</h2>
             //     <p>of dashes&quot;/&gt;</p>
 
-            SpecTestHelper.AssertCompliance("`Foo\n----\n`\n\n<a title=\"a lot\n---\nof dashes\"/>", "<h2>`Foo</h2>\n<p>`</p>\n<h2>&lt;a title=&quot;a lot</h2>\n<p>of dashes&quot;/&gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`Foo\n----\n`\n\n<a title=\"a lot\n---\nof dashes\"/>", 
+                "<h2>`Foo</h2>\n<p>`</p>\n<h2>&lt;a title=&quot;a lot</h2>\n<p>of dashes&quot;/&gt;</p>", 
+                "commonmark");
         }
 
         // The setext heading underline cannot be a [lazy continuation
         // line] in a list item or block quote:        
         [Fact]
-        public void SetextHeadings_Spec61_CommonMark()
+        public void SetextHeadings_Spec61_commonmark()
         {
             // The following Markdown:
             //     > Foo
@@ -1078,11 +1198,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("> Foo\n---", "<blockquote>\n<p>Foo</p>\n</blockquote>\n<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("> Foo\n---", 
+                "<blockquote>\n<p>Foo</p>\n</blockquote>\n<hr />", 
+                "commonmark");
         }
         
         [Fact]
-        public void SetextHeadings_Spec62_CommonMark()
+        public void SetextHeadings_Spec62_commonmark()
         {
             // The following Markdown:
             //     > foo
@@ -1096,11 +1218,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ===</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("> foo\nbar\n===", "<blockquote>\n<p>foo\nbar\n===</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> foo\nbar\n===", 
+                "<blockquote>\n<p>foo\nbar\n===</p>\n</blockquote>", 
+                "commonmark");
         }
         
         [Fact]
-        public void SetextHeadings_Spec63_CommonMark()
+        public void SetextHeadings_Spec63_commonmark()
         {
             // The following Markdown:
             //     - Foo
@@ -1112,14 +1236,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ul>
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("- Foo\n---", "<ul>\n<li>Foo</li>\n</ul>\n<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("- Foo\n---", 
+                "<ul>\n<li>Foo</li>\n</ul>\n<hr />", 
+                "commonmark");
         }
 
         // A blank line is needed between a paragraph and a following
         // setext heading, since otherwise the paragraph becomes part
         // of the heading's content:        
         [Fact]
-        public void SetextHeadings_Spec64_CommonMark()
+        public void SetextHeadings_Spec64_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -1130,13 +1256,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>Foo
             //     Bar</h2>
 
-            SpecTestHelper.AssertCompliance("Foo\nBar\n---", "<h2>Foo\nBar</h2>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\nBar\n---", 
+                "<h2>Foo\nBar</h2>", 
+                "commonmark");
         }
 
         // But in general a blank line is not required before or after
         // setext headings:        
         [Fact]
-        public void SetextHeadings_Spec65_CommonMark()
+        public void SetextHeadings_Spec65_commonmark()
         {
             // The following Markdown:
             //     ---
@@ -1152,12 +1280,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>Bar</h2>
             //     <p>Baz</p>
 
-            SpecTestHelper.AssertCompliance("---\nFoo\n---\nBar\n---\nBaz", "<hr />\n<h2>Foo</h2>\n<h2>Bar</h2>\n<p>Baz</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("---\nFoo\n---\nBar\n---\nBaz", 
+                "<hr />\n<h2>Foo</h2>\n<h2>Bar</h2>\n<p>Baz</p>", 
+                "commonmark");
         }
 
         // Setext headings cannot be empty:        
         [Fact]
-        public void SetextHeadings_Spec66_CommonMark()
+        public void SetextHeadings_Spec66_commonmark()
         {
             // The following Markdown:
             //     
@@ -1166,14 +1296,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>====</p>
 
-            SpecTestHelper.AssertCompliance("\n====", "<p>====</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("\n====", 
+                "<p>====</p>", 
+                "commonmark");
         }
 
         // Setext heading text lines must not be interpretable as block
         // constructs other than paragraphs.  So, the line of dashes
         // in these examples gets interpreted as a thematic break:        
         [Fact]
-        public void SetextHeadings_Spec67_CommonMark()
+        public void SetextHeadings_Spec67_commonmark()
         {
             // The following Markdown:
             //     ---
@@ -1183,11 +1315,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <hr />
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("---\n---", "<hr />\n<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("---\n---", 
+                "<hr />\n<hr />", 
+                "commonmark");
         }
         
         [Fact]
-        public void SetextHeadings_Spec68_CommonMark()
+        public void SetextHeadings_Spec68_commonmark()
         {
             // The following Markdown:
             //     - foo
@@ -1199,11 +1333,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ul>
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("- foo\n-----", "<ul>\n<li>foo</li>\n</ul>\n<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("- foo\n-----", 
+                "<ul>\n<li>foo</li>\n</ul>\n<hr />", 
+                "commonmark");
         }
         
         [Fact]
-        public void SetextHeadings_Spec69_CommonMark()
+        public void SetextHeadings_Spec69_commonmark()
         {
             // The following Markdown:
             //         foo
@@ -1214,11 +1350,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("    foo\n---", "<pre><code>foo\n</code></pre>\n<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("    foo\n---", 
+                "<pre><code>foo\n</code></pre>\n<hr />", 
+                "commonmark");
         }
         
         [Fact]
-        public void SetextHeadings_Spec70_CommonMark()
+        public void SetextHeadings_Spec70_commonmark()
         {
             // The following Markdown:
             //     > foo
@@ -1230,13 +1368,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("> foo\n-----", "<blockquote>\n<p>foo</p>\n</blockquote>\n<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("> foo\n-----", 
+                "<blockquote>\n<p>foo</p>\n</blockquote>\n<hr />", 
+                "commonmark");
         }
 
         // If you want a heading with `> foo` as its literal text, you can
         // use backslash escapes:        
         [Fact]
-        public void SetextHeadings_Spec71_CommonMark()
+        public void SetextHeadings_Spec71_commonmark()
         {
             // The following Markdown:
             //     \> foo
@@ -1245,7 +1385,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h2>&gt; foo</h2>
 
-            SpecTestHelper.AssertCompliance("\\> foo\n------", "<h2>&gt; foo</h2>", "CommonMark");
+            SpecTestHelper.AssertCompliance("\\> foo\n------", 
+                "<h2>&gt; foo</h2>", 
+                "commonmark");
         }
 
         // **Compatibility note:**  Most existing Markdown implementations
@@ -1271,7 +1413,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // multiline headings.  Authors who want interpretation 1 can
         // put a blank line after the first paragraph:        
         [Fact]
-        public void SetextHeadings_Spec72_CommonMark()
+        public void SetextHeadings_Spec72_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -1285,13 +1427,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>bar</h2>
             //     <p>baz</p>
 
-            SpecTestHelper.AssertCompliance("Foo\n\nbar\n---\nbaz", "<p>Foo</p>\n<h2>bar</h2>\n<p>baz</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\n\nbar\n---\nbaz", 
+                "<p>Foo</p>\n<h2>bar</h2>\n<p>baz</p>", 
+                "commonmark");
         }
 
         // Authors who want interpretation 2 can put blank lines around
         // the thematic break,        
         [Fact]
-        public void SetextHeadings_Spec73_CommonMark()
+        public void SetextHeadings_Spec73_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -1307,13 +1451,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <hr />
             //     <p>baz</p>
 
-            SpecTestHelper.AssertCompliance("Foo\nbar\n\n---\n\nbaz", "<p>Foo\nbar</p>\n<hr />\n<p>baz</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\nbar\n\n---\n\nbaz", 
+                "<p>Foo\nbar</p>\n<hr />\n<p>baz</p>", 
+                "commonmark");
         }
 
         // or use a thematic break that cannot count as a [setext heading
         // underline], such as        
         [Fact]
-        public void SetextHeadings_Spec74_CommonMark()
+        public void SetextHeadings_Spec74_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -1327,12 +1473,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <hr />
             //     <p>baz</p>
 
-            SpecTestHelper.AssertCompliance("Foo\nbar\n* * *\nbaz", "<p>Foo\nbar</p>\n<hr />\n<p>baz</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\nbar\n* * *\nbaz", 
+                "<p>Foo\nbar</p>\n<hr />\n<p>baz</p>", 
+                "commonmark");
         }
 
         // Authors who want interpretation 3 can use backslash escapes:        
         [Fact]
-        public void SetextHeadings_Spec75_CommonMark()
+        public void SetextHeadings_Spec75_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -1346,7 +1494,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ---
             //     baz</p>
 
-            SpecTestHelper.AssertCompliance("Foo\nbar\n\\---\nbaz", "<p>Foo\nbar\n---\nbaz</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\nbar\n\\---\nbaz", 
+                "<p>Foo\nbar\n---\nbaz</p>", 
+                "commonmark");
         }
     }
 
@@ -1365,7 +1515,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // (A blank line is not needed, however, between a code block and a following
         // paragraph.)        
         [Fact]
-        public void IndentedCodeBlocks_Spec76_CommonMark()
+        public void IndentedCodeBlocks_Spec76_commonmark()
         {
             // The following Markdown:
             //         a simple
@@ -1376,14 +1526,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //       indented code block
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("    a simple\n      indented code block", "<pre><code>a simple\n  indented code block\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    a simple\n      indented code block", 
+                "<pre><code>a simple\n  indented code block\n</code></pre>", 
+                "commonmark");
         }
 
         // If there is any ambiguity between an interpretation of indentation
         // as a code block and as indicating that material belongs to a [list
         // item][list items], the list item interpretation takes precedence:        
         [Fact]
-        public void IndentedCodeBlocks_Spec77_CommonMark()
+        public void IndentedCodeBlocks_Spec77_commonmark()
         {
             // The following Markdown:
             //       - foo
@@ -1398,11 +1550,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("  - foo\n\n    bar", "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("  - foo\n\n    bar", 
+                "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", 
+                "commonmark");
         }
         
         [Fact]
-        public void IndentedCodeBlocks_Spec78_CommonMark()
+        public void IndentedCodeBlocks_Spec78_commonmark()
         {
             // The following Markdown:
             //     1.  foo
@@ -1419,13 +1573,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("1.  foo\n\n    - bar", "<ol>\n<li>\n<p>foo</p>\n<ul>\n<li>bar</li>\n</ul>\n</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("1.  foo\n\n    - bar", 
+                "<ol>\n<li>\n<p>foo</p>\n<ul>\n<li>bar</li>\n</ul>\n</li>\n</ol>", 
+                "commonmark");
         }
 
         // The contents of a code block are literal text, and do not get parsed
         // as Markdown:        
         [Fact]
-        public void IndentedCodeBlocks_Spec79_CommonMark()
+        public void IndentedCodeBlocks_Spec79_commonmark()
         {
             // The following Markdown:
             //         <a/>
@@ -1440,12 +1596,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     - one
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("    <a/>\n    *hi*\n\n    - one", "<pre><code>&lt;a/&gt;\n*hi*\n\n- one\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    <a/>\n    *hi*\n\n    - one", 
+                "<pre><code>&lt;a/&gt;\n*hi*\n\n- one\n</code></pre>", 
+                "commonmark");
         }
 
         // Here we have three chunks separated by blank lines:        
         [Fact]
-        public void IndentedCodeBlocks_Spec80_CommonMark()
+        public void IndentedCodeBlocks_Spec80_commonmark()
         {
             // The following Markdown:
             //         chunk1
@@ -1466,13 +1624,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     chunk3
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("    chunk1\n\n    chunk2\n  \n \n \n    chunk3", "<pre><code>chunk1\n\nchunk2\n\n\n\nchunk3\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    chunk1\n\n    chunk2\n  \n \n \n    chunk3", 
+                "<pre><code>chunk1\n\nchunk2\n\n\n\nchunk3\n</code></pre>", 
+                "commonmark");
         }
 
         // Any initial spaces beyond four will be included in the content, even
         // in interior blank lines:        
         [Fact]
-        public void IndentedCodeBlocks_Spec81_CommonMark()
+        public void IndentedCodeBlocks_Spec81_commonmark()
         {
             // The following Markdown:
             //         chunk1
@@ -1485,13 +1645,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //       chunk2
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("    chunk1\n      \n      chunk2", "<pre><code>chunk1\n  \n  chunk2\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    chunk1\n      \n      chunk2", 
+                "<pre><code>chunk1\n  \n  chunk2\n</code></pre>", 
+                "commonmark");
         }
 
         // An indented code block cannot interrupt a paragraph.  (This
         // allows hanging indents and the like.)        
         [Fact]
-        public void IndentedCodeBlocks_Spec82_CommonMark()
+        public void IndentedCodeBlocks_Spec82_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -1502,14 +1664,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>Foo
             //     bar</p>
 
-            SpecTestHelper.AssertCompliance("Foo\n    bar\n", "<p>Foo\nbar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\n    bar\n", 
+                "<p>Foo\nbar</p>", 
+                "commonmark");
         }
 
         // However, any non-blank line with fewer than four leading spaces ends
         // the code block immediately.  So a paragraph may occur immediately
         // after indented code:        
         [Fact]
-        public void IndentedCodeBlocks_Spec83_CommonMark()
+        public void IndentedCodeBlocks_Spec83_commonmark()
         {
             // The following Markdown:
             //         foo
@@ -1520,13 +1684,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <p>bar</p>
 
-            SpecTestHelper.AssertCompliance("    foo\nbar", "<pre><code>foo\n</code></pre>\n<p>bar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    foo\nbar", 
+                "<pre><code>foo\n</code></pre>\n<p>bar</p>", 
+                "commonmark");
         }
 
         // And indented code can occur immediately before and after other kinds of
         // blocks:        
         [Fact]
-        public void IndentedCodeBlocks_Spec84_CommonMark()
+        public void IndentedCodeBlocks_Spec84_commonmark()
         {
             // The following Markdown:
             //     # Heading
@@ -1545,12 +1711,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("# Heading\n    foo\nHeading\n------\n    foo\n----", "<h1>Heading</h1>\n<pre><code>foo\n</code></pre>\n<h2>Heading</h2>\n<pre><code>foo\n</code></pre>\n<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("# Heading\n    foo\nHeading\n------\n    foo\n----", 
+                "<h1>Heading</h1>\n<pre><code>foo\n</code></pre>\n<h2>Heading</h2>\n<pre><code>foo\n</code></pre>\n<hr />", 
+                "commonmark");
         }
 
         // The first line can be indented more than four spaces:        
         [Fact]
-        public void IndentedCodeBlocks_Spec85_CommonMark()
+        public void IndentedCodeBlocks_Spec85_commonmark()
         {
             // The following Markdown:
             //             foo
@@ -1561,13 +1729,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     bar
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("        foo\n    bar", "<pre><code>    foo\nbar\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("        foo\n    bar", 
+                "<pre><code>    foo\nbar\n</code></pre>", 
+                "commonmark");
         }
 
         // Blank lines preceding or following an indented code block
         // are not included in it:        
         [Fact]
-        public void IndentedCodeBlocks_Spec86_CommonMark()
+        public void IndentedCodeBlocks_Spec86_commonmark()
         {
             // The following Markdown:
             //     
@@ -1580,12 +1750,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>foo
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("\n    \n    foo\n    \n", "<pre><code>foo\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("\n    \n    foo\n    \n", 
+                "<pre><code>foo\n</code></pre>", 
+                "commonmark");
         }
 
         // Trailing spaces are included in the code block's content:        
         [Fact]
-        public void IndentedCodeBlocks_Spec87_CommonMark()
+        public void IndentedCodeBlocks_Spec87_commonmark()
         {
             // The following Markdown:
             //         foo  
@@ -1594,7 +1766,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>foo  
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("    foo  ", "<pre><code>foo  \n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    foo  ", 
+                "<pre><code>foo  \n</code></pre>", 
+                "commonmark");
         }
     }
 
@@ -1644,7 +1818,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Here is a simple example with backticks:        
         [Fact]
-        public void FencedCodeBlocks_Spec88_CommonMark()
+        public void FencedCodeBlocks_Spec88_commonmark()
         {
             // The following Markdown:
             //     ```
@@ -1657,12 +1831,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //      &gt;
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("```\n<\n >\n```", "<pre><code>&lt;\n &gt;\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("```\n<\n >\n```", 
+                "<pre><code>&lt;\n &gt;\n</code></pre>", 
+                "commonmark");
         }
 
         // With tildes:        
         [Fact]
-        public void FencedCodeBlocks_Spec89_CommonMark()
+        public void FencedCodeBlocks_Spec89_commonmark()
         {
             // The following Markdown:
             //     ~~~
@@ -1675,12 +1851,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //      &gt;
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("~~~\n<\n >\n~~~", "<pre><code>&lt;\n &gt;\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("~~~\n<\n >\n~~~", 
+                "<pre><code>&lt;\n &gt;\n</code></pre>", 
+                "commonmark");
         }
 
         // Fewer than three backticks is not enough:        
         [Fact]
-        public void FencedCodeBlocks_Spec90_CommonMark()
+        public void FencedCodeBlocks_Spec90_commonmark()
         {
             // The following Markdown:
             //     ``
@@ -1690,13 +1868,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>foo</code></p>
 
-            SpecTestHelper.AssertCompliance("``\nfoo\n``", "<p><code>foo</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("``\nfoo\n``", 
+                "<p><code>foo</code></p>", 
+                "commonmark");
         }
 
         // The closing code fence must use the same character as the opening
         // fence:        
         [Fact]
-        public void FencedCodeBlocks_Spec91_CommonMark()
+        public void FencedCodeBlocks_Spec91_commonmark()
         {
             // The following Markdown:
             //     ```
@@ -1709,11 +1889,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ~~~
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("```\naaa\n~~~\n```", "<pre><code>aaa\n~~~\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("```\naaa\n~~~\n```", 
+                "<pre><code>aaa\n~~~\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void FencedCodeBlocks_Spec92_CommonMark()
+        public void FencedCodeBlocks_Spec92_commonmark()
         {
             // The following Markdown:
             //     ~~~
@@ -1726,12 +1908,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ```
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("~~~\naaa\n```\n~~~", "<pre><code>aaa\n```\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("~~~\naaa\n```\n~~~", 
+                "<pre><code>aaa\n```\n</code></pre>", 
+                "commonmark");
         }
 
         // The closing code fence must be at least as long as the opening fence:        
         [Fact]
-        public void FencedCodeBlocks_Spec93_CommonMark()
+        public void FencedCodeBlocks_Spec93_commonmark()
         {
             // The following Markdown:
             //     ````
@@ -1744,11 +1928,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ```
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("````\naaa\n```\n``````", "<pre><code>aaa\n```\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("````\naaa\n```\n``````", 
+                "<pre><code>aaa\n```\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void FencedCodeBlocks_Spec94_CommonMark()
+        public void FencedCodeBlocks_Spec94_commonmark()
         {
             // The following Markdown:
             //     ~~~~
@@ -1761,13 +1947,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ~~~
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("~~~~\naaa\n~~~\n~~~~", "<pre><code>aaa\n~~~\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("~~~~\naaa\n~~~\n~~~~", 
+                "<pre><code>aaa\n~~~\n</code></pre>", 
+                "commonmark");
         }
 
         // Unclosed code blocks are closed by the end of the document
         // (or the enclosing [block quote][block quotes] or [list item][list items]):        
         [Fact]
-        public void FencedCodeBlocks_Spec95_CommonMark()
+        public void FencedCodeBlocks_Spec95_commonmark()
         {
             // The following Markdown:
             //     ```
@@ -1775,11 +1963,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <pre><code></code></pre>
 
-            SpecTestHelper.AssertCompliance("```", "<pre><code></code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("```", 
+                "<pre><code></code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void FencedCodeBlocks_Spec96_CommonMark()
+        public void FencedCodeBlocks_Spec96_commonmark()
         {
             // The following Markdown:
             //     `````
@@ -1793,11 +1983,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     aaa
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("`````\n\n```\naaa", "<pre><code>\n```\naaa\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`````\n\n```\naaa", 
+                "<pre><code>\n```\naaa\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void FencedCodeBlocks_Spec97_CommonMark()
+        public void FencedCodeBlocks_Spec97_commonmark()
         {
             // The following Markdown:
             //     > ```
@@ -1812,12 +2004,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     <p>bbb</p>
 
-            SpecTestHelper.AssertCompliance("> ```\n> aaa\n\nbbb", "<blockquote>\n<pre><code>aaa\n</code></pre>\n</blockquote>\n<p>bbb</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> ```\n> aaa\n\nbbb", 
+                "<blockquote>\n<pre><code>aaa\n</code></pre>\n</blockquote>\n<p>bbb</p>", 
+                "commonmark");
         }
 
         // A code block can have all empty lines as its content:        
         [Fact]
-        public void FencedCodeBlocks_Spec98_CommonMark()
+        public void FencedCodeBlocks_Spec98_commonmark()
         {
             // The following Markdown:
             //     ```
@@ -1830,12 +2024,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //       
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("```\n\n  \n```", "<pre><code>\n  \n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("```\n\n  \n```", 
+                "<pre><code>\n  \n</code></pre>", 
+                "commonmark");
         }
 
         // A code block can be empty:        
         [Fact]
-        public void FencedCodeBlocks_Spec99_CommonMark()
+        public void FencedCodeBlocks_Spec99_commonmark()
         {
             // The following Markdown:
             //     ```
@@ -1844,14 +2040,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <pre><code></code></pre>
 
-            SpecTestHelper.AssertCompliance("```\n```", "<pre><code></code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("```\n```", 
+                "<pre><code></code></pre>", 
+                "commonmark");
         }
 
         // Fences can be indented.  If the opening fence is indented,
         // content lines will have equivalent opening indentation removed,
         // if present:        
         [Fact]
-        public void FencedCodeBlocks_Spec100_CommonMark()
+        public void FencedCodeBlocks_Spec100_commonmark()
         {
             // The following Markdown:
             //      ```
@@ -1864,11 +2062,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     aaa
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance(" ```\n aaa\naaa\n```", "<pre><code>aaa\naaa\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance(" ```\n aaa\naaa\n```", 
+                "<pre><code>aaa\naaa\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void FencedCodeBlocks_Spec101_CommonMark()
+        public void FencedCodeBlocks_Spec101_commonmark()
         {
             // The following Markdown:
             //       ```
@@ -1883,11 +2083,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     aaa
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("  ```\naaa\n  aaa\naaa\n  ```", "<pre><code>aaa\naaa\naaa\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("  ```\naaa\n  aaa\naaa\n  ```", 
+                "<pre><code>aaa\naaa\naaa\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void FencedCodeBlocks_Spec102_CommonMark()
+        public void FencedCodeBlocks_Spec102_commonmark()
         {
             // The following Markdown:
             //        ```
@@ -1902,12 +2104,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     aaa
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("   ```\n   aaa\n    aaa\n  aaa\n   ```", "<pre><code>aaa\n aaa\naaa\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("   ```\n   aaa\n    aaa\n  aaa\n   ```", 
+                "<pre><code>aaa\n aaa\naaa\n</code></pre>", 
+                "commonmark");
         }
 
         // Four spaces indentation produces an indented code block:        
         [Fact]
-        public void FencedCodeBlocks_Spec103_CommonMark()
+        public void FencedCodeBlocks_Spec103_commonmark()
         {
             // The following Markdown:
             //         ```
@@ -1920,13 +2124,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ```
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("    ```\n    aaa\n    ```", "<pre><code>```\naaa\n```\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    ```\n    aaa\n    ```", 
+                "<pre><code>```\naaa\n```\n</code></pre>", 
+                "commonmark");
         }
 
         // Closing fences may be indented by 0-3 spaces, and their indentation
         // need not match that of the opening fence:        
         [Fact]
-        public void FencedCodeBlocks_Spec104_CommonMark()
+        public void FencedCodeBlocks_Spec104_commonmark()
         {
             // The following Markdown:
             //     ```
@@ -1937,11 +2143,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>aaa
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("```\naaa\n  ```", "<pre><code>aaa\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("```\naaa\n  ```", 
+                "<pre><code>aaa\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void FencedCodeBlocks_Spec105_CommonMark()
+        public void FencedCodeBlocks_Spec105_commonmark()
         {
             // The following Markdown:
             //        ```
@@ -1952,12 +2160,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>aaa
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("   ```\naaa\n  ```", "<pre><code>aaa\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("   ```\naaa\n  ```", 
+                "<pre><code>aaa\n</code></pre>", 
+                "commonmark");
         }
 
         // This is not a closing fence, because it is indented 4 spaces:        
         [Fact]
-        public void FencedCodeBlocks_Spec106_CommonMark()
+        public void FencedCodeBlocks_Spec106_commonmark()
         {
             // The following Markdown:
             //     ```
@@ -1969,12 +2179,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //         ```
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("```\naaa\n    ```", "<pre><code>aaa\n    ```\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("```\naaa\n    ```", 
+                "<pre><code>aaa\n    ```\n</code></pre>", 
+                "commonmark");
         }
 
         // Code fences (opening and closing) cannot contain internal spaces:        
         [Fact]
-        public void FencedCodeBlocks_Spec107_CommonMark()
+        public void FencedCodeBlocks_Spec107_commonmark()
         {
             // The following Markdown:
             //     ``` ```
@@ -1984,11 +2196,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><code></code>
             //     aaa</p>
 
-            SpecTestHelper.AssertCompliance("``` ```\naaa", "<p><code></code>\naaa</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("``` ```\naaa", 
+                "<p><code></code>\naaa</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void FencedCodeBlocks_Spec108_CommonMark()
+        public void FencedCodeBlocks_Spec108_commonmark()
         {
             // The following Markdown:
             //     ~~~~~~
@@ -2000,13 +2214,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ~~~ ~~
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("~~~~~~\naaa\n~~~ ~~", "<pre><code>aaa\n~~~ ~~\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("~~~~~~\naaa\n~~~ ~~", 
+                "<pre><code>aaa\n~~~ ~~\n</code></pre>", 
+                "commonmark");
         }
 
         // Fenced code blocks can interrupt paragraphs, and can be followed
         // directly by paragraphs, without a blank line between:        
         [Fact]
-        public void FencedCodeBlocks_Spec109_CommonMark()
+        public void FencedCodeBlocks_Spec109_commonmark()
         {
             // The following Markdown:
             //     foo
@@ -2021,13 +2237,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <p>baz</p>
 
-            SpecTestHelper.AssertCompliance("foo\n```\nbar\n```\nbaz", "<p>foo</p>\n<pre><code>bar\n</code></pre>\n<p>baz</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo\n```\nbar\n```\nbaz", 
+                "<p>foo</p>\n<pre><code>bar\n</code></pre>\n<p>baz</p>", 
+                "commonmark");
         }
 
         // Other blocks can also occur before and after fenced code blocks
         // without an intervening blank line:        
         [Fact]
-        public void FencedCodeBlocks_Spec110_CommonMark()
+        public void FencedCodeBlocks_Spec110_commonmark()
         {
             // The following Markdown:
             //     foo
@@ -2043,7 +2261,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <h1>baz</h1>
 
-            SpecTestHelper.AssertCompliance("foo\n---\n~~~\nbar\n~~~\n# baz", "<h2>foo</h2>\n<pre><code>bar\n</code></pre>\n<h1>baz</h1>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo\n---\n~~~\nbar\n~~~\n# baz", 
+                "<h2>foo</h2>\n<pre><code>bar\n</code></pre>\n<h1>baz</h1>", 
+                "commonmark");
         }
 
         // An [info string] can be provided after the opening code fence.
@@ -2051,7 +2271,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // with `language-`, is used as the value for the `class` attribute of the
         // `code` element within the enclosing `pre` element.        
         [Fact]
-        public void FencedCodeBlocks_Spec111_CommonMark()
+        public void FencedCodeBlocks_Spec111_commonmark()
         {
             // The following Markdown:
             //     ```ruby
@@ -2066,11 +2286,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     end
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("```ruby\ndef foo(x)\n  return 3\nend\n```", "<pre><code class=\"language-ruby\">def foo(x)\n  return 3\nend\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("```ruby\ndef foo(x)\n  return 3\nend\n```", 
+                "<pre><code class=\"language-ruby\">def foo(x)\n  return 3\nend\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void FencedCodeBlocks_Spec112_CommonMark()
+        public void FencedCodeBlocks_Spec112_commonmark()
         {
             // The following Markdown:
             //     ~~~~    ruby startline=3 $%@#$
@@ -2085,11 +2307,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     end
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("~~~~    ruby startline=3 $%@#$\ndef foo(x)\n  return 3\nend\n~~~~~~~", "<pre><code class=\"language-ruby\">def foo(x)\n  return 3\nend\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("~~~~    ruby startline=3 $%@#$\ndef foo(x)\n  return 3\nend\n~~~~~~~", 
+                "<pre><code class=\"language-ruby\">def foo(x)\n  return 3\nend\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void FencedCodeBlocks_Spec113_CommonMark()
+        public void FencedCodeBlocks_Spec113_commonmark()
         {
             // The following Markdown:
             //     ````;
@@ -2098,12 +2322,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <pre><code class="language-;"></code></pre>
 
-            SpecTestHelper.AssertCompliance("````;\n````", "<pre><code class=\"language-;\"></code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("````;\n````", 
+                "<pre><code class=\"language-;\"></code></pre>", 
+                "commonmark");
         }
 
         // [Info strings] for backtick code blocks cannot contain backticks:        
         [Fact]
-        public void FencedCodeBlocks_Spec114_CommonMark()
+        public void FencedCodeBlocks_Spec114_commonmark()
         {
             // The following Markdown:
             //     ``` aa ```
@@ -2113,12 +2339,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><code>aa</code>
             //     foo</p>
 
-            SpecTestHelper.AssertCompliance("``` aa ```\nfoo", "<p><code>aa</code>\nfoo</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("``` aa ```\nfoo", 
+                "<p><code>aa</code>\nfoo</p>", 
+                "commonmark");
         }
 
         // Closing code fences cannot have [info strings]:        
         [Fact]
-        public void FencedCodeBlocks_Spec115_CommonMark()
+        public void FencedCodeBlocks_Spec115_commonmark()
         {
             // The following Markdown:
             //     ```
@@ -2129,7 +2357,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>``` aaa
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("```\n``` aaa\n```", "<pre><code>``` aaa\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("```\n``` aaa\n```", 
+                "<pre><code>``` aaa\n</code></pre>", 
+                "commonmark");
         }
     }
 
@@ -2199,7 +2429,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // the parser state; as the HTML block was started in by start condition 6, it
         // will end at any blank line. This can be surprising:        
         [Fact]
-        public void HTMLBlocks_Spec116_CommonMark()
+        public void HTMLBlocks_Spec116_commonmark()
         {
             // The following Markdown:
             //     <table><tr><td>
@@ -2218,7 +2448,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </pre></p>
             //     </td></tr></table>
 
-            SpecTestHelper.AssertCompliance("<table><tr><td>\n<pre>\n**Hello**,\n\n_world_.\n</pre>\n</td></tr></table>", "<table><tr><td>\n<pre>\n**Hello**,\n<p><em>world</em>.\n</pre></p>\n</td></tr></table>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<table><tr><td>\n<pre>\n**Hello**,\n\n_world_.\n</pre>\n</td></tr></table>", 
+                "<table><tr><td>\n<pre>\n**Hello**,\n<p><em>world</em>.\n</pre></p>\n</td></tr></table>", 
+                "commonmark");
         }
 
         // In this case, the HTML block is terminated by the newline — the `**hello**`
@@ -2233,7 +2465,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Some simple examples follow.  Here are some basic HTML blocks
         // of type 6:        
         [Fact]
-        public void HTMLBlocks_Spec117_CommonMark()
+        public void HTMLBlocks_Spec117_commonmark()
         {
             // The following Markdown:
             //     <table>
@@ -2256,11 +2488,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </table>
             //     <p>okay.</p>
 
-            SpecTestHelper.AssertCompliance("<table>\n  <tr>\n    <td>\n           hi\n    </td>\n  </tr>\n</table>\n\nokay.", "<table>\n  <tr>\n    <td>\n           hi\n    </td>\n  </tr>\n</table>\n<p>okay.</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<table>\n  <tr>\n    <td>\n           hi\n    </td>\n  </tr>\n</table>\n\nokay.", 
+                "<table>\n  <tr>\n    <td>\n           hi\n    </td>\n  </tr>\n</table>\n<p>okay.</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HTMLBlocks_Spec118_CommonMark()
+        public void HTMLBlocks_Spec118_commonmark()
         {
             // The following Markdown:
             //      <div>
@@ -2272,12 +2506,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //       *hello*
             //              <foo><a>
 
-            SpecTestHelper.AssertCompliance(" <div>\n  *hello*\n         <foo><a>", " <div>\n  *hello*\n         <foo><a>", "CommonMark");
+            SpecTestHelper.AssertCompliance(" <div>\n  *hello*\n         <foo><a>", 
+                " <div>\n  *hello*\n         <foo><a>", 
+                "commonmark");
         }
 
         // A block can also start with a closing tag:        
         [Fact]
-        public void HTMLBlocks_Spec119_CommonMark()
+        public void HTMLBlocks_Spec119_commonmark()
         {
             // The following Markdown:
             //     </div>
@@ -2287,12 +2523,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </div>
             //     *foo*
 
-            SpecTestHelper.AssertCompliance("</div>\n*foo*", "</div>\n*foo*", "CommonMark");
+            SpecTestHelper.AssertCompliance("</div>\n*foo*", 
+                "</div>\n*foo*", 
+                "commonmark");
         }
 
         // Here we have two HTML blocks with a Markdown paragraph between them:        
         [Fact]
-        public void HTMLBlocks_Spec120_CommonMark()
+        public void HTMLBlocks_Spec120_commonmark()
         {
             // The following Markdown:
             //     <DIV CLASS="foo">
@@ -2306,13 +2544,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><em>Markdown</em></p>
             //     </DIV>
 
-            SpecTestHelper.AssertCompliance("<DIV CLASS=\"foo\">\n\n*Markdown*\n\n</DIV>", "<DIV CLASS=\"foo\">\n<p><em>Markdown</em></p>\n</DIV>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<DIV CLASS=\"foo\">\n\n*Markdown*\n\n</DIV>", 
+                "<DIV CLASS=\"foo\">\n<p><em>Markdown</em></p>\n</DIV>", 
+                "commonmark");
         }
 
         // The tag on the first line can be partial, as long
         // as it is split where there would be whitespace:        
         [Fact]
-        public void HTMLBlocks_Spec121_CommonMark()
+        public void HTMLBlocks_Spec121_commonmark()
         {
             // The following Markdown:
             //     <div id="foo"
@@ -2324,11 +2564,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //       class="bar">
             //     </div>
 
-            SpecTestHelper.AssertCompliance("<div id=\"foo\"\n  class=\"bar\">\n</div>", "<div id=\"foo\"\n  class=\"bar\">\n</div>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<div id=\"foo\"\n  class=\"bar\">\n</div>", 
+                "<div id=\"foo\"\n  class=\"bar\">\n</div>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HTMLBlocks_Spec122_CommonMark()
+        public void HTMLBlocks_Spec122_commonmark()
         {
             // The following Markdown:
             //     <div id="foo" class="bar
@@ -2340,12 +2582,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //       baz">
             //     </div>
 
-            SpecTestHelper.AssertCompliance("<div id=\"foo\" class=\"bar\n  baz\">\n</div>", "<div id=\"foo\" class=\"bar\n  baz\">\n</div>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<div id=\"foo\" class=\"bar\n  baz\">\n</div>", 
+                "<div id=\"foo\" class=\"bar\n  baz\">\n</div>", 
+                "commonmark");
         }
 
         // An open tag need not be closed:        
         [Fact]
-        public void HTMLBlocks_Spec123_CommonMark()
+        public void HTMLBlocks_Spec123_commonmark()
         {
             // The following Markdown:
             //     <div>
@@ -2358,13 +2602,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     *foo*
             //     <p><em>bar</em></p>
 
-            SpecTestHelper.AssertCompliance("<div>\n*foo*\n\n*bar*", "<div>\n*foo*\n<p><em>bar</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<div>\n*foo*\n\n*bar*", 
+                "<div>\n*foo*\n<p><em>bar</em></p>", 
+                "commonmark");
         }
 
         // A partial tag need not even be completed (garbage
         // in, garbage out):        
         [Fact]
-        public void HTMLBlocks_Spec124_CommonMark()
+        public void HTMLBlocks_Spec124_commonmark()
         {
             // The following Markdown:
             //     <div id="foo"
@@ -2374,11 +2620,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <div id="foo"
             //     *hi*
 
-            SpecTestHelper.AssertCompliance("<div id=\"foo\"\n*hi*", "<div id=\"foo\"\n*hi*", "CommonMark");
+            SpecTestHelper.AssertCompliance("<div id=\"foo\"\n*hi*", 
+                "<div id=\"foo\"\n*hi*", 
+                "commonmark");
         }
         
         [Fact]
-        public void HTMLBlocks_Spec125_CommonMark()
+        public void HTMLBlocks_Spec125_commonmark()
         {
             // The following Markdown:
             //     <div class
@@ -2388,13 +2636,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <div class
             //     foo
 
-            SpecTestHelper.AssertCompliance("<div class\nfoo", "<div class\nfoo", "CommonMark");
+            SpecTestHelper.AssertCompliance("<div class\nfoo", 
+                "<div class\nfoo", 
+                "commonmark");
         }
 
         // The initial tag doesn't even need to be a valid
         // tag, as long as it starts like one:        
         [Fact]
-        public void HTMLBlocks_Spec126_CommonMark()
+        public void HTMLBlocks_Spec126_commonmark()
         {
             // The following Markdown:
             //     <div *???-&&&-<---
@@ -2404,13 +2654,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <div *???-&&&-<---
             //     *foo*
 
-            SpecTestHelper.AssertCompliance("<div *???-&&&-<---\n*foo*", "<div *???-&&&-<---\n*foo*", "CommonMark");
+            SpecTestHelper.AssertCompliance("<div *???-&&&-<---\n*foo*", 
+                "<div *???-&&&-<---\n*foo*", 
+                "commonmark");
         }
 
         // In type 6 blocks, the initial tag need not be on a line by
         // itself:        
         [Fact]
-        public void HTMLBlocks_Spec127_CommonMark()
+        public void HTMLBlocks_Spec127_commonmark()
         {
             // The following Markdown:
             //     <div><a href="bar">*foo*</a></div>
@@ -2418,11 +2670,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <div><a href="bar">*foo*</a></div>
 
-            SpecTestHelper.AssertCompliance("<div><a href=\"bar\">*foo*</a></div>", "<div><a href=\"bar\">*foo*</a></div>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<div><a href=\"bar\">*foo*</a></div>", 
+                "<div><a href=\"bar\">*foo*</a></div>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HTMLBlocks_Spec128_CommonMark()
+        public void HTMLBlocks_Spec128_commonmark()
         {
             // The following Markdown:
             //     <table><tr><td>
@@ -2434,7 +2688,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     foo
             //     </td></tr></table>
 
-            SpecTestHelper.AssertCompliance("<table><tr><td>\nfoo\n</td></tr></table>", "<table><tr><td>\nfoo\n</td></tr></table>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<table><tr><td>\nfoo\n</td></tr></table>", 
+                "<table><tr><td>\nfoo\n</td></tr></table>", 
+                "commonmark");
         }
 
         // Everything until the next blank line or end of document
@@ -2443,7 +2699,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // is actually part of the HTML block, which continues until a blank
         // line or the end of the document is reached:        
         [Fact]
-        public void HTMLBlocks_Spec129_CommonMark()
+        public void HTMLBlocks_Spec129_commonmark()
         {
             // The following Markdown:
             //     <div></div>
@@ -2457,14 +2713,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     int x = 33;
             //     ```
 
-            SpecTestHelper.AssertCompliance("<div></div>\n``` c\nint x = 33;\n```", "<div></div>\n``` c\nint x = 33;\n```", "CommonMark");
+            SpecTestHelper.AssertCompliance("<div></div>\n``` c\nint x = 33;\n```", 
+                "<div></div>\n``` c\nint x = 33;\n```", 
+                "commonmark");
         }
 
         // To start an [HTML block] with a tag that is *not* in the
         // list of block-level tags in (6), you must put the tag by
         // itself on the first line (and it must be complete):        
         [Fact]
-        public void HTMLBlocks_Spec130_CommonMark()
+        public void HTMLBlocks_Spec130_commonmark()
         {
             // The following Markdown:
             //     <a href="foo">
@@ -2476,12 +2734,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     *bar*
             //     </a>
 
-            SpecTestHelper.AssertCompliance("<a href=\"foo\">\n*bar*\n</a>", "<a href=\"foo\">\n*bar*\n</a>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<a href=\"foo\">\n*bar*\n</a>", 
+                "<a href=\"foo\">\n*bar*\n</a>", 
+                "commonmark");
         }
 
         // In type 7 blocks, the [tag name] can be anything:        
         [Fact]
-        public void HTMLBlocks_Spec131_CommonMark()
+        public void HTMLBlocks_Spec131_commonmark()
         {
             // The following Markdown:
             //     <Warning>
@@ -2493,11 +2753,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     *bar*
             //     </Warning>
 
-            SpecTestHelper.AssertCompliance("<Warning>\n*bar*\n</Warning>", "<Warning>\n*bar*\n</Warning>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<Warning>\n*bar*\n</Warning>", 
+                "<Warning>\n*bar*\n</Warning>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HTMLBlocks_Spec132_CommonMark()
+        public void HTMLBlocks_Spec132_commonmark()
         {
             // The following Markdown:
             //     <i class="foo">
@@ -2509,11 +2771,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     *bar*
             //     </i>
 
-            SpecTestHelper.AssertCompliance("<i class=\"foo\">\n*bar*\n</i>", "<i class=\"foo\">\n*bar*\n</i>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<i class=\"foo\">\n*bar*\n</i>", 
+                "<i class=\"foo\">\n*bar*\n</i>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HTMLBlocks_Spec133_CommonMark()
+        public void HTMLBlocks_Spec133_commonmark()
         {
             // The following Markdown:
             //     </ins>
@@ -2523,7 +2787,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ins>
             //     *bar*
 
-            SpecTestHelper.AssertCompliance("</ins>\n*bar*", "</ins>\n*bar*", "CommonMark");
+            SpecTestHelper.AssertCompliance("</ins>\n*bar*", 
+                "</ins>\n*bar*", 
+                "commonmark");
         }
 
         // These rules are designed to allow us to work with tags that
@@ -2532,7 +2798,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // `<del>` tags in three different ways.  In this case, we get a raw
         // HTML block, because the `<del>` tag is on a line by itself:        
         [Fact]
-        public void HTMLBlocks_Spec134_CommonMark()
+        public void HTMLBlocks_Spec134_commonmark()
         {
             // The following Markdown:
             //     <del>
@@ -2544,14 +2810,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     *foo*
             //     </del>
 
-            SpecTestHelper.AssertCompliance("<del>\n*foo*\n</del>", "<del>\n*foo*\n</del>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<del>\n*foo*\n</del>", 
+                "<del>\n*foo*\n</del>", 
+                "commonmark");
         }
 
         // In this case, we get a raw HTML block that just includes
         // the `<del>` tag (because it ends with the following blank
         // line).  So the contents get interpreted as CommonMark:        
         [Fact]
-        public void HTMLBlocks_Spec135_CommonMark()
+        public void HTMLBlocks_Spec135_commonmark()
         {
             // The following Markdown:
             //     <del>
@@ -2565,7 +2833,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><em>foo</em></p>
             //     </del>
 
-            SpecTestHelper.AssertCompliance("<del>\n\n*foo*\n\n</del>", "<del>\n<p><em>foo</em></p>\n</del>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<del>\n\n*foo*\n\n</del>", 
+                "<del>\n<p><em>foo</em></p>\n</del>", 
+                "commonmark");
         }
 
         // Finally, in this case, the `<del>` tags are interpreted
@@ -2573,7 +2843,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // the tag is not on a line by itself, we get inline HTML
         // rather than an [HTML block].)        
         [Fact]
-        public void HTMLBlocks_Spec136_CommonMark()
+        public void HTMLBlocks_Spec136_commonmark()
         {
             // The following Markdown:
             //     <del>*foo*</del>
@@ -2581,7 +2851,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><del><em>foo</em></del></p>
 
-            SpecTestHelper.AssertCompliance("<del>*foo*</del>", "<p><del><em>foo</em></del></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<del>*foo*</del>", 
+                "<p><del><em>foo</em></del></p>", 
+                "commonmark");
         }
 
         // HTML tags designed to contain literal content
@@ -2593,7 +2865,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // 
         // A pre tag (type 1):        
         [Fact]
-        public void HTMLBlocks_Spec137_CommonMark()
+        public void HTMLBlocks_Spec137_commonmark()
         {
             // The following Markdown:
             //     <pre language="haskell"><code>
@@ -2613,12 +2885,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <p>okay</p>
 
-            SpecTestHelper.AssertCompliance("<pre language=\"haskell\"><code>\nimport Text.HTML.TagSoup\n\nmain :: IO ()\nmain = print $ parseTags tags\n</code></pre>\nokay", "<pre language=\"haskell\"><code>\nimport Text.HTML.TagSoup\n\nmain :: IO ()\nmain = print $ parseTags tags\n</code></pre>\n<p>okay</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<pre language=\"haskell\"><code>\nimport Text.HTML.TagSoup\n\nmain :: IO ()\nmain = print $ parseTags tags\n</code></pre>\nokay", 
+                "<pre language=\"haskell\"><code>\nimport Text.HTML.TagSoup\n\nmain :: IO ()\nmain = print $ parseTags tags\n</code></pre>\n<p>okay</p>", 
+                "commonmark");
         }
 
         // A script tag (type 1):        
         [Fact]
-        public void HTMLBlocks_Spec138_CommonMark()
+        public void HTMLBlocks_Spec138_commonmark()
         {
             // The following Markdown:
             //     <script type="text/javascript">
@@ -2636,12 +2910,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </script>
             //     <p>okay</p>
 
-            SpecTestHelper.AssertCompliance("<script type=\"text/javascript\">\n// JavaScript example\n\ndocument.getElementById(\"demo\").innerHTML = \"Hello JavaScript!\";\n</script>\nokay", "<script type=\"text/javascript\">\n// JavaScript example\n\ndocument.getElementById(\"demo\").innerHTML = \"Hello JavaScript!\";\n</script>\n<p>okay</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<script type=\"text/javascript\">\n// JavaScript example\n\ndocument.getElementById(\"demo\").innerHTML = \"Hello JavaScript!\";\n</script>\nokay", 
+                "<script type=\"text/javascript\">\n// JavaScript example\n\ndocument.getElementById(\"demo\").innerHTML = \"Hello JavaScript!\";\n</script>\n<p>okay</p>", 
+                "commonmark");
         }
 
         // A style tag (type 1):        
         [Fact]
-        public void HTMLBlocks_Spec139_CommonMark()
+        public void HTMLBlocks_Spec139_commonmark()
         {
             // The following Markdown:
             //     <style
@@ -2661,14 +2937,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </style>
             //     <p>okay</p>
 
-            SpecTestHelper.AssertCompliance("<style\n  type=\"text/css\">\nh1 {color:red;}\n\np {color:blue;}\n</style>\nokay", "<style\n  type=\"text/css\">\nh1 {color:red;}\n\np {color:blue;}\n</style>\n<p>okay</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<style\n  type=\"text/css\">\nh1 {color:red;}\n\np {color:blue;}\n</style>\nokay", 
+                "<style\n  type=\"text/css\">\nh1 {color:red;}\n\np {color:blue;}\n</style>\n<p>okay</p>", 
+                "commonmark");
         }
 
         // If there is no matching end tag, the block will end at the
         // end of the document (or the enclosing [block quote][block quotes]
         // or [list item][list items]):        
         [Fact]
-        public void HTMLBlocks_Spec140_CommonMark()
+        public void HTMLBlocks_Spec140_commonmark()
         {
             // The following Markdown:
             //     <style
@@ -2682,11 +2960,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     
             //     foo
 
-            SpecTestHelper.AssertCompliance("<style\n  type=\"text/css\">\n\nfoo", "<style\n  type=\"text/css\">\n\nfoo", "CommonMark");
+            SpecTestHelper.AssertCompliance("<style\n  type=\"text/css\">\n\nfoo", 
+                "<style\n  type=\"text/css\">\n\nfoo", 
+                "commonmark");
         }
         
         [Fact]
-        public void HTMLBlocks_Spec141_CommonMark()
+        public void HTMLBlocks_Spec141_commonmark()
         {
             // The following Markdown:
             //     > <div>
@@ -2701,11 +2981,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     <p>bar</p>
 
-            SpecTestHelper.AssertCompliance("> <div>\n> foo\n\nbar", "<blockquote>\n<div>\nfoo\n</blockquote>\n<p>bar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> <div>\n> foo\n\nbar", 
+                "<blockquote>\n<div>\nfoo\n</blockquote>\n<p>bar</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HTMLBlocks_Spec142_CommonMark()
+        public void HTMLBlocks_Spec142_commonmark()
         {
             // The following Markdown:
             //     - <div>
@@ -2719,12 +3001,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>foo</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- <div>\n- foo", "<ul>\n<li>\n<div>\n</li>\n<li>foo</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- <div>\n- foo", 
+                "<ul>\n<li>\n<div>\n</li>\n<li>foo</li>\n</ul>", 
+                "commonmark");
         }
 
         // The end tag can occur on the same line as the start tag:        
         [Fact]
-        public void HTMLBlocks_Spec143_CommonMark()
+        public void HTMLBlocks_Spec143_commonmark()
         {
             // The following Markdown:
             //     <style>p{color:red;}</style>
@@ -2734,11 +3018,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <style>p{color:red;}</style>
             //     <p><em>foo</em></p>
 
-            SpecTestHelper.AssertCompliance("<style>p{color:red;}</style>\n*foo*", "<style>p{color:red;}</style>\n<p><em>foo</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<style>p{color:red;}</style>\n*foo*", 
+                "<style>p{color:red;}</style>\n<p><em>foo</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HTMLBlocks_Spec144_CommonMark()
+        public void HTMLBlocks_Spec144_commonmark()
         {
             // The following Markdown:
             //     <!-- foo -->*bar*
@@ -2748,13 +3034,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <!-- foo -->*bar*
             //     <p><em>baz</em></p>
 
-            SpecTestHelper.AssertCompliance("<!-- foo -->*bar*\n*baz*", "<!-- foo -->*bar*\n<p><em>baz</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<!-- foo -->*bar*\n*baz*", 
+                "<!-- foo -->*bar*\n<p><em>baz</em></p>", 
+                "commonmark");
         }
 
         // Note that anything on the last line after the
         // end tag will be included in the [HTML block]:        
         [Fact]
-        public void HTMLBlocks_Spec145_CommonMark()
+        public void HTMLBlocks_Spec145_commonmark()
         {
             // The following Markdown:
             //     <script>
@@ -2766,12 +3054,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     foo
             //     </script>1. *bar*
 
-            SpecTestHelper.AssertCompliance("<script>\nfoo\n</script>1. *bar*", "<script>\nfoo\n</script>1. *bar*", "CommonMark");
+            SpecTestHelper.AssertCompliance("<script>\nfoo\n</script>1. *bar*", 
+                "<script>\nfoo\n</script>1. *bar*", 
+                "commonmark");
         }
 
         // A comment (type 2):        
         [Fact]
-        public void HTMLBlocks_Spec146_CommonMark()
+        public void HTMLBlocks_Spec146_commonmark()
         {
             // The following Markdown:
             //     <!-- Foo
@@ -2787,12 +3077,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //        baz -->
             //     <p>okay</p>
 
-            SpecTestHelper.AssertCompliance("<!-- Foo\n\nbar\n   baz -->\nokay", "<!-- Foo\n\nbar\n   baz -->\n<p>okay</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<!-- Foo\n\nbar\n   baz -->\nokay", 
+                "<!-- Foo\n\nbar\n   baz -->\n<p>okay</p>", 
+                "commonmark");
         }
 
         // A processing instruction (type 3):        
         [Fact]
-        public void HTMLBlocks_Spec147_CommonMark()
+        public void HTMLBlocks_Spec147_commonmark()
         {
             // The following Markdown:
             //     <?php
@@ -2810,12 +3102,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ?>
             //     <p>okay</p>
 
-            SpecTestHelper.AssertCompliance("<?php\n\n  echo '>';\n\n?>\nokay", "<?php\n\n  echo '>';\n\n?>\n<p>okay</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<?php\n\n  echo '>';\n\n?>\nokay", 
+                "<?php\n\n  echo '>';\n\n?>\n<p>okay</p>", 
+                "commonmark");
         }
 
         // A declaration (type 4):        
         [Fact]
-        public void HTMLBlocks_Spec148_CommonMark()
+        public void HTMLBlocks_Spec148_commonmark()
         {
             // The following Markdown:
             //     <!DOCTYPE html>
@@ -2823,12 +3117,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <!DOCTYPE html>
 
-            SpecTestHelper.AssertCompliance("<!DOCTYPE html>", "<!DOCTYPE html>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<!DOCTYPE html>", 
+                "<!DOCTYPE html>", 
+                "commonmark");
         }
 
         // CDATA (type 5):        
         [Fact]
-        public void HTMLBlocks_Spec149_CommonMark()
+        public void HTMLBlocks_Spec149_commonmark()
         {
             // The following Markdown:
             //     <![CDATA[
@@ -2860,12 +3156,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ]]>
             //     <p>okay</p>
 
-            SpecTestHelper.AssertCompliance("<![CDATA[\nfunction matchwo(a,b)\n{\n  if (a < b && a < 0) then {\n    return 1;\n\n  } else {\n\n    return 0;\n  }\n}\n]]>\nokay", "<![CDATA[\nfunction matchwo(a,b)\n{\n  if (a < b && a < 0) then {\n    return 1;\n\n  } else {\n\n    return 0;\n  }\n}\n]]>\n<p>okay</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<![CDATA[\nfunction matchwo(a,b)\n{\n  if (a < b && a < 0) then {\n    return 1;\n\n  } else {\n\n    return 0;\n  }\n}\n]]>\nokay", 
+                "<![CDATA[\nfunction matchwo(a,b)\n{\n  if (a < b && a < 0) then {\n    return 1;\n\n  } else {\n\n    return 0;\n  }\n}\n]]>\n<p>okay</p>", 
+                "commonmark");
         }
 
         // The opening tag can be indented 1-3 spaces, but not 4:        
         [Fact]
-        public void HTMLBlocks_Spec150_CommonMark()
+        public void HTMLBlocks_Spec150_commonmark()
         {
             // The following Markdown:
             //       <!-- foo -->
@@ -2877,11 +3175,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>&lt;!-- foo --&gt;
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("  <!-- foo -->\n\n    <!-- foo -->", "  <!-- foo -->\n<pre><code>&lt;!-- foo --&gt;\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("  <!-- foo -->\n\n    <!-- foo -->", 
+                "  <!-- foo -->\n<pre><code>&lt;!-- foo --&gt;\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HTMLBlocks_Spec151_CommonMark()
+        public void HTMLBlocks_Spec151_commonmark()
         {
             // The following Markdown:
             //       <div>
@@ -2893,13 +3193,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>&lt;div&gt;
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("  <div>\n\n    <div>", "  <div>\n<pre><code>&lt;div&gt;\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("  <div>\n\n    <div>", 
+                "  <div>\n<pre><code>&lt;div&gt;\n</code></pre>", 
+                "commonmark");
         }
 
         // An HTML block of types 1--6 can interrupt a paragraph, and need not be
         // preceded by a blank line.        
         [Fact]
-        public void HTMLBlocks_Spec152_CommonMark()
+        public void HTMLBlocks_Spec152_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -2913,13 +3215,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     bar
             //     </div>
 
-            SpecTestHelper.AssertCompliance("Foo\n<div>\nbar\n</div>", "<p>Foo</p>\n<div>\nbar\n</div>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\n<div>\nbar\n</div>", 
+                "<p>Foo</p>\n<div>\nbar\n</div>", 
+                "commonmark");
         }
 
         // However, a following blank line is needed, except at the end of
         // a document, and except for blocks of types 1--5, above:        
         [Fact]
-        public void HTMLBlocks_Spec153_CommonMark()
+        public void HTMLBlocks_Spec153_commonmark()
         {
             // The following Markdown:
             //     <div>
@@ -2933,12 +3237,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </div>
             //     *foo*
 
-            SpecTestHelper.AssertCompliance("<div>\nbar\n</div>\n*foo*", "<div>\nbar\n</div>\n*foo*", "CommonMark");
+            SpecTestHelper.AssertCompliance("<div>\nbar\n</div>\n*foo*", 
+                "<div>\nbar\n</div>\n*foo*", 
+                "commonmark");
         }
 
         // HTML blocks of type 7 cannot interrupt a paragraph:        
         [Fact]
-        public void HTMLBlocks_Spec154_CommonMark()
+        public void HTMLBlocks_Spec154_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -2950,7 +3256,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <a href="bar">
             //     baz</p>
 
-            SpecTestHelper.AssertCompliance("Foo\n<a href=\"bar\">\nbaz", "<p>Foo\n<a href=\"bar\">\nbaz</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\n<a href=\"bar\">\nbaz", 
+                "<p>Foo\n<a href=\"bar\">\nbaz</p>", 
+                "commonmark");
         }
 
         // This rule differs from John Gruber's original Markdown syntax
@@ -2983,7 +3291,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // 
         // Compare:        
         [Fact]
-        public void HTMLBlocks_Spec155_CommonMark()
+        public void HTMLBlocks_Spec155_commonmark()
         {
             // The following Markdown:
             //     <div>
@@ -2997,11 +3305,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><em>Emphasized</em> text.</p>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("<div>\n\n*Emphasized* text.\n\n</div>", "<div>\n<p><em>Emphasized</em> text.</p>\n</div>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<div>\n\n*Emphasized* text.\n\n</div>", 
+                "<div>\n<p><em>Emphasized</em> text.</p>\n</div>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HTMLBlocks_Spec156_CommonMark()
+        public void HTMLBlocks_Spec156_commonmark()
         {
             // The following Markdown:
             //     <div>
@@ -3013,7 +3323,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     *Emphasized* text.
             //     </div>
 
-            SpecTestHelper.AssertCompliance("<div>\n*Emphasized* text.\n</div>", "<div>\n*Emphasized* text.\n</div>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<div>\n*Emphasized* text.\n</div>", 
+                "<div>\n*Emphasized* text.\n</div>", 
+                "commonmark");
         }
 
         // Some Markdown implementations have adopted a convention of
@@ -3027,7 +3339,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // *in most cases* this will work fine, because the blank lines in
         // HTML are usually followed by HTML block tags.  For example:        
         [Fact]
-        public void HTMLBlocks_Spec157_CommonMark()
+        public void HTMLBlocks_Spec157_commonmark()
         {
             // The following Markdown:
             //     <table>
@@ -3051,14 +3363,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </tr>
             //     </table>
 
-            SpecTestHelper.AssertCompliance("<table>\n\n<tr>\n\n<td>\nHi\n</td>\n\n</tr>\n\n</table>", "<table>\n<tr>\n<td>\nHi\n</td>\n</tr>\n</table>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<table>\n\n<tr>\n\n<td>\nHi\n</td>\n\n</tr>\n\n</table>", 
+                "<table>\n<tr>\n<td>\nHi\n</td>\n</tr>\n</table>", 
+                "commonmark");
         }
 
         // There are problems, however, if the inner tags are indented
         // *and* separated by spaces, as then they will be interpreted as
         // an indented code block:        
         [Fact]
-        public void HTMLBlocks_Spec158_CommonMark()
+        public void HTMLBlocks_Spec158_commonmark()
         {
             // The following Markdown:
             //     <table>
@@ -3083,7 +3397,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //       </tr>
             //     </table>
 
-            SpecTestHelper.AssertCompliance("<table>\n\n  <tr>\n\n    <td>\n      Hi\n    </td>\n\n  </tr>\n\n</table>", "<table>\n  <tr>\n<pre><code>&lt;td&gt;\n  Hi\n&lt;/td&gt;\n</code></pre>\n  </tr>\n</table>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<table>\n\n  <tr>\n\n    <td>\n      Hi\n    </td>\n\n  </tr>\n\n</table>", 
+                "<table>\n  <tr>\n<pre><code>&lt;td&gt;\n  Hi\n&lt;/td&gt;\n</code></pre>\n  </tr>\n</table>", 
+                "commonmark");
         }
     }
 
@@ -3106,7 +3422,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // reference definitions] can come either before or after the links that use
         // them.        
         [Fact]
-        public void LinkReferenceDefinitions_Spec159_CommonMark()
+        public void LinkReferenceDefinitions_Spec159_commonmark()
         {
             // The following Markdown:
             //     [foo]: /url "title"
@@ -3116,11 +3432,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo]: /url \"title\"\n\n[foo]", "<p><a href=\"/url\" title=\"title\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]: /url \"title\"\n\n[foo]", 
+                "<p><a href=\"/url\" title=\"title\">foo</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void LinkReferenceDefinitions_Spec160_CommonMark()
+        public void LinkReferenceDefinitions_Spec160_commonmark()
         {
             // The following Markdown:
             //        [foo]: 
@@ -3132,11 +3450,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="the title">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("   [foo]: \n      /url  \n           'the title'  \n\n[foo]", "<p><a href=\"/url\" title=\"the title\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("   [foo]: \n      /url  \n           'the title'  \n\n[foo]", 
+                "<p><a href=\"/url\" title=\"the title\">foo</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void LinkReferenceDefinitions_Spec161_CommonMark()
+        public void LinkReferenceDefinitions_Spec161_commonmark()
         {
             // The following Markdown:
             //     [Foo*bar\]]:my_(url) 'title (with parens)'
@@ -3146,11 +3466,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="my_(url)" title="title (with parens)">Foo*bar]</a></p>
 
-            SpecTestHelper.AssertCompliance("[Foo*bar\\]]:my_(url) 'title (with parens)'\n\n[Foo*bar\\]]", "<p><a href=\"my_(url)\" title=\"title (with parens)\">Foo*bar]</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[Foo*bar\\]]:my_(url) 'title (with parens)'\n\n[Foo*bar\\]]", 
+                "<p><a href=\"my_(url)\" title=\"title (with parens)\">Foo*bar]</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void LinkReferenceDefinitions_Spec162_CommonMark()
+        public void LinkReferenceDefinitions_Spec162_commonmark()
         {
             // The following Markdown:
             //     [Foo bar]:
@@ -3162,12 +3484,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="my%20url" title="title">Foo bar</a></p>
 
-            SpecTestHelper.AssertCompliance("[Foo bar]:\n<my%20url>\n'title'\n\n[Foo bar]", "<p><a href=\"my%20url\" title=\"title\">Foo bar</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[Foo bar]:\n<my%20url>\n'title'\n\n[Foo bar]", 
+                "<p><a href=\"my%20url\" title=\"title\">Foo bar</a></p>", 
+                "commonmark");
         }
 
         // The title may extend over multiple lines:        
         [Fact]
-        public void LinkReferenceDefinitions_Spec163_CommonMark()
+        public void LinkReferenceDefinitions_Spec163_commonmark()
         {
             // The following Markdown:
             //     [foo]: /url '
@@ -3185,12 +3509,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     line2
             //     ">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo]: /url '\ntitle\nline1\nline2\n'\n\n[foo]", "<p><a href=\"/url\" title=\"\ntitle\nline1\nline2\n\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]: /url '\ntitle\nline1\nline2\n'\n\n[foo]", 
+                "<p><a href=\"/url\" title=\"\ntitle\nline1\nline2\n\">foo</a></p>", 
+                "commonmark");
         }
 
         // However, it may not contain a [blank line]:        
         [Fact]
-        public void LinkReferenceDefinitions_Spec164_CommonMark()
+        public void LinkReferenceDefinitions_Spec164_commonmark()
         {
             // The following Markdown:
             //     [foo]: /url 'title
@@ -3204,12 +3530,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>with blank line'</p>
             //     <p>[foo]</p>
 
-            SpecTestHelper.AssertCompliance("[foo]: /url 'title\n\nwith blank line'\n\n[foo]", "<p>[foo]: /url 'title</p>\n<p>with blank line'</p>\n<p>[foo]</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]: /url 'title\n\nwith blank line'\n\n[foo]", 
+                "<p>[foo]: /url 'title</p>\n<p>with blank line'</p>\n<p>[foo]</p>", 
+                "commonmark");
         }
 
         // The title may be omitted:        
         [Fact]
-        public void LinkReferenceDefinitions_Spec165_CommonMark()
+        public void LinkReferenceDefinitions_Spec165_commonmark()
         {
             // The following Markdown:
             //     [foo]:
@@ -3220,12 +3548,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo]:\n/url\n\n[foo]", "<p><a href=\"/url\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]:\n/url\n\n[foo]", 
+                "<p><a href=\"/url\">foo</a></p>", 
+                "commonmark");
         }
 
         // The link destination may not be omitted:        
         [Fact]
-        public void LinkReferenceDefinitions_Spec166_CommonMark()
+        public void LinkReferenceDefinitions_Spec166_commonmark()
         {
             // The following Markdown:
             //     [foo]:
@@ -3236,13 +3566,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[foo]:</p>
             //     <p>[foo]</p>
 
-            SpecTestHelper.AssertCompliance("[foo]:\n\n[foo]", "<p>[foo]:</p>\n<p>[foo]</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]:\n\n[foo]", 
+                "<p>[foo]:</p>\n<p>[foo]</p>", 
+                "commonmark");
         }
 
         // Both title and destination can contain backslash escapes
         // and literal backslashes:        
         [Fact]
-        public void LinkReferenceDefinitions_Spec167_CommonMark()
+        public void LinkReferenceDefinitions_Spec167_commonmark()
         {
             // The following Markdown:
             //     [foo]: /url\bar\*baz "foo\"bar\baz"
@@ -3252,12 +3584,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url%5Cbar*baz" title="foo&quot;bar\baz">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo]: /url\\bar\\*baz \"foo\\\"bar\\baz\"\n\n[foo]", "<p><a href=\"/url%5Cbar*baz\" title=\"foo&quot;bar\\baz\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]: /url\\bar\\*baz \"foo\\\"bar\\baz\"\n\n[foo]", 
+                "<p><a href=\"/url%5Cbar*baz\" title=\"foo&quot;bar\\baz\">foo</a></p>", 
+                "commonmark");
         }
 
         // A link can come before its corresponding definition:        
         [Fact]
-        public void LinkReferenceDefinitions_Spec168_CommonMark()
+        public void LinkReferenceDefinitions_Spec168_commonmark()
         {
             // The following Markdown:
             //     [foo]
@@ -3267,13 +3601,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="url">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: url", "<p><a href=\"url\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: url", 
+                "<p><a href=\"url\">foo</a></p>", 
+                "commonmark");
         }
 
         // If there are several matching definitions, the first one takes
         // precedence:        
         [Fact]
-        public void LinkReferenceDefinitions_Spec169_CommonMark()
+        public void LinkReferenceDefinitions_Spec169_commonmark()
         {
             // The following Markdown:
             //     [foo]
@@ -3284,13 +3620,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="first">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: first\n[foo]: second", "<p><a href=\"first\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: first\n[foo]: second", 
+                "<p><a href=\"first\">foo</a></p>", 
+                "commonmark");
         }
 
         // As noted in the section on [Links], matching of labels is
         // case-insensitive (see [matches]).        
         [Fact]
-        public void LinkReferenceDefinitions_Spec170_CommonMark()
+        public void LinkReferenceDefinitions_Spec170_commonmark()
         {
             // The following Markdown:
             //     [FOO]: /url
@@ -3300,11 +3638,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url">Foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[FOO]: /url\n\n[Foo]", "<p><a href=\"/url\">Foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[FOO]: /url\n\n[Foo]", 
+                "<p><a href=\"/url\">Foo</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void LinkReferenceDefinitions_Spec171_CommonMark()
+        public void LinkReferenceDefinitions_Spec171_commonmark()
         {
             // The following Markdown:
             //     [ΑΓΩ]: /φου
@@ -3314,13 +3654,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/%CF%86%CE%BF%CF%85">αγω</a></p>
 
-            SpecTestHelper.AssertCompliance("[ΑΓΩ]: /φου\n\n[αγω]", "<p><a href=\"/%CF%86%CE%BF%CF%85\">αγω</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[ΑΓΩ]: /φου\n\n[αγω]", 
+                "<p><a href=\"/%CF%86%CE%BF%CF%85\">αγω</a></p>", 
+                "commonmark");
         }
 
         // Here is a link reference definition with no corresponding link.
         // It contributes nothing to the document.        
         [Fact]
-        public void LinkReferenceDefinitions_Spec172_CommonMark()
+        public void LinkReferenceDefinitions_Spec172_commonmark()
         {
             // The following Markdown:
             //     [foo]: /url
@@ -3328,12 +3670,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
 
 
-            SpecTestHelper.AssertCompliance("[foo]: /url", "", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]: /url", 
+                "", 
+                "commonmark");
         }
 
         // Here is another one:        
         [Fact]
-        public void LinkReferenceDefinitions_Spec173_CommonMark()
+        public void LinkReferenceDefinitions_Spec173_commonmark()
         {
             // The following Markdown:
             //     [
@@ -3344,13 +3688,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>bar</p>
 
-            SpecTestHelper.AssertCompliance("[\nfoo\n]: /url\nbar", "<p>bar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[\nfoo\n]: /url\nbar", 
+                "<p>bar</p>", 
+                "commonmark");
         }
 
         // This is not a link reference definition, because there are
         // [non-whitespace characters] after the title:        
         [Fact]
-        public void LinkReferenceDefinitions_Spec174_CommonMark()
+        public void LinkReferenceDefinitions_Spec174_commonmark()
         {
             // The following Markdown:
             //     [foo]: /url "title" ok
@@ -3358,12 +3704,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo]: /url &quot;title&quot; ok</p>
 
-            SpecTestHelper.AssertCompliance("[foo]: /url \"title\" ok", "<p>[foo]: /url &quot;title&quot; ok</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]: /url \"title\" ok", 
+                "<p>[foo]: /url &quot;title&quot; ok</p>", 
+                "commonmark");
         }
 
         // This is a link reference definition, but it has no title:        
         [Fact]
-        public void LinkReferenceDefinitions_Spec175_CommonMark()
+        public void LinkReferenceDefinitions_Spec175_commonmark()
         {
             // The following Markdown:
             //     [foo]: /url
@@ -3372,13 +3720,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&quot;title&quot; ok</p>
 
-            SpecTestHelper.AssertCompliance("[foo]: /url\n\"title\" ok", "<p>&quot;title&quot; ok</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]: /url\n\"title\" ok", 
+                "<p>&quot;title&quot; ok</p>", 
+                "commonmark");
         }
 
         // This is not a link reference definition, because it is indented
         // four spaces:        
         [Fact]
-        public void LinkReferenceDefinitions_Spec176_CommonMark()
+        public void LinkReferenceDefinitions_Spec176_commonmark()
         {
             // The following Markdown:
             //         [foo]: /url "title"
@@ -3390,13 +3740,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <p>[foo]</p>
 
-            SpecTestHelper.AssertCompliance("    [foo]: /url \"title\"\n\n[foo]", "<pre><code>[foo]: /url &quot;title&quot;\n</code></pre>\n<p>[foo]</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    [foo]: /url \"title\"\n\n[foo]", 
+                "<pre><code>[foo]: /url &quot;title&quot;\n</code></pre>\n<p>[foo]</p>", 
+                "commonmark");
         }
 
         // This is not a link reference definition, because it occurs inside
         // a code block:        
         [Fact]
-        public void LinkReferenceDefinitions_Spec177_CommonMark()
+        public void LinkReferenceDefinitions_Spec177_commonmark()
         {
             // The following Markdown:
             //     ```
@@ -3410,12 +3762,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <p>[foo]</p>
 
-            SpecTestHelper.AssertCompliance("```\n[foo]: /url\n```\n\n[foo]", "<pre><code>[foo]: /url\n</code></pre>\n<p>[foo]</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("```\n[foo]: /url\n```\n\n[foo]", 
+                "<pre><code>[foo]: /url\n</code></pre>\n<p>[foo]</p>", 
+                "commonmark");
         }
 
         // A [link reference definition] cannot interrupt a paragraph.        
         [Fact]
-        public void LinkReferenceDefinitions_Spec178_CommonMark()
+        public void LinkReferenceDefinitions_Spec178_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -3428,13 +3782,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     [bar]: /baz</p>
             //     <p>[bar]</p>
 
-            SpecTestHelper.AssertCompliance("Foo\n[bar]: /baz\n\n[bar]", "<p>Foo\n[bar]: /baz</p>\n<p>[bar]</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\n[bar]: /baz\n\n[bar]", 
+                "<p>Foo\n[bar]: /baz</p>\n<p>[bar]</p>", 
+                "commonmark");
         }
 
         // However, it can directly follow other block elements, such as headings
         // and thematic breaks, and it need not be followed by a blank line.        
         [Fact]
-        public void LinkReferenceDefinitions_Spec179_CommonMark()
+        public void LinkReferenceDefinitions_Spec179_commonmark()
         {
             // The following Markdown:
             //     # [Foo]
@@ -3447,13 +3803,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>bar</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("# [Foo]\n[foo]: /url\n> bar", "<h1><a href=\"/url\">Foo</a></h1>\n<blockquote>\n<p>bar</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("# [Foo]\n[foo]: /url\n> bar", 
+                "<h1><a href=\"/url\">Foo</a></h1>\n<blockquote>\n<p>bar</p>\n</blockquote>", 
+                "commonmark");
         }
 
         // Several [link reference definitions]
         // can occur one after another, without intervening blank lines.        
         [Fact]
-        public void LinkReferenceDefinitions_Spec180_CommonMark()
+        public void LinkReferenceDefinitions_Spec180_commonmark()
         {
             // The following Markdown:
             //     [foo]: /foo-url "foo"
@@ -3470,7 +3828,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <a href="/bar-url" title="bar">bar</a>,
             //     <a href="/baz-url">baz</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo]: /foo-url \"foo\"\n[bar]: /bar-url\n  \"bar\"\n[baz]: /baz-url\n\n[foo],\n[bar],\n[baz]", "<p><a href=\"/foo-url\" title=\"foo\">foo</a>,\n<a href=\"/bar-url\" title=\"bar\">bar</a>,\n<a href=\"/baz-url\">baz</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]: /foo-url \"foo\"\n[bar]: /bar-url\n  \"bar\"\n[baz]: /baz-url\n\n[foo],\n[bar],\n[baz]", 
+                "<p><a href=\"/foo-url\" title=\"foo\">foo</a>,\n<a href=\"/bar-url\" title=\"bar\">bar</a>,\n<a href=\"/baz-url\">baz</a></p>", 
+                "commonmark");
         }
 
         // [Link reference definitions] can occur
@@ -3478,7 +3838,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // affect the entire document, not just the container in which they
         // are defined:        
         [Fact]
-        public void LinkReferenceDefinitions_Spec181_CommonMark()
+        public void LinkReferenceDefinitions_Spec181_commonmark()
         {
             // The following Markdown:
             //     [foo]
@@ -3490,7 +3850,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <blockquote>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("[foo]\n\n> [foo]: /url", "<p><a href=\"/url\">foo</a></p>\n<blockquote>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]\n\n> [foo]: /url", 
+                "<p><a href=\"/url\">foo</a></p>\n<blockquote>\n</blockquote>", 
+                "commonmark");
         }
     }
 
@@ -3505,7 +3867,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // A simple example with two paragraphs:        
         [Fact]
-        public void Paragraphs_Spec182_CommonMark()
+        public void Paragraphs_Spec182_commonmark()
         {
             // The following Markdown:
             //     aaa
@@ -3516,12 +3878,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>aaa</p>
             //     <p>bbb</p>
 
-            SpecTestHelper.AssertCompliance("aaa\n\nbbb", "<p>aaa</p>\n<p>bbb</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("aaa\n\nbbb", 
+                "<p>aaa</p>\n<p>bbb</p>", 
+                "commonmark");
         }
 
         // Paragraphs can contain multiple lines, but no blank lines:        
         [Fact]
-        public void Paragraphs_Spec183_CommonMark()
+        public void Paragraphs_Spec183_commonmark()
         {
             // The following Markdown:
             //     aaa
@@ -3536,12 +3900,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>ccc
             //     ddd</p>
 
-            SpecTestHelper.AssertCompliance("aaa\nbbb\n\nccc\nddd", "<p>aaa\nbbb</p>\n<p>ccc\nddd</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("aaa\nbbb\n\nccc\nddd", 
+                "<p>aaa\nbbb</p>\n<p>ccc\nddd</p>", 
+                "commonmark");
         }
 
         // Multiple blank lines between paragraph have no effect:        
         [Fact]
-        public void Paragraphs_Spec184_CommonMark()
+        public void Paragraphs_Spec184_commonmark()
         {
             // The following Markdown:
             //     aaa
@@ -3553,12 +3919,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>aaa</p>
             //     <p>bbb</p>
 
-            SpecTestHelper.AssertCompliance("aaa\n\n\nbbb", "<p>aaa</p>\n<p>bbb</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("aaa\n\n\nbbb", 
+                "<p>aaa</p>\n<p>bbb</p>", 
+                "commonmark");
         }
 
         // Leading spaces are skipped:        
         [Fact]
-        public void Paragraphs_Spec185_CommonMark()
+        public void Paragraphs_Spec185_commonmark()
         {
             // The following Markdown:
             //       aaa
@@ -3568,13 +3936,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>aaa
             //     bbb</p>
 
-            SpecTestHelper.AssertCompliance("  aaa\n bbb", "<p>aaa\nbbb</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("  aaa\n bbb", 
+                "<p>aaa\nbbb</p>", 
+                "commonmark");
         }
 
         // Lines after the first may be indented any amount, since indented
         // code blocks cannot interrupt paragraphs.        
         [Fact]
-        public void Paragraphs_Spec186_CommonMark()
+        public void Paragraphs_Spec186_commonmark()
         {
             // The following Markdown:
             //     aaa
@@ -3586,13 +3956,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     bbb
             //     ccc</p>
 
-            SpecTestHelper.AssertCompliance("aaa\n             bbb\n                                       ccc", "<p>aaa\nbbb\nccc</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("aaa\n             bbb\n                                       ccc", 
+                "<p>aaa\nbbb\nccc</p>", 
+                "commonmark");
         }
 
         // However, the first line may be indented at most three spaces,
         // or an indented code block will be triggered:        
         [Fact]
-        public void Paragraphs_Spec187_CommonMark()
+        public void Paragraphs_Spec187_commonmark()
         {
             // The following Markdown:
             //        aaa
@@ -3602,11 +3974,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>aaa
             //     bbb</p>
 
-            SpecTestHelper.AssertCompliance("   aaa\nbbb", "<p>aaa\nbbb</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("   aaa\nbbb", 
+                "<p>aaa\nbbb</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Paragraphs_Spec188_CommonMark()
+        public void Paragraphs_Spec188_commonmark()
         {
             // The following Markdown:
             //         aaa
@@ -3617,14 +3991,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </code></pre>
             //     <p>bbb</p>
 
-            SpecTestHelper.AssertCompliance("    aaa\nbbb", "<pre><code>aaa\n</code></pre>\n<p>bbb</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    aaa\nbbb", 
+                "<pre><code>aaa\n</code></pre>\n<p>bbb</p>", 
+                "commonmark");
         }
 
         // Final spaces are stripped before inline parsing, so a paragraph
         // that ends with two or more spaces will not end with a [hard line
         // break]:        
         [Fact]
-        public void Paragraphs_Spec189_CommonMark()
+        public void Paragraphs_Spec189_commonmark()
         {
             // The following Markdown:
             //     aaa     
@@ -3634,7 +4010,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>aaa<br />
             //     bbb</p>
 
-            SpecTestHelper.AssertCompliance("aaa     \nbbb     ", "<p>aaa<br />\nbbb</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("aaa     \nbbb     ", 
+                "<p>aaa<br />\nbbb</p>", 
+                "commonmark");
         }
     }
 
@@ -3646,7 +4024,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Blank lines at the beginning and end of the document are also ignored.        
         [Fact]
-        public void BlankLines_Spec190_CommonMark()
+        public void BlankLines_Spec190_commonmark()
         {
             // The following Markdown:
             //       
@@ -3662,7 +4040,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>aaa</p>
             //     <h1>aaa</h1>
 
-            SpecTestHelper.AssertCompliance("  \n\naaa\n  \n\n# aaa\n\n  ", "<p>aaa</p>\n<h1>aaa</h1>", "CommonMark");
+            SpecTestHelper.AssertCompliance("  \n\naaa\n  \n\n# aaa\n\n  ", 
+                "<p>aaa</p>\n<h1>aaa</h1>", 
+                "commonmark");
         }
     }
 
@@ -3696,7 +4076,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Here is a simple example:        
         [Fact]
-        public void BlockQuotes_Spec191_CommonMark()
+        public void BlockQuotes_Spec191_commonmark()
         {
             // The following Markdown:
             //     > # Foo
@@ -3710,12 +4090,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     baz</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("> # Foo\n> bar\n> baz", "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> # Foo\n> bar\n> baz", 
+                "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", 
+                "commonmark");
         }
 
         // The spaces after the `>` characters can be omitted:        
         [Fact]
-        public void BlockQuotes_Spec192_CommonMark()
+        public void BlockQuotes_Spec192_commonmark()
         {
             // The following Markdown:
             //     ># Foo
@@ -3729,12 +4111,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     baz</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("># Foo\n>bar\n> baz", "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("># Foo\n>bar\n> baz", 
+                "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", 
+                "commonmark");
         }
 
         // The `>` characters can be indented 1-3 spaces:        
         [Fact]
-        public void BlockQuotes_Spec193_CommonMark()
+        public void BlockQuotes_Spec193_commonmark()
         {
             // The following Markdown:
             //        > # Foo
@@ -3748,12 +4132,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     baz</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("   > # Foo\n   > bar\n > baz", "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("   > # Foo\n   > bar\n > baz", 
+                "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", 
+                "commonmark");
         }
 
         // Four spaces gives us a code block:        
         [Fact]
-        public void BlockQuotes_Spec194_CommonMark()
+        public void BlockQuotes_Spec194_commonmark()
         {
             // The following Markdown:
             //         > # Foo
@@ -3766,13 +4152,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     &gt; baz
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("    > # Foo\n    > bar\n    > baz", "<pre><code>&gt; # Foo\n&gt; bar\n&gt; baz\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    > # Foo\n    > bar\n    > baz", 
+                "<pre><code>&gt; # Foo\n&gt; bar\n&gt; baz\n</code></pre>", 
+                "commonmark");
         }
 
         // The Laziness clause allows us to omit the `>` before
         // [paragraph continuation text]:        
         [Fact]
-        public void BlockQuotes_Spec195_CommonMark()
+        public void BlockQuotes_Spec195_commonmark()
         {
             // The following Markdown:
             //     > # Foo
@@ -3786,13 +4174,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     baz</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("> # Foo\n> bar\nbaz", "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> # Foo\n> bar\nbaz", 
+                "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", 
+                "commonmark");
         }
 
         // A block quote can contain some lazy and some non-lazy
         // continuation lines:        
         [Fact]
-        public void BlockQuotes_Spec196_CommonMark()
+        public void BlockQuotes_Spec196_commonmark()
         {
             // The following Markdown:
             //     > bar
@@ -3806,7 +4196,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     foo</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("> bar\nbaz\n> foo", "<blockquote>\n<p>bar\nbaz\nfoo</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> bar\nbaz\n> foo", 
+                "<blockquote>\n<p>bar\nbaz\nfoo</p>\n</blockquote>", 
+                "commonmark");
         }
 
         // Laziness only applies to lines that would have been continuations of
@@ -3820,7 +4212,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // 
         // without changing the meaning:        
         [Fact]
-        public void BlockQuotes_Spec197_CommonMark()
+        public void BlockQuotes_Spec197_commonmark()
         {
             // The following Markdown:
             //     > foo
@@ -3832,7 +4224,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     <hr />
 
-            SpecTestHelper.AssertCompliance("> foo\n---", "<blockquote>\n<p>foo</p>\n</blockquote>\n<hr />", "CommonMark");
+            SpecTestHelper.AssertCompliance("> foo\n---", 
+                "<blockquote>\n<p>foo</p>\n</blockquote>\n<hr />", 
+                "commonmark");
         }
 
         // Similarly, if we omit the `> ` in the second line of
@@ -3844,7 +4238,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // 
         // then the block quote ends after the first line:        
         [Fact]
-        public void BlockQuotes_Spec198_CommonMark()
+        public void BlockQuotes_Spec198_commonmark()
         {
             // The following Markdown:
             //     > - foo
@@ -3860,13 +4254,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>bar</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("> - foo\n- bar", "<blockquote>\n<ul>\n<li>foo</li>\n</ul>\n</blockquote>\n<ul>\n<li>bar</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> - foo\n- bar", 
+                "<blockquote>\n<ul>\n<li>foo</li>\n</ul>\n</blockquote>\n<ul>\n<li>bar</li>\n</ul>", 
+                "commonmark");
         }
 
         // For the same reason, we can't omit the `> ` in front of
         // subsequent lines of an indented or fenced code block:        
         [Fact]
-        public void BlockQuotes_Spec199_CommonMark()
+        public void BlockQuotes_Spec199_commonmark()
         {
             // The following Markdown:
             //     >     foo
@@ -3880,11 +4276,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>bar
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance(">     foo\n    bar", "<blockquote>\n<pre><code>foo\n</code></pre>\n</blockquote>\n<pre><code>bar\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance(">     foo\n    bar", 
+                "<blockquote>\n<pre><code>foo\n</code></pre>\n</blockquote>\n<pre><code>bar\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void BlockQuotes_Spec200_CommonMark()
+        public void BlockQuotes_Spec200_commonmark()
         {
             // The following Markdown:
             //     > ```
@@ -3898,13 +4296,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo</p>
             //     <pre><code></code></pre>
 
-            SpecTestHelper.AssertCompliance("> ```\nfoo\n```", "<blockquote>\n<pre><code></code></pre>\n</blockquote>\n<p>foo</p>\n<pre><code></code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> ```\nfoo\n```", 
+                "<blockquote>\n<pre><code></code></pre>\n</blockquote>\n<p>foo</p>\n<pre><code></code></pre>", 
+                "commonmark");
         }
 
         // Note that in the following case, we have a [lazy
         // continuation line]:        
         [Fact]
-        public void BlockQuotes_Spec201_CommonMark()
+        public void BlockQuotes_Spec201_commonmark()
         {
             // The following Markdown:
             //     > foo
@@ -3916,7 +4316,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     - bar</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("> foo\n    - bar", "<blockquote>\n<p>foo\n- bar</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> foo\n    - bar", 
+                "<blockquote>\n<p>foo\n- bar</p>\n</blockquote>", 
+                "commonmark");
         }
 
         // To see why, note that in
@@ -3932,7 +4334,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // 
         // A block quote can be empty:        
         [Fact]
-        public void BlockQuotes_Spec202_CommonMark()
+        public void BlockQuotes_Spec202_commonmark()
         {
             // The following Markdown:
             //     >
@@ -3941,11 +4343,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <blockquote>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance(">", "<blockquote>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance(">", 
+                "<blockquote>\n</blockquote>", 
+                "commonmark");
         }
         
         [Fact]
-        public void BlockQuotes_Spec203_CommonMark()
+        public void BlockQuotes_Spec203_commonmark()
         {
             // The following Markdown:
             //     >
@@ -3956,12 +4360,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <blockquote>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance(">\n>  \n> ", "<blockquote>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance(">\n>  \n> ", 
+                "<blockquote>\n</blockquote>", 
+                "commonmark");
         }
 
         // A block quote can have initial or final blank lines:        
         [Fact]
-        public void BlockQuotes_Spec204_CommonMark()
+        public void BlockQuotes_Spec204_commonmark()
         {
             // The following Markdown:
             //     >
@@ -3973,12 +4379,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance(">\n> foo\n>  ", "<blockquote>\n<p>foo</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance(">\n> foo\n>  ", 
+                "<blockquote>\n<p>foo</p>\n</blockquote>", 
+                "commonmark");
         }
 
         // A blank line always separates block quotes:        
         [Fact]
-        public void BlockQuotes_Spec205_CommonMark()
+        public void BlockQuotes_Spec205_commonmark()
         {
             // The following Markdown:
             //     > foo
@@ -3993,7 +4401,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>bar</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("> foo\n\n> bar", "<blockquote>\n<p>foo</p>\n</blockquote>\n<blockquote>\n<p>bar</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> foo\n\n> bar", 
+                "<blockquote>\n<p>foo</p>\n</blockquote>\n<blockquote>\n<p>bar</p>\n</blockquote>", 
+                "commonmark");
         }
 
         // (Most current Markdown implementations, including John Gruber's
@@ -4004,7 +4414,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Consecutiveness means that if we put these block quotes together,
         // we get a single block quote:        
         [Fact]
-        public void BlockQuotes_Spec206_CommonMark()
+        public void BlockQuotes_Spec206_commonmark()
         {
             // The following Markdown:
             //     > foo
@@ -4016,12 +4426,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     bar</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("> foo\n> bar", "<blockquote>\n<p>foo\nbar</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> foo\n> bar", 
+                "<blockquote>\n<p>foo\nbar</p>\n</blockquote>", 
+                "commonmark");
         }
 
         // To get a block quote with two paragraphs, use:        
         [Fact]
-        public void BlockQuotes_Spec207_CommonMark()
+        public void BlockQuotes_Spec207_commonmark()
         {
             // The following Markdown:
             //     > foo
@@ -4034,12 +4446,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>bar</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("> foo\n>\n> bar", "<blockquote>\n<p>foo</p>\n<p>bar</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> foo\n>\n> bar", 
+                "<blockquote>\n<p>foo</p>\n<p>bar</p>\n</blockquote>", 
+                "commonmark");
         }
 
         // Block quotes can interrupt paragraphs:        
         [Fact]
-        public void BlockQuotes_Spec208_CommonMark()
+        public void BlockQuotes_Spec208_commonmark()
         {
             // The following Markdown:
             //     foo
@@ -4051,13 +4465,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>bar</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("foo\n> bar", "<p>foo</p>\n<blockquote>\n<p>bar</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo\n> bar", 
+                "<p>foo</p>\n<blockquote>\n<p>bar</p>\n</blockquote>", 
+                "commonmark");
         }
 
         // In general, blank lines are not needed before or after block
         // quotes:        
         [Fact]
-        public void BlockQuotes_Spec209_CommonMark()
+        public void BlockQuotes_Spec209_commonmark()
         {
             // The following Markdown:
             //     > aaa
@@ -4073,13 +4489,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>bbb</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("> aaa\n***\n> bbb", "<blockquote>\n<p>aaa</p>\n</blockquote>\n<hr />\n<blockquote>\n<p>bbb</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> aaa\n***\n> bbb", 
+                "<blockquote>\n<p>aaa</p>\n</blockquote>\n<hr />\n<blockquote>\n<p>bbb</p>\n</blockquote>", 
+                "commonmark");
         }
 
         // However, because of laziness, a blank line is needed between
         // a block quote and a following paragraph:        
         [Fact]
-        public void BlockQuotes_Spec210_CommonMark()
+        public void BlockQuotes_Spec210_commonmark()
         {
             // The following Markdown:
             //     > bar
@@ -4091,11 +4509,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     baz</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("> bar\nbaz", "<blockquote>\n<p>bar\nbaz</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> bar\nbaz", 
+                "<blockquote>\n<p>bar\nbaz</p>\n</blockquote>", 
+                "commonmark");
         }
         
         [Fact]
-        public void BlockQuotes_Spec211_CommonMark()
+        public void BlockQuotes_Spec211_commonmark()
         {
             // The following Markdown:
             //     > bar
@@ -4108,11 +4528,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     <p>baz</p>
 
-            SpecTestHelper.AssertCompliance("> bar\n\nbaz", "<blockquote>\n<p>bar</p>\n</blockquote>\n<p>baz</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> bar\n\nbaz", 
+                "<blockquote>\n<p>bar</p>\n</blockquote>\n<p>baz</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void BlockQuotes_Spec212_CommonMark()
+        public void BlockQuotes_Spec212_commonmark()
         {
             // The following Markdown:
             //     > bar
@@ -4125,14 +4547,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     <p>baz</p>
 
-            SpecTestHelper.AssertCompliance("> bar\n>\nbaz", "<blockquote>\n<p>bar</p>\n</blockquote>\n<p>baz</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> bar\n>\nbaz", 
+                "<blockquote>\n<p>bar</p>\n</blockquote>\n<p>baz</p>", 
+                "commonmark");
         }
 
         // It is a consequence of the Laziness rule that any number
         // of initial `>`s may be omitted on a continuation line of a
         // nested block quote:        
         [Fact]
-        public void BlockQuotes_Spec213_CommonMark()
+        public void BlockQuotes_Spec213_commonmark()
         {
             // The following Markdown:
             //     > > > foo
@@ -4148,11 +4572,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("> > > foo\nbar", "<blockquote>\n<blockquote>\n<blockquote>\n<p>foo\nbar</p>\n</blockquote>\n</blockquote>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> > > foo\nbar", 
+                "<blockquote>\n<blockquote>\n<blockquote>\n<p>foo\nbar</p>\n</blockquote>\n</blockquote>\n</blockquote>", 
+                "commonmark");
         }
         
         [Fact]
-        public void BlockQuotes_Spec214_CommonMark()
+        public void BlockQuotes_Spec214_commonmark()
         {
             // The following Markdown:
             //     >>> foo
@@ -4170,7 +4596,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance(">>> foo\n> bar\n>>baz", "<blockquote>\n<blockquote>\n<blockquote>\n<p>foo\nbar\nbaz</p>\n</blockquote>\n</blockquote>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance(">>> foo\n> bar\n>>baz", 
+                "<blockquote>\n<blockquote>\n<blockquote>\n<p>foo\nbar\nbaz</p>\n</blockquote>\n</blockquote>\n</blockquote>", 
+                "commonmark");
         }
 
         // When including an indented code block in a block quote,
@@ -4178,7 +4606,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // both the `>` and a following space.  So *five spaces* are needed after
         // the `>`:        
         [Fact]
-        public void BlockQuotes_Spec215_CommonMark()
+        public void BlockQuotes_Spec215_commonmark()
         {
             // The following Markdown:
             //     >     code
@@ -4194,7 +4622,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>not code</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance(">     code\n\n>    not code", "<blockquote>\n<pre><code>code\n</code></pre>\n</blockquote>\n<blockquote>\n<p>not code</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance(">     code\n\n>    not code", 
+                "<blockquote>\n<pre><code>code\n</code></pre>\n</blockquote>\n<blockquote>\n<p>not code</p>\n</blockquote>", 
+                "commonmark");
         }
     }
 
@@ -4237,7 +4667,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // For example, let *Ls* be the lines        
         [Fact]
-        public void ListItems_Spec216_CommonMark()
+        public void ListItems_Spec216_commonmark()
         {
             // The following Markdown:
             //     A paragraph
@@ -4256,14 +4686,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>A block quote.</p>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("A paragraph\nwith two lines.\n\n    indented code\n\n> A block quote.", "<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("A paragraph\nwith two lines.\n\n    indented code\n\n> A block quote.", 
+                "<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>", 
+                "commonmark");
         }
 
         // And let *M* be the marker `1.`, and *N* = 2.  Then rule #1 says
         // that the following is an ordered list item with start number 1,
         // and the same contents as *Ls*:        
         [Fact]
-        public void ListItems_Spec217_CommonMark()
+        public void ListItems_Spec217_commonmark()
         {
             // The following Markdown:
             //     1.  A paragraph
@@ -4286,7 +4718,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("1.  A paragraph\n    with two lines.\n\n        indented code\n\n    > A block quote.", "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("1.  A paragraph\n    with two lines.\n\n        indented code\n\n    > A block quote.", 
+                "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", 
+                "commonmark");
         }
 
         // The most important thing to notice is that the position of
@@ -4300,7 +4734,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Here are some examples showing how far content must be indented to be
         // put under the list item:        
         [Fact]
-        public void ListItems_Spec218_CommonMark()
+        public void ListItems_Spec218_commonmark()
         {
             // The following Markdown:
             //     - one
@@ -4313,11 +4747,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ul>
             //     <p>two</p>
 
-            SpecTestHelper.AssertCompliance("- one\n\n two", "<ul>\n<li>one</li>\n</ul>\n<p>two</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- one\n\n two", 
+                "<ul>\n<li>one</li>\n</ul>\n<p>two</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void ListItems_Spec219_CommonMark()
+        public void ListItems_Spec219_commonmark()
         {
             // The following Markdown:
             //     - one
@@ -4332,11 +4768,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- one\n\n  two", "<ul>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- one\n\n  two", 
+                "<ul>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ul>", 
+                "commonmark");
         }
         
         [Fact]
-        public void ListItems_Spec220_CommonMark()
+        public void ListItems_Spec220_commonmark()
         {
             // The following Markdown:
             //      -    one
@@ -4350,11 +4788,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code> two
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance(" -    one\n\n     two", "<ul>\n<li>one</li>\n</ul>\n<pre><code> two\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance(" -    one\n\n     two", 
+                "<ul>\n<li>one</li>\n</ul>\n<pre><code> two\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void ListItems_Spec221_CommonMark()
+        public void ListItems_Spec221_commonmark()
         {
             // The following Markdown:
             //      -    one
@@ -4369,7 +4809,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance(" -    one\n\n      two", "<ul>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance(" -    one\n\n      two", 
+                "<ul>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ul>", 
+                "commonmark");
         }
 
         // It is tempting to think of this in terms of columns:  the continuation
@@ -4380,7 +4822,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // how the list item is embedded in other constructions, as shown by
         // this example:        
         [Fact]
-        public void ListItems_Spec222_CommonMark()
+        public void ListItems_Spec222_commonmark()
         {
             // The following Markdown:
             //        > > 1.  one
@@ -4399,7 +4841,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("   > > 1.  one\n>>\n>>     two", "<blockquote>\n<blockquote>\n<ol>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ol>\n</blockquote>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("   > > 1.  one\n>>\n>>     two", 
+                "<blockquote>\n<blockquote>\n<ol>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ol>\n</blockquote>\n</blockquote>", 
+                "commonmark");
         }
 
         // Here `two` occurs in the same column as the list marker `1.`,
@@ -4411,7 +4855,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // it is not considered part of the list item, because it is not indented
         // far enough past the blockquote marker:        
         [Fact]
-        public void ListItems_Spec223_CommonMark()
+        public void ListItems_Spec223_commonmark()
         {
             // The following Markdown:
             //     >>- one
@@ -4428,13 +4872,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance(">>- one\n>>\n  >  > two", "<blockquote>\n<blockquote>\n<ul>\n<li>one</li>\n</ul>\n<p>two</p>\n</blockquote>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance(">>- one\n>>\n  >  > two", 
+                "<blockquote>\n<blockquote>\n<ul>\n<li>one</li>\n</ul>\n<p>two</p>\n</blockquote>\n</blockquote>", 
+                "commonmark");
         }
 
         // Note that at least one space is needed between the list marker and
         // any following content, so these are not list items:        
         [Fact]
-        public void ListItems_Spec224_CommonMark()
+        public void ListItems_Spec224_commonmark()
         {
             // The following Markdown:
             //     -one
@@ -4445,13 +4891,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>-one</p>
             //     <p>2.two</p>
 
-            SpecTestHelper.AssertCompliance("-one\n\n2.two", "<p>-one</p>\n<p>2.two</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("-one\n\n2.two", 
+                "<p>-one</p>\n<p>2.two</p>", 
+                "commonmark");
         }
 
         // A list item may contain blocks that are separated by more than
         // one blank line.        
         [Fact]
-        public void ListItems_Spec225_CommonMark()
+        public void ListItems_Spec225_commonmark()
         {
             // The following Markdown:
             //     - foo
@@ -4467,12 +4915,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- foo\n\n\n  bar", "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- foo\n\n\n  bar", 
+                "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", 
+                "commonmark");
         }
 
         // A list item may contain any kind of block:        
         [Fact]
-        public void ListItems_Spec226_CommonMark()
+        public void ListItems_Spec226_commonmark()
         {
             // The following Markdown:
             //     1.  foo
@@ -4498,13 +4948,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("1.  foo\n\n    ```\n    bar\n    ```\n\n    baz\n\n    > bam", "<ol>\n<li>\n<p>foo</p>\n<pre><code>bar\n</code></pre>\n<p>baz</p>\n<blockquote>\n<p>bam</p>\n</blockquote>\n</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("1.  foo\n\n    ```\n    bar\n    ```\n\n    baz\n\n    > bam", 
+                "<ol>\n<li>\n<p>foo</p>\n<pre><code>bar\n</code></pre>\n<p>baz</p>\n<blockquote>\n<p>bam</p>\n</blockquote>\n</li>\n</ol>", 
+                "commonmark");
         }
 
         // A list item that contains an indented code block will preserve
         // empty lines within the code block verbatim.        
         [Fact]
-        public void ListItems_Spec227_CommonMark()
+        public void ListItems_Spec227_commonmark()
         {
             // The following Markdown:
             //     - Foo
@@ -4526,12 +4978,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- Foo\n\n      bar\n\n\n      baz", "<ul>\n<li>\n<p>Foo</p>\n<pre><code>bar\n\n\nbaz\n</code></pre>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- Foo\n\n      bar\n\n\n      baz", 
+                "<ul>\n<li>\n<p>Foo</p>\n<pre><code>bar\n\n\nbaz\n</code></pre>\n</li>\n</ul>", 
+                "commonmark");
         }
 
         // Note that ordered list start numbers must be nine digits or less:        
         [Fact]
-        public void ListItems_Spec228_CommonMark()
+        public void ListItems_Spec228_commonmark()
         {
             // The following Markdown:
             //     123456789. ok
@@ -4541,11 +4995,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>ok</li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("123456789. ok", "<ol start=\"123456789\">\n<li>ok</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("123456789. ok", 
+                "<ol start=\"123456789\">\n<li>ok</li>\n</ol>", 
+                "commonmark");
         }
         
         [Fact]
-        public void ListItems_Spec229_CommonMark()
+        public void ListItems_Spec229_commonmark()
         {
             // The following Markdown:
             //     1234567890. not ok
@@ -4553,12 +5009,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>1234567890. not ok</p>
 
-            SpecTestHelper.AssertCompliance("1234567890. not ok", "<p>1234567890. not ok</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("1234567890. not ok", 
+                "<p>1234567890. not ok</p>", 
+                "commonmark");
         }
 
         // A start number may begin with 0s:        
         [Fact]
-        public void ListItems_Spec230_CommonMark()
+        public void ListItems_Spec230_commonmark()
         {
             // The following Markdown:
             //     0. ok
@@ -4568,11 +5026,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>ok</li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("0. ok", "<ol start=\"0\">\n<li>ok</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("0. ok", 
+                "<ol start=\"0\">\n<li>ok</li>\n</ol>", 
+                "commonmark");
         }
         
         [Fact]
-        public void ListItems_Spec231_CommonMark()
+        public void ListItems_Spec231_commonmark()
         {
             // The following Markdown:
             //     003. ok
@@ -4582,12 +5042,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>ok</li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("003. ok", "<ol start=\"3\">\n<li>ok</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("003. ok", 
+                "<ol start=\"3\">\n<li>ok</li>\n</ol>", 
+                "commonmark");
         }
 
         // A start number may not be negative:        
         [Fact]
-        public void ListItems_Spec232_CommonMark()
+        public void ListItems_Spec232_commonmark()
         {
             // The following Markdown:
             //     -1. not ok
@@ -4595,7 +5057,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>-1. not ok</p>
 
-            SpecTestHelper.AssertCompliance("-1. not ok", "<p>-1. not ok</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("-1. not ok", 
+                "<p>-1. not ok</p>", 
+                "commonmark");
         }
 
         // 2.  **Item starting with indented code.**  If a sequence of lines *Ls*
@@ -4614,7 +5078,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // the edge of the region where text will be included in the list item.
         // In the following case that is 6 spaces:        
         [Fact]
-        public void ListItems_Spec233_CommonMark()
+        public void ListItems_Spec233_commonmark()
         {
             // The following Markdown:
             //     - foo
@@ -4630,12 +5094,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- foo\n\n      bar", "<ul>\n<li>\n<p>foo</p>\n<pre><code>bar\n</code></pre>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- foo\n\n      bar", 
+                "<ul>\n<li>\n<p>foo</p>\n<pre><code>bar\n</code></pre>\n</li>\n</ul>", 
+                "commonmark");
         }
 
         // And in this case it is 11 spaces:        
         [Fact]
-        public void ListItems_Spec234_CommonMark()
+        public void ListItems_Spec234_commonmark()
         {
             // The following Markdown:
             //       10.  foo
@@ -4651,14 +5117,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("  10.  foo\n\n           bar", "<ol start=\"10\">\n<li>\n<p>foo</p>\n<pre><code>bar\n</code></pre>\n</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("  10.  foo\n\n           bar", 
+                "<ol start=\"10\">\n<li>\n<p>foo</p>\n<pre><code>bar\n</code></pre>\n</li>\n</ol>", 
+                "commonmark");
         }
 
         // If the *first* block in the list item is an indented code block,
         // then by rule #2, the contents must be indented *one* space after the
         // list marker:        
         [Fact]
-        public void ListItems_Spec235_CommonMark()
+        public void ListItems_Spec235_commonmark()
         {
             // The following Markdown:
             //         indented code
@@ -4674,11 +5142,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>more code
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("    indented code\n\nparagraph\n\n    more code", "<pre><code>indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    indented code\n\nparagraph\n\n    more code", 
+                "<pre><code>indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void ListItems_Spec236_CommonMark()
+        public void ListItems_Spec236_commonmark()
         {
             // The following Markdown:
             //     1.     indented code
@@ -4698,13 +5168,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("1.     indented code\n\n   paragraph\n\n       more code", "<ol>\n<li>\n<pre><code>indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>\n</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("1.     indented code\n\n   paragraph\n\n       more code", 
+                "<ol>\n<li>\n<pre><code>indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>\n</li>\n</ol>", 
+                "commonmark");
         }
 
         // Note that an additional space indent is interpreted as space
         // inside the code block:        
         [Fact]
-        public void ListItems_Spec237_CommonMark()
+        public void ListItems_Spec237_commonmark()
         {
             // The following Markdown:
             //     1.      indented code
@@ -4724,7 +5196,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("1.      indented code\n\n   paragraph\n\n       more code", "<ol>\n<li>\n<pre><code> indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>\n</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("1.      indented code\n\n   paragraph\n\n       more code", 
+                "<ol>\n<li>\n<pre><code> indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>\n</li>\n</ol>", 
+                "commonmark");
         }
 
         // Note that rules #1 and #2 only apply to two cases:  (a) cases
@@ -4735,7 +5209,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // a three-space indent, the rules do not allow us to form a list item by
         // indenting the whole thing and prepending a list marker:        
         [Fact]
-        public void ListItems_Spec238_CommonMark()
+        public void ListItems_Spec238_commonmark()
         {
             // The following Markdown:
             //        foo
@@ -4746,11 +5220,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo</p>
             //     <p>bar</p>
 
-            SpecTestHelper.AssertCompliance("   foo\n\nbar", "<p>foo</p>\n<p>bar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("   foo\n\nbar", 
+                "<p>foo</p>\n<p>bar</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void ListItems_Spec239_CommonMark()
+        public void ListItems_Spec239_commonmark()
         {
             // The following Markdown:
             //     -    foo
@@ -4763,7 +5239,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ul>
             //     <p>bar</p>
 
-            SpecTestHelper.AssertCompliance("-    foo\n\n  bar", "<ul>\n<li>foo</li>\n</ul>\n<p>bar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("-    foo\n\n  bar", 
+                "<ul>\n<li>foo</li>\n</ul>\n<p>bar</p>", 
+                "commonmark");
         }
 
         // This is not a significant restriction, because when a block begins
@@ -4771,7 +5249,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // a change in interpretation, allowing rule #1 to be applied.  So, in
         // the above case:        
         [Fact]
-        public void ListItems_Spec240_CommonMark()
+        public void ListItems_Spec240_commonmark()
         {
             // The following Markdown:
             //     -  foo
@@ -4786,7 +5264,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("-  foo\n\n   bar", "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("-  foo\n\n   bar", 
+                "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", 
+                "commonmark");
         }
 
         // 3.  **Item starting with a blank line.**  If a sequence of lines *Ls*
@@ -4803,7 +5283,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // 
         // Here are some list items that start with a blank line but are not empty:        
         [Fact]
-        public void ListItems_Spec241_CommonMark()
+        public void ListItems_Spec241_commonmark()
         {
             // The following Markdown:
             //     -
@@ -4828,13 +5308,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("-\n  foo\n-\n  ```\n  bar\n  ```\n-\n      baz", "<ul>\n<li>foo</li>\n<li>\n<pre><code>bar\n</code></pre>\n</li>\n<li>\n<pre><code>baz\n</code></pre>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("-\n  foo\n-\n  ```\n  bar\n  ```\n-\n      baz", 
+                "<ul>\n<li>foo</li>\n<li>\n<pre><code>bar\n</code></pre>\n</li>\n<li>\n<pre><code>baz\n</code></pre>\n</li>\n</ul>", 
+                "commonmark");
         }
 
         // When the list item starts with a blank line, the number of spaces
         // following the list marker doesn't change the required indentation:        
         [Fact]
-        public void ListItems_Spec242_CommonMark()
+        public void ListItems_Spec242_commonmark()
         {
             // The following Markdown:
             //     -   
@@ -4845,14 +5327,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>foo</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("-   \n  foo", "<ul>\n<li>foo</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("-   \n  foo", 
+                "<ul>\n<li>foo</li>\n</ul>", 
+                "commonmark");
         }
 
         // A list item can begin with at most one blank line.
         // In the following example, `foo` is not part of the list
         // item:        
         [Fact]
-        public void ListItems_Spec243_CommonMark()
+        public void ListItems_Spec243_commonmark()
         {
             // The following Markdown:
             //     -
@@ -4865,12 +5349,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ul>
             //     <p>foo</p>
 
-            SpecTestHelper.AssertCompliance("-\n\n  foo", "<ul>\n<li></li>\n</ul>\n<p>foo</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("-\n\n  foo", 
+                "<ul>\n<li></li>\n</ul>\n<p>foo</p>", 
+                "commonmark");
         }
 
         // Here is an empty bullet list item:        
         [Fact]
-        public void ListItems_Spec244_CommonMark()
+        public void ListItems_Spec244_commonmark()
         {
             // The following Markdown:
             //     - foo
@@ -4884,12 +5370,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>bar</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- foo\n-\n- bar", "<ul>\n<li>foo</li>\n<li></li>\n<li>bar</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- foo\n-\n- bar", 
+                "<ul>\n<li>foo</li>\n<li></li>\n<li>bar</li>\n</ul>", 
+                "commonmark");
         }
 
         // It does not matter whether there are spaces following the [list marker]:        
         [Fact]
-        public void ListItems_Spec245_CommonMark()
+        public void ListItems_Spec245_commonmark()
         {
             // The following Markdown:
             //     - foo
@@ -4903,12 +5391,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>bar</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- foo\n-   \n- bar", "<ul>\n<li>foo</li>\n<li></li>\n<li>bar</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- foo\n-   \n- bar", 
+                "<ul>\n<li>foo</li>\n<li></li>\n<li>bar</li>\n</ul>", 
+                "commonmark");
         }
 
         // Here is an empty ordered list item:        
         [Fact]
-        public void ListItems_Spec246_CommonMark()
+        public void ListItems_Spec246_commonmark()
         {
             // The following Markdown:
             //     1. foo
@@ -4922,12 +5412,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>bar</li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("1. foo\n2.\n3. bar", "<ol>\n<li>foo</li>\n<li></li>\n<li>bar</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("1. foo\n2.\n3. bar", 
+                "<ol>\n<li>foo</li>\n<li></li>\n<li>bar</li>\n</ol>", 
+                "commonmark");
         }
 
         // A list may start or end with an empty list item:        
         [Fact]
-        public void ListItems_Spec247_CommonMark()
+        public void ListItems_Spec247_commonmark()
         {
             // The following Markdown:
             //     *
@@ -4937,12 +5429,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li></li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("*", "<ul>\n<li></li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*", 
+                "<ul>\n<li></li>\n</ul>", 
+                "commonmark");
         }
 
         // However, an empty list item cannot interrupt a paragraph:        
         [Fact]
-        public void ListItems_Spec248_CommonMark()
+        public void ListItems_Spec248_commonmark()
         {
             // The following Markdown:
             //     foo
@@ -4957,7 +5451,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo
             //     1.</p>
 
-            SpecTestHelper.AssertCompliance("foo\n*\n\nfoo\n1.", "<p>foo\n*</p>\n<p>foo\n1.</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo\n*\n\nfoo\n1.", 
+                "<p>foo\n*</p>\n<p>foo\n1.</p>", 
+                "commonmark");
         }
 
         // 4.  **Indentation.**  If a sequence of lines *Ls* constitutes a list item
@@ -4968,7 +5464,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // 
         // Indented one space:        
         [Fact]
-        public void ListItems_Spec249_CommonMark()
+        public void ListItems_Spec249_commonmark()
         {
             // The following Markdown:
             //      1.  A paragraph
@@ -4991,12 +5487,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance(" 1.  A paragraph\n     with two lines.\n\n         indented code\n\n     > A block quote.", "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance(" 1.  A paragraph\n     with two lines.\n\n         indented code\n\n     > A block quote.", 
+                "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", 
+                "commonmark");
         }
 
         // Indented two spaces:        
         [Fact]
-        public void ListItems_Spec250_CommonMark()
+        public void ListItems_Spec250_commonmark()
         {
             // The following Markdown:
             //       1.  A paragraph
@@ -5019,12 +5517,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("  1.  A paragraph\n      with two lines.\n\n          indented code\n\n      > A block quote.", "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("  1.  A paragraph\n      with two lines.\n\n          indented code\n\n      > A block quote.", 
+                "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", 
+                "commonmark");
         }
 
         // Indented three spaces:        
         [Fact]
-        public void ListItems_Spec251_CommonMark()
+        public void ListItems_Spec251_commonmark()
         {
             // The following Markdown:
             //        1.  A paragraph
@@ -5047,12 +5547,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("   1.  A paragraph\n       with two lines.\n\n           indented code\n\n       > A block quote.", "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("   1.  A paragraph\n       with two lines.\n\n           indented code\n\n       > A block quote.", 
+                "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", 
+                "commonmark");
         }
 
         // Four spaces indent gives a code block:        
         [Fact]
-        public void ListItems_Spec252_CommonMark()
+        public void ListItems_Spec252_commonmark()
         {
             // The following Markdown:
             //         1.  A paragraph
@@ -5071,7 +5573,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //         &gt; A block quote.
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("    1.  A paragraph\n        with two lines.\n\n            indented code\n\n        > A block quote.", "<pre><code>1.  A paragraph\n    with two lines.\n\n        indented code\n\n    &gt; A block quote.\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    1.  A paragraph\n        with two lines.\n\n            indented code\n\n        > A block quote.", 
+                "<pre><code>1.  A paragraph\n    with two lines.\n\n        indented code\n\n    &gt; A block quote.\n</code></pre>", 
+                "commonmark");
         }
 
         // 5.  **Laziness.**  If a string of lines *Ls* constitute a [list
@@ -5085,7 +5589,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // 
         // Here is an example with [lazy continuation lines]:        
         [Fact]
-        public void ListItems_Spec253_CommonMark()
+        public void ListItems_Spec253_commonmark()
         {
             // The following Markdown:
             //       1.  A paragraph
@@ -5108,12 +5612,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("  1.  A paragraph\nwith two lines.\n\n          indented code\n\n      > A block quote.", "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("  1.  A paragraph\nwith two lines.\n\n          indented code\n\n      > A block quote.", 
+                "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", 
+                "commonmark");
         }
 
         // Indentation can be partially deleted:        
         [Fact]
-        public void ListItems_Spec254_CommonMark()
+        public void ListItems_Spec254_commonmark()
         {
             // The following Markdown:
             //       1.  A paragraph
@@ -5125,12 +5631,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     with two lines.</li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("  1.  A paragraph\n    with two lines.", "<ol>\n<li>A paragraph\nwith two lines.</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("  1.  A paragraph\n    with two lines.", 
+                "<ol>\n<li>A paragraph\nwith two lines.</li>\n</ol>", 
+                "commonmark");
         }
 
         // These examples show how laziness can work in nested structures:        
         [Fact]
-        public void ListItems_Spec255_CommonMark()
+        public void ListItems_Spec255_commonmark()
         {
             // The following Markdown:
             //     > 1. > Blockquote
@@ -5148,11 +5656,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ol>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("> 1. > Blockquote\ncontinued here.", "<blockquote>\n<ol>\n<li>\n<blockquote>\n<p>Blockquote\ncontinued here.</p>\n</blockquote>\n</li>\n</ol>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> 1. > Blockquote\ncontinued here.", 
+                "<blockquote>\n<ol>\n<li>\n<blockquote>\n<p>Blockquote\ncontinued here.</p>\n</blockquote>\n</li>\n</ol>\n</blockquote>", 
+                "commonmark");
         }
         
         [Fact]
-        public void ListItems_Spec256_CommonMark()
+        public void ListItems_Spec256_commonmark()
         {
             // The following Markdown:
             //     > 1. > Blockquote
@@ -5170,7 +5680,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </ol>
             //     </blockquote>
 
-            SpecTestHelper.AssertCompliance("> 1. > Blockquote\n> continued here.", "<blockquote>\n<ol>\n<li>\n<blockquote>\n<p>Blockquote\ncontinued here.</p>\n</blockquote>\n</li>\n</ol>\n</blockquote>", "CommonMark");
+            SpecTestHelper.AssertCompliance("> 1. > Blockquote\n> continued here.", 
+                "<blockquote>\n<ol>\n<li>\n<blockquote>\n<p>Blockquote\ncontinued here.</p>\n</blockquote>\n</li>\n</ol>\n</blockquote>", 
+                "commonmark");
         }
 
         // 6.  **That's all.** Nothing that is not counted as a list item by rules
@@ -5182,7 +5694,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // 
         // So, in this case we need two spaces indent:        
         [Fact]
-        public void ListItems_Spec257_CommonMark()
+        public void ListItems_Spec257_commonmark()
         {
             // The following Markdown:
             //     - foo
@@ -5207,12 +5719,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- foo\n  - bar\n    - baz\n      - boo", "<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>baz\n<ul>\n<li>boo</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- foo\n  - bar\n    - baz\n      - boo", 
+                "<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>baz\n<ul>\n<li>boo</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>", 
+                "commonmark");
         }
 
         // One is not enough:        
         [Fact]
-        public void ListItems_Spec258_CommonMark()
+        public void ListItems_Spec258_commonmark()
         {
             // The following Markdown:
             //     - foo
@@ -5228,12 +5742,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>boo</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- foo\n - bar\n  - baz\n   - boo", "<ul>\n<li>foo</li>\n<li>bar</li>\n<li>baz</li>\n<li>boo</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- foo\n - bar\n  - baz\n   - boo", 
+                "<ul>\n<li>foo</li>\n<li>bar</li>\n<li>baz</li>\n<li>boo</li>\n</ul>", 
+                "commonmark");
         }
 
         // Here we need four, because the list marker is wider:        
         [Fact]
-        public void ListItems_Spec259_CommonMark()
+        public void ListItems_Spec259_commonmark()
         {
             // The following Markdown:
             //     10) foo
@@ -5248,12 +5764,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("10) foo\n    - bar", "<ol start=\"10\">\n<li>foo\n<ul>\n<li>bar</li>\n</ul>\n</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("10) foo\n    - bar", 
+                "<ol start=\"10\">\n<li>foo\n<ul>\n<li>bar</li>\n</ul>\n</li>\n</ol>", 
+                "commonmark");
         }
 
         // Three is not enough:        
         [Fact]
-        public void ListItems_Spec260_CommonMark()
+        public void ListItems_Spec260_commonmark()
         {
             // The following Markdown:
             //     10) foo
@@ -5267,12 +5785,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>bar</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("10) foo\n   - bar", "<ol start=\"10\">\n<li>foo</li>\n</ol>\n<ul>\n<li>bar</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("10) foo\n   - bar", 
+                "<ol start=\"10\">\n<li>foo</li>\n</ol>\n<ul>\n<li>bar</li>\n</ul>", 
+                "commonmark");
         }
 
         // A list may be the first block in a list item:        
         [Fact]
-        public void ListItems_Spec261_CommonMark()
+        public void ListItems_Spec261_commonmark()
         {
             // The following Markdown:
             //     - - foo
@@ -5286,11 +5806,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- - foo", "<ul>\n<li>\n<ul>\n<li>foo</li>\n</ul>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- - foo", 
+                "<ul>\n<li>\n<ul>\n<li>foo</li>\n</ul>\n</li>\n</ul>", 
+                "commonmark");
         }
         
         [Fact]
-        public void ListItems_Spec262_CommonMark()
+        public void ListItems_Spec262_commonmark()
         {
             // The following Markdown:
             //     1. - 2. foo
@@ -5308,12 +5830,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("1. - 2. foo", "<ol>\n<li>\n<ul>\n<li>\n<ol start=\"2\">\n<li>foo</li>\n</ol>\n</li>\n</ul>\n</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("1. - 2. foo", 
+                "<ol>\n<li>\n<ul>\n<li>\n<ol start=\"2\">\n<li>foo</li>\n</ol>\n</li>\n</ul>\n</li>\n</ol>", 
+                "commonmark");
         }
 
         // A list item can contain a heading:        
         [Fact]
-        public void ListItems_Spec263_CommonMark()
+        public void ListItems_Spec263_commonmark()
         {
             // The following Markdown:
             //     - # Foo
@@ -5331,7 +5855,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     baz</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- # Foo\n- Bar\n  ---\n  baz", "<ul>\n<li>\n<h1>Foo</h1>\n</li>\n<li>\n<h2>Bar</h2>\nbaz</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- # Foo\n- Bar\n  ---\n  baz", 
+                "<ul>\n<li>\n<h1>Foo</h1>\n</li>\n<li>\n<h2>Bar</h2>\nbaz</li>\n</ul>", 
+                "commonmark");
         }
     }
 
@@ -5368,7 +5894,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Changing the bullet or ordered list delimiter starts a new list:        
         [Fact]
-        public void Lists_Spec264_CommonMark()
+        public void Lists_Spec264_commonmark()
         {
             // The following Markdown:
             //     - foo
@@ -5384,11 +5910,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>baz</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- foo\n- bar\n+ baz", "<ul>\n<li>foo</li>\n<li>bar</li>\n</ul>\n<ul>\n<li>baz</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- foo\n- bar\n+ baz", 
+                "<ul>\n<li>foo</li>\n<li>bar</li>\n</ul>\n<ul>\n<li>baz</li>\n</ul>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Lists_Spec265_CommonMark()
+        public void Lists_Spec265_commonmark()
         {
             // The following Markdown:
             //     1. foo
@@ -5404,14 +5932,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>baz</li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("1. foo\n2. bar\n3) baz", "<ol>\n<li>foo</li>\n<li>bar</li>\n</ol>\n<ol start=\"3\">\n<li>baz</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("1. foo\n2. bar\n3) baz", 
+                "<ol>\n<li>foo</li>\n<li>bar</li>\n</ol>\n<ol start=\"3\">\n<li>baz</li>\n</ol>", 
+                "commonmark");
         }
 
         // In CommonMark, a list can interrupt a paragraph. That is,
         // no blank line is needed to separate a paragraph from a following
         // list:        
         [Fact]
-        public void Lists_Spec266_CommonMark()
+        public void Lists_Spec266_commonmark()
         {
             // The following Markdown:
             //     Foo
@@ -5425,7 +5955,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>baz</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("Foo\n- bar\n- baz", "<p>Foo</p>\n<ul>\n<li>bar</li>\n<li>baz</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo\n- bar\n- baz", 
+                "<p>Foo</p>\n<ul>\n<li>bar</li>\n<li>baz</li>\n</ul>", 
+                "commonmark");
         }
 
         // `Markdown.pl` does not allow this, through fear of triggering a list
@@ -5493,7 +6025,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // hard-wrapped numerals, we allow only lists starting with `1` to
         // interrupt paragraphs.  Thus,        
         [Fact]
-        public void Lists_Spec267_CommonMark()
+        public void Lists_Spec267_commonmark()
         {
             // The following Markdown:
             //     The number of windows in my house is
@@ -5503,12 +6035,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>The number of windows in my house is
             //     14.  The number of doors is 6.</p>
 
-            SpecTestHelper.AssertCompliance("The number of windows in my house is\n14.  The number of doors is 6.", "<p>The number of windows in my house is\n14.  The number of doors is 6.</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("The number of windows in my house is\n14.  The number of doors is 6.", 
+                "<p>The number of windows in my house is\n14.  The number of doors is 6.</p>", 
+                "commonmark");
         }
 
         // We may still get an unintended result in cases like        
         [Fact]
-        public void Lists_Spec268_CommonMark()
+        public void Lists_Spec268_commonmark()
         {
             // The following Markdown:
             //     The number of windows in my house is
@@ -5520,14 +6054,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>The number of doors is 6.</li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("The number of windows in my house is\n1.  The number of doors is 6.", "<p>The number of windows in my house is</p>\n<ol>\n<li>The number of doors is 6.</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("The number of windows in my house is\n1.  The number of doors is 6.", 
+                "<p>The number of windows in my house is</p>\n<ol>\n<li>The number of doors is 6.</li>\n</ol>", 
+                "commonmark");
         }
 
         // but this rule should prevent most spurious list captures.
         // 
         // There can be any number of blank lines between items:        
         [Fact]
-        public void Lists_Spec269_CommonMark()
+        public void Lists_Spec269_commonmark()
         {
             // The following Markdown:
             //     - foo
@@ -5550,11 +6086,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- foo\n\n- bar\n\n\n- baz", "<ul>\n<li>\n<p>foo</p>\n</li>\n<li>\n<p>bar</p>\n</li>\n<li>\n<p>baz</p>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- foo\n\n- bar\n\n\n- baz", 
+                "<ul>\n<li>\n<p>foo</p>\n</li>\n<li>\n<p>bar</p>\n</li>\n<li>\n<p>baz</p>\n</li>\n</ul>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Lists_Spec270_CommonMark()
+        public void Lists_Spec270_commonmark()
         {
             // The following Markdown:
             //     - foo
@@ -5580,7 +6118,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- foo\n  - bar\n    - baz\n\n\n      bim", "<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>\n<p>baz</p>\n<p>bim</p>\n</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- foo\n  - bar\n    - baz\n\n\n      bim", 
+                "<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>\n<p>baz</p>\n<p>bim</p>\n</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>", 
+                "commonmark");
         }
 
         // To separate consecutive lists of the same type, or to separate a
@@ -5588,7 +6128,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // as a subparagraph of the final list item, you can insert a blank HTML
         // comment:        
         [Fact]
-        public void Lists_Spec271_CommonMark()
+        public void Lists_Spec271_commonmark()
         {
             // The following Markdown:
             //     - foo
@@ -5610,11 +6150,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>bim</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- foo\n- bar\n\n<!-- -->\n\n- baz\n- bim", "<ul>\n<li>foo</li>\n<li>bar</li>\n</ul>\n<!-- -->\n<ul>\n<li>baz</li>\n<li>bim</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- foo\n- bar\n\n<!-- -->\n\n- baz\n- bim", 
+                "<ul>\n<li>foo</li>\n<li>bar</li>\n</ul>\n<!-- -->\n<ul>\n<li>baz</li>\n<li>bim</li>\n</ul>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Lists_Spec272_CommonMark()
+        public void Lists_Spec272_commonmark()
         {
             // The following Markdown:
             //     -   foo
@@ -5641,7 +6183,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>code
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("-   foo\n\n    notcode\n\n-   foo\n\n<!-- -->\n\n    code", "<ul>\n<li>\n<p>foo</p>\n<p>notcode</p>\n</li>\n<li>\n<p>foo</p>\n</li>\n</ul>\n<!-- -->\n<pre><code>code\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("-   foo\n\n    notcode\n\n-   foo\n\n<!-- -->\n\n    code", 
+                "<ul>\n<li>\n<p>foo</p>\n<p>notcode</p>\n</li>\n<li>\n<p>foo</p>\n</li>\n</ul>\n<!-- -->\n<pre><code>code\n</code></pre>", 
+                "commonmark");
         }
 
         // List items need not be indented to the same level.  The following
@@ -5649,7 +6193,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // since none is indented enough to belong to the previous list
         // item:        
         [Fact]
-        public void Lists_Spec273_CommonMark()
+        public void Lists_Spec273_commonmark()
         {
             // The following Markdown:
             //     - a
@@ -5675,11 +6219,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>i</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- a\n - b\n  - c\n   - d\n    - e\n   - f\n  - g\n - h\n- i", "<ul>\n<li>a</li>\n<li>b</li>\n<li>c</li>\n<li>d</li>\n<li>e</li>\n<li>f</li>\n<li>g</li>\n<li>h</li>\n<li>i</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- a\n - b\n  - c\n   - d\n    - e\n   - f\n  - g\n - h\n- i", 
+                "<ul>\n<li>a</li>\n<li>b</li>\n<li>c</li>\n<li>d</li>\n<li>e</li>\n<li>f</li>\n<li>g</li>\n<li>h</li>\n<li>i</li>\n</ul>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Lists_Spec274_CommonMark()
+        public void Lists_Spec274_commonmark()
         {
             // The following Markdown:
             //     1. a
@@ -5701,13 +6247,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("1. a\n\n  2. b\n\n    3. c", "<ol>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n</li>\n<li>\n<p>c</p>\n</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("1. a\n\n  2. b\n\n    3. c", 
+                "<ol>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n</li>\n<li>\n<p>c</p>\n</li>\n</ol>", 
+                "commonmark");
         }
 
         // This is a loose list, because there is a blank line between
         // two of the list items:        
         [Fact]
-        public void Lists_Spec275_CommonMark()
+        public void Lists_Spec275_commonmark()
         {
             // The following Markdown:
             //     - a
@@ -5728,12 +6276,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- a\n- b\n\n- c", "<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n</li>\n<li>\n<p>c</p>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- a\n- b\n\n- c", 
+                "<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n</li>\n<li>\n<p>c</p>\n</li>\n</ul>", 
+                "commonmark");
         }
 
         // So is this, with a empty second item:        
         [Fact]
-        public void Lists_Spec276_CommonMark()
+        public void Lists_Spec276_commonmark()
         {
             // The following Markdown:
             //     * a
@@ -5752,14 +6302,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("* a\n*\n\n* c", "<ul>\n<li>\n<p>a</p>\n</li>\n<li></li>\n<li>\n<p>c</p>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("* a\n*\n\n* c", 
+                "<ul>\n<li>\n<p>a</p>\n</li>\n<li></li>\n<li>\n<p>c</p>\n</li>\n</ul>", 
+                "commonmark");
         }
 
         // These are loose lists, even though there is no space between the items,
         // because one of the items directly contains two block-level elements
         // with a blank line between them:        
         [Fact]
-        public void Lists_Spec277_CommonMark()
+        public void Lists_Spec277_commonmark()
         {
             // The following Markdown:
             //     - a
@@ -5782,11 +6334,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- a\n- b\n\n  c\n- d", "<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n<p>c</p>\n</li>\n<li>\n<p>d</p>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- a\n- b\n\n  c\n- d", 
+                "<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n<p>c</p>\n</li>\n<li>\n<p>d</p>\n</li>\n</ul>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Lists_Spec278_CommonMark()
+        public void Lists_Spec278_commonmark()
         {
             // The following Markdown:
             //     - a
@@ -5808,12 +6362,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- a\n- b\n\n  [ref]: /url\n- d", "<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n</li>\n<li>\n<p>d</p>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- a\n- b\n\n  [ref]: /url\n- d", 
+                "<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n</li>\n<li>\n<p>d</p>\n</li>\n</ul>", 
+                "commonmark");
         }
 
         // This is a tight list, because the blank lines are in a code block:        
         [Fact]
-        public void Lists_Spec279_CommonMark()
+        public void Lists_Spec279_commonmark()
         {
             // The following Markdown:
             //     - a
@@ -5836,14 +6392,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>c</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- a\n- ```\n  b\n\n\n  ```\n- c", "<ul>\n<li>a</li>\n<li>\n<pre><code>b\n\n\n</code></pre>\n</li>\n<li>c</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- a\n- ```\n  b\n\n\n  ```\n- c", 
+                "<ul>\n<li>a</li>\n<li>\n<pre><code>b\n\n\n</code></pre>\n</li>\n<li>c</li>\n</ul>", 
+                "commonmark");
         }
 
         // This is a tight list, because the blank line is between two
         // paragraphs of a sublist.  So the sublist is loose while
         // the outer list is tight:        
         [Fact]
-        public void Lists_Spec280_CommonMark()
+        public void Lists_Spec280_commonmark()
         {
             // The following Markdown:
             //     - a
@@ -5865,13 +6423,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>d</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- a\n  - b\n\n    c\n- d", "<ul>\n<li>a\n<ul>\n<li>\n<p>b</p>\n<p>c</p>\n</li>\n</ul>\n</li>\n<li>d</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- a\n  - b\n\n    c\n- d", 
+                "<ul>\n<li>a\n<ul>\n<li>\n<p>b</p>\n<p>c</p>\n</li>\n</ul>\n</li>\n<li>d</li>\n</ul>", 
+                "commonmark");
         }
 
         // This is a tight list, because the blank line is inside the
         // block quote:        
         [Fact]
-        public void Lists_Spec281_CommonMark()
+        public void Lists_Spec281_commonmark()
         {
             // The following Markdown:
             //     * a
@@ -5889,13 +6449,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>c</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("* a\n  > b\n  >\n* c", "<ul>\n<li>a\n<blockquote>\n<p>b</p>\n</blockquote>\n</li>\n<li>c</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("* a\n  > b\n  >\n* c", 
+                "<ul>\n<li>a\n<blockquote>\n<p>b</p>\n</blockquote>\n</li>\n<li>c</li>\n</ul>", 
+                "commonmark");
         }
 
         // This list is tight, because the consecutive block elements
         // are not separated by blank lines:        
         [Fact]
-        public void Lists_Spec282_CommonMark()
+        public void Lists_Spec282_commonmark()
         {
             // The following Markdown:
             //     - a
@@ -5917,12 +6479,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>d</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- a\n  > b\n  ```\n  c\n  ```\n- d", "<ul>\n<li>a\n<blockquote>\n<p>b</p>\n</blockquote>\n<pre><code>c\n</code></pre>\n</li>\n<li>d</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- a\n  > b\n  ```\n  c\n  ```\n- d", 
+                "<ul>\n<li>a\n<blockquote>\n<p>b</p>\n</blockquote>\n<pre><code>c\n</code></pre>\n</li>\n<li>d</li>\n</ul>", 
+                "commonmark");
         }
 
         // A single-paragraph list is tight:        
         [Fact]
-        public void Lists_Spec283_CommonMark()
+        public void Lists_Spec283_commonmark()
         {
             // The following Markdown:
             //     - a
@@ -5932,11 +6496,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <li>a</li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- a", "<ul>\n<li>a</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- a", 
+                "<ul>\n<li>a</li>\n</ul>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Lists_Spec284_CommonMark()
+        public void Lists_Spec284_commonmark()
         {
             // The following Markdown:
             //     - a
@@ -5951,13 +6517,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- a\n  - b", "<ul>\n<li>a\n<ul>\n<li>b</li>\n</ul>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- a\n  - b", 
+                "<ul>\n<li>a\n<ul>\n<li>b</li>\n</ul>\n</li>\n</ul>", 
+                "commonmark");
         }
 
         // This list is loose, because of the blank line between the
         // two block elements in the list item:        
         [Fact]
-        public void Lists_Spec285_CommonMark()
+        public void Lists_Spec285_commonmark()
         {
             // The following Markdown:
             //     1. ```
@@ -5975,12 +6543,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ol>
 
-            SpecTestHelper.AssertCompliance("1. ```\n   foo\n   ```\n\n   bar", "<ol>\n<li>\n<pre><code>foo\n</code></pre>\n<p>bar</p>\n</li>\n</ol>", "CommonMark");
+            SpecTestHelper.AssertCompliance("1. ```\n   foo\n   ```\n\n   bar", 
+                "<ol>\n<li>\n<pre><code>foo\n</code></pre>\n<p>bar</p>\n</li>\n</ol>", 
+                "commonmark");
         }
 
         // Here the outer list is loose, the inner list tight:        
         [Fact]
-        public void Lists_Spec286_CommonMark()
+        public void Lists_Spec286_commonmark()
         {
             // The following Markdown:
             //     * foo
@@ -5999,11 +6569,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("* foo\n  * bar\n\n  baz", "<ul>\n<li>\n<p>foo</p>\n<ul>\n<li>bar</li>\n</ul>\n<p>baz</p>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("* foo\n  * bar\n\n  baz", 
+                "<ul>\n<li>\n<p>foo</p>\n<ul>\n<li>bar</li>\n</ul>\n<p>baz</p>\n</li>\n</ul>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Lists_Spec287_CommonMark()
+        public void Lists_Spec287_commonmark()
         {
             // The following Markdown:
             //     - a
@@ -6032,7 +6604,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- a\n  - b\n  - c\n\n- d\n  - e\n  - f", "<ul>\n<li>\n<p>a</p>\n<ul>\n<li>b</li>\n<li>c</li>\n</ul>\n</li>\n<li>\n<p>d</p>\n<ul>\n<li>e</li>\n<li>f</li>\n</ul>\n</li>\n</ul>", "CommonMark");
+            SpecTestHelper.AssertCompliance("- a\n  - b\n  - c\n\n- d\n  - e\n  - f", 
+                "<ul>\n<li>\n<p>a</p>\n<ul>\n<li>b</li>\n<li>c</li>\n</ul>\n</li>\n<li>\n<p>d</p>\n<ul>\n<li>e</li>\n<li>f</li>\n</ul>\n</li>\n</ul>", 
+                "commonmark");
         }
 
         // # Inlines
@@ -6041,7 +6615,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // stream to the end (left to right, in left-to-right languages).
         // Thus, for example, in        
         [Fact]
-        public void Lists_Spec288_CommonMark()
+        public void Lists_Spec288_commonmark()
         {
             // The following Markdown:
             //     `hi`lo`
@@ -6049,7 +6623,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>hi</code>lo`</p>
 
-            SpecTestHelper.AssertCompliance("`hi`lo`", "<p><code>hi</code>lo`</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`hi`lo`", 
+                "<p><code>hi</code>lo`</p>", 
+                "commonmark");
         }
     }
 
@@ -6058,7 +6634,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     {
         
         [Fact]
-        public void BackslashEscapes_Spec289_CommonMark()
+        public void BackslashEscapes_Spec289_commonmark()
         {
             // The following Markdown:
             //     \!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\_\`\{\|\}\~
@@ -6066,13 +6642,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>!&quot;#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~</p>
 
-            SpecTestHelper.AssertCompliance("\\!\\\"\\#\\$\\%\\&\\'\\(\\)\\*\\+\\,\\-\\.\\/\\:\\;\\<\\=\\>\\?\\@\\[\\\\\\]\\^\\_\\`\\{\\|\\}\\~", "<p>!&quot;#$%&amp;'()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("\\!\\\"\\#\\$\\%\\&\\'\\(\\)\\*\\+\\,\\-\\.\\/\\:\\;\\<\\=\\>\\?\\@\\[\\\\\\]\\^\\_\\`\\{\\|\\}\\~", 
+                "<p>!&quot;#$%&amp;'()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~</p>", 
+                "commonmark");
         }
 
         // Backslashes before other characters are treated as literal
         // backslashes:        
         [Fact]
-        public void BackslashEscapes_Spec290_CommonMark()
+        public void BackslashEscapes_Spec290_commonmark()
         {
             // The following Markdown:
             //     \→\A\a\ \3\φ\«
@@ -6080,13 +6658,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>\→\A\a\ \3\φ\«</p>
 
-            SpecTestHelper.AssertCompliance("\\\t\\A\\a\\ \\3\\φ\\«", "<p>\\\t\\A\\a\\ \\3\\φ\\«</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("\\\t\\A\\a\\ \\3\\φ\\«", 
+                "<p>\\\t\\A\\a\\ \\3\\φ\\«</p>", 
+                "commonmark");
         }
 
         // Escaped characters are treated as regular characters and do
         // not have their usual Markdown meanings:        
         [Fact]
-        public void BackslashEscapes_Spec291_CommonMark()
+        public void BackslashEscapes_Spec291_commonmark()
         {
             // The following Markdown:
             //     \*not emphasized*
@@ -6108,12 +6688,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     # not a heading
             //     [foo]: /url &quot;not a reference&quot;</p>
 
-            SpecTestHelper.AssertCompliance("\\*not emphasized*\n\\<br/> not a tag\n\\[not a link](/foo)\n\\`not code`\n1\\. not a list\n\\* not a list\n\\# not a heading\n\\[foo]: /url \"not a reference\"", "<p>*not emphasized*\n&lt;br/&gt; not a tag\n[not a link](/foo)\n`not code`\n1. not a list\n* not a list\n# not a heading\n[foo]: /url &quot;not a reference&quot;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("\\*not emphasized*\n\\<br/> not a tag\n\\[not a link](/foo)\n\\`not code`\n1\\. not a list\n\\* not a list\n\\# not a heading\n\\[foo]: /url \"not a reference\"", 
+                "<p>*not emphasized*\n&lt;br/&gt; not a tag\n[not a link](/foo)\n`not code`\n1. not a list\n* not a list\n# not a heading\n[foo]: /url &quot;not a reference&quot;</p>", 
+                "commonmark");
         }
 
         // If a backslash is itself escaped, the following character is not:        
         [Fact]
-        public void BackslashEscapes_Spec292_CommonMark()
+        public void BackslashEscapes_Spec292_commonmark()
         {
             // The following Markdown:
             //     \\*emphasis*
@@ -6121,12 +6703,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>\<em>emphasis</em></p>
 
-            SpecTestHelper.AssertCompliance("\\\\*emphasis*", "<p>\\<em>emphasis</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("\\\\*emphasis*", 
+                "<p>\\<em>emphasis</em></p>", 
+                "commonmark");
         }
 
         // A backslash at the end of the line is a [hard line break]:        
         [Fact]
-        public void BackslashEscapes_Spec293_CommonMark()
+        public void BackslashEscapes_Spec293_commonmark()
         {
             // The following Markdown:
             //     foo\
@@ -6136,13 +6720,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo<br />
             //     bar</p>
 
-            SpecTestHelper.AssertCompliance("foo\\\nbar", "<p>foo<br />\nbar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo\\\nbar", 
+                "<p>foo<br />\nbar</p>", 
+                "commonmark");
         }
 
         // Backslash escapes do not work in code blocks, code spans, autolinks, or
         // raw HTML:        
         [Fact]
-        public void BackslashEscapes_Spec294_CommonMark()
+        public void BackslashEscapes_Spec294_commonmark()
         {
             // The following Markdown:
             //     `` \[\` ``
@@ -6150,11 +6736,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>\[\`</code></p>
 
-            SpecTestHelper.AssertCompliance("`` \\[\\` ``", "<p><code>\\[\\`</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`` \\[\\` ``", 
+                "<p><code>\\[\\`</code></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void BackslashEscapes_Spec295_CommonMark()
+        public void BackslashEscapes_Spec295_commonmark()
         {
             // The following Markdown:
             //         \[\]
@@ -6163,11 +6751,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>\[\]
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("    \\[\\]", "<pre><code>\\[\\]\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    \\[\\]", 
+                "<pre><code>\\[\\]\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void BackslashEscapes_Spec296_CommonMark()
+        public void BackslashEscapes_Spec296_commonmark()
         {
             // The following Markdown:
             //     ~~~
@@ -6178,11 +6768,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>\[\]
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("~~~\n\\[\\]\n~~~", "<pre><code>\\[\\]\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("~~~\n\\[\\]\n~~~", 
+                "<pre><code>\\[\\]\n</code></pre>", 
+                "commonmark");
         }
         
         [Fact]
-        public void BackslashEscapes_Spec297_CommonMark()
+        public void BackslashEscapes_Spec297_commonmark()
         {
             // The following Markdown:
             //     <http://example.com?find=\*>
@@ -6190,11 +6782,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="http://example.com?find=%5C*">http://example.com?find=\*</a></p>
 
-            SpecTestHelper.AssertCompliance("<http://example.com?find=\\*>", "<p><a href=\"http://example.com?find=%5C*\">http://example.com?find=\\*</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<http://example.com?find=\\*>", 
+                "<p><a href=\"http://example.com?find=%5C*\">http://example.com?find=\\*</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void BackslashEscapes_Spec298_CommonMark()
+        public void BackslashEscapes_Spec298_commonmark()
         {
             // The following Markdown:
             //     <a href="/bar\/)">
@@ -6202,13 +6796,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <a href="/bar\/)">
 
-            SpecTestHelper.AssertCompliance("<a href=\"/bar\\/)\">", "<a href=\"/bar\\/)\">", "CommonMark");
+            SpecTestHelper.AssertCompliance("<a href=\"/bar\\/)\">", 
+                "<a href=\"/bar\\/)\">", 
+                "commonmark");
         }
 
         // But they work in all other contexts, including URLs and link titles,
         // link references, and [info strings] in [fenced code blocks]:        
         [Fact]
-        public void BackslashEscapes_Spec299_CommonMark()
+        public void BackslashEscapes_Spec299_commonmark()
         {
             // The following Markdown:
             //     [foo](/bar\* "ti\*tle")
@@ -6216,11 +6812,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/bar*" title="ti*tle">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo](/bar\\* \"ti\\*tle\")", "<p><a href=\"/bar*\" title=\"ti*tle\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo](/bar\\* \"ti\\*tle\")", 
+                "<p><a href=\"/bar*\" title=\"ti*tle\">foo</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void BackslashEscapes_Spec300_CommonMark()
+        public void BackslashEscapes_Spec300_commonmark()
         {
             // The following Markdown:
             //     [foo]
@@ -6230,11 +6828,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/bar*" title="ti*tle">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: /bar\\* \"ti\\*tle\"", "<p><a href=\"/bar*\" title=\"ti*tle\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: /bar\\* \"ti\\*tle\"", 
+                "<p><a href=\"/bar*\" title=\"ti*tle\">foo</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void BackslashEscapes_Spec301_CommonMark()
+        public void BackslashEscapes_Spec301_commonmark()
         {
             // The following Markdown:
             //     ``` foo\+bar
@@ -6245,7 +6845,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code class="language-foo+bar">foo
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("``` foo\\+bar\nfoo\n```", "<pre><code class=\"language-foo+bar\">foo\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("``` foo\\+bar\nfoo\n```", 
+                "<pre><code class=\"language-foo+bar\">foo\n</code></pre>", 
+                "commonmark");
         }
     }
 
@@ -6265,7 +6867,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // is used as an authoritative source for the valid entity
         // references and their corresponding code points.        
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec302_CommonMark()
+        public void EntityAndNumericCharacterReferences_Spec302_commonmark()
         {
             // The following Markdown:
             //     &nbsp; &amp; &copy; &AElig; &Dcaron;
@@ -6277,7 +6879,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ¾ ℋ ⅆ
             //     ∲ ≧̸</p>
 
-            SpecTestHelper.AssertCompliance("&nbsp; &amp; &copy; &AElig; &Dcaron;\n&frac34; &HilbertSpace; &DifferentialD;\n&ClockwiseContourIntegral; &ngE;", "<p>  &amp; © Æ Ď\n¾ ℋ ⅆ\n∲ ≧̸</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("&nbsp; &amp; &copy; &AElig; &Dcaron;\n&frac34; &HilbertSpace; &DifferentialD;\n&ClockwiseContourIntegral; &ngE;", 
+                "<p>  &amp; © Æ Ď\n¾ ℋ ⅆ\n∲ ≧̸</p>", 
+                "commonmark");
         }
 
         // [Decimal numeric character
@@ -6288,7 +6892,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // the REPLACEMENT CHARACTER (`U+FFFD`).  For security reasons,
         // the code point `U+0000` will also be replaced by `U+FFFD`.        
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec303_CommonMark()
+        public void EntityAndNumericCharacterReferences_Spec303_commonmark()
         {
             // The following Markdown:
             //     &#35; &#1234; &#992; &#98765432; &#0;
@@ -6296,7 +6900,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p># Ӓ Ϡ � �</p>
 
-            SpecTestHelper.AssertCompliance("&#35; &#1234; &#992; &#98765432; &#0;", "<p># Ӓ Ϡ � �</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("&#35; &#1234; &#992; &#98765432; &#0;", 
+                "<p># Ӓ Ϡ � �</p>", 
+                "commonmark");
         }
 
         // [Hexadecimal numeric character
@@ -6305,7 +6911,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // They too are parsed as the corresponding Unicode character (this
         // time specified with a hexadecimal numeral instead of decimal).        
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec304_CommonMark()
+        public void EntityAndNumericCharacterReferences_Spec304_commonmark()
         {
             // The following Markdown:
             //     &#X22; &#XD06; &#xcab;
@@ -6313,12 +6919,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&quot; ആ ಫ</p>
 
-            SpecTestHelper.AssertCompliance("&#X22; &#XD06; &#xcab;", "<p>&quot; ആ ಫ</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("&#X22; &#XD06; &#xcab;", 
+                "<p>&quot; ആ ಫ</p>", 
+                "commonmark");
         }
 
         // Here are some nonentities:        
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec305_CommonMark()
+        public void EntityAndNumericCharacterReferences_Spec305_commonmark()
         {
             // The following Markdown:
             //     &nbsp &x; &#; &#x;
@@ -6328,14 +6936,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>&amp;nbsp &amp;x; &amp;#; &amp;#x;
             //     &amp;ThisIsNotDefined; &amp;hi?;</p>
 
-            SpecTestHelper.AssertCompliance("&nbsp &x; &#; &#x;\n&ThisIsNotDefined; &hi?;", "<p>&amp;nbsp &amp;x; &amp;#; &amp;#x;\n&amp;ThisIsNotDefined; &amp;hi?;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("&nbsp &x; &#; &#x;\n&ThisIsNotDefined; &hi?;", 
+                "<p>&amp;nbsp &amp;x; &amp;#; &amp;#x;\n&amp;ThisIsNotDefined; &amp;hi?;</p>", 
+                "commonmark");
         }
 
         // Although HTML5 does accept some entity references
         // without a trailing semicolon (such as `&copy`), these are not
         // recognized here, because it makes the grammar too ambiguous:        
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec306_CommonMark()
+        public void EntityAndNumericCharacterReferences_Spec306_commonmark()
         {
             // The following Markdown:
             //     &copy
@@ -6343,13 +6953,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&amp;copy</p>
 
-            SpecTestHelper.AssertCompliance("&copy", "<p>&amp;copy</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("&copy", 
+                "<p>&amp;copy</p>", 
+                "commonmark");
         }
 
         // Strings that are not on the list of HTML5 named entities are not
         // recognized as entity references either:        
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec307_CommonMark()
+        public void EntityAndNumericCharacterReferences_Spec307_commonmark()
         {
             // The following Markdown:
             //     &MadeUpEntity;
@@ -6357,14 +6969,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&amp;MadeUpEntity;</p>
 
-            SpecTestHelper.AssertCompliance("&MadeUpEntity;", "<p>&amp;MadeUpEntity;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("&MadeUpEntity;", 
+                "<p>&amp;MadeUpEntity;</p>", 
+                "commonmark");
         }
 
         // Entity and numeric character references are recognized in any
         // context besides code spans or code blocks, including
         // URLs, [link titles], and [fenced code block][] [info strings]:        
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec308_CommonMark()
+        public void EntityAndNumericCharacterReferences_Spec308_commonmark()
         {
             // The following Markdown:
             //     <a href="&ouml;&ouml;.html">
@@ -6372,11 +6986,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <a href="&ouml;&ouml;.html">
 
-            SpecTestHelper.AssertCompliance("<a href=\"&ouml;&ouml;.html\">", "<a href=\"&ouml;&ouml;.html\">", "CommonMark");
+            SpecTestHelper.AssertCompliance("<a href=\"&ouml;&ouml;.html\">", 
+                "<a href=\"&ouml;&ouml;.html\">", 
+                "commonmark");
         }
         
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec309_CommonMark()
+        public void EntityAndNumericCharacterReferences_Spec309_commonmark()
         {
             // The following Markdown:
             //     [foo](/f&ouml;&ouml; "f&ouml;&ouml;")
@@ -6384,11 +7000,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/f%C3%B6%C3%B6" title="föö">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo](/f&ouml;&ouml; \"f&ouml;&ouml;\")", "<p><a href=\"/f%C3%B6%C3%B6\" title=\"föö\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo](/f&ouml;&ouml; \"f&ouml;&ouml;\")", 
+                "<p><a href=\"/f%C3%B6%C3%B6\" title=\"föö\">foo</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec310_CommonMark()
+        public void EntityAndNumericCharacterReferences_Spec310_commonmark()
         {
             // The following Markdown:
             //     [foo]
@@ -6398,11 +7016,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/f%C3%B6%C3%B6" title="föö">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: /f&ouml;&ouml; \"f&ouml;&ouml;\"", "<p><a href=\"/f%C3%B6%C3%B6\" title=\"föö\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: /f&ouml;&ouml; \"f&ouml;&ouml;\"", 
+                "<p><a href=\"/f%C3%B6%C3%B6\" title=\"föö\">foo</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec311_CommonMark()
+        public void EntityAndNumericCharacterReferences_Spec311_commonmark()
         {
             // The following Markdown:
             //     ``` f&ouml;&ouml;
@@ -6413,13 +7033,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code class="language-föö">foo
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("``` f&ouml;&ouml;\nfoo\n```", "<pre><code class=\"language-föö\">foo\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("``` f&ouml;&ouml;\nfoo\n```", 
+                "<pre><code class=\"language-föö\">foo\n</code></pre>", 
+                "commonmark");
         }
 
         // Entity and numeric character references are treated as literal
         // text in code spans and code blocks:        
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec312_CommonMark()
+        public void EntityAndNumericCharacterReferences_Spec312_commonmark()
         {
             // The following Markdown:
             //     `f&ouml;&ouml;`
@@ -6427,11 +7049,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>f&amp;ouml;&amp;ouml;</code></p>
 
-            SpecTestHelper.AssertCompliance("`f&ouml;&ouml;`", "<p><code>f&amp;ouml;&amp;ouml;</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`f&ouml;&ouml;`", 
+                "<p><code>f&amp;ouml;&amp;ouml;</code></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec313_CommonMark()
+        public void EntityAndNumericCharacterReferences_Spec313_commonmark()
         {
             // The following Markdown:
             //         f&ouml;f&ouml;
@@ -6440,7 +7064,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <pre><code>f&amp;ouml;f&amp;ouml;
             //     </code></pre>
 
-            SpecTestHelper.AssertCompliance("    f&ouml;f&ouml;", "<pre><code>f&amp;ouml;f&amp;ouml;\n</code></pre>", "CommonMark");
+            SpecTestHelper.AssertCompliance("    f&ouml;f&ouml;", 
+                "<pre><code>f&amp;ouml;f&amp;ouml;\n</code></pre>", 
+                "commonmark");
         }
     }
 
@@ -6458,7 +7084,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // This is a simple code span:        
         [Fact]
-        public void CodeSpans_Spec314_CommonMark()
+        public void CodeSpans_Spec314_commonmark()
         {
             // The following Markdown:
             //     `foo`
@@ -6466,13 +7092,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>foo</code></p>
 
-            SpecTestHelper.AssertCompliance("`foo`", "<p><code>foo</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`foo`", 
+                "<p><code>foo</code></p>", 
+                "commonmark");
         }
 
         // Here two backticks are used, because the code contains a backtick.
         // This example also illustrates stripping of leading and trailing spaces:        
         [Fact]
-        public void CodeSpans_Spec315_CommonMark()
+        public void CodeSpans_Spec315_commonmark()
         {
             // The following Markdown:
             //     `` foo ` bar  ``
@@ -6480,13 +7108,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>foo ` bar</code></p>
 
-            SpecTestHelper.AssertCompliance("`` foo ` bar  ``", "<p><code>foo ` bar</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`` foo ` bar  ``", 
+                "<p><code>foo ` bar</code></p>", 
+                "commonmark");
         }
 
         // This example shows the motivation for stripping leading and trailing
         // spaces:        
         [Fact]
-        public void CodeSpans_Spec316_CommonMark()
+        public void CodeSpans_Spec316_commonmark()
         {
             // The following Markdown:
             //     ` `` `
@@ -6494,12 +7124,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>``</code></p>
 
-            SpecTestHelper.AssertCompliance("` `` `", "<p><code>``</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("` `` `", 
+                "<p><code>``</code></p>", 
+                "commonmark");
         }
 
         // [Line endings] are treated like spaces:        
         [Fact]
-        public void CodeSpans_Spec317_CommonMark()
+        public void CodeSpans_Spec317_commonmark()
         {
             // The following Markdown:
             //     ``
@@ -6509,13 +7141,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>foo</code></p>
 
-            SpecTestHelper.AssertCompliance("``\nfoo\n``", "<p><code>foo</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("``\nfoo\n``", 
+                "<p><code>foo</code></p>", 
+                "commonmark");
         }
 
         // Interior spaces and [line endings] are collapsed into
         // single spaces, just as they would be by a browser:        
         [Fact]
-        public void CodeSpans_Spec318_CommonMark()
+        public void CodeSpans_Spec318_commonmark()
         {
             // The following Markdown:
             //     `foo   bar
@@ -6524,13 +7158,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>foo bar baz</code></p>
 
-            SpecTestHelper.AssertCompliance("`foo   bar\n  baz`", "<p><code>foo bar baz</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`foo   bar\n  baz`", 
+                "<p><code>foo bar baz</code></p>", 
+                "commonmark");
         }
 
         // Not all [Unicode whitespace] (for instance, non-breaking space) is
         // collapsed, however:        
         [Fact]
-        public void CodeSpans_Spec319_CommonMark()
+        public void CodeSpans_Spec319_commonmark()
         {
             // The following Markdown:
             //     `a  b`
@@ -6538,7 +7174,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>a  b</code></p>
 
-            SpecTestHelper.AssertCompliance("`a  b`", "<p><code>a  b</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`a  b`", 
+                "<p><code>a  b</code></p>", 
+                "commonmark");
         }
 
         // Q: Why not just leave the spaces, since browsers will collapse them
@@ -6554,7 +7192,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // leave internal spaces as they are, which is fine if only HTML is being
         // targeted.)        
         [Fact]
-        public void CodeSpans_Spec320_CommonMark()
+        public void CodeSpans_Spec320_commonmark()
         {
             // The following Markdown:
             //     `foo `` bar`
@@ -6562,13 +7200,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>foo `` bar</code></p>
 
-            SpecTestHelper.AssertCompliance("`foo `` bar`", "<p><code>foo `` bar</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`foo `` bar`", 
+                "<p><code>foo `` bar</code></p>", 
+                "commonmark");
         }
 
         // Note that backslash escapes do not work in code spans. All backslashes
         // are treated literally:        
         [Fact]
-        public void CodeSpans_Spec321_CommonMark()
+        public void CodeSpans_Spec321_commonmark()
         {
             // The following Markdown:
             //     `foo\`bar`
@@ -6576,7 +7216,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>foo\</code>bar`</p>
 
-            SpecTestHelper.AssertCompliance("`foo\\`bar`", "<p><code>foo\\</code>bar`</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`foo\\`bar`", 
+                "<p><code>foo\\</code>bar`</p>", 
+                "commonmark");
         }
 
         // Backslash escapes are never needed, because one can always choose a
@@ -6588,7 +7230,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // not parsed as emphasized text, since the second `*` is part of a code
         // span:        
         [Fact]
-        public void CodeSpans_Spec322_CommonMark()
+        public void CodeSpans_Spec322_commonmark()
         {
             // The following Markdown:
             //     *foo`*`
@@ -6596,12 +7238,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*foo<code>*</code></p>
 
-            SpecTestHelper.AssertCompliance("*foo`*`", "<p>*foo<code>*</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo`*`", 
+                "<p>*foo<code>*</code></p>", 
+                "commonmark");
         }
 
         // And this is not parsed as a link:        
         [Fact]
-        public void CodeSpans_Spec323_CommonMark()
+        public void CodeSpans_Spec323_commonmark()
         {
             // The following Markdown:
             //     [not a `link](/foo`)
@@ -6609,13 +7253,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[not a <code>link](/foo</code>)</p>
 
-            SpecTestHelper.AssertCompliance("[not a `link](/foo`)", "<p>[not a <code>link](/foo</code>)</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[not a `link](/foo`)", 
+                "<p>[not a <code>link](/foo</code>)</p>", 
+                "commonmark");
         }
 
         // Code spans, HTML tags, and autolinks have the same precedence.
         // Thus, this is code:        
         [Fact]
-        public void CodeSpans_Spec324_CommonMark()
+        public void CodeSpans_Spec324_commonmark()
         {
             // The following Markdown:
             //     `<a href="`">`
@@ -6623,12 +7269,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>&lt;a href=&quot;</code>&quot;&gt;`</p>
 
-            SpecTestHelper.AssertCompliance("`<a href=\"`\">`", "<p><code>&lt;a href=&quot;</code>&quot;&gt;`</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`<a href=\"`\">`", 
+                "<p><code>&lt;a href=&quot;</code>&quot;&gt;`</p>", 
+                "commonmark");
         }
 
         // But this is an HTML tag:        
         [Fact]
-        public void CodeSpans_Spec325_CommonMark()
+        public void CodeSpans_Spec325_commonmark()
         {
             // The following Markdown:
             //     <a href="`">`
@@ -6636,12 +7284,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="`">`</p>
 
-            SpecTestHelper.AssertCompliance("<a href=\"`\">`", "<p><a href=\"`\">`</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<a href=\"`\">`", 
+                "<p><a href=\"`\">`</p>", 
+                "commonmark");
         }
 
         // And this is code:        
         [Fact]
-        public void CodeSpans_Spec326_CommonMark()
+        public void CodeSpans_Spec326_commonmark()
         {
             // The following Markdown:
             //     `<http://foo.bar.`baz>`
@@ -6649,12 +7299,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>&lt;http://foo.bar.</code>baz&gt;`</p>
 
-            SpecTestHelper.AssertCompliance("`<http://foo.bar.`baz>`", "<p><code>&lt;http://foo.bar.</code>baz&gt;`</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`<http://foo.bar.`baz>`", 
+                "<p><code>&lt;http://foo.bar.</code>baz&gt;`</p>", 
+                "commonmark");
         }
 
         // But this is an autolink:        
         [Fact]
-        public void CodeSpans_Spec327_CommonMark()
+        public void CodeSpans_Spec327_commonmark()
         {
             // The following Markdown:
             //     <http://foo.bar.`baz>`
@@ -6662,13 +7314,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="http://foo.bar.%60baz">http://foo.bar.`baz</a>`</p>
 
-            SpecTestHelper.AssertCompliance("<http://foo.bar.`baz>`", "<p><a href=\"http://foo.bar.%60baz\">http://foo.bar.`baz</a>`</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<http://foo.bar.`baz>`", 
+                "<p><a href=\"http://foo.bar.%60baz\">http://foo.bar.`baz</a>`</p>", 
+                "commonmark");
         }
 
         // When a backtick string is not closed by a matching backtick string,
         // we just have literal backticks:        
         [Fact]
-        public void CodeSpans_Spec328_CommonMark()
+        public void CodeSpans_Spec328_commonmark()
         {
             // The following Markdown:
             //     ```foo``
@@ -6676,11 +7330,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>```foo``</p>
 
-            SpecTestHelper.AssertCompliance("```foo``", "<p>```foo``</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("```foo``", 
+                "<p>```foo``</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void CodeSpans_Spec329_CommonMark()
+        public void CodeSpans_Spec329_commonmark()
         {
             // The following Markdown:
             //     `foo
@@ -6688,13 +7344,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>`foo</p>
 
-            SpecTestHelper.AssertCompliance("`foo", "<p>`foo</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`foo", 
+                "<p>`foo</p>", 
+                "commonmark");
         }
 
         // The following case also illustrates the need for opening and
         // closing backtick strings to be equal in length:        
         [Fact]
-        public void CodeSpans_Spec330_CommonMark()
+        public void CodeSpans_Spec330_commonmark()
         {
             // The following Markdown:
             //     `foo``bar``
@@ -6702,7 +7360,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>`foo<code>bar</code></p>
 
-            SpecTestHelper.AssertCompliance("`foo``bar``", "<p>`foo<code>bar</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`foo``bar``", 
+                "<p>`foo<code>bar</code></p>", 
+                "commonmark");
         }
     }
 
@@ -6912,7 +7572,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Rule 1:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec331_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec331_commonmark()
         {
             // The following Markdown:
             //     *foo bar*
@@ -6920,13 +7580,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo bar</em></p>
 
-            SpecTestHelper.AssertCompliance("*foo bar*", "<p><em>foo bar</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo bar*", 
+                "<p><em>foo bar</em></p>", 
+                "commonmark");
         }
 
         // This is not emphasis, because the opening `*` is followed by
         // whitespace, and hence not part of a [left-flanking delimiter run]:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec332_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec332_commonmark()
         {
             // The following Markdown:
             //     a * foo bar*
@@ -6934,14 +7596,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>a * foo bar*</p>
 
-            SpecTestHelper.AssertCompliance("a * foo bar*", "<p>a * foo bar*</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("a * foo bar*", 
+                "<p>a * foo bar*</p>", 
+                "commonmark");
         }
 
         // This is not emphasis, because the opening `*` is preceded
         // by an alphanumeric and followed by punctuation, and hence
         // not part of a [left-flanking delimiter run]:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec333_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec333_commonmark()
         {
             // The following Markdown:
             //     a*"foo"*
@@ -6949,12 +7613,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>a*&quot;foo&quot;*</p>
 
-            SpecTestHelper.AssertCompliance("a*\"foo\"*", "<p>a*&quot;foo&quot;*</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("a*\"foo\"*", 
+                "<p>a*&quot;foo&quot;*</p>", 
+                "commonmark");
         }
 
         // Unicode nonbreaking spaces count as whitespace, too:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec334_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec334_commonmark()
         {
             // The following Markdown:
             //     * a *
@@ -6962,12 +7628,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>* a *</p>
 
-            SpecTestHelper.AssertCompliance("* a *", "<p>* a *</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("* a *", 
+                "<p>* a *</p>", 
+                "commonmark");
         }
 
         // Intraword emphasis with `*` is permitted:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec335_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec335_commonmark()
         {
             // The following Markdown:
             //     foo*bar*
@@ -6975,11 +7643,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo<em>bar</em></p>
 
-            SpecTestHelper.AssertCompliance("foo*bar*", "<p>foo<em>bar</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo*bar*", 
+                "<p>foo<em>bar</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec336_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec336_commonmark()
         {
             // The following Markdown:
             //     5*6*78
@@ -6987,12 +7657,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>5<em>6</em>78</p>
 
-            SpecTestHelper.AssertCompliance("5*6*78", "<p>5<em>6</em>78</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("5*6*78", 
+                "<p>5<em>6</em>78</p>", 
+                "commonmark");
         }
 
         // Rule 2:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec337_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec337_commonmark()
         {
             // The following Markdown:
             //     _foo bar_
@@ -7000,13 +7672,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo bar</em></p>
 
-            SpecTestHelper.AssertCompliance("_foo bar_", "<p><em>foo bar</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_foo bar_", 
+                "<p><em>foo bar</em></p>", 
+                "commonmark");
         }
 
         // This is not emphasis, because the opening `_` is followed by
         // whitespace:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec338_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec338_commonmark()
         {
             // The following Markdown:
             //     _ foo bar_
@@ -7014,13 +7688,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_ foo bar_</p>
 
-            SpecTestHelper.AssertCompliance("_ foo bar_", "<p>_ foo bar_</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_ foo bar_", 
+                "<p>_ foo bar_</p>", 
+                "commonmark");
         }
 
         // This is not emphasis, because the opening `_` is preceded
         // by an alphanumeric and followed by punctuation:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec339_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec339_commonmark()
         {
             // The following Markdown:
             //     a_"foo"_
@@ -7028,12 +7704,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>a_&quot;foo&quot;_</p>
 
-            SpecTestHelper.AssertCompliance("a_\"foo\"_", "<p>a_&quot;foo&quot;_</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("a_\"foo\"_", 
+                "<p>a_&quot;foo&quot;_</p>", 
+                "commonmark");
         }
 
         // Emphasis with `_` is not allowed inside words:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec340_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec340_commonmark()
         {
             // The following Markdown:
             //     foo_bar_
@@ -7041,11 +7719,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo_bar_</p>
 
-            SpecTestHelper.AssertCompliance("foo_bar_", "<p>foo_bar_</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo_bar_", 
+                "<p>foo_bar_</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec341_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec341_commonmark()
         {
             // The following Markdown:
             //     5_6_78
@@ -7053,11 +7733,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>5_6_78</p>
 
-            SpecTestHelper.AssertCompliance("5_6_78", "<p>5_6_78</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("5_6_78", 
+                "<p>5_6_78</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec342_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec342_commonmark()
         {
             // The following Markdown:
             //     пристаням_стремятся_
@@ -7065,13 +7747,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>пристаням_стремятся_</p>
 
-            SpecTestHelper.AssertCompliance("пристаням_стремятся_", "<p>пристаням_стремятся_</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("пристаням_стремятся_", 
+                "<p>пристаням_стремятся_</p>", 
+                "commonmark");
         }
 
         // Here `_` does not generate emphasis, because the first delimiter run
         // is right-flanking and the second left-flanking:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec343_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec343_commonmark()
         {
             // The following Markdown:
             //     aa_"bb"_cc
@@ -7079,14 +7763,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>aa_&quot;bb&quot;_cc</p>
 
-            SpecTestHelper.AssertCompliance("aa_\"bb\"_cc", "<p>aa_&quot;bb&quot;_cc</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("aa_\"bb\"_cc", 
+                "<p>aa_&quot;bb&quot;_cc</p>", 
+                "commonmark");
         }
 
         // This is emphasis, even though the opening delimiter is
         // both left- and right-flanking, because it is preceded by
         // punctuation:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec344_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec344_commonmark()
         {
             // The following Markdown:
             //     foo-_(bar)_
@@ -7094,7 +7780,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo-<em>(bar)</em></p>
 
-            SpecTestHelper.AssertCompliance("foo-_(bar)_", "<p>foo-<em>(bar)</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo-_(bar)_", 
+                "<p>foo-<em>(bar)</em></p>", 
+                "commonmark");
         }
 
         // Rule 3:
@@ -7102,7 +7790,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // This is not emphasis, because the closing delimiter does
         // not match the opening delimiter:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec345_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec345_commonmark()
         {
             // The following Markdown:
             //     _foo*
@@ -7110,13 +7798,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_foo*</p>
 
-            SpecTestHelper.AssertCompliance("_foo*", "<p>_foo*</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_foo*", 
+                "<p>_foo*</p>", 
+                "commonmark");
         }
 
         // This is not emphasis, because the closing `*` is preceded by
         // whitespace:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec346_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec346_commonmark()
         {
             // The following Markdown:
             //     *foo bar *
@@ -7124,12 +7814,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*foo bar *</p>
 
-            SpecTestHelper.AssertCompliance("*foo bar *", "<p>*foo bar *</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo bar *", 
+                "<p>*foo bar *</p>", 
+                "commonmark");
         }
 
         // A newline also counts as whitespace:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec347_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec347_commonmark()
         {
             // The following Markdown:
             //     *foo bar
@@ -7139,14 +7831,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>*foo bar
             //     *</p>
 
-            SpecTestHelper.AssertCompliance("*foo bar\n*", "<p>*foo bar\n*</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo bar\n*", 
+                "<p>*foo bar\n*</p>", 
+                "commonmark");
         }
 
         // This is not emphasis, because the second `*` is
         // preceded by punctuation and followed by an alphanumeric
         // (hence it is not part of a [right-flanking delimiter run]:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec348_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec348_commonmark()
         {
             // The following Markdown:
             //     *(*foo)
@@ -7154,13 +7848,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*(*foo)</p>
 
-            SpecTestHelper.AssertCompliance("*(*foo)", "<p>*(*foo)</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*(*foo)", 
+                "<p>*(*foo)</p>", 
+                "commonmark");
         }
 
         // The point of this restriction is more easily appreciated
         // with this example:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec349_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec349_commonmark()
         {
             // The following Markdown:
             //     *(*foo*)*
@@ -7168,12 +7864,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>(<em>foo</em>)</em></p>
 
-            SpecTestHelper.AssertCompliance("*(*foo*)*", "<p><em>(<em>foo</em>)</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*(*foo*)*", 
+                "<p><em>(<em>foo</em>)</em></p>", 
+                "commonmark");
         }
 
         // Intraword emphasis with `*` is allowed:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec350_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec350_commonmark()
         {
             // The following Markdown:
             //     *foo*bar
@@ -7181,7 +7879,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo</em>bar</p>
 
-            SpecTestHelper.AssertCompliance("*foo*bar", "<p><em>foo</em>bar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo*bar", 
+                "<p><em>foo</em>bar</p>", 
+                "commonmark");
         }
 
         // Rule 4:
@@ -7189,7 +7889,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // This is not emphasis, because the closing `_` is preceded by
         // whitespace:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec351_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec351_commonmark()
         {
             // The following Markdown:
             //     _foo bar _
@@ -7197,13 +7897,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_foo bar _</p>
 
-            SpecTestHelper.AssertCompliance("_foo bar _", "<p>_foo bar _</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_foo bar _", 
+                "<p>_foo bar _</p>", 
+                "commonmark");
         }
 
         // This is not emphasis, because the second `_` is
         // preceded by punctuation and followed by an alphanumeric:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec352_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec352_commonmark()
         {
             // The following Markdown:
             //     _(_foo)
@@ -7211,12 +7913,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_(_foo)</p>
 
-            SpecTestHelper.AssertCompliance("_(_foo)", "<p>_(_foo)</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_(_foo)", 
+                "<p>_(_foo)</p>", 
+                "commonmark");
         }
 
         // This is emphasis within emphasis:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec353_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec353_commonmark()
         {
             // The following Markdown:
             //     _(_foo_)_
@@ -7224,12 +7928,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>(<em>foo</em>)</em></p>
 
-            SpecTestHelper.AssertCompliance("_(_foo_)_", "<p><em>(<em>foo</em>)</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_(_foo_)_", 
+                "<p><em>(<em>foo</em>)</em></p>", 
+                "commonmark");
         }
 
         // Intraword emphasis is disallowed for `_`:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec354_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec354_commonmark()
         {
             // The following Markdown:
             //     _foo_bar
@@ -7237,11 +7943,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_foo_bar</p>
 
-            SpecTestHelper.AssertCompliance("_foo_bar", "<p>_foo_bar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_foo_bar", 
+                "<p>_foo_bar</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec355_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec355_commonmark()
         {
             // The following Markdown:
             //     _пристаням_стремятся
@@ -7249,11 +7957,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_пристаням_стремятся</p>
 
-            SpecTestHelper.AssertCompliance("_пристаням_стремятся", "<p>_пристаням_стремятся</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_пристаням_стремятся", 
+                "<p>_пристаням_стремятся</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec356_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec356_commonmark()
         {
             // The following Markdown:
             //     _foo_bar_baz_
@@ -7261,14 +7971,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo_bar_baz</em></p>
 
-            SpecTestHelper.AssertCompliance("_foo_bar_baz_", "<p><em>foo_bar_baz</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_foo_bar_baz_", 
+                "<p><em>foo_bar_baz</em></p>", 
+                "commonmark");
         }
 
         // This is emphasis, even though the closing delimiter is
         // both left- and right-flanking, because it is followed by
         // punctuation:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec357_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec357_commonmark()
         {
             // The following Markdown:
             //     _(bar)_.
@@ -7276,12 +7988,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>(bar)</em>.</p>
 
-            SpecTestHelper.AssertCompliance("_(bar)_.", "<p><em>(bar)</em>.</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_(bar)_.", 
+                "<p><em>(bar)</em>.</p>", 
+                "commonmark");
         }
 
         // Rule 5:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec358_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec358_commonmark()
         {
             // The following Markdown:
             //     **foo bar**
@@ -7289,13 +8003,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo bar</strong></p>
 
-            SpecTestHelper.AssertCompliance("**foo bar**", "<p><strong>foo bar</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo bar**", 
+                "<p><strong>foo bar</strong></p>", 
+                "commonmark");
         }
 
         // This is not strong emphasis, because the opening delimiter is
         // followed by whitespace:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec359_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec359_commonmark()
         {
             // The following Markdown:
             //     ** foo bar**
@@ -7303,14 +8019,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>** foo bar**</p>
 
-            SpecTestHelper.AssertCompliance("** foo bar**", "<p>** foo bar**</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("** foo bar**", 
+                "<p>** foo bar**</p>", 
+                "commonmark");
         }
 
         // This is not strong emphasis, because the opening `**` is preceded
         // by an alphanumeric and followed by punctuation, and hence
         // not part of a [left-flanking delimiter run]:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec360_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec360_commonmark()
         {
             // The following Markdown:
             //     a**"foo"**
@@ -7318,12 +8036,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>a**&quot;foo&quot;**</p>
 
-            SpecTestHelper.AssertCompliance("a**\"foo\"**", "<p>a**&quot;foo&quot;**</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("a**\"foo\"**", 
+                "<p>a**&quot;foo&quot;**</p>", 
+                "commonmark");
         }
 
         // Intraword strong emphasis with `**` is permitted:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec361_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec361_commonmark()
         {
             // The following Markdown:
             //     foo**bar**
@@ -7331,12 +8051,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo<strong>bar</strong></p>
 
-            SpecTestHelper.AssertCompliance("foo**bar**", "<p>foo<strong>bar</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo**bar**", 
+                "<p>foo<strong>bar</strong></p>", 
+                "commonmark");
         }
 
         // Rule 6:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec362_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec362_commonmark()
         {
             // The following Markdown:
             //     __foo bar__
@@ -7344,13 +8066,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo bar</strong></p>
 
-            SpecTestHelper.AssertCompliance("__foo bar__", "<p><strong>foo bar</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__foo bar__", 
+                "<p><strong>foo bar</strong></p>", 
+                "commonmark");
         }
 
         // This is not strong emphasis, because the opening delimiter is
         // followed by whitespace:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec363_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec363_commonmark()
         {
             // The following Markdown:
             //     __ foo bar__
@@ -7358,12 +8082,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__ foo bar__</p>
 
-            SpecTestHelper.AssertCompliance("__ foo bar__", "<p>__ foo bar__</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__ foo bar__", 
+                "<p>__ foo bar__</p>", 
+                "commonmark");
         }
 
         // A newline counts as whitespace:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec364_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec364_commonmark()
         {
             // The following Markdown:
             //     __
@@ -7373,13 +8099,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>__
             //     foo bar__</p>
 
-            SpecTestHelper.AssertCompliance("__\nfoo bar__", "<p>__\nfoo bar__</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__\nfoo bar__", 
+                "<p>__\nfoo bar__</p>", 
+                "commonmark");
         }
 
         // This is not strong emphasis, because the opening `__` is preceded
         // by an alphanumeric and followed by punctuation:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec365_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec365_commonmark()
         {
             // The following Markdown:
             //     a__"foo"__
@@ -7387,12 +8115,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>a__&quot;foo&quot;__</p>
 
-            SpecTestHelper.AssertCompliance("a__\"foo\"__", "<p>a__&quot;foo&quot;__</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("a__\"foo\"__", 
+                "<p>a__&quot;foo&quot;__</p>", 
+                "commonmark");
         }
 
         // Intraword strong emphasis is forbidden with `__`:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec366_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec366_commonmark()
         {
             // The following Markdown:
             //     foo__bar__
@@ -7400,11 +8130,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo__bar__</p>
 
-            SpecTestHelper.AssertCompliance("foo__bar__", "<p>foo__bar__</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo__bar__", 
+                "<p>foo__bar__</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec367_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec367_commonmark()
         {
             // The following Markdown:
             //     5__6__78
@@ -7412,11 +8144,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>5__6__78</p>
 
-            SpecTestHelper.AssertCompliance("5__6__78", "<p>5__6__78</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("5__6__78", 
+                "<p>5__6__78</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec368_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec368_commonmark()
         {
             // The following Markdown:
             //     пристаням__стремятся__
@@ -7424,11 +8158,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>пристаням__стремятся__</p>
 
-            SpecTestHelper.AssertCompliance("пристаням__стремятся__", "<p>пристаням__стремятся__</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("пристаням__стремятся__", 
+                "<p>пристаням__стремятся__</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec369_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec369_commonmark()
         {
             // The following Markdown:
             //     __foo, __bar__, baz__
@@ -7436,14 +8172,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo, <strong>bar</strong>, baz</strong></p>
 
-            SpecTestHelper.AssertCompliance("__foo, __bar__, baz__", "<p><strong>foo, <strong>bar</strong>, baz</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__foo, __bar__, baz__", 
+                "<p><strong>foo, <strong>bar</strong>, baz</strong></p>", 
+                "commonmark");
         }
 
         // This is strong emphasis, even though the opening delimiter is
         // both left- and right-flanking, because it is preceded by
         // punctuation:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec370_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec370_commonmark()
         {
             // The following Markdown:
             //     foo-__(bar)__
@@ -7451,7 +8189,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo-<strong>(bar)</strong></p>
 
-            SpecTestHelper.AssertCompliance("foo-__(bar)__", "<p>foo-<strong>(bar)</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo-__(bar)__", 
+                "<p>foo-<strong>(bar)</strong></p>", 
+                "commonmark");
         }
 
         // Rule 7:
@@ -7459,7 +8199,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // This is not strong emphasis, because the closing delimiter is preceded
         // by whitespace:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec371_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec371_commonmark()
         {
             // The following Markdown:
             //     **foo bar **
@@ -7467,7 +8207,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>**foo bar **</p>
 
-            SpecTestHelper.AssertCompliance("**foo bar **", "<p>**foo bar **</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo bar **", 
+                "<p>**foo bar **</p>", 
+                "commonmark");
         }
 
         // (Nor can it be interpreted as an emphasized `*foo bar *`, because of
@@ -7476,7 +8218,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // This is not strong emphasis, because the second `**` is
         // preceded by punctuation and followed by an alphanumeric:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec372_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec372_commonmark()
         {
             // The following Markdown:
             //     **(**foo)
@@ -7484,13 +8226,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>**(**foo)</p>
 
-            SpecTestHelper.AssertCompliance("**(**foo)", "<p>**(**foo)</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**(**foo)", 
+                "<p>**(**foo)</p>", 
+                "commonmark");
         }
 
         // The point of this restriction is more easily appreciated
         // with these examples:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec373_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec373_commonmark()
         {
             // The following Markdown:
             //     *(**foo**)*
@@ -7498,11 +8242,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>(<strong>foo</strong>)</em></p>
 
-            SpecTestHelper.AssertCompliance("*(**foo**)*", "<p><em>(<strong>foo</strong>)</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*(**foo**)*", 
+                "<p><em>(<strong>foo</strong>)</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec374_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec374_commonmark()
         {
             // The following Markdown:
             //     **Gomphocarpus (*Gomphocarpus physocarpus*, syn.
@@ -7512,11 +8258,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><strong>Gomphocarpus (<em>Gomphocarpus physocarpus</em>, syn.
             //     <em>Asclepias physocarpa</em>)</strong></p>
 
-            SpecTestHelper.AssertCompliance("**Gomphocarpus (*Gomphocarpus physocarpus*, syn.\n*Asclepias physocarpa*)**", "<p><strong>Gomphocarpus (<em>Gomphocarpus physocarpus</em>, syn.\n<em>Asclepias physocarpa</em>)</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**Gomphocarpus (*Gomphocarpus physocarpus*, syn.\n*Asclepias physocarpa*)**", 
+                "<p><strong>Gomphocarpus (<em>Gomphocarpus physocarpus</em>, syn.\n<em>Asclepias physocarpa</em>)</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec375_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec375_commonmark()
         {
             // The following Markdown:
             //     **foo "*bar*" foo**
@@ -7524,12 +8272,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo &quot;<em>bar</em>&quot; foo</strong></p>
 
-            SpecTestHelper.AssertCompliance("**foo \"*bar*\" foo**", "<p><strong>foo &quot;<em>bar</em>&quot; foo</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo \"*bar*\" foo**", 
+                "<p><strong>foo &quot;<em>bar</em>&quot; foo</strong></p>", 
+                "commonmark");
         }
 
         // Intraword emphasis:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec376_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec376_commonmark()
         {
             // The following Markdown:
             //     **foo**bar
@@ -7537,7 +8287,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo</strong>bar</p>
 
-            SpecTestHelper.AssertCompliance("**foo**bar", "<p><strong>foo</strong>bar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo**bar", 
+                "<p><strong>foo</strong>bar</p>", 
+                "commonmark");
         }
 
         // Rule 8:
@@ -7545,7 +8297,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // This is not strong emphasis, because the closing delimiter is
         // preceded by whitespace:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec377_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec377_commonmark()
         {
             // The following Markdown:
             //     __foo bar __
@@ -7553,13 +8305,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__foo bar __</p>
 
-            SpecTestHelper.AssertCompliance("__foo bar __", "<p>__foo bar __</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__foo bar __", 
+                "<p>__foo bar __</p>", 
+                "commonmark");
         }
 
         // This is not strong emphasis, because the second `__` is
         // preceded by punctuation and followed by an alphanumeric:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec378_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec378_commonmark()
         {
             // The following Markdown:
             //     __(__foo)
@@ -7567,13 +8321,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__(__foo)</p>
 
-            SpecTestHelper.AssertCompliance("__(__foo)", "<p>__(__foo)</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__(__foo)", 
+                "<p>__(__foo)</p>", 
+                "commonmark");
         }
 
         // The point of this restriction is more easily appreciated
         // with this example:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec379_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec379_commonmark()
         {
             // The following Markdown:
             //     _(__foo__)_
@@ -7581,12 +8337,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>(<strong>foo</strong>)</em></p>
 
-            SpecTestHelper.AssertCompliance("_(__foo__)_", "<p><em>(<strong>foo</strong>)</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_(__foo__)_", 
+                "<p><em>(<strong>foo</strong>)</em></p>", 
+                "commonmark");
         }
 
         // Intraword strong emphasis is forbidden with `__`:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec380_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec380_commonmark()
         {
             // The following Markdown:
             //     __foo__bar
@@ -7594,11 +8352,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__foo__bar</p>
 
-            SpecTestHelper.AssertCompliance("__foo__bar", "<p>__foo__bar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__foo__bar", 
+                "<p>__foo__bar</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec381_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec381_commonmark()
         {
             // The following Markdown:
             //     __пристаням__стремятся
@@ -7606,11 +8366,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__пристаням__стремятся</p>
 
-            SpecTestHelper.AssertCompliance("__пристаням__стремятся", "<p>__пристаням__стремятся</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__пристаням__стремятся", 
+                "<p>__пристаням__стремятся</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec382_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec382_commonmark()
         {
             // The following Markdown:
             //     __foo__bar__baz__
@@ -7618,14 +8380,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo__bar__baz</strong></p>
 
-            SpecTestHelper.AssertCompliance("__foo__bar__baz__", "<p><strong>foo__bar__baz</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__foo__bar__baz__", 
+                "<p><strong>foo__bar__baz</strong></p>", 
+                "commonmark");
         }
 
         // This is strong emphasis, even though the closing delimiter is
         // both left- and right-flanking, because it is followed by
         // punctuation:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec383_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec383_commonmark()
         {
             // The following Markdown:
             //     __(bar)__.
@@ -7633,7 +8397,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>(bar)</strong>.</p>
 
-            SpecTestHelper.AssertCompliance("__(bar)__.", "<p><strong>(bar)</strong>.</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__(bar)__.", 
+                "<p><strong>(bar)</strong>.</p>", 
+                "commonmark");
         }
 
         // Rule 9:
@@ -7641,7 +8407,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Any nonempty sequence of inline elements can be the contents of an
         // emphasized span.        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec384_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec384_commonmark()
         {
             // The following Markdown:
             //     *foo [bar](/url)*
@@ -7649,11 +8415,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <a href="/url">bar</a></em></p>
 
-            SpecTestHelper.AssertCompliance("*foo [bar](/url)*", "<p><em>foo <a href=\"/url\">bar</a></em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo [bar](/url)*", 
+                "<p><em>foo <a href=\"/url\">bar</a></em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec385_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec385_commonmark()
         {
             // The following Markdown:
             //     *foo
@@ -7663,13 +8431,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><em>foo
             //     bar</em></p>
 
-            SpecTestHelper.AssertCompliance("*foo\nbar*", "<p><em>foo\nbar</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo\nbar*", 
+                "<p><em>foo\nbar</em></p>", 
+                "commonmark");
         }
 
         // In particular, emphasis and strong emphasis can be nested
         // inside emphasis:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec386_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec386_commonmark()
         {
             // The following Markdown:
             //     _foo __bar__ baz_
@@ -7677,11 +8447,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <strong>bar</strong> baz</em></p>
 
-            SpecTestHelper.AssertCompliance("_foo __bar__ baz_", "<p><em>foo <strong>bar</strong> baz</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_foo __bar__ baz_", 
+                "<p><em>foo <strong>bar</strong> baz</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec387_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec387_commonmark()
         {
             // The following Markdown:
             //     _foo _bar_ baz_
@@ -7689,11 +8461,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <em>bar</em> baz</em></p>
 
-            SpecTestHelper.AssertCompliance("_foo _bar_ baz_", "<p><em>foo <em>bar</em> baz</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_foo _bar_ baz_", 
+                "<p><em>foo <em>bar</em> baz</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec388_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec388_commonmark()
         {
             // The following Markdown:
             //     __foo_ bar_
@@ -7701,11 +8475,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em><em>foo</em> bar</em></p>
 
-            SpecTestHelper.AssertCompliance("__foo_ bar_", "<p><em><em>foo</em> bar</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__foo_ bar_", 
+                "<p><em><em>foo</em> bar</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec389_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec389_commonmark()
         {
             // The following Markdown:
             //     *foo *bar**
@@ -7713,11 +8489,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <em>bar</em></em></p>
 
-            SpecTestHelper.AssertCompliance("*foo *bar**", "<p><em>foo <em>bar</em></em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo *bar**", 
+                "<p><em>foo <em>bar</em></em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec390_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec390_commonmark()
         {
             // The following Markdown:
             //     *foo **bar** baz*
@@ -7725,11 +8503,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <strong>bar</strong> baz</em></p>
 
-            SpecTestHelper.AssertCompliance("*foo **bar** baz*", "<p><em>foo <strong>bar</strong> baz</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo **bar** baz*", 
+                "<p><em>foo <strong>bar</strong> baz</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec391_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec391_commonmark()
         {
             // The following Markdown:
             //     *foo**bar**baz*
@@ -7737,7 +8517,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo<strong>bar</strong>baz</em></p>
 
-            SpecTestHelper.AssertCompliance("*foo**bar**baz*", "<p><em>foo<strong>bar</strong>baz</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo**bar**baz*", 
+                "<p><em>foo<strong>bar</strong>baz</em></p>", 
+                "commonmark");
         }
 
         // Note that in the preceding case, the interpretation
@@ -7758,7 +8540,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // emphasis, even when the interior spaces are
         // omitted:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec392_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec392_commonmark()
         {
             // The following Markdown:
             //     ***foo** bar*
@@ -7766,11 +8548,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em><strong>foo</strong> bar</em></p>
 
-            SpecTestHelper.AssertCompliance("***foo** bar*", "<p><em><strong>foo</strong> bar</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("***foo** bar*", 
+                "<p><em><strong>foo</strong> bar</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec393_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec393_commonmark()
         {
             // The following Markdown:
             //     *foo **bar***
@@ -7778,11 +8562,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <strong>bar</strong></em></p>
 
-            SpecTestHelper.AssertCompliance("*foo **bar***", "<p><em>foo <strong>bar</strong></em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo **bar***", 
+                "<p><em>foo <strong>bar</strong></em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec394_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec394_commonmark()
         {
             // The following Markdown:
             //     *foo**bar***
@@ -7790,12 +8576,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo<strong>bar</strong></em></p>
 
-            SpecTestHelper.AssertCompliance("*foo**bar***", "<p><em>foo<strong>bar</strong></em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo**bar***", 
+                "<p><em>foo<strong>bar</strong></em></p>", 
+                "commonmark");
         }
 
         // Indefinite levels of nesting are possible:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec395_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec395_commonmark()
         {
             // The following Markdown:
             //     *foo **bar *baz* bim** bop*
@@ -7803,11 +8591,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <strong>bar <em>baz</em> bim</strong> bop</em></p>
 
-            SpecTestHelper.AssertCompliance("*foo **bar *baz* bim** bop*", "<p><em>foo <strong>bar <em>baz</em> bim</strong> bop</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo **bar *baz* bim** bop*", 
+                "<p><em>foo <strong>bar <em>baz</em> bim</strong> bop</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec396_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec396_commonmark()
         {
             // The following Markdown:
             //     *foo [*bar*](/url)*
@@ -7815,12 +8605,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <a href="/url"><em>bar</em></a></em></p>
 
-            SpecTestHelper.AssertCompliance("*foo [*bar*](/url)*", "<p><em>foo <a href=\"/url\"><em>bar</em></a></em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo [*bar*](/url)*", 
+                "<p><em>foo <a href=\"/url\"><em>bar</em></a></em></p>", 
+                "commonmark");
         }
 
         // There can be no empty emphasis or strong emphasis:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec397_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec397_commonmark()
         {
             // The following Markdown:
             //     ** is not an empty emphasis
@@ -7828,11 +8620,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>** is not an empty emphasis</p>
 
-            SpecTestHelper.AssertCompliance("** is not an empty emphasis", "<p>** is not an empty emphasis</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("** is not an empty emphasis", 
+                "<p>** is not an empty emphasis</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec398_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec398_commonmark()
         {
             // The following Markdown:
             //     **** is not an empty strong emphasis
@@ -7840,7 +8634,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>**** is not an empty strong emphasis</p>
 
-            SpecTestHelper.AssertCompliance("**** is not an empty strong emphasis", "<p>**** is not an empty strong emphasis</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**** is not an empty strong emphasis", 
+                "<p>**** is not an empty strong emphasis</p>", 
+                "commonmark");
         }
 
         // Rule 10:
@@ -7848,7 +8644,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Any nonempty sequence of inline elements can be the contents of an
         // strongly emphasized span.        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec399_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec399_commonmark()
         {
             // The following Markdown:
             //     **foo [bar](/url)**
@@ -7856,11 +8652,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo <a href="/url">bar</a></strong></p>
 
-            SpecTestHelper.AssertCompliance("**foo [bar](/url)**", "<p><strong>foo <a href=\"/url\">bar</a></strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo [bar](/url)**", 
+                "<p><strong>foo <a href=\"/url\">bar</a></strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec400_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec400_commonmark()
         {
             // The following Markdown:
             //     **foo
@@ -7870,13 +8668,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><strong>foo
             //     bar</strong></p>
 
-            SpecTestHelper.AssertCompliance("**foo\nbar**", "<p><strong>foo\nbar</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo\nbar**", 
+                "<p><strong>foo\nbar</strong></p>", 
+                "commonmark");
         }
 
         // In particular, emphasis and strong emphasis can be nested
         // inside strong emphasis:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec401_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec401_commonmark()
         {
             // The following Markdown:
             //     __foo _bar_ baz__
@@ -7884,11 +8684,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo <em>bar</em> baz</strong></p>
 
-            SpecTestHelper.AssertCompliance("__foo _bar_ baz__", "<p><strong>foo <em>bar</em> baz</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__foo _bar_ baz__", 
+                "<p><strong>foo <em>bar</em> baz</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec402_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec402_commonmark()
         {
             // The following Markdown:
             //     __foo __bar__ baz__
@@ -7896,11 +8698,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo <strong>bar</strong> baz</strong></p>
 
-            SpecTestHelper.AssertCompliance("__foo __bar__ baz__", "<p><strong>foo <strong>bar</strong> baz</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__foo __bar__ baz__", 
+                "<p><strong>foo <strong>bar</strong> baz</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec403_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec403_commonmark()
         {
             // The following Markdown:
             //     ____foo__ bar__
@@ -7908,11 +8712,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong><strong>foo</strong> bar</strong></p>
 
-            SpecTestHelper.AssertCompliance("____foo__ bar__", "<p><strong><strong>foo</strong> bar</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("____foo__ bar__", 
+                "<p><strong><strong>foo</strong> bar</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec404_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec404_commonmark()
         {
             // The following Markdown:
             //     **foo **bar****
@@ -7920,11 +8726,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo <strong>bar</strong></strong></p>
 
-            SpecTestHelper.AssertCompliance("**foo **bar****", "<p><strong>foo <strong>bar</strong></strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo **bar****", 
+                "<p><strong>foo <strong>bar</strong></strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec405_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec405_commonmark()
         {
             // The following Markdown:
             //     **foo *bar* baz**
@@ -7932,11 +8740,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo <em>bar</em> baz</strong></p>
 
-            SpecTestHelper.AssertCompliance("**foo *bar* baz**", "<p><strong>foo <em>bar</em> baz</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo *bar* baz**", 
+                "<p><strong>foo <em>bar</em> baz</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec406_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec406_commonmark()
         {
             // The following Markdown:
             //     **foo*bar*baz**
@@ -7944,11 +8754,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo<em>bar</em>baz</strong></p>
 
-            SpecTestHelper.AssertCompliance("**foo*bar*baz**", "<p><strong>foo<em>bar</em>baz</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo*bar*baz**", 
+                "<p><strong>foo<em>bar</em>baz</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec407_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec407_commonmark()
         {
             // The following Markdown:
             //     ***foo* bar**
@@ -7956,11 +8768,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong><em>foo</em> bar</strong></p>
 
-            SpecTestHelper.AssertCompliance("***foo* bar**", "<p><strong><em>foo</em> bar</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("***foo* bar**", 
+                "<p><strong><em>foo</em> bar</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec408_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec408_commonmark()
         {
             // The following Markdown:
             //     **foo *bar***
@@ -7968,12 +8782,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo <em>bar</em></strong></p>
 
-            SpecTestHelper.AssertCompliance("**foo *bar***", "<p><strong>foo <em>bar</em></strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo *bar***", 
+                "<p><strong>foo <em>bar</em></strong></p>", 
+                "commonmark");
         }
 
         // Indefinite levels of nesting are possible:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec409_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec409_commonmark()
         {
             // The following Markdown:
             //     **foo *bar **baz**
@@ -7983,11 +8799,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><strong>foo <em>bar <strong>baz</strong>
             //     bim</em> bop</strong></p>
 
-            SpecTestHelper.AssertCompliance("**foo *bar **baz**\nbim* bop**", "<p><strong>foo <em>bar <strong>baz</strong>\nbim</em> bop</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo *bar **baz**\nbim* bop**", 
+                "<p><strong>foo <em>bar <strong>baz</strong>\nbim</em> bop</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec410_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec410_commonmark()
         {
             // The following Markdown:
             //     **foo [*bar*](/url)**
@@ -7995,12 +8813,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo <a href="/url"><em>bar</em></a></strong></p>
 
-            SpecTestHelper.AssertCompliance("**foo [*bar*](/url)**", "<p><strong>foo <a href=\"/url\"><em>bar</em></a></strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo [*bar*](/url)**", 
+                "<p><strong>foo <a href=\"/url\"><em>bar</em></a></strong></p>", 
+                "commonmark");
         }
 
         // There can be no empty emphasis or strong emphasis:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec411_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec411_commonmark()
         {
             // The following Markdown:
             //     __ is not an empty emphasis
@@ -8008,11 +8828,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__ is not an empty emphasis</p>
 
-            SpecTestHelper.AssertCompliance("__ is not an empty emphasis", "<p>__ is not an empty emphasis</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__ is not an empty emphasis", 
+                "<p>__ is not an empty emphasis</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec412_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec412_commonmark()
         {
             // The following Markdown:
             //     ____ is not an empty strong emphasis
@@ -8020,12 +8842,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>____ is not an empty strong emphasis</p>
 
-            SpecTestHelper.AssertCompliance("____ is not an empty strong emphasis", "<p>____ is not an empty strong emphasis</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("____ is not an empty strong emphasis", 
+                "<p>____ is not an empty strong emphasis</p>", 
+                "commonmark");
         }
 
         // Rule 11:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec413_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec413_commonmark()
         {
             // The following Markdown:
             //     foo ***
@@ -8033,11 +8857,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo ***</p>
 
-            SpecTestHelper.AssertCompliance("foo ***", "<p>foo ***</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo ***", 
+                "<p>foo ***</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec414_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec414_commonmark()
         {
             // The following Markdown:
             //     foo *\**
@@ -8045,11 +8871,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <em>*</em></p>
 
-            SpecTestHelper.AssertCompliance("foo *\\**", "<p>foo <em>*</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo *\\**", 
+                "<p>foo <em>*</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec415_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec415_commonmark()
         {
             // The following Markdown:
             //     foo *_*
@@ -8057,11 +8885,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <em>_</em></p>
 
-            SpecTestHelper.AssertCompliance("foo *_*", "<p>foo <em>_</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo *_*", 
+                "<p>foo <em>_</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec416_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec416_commonmark()
         {
             // The following Markdown:
             //     foo *****
@@ -8069,11 +8899,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo *****</p>
 
-            SpecTestHelper.AssertCompliance("foo *****", "<p>foo *****</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo *****", 
+                "<p>foo *****</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec417_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec417_commonmark()
         {
             // The following Markdown:
             //     foo **\***
@@ -8081,11 +8913,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <strong>*</strong></p>
 
-            SpecTestHelper.AssertCompliance("foo **\\***", "<p>foo <strong>*</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo **\\***", 
+                "<p>foo <strong>*</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec418_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec418_commonmark()
         {
             // The following Markdown:
             //     foo **_**
@@ -8093,14 +8927,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <strong>_</strong></p>
 
-            SpecTestHelper.AssertCompliance("foo **_**", "<p>foo <strong>_</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo **_**", 
+                "<p>foo <strong>_</strong></p>", 
+                "commonmark");
         }
 
         // Note that when delimiters do not match evenly, Rule 11 determines
         // that the excess literal `*` characters will appear outside of the
         // emphasis, rather than inside it:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec419_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec419_commonmark()
         {
             // The following Markdown:
             //     **foo*
@@ -8108,11 +8944,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*<em>foo</em></p>
 
-            SpecTestHelper.AssertCompliance("**foo*", "<p>*<em>foo</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo*", 
+                "<p>*<em>foo</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec420_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec420_commonmark()
         {
             // The following Markdown:
             //     *foo**
@@ -8120,11 +8958,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo</em>*</p>
 
-            SpecTestHelper.AssertCompliance("*foo**", "<p><em>foo</em>*</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo**", 
+                "<p><em>foo</em>*</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec421_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec421_commonmark()
         {
             // The following Markdown:
             //     ***foo**
@@ -8132,11 +8972,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*<strong>foo</strong></p>
 
-            SpecTestHelper.AssertCompliance("***foo**", "<p>*<strong>foo</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("***foo**", 
+                "<p>*<strong>foo</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec422_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec422_commonmark()
         {
             // The following Markdown:
             //     ****foo*
@@ -8144,11 +8986,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>***<em>foo</em></p>
 
-            SpecTestHelper.AssertCompliance("****foo*", "<p>***<em>foo</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("****foo*", 
+                "<p>***<em>foo</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec423_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec423_commonmark()
         {
             // The following Markdown:
             //     **foo***
@@ -8156,11 +9000,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo</strong>*</p>
 
-            SpecTestHelper.AssertCompliance("**foo***", "<p><strong>foo</strong>*</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo***", 
+                "<p><strong>foo</strong>*</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec424_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec424_commonmark()
         {
             // The following Markdown:
             //     *foo****
@@ -8168,12 +9014,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo</em>***</p>
 
-            SpecTestHelper.AssertCompliance("*foo****", "<p><em>foo</em>***</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo****", 
+                "<p><em>foo</em>***</p>", 
+                "commonmark");
         }
 
         // Rule 12:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec425_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec425_commonmark()
         {
             // The following Markdown:
             //     foo ___
@@ -8181,11 +9029,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo ___</p>
 
-            SpecTestHelper.AssertCompliance("foo ___", "<p>foo ___</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo ___", 
+                "<p>foo ___</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec426_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec426_commonmark()
         {
             // The following Markdown:
             //     foo _\__
@@ -8193,11 +9043,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <em>_</em></p>
 
-            SpecTestHelper.AssertCompliance("foo _\\__", "<p>foo <em>_</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo _\\__", 
+                "<p>foo <em>_</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec427_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec427_commonmark()
         {
             // The following Markdown:
             //     foo _*_
@@ -8205,11 +9057,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <em>*</em></p>
 
-            SpecTestHelper.AssertCompliance("foo _*_", "<p>foo <em>*</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo _*_", 
+                "<p>foo <em>*</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec428_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec428_commonmark()
         {
             // The following Markdown:
             //     foo _____
@@ -8217,11 +9071,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo _____</p>
 
-            SpecTestHelper.AssertCompliance("foo _____", "<p>foo _____</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo _____", 
+                "<p>foo _____</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec429_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec429_commonmark()
         {
             // The following Markdown:
             //     foo __\___
@@ -8229,11 +9085,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <strong>_</strong></p>
 
-            SpecTestHelper.AssertCompliance("foo __\\___", "<p>foo <strong>_</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo __\\___", 
+                "<p>foo <strong>_</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec430_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec430_commonmark()
         {
             // The following Markdown:
             //     foo __*__
@@ -8241,11 +9099,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <strong>*</strong></p>
 
-            SpecTestHelper.AssertCompliance("foo __*__", "<p>foo <strong>*</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo __*__", 
+                "<p>foo <strong>*</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec431_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec431_commonmark()
         {
             // The following Markdown:
             //     __foo_
@@ -8253,14 +9113,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_<em>foo</em></p>
 
-            SpecTestHelper.AssertCompliance("__foo_", "<p>_<em>foo</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__foo_", 
+                "<p>_<em>foo</em></p>", 
+                "commonmark");
         }
 
         // Note that when delimiters do not match evenly, Rule 12 determines
         // that the excess literal `_` characters will appear outside of the
         // emphasis, rather than inside it:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec432_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec432_commonmark()
         {
             // The following Markdown:
             //     _foo__
@@ -8268,11 +9130,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo</em>_</p>
 
-            SpecTestHelper.AssertCompliance("_foo__", "<p><em>foo</em>_</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_foo__", 
+                "<p><em>foo</em>_</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec433_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec433_commonmark()
         {
             // The following Markdown:
             //     ___foo__
@@ -8280,11 +9144,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_<strong>foo</strong></p>
 
-            SpecTestHelper.AssertCompliance("___foo__", "<p>_<strong>foo</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("___foo__", 
+                "<p>_<strong>foo</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec434_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec434_commonmark()
         {
             // The following Markdown:
             //     ____foo_
@@ -8292,11 +9158,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>___<em>foo</em></p>
 
-            SpecTestHelper.AssertCompliance("____foo_", "<p>___<em>foo</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("____foo_", 
+                "<p>___<em>foo</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec435_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec435_commonmark()
         {
             // The following Markdown:
             //     __foo___
@@ -8304,11 +9172,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo</strong>_</p>
 
-            SpecTestHelper.AssertCompliance("__foo___", "<p><strong>foo</strong>_</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__foo___", 
+                "<p><strong>foo</strong>_</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec436_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec436_commonmark()
         {
             // The following Markdown:
             //     _foo____
@@ -8316,13 +9186,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo</em>___</p>
 
-            SpecTestHelper.AssertCompliance("_foo____", "<p><em>foo</em>___</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_foo____", 
+                "<p><em>foo</em>___</p>", 
+                "commonmark");
         }
 
         // Rule 13 implies that if you want emphasis nested directly inside
         // emphasis, you must use different delimiters:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec437_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec437_commonmark()
         {
             // The following Markdown:
             //     **foo**
@@ -8330,11 +9202,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo</strong></p>
 
-            SpecTestHelper.AssertCompliance("**foo**", "<p><strong>foo</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo**", 
+                "<p><strong>foo</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec438_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec438_commonmark()
         {
             // The following Markdown:
             //     *_foo_*
@@ -8342,11 +9216,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em><em>foo</em></em></p>
 
-            SpecTestHelper.AssertCompliance("*_foo_*", "<p><em><em>foo</em></em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*_foo_*", 
+                "<p><em><em>foo</em></em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec439_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec439_commonmark()
         {
             // The following Markdown:
             //     __foo__
@@ -8354,11 +9230,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong>foo</strong></p>
 
-            SpecTestHelper.AssertCompliance("__foo__", "<p><strong>foo</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__foo__", 
+                "<p><strong>foo</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec440_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec440_commonmark()
         {
             // The following Markdown:
             //     _*foo*_
@@ -8366,13 +9244,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em><em>foo</em></em></p>
 
-            SpecTestHelper.AssertCompliance("_*foo*_", "<p><em><em>foo</em></em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_*foo*_", 
+                "<p><em><em>foo</em></em></p>", 
+                "commonmark");
         }
 
         // However, strong emphasis within strong emphasis is possible without
         // switching delimiters:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec441_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec441_commonmark()
         {
             // The following Markdown:
             //     ****foo****
@@ -8380,11 +9260,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong><strong>foo</strong></strong></p>
 
-            SpecTestHelper.AssertCompliance("****foo****", "<p><strong><strong>foo</strong></strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("****foo****", 
+                "<p><strong><strong>foo</strong></strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec442_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec442_commonmark()
         {
             // The following Markdown:
             //     ____foo____
@@ -8392,13 +9274,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong><strong>foo</strong></strong></p>
 
-            SpecTestHelper.AssertCompliance("____foo____", "<p><strong><strong>foo</strong></strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("____foo____", 
+                "<p><strong><strong>foo</strong></strong></p>", 
+                "commonmark");
         }
 
         // Rule 13 can be applied to arbitrarily long sequences of
         // delimiters:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec443_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec443_commonmark()
         {
             // The following Markdown:
             //     ******foo******
@@ -8406,12 +9290,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><strong><strong><strong>foo</strong></strong></strong></p>
 
-            SpecTestHelper.AssertCompliance("******foo******", "<p><strong><strong><strong>foo</strong></strong></strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("******foo******", 
+                "<p><strong><strong><strong>foo</strong></strong></strong></p>", 
+                "commonmark");
         }
 
         // Rule 14:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec444_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec444_commonmark()
         {
             // The following Markdown:
             //     ***foo***
@@ -8419,11 +9305,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em><strong>foo</strong></em></p>
 
-            SpecTestHelper.AssertCompliance("***foo***", "<p><em><strong>foo</strong></em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("***foo***", 
+                "<p><em><strong>foo</strong></em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec445_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec445_commonmark()
         {
             // The following Markdown:
             //     _____foo_____
@@ -8431,12 +9319,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em><strong><strong>foo</strong></strong></em></p>
 
-            SpecTestHelper.AssertCompliance("_____foo_____", "<p><em><strong><strong>foo</strong></strong></em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_____foo_____", 
+                "<p><em><strong><strong>foo</strong></strong></em></p>", 
+                "commonmark");
         }
 
         // Rule 15:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec446_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec446_commonmark()
         {
             // The following Markdown:
             //     *foo _bar* baz_
@@ -8444,11 +9334,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo _bar</em> baz_</p>
 
-            SpecTestHelper.AssertCompliance("*foo _bar* baz_", "<p><em>foo _bar</em> baz_</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo _bar* baz_", 
+                "<p><em>foo _bar</em> baz_</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec447_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec447_commonmark()
         {
             // The following Markdown:
             //     *foo __bar *baz bim__ bam*
@@ -8456,12 +9348,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo <strong>bar *baz bim</strong> bam</em></p>
 
-            SpecTestHelper.AssertCompliance("*foo __bar *baz bim__ bam*", "<p><em>foo <strong>bar *baz bim</strong> bam</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo __bar *baz bim__ bam*", 
+                "<p><em>foo <strong>bar *baz bim</strong> bam</em></p>", 
+                "commonmark");
         }
 
         // Rule 16:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec448_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec448_commonmark()
         {
             // The following Markdown:
             //     **foo **bar baz**
@@ -8469,11 +9363,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>**foo <strong>bar baz</strong></p>
 
-            SpecTestHelper.AssertCompliance("**foo **bar baz**", "<p>**foo <strong>bar baz</strong></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**foo **bar baz**", 
+                "<p>**foo <strong>bar baz</strong></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec449_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec449_commonmark()
         {
             // The following Markdown:
             //     *foo *bar baz*
@@ -8481,12 +9377,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*foo <em>bar baz</em></p>
 
-            SpecTestHelper.AssertCompliance("*foo *bar baz*", "<p>*foo <em>bar baz</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo *bar baz*", 
+                "<p>*foo <em>bar baz</em></p>", 
+                "commonmark");
         }
 
         // Rule 17:        
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec450_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec450_commonmark()
         {
             // The following Markdown:
             //     *[bar*](/url)
@@ -8494,11 +9392,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*<a href="/url">bar*</a></p>
 
-            SpecTestHelper.AssertCompliance("*[bar*](/url)", "<p>*<a href=\"/url\">bar*</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*[bar*](/url)", 
+                "<p>*<a href=\"/url\">bar*</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec451_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec451_commonmark()
         {
             // The following Markdown:
             //     _foo [bar_](/url)
@@ -8506,11 +9406,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>_foo <a href="/url">bar_</a></p>
 
-            SpecTestHelper.AssertCompliance("_foo [bar_](/url)", "<p>_foo <a href=\"/url\">bar_</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_foo [bar_](/url)", 
+                "<p>_foo <a href=\"/url\">bar_</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec452_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec452_commonmark()
         {
             // The following Markdown:
             //     *<img src="foo" title="*"/>
@@ -8518,11 +9420,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*<img src="foo" title="*"/></p>
 
-            SpecTestHelper.AssertCompliance("*<img src=\"foo\" title=\"*\"/>", "<p>*<img src=\"foo\" title=\"*\"/></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*<img src=\"foo\" title=\"*\"/>", 
+                "<p>*<img src=\"foo\" title=\"*\"/></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec453_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec453_commonmark()
         {
             // The following Markdown:
             //     **<a href="**">
@@ -8530,11 +9434,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>**<a href="**"></p>
 
-            SpecTestHelper.AssertCompliance("**<a href=\"**\">", "<p>**<a href=\"**\"></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**<a href=\"**\">", 
+                "<p>**<a href=\"**\"></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec454_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec454_commonmark()
         {
             // The following Markdown:
             //     __<a href="__">
@@ -8542,11 +9448,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__<a href="__"></p>
 
-            SpecTestHelper.AssertCompliance("__<a href=\"__\">", "<p>__<a href=\"__\"></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__<a href=\"__\">", 
+                "<p>__<a href=\"__\"></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec455_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec455_commonmark()
         {
             // The following Markdown:
             //     *a `*`*
@@ -8554,11 +9462,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>a <code>*</code></em></p>
 
-            SpecTestHelper.AssertCompliance("*a `*`*", "<p><em>a <code>*</code></em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*a `*`*", 
+                "<p><em>a <code>*</code></em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec456_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec456_commonmark()
         {
             // The following Markdown:
             //     _a `_`_
@@ -8566,11 +9476,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>a <code>_</code></em></p>
 
-            SpecTestHelper.AssertCompliance("_a `_`_", "<p><em>a <code>_</code></em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("_a `_`_", 
+                "<p><em>a <code>_</code></em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec457_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec457_commonmark()
         {
             // The following Markdown:
             //     **a<http://foo.bar/?q=**>
@@ -8578,11 +9490,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>**a<a href="http://foo.bar/?q=**">http://foo.bar/?q=**</a></p>
 
-            SpecTestHelper.AssertCompliance("**a<http://foo.bar/?q=**>", "<p>**a<a href=\"http://foo.bar/?q=**\">http://foo.bar/?q=**</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("**a<http://foo.bar/?q=**>", 
+                "<p>**a<a href=\"http://foo.bar/?q=**\">http://foo.bar/?q=**</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec458_CommonMark()
+        public void EmphasisAndStrongEmphasis_Spec458_commonmark()
         {
             // The following Markdown:
             //     __a<http://foo.bar/?q=__>
@@ -8590,7 +9504,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>__a<a href="http://foo.bar/?q=__">http://foo.bar/?q=__</a></p>
 
-            SpecTestHelper.AssertCompliance("__a<http://foo.bar/?q=__>", "<p>__a<a href=\"http://foo.bar/?q=__\">http://foo.bar/?q=__</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("__a<http://foo.bar/?q=__>", 
+                "<p>__a<a href=\"http://foo.bar/?q=__\">http://foo.bar/?q=__</a></p>", 
+                "commonmark");
         }
     }
 
@@ -8667,7 +9583,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Here is a simple inline link:        
         [Fact]
-        public void Links_Spec459_CommonMark()
+        public void Links_Spec459_commonmark()
         {
             // The following Markdown:
             //     [link](/uri "title")
@@ -8675,12 +9591,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri" title="title">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](/uri \"title\")", "<p><a href=\"/uri\" title=\"title\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](/uri \"title\")", 
+                "<p><a href=\"/uri\" title=\"title\">link</a></p>", 
+                "commonmark");
         }
 
         // The title may be omitted:        
         [Fact]
-        public void Links_Spec460_CommonMark()
+        public void Links_Spec460_commonmark()
         {
             // The following Markdown:
             //     [link](/uri)
@@ -8688,12 +9606,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](/uri)", "<p><a href=\"/uri\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](/uri)", 
+                "<p><a href=\"/uri\">link</a></p>", 
+                "commonmark");
         }
 
         // Both the title and the destination may be omitted:        
         [Fact]
-        public void Links_Spec461_CommonMark()
+        public void Links_Spec461_commonmark()
         {
             // The following Markdown:
             //     [link]()
@@ -8701,11 +9621,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link]()", "<p><a href=\"\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link]()", 
+                "<p><a href=\"\">link</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec462_CommonMark()
+        public void Links_Spec462_commonmark()
         {
             // The following Markdown:
             //     [link](<>)
@@ -8713,13 +9635,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](<>)", "<p><a href=\"\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](<>)", 
+                "<p><a href=\"\">link</a></p>", 
+                "commonmark");
         }
 
         // The destination cannot contain spaces or line breaks,
         // even if enclosed in pointy brackets:        
         [Fact]
-        public void Links_Spec463_CommonMark()
+        public void Links_Spec463_commonmark()
         {
             // The following Markdown:
             //     [link](/my uri)
@@ -8727,11 +9651,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[link](/my uri)</p>
 
-            SpecTestHelper.AssertCompliance("[link](/my uri)", "<p>[link](/my uri)</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](/my uri)", 
+                "<p>[link](/my uri)</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec464_CommonMark()
+        public void Links_Spec464_commonmark()
         {
             // The following Markdown:
             //     [link](</my uri>)
@@ -8739,11 +9665,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[link](&lt;/my uri&gt;)</p>
 
-            SpecTestHelper.AssertCompliance("[link](</my uri>)", "<p>[link](&lt;/my uri&gt;)</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](</my uri>)", 
+                "<p>[link](&lt;/my uri&gt;)</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec465_CommonMark()
+        public void Links_Spec465_commonmark()
         {
             // The following Markdown:
             //     [link](foo
@@ -8753,11 +9681,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[link](foo
             //     bar)</p>
 
-            SpecTestHelper.AssertCompliance("[link](foo\nbar)", "<p>[link](foo\nbar)</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](foo\nbar)", 
+                "<p>[link](foo\nbar)</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec466_CommonMark()
+        public void Links_Spec466_commonmark()
         {
             // The following Markdown:
             //     [link](<foo
@@ -8767,12 +9697,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[link](<foo
             //     bar>)</p>
 
-            SpecTestHelper.AssertCompliance("[link](<foo\nbar>)", "<p>[link](<foo\nbar>)</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](<foo\nbar>)", 
+                "<p>[link](<foo\nbar>)</p>", 
+                "commonmark");
         }
 
         // Parentheses inside the link destination may be escaped:        
         [Fact]
-        public void Links_Spec467_CommonMark()
+        public void Links_Spec467_commonmark()
         {
             // The following Markdown:
             //     [link](\(foo\))
@@ -8780,13 +9712,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="(foo)">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](\\(foo\\))", "<p><a href=\"(foo)\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](\\(foo\\))", 
+                "<p><a href=\"(foo)\">link</a></p>", 
+                "commonmark");
         }
 
         // Any number of parentheses are allowed without escaping, as long as they are
         // balanced:        
         [Fact]
-        public void Links_Spec468_CommonMark()
+        public void Links_Spec468_commonmark()
         {
             // The following Markdown:
             //     [link](foo(and(bar)))
@@ -8794,13 +9728,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="foo(and(bar))">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](foo(and(bar)))", "<p><a href=\"foo(and(bar))\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](foo(and(bar)))", 
+                "<p><a href=\"foo(and(bar))\">link</a></p>", 
+                "commonmark");
         }
 
         // However, if you have unbalanced parentheses, you need to escape or use the
         // `<...>` form:        
         [Fact]
-        public void Links_Spec469_CommonMark()
+        public void Links_Spec469_commonmark()
         {
             // The following Markdown:
             //     [link](foo\(and\(bar\))
@@ -8808,11 +9744,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="foo(and(bar)">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](foo\\(and\\(bar\\))", "<p><a href=\"foo(and(bar)\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](foo\\(and\\(bar\\))", 
+                "<p><a href=\"foo(and(bar)\">link</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec470_CommonMark()
+        public void Links_Spec470_commonmark()
         {
             // The following Markdown:
             //     [link](<foo(and(bar)>)
@@ -8820,13 +9758,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="foo(and(bar)">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](<foo(and(bar)>)", "<p><a href=\"foo(and(bar)\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](<foo(and(bar)>)", 
+                "<p><a href=\"foo(and(bar)\">link</a></p>", 
+                "commonmark");
         }
 
         // Parentheses and other symbols can also be escaped, as usual
         // in Markdown:        
         [Fact]
-        public void Links_Spec471_CommonMark()
+        public void Links_Spec471_commonmark()
         {
             // The following Markdown:
             //     [link](foo\)\:)
@@ -8834,12 +9774,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="foo):">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](foo\\)\\:)", "<p><a href=\"foo):\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](foo\\)\\:)", 
+                "<p><a href=\"foo):\">link</a></p>", 
+                "commonmark");
         }
 
         // A link can contain fragment identifiers and queries:        
         [Fact]
-        public void Links_Spec472_CommonMark()
+        public void Links_Spec472_commonmark()
         {
             // The following Markdown:
             //     [link](#fragment)
@@ -8853,13 +9795,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><a href="http://example.com#fragment">link</a></p>
             //     <p><a href="http://example.com?foo=3#frag">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](#fragment)\n\n[link](http://example.com#fragment)\n\n[link](http://example.com?foo=3#frag)", "<p><a href=\"#fragment\">link</a></p>\n<p><a href=\"http://example.com#fragment\">link</a></p>\n<p><a href=\"http://example.com?foo=3#frag\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](#fragment)\n\n[link](http://example.com#fragment)\n\n[link](http://example.com?foo=3#frag)", 
+                "<p><a href=\"#fragment\">link</a></p>\n<p><a href=\"http://example.com#fragment\">link</a></p>\n<p><a href=\"http://example.com?foo=3#frag\">link</a></p>", 
+                "commonmark");
         }
 
         // Note that a backslash before a non-escapable character is
         // just a backslash:        
         [Fact]
-        public void Links_Spec473_CommonMark()
+        public void Links_Spec473_commonmark()
         {
             // The following Markdown:
             //     [link](foo\bar)
@@ -8867,7 +9811,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="foo%5Cbar">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](foo\\bar)", "<p><a href=\"foo%5Cbar\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](foo\\bar)", 
+                "<p><a href=\"foo%5Cbar\">link</a></p>", 
+                "commonmark");
         }
 
         // URL-escaping should be left alone inside the destination, as all
@@ -8879,7 +9825,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // HTML or other formats.  Renderers may make different decisions
         // about how to escape or normalize URLs in the output.        
         [Fact]
-        public void Links_Spec474_CommonMark()
+        public void Links_Spec474_commonmark()
         {
             // The following Markdown:
             //     [link](foo%20b&auml;)
@@ -8887,14 +9833,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="foo%20b%C3%A4">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](foo%20b&auml;)", "<p><a href=\"foo%20b%C3%A4\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](foo%20b&auml;)", 
+                "<p><a href=\"foo%20b%C3%A4\">link</a></p>", 
+                "commonmark");
         }
 
         // Note that, because titles can often be parsed as destinations,
         // if you try to omit the destination and keep the title, you'll
         // get unexpected results:        
         [Fact]
-        public void Links_Spec475_CommonMark()
+        public void Links_Spec475_commonmark()
         {
             // The following Markdown:
             //     [link]("title")
@@ -8902,12 +9850,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="%22title%22">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](\"title\")", "<p><a href=\"%22title%22\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](\"title\")", 
+                "<p><a href=\"%22title%22\">link</a></p>", 
+                "commonmark");
         }
 
         // Titles may be in single quotes, double quotes, or parentheses:        
         [Fact]
-        public void Links_Spec476_CommonMark()
+        public void Links_Spec476_commonmark()
         {
             // The following Markdown:
             //     [link](/url "title")
@@ -8919,13 +9869,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <a href="/url" title="title">link</a>
             //     <a href="/url" title="title">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](/url \"title\")\n[link](/url 'title')\n[link](/url (title))", "<p><a href=\"/url\" title=\"title\">link</a>\n<a href=\"/url\" title=\"title\">link</a>\n<a href=\"/url\" title=\"title\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](/url \"title\")\n[link](/url 'title')\n[link](/url (title))", 
+                "<p><a href=\"/url\" title=\"title\">link</a>\n<a href=\"/url\" title=\"title\">link</a>\n<a href=\"/url\" title=\"title\">link</a></p>", 
+                "commonmark");
         }
 
         // Backslash escapes and entity and numeric character references
         // may be used in titles:        
         [Fact]
-        public void Links_Spec477_CommonMark()
+        public void Links_Spec477_commonmark()
         {
             // The following Markdown:
             //     [link](/url "title \"&quot;")
@@ -8933,13 +9885,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title &quot;&quot;">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](/url \"title \\\"&quot;\")", "<p><a href=\"/url\" title=\"title &quot;&quot;\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](/url \"title \\\"&quot;\")", 
+                "<p><a href=\"/url\" title=\"title &quot;&quot;\">link</a></p>", 
+                "commonmark");
         }
 
         // Titles must be separated from the link using a [whitespace].
         // Other [Unicode whitespace] like non-breaking space doesn't work.        
         [Fact]
-        public void Links_Spec478_CommonMark()
+        public void Links_Spec478_commonmark()
         {
             // The following Markdown:
             //     [link](/url "title")
@@ -8947,12 +9901,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url%C2%A0%22title%22">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](/url \"title\")", "<p><a href=\"/url%C2%A0%22title%22\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](/url \"title\")", 
+                "<p><a href=\"/url%C2%A0%22title%22\">link</a></p>", 
+                "commonmark");
         }
 
         // Nested balanced quotes are not allowed without escaping:        
         [Fact]
-        public void Links_Spec479_CommonMark()
+        public void Links_Spec479_commonmark()
         {
             // The following Markdown:
             //     [link](/url "title "and" title")
@@ -8960,12 +9916,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[link](/url &quot;title &quot;and&quot; title&quot;)</p>
 
-            SpecTestHelper.AssertCompliance("[link](/url \"title \"and\" title\")", "<p>[link](/url &quot;title &quot;and&quot; title&quot;)</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](/url \"title \"and\" title\")", 
+                "<p>[link](/url &quot;title &quot;and&quot; title&quot;)</p>", 
+                "commonmark");
         }
 
         // But it is easy to work around this by using a different quote type:        
         [Fact]
-        public void Links_Spec480_CommonMark()
+        public void Links_Spec480_commonmark()
         {
             // The following Markdown:
             //     [link](/url 'title "and" title')
@@ -8973,7 +9931,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title &quot;and&quot; title">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](/url 'title \"and\" title')", "<p><a href=\"/url\" title=\"title &quot;and&quot; title\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](/url 'title \"and\" title')", 
+                "<p><a href=\"/url\" title=\"title &quot;and&quot; title\">link</a></p>", 
+                "commonmark");
         }
 
         // (Note:  `Markdown.pl` did allow double quotes inside a double-quoted
@@ -8993,7 +9953,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // 
         // [Whitespace] is allowed around the destination and title:        
         [Fact]
-        public void Links_Spec481_CommonMark()
+        public void Links_Spec481_commonmark()
         {
             // The following Markdown:
             //     [link](   /uri
@@ -9002,13 +9962,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri" title="title">link</a></p>
 
-            SpecTestHelper.AssertCompliance("[link](   /uri\n  \"title\"  )", "<p><a href=\"/uri\" title=\"title\">link</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link](   /uri\n  \"title\"  )", 
+                "<p><a href=\"/uri\" title=\"title\">link</a></p>", 
+                "commonmark");
         }
 
         // But it is not allowed between the link text and the
         // following parenthesis:        
         [Fact]
-        public void Links_Spec482_CommonMark()
+        public void Links_Spec482_commonmark()
         {
             // The following Markdown:
             //     [link] (/uri)
@@ -9016,13 +9978,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[link] (/uri)</p>
 
-            SpecTestHelper.AssertCompliance("[link] (/uri)", "<p>[link] (/uri)</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link] (/uri)", 
+                "<p>[link] (/uri)</p>", 
+                "commonmark");
         }
 
         // The link text may contain balanced brackets, but not unbalanced ones,
         // unless they are escaped:        
         [Fact]
-        public void Links_Spec483_CommonMark()
+        public void Links_Spec483_commonmark()
         {
             // The following Markdown:
             //     [link [foo [bar]]](/uri)
@@ -9030,11 +9994,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">link [foo [bar]]</a></p>
 
-            SpecTestHelper.AssertCompliance("[link [foo [bar]]](/uri)", "<p><a href=\"/uri\">link [foo [bar]]</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link [foo [bar]]](/uri)", 
+                "<p><a href=\"/uri\">link [foo [bar]]</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec484_CommonMark()
+        public void Links_Spec484_commonmark()
         {
             // The following Markdown:
             //     [link] bar](/uri)
@@ -9042,11 +10008,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[link] bar](/uri)</p>
 
-            SpecTestHelper.AssertCompliance("[link] bar](/uri)", "<p>[link] bar](/uri)</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link] bar](/uri)", 
+                "<p>[link] bar](/uri)</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec485_CommonMark()
+        public void Links_Spec485_commonmark()
         {
             // The following Markdown:
             //     [link [bar](/uri)
@@ -9054,11 +10022,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[link <a href="/uri">bar</a></p>
 
-            SpecTestHelper.AssertCompliance("[link [bar](/uri)", "<p>[link <a href=\"/uri\">bar</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link [bar](/uri)", 
+                "<p>[link <a href=\"/uri\">bar</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec486_CommonMark()
+        public void Links_Spec486_commonmark()
         {
             // The following Markdown:
             //     [link \[bar](/uri)
@@ -9066,12 +10036,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">link [bar</a></p>
 
-            SpecTestHelper.AssertCompliance("[link \\[bar](/uri)", "<p><a href=\"/uri\">link [bar</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link \\[bar](/uri)", 
+                "<p><a href=\"/uri\">link [bar</a></p>", 
+                "commonmark");
         }
 
         // The link text may contain inline content:        
         [Fact]
-        public void Links_Spec487_CommonMark()
+        public void Links_Spec487_commonmark()
         {
             // The following Markdown:
             //     [link *foo **bar** `#`*](/uri)
@@ -9079,11 +10051,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>
 
-            SpecTestHelper.AssertCompliance("[link *foo **bar** `#`*](/uri)", "<p><a href=\"/uri\">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link *foo **bar** `#`*](/uri)", 
+                "<p><a href=\"/uri\">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec488_CommonMark()
+        public void Links_Spec488_commonmark()
         {
             // The following Markdown:
             //     [![moon](moon.jpg)](/uri)
@@ -9091,12 +10065,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri"><img src="moon.jpg" alt="moon" /></a></p>
 
-            SpecTestHelper.AssertCompliance("[![moon](moon.jpg)](/uri)", "<p><a href=\"/uri\"><img src=\"moon.jpg\" alt=\"moon\" /></a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[![moon](moon.jpg)](/uri)", 
+                "<p><a href=\"/uri\"><img src=\"moon.jpg\" alt=\"moon\" /></a></p>", 
+                "commonmark");
         }
 
         // However, links may not contain other links, at any level of nesting.        
         [Fact]
-        public void Links_Spec489_CommonMark()
+        public void Links_Spec489_commonmark()
         {
             // The following Markdown:
             //     [foo [bar](/uri)](/uri)
@@ -9104,11 +10080,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo <a href="/uri">bar</a>](/uri)</p>
 
-            SpecTestHelper.AssertCompliance("[foo [bar](/uri)](/uri)", "<p>[foo <a href=\"/uri\">bar</a>](/uri)</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo [bar](/uri)](/uri)", 
+                "<p>[foo <a href=\"/uri\">bar</a>](/uri)</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec490_CommonMark()
+        public void Links_Spec490_commonmark()
         {
             // The following Markdown:
             //     [foo *[bar [baz](/uri)](/uri)*](/uri)
@@ -9116,11 +10094,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo <em>[bar <a href="/uri">baz</a>](/uri)</em>](/uri)</p>
 
-            SpecTestHelper.AssertCompliance("[foo *[bar [baz](/uri)](/uri)*](/uri)", "<p>[foo <em>[bar <a href=\"/uri\">baz</a>](/uri)</em>](/uri)</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo *[bar [baz](/uri)](/uri)*](/uri)", 
+                "<p>[foo <em>[bar <a href=\"/uri\">baz</a>](/uri)</em>](/uri)</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec491_CommonMark()
+        public void Links_Spec491_commonmark()
         {
             // The following Markdown:
             //     ![[[foo](uri1)](uri2)](uri3)
@@ -9128,13 +10108,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="uri3" alt="[foo](uri2)" /></p>
 
-            SpecTestHelper.AssertCompliance("![[[foo](uri1)](uri2)](uri3)", "<p><img src=\"uri3\" alt=\"[foo](uri2)\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![[[foo](uri1)](uri2)](uri3)", 
+                "<p><img src=\"uri3\" alt=\"[foo](uri2)\" /></p>", 
+                "commonmark");
         }
 
         // These cases illustrate the precedence of link text grouping over
         // emphasis grouping:        
         [Fact]
-        public void Links_Spec492_CommonMark()
+        public void Links_Spec492_commonmark()
         {
             // The following Markdown:
             //     *[foo*](/uri)
@@ -9142,11 +10124,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*<a href="/uri">foo*</a></p>
 
-            SpecTestHelper.AssertCompliance("*[foo*](/uri)", "<p>*<a href=\"/uri\">foo*</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*[foo*](/uri)", 
+                "<p>*<a href=\"/uri\">foo*</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec493_CommonMark()
+        public void Links_Spec493_commonmark()
         {
             // The following Markdown:
             //     [foo *bar](baz*)
@@ -9154,13 +10138,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="baz*">foo *bar</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo *bar](baz*)", "<p><a href=\"baz*\">foo *bar</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo *bar](baz*)", 
+                "<p><a href=\"baz*\">foo *bar</a></p>", 
+                "commonmark");
         }
 
         // Note that brackets that *aren't* part of links do not take
         // precedence:        
         [Fact]
-        public void Links_Spec494_CommonMark()
+        public void Links_Spec494_commonmark()
         {
             // The following Markdown:
             //     *foo [bar* baz]
@@ -9168,13 +10154,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><em>foo [bar</em> baz]</p>
 
-            SpecTestHelper.AssertCompliance("*foo [bar* baz]", "<p><em>foo [bar</em> baz]</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo [bar* baz]", 
+                "<p><em>foo [bar</em> baz]</p>", 
+                "commonmark");
         }
 
         // These cases illustrate the precedence of HTML tags, code spans,
         // and autolinks over link grouping:        
         [Fact]
-        public void Links_Spec495_CommonMark()
+        public void Links_Spec495_commonmark()
         {
             // The following Markdown:
             //     [foo <bar attr="](baz)">
@@ -9182,11 +10170,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo <bar attr="](baz)"></p>
 
-            SpecTestHelper.AssertCompliance("[foo <bar attr=\"](baz)\">", "<p>[foo <bar attr=\"](baz)\"></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo <bar attr=\"](baz)\">", 
+                "<p>[foo <bar attr=\"](baz)\"></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec496_CommonMark()
+        public void Links_Spec496_commonmark()
         {
             // The following Markdown:
             //     [foo`](/uri)`
@@ -9194,11 +10184,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo<code>](/uri)</code></p>
 
-            SpecTestHelper.AssertCompliance("[foo`](/uri)`", "<p>[foo<code>](/uri)</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo`](/uri)`", 
+                "<p>[foo<code>](/uri)</code></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec497_CommonMark()
+        public void Links_Spec497_commonmark()
         {
             // The following Markdown:
             //     [foo<http://example.com/?search=](uri)>
@@ -9206,7 +10198,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo<a href="http://example.com/?search=%5D(uri)">http://example.com/?search=](uri)</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo<http://example.com/?search=](uri)>", "<p>[foo<a href=\"http://example.com/?search=%5D(uri)\">http://example.com/?search=](uri)</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo<http://example.com/?search=](uri)>", 
+                "<p>[foo<a href=\"http://example.com/?search=%5D(uri)\">http://example.com/?search=](uri)</a></p>", 
+                "commonmark");
         }
 
         // There are three kinds of [reference link](@)s:
@@ -9240,7 +10234,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // 
         // Here is a simple example:        
         [Fact]
-        public void Links_Spec498_CommonMark()
+        public void Links_Spec498_commonmark()
         {
             // The following Markdown:
             //     [foo][bar]
@@ -9250,7 +10244,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo][bar]\n\n[bar]: /url \"title\"", "<p><a href=\"/url\" title=\"title\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo][bar]\n\n[bar]: /url \"title\"", 
+                "<p><a href=\"/url\" title=\"title\">foo</a></p>", 
+                "commonmark");
         }
 
         // The rules for the [link text] are the same as with
@@ -9259,7 +10255,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // The link text may contain balanced brackets, but not unbalanced ones,
         // unless they are escaped:        
         [Fact]
-        public void Links_Spec499_CommonMark()
+        public void Links_Spec499_commonmark()
         {
             // The following Markdown:
             //     [link [foo [bar]]][ref]
@@ -9269,11 +10265,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">link [foo [bar]]</a></p>
 
-            SpecTestHelper.AssertCompliance("[link [foo [bar]]][ref]\n\n[ref]: /uri", "<p><a href=\"/uri\">link [foo [bar]]</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link [foo [bar]]][ref]\n\n[ref]: /uri", 
+                "<p><a href=\"/uri\">link [foo [bar]]</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec500_CommonMark()
+        public void Links_Spec500_commonmark()
         {
             // The following Markdown:
             //     [link \[bar][ref]
@@ -9283,12 +10281,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">link [bar</a></p>
 
-            SpecTestHelper.AssertCompliance("[link \\[bar][ref]\n\n[ref]: /uri", "<p><a href=\"/uri\">link [bar</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link \\[bar][ref]\n\n[ref]: /uri", 
+                "<p><a href=\"/uri\">link [bar</a></p>", 
+                "commonmark");
         }
 
         // The link text may contain inline content:        
         [Fact]
-        public void Links_Spec501_CommonMark()
+        public void Links_Spec501_commonmark()
         {
             // The following Markdown:
             //     [link *foo **bar** `#`*][ref]
@@ -9298,11 +10298,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>
 
-            SpecTestHelper.AssertCompliance("[link *foo **bar** `#`*][ref]\n\n[ref]: /uri", "<p><a href=\"/uri\">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[link *foo **bar** `#`*][ref]\n\n[ref]: /uri", 
+                "<p><a href=\"/uri\">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec502_CommonMark()
+        public void Links_Spec502_commonmark()
         {
             // The following Markdown:
             //     [![moon](moon.jpg)][ref]
@@ -9312,12 +10314,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri"><img src="moon.jpg" alt="moon" /></a></p>
 
-            SpecTestHelper.AssertCompliance("[![moon](moon.jpg)][ref]\n\n[ref]: /uri", "<p><a href=\"/uri\"><img src=\"moon.jpg\" alt=\"moon\" /></a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[![moon](moon.jpg)][ref]\n\n[ref]: /uri", 
+                "<p><a href=\"/uri\"><img src=\"moon.jpg\" alt=\"moon\" /></a></p>", 
+                "commonmark");
         }
 
         // However, links may not contain other links, at any level of nesting.        
         [Fact]
-        public void Links_Spec503_CommonMark()
+        public void Links_Spec503_commonmark()
         {
             // The following Markdown:
             //     [foo [bar](/uri)][ref]
@@ -9327,11 +10331,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo <a href="/uri">bar</a>]<a href="/uri">ref</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo [bar](/uri)][ref]\n\n[ref]: /uri", "<p>[foo <a href=\"/uri\">bar</a>]<a href=\"/uri\">ref</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo [bar](/uri)][ref]\n\n[ref]: /uri", 
+                "<p>[foo <a href=\"/uri\">bar</a>]<a href=\"/uri\">ref</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec504_CommonMark()
+        public void Links_Spec504_commonmark()
         {
             // The following Markdown:
             //     [foo *bar [baz][ref]*][ref]
@@ -9341,7 +10347,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo <em>bar <a href="/uri">baz</a></em>]<a href="/uri">ref</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo *bar [baz][ref]*][ref]\n\n[ref]: /uri", "<p>[foo <em>bar <a href=\"/uri\">baz</a></em>]<a href=\"/uri\">ref</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo *bar [baz][ref]*][ref]\n\n[ref]: /uri", 
+                "<p>[foo <em>bar <a href=\"/uri\">baz</a></em>]<a href=\"/uri\">ref</a></p>", 
+                "commonmark");
         }
 
         // (In the examples above, we have two [shortcut reference links]
@@ -9350,7 +10358,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // The following cases illustrate the precedence of link text grouping over
         // emphasis grouping:        
         [Fact]
-        public void Links_Spec505_CommonMark()
+        public void Links_Spec505_commonmark()
         {
             // The following Markdown:
             //     *[foo*][ref]
@@ -9360,11 +10368,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*<a href="/uri">foo*</a></p>
 
-            SpecTestHelper.AssertCompliance("*[foo*][ref]\n\n[ref]: /uri", "<p>*<a href=\"/uri\">foo*</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*[foo*][ref]\n\n[ref]: /uri", 
+                "<p>*<a href=\"/uri\">foo*</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec506_CommonMark()
+        public void Links_Spec506_commonmark()
         {
             // The following Markdown:
             //     [foo *bar][ref]
@@ -9374,13 +10384,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">foo *bar</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo *bar][ref]\n\n[ref]: /uri", "<p><a href=\"/uri\">foo *bar</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo *bar][ref]\n\n[ref]: /uri", 
+                "<p><a href=\"/uri\">foo *bar</a></p>", 
+                "commonmark");
         }
 
         // These cases illustrate the precedence of HTML tags, code spans,
         // and autolinks over link grouping:        
         [Fact]
-        public void Links_Spec507_CommonMark()
+        public void Links_Spec507_commonmark()
         {
             // The following Markdown:
             //     [foo <bar attr="][ref]">
@@ -9390,11 +10402,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo <bar attr="][ref]"></p>
 
-            SpecTestHelper.AssertCompliance("[foo <bar attr=\"][ref]\">\n\n[ref]: /uri", "<p>[foo <bar attr=\"][ref]\"></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo <bar attr=\"][ref]\">\n\n[ref]: /uri", 
+                "<p>[foo <bar attr=\"][ref]\"></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec508_CommonMark()
+        public void Links_Spec508_commonmark()
         {
             // The following Markdown:
             //     [foo`][ref]`
@@ -9404,11 +10418,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo<code>][ref]</code></p>
 
-            SpecTestHelper.AssertCompliance("[foo`][ref]`\n\n[ref]: /uri", "<p>[foo<code>][ref]</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo`][ref]`\n\n[ref]: /uri", 
+                "<p>[foo<code>][ref]</code></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec509_CommonMark()
+        public void Links_Spec509_commonmark()
         {
             // The following Markdown:
             //     [foo<http://example.com/?search=][ref]>
@@ -9418,12 +10434,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo<a href="http://example.com/?search=%5D%5Bref%5D">http://example.com/?search=][ref]</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo<http://example.com/?search=][ref]>\n\n[ref]: /uri", "<p>[foo<a href=\"http://example.com/?search=%5D%5Bref%5D\">http://example.com/?search=][ref]</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo<http://example.com/?search=][ref]>\n\n[ref]: /uri", 
+                "<p>[foo<a href=\"http://example.com/?search=%5D%5Bref%5D\">http://example.com/?search=][ref]</a></p>", 
+                "commonmark");
         }
 
         // Matching is case-insensitive:        
         [Fact]
-        public void Links_Spec510_CommonMark()
+        public void Links_Spec510_commonmark()
         {
             // The following Markdown:
             //     [foo][BaR]
@@ -9433,12 +10451,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo][BaR]\n\n[bar]: /url \"title\"", "<p><a href=\"/url\" title=\"title\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo][BaR]\n\n[bar]: /url \"title\"", 
+                "<p><a href=\"/url\" title=\"title\">foo</a></p>", 
+                "commonmark");
         }
 
         // Unicode case fold is used:        
         [Fact]
-        public void Links_Spec511_CommonMark()
+        public void Links_Spec511_commonmark()
         {
             // The following Markdown:
             //     [Толпой][Толпой] is a Russian word.
@@ -9448,13 +10468,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url">Толпой</a> is a Russian word.</p>
 
-            SpecTestHelper.AssertCompliance("[Толпой][Толпой] is a Russian word.\n\n[ТОЛПОЙ]: /url", "<p><a href=\"/url\">Толпой</a> is a Russian word.</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[Толпой][Толпой] is a Russian word.\n\n[ТОЛПОЙ]: /url", 
+                "<p><a href=\"/url\">Толпой</a> is a Russian word.</p>", 
+                "commonmark");
         }
 
         // Consecutive internal [whitespace] is treated as one space for
         // purposes of determining matching:        
         [Fact]
-        public void Links_Spec512_CommonMark()
+        public void Links_Spec512_commonmark()
         {
             // The following Markdown:
             //     [Foo
@@ -9465,13 +10487,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url">Baz</a></p>
 
-            SpecTestHelper.AssertCompliance("[Foo\n  bar]: /url\n\n[Baz][Foo bar]", "<p><a href=\"/url\">Baz</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[Foo\n  bar]: /url\n\n[Baz][Foo bar]", 
+                "<p><a href=\"/url\">Baz</a></p>", 
+                "commonmark");
         }
 
         // No [whitespace] is allowed between the [link text] and the
         // [link label]:        
         [Fact]
-        public void Links_Spec513_CommonMark()
+        public void Links_Spec513_commonmark()
         {
             // The following Markdown:
             //     [foo] [bar]
@@ -9481,11 +10505,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo] <a href="/url" title="title">bar</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo] [bar]\n\n[bar]: /url \"title\"", "<p>[foo] <a href=\"/url\" title=\"title\">bar</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo] [bar]\n\n[bar]: /url \"title\"", 
+                "<p>[foo] <a href=\"/url\" title=\"title\">bar</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec514_CommonMark()
+        public void Links_Spec514_commonmark()
         {
             // The following Markdown:
             //     [foo]
@@ -9497,7 +10523,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[foo]
             //     <a href="/url" title="title">bar</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo]\n[bar]\n\n[bar]: /url \"title\"", "<p>[foo]\n<a href=\"/url\" title=\"title\">bar</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]\n[bar]\n\n[bar]: /url \"title\"", 
+                "<p>[foo]\n<a href=\"/url\" title=\"title\">bar</a></p>", 
+                "commonmark");
         }
 
         // This is a departure from John Gruber's original Markdown syntax
@@ -9530,7 +10558,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // When there are multiple matching [link reference definitions],
         // the first is used:        
         [Fact]
-        public void Links_Spec515_CommonMark()
+        public void Links_Spec515_commonmark()
         {
             // The following Markdown:
             //     [foo]: /url1
@@ -9542,14 +10570,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url1">bar</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo]: /url1\n\n[foo]: /url2\n\n[bar][foo]", "<p><a href=\"/url1\">bar</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]: /url1\n\n[foo]: /url2\n\n[bar][foo]", 
+                "<p><a href=\"/url1\">bar</a></p>", 
+                "commonmark");
         }
 
         // Note that matching is performed on normalized strings, not parsed
         // inline content.  So the following does not match, even though the
         // labels define equivalent inline content:        
         [Fact]
-        public void Links_Spec516_CommonMark()
+        public void Links_Spec516_commonmark()
         {
             // The following Markdown:
             //     [bar][foo\!]
@@ -9559,13 +10589,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[bar][foo!]</p>
 
-            SpecTestHelper.AssertCompliance("[bar][foo\\!]\n\n[foo!]: /url", "<p>[bar][foo!]</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[bar][foo\\!]\n\n[foo!]: /url", 
+                "<p>[bar][foo!]</p>", 
+                "commonmark");
         }
 
         // [Link labels] cannot contain brackets, unless they are
         // backslash-escaped:        
         [Fact]
-        public void Links_Spec517_CommonMark()
+        public void Links_Spec517_commonmark()
         {
             // The following Markdown:
             //     [foo][ref[]
@@ -9576,11 +10608,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[foo][ref[]</p>
             //     <p>[ref[]: /uri</p>
 
-            SpecTestHelper.AssertCompliance("[foo][ref[]\n\n[ref[]: /uri", "<p>[foo][ref[]</p>\n<p>[ref[]: /uri</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo][ref[]\n\n[ref[]: /uri", 
+                "<p>[foo][ref[]</p>\n<p>[ref[]: /uri</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec518_CommonMark()
+        public void Links_Spec518_commonmark()
         {
             // The following Markdown:
             //     [foo][ref[bar]]
@@ -9591,11 +10625,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[foo][ref[bar]]</p>
             //     <p>[ref[bar]]: /uri</p>
 
-            SpecTestHelper.AssertCompliance("[foo][ref[bar]]\n\n[ref[bar]]: /uri", "<p>[foo][ref[bar]]</p>\n<p>[ref[bar]]: /uri</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo][ref[bar]]\n\n[ref[bar]]: /uri", 
+                "<p>[foo][ref[bar]]</p>\n<p>[ref[bar]]: /uri</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec519_CommonMark()
+        public void Links_Spec519_commonmark()
         {
             // The following Markdown:
             //     [[[foo]]]
@@ -9606,11 +10642,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[[[foo]]]</p>
             //     <p>[[[foo]]]: /url</p>
 
-            SpecTestHelper.AssertCompliance("[[[foo]]]\n\n[[[foo]]]: /url", "<p>[[[foo]]]</p>\n<p>[[[foo]]]: /url</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[[[foo]]]\n\n[[[foo]]]: /url", 
+                "<p>[[[foo]]]</p>\n<p>[[[foo]]]: /url</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec520_CommonMark()
+        public void Links_Spec520_commonmark()
         {
             // The following Markdown:
             //     [foo][ref\[]
@@ -9620,12 +10658,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo][ref\\[]\n\n[ref\\[]: /uri", "<p><a href=\"/uri\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo][ref\\[]\n\n[ref\\[]: /uri", 
+                "<p><a href=\"/uri\">foo</a></p>", 
+                "commonmark");
         }
 
         // Note that in this example `]` is not backslash-escaped:        
         [Fact]
-        public void Links_Spec521_CommonMark()
+        public void Links_Spec521_commonmark()
         {
             // The following Markdown:
             //     [bar\\]: /uri
@@ -9635,12 +10675,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/uri">bar\</a></p>
 
-            SpecTestHelper.AssertCompliance("[bar\\\\]: /uri\n\n[bar\\\\]", "<p><a href=\"/uri\">bar\\</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[bar\\\\]: /uri\n\n[bar\\\\]", 
+                "<p><a href=\"/uri\">bar\\</a></p>", 
+                "commonmark");
         }
 
         // A [link label] must contain at least one [non-whitespace character]:        
         [Fact]
-        public void Links_Spec522_CommonMark()
+        public void Links_Spec522_commonmark()
         {
             // The following Markdown:
             //     []
@@ -9651,11 +10693,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[]</p>
             //     <p>[]: /uri</p>
 
-            SpecTestHelper.AssertCompliance("[]\n\n[]: /uri", "<p>[]</p>\n<p>[]: /uri</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[]\n\n[]: /uri", 
+                "<p>[]</p>\n<p>[]: /uri</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec523_CommonMark()
+        public void Links_Spec523_commonmark()
         {
             // The following Markdown:
             //     [
@@ -9670,7 +10714,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>[
             //     ]: /uri</p>
 
-            SpecTestHelper.AssertCompliance("[\n ]\n\n[\n ]: /uri", "<p>[\n]</p>\n<p>[\n]: /uri</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[\n ]\n\n[\n ]: /uri", 
+                "<p>[\n]</p>\n<p>[\n]: /uri</p>", 
+                "commonmark");
         }
 
         // A [collapsed reference link](@)
@@ -9682,7 +10728,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // provided by the matching reference link definition.  Thus,
         // `[foo][]` is equivalent to `[foo][foo]`.        
         [Fact]
-        public void Links_Spec524_CommonMark()
+        public void Links_Spec524_commonmark()
         {
             // The following Markdown:
             //     [foo][]
@@ -9692,11 +10738,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo][]\n\n[foo]: /url \"title\"", "<p><a href=\"/url\" title=\"title\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo][]\n\n[foo]: /url \"title\"", 
+                "<p><a href=\"/url\" title=\"title\">foo</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec525_CommonMark()
+        public void Links_Spec525_commonmark()
         {
             // The following Markdown:
             //     [*foo* bar][]
@@ -9706,12 +10754,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title"><em>foo</em> bar</a></p>
 
-            SpecTestHelper.AssertCompliance("[*foo* bar][]\n\n[*foo* bar]: /url \"title\"", "<p><a href=\"/url\" title=\"title\"><em>foo</em> bar</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[*foo* bar][]\n\n[*foo* bar]: /url \"title\"", 
+                "<p><a href=\"/url\" title=\"title\"><em>foo</em> bar</a></p>", 
+                "commonmark");
         }
 
         // The link labels are case-insensitive:        
         [Fact]
-        public void Links_Spec526_CommonMark()
+        public void Links_Spec526_commonmark()
         {
             // The following Markdown:
             //     [Foo][]
@@ -9721,13 +10771,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title">Foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[Foo][]\n\n[foo]: /url \"title\"", "<p><a href=\"/url\" title=\"title\">Foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[Foo][]\n\n[foo]: /url \"title\"", 
+                "<p><a href=\"/url\" title=\"title\">Foo</a></p>", 
+                "commonmark");
         }
 
         // As with full reference links, [whitespace] is not
         // allowed between the two sets of brackets:        
         [Fact]
-        public void Links_Spec527_CommonMark()
+        public void Links_Spec527_commonmark()
         {
             // The following Markdown:
             //     [foo] 
@@ -9739,7 +10791,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><a href="/url" title="title">foo</a>
             //     []</p>
 
-            SpecTestHelper.AssertCompliance("[foo] \n[]\n\n[foo]: /url \"title\"", "<p><a href=\"/url\" title=\"title\">foo</a>\n[]</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo] \n[]\n\n[foo]: /url \"title\"", 
+                "<p><a href=\"/url\" title=\"title\">foo</a>\n[]</p>", 
+                "commonmark");
         }
 
         // A [shortcut reference link](@)
@@ -9751,7 +10805,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // are provided by the matching link reference definition.
         // Thus, `[foo]` is equivalent to `[foo][]`.        
         [Fact]
-        public void Links_Spec528_CommonMark()
+        public void Links_Spec528_commonmark()
         {
             // The following Markdown:
             //     [foo]
@@ -9761,11 +10815,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: /url \"title\"", "<p><a href=\"/url\" title=\"title\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: /url \"title\"", 
+                "<p><a href=\"/url\" title=\"title\">foo</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec529_CommonMark()
+        public void Links_Spec529_commonmark()
         {
             // The following Markdown:
             //     [*foo* bar]
@@ -9775,11 +10831,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title"><em>foo</em> bar</a></p>
 
-            SpecTestHelper.AssertCompliance("[*foo* bar]\n\n[*foo* bar]: /url \"title\"", "<p><a href=\"/url\" title=\"title\"><em>foo</em> bar</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[*foo* bar]\n\n[*foo* bar]: /url \"title\"", 
+                "<p><a href=\"/url\" title=\"title\"><em>foo</em> bar</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec530_CommonMark()
+        public void Links_Spec530_commonmark()
         {
             // The following Markdown:
             //     [[*foo* bar]]
@@ -9789,11 +10847,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[<a href="/url" title="title"><em>foo</em> bar</a>]</p>
 
-            SpecTestHelper.AssertCompliance("[[*foo* bar]]\n\n[*foo* bar]: /url \"title\"", "<p>[<a href=\"/url\" title=\"title\"><em>foo</em> bar</a>]</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[[*foo* bar]]\n\n[*foo* bar]: /url \"title\"", 
+                "<p>[<a href=\"/url\" title=\"title\"><em>foo</em> bar</a>]</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec531_CommonMark()
+        public void Links_Spec531_commonmark()
         {
             // The following Markdown:
             //     [[bar [foo]
@@ -9803,12 +10863,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[[bar <a href="/url">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[[bar [foo]\n\n[foo]: /url", "<p>[[bar <a href=\"/url\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[[bar [foo]\n\n[foo]: /url", 
+                "<p>[[bar <a href=\"/url\">foo</a></p>", 
+                "commonmark");
         }
 
         // The link labels are case-insensitive:        
         [Fact]
-        public void Links_Spec532_CommonMark()
+        public void Links_Spec532_commonmark()
         {
             // The following Markdown:
             //     [Foo]
@@ -9818,12 +10880,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url" title="title">Foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[Foo]\n\n[foo]: /url \"title\"", "<p><a href=\"/url\" title=\"title\">Foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[Foo]\n\n[foo]: /url \"title\"", 
+                "<p><a href=\"/url\" title=\"title\">Foo</a></p>", 
+                "commonmark");
         }
 
         // A space after the link text should be preserved:        
         [Fact]
-        public void Links_Spec533_CommonMark()
+        public void Links_Spec533_commonmark()
         {
             // The following Markdown:
             //     [foo] bar
@@ -9833,13 +10897,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url">foo</a> bar</p>
 
-            SpecTestHelper.AssertCompliance("[foo] bar\n\n[foo]: /url", "<p><a href=\"/url\">foo</a> bar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo] bar\n\n[foo]: /url", 
+                "<p><a href=\"/url\">foo</a> bar</p>", 
+                "commonmark");
         }
 
         // If you just want bracketed text, you can backslash-escape the
         // opening bracket to avoid links:        
         [Fact]
-        public void Links_Spec534_CommonMark()
+        public void Links_Spec534_commonmark()
         {
             // The following Markdown:
             //     \[foo]
@@ -9849,13 +10915,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo]</p>
 
-            SpecTestHelper.AssertCompliance("\\[foo]\n\n[foo]: /url \"title\"", "<p>[foo]</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("\\[foo]\n\n[foo]: /url \"title\"", 
+                "<p>[foo]</p>", 
+                "commonmark");
         }
 
         // Note that this is a link, because a link label ends with the first
         // following closing bracket:        
         [Fact]
-        public void Links_Spec535_CommonMark()
+        public void Links_Spec535_commonmark()
         {
             // The following Markdown:
             //     [foo*]: /url
@@ -9865,13 +10933,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>*<a href="/url">foo*</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo*]: /url\n\n*[foo*]", "<p>*<a href=\"/url\">foo*</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo*]: /url\n\n*[foo*]", 
+                "<p>*<a href=\"/url\">foo*</a></p>", 
+                "commonmark");
         }
 
         // Full and compact references take precedence over shortcut
         // references:        
         [Fact]
-        public void Links_Spec536_CommonMark()
+        public void Links_Spec536_commonmark()
         {
             // The following Markdown:
             //     [foo][bar]
@@ -9882,11 +10952,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url2">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo][bar]\n\n[foo]: /url1\n[bar]: /url2", "<p><a href=\"/url2\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo][bar]\n\n[foo]: /url1\n[bar]: /url2", 
+                "<p><a href=\"/url2\">foo</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec537_CommonMark()
+        public void Links_Spec537_commonmark()
         {
             // The following Markdown:
             //     [foo][]
@@ -9896,12 +10968,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url1">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo][]\n\n[foo]: /url1", "<p><a href=\"/url1\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo][]\n\n[foo]: /url1", 
+                "<p><a href=\"/url1\">foo</a></p>", 
+                "commonmark");
         }
 
         // Inline links also take precedence:        
         [Fact]
-        public void Links_Spec538_CommonMark()
+        public void Links_Spec538_commonmark()
         {
             // The following Markdown:
             //     [foo]()
@@ -9911,11 +10985,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo]()\n\n[foo]: /url1", "<p><a href=\"\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo]()\n\n[foo]: /url1", 
+                "<p><a href=\"\">foo</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Links_Spec539_CommonMark()
+        public void Links_Spec539_commonmark()
         {
             // The following Markdown:
             //     [foo](not a link)
@@ -9925,13 +11001,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url1">foo</a>(not a link)</p>
 
-            SpecTestHelper.AssertCompliance("[foo](not a link)\n\n[foo]: /url1", "<p><a href=\"/url1\">foo</a>(not a link)</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo](not a link)\n\n[foo]: /url1", 
+                "<p><a href=\"/url1\">foo</a>(not a link)</p>", 
+                "commonmark");
         }
 
         // In the following case `[bar][baz]` is parsed as a reference,
         // `[foo]` as normal text:        
         [Fact]
-        public void Links_Spec540_CommonMark()
+        public void Links_Spec540_commonmark()
         {
             // The following Markdown:
             //     [foo][bar][baz]
@@ -9941,13 +11019,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo]<a href="/url">bar</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo][bar][baz]\n\n[baz]: /url", "<p>[foo]<a href=\"/url\">bar</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo][bar][baz]\n\n[baz]: /url", 
+                "<p>[foo]<a href=\"/url\">bar</a></p>", 
+                "commonmark");
         }
 
         // Here, though, `[foo][bar]` is parsed as a reference, since
         // `[bar]` is defined:        
         [Fact]
-        public void Links_Spec541_CommonMark()
+        public void Links_Spec541_commonmark()
         {
             // The following Markdown:
             //     [foo][bar][baz]
@@ -9958,13 +11038,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="/url2">foo</a><a href="/url1">baz</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo][bar][baz]\n\n[baz]: /url1\n[bar]: /url2", "<p><a href=\"/url2\">foo</a><a href=\"/url1\">baz</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo][bar][baz]\n\n[baz]: /url1\n[bar]: /url2", 
+                "<p><a href=\"/url2\">foo</a><a href=\"/url1\">baz</a></p>", 
+                "commonmark");
         }
 
         // Here `[foo]` is not parsed as a shortcut reference, because it
         // is followed by a link label (even though `[bar]` is not defined):        
         [Fact]
-        public void Links_Spec542_CommonMark()
+        public void Links_Spec542_commonmark()
         {
             // The following Markdown:
             //     [foo][bar][baz]
@@ -9975,7 +11057,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>[foo]<a href="/url1">bar</a></p>
 
-            SpecTestHelper.AssertCompliance("[foo][bar][baz]\n\n[baz]: /url1\n[foo]: /url2", "<p>[foo]<a href=\"/url1\">bar</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("[foo][bar][baz]\n\n[baz]: /url1\n[foo]: /url2", 
+                "<p>[foo]<a href=\"/url1\">bar</a></p>", 
+                "commonmark");
         }
     }
 
@@ -9992,7 +11076,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     {
         
         [Fact]
-        public void Images_Spec543_CommonMark()
+        public void Images_Spec543_commonmark()
         {
             // The following Markdown:
             //     ![foo](/url "title")
@@ -10000,11 +11084,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="foo" title="title" /></p>
 
-            SpecTestHelper.AssertCompliance("![foo](/url \"title\")", "<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![foo](/url \"title\")", 
+                "<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Images_Spec544_CommonMark()
+        public void Images_Spec544_commonmark()
         {
             // The following Markdown:
             //     ![foo *bar*]
@@ -10014,11 +11100,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="train.jpg" alt="foo bar" title="train &amp; tracks" /></p>
 
-            SpecTestHelper.AssertCompliance("![foo *bar*]\n\n[foo *bar*]: train.jpg \"train & tracks\"", "<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![foo *bar*]\n\n[foo *bar*]: train.jpg \"train & tracks\"", 
+                "<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Images_Spec545_CommonMark()
+        public void Images_Spec545_commonmark()
         {
             // The following Markdown:
             //     ![foo ![bar](/url)](/url2)
@@ -10026,11 +11114,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url2" alt="foo bar" /></p>
 
-            SpecTestHelper.AssertCompliance("![foo ![bar](/url)](/url2)", "<p><img src=\"/url2\" alt=\"foo bar\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![foo ![bar](/url)](/url2)", 
+                "<p><img src=\"/url2\" alt=\"foo bar\" /></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Images_Spec546_CommonMark()
+        public void Images_Spec546_commonmark()
         {
             // The following Markdown:
             //     ![foo [bar](/url)](/url2)
@@ -10038,7 +11128,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url2" alt="foo bar" /></p>
 
-            SpecTestHelper.AssertCompliance("![foo [bar](/url)](/url2)", "<p><img src=\"/url2\" alt=\"foo bar\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![foo [bar](/url)](/url2)", 
+                "<p><img src=\"/url2\" alt=\"foo bar\" /></p>", 
+                "commonmark");
         }
 
         // Though this spec is concerned with parsing, not rendering, it is
@@ -10048,7 +11140,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // [bar](/url)` or `foo <a href="/url">bar</a>`.  Only the plain string
         // content is rendered, without formatting.        
         [Fact]
-        public void Images_Spec547_CommonMark()
+        public void Images_Spec547_commonmark()
         {
             // The following Markdown:
             //     ![foo *bar*][]
@@ -10058,11 +11150,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="train.jpg" alt="foo bar" title="train &amp; tracks" /></p>
 
-            SpecTestHelper.AssertCompliance("![foo *bar*][]\n\n[foo *bar*]: train.jpg \"train & tracks\"", "<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![foo *bar*][]\n\n[foo *bar*]: train.jpg \"train & tracks\"", 
+                "<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Images_Spec548_CommonMark()
+        public void Images_Spec548_commonmark()
         {
             // The following Markdown:
             //     ![foo *bar*][foobar]
@@ -10072,11 +11166,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="train.jpg" alt="foo bar" title="train &amp; tracks" /></p>
 
-            SpecTestHelper.AssertCompliance("![foo *bar*][foobar]\n\n[FOOBAR]: train.jpg \"train & tracks\"", "<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![foo *bar*][foobar]\n\n[FOOBAR]: train.jpg \"train & tracks\"", 
+                "<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Images_Spec549_CommonMark()
+        public void Images_Spec549_commonmark()
         {
             // The following Markdown:
             //     ![foo](train.jpg)
@@ -10084,11 +11180,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="train.jpg" alt="foo" /></p>
 
-            SpecTestHelper.AssertCompliance("![foo](train.jpg)", "<p><img src=\"train.jpg\" alt=\"foo\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![foo](train.jpg)", 
+                "<p><img src=\"train.jpg\" alt=\"foo\" /></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Images_Spec550_CommonMark()
+        public void Images_Spec550_commonmark()
         {
             // The following Markdown:
             //     My ![foo bar](/path/to/train.jpg  "title"   )
@@ -10096,11 +11194,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>My <img src="/path/to/train.jpg" alt="foo bar" title="title" /></p>
 
-            SpecTestHelper.AssertCompliance("My ![foo bar](/path/to/train.jpg  \"title\"   )", "<p>My <img src=\"/path/to/train.jpg\" alt=\"foo bar\" title=\"title\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("My ![foo bar](/path/to/train.jpg  \"title\"   )", 
+                "<p>My <img src=\"/path/to/train.jpg\" alt=\"foo bar\" title=\"title\" /></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Images_Spec551_CommonMark()
+        public void Images_Spec551_commonmark()
         {
             // The following Markdown:
             //     ![foo](<url>)
@@ -10108,11 +11208,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="url" alt="foo" /></p>
 
-            SpecTestHelper.AssertCompliance("![foo](<url>)", "<p><img src=\"url\" alt=\"foo\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![foo](<url>)", 
+                "<p><img src=\"url\" alt=\"foo\" /></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Images_Spec552_CommonMark()
+        public void Images_Spec552_commonmark()
         {
             // The following Markdown:
             //     ![](/url)
@@ -10120,12 +11222,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="" /></p>
 
-            SpecTestHelper.AssertCompliance("![](/url)", "<p><img src=\"/url\" alt=\"\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![](/url)", 
+                "<p><img src=\"/url\" alt=\"\" /></p>", 
+                "commonmark");
         }
 
         // Reference-style:        
         [Fact]
-        public void Images_Spec553_CommonMark()
+        public void Images_Spec553_commonmark()
         {
             // The following Markdown:
             //     ![foo][bar]
@@ -10135,11 +11239,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="foo" /></p>
 
-            SpecTestHelper.AssertCompliance("![foo][bar]\n\n[bar]: /url", "<p><img src=\"/url\" alt=\"foo\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![foo][bar]\n\n[bar]: /url", 
+                "<p><img src=\"/url\" alt=\"foo\" /></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Images_Spec554_CommonMark()
+        public void Images_Spec554_commonmark()
         {
             // The following Markdown:
             //     ![foo][bar]
@@ -10149,12 +11255,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="foo" /></p>
 
-            SpecTestHelper.AssertCompliance("![foo][bar]\n\n[BAR]: /url", "<p><img src=\"/url\" alt=\"foo\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![foo][bar]\n\n[BAR]: /url", 
+                "<p><img src=\"/url\" alt=\"foo\" /></p>", 
+                "commonmark");
         }
 
         // Collapsed:        
         [Fact]
-        public void Images_Spec555_CommonMark()
+        public void Images_Spec555_commonmark()
         {
             // The following Markdown:
             //     ![foo][]
@@ -10164,11 +11272,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="foo" title="title" /></p>
 
-            SpecTestHelper.AssertCompliance("![foo][]\n\n[foo]: /url \"title\"", "<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![foo][]\n\n[foo]: /url \"title\"", 
+                "<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Images_Spec556_CommonMark()
+        public void Images_Spec556_commonmark()
         {
             // The following Markdown:
             //     ![*foo* bar][]
@@ -10178,12 +11288,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="foo bar" title="title" /></p>
 
-            SpecTestHelper.AssertCompliance("![*foo* bar][]\n\n[*foo* bar]: /url \"title\"", "<p><img src=\"/url\" alt=\"foo bar\" title=\"title\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![*foo* bar][]\n\n[*foo* bar]: /url \"title\"", 
+                "<p><img src=\"/url\" alt=\"foo bar\" title=\"title\" /></p>", 
+                "commonmark");
         }
 
         // The labels are case-insensitive:        
         [Fact]
-        public void Images_Spec557_CommonMark()
+        public void Images_Spec557_commonmark()
         {
             // The following Markdown:
             //     ![Foo][]
@@ -10193,13 +11305,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="Foo" title="title" /></p>
 
-            SpecTestHelper.AssertCompliance("![Foo][]\n\n[foo]: /url \"title\"", "<p><img src=\"/url\" alt=\"Foo\" title=\"title\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![Foo][]\n\n[foo]: /url \"title\"", 
+                "<p><img src=\"/url\" alt=\"Foo\" title=\"title\" /></p>", 
+                "commonmark");
         }
 
         // As with reference links, [whitespace] is not allowed
         // between the two sets of brackets:        
         [Fact]
-        public void Images_Spec558_CommonMark()
+        public void Images_Spec558_commonmark()
         {
             // The following Markdown:
             //     ![foo] 
@@ -10211,12 +11325,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><img src="/url" alt="foo" title="title" />
             //     []</p>
 
-            SpecTestHelper.AssertCompliance("![foo] \n[]\n\n[foo]: /url \"title\"", "<p><img src=\"/url\" alt=\"foo\" title=\"title\" />\n[]</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![foo] \n[]\n\n[foo]: /url \"title\"", 
+                "<p><img src=\"/url\" alt=\"foo\" title=\"title\" />\n[]</p>", 
+                "commonmark");
         }
 
         // Shortcut:        
         [Fact]
-        public void Images_Spec559_CommonMark()
+        public void Images_Spec559_commonmark()
         {
             // The following Markdown:
             //     ![foo]
@@ -10226,11 +11342,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="foo" title="title" /></p>
 
-            SpecTestHelper.AssertCompliance("![foo]\n\n[foo]: /url \"title\"", "<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![foo]\n\n[foo]: /url \"title\"", 
+                "<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Images_Spec560_CommonMark()
+        public void Images_Spec560_commonmark()
         {
             // The following Markdown:
             //     ![*foo* bar]
@@ -10240,12 +11358,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="foo bar" title="title" /></p>
 
-            SpecTestHelper.AssertCompliance("![*foo* bar]\n\n[*foo* bar]: /url \"title\"", "<p><img src=\"/url\" alt=\"foo bar\" title=\"title\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![*foo* bar]\n\n[*foo* bar]: /url \"title\"", 
+                "<p><img src=\"/url\" alt=\"foo bar\" title=\"title\" /></p>", 
+                "commonmark");
         }
 
         // Note that link labels cannot contain unescaped brackets:        
         [Fact]
-        public void Images_Spec561_CommonMark()
+        public void Images_Spec561_commonmark()
         {
             // The following Markdown:
             //     ![[foo]]
@@ -10256,12 +11376,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>![[foo]]</p>
             //     <p>[[foo]]: /url &quot;title&quot;</p>
 
-            SpecTestHelper.AssertCompliance("![[foo]]\n\n[[foo]]: /url \"title\"", "<p>![[foo]]</p>\n<p>[[foo]]: /url &quot;title&quot;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![[foo]]\n\n[[foo]]: /url \"title\"", 
+                "<p>![[foo]]</p>\n<p>[[foo]]: /url &quot;title&quot;</p>", 
+                "commonmark");
         }
 
         // The link labels are case-insensitive:        
         [Fact]
-        public void Images_Spec562_CommonMark()
+        public void Images_Spec562_commonmark()
         {
             // The following Markdown:
             //     ![Foo]
@@ -10271,13 +11393,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><img src="/url" alt="Foo" title="title" /></p>
 
-            SpecTestHelper.AssertCompliance("![Foo]\n\n[foo]: /url \"title\"", "<p><img src=\"/url\" alt=\"Foo\" title=\"title\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("![Foo]\n\n[foo]: /url \"title\"", 
+                "<p><img src=\"/url\" alt=\"Foo\" title=\"title\" /></p>", 
+                "commonmark");
         }
 
         // If you just want a literal `!` followed by bracketed text, you can
         // backslash-escape the opening `[`:        
         [Fact]
-        public void Images_Spec563_CommonMark()
+        public void Images_Spec563_commonmark()
         {
             // The following Markdown:
             //     !\[foo]
@@ -10287,13 +11411,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>![foo]</p>
 
-            SpecTestHelper.AssertCompliance("!\\[foo]\n\n[foo]: /url \"title\"", "<p>![foo]</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("!\\[foo]\n\n[foo]: /url \"title\"", 
+                "<p>![foo]</p>", 
+                "commonmark");
         }
 
         // If you want a link after a literal `!`, backslash-escape the
         // `!`:        
         [Fact]
-        public void Images_Spec564_CommonMark()
+        public void Images_Spec564_commonmark()
         {
             // The following Markdown:
             //     \![foo]
@@ -10303,7 +11429,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>!<a href="/url" title="title">foo</a></p>
 
-            SpecTestHelper.AssertCompliance("\\![foo]\n\n[foo]: /url \"title\"", "<p>!<a href=\"/url\" title=\"title\">foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("\\![foo]\n\n[foo]: /url \"title\"", 
+                "<p>!<a href=\"/url\" title=\"title\">foo</a></p>", 
+                "commonmark");
         }
     }
 
@@ -10331,7 +11459,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Here are some valid autolinks:        
         [Fact]
-        public void Autolinks_Spec565_CommonMark()
+        public void Autolinks_Spec565_commonmark()
         {
             // The following Markdown:
             //     <http://foo.bar.baz>
@@ -10339,11 +11467,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="http://foo.bar.baz">http://foo.bar.baz</a></p>
 
-            SpecTestHelper.AssertCompliance("<http://foo.bar.baz>", "<p><a href=\"http://foo.bar.baz\">http://foo.bar.baz</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<http://foo.bar.baz>", 
+                "<p><a href=\"http://foo.bar.baz\">http://foo.bar.baz</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Autolinks_Spec566_CommonMark()
+        public void Autolinks_Spec566_commonmark()
         {
             // The following Markdown:
             //     <http://foo.bar.baz/test?q=hello&id=22&boolean>
@@ -10351,11 +11481,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean">http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean</a></p>
 
-            SpecTestHelper.AssertCompliance("<http://foo.bar.baz/test?q=hello&id=22&boolean>", "<p><a href=\"http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean\">http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<http://foo.bar.baz/test?q=hello&id=22&boolean>", 
+                "<p><a href=\"http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean\">http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Autolinks_Spec567_CommonMark()
+        public void Autolinks_Spec567_commonmark()
         {
             // The following Markdown:
             //     <irc://foo.bar:2233/baz>
@@ -10363,12 +11495,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="irc://foo.bar:2233/baz">irc://foo.bar:2233/baz</a></p>
 
-            SpecTestHelper.AssertCompliance("<irc://foo.bar:2233/baz>", "<p><a href=\"irc://foo.bar:2233/baz\">irc://foo.bar:2233/baz</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<irc://foo.bar:2233/baz>", 
+                "<p><a href=\"irc://foo.bar:2233/baz\">irc://foo.bar:2233/baz</a></p>", 
+                "commonmark");
         }
 
         // Uppercase is also fine:        
         [Fact]
-        public void Autolinks_Spec568_CommonMark()
+        public void Autolinks_Spec568_commonmark()
         {
             // The following Markdown:
             //     <MAILTO:FOO@BAR.BAZ>
@@ -10376,7 +11510,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="MAILTO:FOO@BAR.BAZ">MAILTO:FOO@BAR.BAZ</a></p>
 
-            SpecTestHelper.AssertCompliance("<MAILTO:FOO@BAR.BAZ>", "<p><a href=\"MAILTO:FOO@BAR.BAZ\">MAILTO:FOO@BAR.BAZ</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<MAILTO:FOO@BAR.BAZ>", 
+                "<p><a href=\"MAILTO:FOO@BAR.BAZ\">MAILTO:FOO@BAR.BAZ</a></p>", 
+                "commonmark");
         }
 
         // Note that many strings that count as [absolute URIs] for
@@ -10384,7 +11520,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // schemes are not registered or because of other problems
         // with their syntax:        
         [Fact]
-        public void Autolinks_Spec569_CommonMark()
+        public void Autolinks_Spec569_commonmark()
         {
             // The following Markdown:
             //     <a+b+c:d>
@@ -10392,11 +11528,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="a+b+c:d">a+b+c:d</a></p>
 
-            SpecTestHelper.AssertCompliance("<a+b+c:d>", "<p><a href=\"a+b+c:d\">a+b+c:d</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<a+b+c:d>", 
+                "<p><a href=\"a+b+c:d\">a+b+c:d</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Autolinks_Spec570_CommonMark()
+        public void Autolinks_Spec570_commonmark()
         {
             // The following Markdown:
             //     <made-up-scheme://foo,bar>
@@ -10404,11 +11542,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="made-up-scheme://foo,bar">made-up-scheme://foo,bar</a></p>
 
-            SpecTestHelper.AssertCompliance("<made-up-scheme://foo,bar>", "<p><a href=\"made-up-scheme://foo,bar\">made-up-scheme://foo,bar</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<made-up-scheme://foo,bar>", 
+                "<p><a href=\"made-up-scheme://foo,bar\">made-up-scheme://foo,bar</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Autolinks_Spec571_CommonMark()
+        public void Autolinks_Spec571_commonmark()
         {
             // The following Markdown:
             //     <http://../>
@@ -10416,11 +11556,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="http://../">http://../</a></p>
 
-            SpecTestHelper.AssertCompliance("<http://../>", "<p><a href=\"http://../\">http://../</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<http://../>", 
+                "<p><a href=\"http://../\">http://../</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Autolinks_Spec572_CommonMark()
+        public void Autolinks_Spec572_commonmark()
         {
             // The following Markdown:
             //     <localhost:5001/foo>
@@ -10428,12 +11570,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="localhost:5001/foo">localhost:5001/foo</a></p>
 
-            SpecTestHelper.AssertCompliance("<localhost:5001/foo>", "<p><a href=\"localhost:5001/foo\">localhost:5001/foo</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<localhost:5001/foo>", 
+                "<p><a href=\"localhost:5001/foo\">localhost:5001/foo</a></p>", 
+                "commonmark");
         }
 
         // Spaces are not allowed in autolinks:        
         [Fact]
-        public void Autolinks_Spec573_CommonMark()
+        public void Autolinks_Spec573_commonmark()
         {
             // The following Markdown:
             //     <http://foo.bar/baz bim>
@@ -10441,12 +11585,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;http://foo.bar/baz bim&gt;</p>
 
-            SpecTestHelper.AssertCompliance("<http://foo.bar/baz bim>", "<p>&lt;http://foo.bar/baz bim&gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<http://foo.bar/baz bim>", 
+                "<p>&lt;http://foo.bar/baz bim&gt;</p>", 
+                "commonmark");
         }
 
         // Backslash-escapes do not work inside autolinks:        
         [Fact]
-        public void Autolinks_Spec574_CommonMark()
+        public void Autolinks_Spec574_commonmark()
         {
             // The following Markdown:
             //     <http://example.com/\[\>
@@ -10454,7 +11600,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="http://example.com/%5C%5B%5C">http://example.com/\[\</a></p>
 
-            SpecTestHelper.AssertCompliance("<http://example.com/\\[\\>", "<p><a href=\"http://example.com/%5C%5B%5C\">http://example.com/\\[\\</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<http://example.com/\\[\\>", 
+                "<p><a href=\"http://example.com/%5C%5B%5C\">http://example.com/\\[\\</a></p>", 
+                "commonmark");
         }
 
         // An [email autolink](@)
@@ -10472,7 +11620,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // 
         // Examples of email autolinks:        
         [Fact]
-        public void Autolinks_Spec575_CommonMark()
+        public void Autolinks_Spec575_commonmark()
         {
             // The following Markdown:
             //     <foo@bar.example.com>
@@ -10480,11 +11628,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="mailto:foo@bar.example.com">foo@bar.example.com</a></p>
 
-            SpecTestHelper.AssertCompliance("<foo@bar.example.com>", "<p><a href=\"mailto:foo@bar.example.com\">foo@bar.example.com</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<foo@bar.example.com>", 
+                "<p><a href=\"mailto:foo@bar.example.com\">foo@bar.example.com</a></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Autolinks_Spec576_CommonMark()
+        public void Autolinks_Spec576_commonmark()
         {
             // The following Markdown:
             //     <foo+special@Bar.baz-bar0.com>
@@ -10492,12 +11642,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a href="mailto:foo+special@Bar.baz-bar0.com">foo+special@Bar.baz-bar0.com</a></p>
 
-            SpecTestHelper.AssertCompliance("<foo+special@Bar.baz-bar0.com>", "<p><a href=\"mailto:foo+special@Bar.baz-bar0.com\">foo+special@Bar.baz-bar0.com</a></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<foo+special@Bar.baz-bar0.com>", 
+                "<p><a href=\"mailto:foo+special@Bar.baz-bar0.com\">foo+special@Bar.baz-bar0.com</a></p>", 
+                "commonmark");
         }
 
         // Backslash-escapes do not work inside email autolinks:        
         [Fact]
-        public void Autolinks_Spec577_CommonMark()
+        public void Autolinks_Spec577_commonmark()
         {
             // The following Markdown:
             //     <foo\+@bar.example.com>
@@ -10505,12 +11657,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;foo+@bar.example.com&gt;</p>
 
-            SpecTestHelper.AssertCompliance("<foo\\+@bar.example.com>", "<p>&lt;foo+@bar.example.com&gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<foo\\+@bar.example.com>", 
+                "<p>&lt;foo+@bar.example.com&gt;</p>", 
+                "commonmark");
         }
 
         // These are not autolinks:        
         [Fact]
-        public void Autolinks_Spec578_CommonMark()
+        public void Autolinks_Spec578_commonmark()
         {
             // The following Markdown:
             //     <>
@@ -10518,11 +11672,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;&gt;</p>
 
-            SpecTestHelper.AssertCompliance("<>", "<p>&lt;&gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<>", 
+                "<p>&lt;&gt;</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Autolinks_Spec579_CommonMark()
+        public void Autolinks_Spec579_commonmark()
         {
             // The following Markdown:
             //     < http://foo.bar >
@@ -10530,11 +11686,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt; http://foo.bar &gt;</p>
 
-            SpecTestHelper.AssertCompliance("< http://foo.bar >", "<p>&lt; http://foo.bar &gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("< http://foo.bar >", 
+                "<p>&lt; http://foo.bar &gt;</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Autolinks_Spec580_CommonMark()
+        public void Autolinks_Spec580_commonmark()
         {
             // The following Markdown:
             //     <m:abc>
@@ -10542,11 +11700,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;m:abc&gt;</p>
 
-            SpecTestHelper.AssertCompliance("<m:abc>", "<p>&lt;m:abc&gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<m:abc>", 
+                "<p>&lt;m:abc&gt;</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Autolinks_Spec581_CommonMark()
+        public void Autolinks_Spec581_commonmark()
         {
             // The following Markdown:
             //     <foo.bar.baz>
@@ -10554,11 +11714,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;foo.bar.baz&gt;</p>
 
-            SpecTestHelper.AssertCompliance("<foo.bar.baz>", "<p>&lt;foo.bar.baz&gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<foo.bar.baz>", 
+                "<p>&lt;foo.bar.baz&gt;</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Autolinks_Spec582_CommonMark()
+        public void Autolinks_Spec582_commonmark()
         {
             // The following Markdown:
             //     http://example.com
@@ -10566,11 +11728,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>http://example.com</p>
 
-            SpecTestHelper.AssertCompliance("http://example.com", "<p>http://example.com</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("http://example.com", 
+                "<p>http://example.com</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void Autolinks_Spec583_CommonMark()
+        public void Autolinks_Spec583_commonmark()
         {
             // The following Markdown:
             //     foo@bar.example.com
@@ -10578,7 +11742,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo@bar.example.com</p>
 
-            SpecTestHelper.AssertCompliance("foo@bar.example.com", "<p>foo@bar.example.com</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo@bar.example.com", 
+                "<p>foo@bar.example.com</p>", 
+                "commonmark");
         }
     }
 
@@ -10657,7 +11823,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Here are some simple open tags:        
         [Fact]
-        public void RawHTML_Spec584_CommonMark()
+        public void RawHTML_Spec584_commonmark()
         {
             // The following Markdown:
             //     <a><bab><c2c>
@@ -10665,12 +11831,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a><bab><c2c></p>
 
-            SpecTestHelper.AssertCompliance("<a><bab><c2c>", "<p><a><bab><c2c></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<a><bab><c2c>", 
+                "<p><a><bab><c2c></p>", 
+                "commonmark");
         }
 
         // Empty elements:        
         [Fact]
-        public void RawHTML_Spec585_CommonMark()
+        public void RawHTML_Spec585_commonmark()
         {
             // The following Markdown:
             //     <a/><b2/>
@@ -10678,12 +11846,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><a/><b2/></p>
 
-            SpecTestHelper.AssertCompliance("<a/><b2/>", "<p><a/><b2/></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<a/><b2/>", 
+                "<p><a/><b2/></p>", 
+                "commonmark");
         }
 
         // [Whitespace] is allowed:        
         [Fact]
-        public void RawHTML_Spec586_CommonMark()
+        public void RawHTML_Spec586_commonmark()
         {
             // The following Markdown:
             //     <a  /><b2
@@ -10693,12 +11863,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><a  /><b2
             //     data="foo" ></p>
 
-            SpecTestHelper.AssertCompliance("<a  /><b2\ndata=\"foo\" >", "<p><a  /><b2\ndata=\"foo\" ></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<a  /><b2\ndata=\"foo\" >", 
+                "<p><a  /><b2\ndata=\"foo\" ></p>", 
+                "commonmark");
         }
 
         // With attributes:        
         [Fact]
-        public void RawHTML_Spec587_CommonMark()
+        public void RawHTML_Spec587_commonmark()
         {
             // The following Markdown:
             //     <a foo="bar" bam = 'baz <em>"</em>'
@@ -10708,12 +11880,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><a foo="bar" bam = 'baz <em>"</em>'
             //     _boolean zoop:33=zoop:33 /></p>
 
-            SpecTestHelper.AssertCompliance("<a foo=\"bar\" bam = 'baz <em>\"</em>'\n_boolean zoop:33=zoop:33 />", "<p><a foo=\"bar\" bam = 'baz <em>\"</em>'\n_boolean zoop:33=zoop:33 /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<a foo=\"bar\" bam = 'baz <em>\"</em>'\n_boolean zoop:33=zoop:33 />", 
+                "<p><a foo=\"bar\" bam = 'baz <em>\"</em>'\n_boolean zoop:33=zoop:33 /></p>", 
+                "commonmark");
         }
 
         // Custom tag names can be used:        
         [Fact]
-        public void RawHTML_Spec588_CommonMark()
+        public void RawHTML_Spec588_commonmark()
         {
             // The following Markdown:
             //     Foo <responsive-image src="foo.jpg" />
@@ -10721,12 +11895,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>Foo <responsive-image src="foo.jpg" /></p>
 
-            SpecTestHelper.AssertCompliance("Foo <responsive-image src=\"foo.jpg\" />", "<p>Foo <responsive-image src=\"foo.jpg\" /></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo <responsive-image src=\"foo.jpg\" />", 
+                "<p>Foo <responsive-image src=\"foo.jpg\" /></p>", 
+                "commonmark");
         }
 
         // Illegal tag names, not parsed as HTML:        
         [Fact]
-        public void RawHTML_Spec589_CommonMark()
+        public void RawHTML_Spec589_commonmark()
         {
             // The following Markdown:
             //     <33> <__>
@@ -10734,12 +11910,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;33&gt; &lt;__&gt;</p>
 
-            SpecTestHelper.AssertCompliance("<33> <__>", "<p>&lt;33&gt; &lt;__&gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<33> <__>", 
+                "<p>&lt;33&gt; &lt;__&gt;</p>", 
+                "commonmark");
         }
 
         // Illegal attribute names:        
         [Fact]
-        public void RawHTML_Spec590_CommonMark()
+        public void RawHTML_Spec590_commonmark()
         {
             // The following Markdown:
             //     <a h*#ref="hi">
@@ -10747,12 +11925,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;a h*#ref=&quot;hi&quot;&gt;</p>
 
-            SpecTestHelper.AssertCompliance("<a h*#ref=\"hi\">", "<p>&lt;a h*#ref=&quot;hi&quot;&gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<a h*#ref=\"hi\">", 
+                "<p>&lt;a h*#ref=&quot;hi&quot;&gt;</p>", 
+                "commonmark");
         }
 
         // Illegal attribute values:        
         [Fact]
-        public void RawHTML_Spec591_CommonMark()
+        public void RawHTML_Spec591_commonmark()
         {
             // The following Markdown:
             //     <a href="hi'> <a href=hi'>
@@ -10760,12 +11940,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;a href=&quot;hi'&gt; &lt;a href=hi'&gt;</p>
 
-            SpecTestHelper.AssertCompliance("<a href=\"hi'> <a href=hi'>", "<p>&lt;a href=&quot;hi'&gt; &lt;a href=hi'&gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<a href=\"hi'> <a href=hi'>", 
+                "<p>&lt;a href=&quot;hi'&gt; &lt;a href=hi'&gt;</p>", 
+                "commonmark");
         }
 
         // Illegal [whitespace]:        
         [Fact]
-        public void RawHTML_Spec592_CommonMark()
+        public void RawHTML_Spec592_commonmark()
         {
             // The following Markdown:
             //     < a><
@@ -10775,12 +11957,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>&lt; a&gt;&lt;
             //     foo&gt;&lt;bar/ &gt;</p>
 
-            SpecTestHelper.AssertCompliance("< a><\nfoo><bar/ >", "<p>&lt; a&gt;&lt;\nfoo&gt;&lt;bar/ &gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("< a><\nfoo><bar/ >", 
+                "<p>&lt; a&gt;&lt;\nfoo&gt;&lt;bar/ &gt;</p>", 
+                "commonmark");
         }
 
         // Missing [whitespace]:        
         [Fact]
-        public void RawHTML_Spec593_CommonMark()
+        public void RawHTML_Spec593_commonmark()
         {
             // The following Markdown:
             //     <a href='bar'title=title>
@@ -10788,12 +11972,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;a href='bar'title=title&gt;</p>
 
-            SpecTestHelper.AssertCompliance("<a href='bar'title=title>", "<p>&lt;a href='bar'title=title&gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<a href='bar'title=title>", 
+                "<p>&lt;a href='bar'title=title&gt;</p>", 
+                "commonmark");
         }
 
         // Closing tags:        
         [Fact]
-        public void RawHTML_Spec594_CommonMark()
+        public void RawHTML_Spec594_commonmark()
         {
             // The following Markdown:
             //     </a></foo >
@@ -10801,12 +11987,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p></a></foo ></p>
 
-            SpecTestHelper.AssertCompliance("</a></foo >", "<p></a></foo ></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("</a></foo >", 
+                "<p></a></foo ></p>", 
+                "commonmark");
         }
 
         // Illegal attributes in closing tag:        
         [Fact]
-        public void RawHTML_Spec595_CommonMark()
+        public void RawHTML_Spec595_commonmark()
         {
             // The following Markdown:
             //     </a href="foo">
@@ -10814,12 +12002,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;/a href=&quot;foo&quot;&gt;</p>
 
-            SpecTestHelper.AssertCompliance("</a href=\"foo\">", "<p>&lt;/a href=&quot;foo&quot;&gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("</a href=\"foo\">", 
+                "<p>&lt;/a href=&quot;foo&quot;&gt;</p>", 
+                "commonmark");
         }
 
         // Comments:        
         [Fact]
-        public void RawHTML_Spec596_CommonMark()
+        public void RawHTML_Spec596_commonmark()
         {
             // The following Markdown:
             //     foo <!-- this is a
@@ -10829,11 +12019,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo <!-- this is a
             //     comment - with hyphen --></p>
 
-            SpecTestHelper.AssertCompliance("foo <!-- this is a\ncomment - with hyphen -->", "<p>foo <!-- this is a\ncomment - with hyphen --></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo <!-- this is a\ncomment - with hyphen -->", 
+                "<p>foo <!-- this is a\ncomment - with hyphen --></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void RawHTML_Spec597_CommonMark()
+        public void RawHTML_Spec597_commonmark()
         {
             // The following Markdown:
             //     foo <!-- not a comment -- two hyphens -->
@@ -10841,12 +12033,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo &lt;!-- not a comment -- two hyphens --&gt;</p>
 
-            SpecTestHelper.AssertCompliance("foo <!-- not a comment -- two hyphens -->", "<p>foo &lt;!-- not a comment -- two hyphens --&gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo <!-- not a comment -- two hyphens -->", 
+                "<p>foo &lt;!-- not a comment -- two hyphens --&gt;</p>", 
+                "commonmark");
         }
 
         // Not comments:        
         [Fact]
-        public void RawHTML_Spec598_CommonMark()
+        public void RawHTML_Spec598_commonmark()
         {
             // The following Markdown:
             //     foo <!--> foo -->
@@ -10857,12 +12051,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo &lt;!--&gt; foo --&gt;</p>
             //     <p>foo &lt;!-- foo---&gt;</p>
 
-            SpecTestHelper.AssertCompliance("foo <!--> foo -->\n\nfoo <!-- foo--->", "<p>foo &lt;!--&gt; foo --&gt;</p>\n<p>foo &lt;!-- foo---&gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo <!--> foo -->\n\nfoo <!-- foo--->", 
+                "<p>foo &lt;!--&gt; foo --&gt;</p>\n<p>foo &lt;!-- foo---&gt;</p>", 
+                "commonmark");
         }
 
         // Processing instructions:        
         [Fact]
-        public void RawHTML_Spec599_CommonMark()
+        public void RawHTML_Spec599_commonmark()
         {
             // The following Markdown:
             //     foo <?php echo $a; ?>
@@ -10870,12 +12066,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <?php echo $a; ?></p>
 
-            SpecTestHelper.AssertCompliance("foo <?php echo $a; ?>", "<p>foo <?php echo $a; ?></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo <?php echo $a; ?>", 
+                "<p>foo <?php echo $a; ?></p>", 
+                "commonmark");
         }
 
         // Declarations:        
         [Fact]
-        public void RawHTML_Spec600_CommonMark()
+        public void RawHTML_Spec600_commonmark()
         {
             // The following Markdown:
             //     foo <!ELEMENT br EMPTY>
@@ -10883,12 +12081,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <!ELEMENT br EMPTY></p>
 
-            SpecTestHelper.AssertCompliance("foo <!ELEMENT br EMPTY>", "<p>foo <!ELEMENT br EMPTY></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo <!ELEMENT br EMPTY>", 
+                "<p>foo <!ELEMENT br EMPTY></p>", 
+                "commonmark");
         }
 
         // CDATA sections:        
         [Fact]
-        public void RawHTML_Spec601_CommonMark()
+        public void RawHTML_Spec601_commonmark()
         {
             // The following Markdown:
             //     foo <![CDATA[>&<]]>
@@ -10896,13 +12096,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <![CDATA[>&<]]></p>
 
-            SpecTestHelper.AssertCompliance("foo <![CDATA[>&<]]>", "<p>foo <![CDATA[>&<]]></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo <![CDATA[>&<]]>", 
+                "<p>foo <![CDATA[>&<]]></p>", 
+                "commonmark");
         }
 
         // Entity and numeric character references are preserved in HTML
         // attributes:        
         [Fact]
-        public void RawHTML_Spec602_CommonMark()
+        public void RawHTML_Spec602_commonmark()
         {
             // The following Markdown:
             //     foo <a href="&ouml;">
@@ -10910,12 +12112,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <a href="&ouml;"></p>
 
-            SpecTestHelper.AssertCompliance("foo <a href=\"&ouml;\">", "<p>foo <a href=\"&ouml;\"></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo <a href=\"&ouml;\">", 
+                "<p>foo <a href=\"&ouml;\"></p>", 
+                "commonmark");
         }
 
         // Backslash escapes do not work in HTML attributes:        
         [Fact]
-        public void RawHTML_Spec603_CommonMark()
+        public void RawHTML_Spec603_commonmark()
         {
             // The following Markdown:
             //     foo <a href="\*">
@@ -10923,11 +12127,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo <a href="\*"></p>
 
-            SpecTestHelper.AssertCompliance("foo <a href=\"\\*\">", "<p>foo <a href=\"\\*\"></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo <a href=\"\\*\">", 
+                "<p>foo <a href=\"\\*\"></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void RawHTML_Spec604_CommonMark()
+        public void RawHTML_Spec604_commonmark()
         {
             // The following Markdown:
             //     <a href="\"">
@@ -10935,7 +12141,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>&lt;a href=&quot;&quot;&quot;&gt;</p>
 
-            SpecTestHelper.AssertCompliance("<a href=\"\\\"\">", "<p>&lt;a href=&quot;&quot;&quot;&gt;</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<a href=\"\\\"\">", 
+                "<p>&lt;a href=&quot;&quot;&quot;&gt;</p>", 
+                "commonmark");
         }
     }
 
@@ -10947,7 +12155,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     {
         
         [Fact]
-        public void HardLineBreaks_Spec605_CommonMark()
+        public void HardLineBreaks_Spec605_commonmark()
         {
             // The following Markdown:
             //     foo  
@@ -10957,13 +12165,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo<br />
             //     baz</p>
 
-            SpecTestHelper.AssertCompliance("foo  \nbaz", "<p>foo<br />\nbaz</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo  \nbaz", 
+                "<p>foo<br />\nbaz</p>", 
+                "commonmark");
         }
 
         // For a more visible alternative, a backslash before the
         // [line ending] may be used instead of two spaces:        
         [Fact]
-        public void HardLineBreaks_Spec606_CommonMark()
+        public void HardLineBreaks_Spec606_commonmark()
         {
             // The following Markdown:
             //     foo\
@@ -10973,12 +12183,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo<br />
             //     baz</p>
 
-            SpecTestHelper.AssertCompliance("foo\\\nbaz", "<p>foo<br />\nbaz</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo\\\nbaz", 
+                "<p>foo<br />\nbaz</p>", 
+                "commonmark");
         }
 
         // More than two spaces can be used:        
         [Fact]
-        public void HardLineBreaks_Spec607_CommonMark()
+        public void HardLineBreaks_Spec607_commonmark()
         {
             // The following Markdown:
             //     foo       
@@ -10988,12 +12200,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo<br />
             //     baz</p>
 
-            SpecTestHelper.AssertCompliance("foo       \nbaz", "<p>foo<br />\nbaz</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo       \nbaz", 
+                "<p>foo<br />\nbaz</p>", 
+                "commonmark");
         }
 
         // Leading spaces at the beginning of the next line are ignored:        
         [Fact]
-        public void HardLineBreaks_Spec608_CommonMark()
+        public void HardLineBreaks_Spec608_commonmark()
         {
             // The following Markdown:
             //     foo  
@@ -11003,11 +12217,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo<br />
             //     bar</p>
 
-            SpecTestHelper.AssertCompliance("foo  \n     bar", "<p>foo<br />\nbar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo  \n     bar", 
+                "<p>foo<br />\nbar</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HardLineBreaks_Spec609_CommonMark()
+        public void HardLineBreaks_Spec609_commonmark()
         {
             // The following Markdown:
             //     foo\
@@ -11017,13 +12233,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo<br />
             //     bar</p>
 
-            SpecTestHelper.AssertCompliance("foo\\\n     bar", "<p>foo<br />\nbar</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo\\\n     bar", 
+                "<p>foo<br />\nbar</p>", 
+                "commonmark");
         }
 
         // Line breaks can occur inside emphasis, links, and other constructs
         // that allow inline content:        
         [Fact]
-        public void HardLineBreaks_Spec610_CommonMark()
+        public void HardLineBreaks_Spec610_commonmark()
         {
             // The following Markdown:
             //     *foo  
@@ -11033,11 +12251,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><em>foo<br />
             //     bar</em></p>
 
-            SpecTestHelper.AssertCompliance("*foo  \nbar*", "<p><em>foo<br />\nbar</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo  \nbar*", 
+                "<p><em>foo<br />\nbar</em></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HardLineBreaks_Spec611_CommonMark()
+        public void HardLineBreaks_Spec611_commonmark()
         {
             // The following Markdown:
             //     *foo\
@@ -11047,12 +12267,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><em>foo<br />
             //     bar</em></p>
 
-            SpecTestHelper.AssertCompliance("*foo\\\nbar*", "<p><em>foo<br />\nbar</em></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("*foo\\\nbar*", 
+                "<p><em>foo<br />\nbar</em></p>", 
+                "commonmark");
         }
 
         // Line breaks do not occur inside code spans        
         [Fact]
-        public void HardLineBreaks_Spec612_CommonMark()
+        public void HardLineBreaks_Spec612_commonmark()
         {
             // The following Markdown:
             //     `code  
@@ -11061,11 +12283,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>code span</code></p>
 
-            SpecTestHelper.AssertCompliance("`code  \nspan`", "<p><code>code span</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`code  \nspan`", 
+                "<p><code>code span</code></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HardLineBreaks_Spec613_CommonMark()
+        public void HardLineBreaks_Spec613_commonmark()
         {
             // The following Markdown:
             //     `code\
@@ -11074,12 +12298,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p><code>code\ span</code></p>
 
-            SpecTestHelper.AssertCompliance("`code\\\nspan`", "<p><code>code\\ span</code></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("`code\\\nspan`", 
+                "<p><code>code\\ span</code></p>", 
+                "commonmark");
         }
 
         // or HTML tags:        
         [Fact]
-        public void HardLineBreaks_Spec614_CommonMark()
+        public void HardLineBreaks_Spec614_commonmark()
         {
             // The following Markdown:
             //     <a href="foo  
@@ -11089,11 +12315,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><a href="foo  
             //     bar"></p>
 
-            SpecTestHelper.AssertCompliance("<a href=\"foo  \nbar\">", "<p><a href=\"foo  \nbar\"></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<a href=\"foo  \nbar\">", 
+                "<p><a href=\"foo  \nbar\"></p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HardLineBreaks_Spec615_CommonMark()
+        public void HardLineBreaks_Spec615_commonmark()
         {
             // The following Markdown:
             //     <a href="foo\
@@ -11103,14 +12331,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><a href="foo\
             //     bar"></p>
 
-            SpecTestHelper.AssertCompliance("<a href=\"foo\\\nbar\">", "<p><a href=\"foo\\\nbar\"></p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("<a href=\"foo\\\nbar\">", 
+                "<p><a href=\"foo\\\nbar\"></p>", 
+                "commonmark");
         }
 
         // Hard line breaks are for separating inline content within a block.
         // Neither syntax for hard line breaks works at the end of a paragraph or
         // other block element:        
         [Fact]
-        public void HardLineBreaks_Spec616_CommonMark()
+        public void HardLineBreaks_Spec616_commonmark()
         {
             // The following Markdown:
             //     foo\
@@ -11118,11 +12348,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo\</p>
 
-            SpecTestHelper.AssertCompliance("foo\\", "<p>foo\\</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo\\", 
+                "<p>foo\\</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HardLineBreaks_Spec617_CommonMark()
+        public void HardLineBreaks_Spec617_commonmark()
         {
             // The following Markdown:
             //     foo  
@@ -11130,11 +12362,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>foo</p>
 
-            SpecTestHelper.AssertCompliance("foo  ", "<p>foo</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo  ", 
+                "<p>foo</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HardLineBreaks_Spec618_CommonMark()
+        public void HardLineBreaks_Spec618_commonmark()
         {
             // The following Markdown:
             //     ### foo\
@@ -11142,11 +12376,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h3>foo\</h3>
 
-            SpecTestHelper.AssertCompliance("### foo\\", "<h3>foo\\</h3>", "CommonMark");
+            SpecTestHelper.AssertCompliance("### foo\\", 
+                "<h3>foo\\</h3>", 
+                "commonmark");
         }
         
         [Fact]
-        public void HardLineBreaks_Spec619_CommonMark()
+        public void HardLineBreaks_Spec619_commonmark()
         {
             // The following Markdown:
             //     ### foo  
@@ -11154,7 +12390,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <h3>foo</h3>
 
-            SpecTestHelper.AssertCompliance("### foo  ", "<h3>foo</h3>", "CommonMark");
+            SpecTestHelper.AssertCompliance("### foo  ", 
+                "<h3>foo</h3>", 
+                "commonmark");
         }
     }
 
@@ -11167,7 +12405,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     {
         
         [Fact]
-        public void SoftLineBreaks_Spec620_CommonMark()
+        public void SoftLineBreaks_Spec620_commonmark()
         {
             // The following Markdown:
             //     foo
@@ -11177,13 +12415,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo
             //     baz</p>
 
-            SpecTestHelper.AssertCompliance("foo\nbaz", "<p>foo\nbaz</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo\nbaz", 
+                "<p>foo\nbaz</p>", 
+                "commonmark");
         }
 
         // Spaces at the end of the line and beginning of the next line are
         // removed:        
         [Fact]
-        public void SoftLineBreaks_Spec621_CommonMark()
+        public void SoftLineBreaks_Spec621_commonmark()
         {
             // The following Markdown:
             //     foo 
@@ -11193,7 +12433,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p>foo
             //     baz</p>
 
-            SpecTestHelper.AssertCompliance("foo \n baz", "<p>foo\nbaz</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("foo \n baz", 
+                "<p>foo\nbaz</p>", 
+                "commonmark");
         }
     }
 
@@ -11203,7 +12445,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     {
         
         [Fact]
-        public void TextualContent_Spec622_CommonMark()
+        public void TextualContent_Spec622_commonmark()
         {
             // The following Markdown:
             //     hello $.;'there
@@ -11211,11 +12453,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>hello $.;'there</p>
 
-            SpecTestHelper.AssertCompliance("hello $.;'there", "<p>hello $.;'there</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("hello $.;'there", 
+                "<p>hello $.;'there</p>", 
+                "commonmark");
         }
         
         [Fact]
-        public void TextualContent_Spec623_CommonMark()
+        public void TextualContent_Spec623_commonmark()
         {
             // The following Markdown:
             //     Foo χρῆν
@@ -11223,12 +12467,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>Foo χρῆν</p>
 
-            SpecTestHelper.AssertCompliance("Foo χρῆν", "<p>Foo χρῆν</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Foo χρῆν", 
+                "<p>Foo χρῆν</p>", 
+                "commonmark");
         }
 
         // Internal spaces are preserved verbatim:        
         [Fact]
-        public void TextualContent_Spec624_CommonMark()
+        public void TextualContent_Spec624_commonmark()
         {
             // The following Markdown:
             //     Multiple     spaces
@@ -11236,7 +12482,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             // Should be rendered as:
             //     <p>Multiple     spaces</p>
 
-            SpecTestHelper.AssertCompliance("Multiple     spaces", "<p>Multiple     spaces</p>", "CommonMark");
+            SpecTestHelper.AssertCompliance("Multiple     spaces", 
+                "<p>Multiple     spaces</p>", 
+                "commonmark");
         }
     }
 
@@ -11250,53 +12498,61 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Sequential higher-level sections are nested:        
         [Fact]
-        public void Sections_Spec1_Sections()
+        public void Sections_Spec1_sections_genericattributes()
         {
             // The following Markdown:
             //     # foo
-            //     ## foo bar
-            //     ### foo bar baz
+            //     ## foo
+            //     ### foo
+            //     #### foo
             //
             // Should be rendered as:
-            //     <article id="foo">
             //     <h1>foo</h1>
-            //     <section id="foo-bar">
-            //     <h2>foo bar</h2>
-            //     <section id="foo-bar-baz">
-            //     <h3>foo bar baz</h3>
+            //     <section id="foo">
+            //     <h2>foo</h2>
+            //     <section id="foo-1">
+            //     <h3>foo</h3>
+            //     <section id="foo-2">
+            //     <h4>foo</h4>
             //     </section>
             //     </section>
-            //     </article>
+            //     </section>
 
-            SpecTestHelper.AssertCompliance("# foo\n## foo bar\n### foo bar baz", "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-bar\">\n<h2>foo bar</h2>\n<section id=\"foo-bar-baz\">\n<h3>foo bar baz</h3>\n</section>\n</section>\n</article>", "Sections");
+            SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n#### foo", 
+                "<h1>foo</h1>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-1\">\n<h3>foo</h3>\n<section id=\"foo-2\">\n<h4>foo</h4>\n</section>\n</section>\n</section>", 
+                "sections_genericattributes");
         }
 
         // Sequential higher-level sections are nested:        
         [Fact]
-        public void Sections_Spec1_All()
+        public void Sections_Spec1_all()
         {
             // The following Markdown:
             //     # foo
-            //     ## foo bar
-            //     ### foo bar baz
+            //     ## foo
+            //     ### foo
+            //     #### foo
             //
             // Should be rendered as:
-            //     <article id="foo">
             //     <h1>foo</h1>
-            //     <section id="foo-bar">
-            //     <h2>foo bar</h2>
-            //     <section id="foo-bar-baz">
-            //     <h3>foo bar baz</h3>
+            //     <section id="foo">
+            //     <h2>foo</h2>
+            //     <section id="foo-1">
+            //     <h3>foo</h3>
+            //     <section id="foo-2">
+            //     <h4>foo</h4>
             //     </section>
             //     </section>
-            //     </article>
+            //     </section>
 
-            SpecTestHelper.AssertCompliance("# foo\n## foo bar\n### foo bar baz", "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-bar\">\n<h2>foo bar</h2>\n<section id=\"foo-bar-baz\">\n<h3>foo bar baz</h3>\n</section>\n</section>\n</article>", "All");
+            SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n#### foo", 
+                "<h1>foo</h1>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-1\">\n<h3>foo</h3>\n<section id=\"foo-2\">\n<h4>foo</h4>\n</section>\n</section>\n</section>", 
+                "all");
         }
 
         // Sequential lower-level sections are not nested.:        
         [Fact]
-        public void Sections_Spec2_Sections()
+        public void Sections_Spec2_sections_genericattributes()
         {
             // The following Markdown:
             //     ## foo
@@ -11306,16 +12562,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <section id="foo">
             //     <h2>foo</h2>
             //     </section>
-            //     <article id="foo-1">
             //     <h1>foo</h1>
-            //     </article>
 
-            SpecTestHelper.AssertCompliance("## foo\n# foo", "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<article id=\"foo-1\">\n<h1>foo</h1>\n</article>", "Sections");
+            SpecTestHelper.AssertCompliance("## foo\n# foo", 
+                "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<h1>foo</h1>", 
+                "sections_genericattributes");
         }
 
         // Sequential lower-level sections are not nested.:        
         [Fact]
-        public void Sections_Spec2_All()
+        public void Sections_Spec2_all()
         {
             // The following Markdown:
             //     ## foo
@@ -11325,16 +12581,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <section id="foo">
             //     <h2>foo</h2>
             //     </section>
-            //     <article id="foo-1">
             //     <h1>foo</h1>
-            //     </article>
 
-            SpecTestHelper.AssertCompliance("## foo\n# foo", "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<article id=\"foo-1\">\n<h1>foo</h1>\n</article>", "All");
+            SpecTestHelper.AssertCompliance("## foo\n# foo", 
+                "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<h1>foo</h1>", 
+                "all");
         }
 
         // Sequential same-level sections are not nested:        
         [Fact]
-        public void Sections_Spec3_Sections()
+        public void Sections_Spec3_sections_genericattributes()
         {
             // The following Markdown:
             //     ## foo
@@ -11348,12 +12604,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>foo</h2>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("## foo\n## foo", "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>", "Sections");
+            SpecTestHelper.AssertCompliance("## foo\n## foo", 
+                "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>", 
+                "sections_genericattributes");
         }
 
         // Sequential same-level sections are not nested:        
         [Fact]
-        public void Sections_Spec3_All()
+        public void Sections_Spec3_all()
         {
             // The following Markdown:
             //     ## foo
@@ -11367,60 +12625,68 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h2>foo</h2>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("## foo\n## foo", "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>", "All");
+            SpecTestHelper.AssertCompliance("## foo\n## foo", 
+                "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>", 
+                "all");
         }
 
         // Mixed sections:        
         [Fact]
-        public void Sections_Spec4_Sections()
+        public void Sections_Spec4_sections_genericattributes()
         {
             // The following Markdown:
             //     # foo
             //     ## foo
-            //     # foo
-            //     
+            //     ### foo
+            //     ## foo
             //
             // Should be rendered as:
-            //     <article id="foo">
             //     <h1>foo</h1>
+            //     <section id="foo">
+            //     <h2>foo</h2>
             //     <section id="foo-1">
+            //     <h3>foo</h3>
+            //     </section>
+            //     </section>
+            //     <section id="foo-2">
             //     <h2>foo</h2>
             //     </section>
-            //     </article>
-            //     <article id="foo-2">
-            //     <h1>foo</h1>
-            //     </article>
 
-            SpecTestHelper.AssertCompliance("# foo\n## foo\n# foo\n", "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n</article>\n<article id=\"foo-2\">\n<h1>foo</h1>\n</article>", "Sections");
+            SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n## foo", 
+                "<h1>foo</h1>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-1\">\n<h3>foo</h3>\n</section>\n</section>\n<section id=\"foo-2\">\n<h2>foo</h2>\n</section>", 
+                "sections_genericattributes");
         }
 
         // Mixed sections:        
         [Fact]
-        public void Sections_Spec4_All()
+        public void Sections_Spec4_all()
         {
             // The following Markdown:
             //     # foo
             //     ## foo
-            //     # foo
-            //     
+            //     ### foo
+            //     ## foo
             //
             // Should be rendered as:
-            //     <article id="foo">
             //     <h1>foo</h1>
+            //     <section id="foo">
+            //     <h2>foo</h2>
             //     <section id="foo-1">
+            //     <h3>foo</h3>
+            //     </section>
+            //     </section>
+            //     <section id="foo-2">
             //     <h2>foo</h2>
             //     </section>
-            //     </article>
-            //     <article id="foo-2">
-            //     <h1>foo</h1>
-            //     </article>
 
-            SpecTestHelper.AssertCompliance("# foo\n## foo\n# foo\n", "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n</article>\n<article id=\"foo-2\">\n<h1>foo</h1>\n</article>", "All");
+            SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n## foo", 
+                "<h1>foo</h1>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-1\">\n<h3>foo</h3>\n</section>\n</section>\n<section id=\"foo-2\">\n<h2>foo</h2>\n</section>", 
+                "all");
         }
 
         // Sections wrap content:        
         [Fact]
-        public void Sections_Spec5_Sections()
+        public void Sections_Spec5_sections_genericattributes()
         {
             // The following Markdown:
             //     # foo
@@ -11433,16 +12699,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     > Level 3 content line 2.
             //
             // Should be rendered as:
-            //     <article id="foo">
             //     <h1>foo</h1>
             //     <p>Level 1 content.</p>
-            //     <section id="foo-1">
+            //     <section id="foo">
             //     <h2>foo</h2>
             //     <ul>
             //     <li>Level 2 content line 1.</li>
             //     <li>Level 2 content line 2.</li>
             //     </ul>
-            //     <section id="foo-2">
+            //     <section id="foo-1">
             //     <h3>foo</h3>
             //     <blockquote>
             //     <p>Level 3 content line 1.
@@ -11450,14 +12715,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     </section>
             //     </section>
-            //     </article>
 
-            SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", "<article id=\"foo\">\n<h1>foo</h1>\n<p>Level 1 content.</p>\n<section id=\"foo-1\">\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-2\">\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>\n</article>", "Sections");
+            SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", 
+                "<h1>foo</h1>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", 
+                "sections_genericattributes");
         }
 
         // Sections wrap content:        
         [Fact]
-        public void Sections_Spec5_All()
+        public void Sections_Spec5_all()
         {
             // The following Markdown:
             //     # foo
@@ -11470,16 +12736,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     > Level 3 content line 2.
             //
             // Should be rendered as:
-            //     <article id="foo">
             //     <h1>foo</h1>
             //     <p>Level 1 content.</p>
-            //     <section id="foo-1">
+            //     <section id="foo">
             //     <h2>foo</h2>
             //     <ul>
             //     <li>Level 2 content line 1.</li>
             //     <li>Level 2 content line 2.</li>
             //     </ul>
-            //     <section id="foo-2">
+            //     <section id="foo-1">
             //     <h3>foo</h3>
             //     <blockquote>
             //     <p>Level 3 content line 1.
@@ -11487,111 +12752,320 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     </blockquote>
             //     </section>
             //     </section>
-            //     </article>
 
-            SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", "<article id=\"foo\">\n<h1>foo</h1>\n<p>Level 1 content.</p>\n<section id=\"foo-1\">\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-2\">\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>\n</article>", "All");
+            SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", 
+                "<h1>foo</h1>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", 
+                "all");
         }
 
-        // TODO: id style, github etc
-        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section.        
+        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:        
         [Fact]
-        public void Sections_Spec6_Sections()
+        public void Sections_Spec6_sections_genericattributes()
         {
             // The following Markdown:
-            //     # Foo
-            //     ## Foo Bar
+            //     # foo
+            //     ## foo
+            //
+            // With extension options:
+            //     {"sections": {"Level1WrapperElement": "Article"}}
             //
             // Should be rendered as:
             //     <article id="foo">
-            //     <h1>Foo</h1>
-            //     <section id="foo-bar">
-            //     <h2>Foo Bar</h2>
+            //     <h1>foo</h1>
+            //     <section id="foo-1">
+            //     <h2>foo</h2>
             //     </section>
             //     </article>
 
-            SpecTestHelper.AssertCompliance("# Foo\n## Foo Bar", "<article id=\"foo\">\n<h1>Foo</h1>\n<section id=\"foo-bar\">\n<h2>Foo Bar</h2>\n</section>\n</article>", "Sections");
+            SpecTestHelper.AssertCompliance("# foo\n## foo", 
+                "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n</article>", 
+                "sections_genericattributes", 
+                "{\"sections\": {\"Level1WrapperElement\": \"Article\"}}");
         }
 
-        // TODO: id style, github etc
-        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section.        
+        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:        
         [Fact]
-        public void Sections_Spec6_All()
+        public void Sections_Spec6_all()
         {
             // The following Markdown:
-            //     # Foo
-            //     ## Foo Bar
+            //     # foo
+            //     ## foo
+            //
+            // With extension options:
+            //     {"sections": {"Level1WrapperElement": "Article"}}
             //
             // Should be rendered as:
             //     <article id="foo">
-            //     <h1>Foo</h1>
-            //     <section id="foo-bar">
-            //     <h2>Foo Bar</h2>
+            //     <h1>foo</h1>
+            //     <section id="foo-1">
+            //     <h2>foo</h2>
             //     </section>
             //     </article>
 
-            SpecTestHelper.AssertCompliance("# Foo\n## Foo Bar", "<article id=\"foo\">\n<h1>Foo</h1>\n<section id=\"foo-bar\">\n<h2>Foo Bar</h2>\n</section>\n</article>", "All");
+            SpecTestHelper.AssertCompliance("# foo\n## foo", 
+                "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n</article>", 
+                "all", 
+                "{\"sections\": {\"Level1WrapperElement\": \"Article\"}}");
         }
 
-        // AutoLinks allow linking to sections using the text in their headings:        
+        // To change the element used to wrapped level 2+ headers, set `SectionExtensionOptions.Level2PlusWrapperElement". For example:        
         [Fact]
-        public void Sections_Spec7_Sections()
+        public void Sections_Spec7_sections_genericattributes()
+        {
+            // The following Markdown:
+            //     ## foo
+            //
+            // With extension options:
+            //     {"sections": {"Level2PlusWrapperElement": "Nav"}}
+            //
+            // Should be rendered as:
+            //     <nav id="foo">
+            //     <h2>foo</h2>
+            //     </nav>
+
+            SpecTestHelper.AssertCompliance("## foo", 
+                "<nav id=\"foo\">\n<h2>foo</h2>\n</nav>", 
+                "sections_genericattributes", 
+                "{\"sections\": {\"Level2PlusWrapperElement\": \"Nav\"}}");
+        }
+
+        // To change the element used to wrapped level 2+ headers, set `SectionExtensionOptions.Level2PlusWrapperElement". For example:        
+        [Fact]
+        public void Sections_Spec7_all()
+        {
+            // The following Markdown:
+            //     ## foo
+            //
+            // With extension options:
+            //     {"sections": {"Level2PlusWrapperElement": "Nav"}}
+            //
+            // Should be rendered as:
+            //     <nav id="foo">
+            //     <h2>foo</h2>
+            //     </nav>
+
+            SpecTestHelper.AssertCompliance("## foo", 
+                "<nav id=\"foo\">\n<h2>foo</h2>\n</nav>", 
+                "all", 
+                "{\"sections\": {\"Level2PlusWrapperElement\": \"Nav\"}}");
+        }
+
+        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:        
+        [Fact]
+        public void Sections_Spec8_sections_genericattributes()
+        {
+            // The following Markdown:
+            //     ## Foo Bar Baz
+            //
+            // Should be rendered as:
+            //     <section id="foo-bar-baz">
+            //     <h2>Foo Bar Baz</h2>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
+                "<section id=\"foo-bar-baz\">\n<h2>Foo Bar Baz</h2>\n</section>", 
+                "sections_genericattributes");
+        }
+
+        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:        
+        [Fact]
+        public void Sections_Spec8_all()
+        {
+            // The following Markdown:
+            //     ## Foo Bar Baz
+            //
+            // Should be rendered as:
+            //     <section id="foo-bar-baz">
+            //     <h2>Foo Bar Baz</h2>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
+                "<section id=\"foo-bar-baz\">\n<h2>Foo Bar Baz</h2>\n</section>", 
+                "all");
+        }
+
+        // Auto generation of IDs can be disabled by setting `SectionExtensionOptions.AutoIdentifers` to `false`:        
+        [Fact]
+        public void Sections_Spec9_sections_genericattributes()
+        {
+            // The following Markdown:
+            //     ## Foo Bar Baz
+            //
+            // With extension options:
+            //     {"sections": {"AutoIdentifiers": false}}
+            //
+            // Should be rendered as:
+            //     <section>
+            //     <h2>Foo Bar Baz</h2>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
+                "<section>\n<h2>Foo Bar Baz</h2>\n</section>", 
+                "sections_genericattributes", 
+                "{\"sections\": {\"AutoIdentifiers\": false}}");
+        }
+
+        // Auto generation of IDs can be disabled by setting `SectionExtensionOptions.AutoIdentifers` to `false`:        
+        [Fact]
+        public void Sections_Spec9_all()
+        {
+            // The following Markdown:
+            //     ## Foo Bar Baz
+            //
+            // With extension options:
+            //     {"sections": {"AutoIdentifiers": false}}
+            //
+            // Should be rendered as:
+            //     <section>
+            //     <h2>Foo Bar Baz</h2>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
+                "<section>\n<h2>Foo Bar Baz</h2>\n</section>", 
+                "all", 
+                "{\"sections\": {\"AutoIdentifiers\": false}}");
+        }
+
+        // Sections can be linked to by the text content of their headings:        
+        [Fact]
+        public void Sections_Spec10_sections_genericattributes()
         {
             // The following Markdown:
             //     [foo]
             //     
-            //     # foo
-            //     ## foo bar
+            //     ## foo
+            //     ### foo bar
             //     [foo bar]
-            //     ### foo bar baz
+            //     #### foo bar baz
             //     
             //     [foo bar baz]
             //
             // Should be rendered as:
             //     <p><a href="#foo">foo</a></p>
-            //     <article id="foo">
-            //     <h1>foo</h1>
+            //     <section id="foo">
+            //     <h2>foo</h2>
             //     <section id="foo-bar">
-            //     <h2>foo bar</h2>
+            //     <h3>foo bar</h3>
             //     <p><a href="#foo-bar">foo bar</a></p>
             //     <section id="foo-bar-baz">
-            //     <h3>foo bar baz</h3>
+            //     <h4>foo bar baz</h4>
             //     <p><a href="#foo-bar-baz">foo bar baz</a></p>
             //     </section>
             //     </section>
-            //     </article>
+            //     </section>
 
-            SpecTestHelper.AssertCompliance("[foo]\n\n# foo\n## foo bar\n[foo bar]\n### foo bar baz\n\n[foo bar baz]", "<p><a href=\"#foo\">foo</a></p>\n<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-bar\">\n<h2>foo bar</h2>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<h3>foo bar baz</h3>\n<p><a href=\"#foo-bar-baz\">foo bar baz</a></p>\n</section>\n</section>\n</article>", "Sections");
+            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
+                "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p><a href=\"#foo-bar-baz\">foo bar baz</a></p>\n</section>\n</section>\n</section>", 
+                "sections_genericattributes");
         }
 
-        // AutoLinks allow linking to sections using the text in their headings:        
+        // Sections can be linked to by the text content of their headings:        
         [Fact]
-        public void Sections_Spec7_All()
+        public void Sections_Spec10_all()
         {
             // The following Markdown:
             //     [foo]
             //     
-            //     # foo
-            //     ## foo bar
+            //     ## foo
+            //     ### foo bar
             //     [foo bar]
-            //     ### foo bar baz
+            //     #### foo bar baz
             //     
             //     [foo bar baz]
             //
             // Should be rendered as:
             //     <p><a href="#foo">foo</a></p>
-            //     <article id="foo">
-            //     <h1>foo</h1>
+            //     <section id="foo">
+            //     <h2>foo</h2>
             //     <section id="foo-bar">
-            //     <h2>foo bar</h2>
+            //     <h3>foo bar</h3>
             //     <p><a href="#foo-bar">foo bar</a></p>
             //     <section id="foo-bar-baz">
-            //     <h3>foo bar baz</h3>
+            //     <h4>foo bar baz</h4>
             //     <p><a href="#foo-bar-baz">foo bar baz</a></p>
             //     </section>
             //     </section>
-            //     </article>
+            //     </section>
 
-            SpecTestHelper.AssertCompliance("[foo]\n\n# foo\n## foo bar\n[foo bar]\n### foo bar baz\n\n[foo bar baz]", "<p><a href=\"#foo\">foo</a></p>\n<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-bar\">\n<h2>foo bar</h2>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<h3>foo bar baz</h3>\n<p><a href=\"#foo-bar-baz\">foo bar baz</a></p>\n</section>\n</section>\n</article>", "All");
+            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
+                "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p><a href=\"#foo-bar-baz\">foo bar baz</a></p>\n</section>\n</section>\n</section>", 
+                "all");
+        }
+
+        // Linking to sections by the text content of their headings can be disabled by setting `SectionExtensionOptions.AutoLinking` to `false` (note 
+        // that linking to sections is also disabled if `SectionExtensionOptions.AutoIdentifiers` is set to `false`):        
+        [Fact]
+        public void Sections_Spec11_sections_genericattributes()
+        {
+            // The following Markdown:
+            //     [foo]
+            //     
+            //     ## foo
+            //     ### foo bar
+            //     [foo bar]
+            //     #### foo bar baz
+            //     
+            //     [foo bar baz]
+            //
+            // With extension options:
+            //     {"sections": {"AutoLinking": false}}
+            //
+            // Should be rendered as:
+            //     <p>[foo]</p>
+            //     <section id="foo">
+            //     <h2>foo</h2>
+            //     <section id="foo-bar">
+            //     <h3>foo bar</h3>
+            //     <p>[foo bar]</p>
+            //     <section id="foo-bar-baz">
+            //     <h4>foo bar baz</h4>
+            //     <p>[foo bar baz]</p>
+            //     </section>
+            //     </section>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
+                "<p>[foo]</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
+                "sections_genericattributes", 
+                "{\"sections\": {\"AutoLinking\": false}}");
+        }
+
+        // Linking to sections by the text content of their headings can be disabled by setting `SectionExtensionOptions.AutoLinking` to `false` (note 
+        // that linking to sections is also disabled if `SectionExtensionOptions.AutoIdentifiers` is set to `false`):        
+        [Fact]
+        public void Sections_Spec11_all()
+        {
+            // The following Markdown:
+            //     [foo]
+            //     
+            //     ## foo
+            //     ### foo bar
+            //     [foo bar]
+            //     #### foo bar baz
+            //     
+            //     [foo bar baz]
+            //
+            // With extension options:
+            //     {"sections": {"AutoLinking": false}}
+            //
+            // Should be rendered as:
+            //     <p>[foo]</p>
+            //     <section id="foo">
+            //     <h2>foo</h2>
+            //     <section id="foo-bar">
+            //     <h3>foo bar</h3>
+            //     <p>[foo bar]</p>
+            //     <section id="foo-bar-baz">
+            //     <h4>foo bar baz</h4>
+            //     <p>[foo bar baz]</p>
+            //     </section>
+            //     </section>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
+                "<p>[foo]</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
+                "all", 
+                "{\"sections\": {\"AutoLinking\": false}}");
         }
     }
 }
