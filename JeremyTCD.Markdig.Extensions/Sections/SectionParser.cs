@@ -32,11 +32,12 @@ namespace JeremyTCD.Markdig.Extensions
                 throw new InvalidOperationException($"Opened a heading block but BlockProcessor.NewBlocks does not contain any blocks.");
             }
 
-            // TODO merge default section options with section options
+
             SectionOptions sectionOptions = _options.DefaultSectionOptions;
+            JsonOptionsTools.PopulateObject(processor, sectionOptions);
 
             // Section has a section element specified
-            if (sectionOptions.WrapperElement.CompareTo(SectioningContentElement.None) > 0 || 
+            if (sectionOptions.WrapperElement.CompareTo(SectioningContentElement.None) > 0 ||
                 newHeadingBlock.Level == 1 && _options.Level1WrapperElement.CompareTo(SectioningContentElement.None) > 0 ||
                 newHeadingBlock.Level > 1 && _options.Level2PlusWrapperElement.CompareTo(SectioningContentElement.None) > 0)
             {

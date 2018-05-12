@@ -13,5 +13,15 @@ namespace JeremyTCD.Markdig.Extensions
 
             return pipelineBuilder;
         }
+
+        public static MarkdownPipelineBuilder UseJsonOptions(this MarkdownPipelineBuilder pipelineBuilder, SectionExtensionOptions options = null)
+        {
+            if (!pipelineBuilder.Extensions.Contains<JsonOptionsExtension>())
+            {
+                pipelineBuilder.Extensions.Add(new JsonOptionsExtension());
+            }
+
+            return pipelineBuilder;
+        }
     }
 }

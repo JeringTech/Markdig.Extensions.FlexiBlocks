@@ -14,13 +14,18 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             new Dictionary<string, Action<MarkdownPipelineBuilder, JObject>>
             {
                 { "genericattributes", (MarkdownPipelineBuilder builder, JObject options) => builder.UseGenericAttributes() },
+                { "jsonoptions", (MarkdownPipelineBuilder builder, JObject options) => builder.UseJsonOptions() },
                 { "sections", (MarkdownPipelineBuilder builder, JObject options) => builder.UseSections(options?["sections"]?.ToObject<SectionExtensionOptions>()) },
-                { "all", (MarkdownPipelineBuilder builder, JObject options) => builder.UseSections(options?["sections"]?.ToObject<SectionExtensionOptions>()) },
+                { "all", (MarkdownPipelineBuilder builder, JObject options) => {
+                    builder.
+                        UseSections(options?["sections"]?.ToObject<SectionExtensionOptions>()).
+                        UseJsonOptions();
+                } },
                 { "commonmark", (MarkdownPipelineBuilder builder, JObject options) => { } }
             };
 
-        public static void AssertCompliance(string markdown, 
-            string expectedHtml, 
+        public static void AssertCompliance(string markdown,
+            string expectedHtml,
             string pipelineOptions,
             string extensionOptionsJson = null)
         {

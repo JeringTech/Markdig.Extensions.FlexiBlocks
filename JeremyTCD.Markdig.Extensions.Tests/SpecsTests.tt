@@ -8,7 +8,8 @@
 <#
     var specFiles = new KeyValuePair<string, string>[] {
 		new KeyValuePair<string, string>(Host.ResolvePath("../Specs/CommonMarkSpecs.md"), "commonmark"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../Specs/SectionsSpecs.md"), "sections_genericattributes|all")
+		new KeyValuePair<string, string>(Host.ResolvePath("../Specs/SectionsSpecs.md"), "sections|all"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../Specs/JsonOptionsSpecs.md"), "jsonoptions_sections")
 	};
 #>
 using Xunit;
@@ -24,25 +25,16 @@ foreach (KeyValuePair<string, string> specFileItem in specFiles)
 
     foreach (Extension extension in extensions)
     {
-        if(!string.IsNullOrWhiteSpace(extension.Description))
-        {
-#>
-<#= extension.Description #>  
-<#
-        }   
-#>    public class <#= extension.Name #>Tests
+        bool firstSpec = true;
+#><#= !string.IsNullOrWhiteSpace(extension.Description) ? "\n" + extension.Description : string.Empty #>
+    public class <#= extension.Name #>Tests
     {
 <#  
         foreach (Spec spec in extension.Specs)
         {
             foreach (string pipeline in pipelines)
             {
-                if(!string.IsNullOrWhiteSpace(spec.Description))
-                {
-#>
-<#= spec.Description #><#
-                }
-#>        
+#><#= !string.IsNullOrWhiteSpace(spec.Description) ? (!firstSpec ? "\n" : string.Empty) + spec.Description : string.Empty #>
         [Fact]
         public void <#= extension.Name #>_Spec<#= spec.Number #>_<#= pipeline #>()
         {
@@ -70,6 +62,7 @@ foreach (KeyValuePair<string, string> specFileItem in specFiles)
 #>);
         }
 <#
+                firstSpec = false;
             }
         }
 #>    }

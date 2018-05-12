@@ -14,14 +14,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // Tabs in lines are not expanded to [spaces].  However,
     // in contexts where whitespace helps to define block structure,
     // tabs behave as if they were replaced by spaces with a tab stop
-    // of 4 characters  
+    // of 4 characters
     public class TabsTests
     {
-
         // Thus, for example, a tab can be used instead of four spaces
         // in an indented code block.  (Note, however, that internal
         // tabs are passed through as literal tabs, not expanded to
-        // spaces.)        
+        // spaces.)
         [Fact]
         public void Tabs_Spec1_commonmark()
         {
@@ -36,7 +35,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code>foo\tbaz\t\tbim\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Tabs_Spec2_commonmark()
         {
@@ -51,7 +50,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code>foo\tbaz\t\tbim\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Tabs_Spec3_commonmark()
         {
@@ -71,7 +70,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // In the following example, a continuation paragraph of a list
         // item is indented with a tab; this has exactly the same effect
-        // as indentation with four spaces would:        
+        // as indentation with four spaces would:
         [Fact]
         public void Tabs_Spec4_commonmark()
         {
@@ -92,7 +91,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Tabs_Spec5_commonmark()
         {
@@ -122,7 +121,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Since one of these spaces is considered part of the
         // delimiter, `foo` is considered to be indented six spaces
         // inside the block quote context, so we get an indented
-        // code block starting with two spaces.        
+        // code block starting with two spaces.
         [Fact]
         public void Tabs_Spec6_commonmark()
         {
@@ -139,7 +138,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<blockquote>\n<pre><code>  foo\n</code></pre>\n</blockquote>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Tabs_Spec7_commonmark()
         {
@@ -158,7 +157,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>\n<pre><code>  foo\n</code></pre>\n</li>\n</ul>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Tabs_Spec8_commonmark()
         {
@@ -175,7 +174,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code>foo\nbar\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Tabs_Spec9_commonmark()
         {
@@ -201,7 +200,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>baz</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Tabs_Spec10_commonmark()
         {
@@ -215,7 +214,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<h1>Foo</h1>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Tabs_Spec11_commonmark()
         {
@@ -233,10 +232,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
     // Indicators of block structure always take precedence over indicators
     // of inline structure.  So, for example, the following is a list with
-    // two items, not a list with one item containing a code span:  
+    // two items, not a list with one item containing a code span:
     public class PrecedenceTests
     {
-        
+
         [Fact]
         public void Precedence_Spec12_commonmark()
         {
@@ -259,10 +258,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // A line consisting of 0-3 spaces of indentation, followed by a sequence
     // of three or more matching `-`, `_`, or `*` characters, each followed
     // optionally by any number of spaces, forms a
-    // [thematic break](@).  
+    // [thematic break](@).
     public class ThematicBreaksTests
     {
-        
+
         [Fact]
         public void ThematicBreaks_Spec13_commonmark()
         {
@@ -281,7 +280,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Wrong characters:        
+        // Wrong characters:
         [Fact]
         public void ThematicBreaks_Spec14_commonmark()
         {
@@ -295,7 +294,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>+++</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void ThematicBreaks_Spec15_commonmark()
         {
@@ -310,7 +309,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Not enough characters:        
+        // Not enough characters:
         [Fact]
         public void ThematicBreaks_Spec16_commonmark()
         {
@@ -329,7 +328,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // One to three spaces indent are allowed:        
+        // One to three spaces indent are allowed:
         [Fact]
         public void ThematicBreaks_Spec17_commonmark()
         {
@@ -348,7 +347,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Four spaces is too many:        
+        // Four spaces is too many:
         [Fact]
         public void ThematicBreaks_Spec18_commonmark()
         {
@@ -363,7 +362,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code>***\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void ThematicBreaks_Spec19_commonmark()
         {
@@ -380,7 +379,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // More than three characters may be used:        
+        // More than three characters may be used:
         [Fact]
         public void ThematicBreaks_Spec20_commonmark()
         {
@@ -395,7 +394,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Spaces are allowed between the characters:        
+        // Spaces are allowed between the characters:
         [Fact]
         public void ThematicBreaks_Spec21_commonmark()
         {
@@ -409,7 +408,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<hr />", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void ThematicBreaks_Spec22_commonmark()
         {
@@ -423,7 +422,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<hr />", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void ThematicBreaks_Spec23_commonmark()
         {
@@ -438,7 +437,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Spaces are allowed at the end:        
+        // Spaces are allowed at the end:
         [Fact]
         public void ThematicBreaks_Spec24_commonmark()
         {
@@ -453,7 +452,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // However, no other characters may occur in the line:        
+        // However, no other characters may occur in the line:
         [Fact]
         public void ThematicBreaks_Spec25_commonmark()
         {
@@ -475,7 +474,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // It is required that all of the [non-whitespace characters] be the same.
-        // So, this is not a thematic break:        
+        // So, this is not a thematic break:
         [Fact]
         public void ThematicBreaks_Spec26_commonmark()
         {
@@ -490,7 +489,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Thematic breaks do not need blank lines before or after:        
+        // Thematic breaks do not need blank lines before or after:
         [Fact]
         public void ThematicBreaks_Spec27_commonmark()
         {
@@ -513,7 +512,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Thematic breaks can interrupt a paragraph:        
+        // Thematic breaks can interrupt a paragraph:
         [Fact]
         public void ThematicBreaks_Spec28_commonmark()
         {
@@ -536,7 +535,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // thematic break could also be interpreted as the underline of a [setext
         // heading], the interpretation as a
         // [setext heading] takes precedence. Thus, for example,
-        // this is a setext heading, not a paragraph followed by a thematic break:        
+        // this is a setext heading, not a paragraph followed by a thematic break:
         [Fact]
         public void ThematicBreaks_Spec29_commonmark()
         {
@@ -555,7 +554,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // When both a thematic break and a list item are possible
-        // interpretations of a line, the thematic break takes precedence:        
+        // interpretations of a line, the thematic break takes precedence:
         [Fact]
         public void ThematicBreaks_Spec30_commonmark()
         {
@@ -578,7 +577,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // If you want a thematic break in a list item, use a different bullet:        
+        // If you want a thematic break in a list item, use a different bullet:
         [Fact]
         public void ThematicBreaks_Spec31_commonmark()
         {
@@ -610,11 +609,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // `#` character may be indented 0-3 spaces.  The raw contents of the
     // heading are stripped of leading and trailing spaces before being parsed
     // as inline content.  The heading level is equal to the number of `#`
-    // characters in the opening sequence  
+    // characters in the opening sequence
     public class ATXHeadingsTests
     {
-
-        // Simple headings:        
+        // Simple headings:
         [Fact]
         public void ATXHeadings_Spec32_commonmark()
         {
@@ -639,7 +637,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // More than six `#` characters is not a heading:        
+        // More than six `#` characters is not a heading:
         [Fact]
         public void ATXHeadings_Spec33_commonmark()
         {
@@ -660,7 +658,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // space was required by the
         // [original ATX implementation](http://www.aaronsw.com/2002/atx/atx.py),
         // and it helps prevent things like the following from being parsed as
-        // headings:        
+        // headings:
         [Fact]
         public void ATXHeadings_Spec34_commonmark()
         {
@@ -678,7 +676,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // This is not a heading, because the first `#` is escaped:        
+        // This is not a heading, because the first `#` is escaped:
         [Fact]
         public void ATXHeadings_Spec35_commonmark()
         {
@@ -693,7 +691,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Contents are parsed as inlines:        
+        // Contents are parsed as inlines:
         [Fact]
         public void ATXHeadings_Spec36_commonmark()
         {
@@ -708,7 +706,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Leading and trailing blanks are ignored in parsing inline content:        
+        // Leading and trailing blanks are ignored in parsing inline content:
         [Fact]
         public void ATXHeadings_Spec37_commonmark()
         {
@@ -723,7 +721,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // One to three spaces indentation are allowed:        
+        // One to three spaces indentation are allowed:
         [Fact]
         public void ATXHeadings_Spec38_commonmark()
         {
@@ -742,7 +740,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Four spaces are too much:        
+        // Four spaces are too much:
         [Fact]
         public void ATXHeadings_Spec39_commonmark()
         {
@@ -757,7 +755,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code># foo\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void ATXHeadings_Spec40_commonmark()
         {
@@ -774,7 +772,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A closing sequence of `#` characters is optional:        
+        // A closing sequence of `#` characters is optional:
         [Fact]
         public void ATXHeadings_Spec41_commonmark()
         {
@@ -791,7 +789,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // It need not be the same length as the opening sequence:        
+        // It need not be the same length as the opening sequence:
         [Fact]
         public void ATXHeadings_Spec42_commonmark()
         {
@@ -808,7 +806,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Spaces are allowed after the closing sequence:        
+        // Spaces are allowed after the closing sequence:
         [Fact]
         public void ATXHeadings_Spec43_commonmark()
         {
@@ -825,7 +823,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // A sequence of `#` characters with anything but [spaces] following it
         // is not a closing sequence, but counts as part of the contents of the
-        // heading:        
+        // heading:
         [Fact]
         public void ATXHeadings_Spec44_commonmark()
         {
@@ -840,7 +838,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The closing sequence must be preceded by a space:        
+        // The closing sequence must be preceded by a space:
         [Fact]
         public void ATXHeadings_Spec45_commonmark()
         {
@@ -856,7 +854,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Backslash-escaped `#` characters do not count as part
-        // of the closing sequence:        
+        // of the closing sequence:
         [Fact]
         public void ATXHeadings_Spec46_commonmark()
         {
@@ -876,7 +874,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // ATX headings need not be separated from surrounding content by blank
-        // lines, and they can interrupt paragraphs:        
+        // lines, and they can interrupt paragraphs:
         [Fact]
         public void ATXHeadings_Spec47_commonmark()
         {
@@ -894,7 +892,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<hr />\n<h2>foo</h2>\n<hr />", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void ATXHeadings_Spec48_commonmark()
         {
@@ -913,7 +911,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // ATX headings can be empty:        
+        // ATX headings can be empty:
         [Fact]
         public void ATXHeadings_Spec49_commonmark()
         {
@@ -959,11 +957,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // In general, a setext heading need not be preceded or followed by a
     // blank line.  However, it cannot interrupt a paragraph, so when a
     // setext heading comes after a paragraph, a blank line is needed between
-    // them  
+    // them
     public class SetextHeadingsTests
     {
-
-        // Simple examples:        
+        // Simple examples:
         [Fact]
         public void SetextHeadings_Spec50_commonmark()
         {
@@ -983,7 +980,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The content of the header may span more than one line:        
+        // The content of the header may span more than one line:
         [Fact]
         public void SetextHeadings_Spec51_commonmark()
         {
@@ -1001,7 +998,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The underlining can be any length:        
+        // The underlining can be any length:
         [Fact]
         public void SetextHeadings_Spec52_commonmark()
         {
@@ -1022,7 +1019,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // The heading content can be indented up to three spaces, and need
-        // not line up with the underlining:        
+        // not line up with the underlining:
         [Fact]
         public void SetextHeadings_Spec53_commonmark()
         {
@@ -1046,7 +1043,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Four spaces indent is too much:        
+        // Four spaces indent is too much:
         [Fact]
         public void SetextHeadings_Spec54_commonmark()
         {
@@ -1071,7 +1068,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // The setext heading underline can be indented up to three spaces, and
-        // may have trailing spaces:        
+        // may have trailing spaces:
         [Fact]
         public void SetextHeadings_Spec55_commonmark()
         {
@@ -1087,7 +1084,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Four spaces is too much:        
+        // Four spaces is too much:
         [Fact]
         public void SetextHeadings_Spec56_commonmark()
         {
@@ -1104,7 +1101,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The setext heading underline cannot contain internal spaces:        
+        // The setext heading underline cannot contain internal spaces:
         [Fact]
         public void SetextHeadings_Spec57_commonmark()
         {
@@ -1126,7 +1123,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Trailing spaces in the content line do not cause a line break:        
+        // Trailing spaces in the content line do not cause a line break:
         [Fact]
         public void SetextHeadings_Spec58_commonmark()
         {
@@ -1142,7 +1139,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Nor does a backslash at the end:        
+        // Nor does a backslash at the end:
         [Fact]
         public void SetextHeadings_Spec59_commonmark()
         {
@@ -1159,7 +1156,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Since indicators of block structure take precedence over
-        // indicators of inline structure, the following are setext headings:        
+        // indicators of inline structure, the following are setext headings:
         [Fact]
         public void SetextHeadings_Spec60_commonmark()
         {
@@ -1184,7 +1181,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // The setext heading underline cannot be a [lazy continuation
-        // line] in a list item or block quote:        
+        // line] in a list item or block quote:
         [Fact]
         public void SetextHeadings_Spec61_commonmark()
         {
@@ -1202,7 +1199,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<blockquote>\n<p>Foo</p>\n</blockquote>\n<hr />", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void SetextHeadings_Spec62_commonmark()
         {
@@ -1222,7 +1219,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<blockquote>\n<p>foo\nbar\n===</p>\n</blockquote>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void SetextHeadings_Spec63_commonmark()
         {
@@ -1243,7 +1240,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // A blank line is needed between a paragraph and a following
         // setext heading, since otherwise the paragraph becomes part
-        // of the heading's content:        
+        // of the heading's content:
         [Fact]
         public void SetextHeadings_Spec64_commonmark()
         {
@@ -1262,7 +1259,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // But in general a blank line is not required before or after
-        // setext headings:        
+        // setext headings:
         [Fact]
         public void SetextHeadings_Spec65_commonmark()
         {
@@ -1285,7 +1282,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Setext headings cannot be empty:        
+        // Setext headings cannot be empty:
         [Fact]
         public void SetextHeadings_Spec66_commonmark()
         {
@@ -1303,7 +1300,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Setext heading text lines must not be interpretable as block
         // constructs other than paragraphs.  So, the line of dashes
-        // in these examples gets interpreted as a thematic break:        
+        // in these examples gets interpreted as a thematic break:
         [Fact]
         public void SetextHeadings_Spec67_commonmark()
         {
@@ -1319,7 +1316,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<hr />\n<hr />", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void SetextHeadings_Spec68_commonmark()
         {
@@ -1337,7 +1334,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>foo</li>\n</ul>\n<hr />", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void SetextHeadings_Spec69_commonmark()
         {
@@ -1354,7 +1351,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code>foo\n</code></pre>\n<hr />", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void SetextHeadings_Spec70_commonmark()
         {
@@ -1374,7 +1371,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // If you want a heading with `> foo` as its literal text, you can
-        // use backslash escapes:        
+        // use backslash escapes:
         [Fact]
         public void SetextHeadings_Spec71_commonmark()
         {
@@ -1411,7 +1408,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // We find interpretation 4 most natural, and interpretation 4
         // increases the expressive power of CommonMark, by allowing
         // multiline headings.  Authors who want interpretation 1 can
-        // put a blank line after the first paragraph:        
+        // put a blank line after the first paragraph:
         [Fact]
         public void SetextHeadings_Spec72_commonmark()
         {
@@ -1433,7 +1430,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Authors who want interpretation 2 can put blank lines around
-        // the thematic break,        
+        // the thematic break,
         [Fact]
         public void SetextHeadings_Spec73_commonmark()
         {
@@ -1457,7 +1454,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // or use a thematic break that cannot count as a [setext heading
-        // underline], such as        
+        // underline], such as
         [Fact]
         public void SetextHeadings_Spec74_commonmark()
         {
@@ -1478,7 +1475,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Authors who want interpretation 3 can use backslash escapes:        
+        // Authors who want interpretation 3 can use backslash escapes:
         [Fact]
         public void SetextHeadings_Spec75_commonmark()
         {
@@ -1506,14 +1503,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // each indented four or more spaces. The contents of the code block are
     // the literal contents of the lines, including trailing
     // [line endings], minus four spaces of indentation.
-    // An indented code block has no [info string]  
+    // An indented code block has no [info string]
     public class IndentedCodeBlocksTests
     {
-
         // An indented code block cannot interrupt a paragraph, so there must be
         // a blank line between a paragraph and a following indented code block.
         // (A blank line is not needed, however, between a code block and a following
-        // paragraph.)        
+        // paragraph.)
         [Fact]
         public void IndentedCodeBlocks_Spec76_commonmark()
         {
@@ -1533,7 +1529,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // If there is any ambiguity between an interpretation of indentation
         // as a code block and as indicating that material belongs to a [list
-        // item][list items], the list item interpretation takes precedence:        
+        // item][list items], the list item interpretation takes precedence:
         [Fact]
         public void IndentedCodeBlocks_Spec77_commonmark()
         {
@@ -1554,7 +1550,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void IndentedCodeBlocks_Spec78_commonmark()
         {
@@ -1579,7 +1575,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // The contents of a code block are literal text, and do not get parsed
-        // as Markdown:        
+        // as Markdown:
         [Fact]
         public void IndentedCodeBlocks_Spec79_commonmark()
         {
@@ -1601,7 +1597,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Here we have three chunks separated by blank lines:        
+        // Here we have three chunks separated by blank lines:
         [Fact]
         public void IndentedCodeBlocks_Spec80_commonmark()
         {
@@ -1630,7 +1626,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Any initial spaces beyond four will be included in the content, even
-        // in interior blank lines:        
+        // in interior blank lines:
         [Fact]
         public void IndentedCodeBlocks_Spec81_commonmark()
         {
@@ -1651,7 +1647,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // An indented code block cannot interrupt a paragraph.  (This
-        // allows hanging indents and the like.)        
+        // allows hanging indents and the like.)
         [Fact]
         public void IndentedCodeBlocks_Spec82_commonmark()
         {
@@ -1671,7 +1667,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // However, any non-blank line with fewer than four leading spaces ends
         // the code block immediately.  So a paragraph may occur immediately
-        // after indented code:        
+        // after indented code:
         [Fact]
         public void IndentedCodeBlocks_Spec83_commonmark()
         {
@@ -1690,7 +1686,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // And indented code can occur immediately before and after other kinds of
-        // blocks:        
+        // blocks:
         [Fact]
         public void IndentedCodeBlocks_Spec84_commonmark()
         {
@@ -1716,7 +1712,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The first line can be indented more than four spaces:        
+        // The first line can be indented more than four spaces:
         [Fact]
         public void IndentedCodeBlocks_Spec85_commonmark()
         {
@@ -1735,7 +1731,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Blank lines preceding or following an indented code block
-        // are not included in it:        
+        // are not included in it:
         [Fact]
         public void IndentedCodeBlocks_Spec86_commonmark()
         {
@@ -1755,7 +1751,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Trailing spaces are included in the code block's content:        
+        // Trailing spaces are included in the code block's content:
         [Fact]
         public void IndentedCodeBlocks_Spec87_commonmark()
         {
@@ -1812,11 +1808,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // as inlines.  The first word of the [info string] is typically used to
     // specify the language of the code sample, and rendered in the `class`
     // attribute of the `code` tag.  However, this spec does not mandate any
-    // particular treatment of the [info string]  
+    // particular treatment of the [info string]
     public class FencedCodeBlocksTests
     {
-
-        // Here is a simple example with backticks:        
+        // Here is a simple example with backticks:
         [Fact]
         public void FencedCodeBlocks_Spec88_commonmark()
         {
@@ -1836,7 +1831,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // With tildes:        
+        // With tildes:
         [Fact]
         public void FencedCodeBlocks_Spec89_commonmark()
         {
@@ -1856,7 +1851,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Fewer than three backticks is not enough:        
+        // Fewer than three backticks is not enough:
         [Fact]
         public void FencedCodeBlocks_Spec90_commonmark()
         {
@@ -1874,7 +1869,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // The closing code fence must use the same character as the opening
-        // fence:        
+        // fence:
         [Fact]
         public void FencedCodeBlocks_Spec91_commonmark()
         {
@@ -1893,7 +1888,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code>aaa\n~~~\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void FencedCodeBlocks_Spec92_commonmark()
         {
@@ -1913,7 +1908,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The closing code fence must be at least as long as the opening fence:        
+        // The closing code fence must be at least as long as the opening fence:
         [Fact]
         public void FencedCodeBlocks_Spec93_commonmark()
         {
@@ -1932,7 +1927,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code>aaa\n```\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void FencedCodeBlocks_Spec94_commonmark()
         {
@@ -1953,7 +1948,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Unclosed code blocks are closed by the end of the document
-        // (or the enclosing [block quote][block quotes] or [list item][list items]):        
+        // (or the enclosing [block quote][block quotes] or [list item][list items]):
         [Fact]
         public void FencedCodeBlocks_Spec95_commonmark()
         {
@@ -1967,7 +1962,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code></code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void FencedCodeBlocks_Spec96_commonmark()
         {
@@ -1987,7 +1982,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code>\n```\naaa\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void FencedCodeBlocks_Spec97_commonmark()
         {
@@ -2009,7 +2004,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A code block can have all empty lines as its content:        
+        // A code block can have all empty lines as its content:
         [Fact]
         public void FencedCodeBlocks_Spec98_commonmark()
         {
@@ -2029,7 +2024,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A code block can be empty:        
+        // A code block can be empty:
         [Fact]
         public void FencedCodeBlocks_Spec99_commonmark()
         {
@@ -2047,7 +2042,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Fences can be indented.  If the opening fence is indented,
         // content lines will have equivalent opening indentation removed,
-        // if present:        
+        // if present:
         [Fact]
         public void FencedCodeBlocks_Spec100_commonmark()
         {
@@ -2066,7 +2061,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code>aaa\naaa\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void FencedCodeBlocks_Spec101_commonmark()
         {
@@ -2087,7 +2082,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code>aaa\naaa\naaa\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void FencedCodeBlocks_Spec102_commonmark()
         {
@@ -2109,7 +2104,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Four spaces indentation produces an indented code block:        
+        // Four spaces indentation produces an indented code block:
         [Fact]
         public void FencedCodeBlocks_Spec103_commonmark()
         {
@@ -2130,7 +2125,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Closing fences may be indented by 0-3 spaces, and their indentation
-        // need not match that of the opening fence:        
+        // need not match that of the opening fence:
         [Fact]
         public void FencedCodeBlocks_Spec104_commonmark()
         {
@@ -2147,7 +2142,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code>aaa\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void FencedCodeBlocks_Spec105_commonmark()
         {
@@ -2165,7 +2160,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // This is not a closing fence, because it is indented 4 spaces:        
+        // This is not a closing fence, because it is indented 4 spaces:
         [Fact]
         public void FencedCodeBlocks_Spec106_commonmark()
         {
@@ -2184,7 +2179,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Code fences (opening and closing) cannot contain internal spaces:        
+        // Code fences (opening and closing) cannot contain internal spaces:
         [Fact]
         public void FencedCodeBlocks_Spec107_commonmark()
         {
@@ -2200,7 +2195,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><code></code>\naaa</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void FencedCodeBlocks_Spec108_commonmark()
         {
@@ -2220,7 +2215,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Fenced code blocks can interrupt paragraphs, and can be followed
-        // directly by paragraphs, without a blank line between:        
+        // directly by paragraphs, without a blank line between:
         [Fact]
         public void FencedCodeBlocks_Spec109_commonmark()
         {
@@ -2243,7 +2238,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Other blocks can also occur before and after fenced code blocks
-        // without an intervening blank line:        
+        // without an intervening blank line:
         [Fact]
         public void FencedCodeBlocks_Spec110_commonmark()
         {
@@ -2269,7 +2264,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // An [info string] can be provided after the opening code fence.
         // Opening and closing spaces will be stripped, and the first word, prefixed
         // with `language-`, is used as the value for the `class` attribute of the
-        // `code` element within the enclosing `pre` element.        
+        // `code` element within the enclosing `pre` element.
         [Fact]
         public void FencedCodeBlocks_Spec111_commonmark()
         {
@@ -2290,7 +2285,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code class=\"language-ruby\">def foo(x)\n  return 3\nend\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void FencedCodeBlocks_Spec112_commonmark()
         {
@@ -2311,7 +2306,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code class=\"language-ruby\">def foo(x)\n  return 3\nend\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void FencedCodeBlocks_Spec113_commonmark()
         {
@@ -2327,7 +2322,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // [Info strings] for backtick code blocks cannot contain backticks:        
+        // [Info strings] for backtick code blocks cannot contain backticks:
         [Fact]
         public void FencedCodeBlocks_Spec114_commonmark()
         {
@@ -2344,7 +2339,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Closing code fences cannot have [info strings]:        
+        // Closing code fences cannot have [info strings]:
         [Fact]
         public void FencedCodeBlocks_Spec115_commonmark()
         {
@@ -2421,13 +2416,12 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // [end condition], or the last line of the document or other [container block].
     // This means any HTML **within an HTML block** that might otherwise be recognised
     // as a start condition will be ignored by the parser and passed through as-is,
-    // without changing the parser's state  
+    // without changing the parser's state
     public class HTMLBlocksTests
     {
-
         // For instance, `<pre>` within a HTML block started by `<table>` will not affect
         // the parser state; as the HTML block was started in by start condition 6, it
-        // will end at any blank line. This can be surprising:        
+        // will end at any blank line. This can be surprising:
         [Fact]
         public void HTMLBlocks_Spec116_commonmark()
         {
@@ -2463,7 +2457,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // of long tags inside a wrapped paragraph as starting HTML blocks.)
         // 
         // Some simple examples follow.  Here are some basic HTML blocks
-        // of type 6:        
+        // of type 6:
         [Fact]
         public void HTMLBlocks_Spec117_commonmark()
         {
@@ -2492,7 +2486,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<table>\n  <tr>\n    <td>\n           hi\n    </td>\n  </tr>\n</table>\n<p>okay.</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HTMLBlocks_Spec118_commonmark()
         {
@@ -2511,7 +2505,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A block can also start with a closing tag:        
+        // A block can also start with a closing tag:
         [Fact]
         public void HTMLBlocks_Spec119_commonmark()
         {
@@ -2528,7 +2522,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Here we have two HTML blocks with a Markdown paragraph between them:        
+        // Here we have two HTML blocks with a Markdown paragraph between them:
         [Fact]
         public void HTMLBlocks_Spec120_commonmark()
         {
@@ -2550,7 +2544,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // The tag on the first line can be partial, as long
-        // as it is split where there would be whitespace:        
+        // as it is split where there would be whitespace:
         [Fact]
         public void HTMLBlocks_Spec121_commonmark()
         {
@@ -2568,7 +2562,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<div id=\"foo\"\n  class=\"bar\">\n</div>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HTMLBlocks_Spec122_commonmark()
         {
@@ -2587,7 +2581,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // An open tag need not be closed:        
+        // An open tag need not be closed:
         [Fact]
         public void HTMLBlocks_Spec123_commonmark()
         {
@@ -2608,7 +2602,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // A partial tag need not even be completed (garbage
-        // in, garbage out):        
+        // in, garbage out):
         [Fact]
         public void HTMLBlocks_Spec124_commonmark()
         {
@@ -2624,7 +2618,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<div id=\"foo\"\n*hi*", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HTMLBlocks_Spec125_commonmark()
         {
@@ -2642,7 +2636,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // The initial tag doesn't even need to be a valid
-        // tag, as long as it starts like one:        
+        // tag, as long as it starts like one:
         [Fact]
         public void HTMLBlocks_Spec126_commonmark()
         {
@@ -2660,7 +2654,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // In type 6 blocks, the initial tag need not be on a line by
-        // itself:        
+        // itself:
         [Fact]
         public void HTMLBlocks_Spec127_commonmark()
         {
@@ -2674,7 +2668,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<div><a href=\"bar\">*foo*</a></div>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HTMLBlocks_Spec128_commonmark()
         {
@@ -2697,7 +2691,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // gets included in the HTML block.  So, in the following
         // example, what looks like a Markdown code block
         // is actually part of the HTML block, which continues until a blank
-        // line or the end of the document is reached:        
+        // line or the end of the document is reached:
         [Fact]
         public void HTMLBlocks_Spec129_commonmark()
         {
@@ -2720,7 +2714,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // To start an [HTML block] with a tag that is *not* in the
         // list of block-level tags in (6), you must put the tag by
-        // itself on the first line (and it must be complete):        
+        // itself on the first line (and it must be complete):
         [Fact]
         public void HTMLBlocks_Spec130_commonmark()
         {
@@ -2739,7 +2733,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // In type 7 blocks, the [tag name] can be anything:        
+        // In type 7 blocks, the [tag name] can be anything:
         [Fact]
         public void HTMLBlocks_Spec131_commonmark()
         {
@@ -2757,7 +2751,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<Warning>\n*bar*\n</Warning>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HTMLBlocks_Spec132_commonmark()
         {
@@ -2775,7 +2769,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<i class=\"foo\">\n*bar*\n</i>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HTMLBlocks_Spec133_commonmark()
         {
@@ -2796,7 +2790,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // can function as either block-level or inline-level tags.
         // The `<del>` tag is a nice example.  We can surround content with
         // `<del>` tags in three different ways.  In this case, we get a raw
-        // HTML block, because the `<del>` tag is on a line by itself:        
+        // HTML block, because the `<del>` tag is on a line by itself:
         [Fact]
         public void HTMLBlocks_Spec134_commonmark()
         {
@@ -2817,7 +2811,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // In this case, we get a raw HTML block that just includes
         // the `<del>` tag (because it ends with the following blank
-        // line).  So the contents get interpreted as CommonMark:        
+        // line).  So the contents get interpreted as CommonMark:
         [Fact]
         public void HTMLBlocks_Spec135_commonmark()
         {
@@ -2841,7 +2835,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Finally, in this case, the `<del>` tags are interpreted
         // as [raw HTML] *inside* the CommonMark paragraph.  (Because
         // the tag is not on a line by itself, we get inline HTML
-        // rather than an [HTML block].)        
+        // rather than an [HTML block].)
         [Fact]
         public void HTMLBlocks_Spec136_commonmark()
         {
@@ -2863,7 +2857,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // end at the first line containing a corresponding end tag.
         // As a result, these blocks can contain blank lines:
         // 
-        // A pre tag (type 1):        
+        // A pre tag (type 1):
         [Fact]
         public void HTMLBlocks_Spec137_commonmark()
         {
@@ -2890,7 +2884,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A script tag (type 1):        
+        // A script tag (type 1):
         [Fact]
         public void HTMLBlocks_Spec138_commonmark()
         {
@@ -2915,7 +2909,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A style tag (type 1):        
+        // A style tag (type 1):
         [Fact]
         public void HTMLBlocks_Spec139_commonmark()
         {
@@ -2944,7 +2938,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // If there is no matching end tag, the block will end at the
         // end of the document (or the enclosing [block quote][block quotes]
-        // or [list item][list items]):        
+        // or [list item][list items]):
         [Fact]
         public void HTMLBlocks_Spec140_commonmark()
         {
@@ -2964,7 +2958,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<style\n  type=\"text/css\">\n\nfoo", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HTMLBlocks_Spec141_commonmark()
         {
@@ -2985,7 +2979,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<blockquote>\n<div>\nfoo\n</blockquote>\n<p>bar</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HTMLBlocks_Spec142_commonmark()
         {
@@ -3006,7 +3000,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The end tag can occur on the same line as the start tag:        
+        // The end tag can occur on the same line as the start tag:
         [Fact]
         public void HTMLBlocks_Spec143_commonmark()
         {
@@ -3022,7 +3016,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<style>p{color:red;}</style>\n<p><em>foo</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HTMLBlocks_Spec144_commonmark()
         {
@@ -3040,7 +3034,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Note that anything on the last line after the
-        // end tag will be included in the [HTML block]:        
+        // end tag will be included in the [HTML block]:
         [Fact]
         public void HTMLBlocks_Spec145_commonmark()
         {
@@ -3059,7 +3053,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A comment (type 2):        
+        // A comment (type 2):
         [Fact]
         public void HTMLBlocks_Spec146_commonmark()
         {
@@ -3082,7 +3076,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A processing instruction (type 3):        
+        // A processing instruction (type 3):
         [Fact]
         public void HTMLBlocks_Spec147_commonmark()
         {
@@ -3107,7 +3101,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A declaration (type 4):        
+        // A declaration (type 4):
         [Fact]
         public void HTMLBlocks_Spec148_commonmark()
         {
@@ -3122,7 +3116,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // CDATA (type 5):        
+        // CDATA (type 5):
         [Fact]
         public void HTMLBlocks_Spec149_commonmark()
         {
@@ -3161,7 +3155,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The opening tag can be indented 1-3 spaces, but not 4:        
+        // The opening tag can be indented 1-3 spaces, but not 4:
         [Fact]
         public void HTMLBlocks_Spec150_commonmark()
         {
@@ -3179,7 +3173,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "  <!-- foo -->\n<pre><code>&lt;!-- foo --&gt;\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HTMLBlocks_Spec151_commonmark()
         {
@@ -3199,7 +3193,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // An HTML block of types 1--6 can interrupt a paragraph, and need not be
-        // preceded by a blank line.        
+        // preceded by a blank line.
         [Fact]
         public void HTMLBlocks_Spec152_commonmark()
         {
@@ -3221,7 +3215,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // However, a following blank line is needed, except at the end of
-        // a document, and except for blocks of types 1--5, above:        
+        // a document, and except for blocks of types 1--5, above:
         [Fact]
         public void HTMLBlocks_Spec153_commonmark()
         {
@@ -3242,7 +3236,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // HTML blocks of type 7 cannot interrupt a paragraph:        
+        // HTML blocks of type 7 cannot interrupt a paragraph:
         [Fact]
         public void HTMLBlocks_Spec154_commonmark()
         {
@@ -3289,7 +3283,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // and flexible way of including Markdown content inside HTML tags:
         // simply separate the Markdown from the HTML using blank lines:
         // 
-        // Compare:        
+        // Compare:
         [Fact]
         public void HTMLBlocks_Spec155_commonmark()
         {
@@ -3309,7 +3303,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<div>\n<p><em>Emphasized</em> text.</p>\n</div>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HTMLBlocks_Spec156_commonmark()
         {
@@ -3337,7 +3331,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // The main potential drawback is that one can no longer paste HTML
         // blocks into Markdown documents with 100% reliability.  However,
         // *in most cases* this will work fine, because the blank lines in
-        // HTML are usually followed by HTML block tags.  For example:        
+        // HTML are usually followed by HTML block tags.  For example:
         [Fact]
         public void HTMLBlocks_Spec157_commonmark()
         {
@@ -3370,7 +3364,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // There are problems, however, if the inner tags are indented
         // *and* separated by spaces, as then they will be interpreted as
-        // an indented code block:        
+        // an indented code block:
         [Fact]
         public void HTMLBlocks_Spec158_commonmark()
         {
@@ -3411,16 +3405,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // [line ending]), and an optional [link
     // title], which if it is present must be separated
     // from the [link destination] by [whitespace].
-    // No further [non-whitespace characters] may occur on the line  
+    // No further [non-whitespace characters] may occur on the line
     public class LinkReferenceDefinitionsTests
     {
-
         // A [link reference definition]
         // does not correspond to a structural element of a document.  Instead, it
         // defines a label which can be used in [reference links]
         // and reference-style [images] elsewhere in the document.  [Link
         // reference definitions] can come either before or after the links that use
-        // them.        
+        // them.
         [Fact]
         public void LinkReferenceDefinitions_Spec159_commonmark()
         {
@@ -3436,7 +3429,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"/url\" title=\"title\">foo</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void LinkReferenceDefinitions_Spec160_commonmark()
         {
@@ -3454,7 +3447,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"/url\" title=\"the title\">foo</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void LinkReferenceDefinitions_Spec161_commonmark()
         {
@@ -3470,7 +3463,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"my_(url)\" title=\"title (with parens)\">Foo*bar]</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void LinkReferenceDefinitions_Spec162_commonmark()
         {
@@ -3489,7 +3482,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The title may extend over multiple lines:        
+        // The title may extend over multiple lines:
         [Fact]
         public void LinkReferenceDefinitions_Spec163_commonmark()
         {
@@ -3514,7 +3507,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // However, it may not contain a [blank line]:        
+        // However, it may not contain a [blank line]:
         [Fact]
         public void LinkReferenceDefinitions_Spec164_commonmark()
         {
@@ -3535,7 +3528,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The title may be omitted:        
+        // The title may be omitted:
         [Fact]
         public void LinkReferenceDefinitions_Spec165_commonmark()
         {
@@ -3553,7 +3546,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The link destination may not be omitted:        
+        // The link destination may not be omitted:
         [Fact]
         public void LinkReferenceDefinitions_Spec166_commonmark()
         {
@@ -3572,7 +3565,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Both title and destination can contain backslash escapes
-        // and literal backslashes:        
+        // and literal backslashes:
         [Fact]
         public void LinkReferenceDefinitions_Spec167_commonmark()
         {
@@ -3589,7 +3582,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A link can come before its corresponding definition:        
+        // A link can come before its corresponding definition:
         [Fact]
         public void LinkReferenceDefinitions_Spec168_commonmark()
         {
@@ -3607,7 +3600,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // If there are several matching definitions, the first one takes
-        // precedence:        
+        // precedence:
         [Fact]
         public void LinkReferenceDefinitions_Spec169_commonmark()
         {
@@ -3626,7 +3619,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // As noted in the section on [Links], matching of labels is
-        // case-insensitive (see [matches]).        
+        // case-insensitive (see [matches]).
         [Fact]
         public void LinkReferenceDefinitions_Spec170_commonmark()
         {
@@ -3642,7 +3635,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"/url\">Foo</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void LinkReferenceDefinitions_Spec171_commonmark()
         {
@@ -3660,7 +3653,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Here is a link reference definition with no corresponding link.
-        // It contributes nothing to the document.        
+        // It contributes nothing to the document.
         [Fact]
         public void LinkReferenceDefinitions_Spec172_commonmark()
         {
@@ -3675,7 +3668,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Here is another one:        
+        // Here is another one:
         [Fact]
         public void LinkReferenceDefinitions_Spec173_commonmark()
         {
@@ -3694,7 +3687,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This is not a link reference definition, because there are
-        // [non-whitespace characters] after the title:        
+        // [non-whitespace characters] after the title:
         [Fact]
         public void LinkReferenceDefinitions_Spec174_commonmark()
         {
@@ -3709,7 +3702,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // This is a link reference definition, but it has no title:        
+        // This is a link reference definition, but it has no title:
         [Fact]
         public void LinkReferenceDefinitions_Spec175_commonmark()
         {
@@ -3726,7 +3719,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This is not a link reference definition, because it is indented
-        // four spaces:        
+        // four spaces:
         [Fact]
         public void LinkReferenceDefinitions_Spec176_commonmark()
         {
@@ -3746,7 +3739,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This is not a link reference definition, because it occurs inside
-        // a code block:        
+        // a code block:
         [Fact]
         public void LinkReferenceDefinitions_Spec177_commonmark()
         {
@@ -3767,7 +3760,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A [link reference definition] cannot interrupt a paragraph.        
+        // A [link reference definition] cannot interrupt a paragraph.
         [Fact]
         public void LinkReferenceDefinitions_Spec178_commonmark()
         {
@@ -3788,7 +3781,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // However, it can directly follow other block elements, such as headings
-        // and thematic breaks, and it need not be followed by a blank line.        
+        // and thematic breaks, and it need not be followed by a blank line.
         [Fact]
         public void LinkReferenceDefinitions_Spec179_commonmark()
         {
@@ -3809,7 +3802,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Several [link reference definitions]
-        // can occur one after another, without intervening blank lines.        
+        // can occur one after another, without intervening blank lines.
         [Fact]
         public void LinkReferenceDefinitions_Spec180_commonmark()
         {
@@ -3836,7 +3829,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // [Link reference definitions] can occur
         // inside block containers, like lists and block quotations.  They
         // affect the entire document, not just the container in which they
-        // are defined:        
+        // are defined:
         [Fact]
         public void LinkReferenceDefinitions_Spec181_commonmark()
         {
@@ -3861,11 +3854,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // The contents of the paragraph are the result of parsing the
     // paragraph's raw content as inlines.  The paragraph's raw content
     // is formed by concatenating the lines and removing initial and final
-    // [whitespace]  
+    // [whitespace]
     public class ParagraphsTests
     {
-
-        // A simple example with two paragraphs:        
+        // A simple example with two paragraphs:
         [Fact]
         public void Paragraphs_Spec182_commonmark()
         {
@@ -3883,7 +3875,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Paragraphs can contain multiple lines, but no blank lines:        
+        // Paragraphs can contain multiple lines, but no blank lines:
         [Fact]
         public void Paragraphs_Spec183_commonmark()
         {
@@ -3905,7 +3897,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Multiple blank lines between paragraph have no effect:        
+        // Multiple blank lines between paragraph have no effect:
         [Fact]
         public void Paragraphs_Spec184_commonmark()
         {
@@ -3924,7 +3916,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Leading spaces are skipped:        
+        // Leading spaces are skipped:
         [Fact]
         public void Paragraphs_Spec185_commonmark()
         {
@@ -3942,7 +3934,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Lines after the first may be indented any amount, since indented
-        // code blocks cannot interrupt paragraphs.        
+        // code blocks cannot interrupt paragraphs.
         [Fact]
         public void Paragraphs_Spec186_commonmark()
         {
@@ -3962,7 +3954,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // However, the first line may be indented at most three spaces,
-        // or an indented code block will be triggered:        
+        // or an indented code block will be triggered:
         [Fact]
         public void Paragraphs_Spec187_commonmark()
         {
@@ -3978,7 +3970,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>aaa\nbbb</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Paragraphs_Spec188_commonmark()
         {
@@ -3998,7 +3990,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Final spaces are stripped before inline parsing, so a paragraph
         // that ends with two or more spaces will not end with a [hard line
-        // break]:        
+        // break]:
         [Fact]
         public void Paragraphs_Spec189_commonmark()
         {
@@ -4018,11 +4010,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
     // [Blank lines] between block-level elements are ignored,
     // except for the role they play in determining whether a [list]
-    // is [tight] or [loose]  
+    // is [tight] or [loose]
     public class BlankLinesTests
     {
-
-        // Blank lines at the beginning and end of the document are also ignored.        
+        // Blank lines at the beginning and end of the document are also ignored.
         [Fact]
         public void BlankLines_Spec190_commonmark()
         {
@@ -4070,11 +4061,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // 3.  **Consecutiveness.**  A document cannot contain two [block
     //     quotes] in a row unless there is a [blank line] between them.
     // 
-    // Nothing else counts as a [block quote](#block-quotes)  
+    // Nothing else counts as a [block quote](#block-quotes)
     public class BlockQuotesTests
     {
-
-        // Here is a simple example:        
+        // Here is a simple example:
         [Fact]
         public void BlockQuotes_Spec191_commonmark()
         {
@@ -4095,7 +4085,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The spaces after the `>` characters can be omitted:        
+        // The spaces after the `>` characters can be omitted:
         [Fact]
         public void BlockQuotes_Spec192_commonmark()
         {
@@ -4116,7 +4106,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The `>` characters can be indented 1-3 spaces:        
+        // The `>` characters can be indented 1-3 spaces:
         [Fact]
         public void BlockQuotes_Spec193_commonmark()
         {
@@ -4137,7 +4127,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Four spaces gives us a code block:        
+        // Four spaces gives us a code block:
         [Fact]
         public void BlockQuotes_Spec194_commonmark()
         {
@@ -4158,7 +4148,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // The Laziness clause allows us to omit the `>` before
-        // [paragraph continuation text]:        
+        // [paragraph continuation text]:
         [Fact]
         public void BlockQuotes_Spec195_commonmark()
         {
@@ -4180,7 +4170,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // A block quote can contain some lazy and some non-lazy
-        // continuation lines:        
+        // continuation lines:
         [Fact]
         public void BlockQuotes_Spec196_commonmark()
         {
@@ -4210,7 +4200,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // > ---
         // ```
         // 
-        // without changing the meaning:        
+        // without changing the meaning:
         [Fact]
         public void BlockQuotes_Spec197_commonmark()
         {
@@ -4236,7 +4226,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // > - bar
         // ```
         // 
-        // then the block quote ends after the first line:        
+        // then the block quote ends after the first line:
         [Fact]
         public void BlockQuotes_Spec198_commonmark()
         {
@@ -4260,7 +4250,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // For the same reason, we can't omit the `> ` in front of
-        // subsequent lines of an indented or fenced code block:        
+        // subsequent lines of an indented or fenced code block:
         [Fact]
         public void BlockQuotes_Spec199_commonmark()
         {
@@ -4280,7 +4270,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<blockquote>\n<pre><code>foo\n</code></pre>\n</blockquote>\n<pre><code>bar\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void BlockQuotes_Spec200_commonmark()
         {
@@ -4302,7 +4292,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Note that in the following case, we have a [lazy
-        // continuation line]:        
+        // continuation line]:
         [Fact]
         public void BlockQuotes_Spec201_commonmark()
         {
@@ -4332,7 +4322,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // be an indented code block because indented code blocks cannot
         // interrupt paragraphs, so it is [paragraph continuation text].
         // 
-        // A block quote can be empty:        
+        // A block quote can be empty:
         [Fact]
         public void BlockQuotes_Spec202_commonmark()
         {
@@ -4347,7 +4337,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<blockquote>\n</blockquote>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void BlockQuotes_Spec203_commonmark()
         {
@@ -4365,7 +4355,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A block quote can have initial or final blank lines:        
+        // A block quote can have initial or final blank lines:
         [Fact]
         public void BlockQuotes_Spec204_commonmark()
         {
@@ -4384,7 +4374,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A blank line always separates block quotes:        
+        // A blank line always separates block quotes:
         [Fact]
         public void BlockQuotes_Spec205_commonmark()
         {
@@ -4412,7 +4402,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // whether two block quotes or one are wanted.)
         // 
         // Consecutiveness means that if we put these block quotes together,
-        // we get a single block quote:        
+        // we get a single block quote:
         [Fact]
         public void BlockQuotes_Spec206_commonmark()
         {
@@ -4431,7 +4421,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // To get a block quote with two paragraphs, use:        
+        // To get a block quote with two paragraphs, use:
         [Fact]
         public void BlockQuotes_Spec207_commonmark()
         {
@@ -4451,7 +4441,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Block quotes can interrupt paragraphs:        
+        // Block quotes can interrupt paragraphs:
         [Fact]
         public void BlockQuotes_Spec208_commonmark()
         {
@@ -4471,7 +4461,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // In general, blank lines are not needed before or after block
-        // quotes:        
+        // quotes:
         [Fact]
         public void BlockQuotes_Spec209_commonmark()
         {
@@ -4495,7 +4485,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // However, because of laziness, a blank line is needed between
-        // a block quote and a following paragraph:        
+        // a block quote and a following paragraph:
         [Fact]
         public void BlockQuotes_Spec210_commonmark()
         {
@@ -4513,7 +4503,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<blockquote>\n<p>bar\nbaz</p>\n</blockquote>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void BlockQuotes_Spec211_commonmark()
         {
@@ -4532,7 +4522,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<blockquote>\n<p>bar</p>\n</blockquote>\n<p>baz</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void BlockQuotes_Spec212_commonmark()
         {
@@ -4554,7 +4544,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // It is a consequence of the Laziness rule that any number
         // of initial `>`s may be omitted on a continuation line of a
-        // nested block quote:        
+        // nested block quote:
         [Fact]
         public void BlockQuotes_Spec213_commonmark()
         {
@@ -4576,7 +4566,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<blockquote>\n<blockquote>\n<blockquote>\n<p>foo\nbar</p>\n</blockquote>\n</blockquote>\n</blockquote>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void BlockQuotes_Spec214_commonmark()
         {
@@ -4604,7 +4594,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // When including an indented code block in a block quote,
         // remember that the [block quote marker] includes
         // both the `>` and a following space.  So *five spaces* are needed after
-        // the `>`:        
+        // the `>`:
         [Fact]
         public void BlockQuotes_Spec215_commonmark()
         {
@@ -4661,11 +4651,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     //        the lines *Ls* must not begin with a blank line, and (b) if
     //        the list item is ordered, the start number must be 1.
     //     2. If any line is a [thematic break][thematic breaks] then
-    //        that line is not a list item  
+    //        that line is not a list item
     public class ListItemsTests
     {
-
-        // For example, let *Ls* be the lines        
+        // For example, let *Ls* be the lines
         [Fact]
         public void ListItems_Spec216_commonmark()
         {
@@ -4693,7 +4682,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // And let *M* be the marker `1.`, and *N* = 2.  Then rule #1 says
         // that the following is an ordered list item with start number 1,
-        // and the same contents as *Ls*:        
+        // and the same contents as *Ls*:
         [Fact]
         public void ListItems_Spec217_commonmark()
         {
@@ -4732,7 +4721,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // item.
         // 
         // Here are some examples showing how far content must be indented to be
-        // put under the list item:        
+        // put under the list item:
         [Fact]
         public void ListItems_Spec218_commonmark()
         {
@@ -4751,7 +4740,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>one</li>\n</ul>\n<p>two</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void ListItems_Spec219_commonmark()
         {
@@ -4772,7 +4761,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ul>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void ListItems_Spec220_commonmark()
         {
@@ -4792,7 +4781,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>one</li>\n</ul>\n<pre><code> two\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void ListItems_Spec221_commonmark()
         {
@@ -4820,7 +4809,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // The spaces after the list marker determine how much relative indentation
         // is needed.  Which column this indentation reaches will depend on
         // how the list item is embedded in other constructions, as shown by
-        // this example:        
+        // this example:
         [Fact]
         public void ListItems_Spec222_commonmark()
         {
@@ -4853,7 +4842,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // The converse is also possible.  In the following example, the word `two`
         // occurs far to the right of the initial text of the list item, `one`, but
         // it is not considered part of the list item, because it is not indented
-        // far enough past the blockquote marker:        
+        // far enough past the blockquote marker:
         [Fact]
         public void ListItems_Spec223_commonmark()
         {
@@ -4878,7 +4867,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Note that at least one space is needed between the list marker and
-        // any following content, so these are not list items:        
+        // any following content, so these are not list items:
         [Fact]
         public void ListItems_Spec224_commonmark()
         {
@@ -4897,7 +4886,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // A list item may contain blocks that are separated by more than
-        // one blank line.        
+        // one blank line.
         [Fact]
         public void ListItems_Spec225_commonmark()
         {
@@ -4920,7 +4909,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A list item may contain any kind of block:        
+        // A list item may contain any kind of block:
         [Fact]
         public void ListItems_Spec226_commonmark()
         {
@@ -4954,7 +4943,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // A list item that contains an indented code block will preserve
-        // empty lines within the code block verbatim.        
+        // empty lines within the code block verbatim.
         [Fact]
         public void ListItems_Spec227_commonmark()
         {
@@ -4983,7 +4972,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Note that ordered list start numbers must be nine digits or less:        
+        // Note that ordered list start numbers must be nine digits or less:
         [Fact]
         public void ListItems_Spec228_commonmark()
         {
@@ -4999,7 +4988,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ol start=\"123456789\">\n<li>ok</li>\n</ol>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void ListItems_Spec229_commonmark()
         {
@@ -5014,7 +5003,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A start number may begin with 0s:        
+        // A start number may begin with 0s:
         [Fact]
         public void ListItems_Spec230_commonmark()
         {
@@ -5030,7 +5019,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ol start=\"0\">\n<li>ok</li>\n</ol>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void ListItems_Spec231_commonmark()
         {
@@ -5047,7 +5036,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A start number may not be negative:        
+        // A start number may not be negative:
         [Fact]
         public void ListItems_Spec232_commonmark()
         {
@@ -5076,7 +5065,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // 
         // An indented code block will have to be indented four spaces beyond
         // the edge of the region where text will be included in the list item.
-        // In the following case that is 6 spaces:        
+        // In the following case that is 6 spaces:
         [Fact]
         public void ListItems_Spec233_commonmark()
         {
@@ -5099,7 +5088,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // And in this case it is 11 spaces:        
+        // And in this case it is 11 spaces:
         [Fact]
         public void ListItems_Spec234_commonmark()
         {
@@ -5124,7 +5113,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // If the *first* block in the list item is an indented code block,
         // then by rule #2, the contents must be indented *one* space after the
-        // list marker:        
+        // list marker:
         [Fact]
         public void ListItems_Spec235_commonmark()
         {
@@ -5146,7 +5135,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code>indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void ListItems_Spec236_commonmark()
         {
@@ -5174,7 +5163,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Note that an additional space indent is interpreted as space
-        // inside the code block:        
+        // inside the code block:
         [Fact]
         public void ListItems_Spec237_commonmark()
         {
@@ -5207,7 +5196,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // they begin with an indented code
         // block.  In a case like the following, where the first block begins with
         // a three-space indent, the rules do not allow us to form a list item by
-        // indenting the whole thing and prepending a list marker:        
+        // indenting the whole thing and prepending a list marker:
         [Fact]
         public void ListItems_Spec238_commonmark()
         {
@@ -5224,7 +5213,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo</p>\n<p>bar</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void ListItems_Spec239_commonmark()
         {
@@ -5247,7 +5236,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // This is not a significant restriction, because when a block begins
         // with 1-3 spaces indent, the indentation can always be removed without
         // a change in interpretation, allowing rule #1 to be applied.  So, in
-        // the above case:        
+        // the above case:
         [Fact]
         public void ListItems_Spec240_commonmark()
         {
@@ -5281,7 +5270,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         //     marker.  If the list item is ordered, then it is also assigned a
         //     start number, based on the ordered list marker.
         // 
-        // Here are some list items that start with a blank line but are not empty:        
+        // Here are some list items that start with a blank line but are not empty:
         [Fact]
         public void ListItems_Spec241_commonmark()
         {
@@ -5314,7 +5303,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // When the list item starts with a blank line, the number of spaces
-        // following the list marker doesn't change the required indentation:        
+        // following the list marker doesn't change the required indentation:
         [Fact]
         public void ListItems_Spec242_commonmark()
         {
@@ -5334,7 +5323,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // A list item can begin with at most one blank line.
         // In the following example, `foo` is not part of the list
-        // item:        
+        // item:
         [Fact]
         public void ListItems_Spec243_commonmark()
         {
@@ -5354,7 +5343,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Here is an empty bullet list item:        
+        // Here is an empty bullet list item:
         [Fact]
         public void ListItems_Spec244_commonmark()
         {
@@ -5375,7 +5364,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // It does not matter whether there are spaces following the [list marker]:        
+        // It does not matter whether there are spaces following the [list marker]:
         [Fact]
         public void ListItems_Spec245_commonmark()
         {
@@ -5396,7 +5385,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Here is an empty ordered list item:        
+        // Here is an empty ordered list item:
         [Fact]
         public void ListItems_Spec246_commonmark()
         {
@@ -5417,7 +5406,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A list may start or end with an empty list item:        
+        // A list may start or end with an empty list item:
         [Fact]
         public void ListItems_Spec247_commonmark()
         {
@@ -5434,7 +5423,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // However, an empty list item cannot interrupt a paragraph:        
+        // However, an empty list item cannot interrupt a paragraph:
         [Fact]
         public void ListItems_Spec248_commonmark()
         {
@@ -5462,7 +5451,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         //     list item with the same contents and attributes.  If a line is
         //     empty, then it need not be indented.
         // 
-        // Indented one space:        
+        // Indented one space:
         [Fact]
         public void ListItems_Spec249_commonmark()
         {
@@ -5492,7 +5481,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Indented two spaces:        
+        // Indented two spaces:
         [Fact]
         public void ListItems_Spec250_commonmark()
         {
@@ -5522,7 +5511,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Indented three spaces:        
+        // Indented three spaces:
         [Fact]
         public void ListItems_Spec251_commonmark()
         {
@@ -5552,7 +5541,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Four spaces indent gives a code block:        
+        // Four spaces indent gives a code block:
         [Fact]
         public void ListItems_Spec252_commonmark()
         {
@@ -5587,7 +5576,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         //     lines are called
         //     [lazy continuation line](@)s.
         // 
-        // Here is an example with [lazy continuation lines]:        
+        // Here is an example with [lazy continuation lines]:
         [Fact]
         public void ListItems_Spec253_commonmark()
         {
@@ -5617,7 +5606,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Indentation can be partially deleted:        
+        // Indentation can be partially deleted:
         [Fact]
         public void ListItems_Spec254_commonmark()
         {
@@ -5636,7 +5625,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // These examples show how laziness can work in nested structures:        
+        // These examples show how laziness can work in nested structures:
         [Fact]
         public void ListItems_Spec255_commonmark()
         {
@@ -5660,7 +5649,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<blockquote>\n<ol>\n<li>\n<blockquote>\n<p>Blockquote\ncontinued here.</p>\n</blockquote>\n</li>\n</ol>\n</blockquote>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void ListItems_Spec256_commonmark()
         {
@@ -5692,7 +5681,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // must be indented the same number of spaces a paragraph would need to be
         // in order to be included in the list item.
         // 
-        // So, in this case we need two spaces indent:        
+        // So, in this case we need two spaces indent:
         [Fact]
         public void ListItems_Spec257_commonmark()
         {
@@ -5724,7 +5713,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // One is not enough:        
+        // One is not enough:
         [Fact]
         public void ListItems_Spec258_commonmark()
         {
@@ -5747,7 +5736,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Here we need four, because the list marker is wider:        
+        // Here we need four, because the list marker is wider:
         [Fact]
         public void ListItems_Spec259_commonmark()
         {
@@ -5769,7 +5758,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Three is not enough:        
+        // Three is not enough:
         [Fact]
         public void ListItems_Spec260_commonmark()
         {
@@ -5790,7 +5779,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A list may be the first block in a list item:        
+        // A list may be the first block in a list item:
         [Fact]
         public void ListItems_Spec261_commonmark()
         {
@@ -5810,7 +5799,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>\n<ul>\n<li>foo</li>\n</ul>\n</li>\n</ul>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void ListItems_Spec262_commonmark()
         {
@@ -5835,7 +5824,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A list item can contain a heading:        
+        // A list item can contain a heading:
         [Fact]
         public void ListItems_Spec263_commonmark()
         {
@@ -5888,11 +5877,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // list items directly contain two block-level elements with a blank line
     // between them.  Otherwise a list is [tight](@).
     // (The difference in HTML output is that paragraphs in a loose list are
-    // wrapped in `<p>` tags, while paragraphs in a tight list are not.  
+    // wrapped in `<p>` tags, while paragraphs in a tight list are not.
     public class ListsTests
     {
-
-        // Changing the bullet or ordered list delimiter starts a new list:        
+        // Changing the bullet or ordered list delimiter starts a new list:
         [Fact]
         public void Lists_Spec264_commonmark()
         {
@@ -5914,7 +5902,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>foo</li>\n<li>bar</li>\n</ul>\n<ul>\n<li>baz</li>\n</ul>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Lists_Spec265_commonmark()
         {
@@ -5939,7 +5927,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // In CommonMark, a list can interrupt a paragraph. That is,
         // no blank line is needed to separate a paragraph from a following
-        // list:        
+        // list:
         [Fact]
         public void Lists_Spec266_commonmark()
         {
@@ -6023,7 +6011,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // 
         // In order to solve of unwanted lists in paragraphs with
         // hard-wrapped numerals, we allow only lists starting with `1` to
-        // interrupt paragraphs.  Thus,        
+        // interrupt paragraphs.  Thus,
         [Fact]
         public void Lists_Spec267_commonmark()
         {
@@ -6040,7 +6028,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // We may still get an unintended result in cases like        
+        // We may still get an unintended result in cases like
         [Fact]
         public void Lists_Spec268_commonmark()
         {
@@ -6061,7 +6049,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // but this rule should prevent most spurious list captures.
         // 
-        // There can be any number of blank lines between items:        
+        // There can be any number of blank lines between items:
         [Fact]
         public void Lists_Spec269_commonmark()
         {
@@ -6090,7 +6078,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>\n<p>foo</p>\n</li>\n<li>\n<p>bar</p>\n</li>\n<li>\n<p>baz</p>\n</li>\n</ul>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Lists_Spec270_commonmark()
         {
@@ -6126,7 +6114,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // To separate consecutive lists of the same type, or to separate a
         // list from an indented code block that would otherwise be parsed
         // as a subparagraph of the final list item, you can insert a blank HTML
-        // comment:        
+        // comment:
         [Fact]
         public void Lists_Spec271_commonmark()
         {
@@ -6154,7 +6142,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>foo</li>\n<li>bar</li>\n</ul>\n<!-- -->\n<ul>\n<li>baz</li>\n<li>bim</li>\n</ul>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Lists_Spec272_commonmark()
         {
@@ -6191,7 +6179,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // List items need not be indented to the same level.  The following
         // list items will be treated as items at the same list level,
         // since none is indented enough to belong to the previous list
-        // item:        
+        // item:
         [Fact]
         public void Lists_Spec273_commonmark()
         {
@@ -6223,7 +6211,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>a</li>\n<li>b</li>\n<li>c</li>\n<li>d</li>\n<li>e</li>\n<li>f</li>\n<li>g</li>\n<li>h</li>\n<li>i</li>\n</ul>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Lists_Spec274_commonmark()
         {
@@ -6253,7 +6241,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This is a loose list, because there is a blank line between
-        // two of the list items:        
+        // two of the list items:
         [Fact]
         public void Lists_Spec275_commonmark()
         {
@@ -6281,7 +6269,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // So is this, with a empty second item:        
+        // So is this, with a empty second item:
         [Fact]
         public void Lists_Spec276_commonmark()
         {
@@ -6309,7 +6297,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // These are loose lists, even though there is no space between the items,
         // because one of the items directly contains two block-level elements
-        // with a blank line between them:        
+        // with a blank line between them:
         [Fact]
         public void Lists_Spec277_commonmark()
         {
@@ -6338,7 +6326,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n<p>c</p>\n</li>\n<li>\n<p>d</p>\n</li>\n</ul>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Lists_Spec278_commonmark()
         {
@@ -6367,7 +6355,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // This is a tight list, because the blank lines are in a code block:        
+        // This is a tight list, because the blank lines are in a code block:
         [Fact]
         public void Lists_Spec279_commonmark()
         {
@@ -6399,7 +6387,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // This is a tight list, because the blank line is between two
         // paragraphs of a sublist.  So the sublist is loose while
-        // the outer list is tight:        
+        // the outer list is tight:
         [Fact]
         public void Lists_Spec280_commonmark()
         {
@@ -6429,7 +6417,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This is a tight list, because the blank line is inside the
-        // block quote:        
+        // block quote:
         [Fact]
         public void Lists_Spec281_commonmark()
         {
@@ -6455,7 +6443,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This list is tight, because the consecutive block elements
-        // are not separated by blank lines:        
+        // are not separated by blank lines:
         [Fact]
         public void Lists_Spec282_commonmark()
         {
@@ -6484,7 +6472,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A single-paragraph list is tight:        
+        // A single-paragraph list is tight:
         [Fact]
         public void Lists_Spec283_commonmark()
         {
@@ -6500,7 +6488,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>a</li>\n</ul>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Lists_Spec284_commonmark()
         {
@@ -6523,7 +6511,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This list is loose, because of the blank line between the
-        // two block elements in the list item:        
+        // two block elements in the list item:
         [Fact]
         public void Lists_Spec285_commonmark()
         {
@@ -6548,7 +6536,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Here the outer list is loose, the inner list tight:        
+        // Here the outer list is loose, the inner list tight:
         [Fact]
         public void Lists_Spec286_commonmark()
         {
@@ -6573,7 +6561,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<ul>\n<li>\n<p>foo</p>\n<ul>\n<li>bar</li>\n</ul>\n<p>baz</p>\n</li>\n</ul>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Lists_Spec287_commonmark()
         {
@@ -6613,7 +6601,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // 
         // Inlines are parsed sequentially from the beginning of the character
         // stream to the end (left to right, in left-to-right languages).
-        // Thus, for example, in        
+        // Thus, for example, in
         [Fact]
         public void Lists_Spec288_commonmark()
         {
@@ -6629,10 +6617,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
     }
 
-    // Any ASCII punctuation character may be backslash-escaped:  
+    // Any ASCII punctuation character may be backslash-escaped:
     public class BackslashEscapesTests
     {
-        
+
         [Fact]
         public void BackslashEscapes_Spec289_commonmark()
         {
@@ -6648,7 +6636,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Backslashes before other characters are treated as literal
-        // backslashes:        
+        // backslashes:
         [Fact]
         public void BackslashEscapes_Spec290_commonmark()
         {
@@ -6664,7 +6652,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Escaped characters are treated as regular characters and do
-        // not have their usual Markdown meanings:        
+        // not have their usual Markdown meanings:
         [Fact]
         public void BackslashEscapes_Spec291_commonmark()
         {
@@ -6693,7 +6681,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // If a backslash is itself escaped, the following character is not:        
+        // If a backslash is itself escaped, the following character is not:
         [Fact]
         public void BackslashEscapes_Spec292_commonmark()
         {
@@ -6708,7 +6696,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A backslash at the end of the line is a [hard line break]:        
+        // A backslash at the end of the line is a [hard line break]:
         [Fact]
         public void BackslashEscapes_Spec293_commonmark()
         {
@@ -6726,7 +6714,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Backslash escapes do not work in code blocks, code spans, autolinks, or
-        // raw HTML:        
+        // raw HTML:
         [Fact]
         public void BackslashEscapes_Spec294_commonmark()
         {
@@ -6740,7 +6728,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><code>\\[\\`</code></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void BackslashEscapes_Spec295_commonmark()
         {
@@ -6755,7 +6743,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code>\\[\\]\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void BackslashEscapes_Spec296_commonmark()
         {
@@ -6772,7 +6760,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<pre><code>\\[\\]\n</code></pre>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void BackslashEscapes_Spec297_commonmark()
         {
@@ -6786,7 +6774,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"http://example.com?find=%5C*\">http://example.com?find=\\*</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void BackslashEscapes_Spec298_commonmark()
         {
@@ -6802,7 +6790,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // But they work in all other contexts, including URLs and link titles,
-        // link references, and [info strings] in [fenced code blocks]:        
+        // link references, and [info strings] in [fenced code blocks]:
         [Fact]
         public void BackslashEscapes_Spec299_commonmark()
         {
@@ -6816,7 +6804,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"/bar*\" title=\"ti*tle\">foo</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void BackslashEscapes_Spec300_commonmark()
         {
@@ -6832,7 +6820,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"/bar*\" title=\"ti*tle\">foo</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void BackslashEscapes_Spec301_commonmark()
         {
@@ -6857,15 +6845,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // corresponding Unicode characters.  Conforming CommonMark parsers
     // need not store information about whether a particular character
     // was represented in the source using a Unicode character or
-    // an entity reference  
+    // an entity reference
     public class EntityAndNumericCharacterReferencesTests
     {
-
         // [Entity references](@) consist of `&` + any of the valid
         // HTML5 entity names + `;`. The
         // document <https://html.spec.whatwg.org/multipage/entities.json>
         // is used as an authoritative source for the valid entity
-        // references and their corresponding code points.        
+        // references and their corresponding code points.
         [Fact]
         public void EntityAndNumericCharacterReferences_Spec302_commonmark()
         {
@@ -6890,7 +6877,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // numeric character reference is parsed as the corresponding
         // Unicode character. Invalid Unicode code points will be replaced by
         // the REPLACEMENT CHARACTER (`U+FFFD`).  For security reasons,
-        // the code point `U+0000` will also be replaced by `U+FFFD`.        
+        // the code point `U+0000` will also be replaced by `U+FFFD`.
         [Fact]
         public void EntityAndNumericCharacterReferences_Spec303_commonmark()
         {
@@ -6909,7 +6896,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // references](@) consist of `&#` +
         // either `X` or `x` + a string of 1-8 hexadecimal digits + `;`.
         // They too are parsed as the corresponding Unicode character (this
-        // time specified with a hexadecimal numeral instead of decimal).        
+        // time specified with a hexadecimal numeral instead of decimal).
         [Fact]
         public void EntityAndNumericCharacterReferences_Spec304_commonmark()
         {
@@ -6924,7 +6911,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Here are some nonentities:        
+        // Here are some nonentities:
         [Fact]
         public void EntityAndNumericCharacterReferences_Spec305_commonmark()
         {
@@ -6943,7 +6930,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Although HTML5 does accept some entity references
         // without a trailing semicolon (such as `&copy`), these are not
-        // recognized here, because it makes the grammar too ambiguous:        
+        // recognized here, because it makes the grammar too ambiguous:
         [Fact]
         public void EntityAndNumericCharacterReferences_Spec306_commonmark()
         {
@@ -6959,7 +6946,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Strings that are not on the list of HTML5 named entities are not
-        // recognized as entity references either:        
+        // recognized as entity references either:
         [Fact]
         public void EntityAndNumericCharacterReferences_Spec307_commonmark()
         {
@@ -6976,7 +6963,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Entity and numeric character references are recognized in any
         // context besides code spans or code blocks, including
-        // URLs, [link titles], and [fenced code block][] [info strings]:        
+        // URLs, [link titles], and [fenced code block][] [info strings]:
         [Fact]
         public void EntityAndNumericCharacterReferences_Spec308_commonmark()
         {
@@ -6990,7 +6977,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<a href=\"&ouml;&ouml;.html\">", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EntityAndNumericCharacterReferences_Spec309_commonmark()
         {
@@ -7004,7 +6991,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"/f%C3%B6%C3%B6\" title=\"föö\">foo</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EntityAndNumericCharacterReferences_Spec310_commonmark()
         {
@@ -7020,7 +7007,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"/f%C3%B6%C3%B6\" title=\"föö\">foo</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EntityAndNumericCharacterReferences_Spec311_commonmark()
         {
@@ -7039,7 +7026,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Entity and numeric character references are treated as literal
-        // text in code spans and code blocks:        
+        // text in code spans and code blocks:
         [Fact]
         public void EntityAndNumericCharacterReferences_Spec312_commonmark()
         {
@@ -7053,7 +7040,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><code>f&amp;ouml;&amp;ouml;</code></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EntityAndNumericCharacterReferences_Spec313_commonmark()
         {
@@ -7078,11 +7065,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // a backtick string of equal length.  The contents of the code span are
     // the characters between the two backtick strings, with leading and
     // trailing spaces and [line endings] removed, and
-    // [whitespace] collapsed to single spaces  
+    // [whitespace] collapsed to single spaces
     public class CodeSpansTests
     {
-
-        // This is a simple code span:        
+        // This is a simple code span:
         [Fact]
         public void CodeSpans_Spec314_commonmark()
         {
@@ -7098,7 +7084,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Here two backticks are used, because the code contains a backtick.
-        // This example also illustrates stripping of leading and trailing spaces:        
+        // This example also illustrates stripping of leading and trailing spaces:
         [Fact]
         public void CodeSpans_Spec315_commonmark()
         {
@@ -7114,7 +7100,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This example shows the motivation for stripping leading and trailing
-        // spaces:        
+        // spaces:
         [Fact]
         public void CodeSpans_Spec316_commonmark()
         {
@@ -7129,7 +7115,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // [Line endings] are treated like spaces:        
+        // [Line endings] are treated like spaces:
         [Fact]
         public void CodeSpans_Spec317_commonmark()
         {
@@ -7147,7 +7133,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Interior spaces and [line endings] are collapsed into
-        // single spaces, just as they would be by a browser:        
+        // single spaces, just as they would be by a browser:
         [Fact]
         public void CodeSpans_Spec318_commonmark()
         {
@@ -7164,7 +7150,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Not all [Unicode whitespace] (for instance, non-breaking space) is
-        // collapsed, however:        
+        // collapsed, however:
         [Fact]
         public void CodeSpans_Spec319_commonmark()
         {
@@ -7190,7 +7176,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // hard-wrap their paragraphs, since a line break in the midst of a code
         // span will cause an unintended line break in the output.  Others just
         // leave internal spaces as they are, which is fine if only HTML is being
-        // targeted.)        
+        // targeted.)
         [Fact]
         public void CodeSpans_Spec320_commonmark()
         {
@@ -7206,7 +7192,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Note that backslash escapes do not work in code spans. All backslashes
-        // are treated literally:        
+        // are treated literally:
         [Fact]
         public void CodeSpans_Spec321_commonmark()
         {
@@ -7228,7 +7214,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Code span backticks have higher precedence than any other inline
         // constructs except HTML tags and autolinks.  Thus, for example, this is
         // not parsed as emphasized text, since the second `*` is part of a code
-        // span:        
+        // span:
         [Fact]
         public void CodeSpans_Spec322_commonmark()
         {
@@ -7243,7 +7229,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // And this is not parsed as a link:        
+        // And this is not parsed as a link:
         [Fact]
         public void CodeSpans_Spec323_commonmark()
         {
@@ -7259,7 +7245,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Code spans, HTML tags, and autolinks have the same precedence.
-        // Thus, this is code:        
+        // Thus, this is code:
         [Fact]
         public void CodeSpans_Spec324_commonmark()
         {
@@ -7274,7 +7260,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // But this is an HTML tag:        
+        // But this is an HTML tag:
         [Fact]
         public void CodeSpans_Spec325_commonmark()
         {
@@ -7289,7 +7275,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // And this is code:        
+        // And this is code:
         [Fact]
         public void CodeSpans_Spec326_commonmark()
         {
@@ -7304,7 +7290,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // But this is an autolink:        
+        // But this is an autolink:
         [Fact]
         public void CodeSpans_Spec327_commonmark()
         {
@@ -7320,7 +7306,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // When a backtick string is not closed by a matching backtick string,
-        // we just have literal backticks:        
+        // we just have literal backticks:
         [Fact]
         public void CodeSpans_Spec328_commonmark()
         {
@@ -7334,7 +7320,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>```foo``</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void CodeSpans_Spec329_commonmark()
         {
@@ -7350,7 +7336,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // The following case also illustrates the need for opening and
-        // closing backtick strings to be equal in length:        
+        // closing backtick strings to be equal in length:
         [Fact]
         public void CodeSpans_Spec330_commonmark()
         {
@@ -7566,11 +7552,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     //     parsed as `*<a href="bar">foo*</a>` rather than as
     //     `<em>[foo</em>](bar)`.
     // 
-    // These rules can be illustrated through a series of examples  
+    // These rules can be illustrated through a series of examples
     public class EmphasisAndStrongEmphasisTests
     {
-
-        // Rule 1:        
+        // Rule 1:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec331_commonmark()
         {
@@ -7586,7 +7571,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This is not emphasis, because the opening `*` is followed by
-        // whitespace, and hence not part of a [left-flanking delimiter run]:        
+        // whitespace, and hence not part of a [left-flanking delimiter run]:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec332_commonmark()
         {
@@ -7603,7 +7588,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // This is not emphasis, because the opening `*` is preceded
         // by an alphanumeric and followed by punctuation, and hence
-        // not part of a [left-flanking delimiter run]:        
+        // not part of a [left-flanking delimiter run]:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec333_commonmark()
         {
@@ -7618,7 +7603,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Unicode nonbreaking spaces count as whitespace, too:        
+        // Unicode nonbreaking spaces count as whitespace, too:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec334_commonmark()
         {
@@ -7633,7 +7618,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Intraword emphasis with `*` is permitted:        
+        // Intraword emphasis with `*` is permitted:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec335_commonmark()
         {
@@ -7647,7 +7632,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo<em>bar</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec336_commonmark()
         {
@@ -7662,7 +7647,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Rule 2:        
+        // Rule 2:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec337_commonmark()
         {
@@ -7678,7 +7663,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This is not emphasis, because the opening `_` is followed by
-        // whitespace:        
+        // whitespace:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec338_commonmark()
         {
@@ -7694,7 +7679,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This is not emphasis, because the opening `_` is preceded
-        // by an alphanumeric and followed by punctuation:        
+        // by an alphanumeric and followed by punctuation:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec339_commonmark()
         {
@@ -7709,7 +7694,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Emphasis with `_` is not allowed inside words:        
+        // Emphasis with `_` is not allowed inside words:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec340_commonmark()
         {
@@ -7723,7 +7708,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo_bar_</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec341_commonmark()
         {
@@ -7737,7 +7722,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>5_6_78</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec342_commonmark()
         {
@@ -7753,7 +7738,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Here `_` does not generate emphasis, because the first delimiter run
-        // is right-flanking and the second left-flanking:        
+        // is right-flanking and the second left-flanking:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec343_commonmark()
         {
@@ -7770,7 +7755,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // This is emphasis, even though the opening delimiter is
         // both left- and right-flanking, because it is preceded by
-        // punctuation:        
+        // punctuation:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec344_commonmark()
         {
@@ -7788,7 +7773,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Rule 3:
         // 
         // This is not emphasis, because the closing delimiter does
-        // not match the opening delimiter:        
+        // not match the opening delimiter:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec345_commonmark()
         {
@@ -7804,7 +7789,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This is not emphasis, because the closing `*` is preceded by
-        // whitespace:        
+        // whitespace:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec346_commonmark()
         {
@@ -7819,7 +7804,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A newline also counts as whitespace:        
+        // A newline also counts as whitespace:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec347_commonmark()
         {
@@ -7838,7 +7823,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // This is not emphasis, because the second `*` is
         // preceded by punctuation and followed by an alphanumeric
-        // (hence it is not part of a [right-flanking delimiter run]:        
+        // (hence it is not part of a [right-flanking delimiter run]:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec348_commonmark()
         {
@@ -7854,7 +7839,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // The point of this restriction is more easily appreciated
-        // with this example:        
+        // with this example:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec349_commonmark()
         {
@@ -7869,7 +7854,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Intraword emphasis with `*` is allowed:        
+        // Intraword emphasis with `*` is allowed:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec350_commonmark()
         {
@@ -7887,7 +7872,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Rule 4:
         // 
         // This is not emphasis, because the closing `_` is preceded by
-        // whitespace:        
+        // whitespace:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec351_commonmark()
         {
@@ -7903,7 +7888,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This is not emphasis, because the second `_` is
-        // preceded by punctuation and followed by an alphanumeric:        
+        // preceded by punctuation and followed by an alphanumeric:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec352_commonmark()
         {
@@ -7918,7 +7903,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // This is emphasis within emphasis:        
+        // This is emphasis within emphasis:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec353_commonmark()
         {
@@ -7933,7 +7918,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Intraword emphasis is disallowed for `_`:        
+        // Intraword emphasis is disallowed for `_`:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec354_commonmark()
         {
@@ -7947,7 +7932,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>_foo_bar</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec355_commonmark()
         {
@@ -7961,7 +7946,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>_пристаням_стремятся</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec356_commonmark()
         {
@@ -7978,7 +7963,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // This is emphasis, even though the closing delimiter is
         // both left- and right-flanking, because it is followed by
-        // punctuation:        
+        // punctuation:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec357_commonmark()
         {
@@ -7993,7 +7978,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Rule 5:        
+        // Rule 5:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec358_commonmark()
         {
@@ -8009,7 +7994,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This is not strong emphasis, because the opening delimiter is
-        // followed by whitespace:        
+        // followed by whitespace:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec359_commonmark()
         {
@@ -8026,7 +8011,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // This is not strong emphasis, because the opening `**` is preceded
         // by an alphanumeric and followed by punctuation, and hence
-        // not part of a [left-flanking delimiter run]:        
+        // not part of a [left-flanking delimiter run]:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec360_commonmark()
         {
@@ -8041,7 +8026,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Intraword strong emphasis with `**` is permitted:        
+        // Intraword strong emphasis with `**` is permitted:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec361_commonmark()
         {
@@ -8056,7 +8041,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Rule 6:        
+        // Rule 6:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec362_commonmark()
         {
@@ -8072,7 +8057,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This is not strong emphasis, because the opening delimiter is
-        // followed by whitespace:        
+        // followed by whitespace:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec363_commonmark()
         {
@@ -8087,7 +8072,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A newline counts as whitespace:        
+        // A newline counts as whitespace:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec364_commonmark()
         {
@@ -8105,7 +8090,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This is not strong emphasis, because the opening `__` is preceded
-        // by an alphanumeric and followed by punctuation:        
+        // by an alphanumeric and followed by punctuation:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec365_commonmark()
         {
@@ -8120,7 +8105,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Intraword strong emphasis is forbidden with `__`:        
+        // Intraword strong emphasis is forbidden with `__`:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec366_commonmark()
         {
@@ -8134,7 +8119,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo__bar__</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec367_commonmark()
         {
@@ -8148,7 +8133,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>5__6__78</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec368_commonmark()
         {
@@ -8162,7 +8147,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>пристаням__стремятся__</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec369_commonmark()
         {
@@ -8179,7 +8164,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // This is strong emphasis, even though the opening delimiter is
         // both left- and right-flanking, because it is preceded by
-        // punctuation:        
+        // punctuation:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec370_commonmark()
         {
@@ -8197,7 +8182,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Rule 7:
         // 
         // This is not strong emphasis, because the closing delimiter is preceded
-        // by whitespace:        
+        // by whitespace:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec371_commonmark()
         {
@@ -8216,7 +8201,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Rule 11.)
         // 
         // This is not strong emphasis, because the second `**` is
-        // preceded by punctuation and followed by an alphanumeric:        
+        // preceded by punctuation and followed by an alphanumeric:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec372_commonmark()
         {
@@ -8232,7 +8217,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // The point of this restriction is more easily appreciated
-        // with these examples:        
+        // with these examples:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec373_commonmark()
         {
@@ -8246,7 +8231,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em>(<strong>foo</strong>)</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec374_commonmark()
         {
@@ -8262,7 +8247,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><strong>Gomphocarpus (<em>Gomphocarpus physocarpus</em>, syn.\n<em>Asclepias physocarpa</em>)</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec375_commonmark()
         {
@@ -8277,7 +8262,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Intraword emphasis:        
+        // Intraword emphasis:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec376_commonmark()
         {
@@ -8295,7 +8280,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Rule 8:
         // 
         // This is not strong emphasis, because the closing delimiter is
-        // preceded by whitespace:        
+        // preceded by whitespace:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec377_commonmark()
         {
@@ -8311,7 +8296,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // This is not strong emphasis, because the second `__` is
-        // preceded by punctuation and followed by an alphanumeric:        
+        // preceded by punctuation and followed by an alphanumeric:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec378_commonmark()
         {
@@ -8327,7 +8312,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // The point of this restriction is more easily appreciated
-        // with this example:        
+        // with this example:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec379_commonmark()
         {
@@ -8342,7 +8327,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Intraword strong emphasis is forbidden with `__`:        
+        // Intraword strong emphasis is forbidden with `__`:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec380_commonmark()
         {
@@ -8356,7 +8341,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>__foo__bar</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec381_commonmark()
         {
@@ -8370,7 +8355,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>__пристаням__стремятся</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec382_commonmark()
         {
@@ -8387,7 +8372,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // This is strong emphasis, even though the closing delimiter is
         // both left- and right-flanking, because it is followed by
-        // punctuation:        
+        // punctuation:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec383_commonmark()
         {
@@ -8405,7 +8390,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Rule 9:
         // 
         // Any nonempty sequence of inline elements can be the contents of an
-        // emphasized span.        
+        // emphasized span.
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec384_commonmark()
         {
@@ -8419,7 +8404,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em>foo <a href=\"/url\">bar</a></em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec385_commonmark()
         {
@@ -8437,7 +8422,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // In particular, emphasis and strong emphasis can be nested
-        // inside emphasis:        
+        // inside emphasis:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec386_commonmark()
         {
@@ -8451,7 +8436,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em>foo <strong>bar</strong> baz</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec387_commonmark()
         {
@@ -8465,7 +8450,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em>foo <em>bar</em> baz</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec388_commonmark()
         {
@@ -8479,7 +8464,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em><em>foo</em> bar</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec389_commonmark()
         {
@@ -8493,7 +8478,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em>foo <em>bar</em></em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec390_commonmark()
         {
@@ -8507,7 +8492,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em>foo <strong>bar</strong> baz</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec391_commonmark()
         {
@@ -8538,7 +8523,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // The same condition ensures that the following
         // cases are all strong emphasis nested inside
         // emphasis, even when the interior spaces are
-        // omitted:        
+        // omitted:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec392_commonmark()
         {
@@ -8552,7 +8537,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em><strong>foo</strong> bar</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec393_commonmark()
         {
@@ -8566,7 +8551,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em>foo <strong>bar</strong></em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec394_commonmark()
         {
@@ -8581,7 +8566,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Indefinite levels of nesting are possible:        
+        // Indefinite levels of nesting are possible:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec395_commonmark()
         {
@@ -8595,7 +8580,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em>foo <strong>bar <em>baz</em> bim</strong> bop</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec396_commonmark()
         {
@@ -8610,7 +8595,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // There can be no empty emphasis or strong emphasis:        
+        // There can be no empty emphasis or strong emphasis:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec397_commonmark()
         {
@@ -8624,7 +8609,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>** is not an empty emphasis</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec398_commonmark()
         {
@@ -8642,7 +8627,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Rule 10:
         // 
         // Any nonempty sequence of inline elements can be the contents of an
-        // strongly emphasized span.        
+        // strongly emphasized span.
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec399_commonmark()
         {
@@ -8656,7 +8641,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><strong>foo <a href=\"/url\">bar</a></strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec400_commonmark()
         {
@@ -8674,7 +8659,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // In particular, emphasis and strong emphasis can be nested
-        // inside strong emphasis:        
+        // inside strong emphasis:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec401_commonmark()
         {
@@ -8688,7 +8673,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><strong>foo <em>bar</em> baz</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec402_commonmark()
         {
@@ -8702,7 +8687,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><strong>foo <strong>bar</strong> baz</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec403_commonmark()
         {
@@ -8716,7 +8701,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><strong><strong>foo</strong> bar</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec404_commonmark()
         {
@@ -8730,7 +8715,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><strong>foo <strong>bar</strong></strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec405_commonmark()
         {
@@ -8744,7 +8729,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><strong>foo <em>bar</em> baz</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec406_commonmark()
         {
@@ -8758,7 +8743,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><strong>foo<em>bar</em>baz</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec407_commonmark()
         {
@@ -8772,7 +8757,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><strong><em>foo</em> bar</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec408_commonmark()
         {
@@ -8787,7 +8772,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Indefinite levels of nesting are possible:        
+        // Indefinite levels of nesting are possible:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec409_commonmark()
         {
@@ -8803,7 +8788,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><strong>foo <em>bar <strong>baz</strong>\nbim</em> bop</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec410_commonmark()
         {
@@ -8818,7 +8803,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // There can be no empty emphasis or strong emphasis:        
+        // There can be no empty emphasis or strong emphasis:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec411_commonmark()
         {
@@ -8832,7 +8817,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>__ is not an empty emphasis</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec412_commonmark()
         {
@@ -8847,7 +8832,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Rule 11:        
+        // Rule 11:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec413_commonmark()
         {
@@ -8861,7 +8846,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo ***</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec414_commonmark()
         {
@@ -8875,7 +8860,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo <em>*</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec415_commonmark()
         {
@@ -8889,7 +8874,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo <em>_</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec416_commonmark()
         {
@@ -8903,7 +8888,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo *****</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec417_commonmark()
         {
@@ -8917,7 +8902,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo <strong>*</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec418_commonmark()
         {
@@ -8934,7 +8919,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Note that when delimiters do not match evenly, Rule 11 determines
         // that the excess literal `*` characters will appear outside of the
-        // emphasis, rather than inside it:        
+        // emphasis, rather than inside it:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec419_commonmark()
         {
@@ -8948,7 +8933,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>*<em>foo</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec420_commonmark()
         {
@@ -8962,7 +8947,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em>foo</em>*</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec421_commonmark()
         {
@@ -8976,7 +8961,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>*<strong>foo</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec422_commonmark()
         {
@@ -8990,7 +8975,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>***<em>foo</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec423_commonmark()
         {
@@ -9004,7 +8989,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><strong>foo</strong>*</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec424_commonmark()
         {
@@ -9019,7 +9004,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Rule 12:        
+        // Rule 12:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec425_commonmark()
         {
@@ -9033,7 +9018,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo ___</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec426_commonmark()
         {
@@ -9047,7 +9032,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo <em>_</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec427_commonmark()
         {
@@ -9061,7 +9046,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo <em>*</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec428_commonmark()
         {
@@ -9075,7 +9060,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo _____</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec429_commonmark()
         {
@@ -9089,7 +9074,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo <strong>_</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec430_commonmark()
         {
@@ -9103,7 +9088,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo <strong>*</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec431_commonmark()
         {
@@ -9120,7 +9105,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Note that when delimiters do not match evenly, Rule 12 determines
         // that the excess literal `_` characters will appear outside of the
-        // emphasis, rather than inside it:        
+        // emphasis, rather than inside it:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec432_commonmark()
         {
@@ -9134,7 +9119,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em>foo</em>_</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec433_commonmark()
         {
@@ -9148,7 +9133,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>_<strong>foo</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec434_commonmark()
         {
@@ -9162,7 +9147,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>___<em>foo</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec435_commonmark()
         {
@@ -9176,7 +9161,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><strong>foo</strong>_</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec436_commonmark()
         {
@@ -9192,7 +9177,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Rule 13 implies that if you want emphasis nested directly inside
-        // emphasis, you must use different delimiters:        
+        // emphasis, you must use different delimiters:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec437_commonmark()
         {
@@ -9206,7 +9191,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><strong>foo</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec438_commonmark()
         {
@@ -9220,7 +9205,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em><em>foo</em></em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec439_commonmark()
         {
@@ -9234,7 +9219,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><strong>foo</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec440_commonmark()
         {
@@ -9250,7 +9235,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // However, strong emphasis within strong emphasis is possible without
-        // switching delimiters:        
+        // switching delimiters:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec441_commonmark()
         {
@@ -9264,7 +9249,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><strong><strong>foo</strong></strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec442_commonmark()
         {
@@ -9280,7 +9265,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Rule 13 can be applied to arbitrarily long sequences of
-        // delimiters:        
+        // delimiters:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec443_commonmark()
         {
@@ -9295,7 +9280,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Rule 14:        
+        // Rule 14:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec444_commonmark()
         {
@@ -9309,7 +9294,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em><strong>foo</strong></em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec445_commonmark()
         {
@@ -9324,7 +9309,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Rule 15:        
+        // Rule 15:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec446_commonmark()
         {
@@ -9338,7 +9323,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em>foo _bar</em> baz_</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec447_commonmark()
         {
@@ -9353,7 +9338,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Rule 16:        
+        // Rule 16:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec448_commonmark()
         {
@@ -9367,7 +9352,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>**foo <strong>bar baz</strong></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec449_commonmark()
         {
@@ -9382,7 +9367,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Rule 17:        
+        // Rule 17:
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec450_commonmark()
         {
@@ -9396,7 +9381,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>*<a href=\"/url\">bar*</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec451_commonmark()
         {
@@ -9410,7 +9395,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>_foo <a href=\"/url\">bar_</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec452_commonmark()
         {
@@ -9424,7 +9409,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>*<img src=\"foo\" title=\"*\"/></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec453_commonmark()
         {
@@ -9438,7 +9423,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>**<a href=\"**\"></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec454_commonmark()
         {
@@ -9452,7 +9437,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>__<a href=\"__\"></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec455_commonmark()
         {
@@ -9466,7 +9451,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em>a <code>*</code></em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec456_commonmark()
         {
@@ -9480,7 +9465,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em>a <code>_</code></em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec457_commonmark()
         {
@@ -9494,7 +9479,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>**a<a href=\"http://foo.bar/?q=**\">http://foo.bar/?q=**</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void EmphasisAndStrongEmphasis_Spec458_commonmark()
         {
@@ -9577,11 +9562,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // `<...>` if present, with backslash-escapes in effect as described
     // above.  The link's title consists of the link title, excluding its
     // enclosing delimiters, with backslash-escapes in effect as described
-    // above  
+    // above
     public class LinksTests
     {
-
-        // Here is a simple inline link:        
+        // Here is a simple inline link:
         [Fact]
         public void Links_Spec459_commonmark()
         {
@@ -9596,7 +9580,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The title may be omitted:        
+        // The title may be omitted:
         [Fact]
         public void Links_Spec460_commonmark()
         {
@@ -9611,7 +9595,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Both the title and the destination may be omitted:        
+        // Both the title and the destination may be omitted:
         [Fact]
         public void Links_Spec461_commonmark()
         {
@@ -9625,7 +9609,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"\">link</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec462_commonmark()
         {
@@ -9641,7 +9625,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // The destination cannot contain spaces or line breaks,
-        // even if enclosed in pointy brackets:        
+        // even if enclosed in pointy brackets:
         [Fact]
         public void Links_Spec463_commonmark()
         {
@@ -9655,7 +9639,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[link](/my uri)</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec464_commonmark()
         {
@@ -9669,7 +9653,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[link](&lt;/my uri&gt;)</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec465_commonmark()
         {
@@ -9685,7 +9669,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[link](foo\nbar)</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec466_commonmark()
         {
@@ -9702,7 +9686,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Parentheses inside the link destination may be escaped:        
+        // Parentheses inside the link destination may be escaped:
         [Fact]
         public void Links_Spec467_commonmark()
         {
@@ -9718,7 +9702,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Any number of parentheses are allowed without escaping, as long as they are
-        // balanced:        
+        // balanced:
         [Fact]
         public void Links_Spec468_commonmark()
         {
@@ -9734,7 +9718,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // However, if you have unbalanced parentheses, you need to escape or use the
-        // `<...>` form:        
+        // `<...>` form:
         [Fact]
         public void Links_Spec469_commonmark()
         {
@@ -9748,7 +9732,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"foo(and(bar)\">link</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec470_commonmark()
         {
@@ -9764,7 +9748,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Parentheses and other symbols can also be escaped, as usual
-        // in Markdown:        
+        // in Markdown:
         [Fact]
         public void Links_Spec471_commonmark()
         {
@@ -9779,7 +9763,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A link can contain fragment identifiers and queries:        
+        // A link can contain fragment identifiers and queries:
         [Fact]
         public void Links_Spec472_commonmark()
         {
@@ -9801,7 +9785,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Note that a backslash before a non-escapable character is
-        // just a backslash:        
+        // just a backslash:
         [Fact]
         public void Links_Spec473_commonmark()
         {
@@ -9823,7 +9807,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // be optionally URL-escaped when written as HTML, but this spec
         // does not enforce any particular policy for rendering URLs in
         // HTML or other formats.  Renderers may make different decisions
-        // about how to escape or normalize URLs in the output.        
+        // about how to escape or normalize URLs in the output.
         [Fact]
         public void Links_Spec474_commonmark()
         {
@@ -9840,7 +9824,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Note that, because titles can often be parsed as destinations,
         // if you try to omit the destination and keep the title, you'll
-        // get unexpected results:        
+        // get unexpected results:
         [Fact]
         public void Links_Spec475_commonmark()
         {
@@ -9855,7 +9839,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Titles may be in single quotes, double quotes, or parentheses:        
+        // Titles may be in single quotes, double quotes, or parentheses:
         [Fact]
         public void Links_Spec476_commonmark()
         {
@@ -9875,7 +9859,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Backslash escapes and entity and numeric character references
-        // may be used in titles:        
+        // may be used in titles:
         [Fact]
         public void Links_Spec477_commonmark()
         {
@@ -9891,7 +9875,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Titles must be separated from the link using a [whitespace].
-        // Other [Unicode whitespace] like non-breaking space doesn't work.        
+        // Other [Unicode whitespace] like non-breaking space doesn't work.
         [Fact]
         public void Links_Spec478_commonmark()
         {
@@ -9906,7 +9890,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Nested balanced quotes are not allowed without escaping:        
+        // Nested balanced quotes are not allowed without escaping:
         [Fact]
         public void Links_Spec479_commonmark()
         {
@@ -9921,7 +9905,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // But it is easy to work around this by using a different quote type:        
+        // But it is easy to work around this by using a different quote type:
         [Fact]
         public void Links_Spec480_commonmark()
         {
@@ -9951,7 +9935,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // It seems preferable to adopt a simple, rational rule that works
         // the same way in inline links and link reference definitions.)
         // 
-        // [Whitespace] is allowed around the destination and title:        
+        // [Whitespace] is allowed around the destination and title:
         [Fact]
         public void Links_Spec481_commonmark()
         {
@@ -9968,7 +9952,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // But it is not allowed between the link text and the
-        // following parenthesis:        
+        // following parenthesis:
         [Fact]
         public void Links_Spec482_commonmark()
         {
@@ -9984,7 +9968,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // The link text may contain balanced brackets, but not unbalanced ones,
-        // unless they are escaped:        
+        // unless they are escaped:
         [Fact]
         public void Links_Spec483_commonmark()
         {
@@ -9998,7 +9982,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"/uri\">link [foo [bar]]</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec484_commonmark()
         {
@@ -10012,7 +9996,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[link] bar](/uri)</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec485_commonmark()
         {
@@ -10026,7 +10010,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[link <a href=\"/uri\">bar</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec486_commonmark()
         {
@@ -10041,7 +10025,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The link text may contain inline content:        
+        // The link text may contain inline content:
         [Fact]
         public void Links_Spec487_commonmark()
         {
@@ -10055,7 +10039,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"/uri\">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec488_commonmark()
         {
@@ -10070,7 +10054,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // However, links may not contain other links, at any level of nesting.        
+        // However, links may not contain other links, at any level of nesting.
         [Fact]
         public void Links_Spec489_commonmark()
         {
@@ -10084,7 +10068,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[foo <a href=\"/uri\">bar</a>](/uri)</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec490_commonmark()
         {
@@ -10098,7 +10082,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[foo <em>[bar <a href=\"/uri\">baz</a>](/uri)</em>](/uri)</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec491_commonmark()
         {
@@ -10114,7 +10098,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // These cases illustrate the precedence of link text grouping over
-        // emphasis grouping:        
+        // emphasis grouping:
         [Fact]
         public void Links_Spec492_commonmark()
         {
@@ -10128,7 +10112,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>*<a href=\"/uri\">foo*</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec493_commonmark()
         {
@@ -10144,7 +10128,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Note that brackets that *aren't* part of links do not take
-        // precedence:        
+        // precedence:
         [Fact]
         public void Links_Spec494_commonmark()
         {
@@ -10160,7 +10144,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // These cases illustrate the precedence of HTML tags, code spans,
-        // and autolinks over link grouping:        
+        // and autolinks over link grouping:
         [Fact]
         public void Links_Spec495_commonmark()
         {
@@ -10174,7 +10158,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[foo <bar attr=\"](baz)\"></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec496_commonmark()
         {
@@ -10188,7 +10172,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[foo<code>](/uri)</code></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec497_commonmark()
         {
@@ -10232,7 +10216,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // used as the link's text.  The link's URI and title are provided by the
         // matching [link reference definition].
         // 
-        // Here is a simple example:        
+        // Here is a simple example:
         [Fact]
         public void Links_Spec498_commonmark()
         {
@@ -10253,7 +10237,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // [inline links].  Thus:
         // 
         // The link text may contain balanced brackets, but not unbalanced ones,
-        // unless they are escaped:        
+        // unless they are escaped:
         [Fact]
         public void Links_Spec499_commonmark()
         {
@@ -10269,7 +10253,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"/uri\">link [foo [bar]]</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec500_commonmark()
         {
@@ -10286,7 +10270,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The link text may contain inline content:        
+        // The link text may contain inline content:
         [Fact]
         public void Links_Spec501_commonmark()
         {
@@ -10302,7 +10286,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"/uri\">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec502_commonmark()
         {
@@ -10319,7 +10303,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // However, links may not contain other links, at any level of nesting.        
+        // However, links may not contain other links, at any level of nesting.
         [Fact]
         public void Links_Spec503_commonmark()
         {
@@ -10335,7 +10319,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[foo <a href=\"/uri\">bar</a>]<a href=\"/uri\">ref</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec504_commonmark()
         {
@@ -10356,7 +10340,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // instead of one [full reference link].)
         // 
         // The following cases illustrate the precedence of link text grouping over
-        // emphasis grouping:        
+        // emphasis grouping:
         [Fact]
         public void Links_Spec505_commonmark()
         {
@@ -10372,7 +10356,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>*<a href=\"/uri\">foo*</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec506_commonmark()
         {
@@ -10390,7 +10374,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // These cases illustrate the precedence of HTML tags, code spans,
-        // and autolinks over link grouping:        
+        // and autolinks over link grouping:
         [Fact]
         public void Links_Spec507_commonmark()
         {
@@ -10406,7 +10390,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[foo <bar attr=\"][ref]\"></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec508_commonmark()
         {
@@ -10422,7 +10406,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[foo<code>][ref]</code></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec509_commonmark()
         {
@@ -10439,7 +10423,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Matching is case-insensitive:        
+        // Matching is case-insensitive:
         [Fact]
         public void Links_Spec510_commonmark()
         {
@@ -10456,7 +10440,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Unicode case fold is used:        
+        // Unicode case fold is used:
         [Fact]
         public void Links_Spec511_commonmark()
         {
@@ -10474,7 +10458,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Consecutive internal [whitespace] is treated as one space for
-        // purposes of determining matching:        
+        // purposes of determining matching:
         [Fact]
         public void Links_Spec512_commonmark()
         {
@@ -10493,7 +10477,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // No [whitespace] is allowed between the [link text] and the
-        // [link label]:        
+        // [link label]:
         [Fact]
         public void Links_Spec513_commonmark()
         {
@@ -10509,7 +10493,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[foo] <a href=\"/url\" title=\"title\">bar</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec514_commonmark()
         {
@@ -10556,7 +10540,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // unintended results.)
         // 
         // When there are multiple matching [link reference definitions],
-        // the first is used:        
+        // the first is used:
         [Fact]
         public void Links_Spec515_commonmark()
         {
@@ -10577,7 +10561,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Note that matching is performed on normalized strings, not parsed
         // inline content.  So the following does not match, even though the
-        // labels define equivalent inline content:        
+        // labels define equivalent inline content:
         [Fact]
         public void Links_Spec516_commonmark()
         {
@@ -10595,7 +10579,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // [Link labels] cannot contain brackets, unless they are
-        // backslash-escaped:        
+        // backslash-escaped:
         [Fact]
         public void Links_Spec517_commonmark()
         {
@@ -10612,7 +10596,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[foo][ref[]</p>\n<p>[ref[]: /uri</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec518_commonmark()
         {
@@ -10629,7 +10613,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[foo][ref[bar]]</p>\n<p>[ref[bar]]: /uri</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec519_commonmark()
         {
@@ -10646,7 +10630,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[[[foo]]]</p>\n<p>[[[foo]]]: /url</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec520_commonmark()
         {
@@ -10663,7 +10647,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Note that in this example `]` is not backslash-escaped:        
+        // Note that in this example `]` is not backslash-escaped:
         [Fact]
         public void Links_Spec521_commonmark()
         {
@@ -10680,7 +10664,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A [link label] must contain at least one [non-whitespace character]:        
+        // A [link label] must contain at least one [non-whitespace character]:
         [Fact]
         public void Links_Spec522_commonmark()
         {
@@ -10697,7 +10681,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[]</p>\n<p>[]: /uri</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec523_commonmark()
         {
@@ -10726,7 +10710,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // The contents of the first link label are parsed as inlines,
         // which are used as the link's text.  The link's URI and title are
         // provided by the matching reference link definition.  Thus,
-        // `[foo][]` is equivalent to `[foo][foo]`.        
+        // `[foo][]` is equivalent to `[foo][foo]`.
         [Fact]
         public void Links_Spec524_commonmark()
         {
@@ -10742,7 +10726,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"/url\" title=\"title\">foo</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec525_commonmark()
         {
@@ -10759,7 +10743,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The link labels are case-insensitive:        
+        // The link labels are case-insensitive:
         [Fact]
         public void Links_Spec526_commonmark()
         {
@@ -10777,7 +10761,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // As with full reference links, [whitespace] is not
-        // allowed between the two sets of brackets:        
+        // allowed between the two sets of brackets:
         [Fact]
         public void Links_Spec527_commonmark()
         {
@@ -10803,7 +10787,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // The contents of the first link label are parsed as inlines,
         // which are used as the link's text.  The link's URI and title
         // are provided by the matching link reference definition.
-        // Thus, `[foo]` is equivalent to `[foo][]`.        
+        // Thus, `[foo]` is equivalent to `[foo][]`.
         [Fact]
         public void Links_Spec528_commonmark()
         {
@@ -10819,7 +10803,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"/url\" title=\"title\">foo</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec529_commonmark()
         {
@@ -10835,7 +10819,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"/url\" title=\"title\"><em>foo</em> bar</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec530_commonmark()
         {
@@ -10851,7 +10835,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[<a href=\"/url\" title=\"title\"><em>foo</em> bar</a>]</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec531_commonmark()
         {
@@ -10868,7 +10852,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The link labels are case-insensitive:        
+        // The link labels are case-insensitive:
         [Fact]
         public void Links_Spec532_commonmark()
         {
@@ -10885,7 +10869,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // A space after the link text should be preserved:        
+        // A space after the link text should be preserved:
         [Fact]
         public void Links_Spec533_commonmark()
         {
@@ -10903,7 +10887,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // If you just want bracketed text, you can backslash-escape the
-        // opening bracket to avoid links:        
+        // opening bracket to avoid links:
         [Fact]
         public void Links_Spec534_commonmark()
         {
@@ -10921,7 +10905,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Note that this is a link, because a link label ends with the first
-        // following closing bracket:        
+        // following closing bracket:
         [Fact]
         public void Links_Spec535_commonmark()
         {
@@ -10939,7 +10923,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Full and compact references take precedence over shortcut
-        // references:        
+        // references:
         [Fact]
         public void Links_Spec536_commonmark()
         {
@@ -10956,7 +10940,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"/url2\">foo</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec537_commonmark()
         {
@@ -10973,7 +10957,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Inline links also take precedence:        
+        // Inline links also take precedence:
         [Fact]
         public void Links_Spec538_commonmark()
         {
@@ -10989,7 +10973,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"\">foo</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Links_Spec539_commonmark()
         {
@@ -11007,7 +10991,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // In the following case `[bar][baz]` is parsed as a reference,
-        // `[foo]` as normal text:        
+        // `[foo]` as normal text:
         [Fact]
         public void Links_Spec540_commonmark()
         {
@@ -11025,7 +11009,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Here, though, `[foo][bar]` is parsed as a reference, since
-        // `[bar]` is defined:        
+        // `[bar]` is defined:
         [Fact]
         public void Links_Spec541_commonmark()
         {
@@ -11044,7 +11028,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Here `[foo]` is not parsed as a shortcut reference, because it
-        // is followed by a link label (even though `[bar]` is not defined):        
+        // is followed by a link label (even though `[bar]` is not defined):
         [Fact]
         public void Links_Spec542_commonmark()
         {
@@ -11071,10 +11055,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // (b) an image description may contain links.
     // An image description has inline elements
     // as its contents.  When an image is rendered to HTML,
-    // this is standardly used as the image's `alt` attribute.  
+    // this is standardly used as the image's `alt` attribute.
     public class ImagesTests
     {
-        
+
         [Fact]
         public void Images_Spec543_commonmark()
         {
@@ -11088,7 +11072,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Images_Spec544_commonmark()
         {
@@ -11104,7 +11088,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Images_Spec545_commonmark()
         {
@@ -11118,7 +11102,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><img src=\"/url2\" alt=\"foo bar\" /></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Images_Spec546_commonmark()
         {
@@ -11138,7 +11122,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // of the [image description] be used.  Note that in
         // the above example, the alt attribute's value is `foo bar`, not `foo
         // [bar](/url)` or `foo <a href="/url">bar</a>`.  Only the plain string
-        // content is rendered, without formatting.        
+        // content is rendered, without formatting.
         [Fact]
         public void Images_Spec547_commonmark()
         {
@@ -11154,7 +11138,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Images_Spec548_commonmark()
         {
@@ -11170,7 +11154,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Images_Spec549_commonmark()
         {
@@ -11184,7 +11168,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><img src=\"train.jpg\" alt=\"foo\" /></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Images_Spec550_commonmark()
         {
@@ -11198,7 +11182,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>My <img src=\"/path/to/train.jpg\" alt=\"foo bar\" title=\"title\" /></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Images_Spec551_commonmark()
         {
@@ -11212,7 +11196,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><img src=\"url\" alt=\"foo\" /></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Images_Spec552_commonmark()
         {
@@ -11227,7 +11211,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Reference-style:        
+        // Reference-style:
         [Fact]
         public void Images_Spec553_commonmark()
         {
@@ -11243,7 +11227,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><img src=\"/url\" alt=\"foo\" /></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Images_Spec554_commonmark()
         {
@@ -11260,7 +11244,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Collapsed:        
+        // Collapsed:
         [Fact]
         public void Images_Spec555_commonmark()
         {
@@ -11276,7 +11260,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Images_Spec556_commonmark()
         {
@@ -11293,7 +11277,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The labels are case-insensitive:        
+        // The labels are case-insensitive:
         [Fact]
         public void Images_Spec557_commonmark()
         {
@@ -11311,7 +11295,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // As with reference links, [whitespace] is not allowed
-        // between the two sets of brackets:        
+        // between the two sets of brackets:
         [Fact]
         public void Images_Spec558_commonmark()
         {
@@ -11330,7 +11314,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Shortcut:        
+        // Shortcut:
         [Fact]
         public void Images_Spec559_commonmark()
         {
@@ -11346,7 +11330,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Images_Spec560_commonmark()
         {
@@ -11363,7 +11347,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Note that link labels cannot contain unescaped brackets:        
+        // Note that link labels cannot contain unescaped brackets:
         [Fact]
         public void Images_Spec561_commonmark()
         {
@@ -11381,7 +11365,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // The link labels are case-insensitive:        
+        // The link labels are case-insensitive:
         [Fact]
         public void Images_Spec562_commonmark()
         {
@@ -11399,7 +11383,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // If you just want a literal `!` followed by bracketed text, you can
-        // backslash-escape the opening `[`:        
+        // backslash-escape the opening `[`:
         [Fact]
         public void Images_Spec563_commonmark()
         {
@@ -11417,7 +11401,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // If you want a link after a literal `!`, backslash-escape the
-        // `!`:        
+        // `!`:
         [Fact]
         public void Images_Spec564_commonmark()
         {
@@ -11453,11 +11437,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // For purposes of this spec, a [scheme](@) is any sequence
     // of 2--32 characters beginning with an ASCII letter and followed
     // by any combination of ASCII letters, digits, or the symbols plus
-    // ("+"), period ("."), or hyphen ("-")  
+    // ("+"), period ("."), or hyphen ("-")
     public class AutolinksTests
     {
-
-        // Here are some valid autolinks:        
+        // Here are some valid autolinks:
         [Fact]
         public void Autolinks_Spec565_commonmark()
         {
@@ -11471,7 +11454,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"http://foo.bar.baz\">http://foo.bar.baz</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Autolinks_Spec566_commonmark()
         {
@@ -11485,7 +11468,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean\">http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Autolinks_Spec567_commonmark()
         {
@@ -11500,7 +11483,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Uppercase is also fine:        
+        // Uppercase is also fine:
         [Fact]
         public void Autolinks_Spec568_commonmark()
         {
@@ -11518,7 +11501,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         // Note that many strings that count as [absolute URIs] for
         // purposes of this spec are not valid URIs, because their
         // schemes are not registered or because of other problems
-        // with their syntax:        
+        // with their syntax:
         [Fact]
         public void Autolinks_Spec569_commonmark()
         {
@@ -11532,7 +11515,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"a+b+c:d\">a+b+c:d</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Autolinks_Spec570_commonmark()
         {
@@ -11546,7 +11529,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"made-up-scheme://foo,bar\">made-up-scheme://foo,bar</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Autolinks_Spec571_commonmark()
         {
@@ -11560,7 +11543,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"http://../\">http://../</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Autolinks_Spec572_commonmark()
         {
@@ -11575,7 +11558,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Spaces are not allowed in autolinks:        
+        // Spaces are not allowed in autolinks:
         [Fact]
         public void Autolinks_Spec573_commonmark()
         {
@@ -11590,7 +11573,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Backslash-escapes do not work inside autolinks:        
+        // Backslash-escapes do not work inside autolinks:
         [Fact]
         public void Autolinks_Spec574_commonmark()
         {
@@ -11618,7 +11601,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         //     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?
         //     (?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
         // 
-        // Examples of email autolinks:        
+        // Examples of email autolinks:
         [Fact]
         public void Autolinks_Spec575_commonmark()
         {
@@ -11632,7 +11615,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"mailto:foo@bar.example.com\">foo@bar.example.com</a></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Autolinks_Spec576_commonmark()
         {
@@ -11647,7 +11630,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Backslash-escapes do not work inside email autolinks:        
+        // Backslash-escapes do not work inside email autolinks:
         [Fact]
         public void Autolinks_Spec577_commonmark()
         {
@@ -11662,7 +11645,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // These are not autolinks:        
+        // These are not autolinks:
         [Fact]
         public void Autolinks_Spec578_commonmark()
         {
@@ -11676,7 +11659,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>&lt;&gt;</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Autolinks_Spec579_commonmark()
         {
@@ -11690,7 +11673,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>&lt; http://foo.bar &gt;</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Autolinks_Spec580_commonmark()
         {
@@ -11704,7 +11687,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>&lt;m:abc&gt;</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Autolinks_Spec581_commonmark()
         {
@@ -11718,7 +11701,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>&lt;foo.bar.baz&gt;</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Autolinks_Spec582_commonmark()
         {
@@ -11732,7 +11715,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>http://example.com</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void Autolinks_Spec583_commonmark()
         {
@@ -11817,11 +11800,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // 
     // An [HTML tag](@) consists of an [open tag], a [closing tag],
     // an [HTML comment], a [processing instruction], a [declaration],
-    // or a [CDATA section]  
+    // or a [CDATA section]
     public class RawHTMLTests
     {
-
-        // Here are some simple open tags:        
+        // Here are some simple open tags:
         [Fact]
         public void RawHTML_Spec584_commonmark()
         {
@@ -11836,7 +11818,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Empty elements:        
+        // Empty elements:
         [Fact]
         public void RawHTML_Spec585_commonmark()
         {
@@ -11851,7 +11833,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // [Whitespace] is allowed:        
+        // [Whitespace] is allowed:
         [Fact]
         public void RawHTML_Spec586_commonmark()
         {
@@ -11868,7 +11850,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // With attributes:        
+        // With attributes:
         [Fact]
         public void RawHTML_Spec587_commonmark()
         {
@@ -11885,7 +11867,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Custom tag names can be used:        
+        // Custom tag names can be used:
         [Fact]
         public void RawHTML_Spec588_commonmark()
         {
@@ -11900,7 +11882,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Illegal tag names, not parsed as HTML:        
+        // Illegal tag names, not parsed as HTML:
         [Fact]
         public void RawHTML_Spec589_commonmark()
         {
@@ -11915,7 +11897,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Illegal attribute names:        
+        // Illegal attribute names:
         [Fact]
         public void RawHTML_Spec590_commonmark()
         {
@@ -11930,7 +11912,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Illegal attribute values:        
+        // Illegal attribute values:
         [Fact]
         public void RawHTML_Spec591_commonmark()
         {
@@ -11945,7 +11927,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Illegal [whitespace]:        
+        // Illegal [whitespace]:
         [Fact]
         public void RawHTML_Spec592_commonmark()
         {
@@ -11962,7 +11944,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Missing [whitespace]:        
+        // Missing [whitespace]:
         [Fact]
         public void RawHTML_Spec593_commonmark()
         {
@@ -11977,7 +11959,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Closing tags:        
+        // Closing tags:
         [Fact]
         public void RawHTML_Spec594_commonmark()
         {
@@ -11992,7 +11974,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Illegal attributes in closing tag:        
+        // Illegal attributes in closing tag:
         [Fact]
         public void RawHTML_Spec595_commonmark()
         {
@@ -12007,7 +11989,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Comments:        
+        // Comments:
         [Fact]
         public void RawHTML_Spec596_commonmark()
         {
@@ -12023,7 +12005,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo <!-- this is a\ncomment - with hyphen --></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void RawHTML_Spec597_commonmark()
         {
@@ -12038,7 +12020,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Not comments:        
+        // Not comments:
         [Fact]
         public void RawHTML_Spec598_commonmark()
         {
@@ -12056,7 +12038,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Processing instructions:        
+        // Processing instructions:
         [Fact]
         public void RawHTML_Spec599_commonmark()
         {
@@ -12071,7 +12053,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Declarations:        
+        // Declarations:
         [Fact]
         public void RawHTML_Spec600_commonmark()
         {
@@ -12086,7 +12068,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // CDATA sections:        
+        // CDATA sections:
         [Fact]
         public void RawHTML_Spec601_commonmark()
         {
@@ -12102,7 +12084,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Entity and numeric character references are preserved in HTML
-        // attributes:        
+        // attributes:
         [Fact]
         public void RawHTML_Spec602_commonmark()
         {
@@ -12117,7 +12099,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Backslash escapes do not work in HTML attributes:        
+        // Backslash escapes do not work in HTML attributes:
         [Fact]
         public void RawHTML_Spec603_commonmark()
         {
@@ -12131,7 +12113,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo <a href=\"\\*\"></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void RawHTML_Spec604_commonmark()
         {
@@ -12150,10 +12132,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // A line break (not in a code span or HTML tag) that is preceded
     // by two or more spaces and does not occur at the end of a block
     // is parsed as a [hard line break](@) (rendered
-    // in HTML as a `<br />` tag):  
+    // in HTML as a `<br />` tag):
     public class HardLineBreaksTests
     {
-        
+
         [Fact]
         public void HardLineBreaks_Spec605_commonmark()
         {
@@ -12171,7 +12153,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // For a more visible alternative, a backslash before the
-        // [line ending] may be used instead of two spaces:        
+        // [line ending] may be used instead of two spaces:
         [Fact]
         public void HardLineBreaks_Spec606_commonmark()
         {
@@ -12188,7 +12170,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // More than two spaces can be used:        
+        // More than two spaces can be used:
         [Fact]
         public void HardLineBreaks_Spec607_commonmark()
         {
@@ -12205,7 +12187,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Leading spaces at the beginning of the next line are ignored:        
+        // Leading spaces at the beginning of the next line are ignored:
         [Fact]
         public void HardLineBreaks_Spec608_commonmark()
         {
@@ -12221,7 +12203,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo<br />\nbar</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HardLineBreaks_Spec609_commonmark()
         {
@@ -12239,7 +12221,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Line breaks can occur inside emphasis, links, and other constructs
-        // that allow inline content:        
+        // that allow inline content:
         [Fact]
         public void HardLineBreaks_Spec610_commonmark()
         {
@@ -12255,7 +12237,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><em>foo<br />\nbar</em></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HardLineBreaks_Spec611_commonmark()
         {
@@ -12272,7 +12254,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Line breaks do not occur inside code spans        
+        // Line breaks do not occur inside code spans
         [Fact]
         public void HardLineBreaks_Spec612_commonmark()
         {
@@ -12287,7 +12269,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><code>code span</code></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HardLineBreaks_Spec613_commonmark()
         {
@@ -12303,7 +12285,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // or HTML tags:        
+        // or HTML tags:
         [Fact]
         public void HardLineBreaks_Spec614_commonmark()
         {
@@ -12319,7 +12301,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p><a href=\"foo  \nbar\"></p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HardLineBreaks_Spec615_commonmark()
         {
@@ -12338,7 +12320,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
         // Hard line breaks are for separating inline content within a block.
         // Neither syntax for hard line breaks works at the end of a paragraph or
-        // other block element:        
+        // other block element:
         [Fact]
         public void HardLineBreaks_Spec616_commonmark()
         {
@@ -12352,7 +12334,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo\\</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HardLineBreaks_Spec617_commonmark()
         {
@@ -12366,7 +12348,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>foo</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HardLineBreaks_Spec618_commonmark()
         {
@@ -12380,7 +12362,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<h3>foo\\</h3>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void HardLineBreaks_Spec619_commonmark()
         {
@@ -12400,10 +12382,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // preceded by two or more spaces or a backslash is parsed as a
     // [softbreak](@).  (A softbreak may be rendered in HTML either as a
     // [line ending] or as a space. The result will be the same in
-    // browsers. In the examples here, a [line ending] will be used.)  
+    // browsers. In the examples here, a [line ending] will be used.)
     public class SoftLineBreaksTests
     {
-        
+
         [Fact]
         public void SoftLineBreaks_Spec620_commonmark()
         {
@@ -12421,7 +12403,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Spaces at the end of the line and beginning of the next line are
-        // removed:        
+        // removed:
         [Fact]
         public void SoftLineBreaks_Spec621_commonmark()
         {
@@ -12440,10 +12422,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     }
 
     // Any characters not given an interpretation by the above rules will
-    // be parsed as plain textual content.  
+    // be parsed as plain textual content.
     public class TextualContentTests
     {
-        
+
         [Fact]
         public void TextualContent_Spec622_commonmark()
         {
@@ -12457,7 +12439,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>hello $.;'there</p>", 
                 "commonmark");
         }
-        
+
         [Fact]
         public void TextualContent_Spec623_commonmark()
         {
@@ -12472,7 +12454,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "commonmark");
         }
 
-        // Internal spaces are preserved verbatim:        
+        // Internal spaces are preserved verbatim:
         [Fact]
         public void TextualContent_Spec624_commonmark()
         {
@@ -12492,13 +12474,12 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // The [HTML spec](https://html.spec.whatwg.org/multipage/sections.html#headings-and-sections) encourages wrapping of 
     // logical sections in [sectioning content elements](https://html.spec.whatwg.org/multipage/dom.html#sectioning-content-2).
     // This extension wraps logical sections in `<section>` elements, with nesting dependent on [ATX heading](https://spec.commonmark.org/0.28/#atx-headings)
-    // levels.  
+    // levels.
     public class SectionsTests
     {
-
-        // Sequential higher-level sections are nested:        
+        // Sequential higher-level sections are nested:
         [Fact]
-        public void Sections_Spec1_sections_genericattributes()
+        public void Sections_Spec1_sections()
         {
             // The following Markdown:
             //     # foo
@@ -12520,10 +12501,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n#### foo", 
                 "<h1>foo</h1>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-1\">\n<h3>foo</h3>\n<section id=\"foo-2\">\n<h4>foo</h4>\n</section>\n</section>\n</section>", 
-                "sections_genericattributes");
+                "sections");
         }
 
-        // Sequential higher-level sections are nested:        
+        // Sequential higher-level sections are nested:
         [Fact]
         public void Sections_Spec1_all()
         {
@@ -12550,9 +12531,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "all");
         }
 
-        // Sequential lower-level sections are not nested.:        
+        // Sequential lower-level sections are not nested.:
         [Fact]
-        public void Sections_Spec2_sections_genericattributes()
+        public void Sections_Spec2_sections()
         {
             // The following Markdown:
             //     ## foo
@@ -12566,10 +12547,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
             SpecTestHelper.AssertCompliance("## foo\n# foo", 
                 "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<h1>foo</h1>", 
-                "sections_genericattributes");
+                "sections");
         }
 
-        // Sequential lower-level sections are not nested.:        
+        // Sequential lower-level sections are not nested.:
         [Fact]
         public void Sections_Spec2_all()
         {
@@ -12588,9 +12569,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "all");
         }
 
-        // Sequential same-level sections are not nested:        
+        // Sequential same-level sections are not nested:
         [Fact]
-        public void Sections_Spec3_sections_genericattributes()
+        public void Sections_Spec3_sections()
         {
             // The following Markdown:
             //     ## foo
@@ -12606,10 +12587,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
             SpecTestHelper.AssertCompliance("## foo\n## foo", 
                 "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>", 
-                "sections_genericattributes");
+                "sections");
         }
 
-        // Sequential same-level sections are not nested:        
+        // Sequential same-level sections are not nested:
         [Fact]
         public void Sections_Spec3_all()
         {
@@ -12630,9 +12611,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "all");
         }
 
-        // Mixed sections:        
+        // Mixed sections:
         [Fact]
-        public void Sections_Spec4_sections_genericattributes()
+        public void Sections_Spec4_sections()
         {
             // The following Markdown:
             //     # foo
@@ -12654,10 +12635,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n## foo", 
                 "<h1>foo</h1>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-1\">\n<h3>foo</h3>\n</section>\n</section>\n<section id=\"foo-2\">\n<h2>foo</h2>\n</section>", 
-                "sections_genericattributes");
+                "sections");
         }
 
-        // Mixed sections:        
+        // Mixed sections:
         [Fact]
         public void Sections_Spec4_all()
         {
@@ -12684,9 +12665,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "all");
         }
 
-        // Sections wrap content:        
+        // Sections wrap content:
         [Fact]
-        public void Sections_Spec5_sections_genericattributes()
+        public void Sections_Spec5_sections()
         {
             // The following Markdown:
             //     # foo
@@ -12718,10 +12699,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
             SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", 
                 "<h1>foo</h1>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", 
-                "sections_genericattributes");
+                "sections");
         }
 
-        // Sections wrap content:        
+        // Sections wrap content:
         [Fact]
         public void Sections_Spec5_all()
         {
@@ -12758,9 +12739,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "all");
         }
 
-        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:        
+        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
         [Fact]
-        public void Sections_Spec6_sections_genericattributes()
+        public void Sections_Spec6_sections()
         {
             // The following Markdown:
             //     # foo
@@ -12779,11 +12760,11 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
             SpecTestHelper.AssertCompliance("# foo\n## foo", 
                 "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n</article>", 
-                "sections_genericattributes", 
+                "sections", 
                 "{\"sections\": {\"Level1WrapperElement\": \"Article\"}}");
         }
 
-        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:        
+        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
         [Fact]
         public void Sections_Spec6_all()
         {
@@ -12808,9 +12789,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "{\"sections\": {\"Level1WrapperElement\": \"Article\"}}");
         }
 
-        // To change the element used to wrapped level 2+ headers, set `SectionExtensionOptions.Level2PlusWrapperElement". For example:        
+        // To change the element used to wrapped level 2+ headers, set `SectionExtensionOptions.Level2PlusWrapperElement". For example:
         [Fact]
-        public void Sections_Spec7_sections_genericattributes()
+        public void Sections_Spec7_sections()
         {
             // The following Markdown:
             //     ## foo
@@ -12825,11 +12806,11 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
             SpecTestHelper.AssertCompliance("## foo", 
                 "<nav id=\"foo\">\n<h2>foo</h2>\n</nav>", 
-                "sections_genericattributes", 
+                "sections", 
                 "{\"sections\": {\"Level2PlusWrapperElement\": \"Nav\"}}");
         }
 
-        // To change the element used to wrapped level 2+ headers, set `SectionExtensionOptions.Level2PlusWrapperElement". For example:        
+        // To change the element used to wrapped level 2+ headers, set `SectionExtensionOptions.Level2PlusWrapperElement". For example:
         [Fact]
         public void Sections_Spec7_all()
         {
@@ -12850,9 +12831,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "{\"sections\": {\"Level2PlusWrapperElement\": \"Nav\"}}");
         }
 
-        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:        
+        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
         [Fact]
-        public void Sections_Spec8_sections_genericattributes()
+        public void Sections_Spec8_sections()
         {
             // The following Markdown:
             //     ## Foo Bar Baz
@@ -12864,10 +12845,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
                 "<section id=\"foo-bar-baz\">\n<h2>Foo Bar Baz</h2>\n</section>", 
-                "sections_genericattributes");
+                "sections");
         }
 
-        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:        
+        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
         [Fact]
         public void Sections_Spec8_all()
         {
@@ -12884,9 +12865,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "all");
         }
 
-        // Auto generation of IDs can be disabled by setting `SectionExtensionOptions.AutoIdentifers` to `false`:        
+        // Auto generation of IDs can be disabled by setting `SectionExtensionOptions.AutoIdentifers` to `false`:
         [Fact]
-        public void Sections_Spec9_sections_genericattributes()
+        public void Sections_Spec9_sections()
         {
             // The following Markdown:
             //     ## Foo Bar Baz
@@ -12901,11 +12882,11 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
                 "<section>\n<h2>Foo Bar Baz</h2>\n</section>", 
-                "sections_genericattributes", 
+                "sections", 
                 "{\"sections\": {\"AutoIdentifiers\": false}}");
         }
 
-        // Auto generation of IDs can be disabled by setting `SectionExtensionOptions.AutoIdentifers` to `false`:        
+        // Auto generation of IDs can be disabled by setting `SectionExtensionOptions.AutoIdentifers` to `false`:
         [Fact]
         public void Sections_Spec9_all()
         {
@@ -12926,9 +12907,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "{\"sections\": {\"AutoIdentifiers\": false}}");
         }
 
-        // Sections can be linked to by the text content of their headings:        
+        // Sections can be linked to by the text content of their headings:
         [Fact]
-        public void Sections_Spec10_sections_genericattributes()
+        public void Sections_Spec10_sections()
         {
             // The following Markdown:
             //     [foo]
@@ -12956,10 +12937,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
             SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
                 "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p><a href=\"#foo-bar-baz\">foo bar baz</a></p>\n</section>\n</section>\n</section>", 
-                "sections_genericattributes");
+                "sections");
         }
 
-        // Sections can be linked to by the text content of their headings:        
+        // Sections can be linked to by the text content of their headings:
         [Fact]
         public void Sections_Spec10_all()
         {
@@ -12993,9 +12974,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         }
 
         // Linking to sections by the text content of their headings can be disabled by setting `SectionExtensionOptions.AutoLinking` to `false` (note 
-        // that linking to sections is also disabled if `SectionExtensionOptions.AutoIdentifiers` is set to `false`):        
+        // that linking to sections is also disabled if `SectionExtensionOptions.AutoIdentifiers` is set to `false`):
         [Fact]
-        public void Sections_Spec11_sections_genericattributes()
+        public void Sections_Spec11_sections()
         {
             // The following Markdown:
             //     [foo]
@@ -13026,12 +13007,12 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
             SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
                 "<p>[foo]</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
-                "sections_genericattributes", 
+                "sections", 
                 "{\"sections\": {\"AutoLinking\": false}}");
         }
 
         // Linking to sections by the text content of their headings can be disabled by setting `SectionExtensionOptions.AutoLinking` to `false` (note 
-        // that linking to sections is also disabled if `SectionExtensionOptions.AutoIdentifiers` is set to `false`):        
+        // that linking to sections is also disabled if `SectionExtensionOptions.AutoIdentifiers` is set to `false`):
         [Fact]
         public void Sections_Spec11_all()
         {
@@ -13066,6 +13047,95 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "<p>[foo]</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
                 "all", 
                 "{\"sections\": {\"AutoLinking\": false}}");
+        }
+    }
+
+    // Per-block options are useful for many extensions. For example, per-block options would allow a code extension to add line-numbers to select code blocks. 
+    // Json options facilitates per-block options, using a simple and consistent syntax.
+    public class JsonOptionsTests
+    {
+        // Json options are specified as a string above the block they apply to:
+        [Fact]
+        public void JsonOptions_Spec1_jsonoptions_sections()
+        {
+            // The following Markdown:
+            //     options {"WrapperElement": "Aside"}
+            //     # foo
+            //
+            // Should be rendered as:
+            //     <aside id="foo">
+            //     <h1>foo</h1>
+            //     </aside>
+
+            SpecTestHelper.AssertCompliance("options {\"WrapperElement\": \"Aside\"}\n# foo", 
+                "<aside id=\"foo\">\n<h1>foo</h1>\n</aside>", 
+                "jsonoptions_sections");
+        }
+
+        // Options can be specified across several lines:
+        [Fact]
+        public void JsonOptions_Spec2_jsonoptions_sections()
+        {
+            // The following Markdown:
+            //     options {
+            //         "WrapperElement": "Aside"
+            //     }
+            //     # foo
+            //
+            // Should be rendered as:
+            //     <aside id="foo">
+            //     <h1>foo</h1>
+            //     </aside>
+
+            SpecTestHelper.AssertCompliance("options {\n    \"WrapperElement\": \"Aside\"\n}\n# foo", 
+                "<aside id=\"foo\">\n<h1>foo</h1>\n</aside>", 
+                "jsonoptions_sections");
+        }
+
+        // TODO escape result before comparing, why doesn't "WrapperElement..." get turned into a blockquote?
+        // The first line must begin with `options {`:
+        [Fact]
+        public void JsonOptions_Spec3_jsonoptions_sections()
+        {
+            // The following Markdown:
+            //     options 
+            //     {
+            //         "WrapperElement": "Aside"
+            //     }
+            //     # foo
+            //
+            // Should be rendered as:
+            //     <p>options
+            //     {
+            //         "WrapperElement": "Aside"
+            //     }</p>
+            //     <h1>foo</h1>
+            //     
+
+            SpecTestHelper.AssertCompliance("options \n{\n    \"WrapperElement\": \"Aside\"\n}\n# foo", 
+                "<p>options\n{\n    \"WrapperElement\": \"Aside\"\n}</p>\n<h1>foo</h1>\n", 
+                "jsonoptions_sections");
+        }
+
+        // TODO some block that accepts strings in options to test escaping of quotes
+        // Any valid json, including things like escaped quotes, are allowed:
+        [Fact]
+        public void JsonOptions_Spec4_jsonoptions_sections()
+        {
+            // The following Markdown:
+            //     {
+            //         "test": "\"test\""
+            //     }
+            //     # foo
+            //
+            // Should be rendered as:
+            //     <aside id="foo">
+            //     <h1>foo</h1>
+            //     </aside>
+
+            SpecTestHelper.AssertCompliance("{\n    \"test\": \"\\\"test\\\"\"\n}\n# foo", 
+                "<aside id=\"foo\">\n<h1>foo</h1>\n</aside>", 
+                "jsonoptions_sections");
         }
     }
 }
