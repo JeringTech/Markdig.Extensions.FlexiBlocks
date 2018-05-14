@@ -12,4 +12,19 @@
       <ProjectReference Include="C:\Users\Jeremy\Desktop\LibrariesAndTools\markdig\src\Markdig\Markdig.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

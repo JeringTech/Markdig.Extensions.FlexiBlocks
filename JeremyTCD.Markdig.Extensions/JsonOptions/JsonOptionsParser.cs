@@ -1,7 +1,6 @@
 ﻿using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
-using Newtonsoft.Json.Linq;
 
 namespace JeremyTCD.Markdig.Extensions
 {
@@ -10,9 +9,19 @@ namespace JeremyTCD.Markdig.Extensions
         public JsonOptionsParser()
         {
             // If options block is not consumed by the following block, it is rendered as a paragraph or in the preceding paragraph, so {, despite being common, should work fine.
-            OpeningCharacters = new[] { 'o' };
+            OpeningCharacters = new[] { '@' };
         }
 
+        // TODO test 
+        /// <summary>
+        /// Opens a JsonOptionsBlock if a line begins with @{
+        /// </summary>
+        /// <param name="processor"></param>
+        /// <returns>
+        /// <see cref="BlockState.None"/> if the current line has code indent or if the current line does not start with @{.
+        /// <see cref="BlockState.Break"/> if the current line contains the entire JSON string.
+        /// <see cref="BlockState.Continue"/> if the current line contains part of the JSON string.
+        /// </returns>
         public override BlockState TryOpen(BlockProcessor processor)
         {
             if (processor.IsCodeIndent)
@@ -20,13 +29,14 @@ namespace JeremyTCD.Markdig.Extensions
                 return BlockState.None;
             }
 
-            if(!processor.Line.MatchLowercase("options {"))
+            // First line of JSON options must begin with @{
+            if (processor.Line.PeekChar() != '{')
             {
                 return BlockState.None;
             }
 
-            // Discard "options " by starting line at "{"
-            processor.Line.Start = 8;
+            // Discard "@" by starting line at "{" (BlockProcessor appends processor.Line to the new JsonOptionsBlock, so it must start at the curly bracket)
+            processor.Line.Start = 1;
 
             var jsonOptionsblock = new JsonOptionsBlock(this)
             {
@@ -35,84 +45,58 @@ namespace JeremyTCD.Markdig.Extensions
             };
             processor.NewBlocks.Push(jsonOptionsblock);
 
-            if (JsonComplete(processor.Line, jsonOptionsblock))
-            {
-                return BlockState.Break;
-            }
-
-            return BlockState.Continue;
-        }
-
-        public override BlockState TryContinue(BlockProcessor processor, Block block)
-        {
-            if(JsonComplete(processor.Line, (JsonOptionsBlock)block))
-            {
-                return BlockState.Break;
-            }
-
-            return BlockState.Continue;
+            return TryContinue(processor, jsonOptionsblock);
         }
 
         /// <summary>
-        /// Determines whether or not the <see cref="JsonOptionsBlock"/> is complete. The JSON spec allows for 
-        /// unescaped curly brackets within strings - https://www.json.org/, so this method ignores everything between unescaped quotes.
+        /// Determines whether or not the <see cref="JsonOptionsBlock"/> is complete by checking whether all opening curly brackets have been closed. 
+        /// The JSON spec allows for unescaped curly brackets within strings - https://www.json.org/, so this method ignores everything between unescaped quotes.
+        /// 
+        /// This function can be improved on - it does not verify that the line is valid JSON.
         /// </summary>
         /// <param name="line"></param>
-        /// <param name="block"></param>
-        private bool JsonComplete(StringSlice line, JsonOptionsBlock block)
+        /// <param name="jsonOptionsBlock"></param>
+        /// <returns>
+        /// True if JSON is complete, false otherwise.
+        /// </returns>
+        public override BlockState TryContinue(BlockProcessor processor, Block block)
         {
+            JsonOptionsBlock jsonOptionsBlock = (JsonOptionsBlock)block;
+            StringSlice line = processor.Line;
             char pc = line.PeekCharExtra(-1);
             char c = line.CurrentChar;
 
             while (c != '\0')
             {
-                if (!block.InString)
+                if (!jsonOptionsBlock.EndsInString)
                 {
                     if (c == '{')
                     {
-                        block.NumOpenBrackets++;
+                        jsonOptionsBlock.NumOpenBrackets++;
                     }
-                    else if(c == '}')
+                    else if (c == '}')
                     {
-                        if(--block.NumOpenBrackets == 0)
+                        if (--jsonOptionsBlock.NumOpenBrackets == 0)
                         {
-                            // TODO fill in span end
-                            return true;
+                            jsonOptionsBlock.UpdateSpanEnd(line.End);
+                            return BlockState.Break;
                         }
                     }
                     else if (pc != '\\' && c == '"')
                     {
-                        block.InString = true;
+                        jsonOptionsBlock.EndsInString = true;
                     }
                 }
                 else if (pc != '\\' && c == '"')
                 {
-                    block.InString = false;
+                    jsonOptionsBlock.EndsInString = false;
                 }
 
                 pc = c;
                 c = line.NextChar();
             }
 
-            return false;
-        }
-
-        private bool TryParse(ref StringSlice slice, out JObject options)
-        {
-            try
-            {
-                // Json options must be a paragraph or part of a paragraph just before an element.
-                // 
-                options = JObject.Parse(slice.ToString());
-
-                return true;
-            }
-            catch
-            {
-                options = null;
-
-                return false;
-            }
+            return BlockState.Continue;
         }
     }
 }

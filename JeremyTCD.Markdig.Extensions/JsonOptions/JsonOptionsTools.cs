@@ -1,6 +1,4 @@
-﻿using Markdig.Parsers;
-using Markdig.Syntax;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 
 namespace JeremyTCD.Markdig.Extensions
@@ -8,67 +6,66 @@ namespace JeremyTCD.Markdig.Extensions
     public class JsonOptionsTools
     {
         /// <summary>
-        /// Extracts an object of type <typeparamref name="T"/> from a preceding <see cref="JsonOptionsBlock"/>.
+        /// Extracts an object of type <typeparamref name="T"/> from a <see cref="JsonOptionsBlock"/>.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="processor"></param>
-        /// <returns>
-        /// The extracted object if the extraction succeeded, null otherwise.
-        /// </returns>
-        public static T ExtractObject<T>(BlockProcessor processor) where T : class
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="jsonOptionsBlock"/> is null.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the JSON contained in <paramref name="jsonOptionsBlock"/> cannot be parsed.</exception>
+        public static T ExtractObject<T>(JsonOptionsBlock jsonOptionsBlock) where T : class
         {
-            T result = null;
-
-            if (processor.CurrentBlock is ContainerBlock currentBlock && currentBlock.LastChild is JsonOptionsBlock jsonOptionsBlock)
+            if (jsonOptionsBlock == null)
             {
-                string json = jsonOptionsBlock.Lines.ToString();
-                try
-                {
-                    result  = JsonConvert.DeserializeObject<T>(json);
-                }
-                catch (JsonException jsonException)
-                {
-                    // TODO improve exception message
-                    throw new InvalidOperationException($"Unable to parse json \"{json}\" at {jsonOptionsBlock.ToPositionText()}", jsonException);
-                }
-
-                currentBlock.Remove(jsonOptionsBlock);
+                throw new ArgumentNullException(nameof(jsonOptionsBlock));
             }
 
-            return result;
+            string json = jsonOptionsBlock.Lines.ToString();
+            try
+            {
+                T result = JsonConvert.DeserializeObject<T>(json);
+
+                return result;
+            }
+            catch (JsonException jsonException)
+            {
+                throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_UnableToParseJson, 
+                    json, jsonOptionsBlock.Line, jsonOptionsBlock.Column), jsonException);
+            }
+
         }
 
         /// <summary>
-        /// Populates an object of type <typeparamref name="T"/> from a preceding <see cref="JsonOptionsBlock"/>. Properties in the object retain their values
+        /// Populates <paramref name="target"/> from a <see cref="JsonOptionsBlock"/>. Properties in <paramref name="target"/> retain their values
         /// if the <see cref="JsonOptionsBlock"/> does not contain replacement values.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="processor"></param>
         /// <param name="target"></param>
-        /// <returns>
-        /// True if population succeeded, false otherwise.
-        /// </returns>
-        public static bool PopulateObject<T>(BlockProcessor processor, T target) where T : class
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="jsonOptionsBlock"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the JSON contained in <paramref name="jsonOptionsBlock"/> cannot be parsed.</exception>
+        public static void PopulateObject<T>(JsonOptionsBlock jsonOptionsBlock, T target) where T : class
         {
-            if (processor.CurrentBlock is ContainerBlock currentBlock && currentBlock.LastChild is JsonOptionsBlock jsonOptionsBlock)
+            if (jsonOptionsBlock == null)
             {
-                string json = jsonOptionsBlock.Lines.ToString();
-                try
-                {
-                    JsonConvert.PopulateObject(json, target);
-                }
-                catch (JsonException jsonException)
-                {
-                    // TODO improve exception message
-                    throw new InvalidOperationException($"Unable to parse json \"{json}\" at {jsonOptionsBlock.ToPositionText()}", jsonException);
-                }
-
-                currentBlock.Remove(jsonOptionsBlock);
-
-                return true;
+                throw new ArgumentNullException(nameof(jsonOptionsBlock));
             }
 
-            return false;
+            if (target == null)
+            {
+                throw new ArgumentNullException(nameof(target));
+            }
+
+            string json = jsonOptionsBlock.Lines.ToString();
+            try
+            {
+                JsonConvert.PopulateObject(json, target);
+            }
+            catch (JsonException jsonException)
+            {
+                throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_UnableToParseJson,
+                    json, jsonOptionsBlock.Line, jsonOptionsBlock.Column), jsonException);
+            }
         }
     }
 }
