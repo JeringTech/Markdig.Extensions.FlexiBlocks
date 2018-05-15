@@ -12,6 +12,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         [Fact]
         public void TryOpen_ReturnsBlockStateNoneIfInCodeIndent()
         {
+            // Arrange
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             // These three lines just set IsCodeIndent to true
             dummyBlockProcessor.Column = 0;
@@ -19,8 +20,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             dummyBlockProcessor.Column = 4;
             JsonOptionsParser jsonOptionsParser = new JsonOptionsParser();
 
+            // Act
             BlockState result = jsonOptionsParser.TryOpen(dummyBlockProcessor);
 
+            // Assert
             Assert.True(dummyBlockProcessor.IsCodeIndent);
             Assert.Equal(BlockState.None, result);
         }
@@ -29,12 +32,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         [MemberData(nameof(TryOpen_ReturnsBlockStateNoneIfLineDoesNotBeginWithExpectedCharacters_Data))]
         public void TryOpen_ReturnsBlockStateNoneIfLineDoesNotBeginWithExpectedCharacters(string line)
         {
+            // Arrange
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             dummyBlockProcessor.Line = new StringSlice(line);
             JsonOptionsParser jsonOptionsParser = new JsonOptionsParser();
 
+            // Act
             BlockState result = jsonOptionsParser.TryOpen(dummyBlockProcessor);
 
+            // Assert
             Assert.Equal(BlockState.None, result);
         }
 
@@ -51,20 +57,22 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         [Fact]
         public void TryOpen_SetsProcessorLineStartCreatesJsonOptionsBlockAndReturnsBlockStateIfSuccessful()
         {
+            // Arrange
             int dummyColumn = 1;
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             dummyBlockProcessor.Column = dummyColumn;
             dummyBlockProcessor.Line = new StringSlice("@{dummy");
             BlockState dummyBlockState = BlockState.Continue;
-
             Mock<JsonOptionsParser> mockJsonOptionsParser = new Mock<JsonOptionsParser>
             {
                 CallBase = true
             };
             mockJsonOptionsParser.Setup(j => j.TryContinue(dummyBlockProcessor, It.IsAny<JsonOptionsBlock>())).Returns(dummyBlockState);
 
+            // Act
             BlockState result = mockJsonOptionsParser.Object.TryOpen(dummyBlockProcessor);
 
+            // Assert
             Assert.Equal(dummyBlockState, result);
             Assert.Equal(1, dummyBlockProcessor.Line.Start);
             dummyBlockProcessor.NewBlocks.TryPop(out Block block);
@@ -77,13 +85,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         [MemberData(nameof(TryContinue_ReturnsBlockStateBreakAndSetsBlockSpaneEndIfLineIsACompleteJsonString_Data))]
         public void TryContinue_ReturnsBlockStateBreakAndSetsBlockSpaneEndIfLineIsACompleteJsonString(string line)
         {
+            // Arrange
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             dummyBlockProcessor.Line = new StringSlice(line);
             JsonOptionsParser jsonOptionsParser = new JsonOptionsParser();
             JsonOptionsBlock jsonOptionsBlock = new JsonOptionsBlock(null);
 
+            // Act
             BlockState result = jsonOptionsParser.TryContinue(dummyBlockProcessor, jsonOptionsBlock);
 
+            // Assert
             Assert.Equal(BlockState.Break, result);
             Assert.Equal(line.Length - 1, jsonOptionsBlock.Span.End);
             Assert.False(jsonOptionsBlock.EndsInString);
@@ -106,13 +117,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         [MemberData(nameof(TryContinue_ReturnsBlockStateContinueIfLineIsAPartialJsonString_Data))]
         public void TryContinue_ReturnsBlockStateContinueIfLineIsAPartialJsonString(string line, bool endsInString, int numOpenBrackets)
         {
+            // Arrange
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             dummyBlockProcessor.Line = new StringSlice(line);
             JsonOptionsParser jsonOptionsParser = new JsonOptionsParser();
             JsonOptionsBlock jsonOptionsBlock = new JsonOptionsBlock(null);
 
+            // Act
             BlockState result = jsonOptionsParser.TryContinue(dummyBlockProcessor, jsonOptionsBlock);
 
+            // Assert
             Assert.Equal(BlockState.Continue, result);
             Assert.Equal(endsInString, jsonOptionsBlock.EndsInString);
             Assert.Equal(numOpenBrackets, jsonOptionsBlock.NumOpenBrackets);

@@ -2,10 +2,10 @@
 Per-block options are useful for many extensions. For example, per-block options would allow a code extension to add line-numbers to select code blocks. 
 Json options facilitates per-block options, using a simple and consistent syntax.
 
-Json options are specified as a string above the block they apply to:
+Json options are specified as a string above the block they apply to. The first line must begin with `@{`:
 
 ```````````````````````````````` example
-options {"WrapperElement": "Aside"}
+@{"level1WrapperElement": "Aside"}
 # foo
 .
 <aside id="foo">
@@ -16,8 +16,8 @@ options {"WrapperElement": "Aside"}
 Options can be specified across several lines:
 
 ```````````````````````````````` example
-options {
-    "WrapperElement": "Aside"
+@{
+    "level1WrapperElement": "Aside"
 }
 # foo
 .
@@ -26,33 +26,19 @@ options {
 </aside>
 ````````````````````````````````
 
-TODO escape result before comparing, why doesn't "WrapperElement..." get turned into a blockquote?
-The first line must begin with `options {`:
+If the first line does not begin with `@{`, the string becomes a paragraph:
 
 ```````````````````````````````` example
-options 
+@
 {
-    "WrapperElement": "Aside"
+    "level1WrapperElement": "Aside"
 }
 # foo
 .
-<p>options
+<p>@
 {
-    "WrapperElement": "Aside"
+&quot;level1WrapperElement&quot;: &quot;Aside&quot;
 }</p>
 <h1>foo</h1>
 
-````````````````````````````````
-
-TODO some block that accepts strings in options to test escaping of quotes
-Any valid json, including things like escaped quotes, are allowed:
-```````````````````````````````` example
-{
-    "test": "\"test\""
-}
-# foo
-.
-<aside id="foo">
-<h1>foo</h1>
-</aside>
 ````````````````````````````````
