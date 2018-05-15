@@ -101,10 +101,16 @@ Level 3 content line 2.</p>
 </section>
 ````````````````````````````````
 
-To enable wrapping of level 1 headers, set `SectionExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
+To enable wrapping of level 1 headers, set `SectionExtensionOptions.DefaultSectionBlockOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
 
 ```````````````````````````````` options
-{"sections": {"Level1WrapperElement": "Article"}}
+{
+    "sections": {
+        "defaultSectionBlockOptions": {
+            "level1WrapperElement": "article"
+        }
+    }
+}
 ```````````````````````````````` example
 # foo
 ## foo
@@ -117,10 +123,16 @@ To enable wrapping of level 1 headers, set `SectionExtensionOptions.Level1Wrappe
 </article>
 ````````````````````````````````
 
-To change the element used to wrapped level 2+ headers, set `SectionExtensionOptions.Level2PlusWrapperElement". For example:
+To change the element used to wrapped level 2+ headers, set `SectionExtensionOptions.DefaultSectionBlockOptions.Level2PlusWrapperElement". For example:
 
 ```````````````````````````````` options
-{"sections": {"Level2PlusWrapperElement": "Nav"}}
+{
+    "sections": {
+        "defaultSectionBlockOptions": {
+            "level2PlusWrapperElement": "nav"
+        }
+    }
+}
 ```````````````````````````````` example
 ## foo
 .
@@ -139,10 +151,16 @@ Kebab-case (lowercase words joined by dashes) IDs are generated for each section
 </section>
 ````````````````````````````````
 
-Auto generation of IDs can be disabled by setting `SectionExtensionOptions.AutoIdentifers` to `false`:
+Auto generation of IDs can be disabled by setting `SectionExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
 
 ```````````````````````````````` options
-{"sections": {"AutoIdentifiers": false}}
+{
+    "sections": {
+        "defaultSectionBlockOptions": {
+            "generateIdentifier": false
+        }
+    }
+}
 ```````````````````````````````` example
 ## Foo Bar Baz
 .
@@ -177,11 +195,17 @@ Sections can be linked to by the text content of their headings:
 </section>
 ````````````````````````````````
 
-Linking to sections by the text content of their headings can be disabled by setting `SectionExtensionOptions.AutoLinking` to `false` (note 
-that linking to sections is also disabled if `SectionExtensionOptions.AutoIdentifiers` is set to `false`):
+Linking to sections by the text content of their headings can be disabled by setting `SectionExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
+that linking to sections is also disabled if `SectionExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
 
 ```````````````````````````````` options
-{"sections": {"AutoLinking": false}}
+{
+    "sections": {
+        "defaultSectionBlockOptions": {
+            "autoLinkable": false
+        }
+    }
+}
 ```````````````````````````````` example
 [foo]
 

@@ -266,7 +266,7 @@ public class Parser
                     MarkdownAsComment = ToComment(markdown, "            ", "     "),
                     Number = currentSpecNumber,
                     Description = ToComment(currentDescription.Trim(), "        "),
-                    ExtensionOptions = extensionOptions.Replace("\"", "\\\""),
+                    ExtensionOptions = Escape(extensionOptions),
                     ExtensionOptionsAsComment = ToComment(extensionOptions, "            ", "     ")
                 });
 

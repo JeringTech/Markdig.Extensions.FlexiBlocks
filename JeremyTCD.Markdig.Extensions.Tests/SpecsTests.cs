@@ -12739,7 +12739,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "all");
         }
 
-        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
+        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.DefaultSectionBlockOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
         [Fact]
         public void Sections_Spec6_sections()
         {
@@ -12748,7 +12748,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ## foo
             //
             // With extension options:
-            //     {"sections": {"Level1WrapperElement": "Article"}}
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "level1WrapperElement": "article"
+            //             }
+            //         }
+            //     }
             //
             // Should be rendered as:
             //     <article id="foo">
@@ -12761,10 +12767,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             SpecTestHelper.AssertCompliance("# foo\n## foo", 
                 "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n</article>", 
                 "sections", 
-                "{\"sections\": {\"Level1WrapperElement\": \"Article\"}}");
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"level1WrapperElement\": \"article\"\n        }\n    }\n}");
         }
 
-        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
+        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.DefaultSectionBlockOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
         [Fact]
         public void Sections_Spec6_all()
         {
@@ -12773,7 +12779,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ## foo
             //
             // With extension options:
-            //     {"sections": {"Level1WrapperElement": "Article"}}
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "level1WrapperElement": "article"
+            //             }
+            //         }
+            //     }
             //
             // Should be rendered as:
             //     <article id="foo">
@@ -12786,10 +12798,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             SpecTestHelper.AssertCompliance("# foo\n## foo", 
                 "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n</article>", 
                 "all", 
-                "{\"sections\": {\"Level1WrapperElement\": \"Article\"}}");
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"level1WrapperElement\": \"article\"\n        }\n    }\n}");
         }
 
-        // To change the element used to wrapped level 2+ headers, set `SectionExtensionOptions.Level2PlusWrapperElement". For example:
+        // To change the element used to wrapped level 2+ headers, set `SectionExtensionOptions.DefaultSectionBlockOptions.Level2PlusWrapperElement". For example:
         [Fact]
         public void Sections_Spec7_sections()
         {
@@ -12797,7 +12809,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ## foo
             //
             // With extension options:
-            //     {"sections": {"Level2PlusWrapperElement": "Nav"}}
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "level2PlusWrapperElement": "nav"
+            //             }
+            //         }
+            //     }
             //
             // Should be rendered as:
             //     <nav id="foo">
@@ -12807,10 +12825,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             SpecTestHelper.AssertCompliance("## foo", 
                 "<nav id=\"foo\">\n<h2>foo</h2>\n</nav>", 
                 "sections", 
-                "{\"sections\": {\"Level2PlusWrapperElement\": \"Nav\"}}");
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"level2PlusWrapperElement\": \"nav\"\n        }\n    }\n}");
         }
 
-        // To change the element used to wrapped level 2+ headers, set `SectionExtensionOptions.Level2PlusWrapperElement". For example:
+        // To change the element used to wrapped level 2+ headers, set `SectionExtensionOptions.DefaultSectionBlockOptions.Level2PlusWrapperElement". For example:
         [Fact]
         public void Sections_Spec7_all()
         {
@@ -12818,7 +12836,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ## foo
             //
             // With extension options:
-            //     {"sections": {"Level2PlusWrapperElement": "Nav"}}
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "level2PlusWrapperElement": "nav"
+            //             }
+            //         }
+            //     }
             //
             // Should be rendered as:
             //     <nav id="foo">
@@ -12828,7 +12852,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             SpecTestHelper.AssertCompliance("## foo", 
                 "<nav id=\"foo\">\n<h2>foo</h2>\n</nav>", 
                 "all", 
-                "{\"sections\": {\"Level2PlusWrapperElement\": \"Nav\"}}");
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"level2PlusWrapperElement\": \"nav\"\n        }\n    }\n}");
         }
 
         // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
@@ -12865,7 +12889,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "all");
         }
 
-        // Auto generation of IDs can be disabled by setting `SectionExtensionOptions.AutoIdentifers` to `false`:
+        // Auto generation of IDs can be disabled by setting `SectionExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
         [Fact]
         public void Sections_Spec9_sections()
         {
@@ -12873,7 +12897,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ## Foo Bar Baz
             //
             // With extension options:
-            //     {"sections": {"AutoIdentifiers": false}}
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "generateIdentifier": false
+            //             }
+            //         }
+            //     }
             //
             // Should be rendered as:
             //     <section>
@@ -12883,10 +12913,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
                 "<section>\n<h2>Foo Bar Baz</h2>\n</section>", 
                 "sections", 
-                "{\"sections\": {\"AutoIdentifiers\": false}}");
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
         }
 
-        // Auto generation of IDs can be disabled by setting `SectionExtensionOptions.AutoIdentifers` to `false`:
+        // Auto generation of IDs can be disabled by setting `SectionExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
         [Fact]
         public void Sections_Spec9_all()
         {
@@ -12894,7 +12924,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     ## Foo Bar Baz
             //
             // With extension options:
-            //     {"sections": {"AutoIdentifiers": false}}
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "generateIdentifier": false
+            //             }
+            //         }
+            //     }
             //
             // Should be rendered as:
             //     <section>
@@ -12904,7 +12940,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
                 "<section>\n<h2>Foo Bar Baz</h2>\n</section>", 
                 "all", 
-                "{\"sections\": {\"AutoIdentifiers\": false}}");
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
         }
 
         // Sections can be linked to by the text content of their headings:
@@ -12973,8 +13009,8 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                 "all");
         }
 
-        // Linking to sections by the text content of their headings can be disabled by setting `SectionExtensionOptions.AutoLinking` to `false` (note 
-        // that linking to sections is also disabled if `SectionExtensionOptions.AutoIdentifiers` is set to `false`):
+        // Linking to sections by the text content of their headings can be disabled by setting `SectionExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
+        // that linking to sections is also disabled if `SectionExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
         [Fact]
         public void Sections_Spec11_sections()
         {
@@ -12989,7 +13025,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     [foo bar baz]
             //
             // With extension options:
-            //     {"sections": {"AutoLinking": false}}
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "autoLinkable": false
+            //             }
+            //         }
+            //     }
             //
             // Should be rendered as:
             //     <p>[foo]</p>
@@ -13008,11 +13050,11 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
                 "<p>[foo]</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
                 "sections", 
-                "{\"sections\": {\"AutoLinking\": false}}");
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
         }
 
-        // Linking to sections by the text content of their headings can be disabled by setting `SectionExtensionOptions.AutoLinking` to `false` (note 
-        // that linking to sections is also disabled if `SectionExtensionOptions.AutoIdentifiers` is set to `false`):
+        // Linking to sections by the text content of their headings can be disabled by setting `SectionExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
+        // that linking to sections is also disabled if `SectionExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
         [Fact]
         public void Sections_Spec11_all()
         {
@@ -13027,7 +13069,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     [foo bar baz]
             //
             // With extension options:
-            //     {"sections": {"AutoLinking": false}}
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "autoLinkable": false
+            //             }
+            //         }
+            //     }
             //
             // Should be rendered as:
             //     <p>[foo]</p>
@@ -13046,7 +13094,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
                 "<p>[foo]</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
                 "all", 
-                "{\"sections\": {\"AutoLinking\": false}}");
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
         }
     }
 
@@ -13054,12 +13102,12 @@ namespace JeremyTCD.Markdig.Extensions.Tests
     // Json options facilitates per-block options, using a simple and consistent syntax.
     public class JsonOptionsTests
     {
-        // Json options are specified as a string above the block they apply to:
+        // Json options are specified as a string above the block they apply to. The first line must begin with `@{`:
         [Fact]
         public void JsonOptions_Spec1_jsonoptions_sections()
         {
             // The following Markdown:
-            //     options {"WrapperElement": "Aside"}
+            //     @{"level1WrapperElement": "Aside"}
             //     # foo
             //
             // Should be rendered as:
@@ -13067,7 +13115,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h1>foo</h1>
             //     </aside>
 
-            SpecTestHelper.AssertCompliance("options {\"WrapperElement\": \"Aside\"}\n# foo", 
+            SpecTestHelper.AssertCompliance("@{\"level1WrapperElement\": \"Aside\"}\n# foo", 
                 "<aside id=\"foo\">\n<h1>foo</h1>\n</aside>", 
                 "jsonoptions_sections");
         }
@@ -13077,8 +13125,8 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         public void JsonOptions_Spec2_jsonoptions_sections()
         {
             // The following Markdown:
-            //     options {
-            //         "WrapperElement": "Aside"
+            //     @{
+            //         "level1WrapperElement": "Aside"
             //     }
             //     # foo
             //
@@ -13087,54 +13135,32 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <h1>foo</h1>
             //     </aside>
 
-            SpecTestHelper.AssertCompliance("options {\n    \"WrapperElement\": \"Aside\"\n}\n# foo", 
+            SpecTestHelper.AssertCompliance("@{\n    \"level1WrapperElement\": \"Aside\"\n}\n# foo", 
                 "<aside id=\"foo\">\n<h1>foo</h1>\n</aside>", 
                 "jsonoptions_sections");
         }
 
-        // TODO escape result before comparing, why doesn't "WrapperElement..." get turned into a blockquote?
-        // The first line must begin with `options {`:
+        // If the first line does not begin with `@{`, the string becomes a paragraph:
         [Fact]
         public void JsonOptions_Spec3_jsonoptions_sections()
         {
             // The following Markdown:
-            //     options 
+            //     @
             //     {
-            //         "WrapperElement": "Aside"
+            //         "level1WrapperElement": "Aside"
             //     }
             //     # foo
             //
             // Should be rendered as:
-            //     <p>options
+            //     <p>@
             //     {
-            //         "WrapperElement": "Aside"
+            //     &quot;level1WrapperElement&quot;: &quot;Aside&quot;
             //     }</p>
             //     <h1>foo</h1>
             //     
 
-            SpecTestHelper.AssertCompliance("options \n{\n    \"WrapperElement\": \"Aside\"\n}\n# foo", 
-                "<p>options\n{\n    \"WrapperElement\": \"Aside\"\n}</p>\n<h1>foo</h1>\n", 
-                "jsonoptions_sections");
-        }
-
-        // TODO some block that accepts strings in options to test escaping of quotes
-        // Any valid json, including things like escaped quotes, are allowed:
-        [Fact]
-        public void JsonOptions_Spec4_jsonoptions_sections()
-        {
-            // The following Markdown:
-            //     {
-            //         "test": "\"test\""
-            //     }
-            //     # foo
-            //
-            // Should be rendered as:
-            //     <aside id="foo">
-            //     <h1>foo</h1>
-            //     </aside>
-
-            SpecTestHelper.AssertCompliance("{\n    \"test\": \"\\\"test\\\"\"\n}\n# foo", 
-                "<aside id=\"foo\">\n<h1>foo</h1>\n</aside>", 
+            SpecTestHelper.AssertCompliance("@\n{\n    \"level1WrapperElement\": \"Aside\"\n}\n# foo", 
+                "<p>@\n{\n&quot;level1WrapperElement&quot;: &quot;Aside&quot;\n}</p>\n<h1>foo</h1>\n", 
                 "jsonoptions_sections");
         }
     }
