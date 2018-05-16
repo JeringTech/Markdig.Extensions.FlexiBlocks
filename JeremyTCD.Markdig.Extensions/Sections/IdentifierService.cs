@@ -11,7 +11,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
 {
     public class IdentifierService
     {
-        private const string SECTION_IDS_KEY = "SectionIDs";
+        public const string SECTION_IDS_KEY = "SectionIDs";
         private readonly HtmlRenderer _stripRenderer;
         private readonly StringWriter _headingWriter;
 
@@ -27,7 +27,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         }
 
         /// <summary>
-        /// Register delegate that generates identifier
+        /// Register delegate that generates IDs.
         /// </summary>
         /// <param name="headingBlock"></param>
         public void SetupIdentifierGeneration(HeadingBlock headingBlock)
@@ -36,7 +36,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         }
 
         /// <summary>
-        /// Creates and assigns section IDs.
+        /// Creates and assigns IDs to sections.
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="inline"></param>
@@ -54,7 +54,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
 
             if (!(headingBlock.Parent is SectionBlock sectionBlock))
             {
-                throw new InvalidOperationException("HeadingBlock's parent must be a SectionBlock");
+                throw new InvalidOperationException("HeadingBlock's parent must be a SectionBlock.");
             }
 
             // If section block already has an id, return
