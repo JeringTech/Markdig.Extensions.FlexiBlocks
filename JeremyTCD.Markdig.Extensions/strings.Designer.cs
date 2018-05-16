@@ -62,7 +62,7 @@ namespace JeremyTCD.Markdig.Extensions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to parse JSON \&quot;{0}\&quot; at line \&quot;{1}\&quot;, column \&quot;{2}\&quot;..
+        ///   Looks up a localized string similar to Unable to parse JSON &quot;{0}&quot; at line &quot;{1}&quot;, column &quot;{2}&quot;..
         /// </summary>
         public static string InvalidOperationException_UnableToParseJson {
             get {
