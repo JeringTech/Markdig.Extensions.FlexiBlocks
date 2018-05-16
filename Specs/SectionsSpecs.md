@@ -229,3 +229,48 @@ that linking to sections is also disabled if `SectionExtensionOptions.DefaultSec
 </section>
 </section>
 ````````````````````````````````
+
+Per-section-block options can be overriden if the JSON options extension is enabled:
+
+```````````````````````````````` options
+{
+    "sections": {
+        "defaultSectionBlockOptions": {
+            "level1WrapperElement": "article",
+            "attributes": {
+                "class": "chapter"
+            }
+        }
+    }
+}
+```````````````````````````````` example
+
+@{
+    "attributes": {
+        "class": "book"
+    }
+}
+# foo
+## foo
+@{
+    "level2PlusWrapperElement": "nav"
+}
+## foo
+@{
+    "level1WrapperElement": "aside"
+}
+# foo
+.
+<article class="book" id="foo">
+<h1>foo</h1>
+<section class="chapter" id="foo-1">
+<h2>foo</h2>
+</section>
+<nav class="chapter" id="foo-2">
+<h2>foo</h2>
+</nav>
+</article>
+<aside class="chapter" id="foo-3">
+<h1>foo</h1>
+</aside>
+````````````````````````````````
