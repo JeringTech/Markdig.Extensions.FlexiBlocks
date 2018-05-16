@@ -91,20 +91,28 @@ namespace JeremyTCD.Markdig.Extensions.Sections
             }
             processor.GoToColumn(0);
 
-            SectionBlock currentSectionBlock = block as SectionBlock;
+            SectionBlock sectionBlock = block as SectionBlock;
 
-            if (newHeadingBlock.Level <= currentSectionBlock.Level)
+            if (newHeadingBlock.Level <= sectionBlock.Level)
             {
-                // Close current section block
+                // Close current section block and all of its children, but don't discard line so that a new section block can be opened
                 return BlockState.None;
             }
 
-            // If next opened block is not null and it is not a section block or it is a section block with level higher than or equal to the new heading block's level, 
-            // close the next opened block (automatically closes its children as well). The effect of this is that the new section will be added as a direct child of the current
-            // section.
+            // If next open block is not null and it is not a section block or it is a section block with level higher than or equal to the new heading block's level, 
+            // close it (automatically closes its children as well). This is so that the new section will be added to a section block at the right nesting level.
             if (processor.NextContinue != null &&
                 (!(processor.NextContinue is SectionBlock nextSectionBlock) || nextSectionBlock.Level >= newHeadingBlock.Level))
             {
+                // If the last open block is a section block and it's last child is a JsonOptionsBlock, move it up to the section block that the new section will be added to.
+                if(processor.CurrentBlock is SectionBlock lastOpenSectionBlock && 
+                    lastOpenSectionBlock != sectionBlock &&
+                    lastOpenSectionBlock.LastChild is JsonOptionsBlock jsonOptionsBlock)
+                {
+                    lastOpenSectionBlock.Remove(jsonOptionsBlock);
+                    sectionBlock.Add(jsonOptionsBlock);
+                } 
+
                 processor.Close(processor.NextContinue);
             }
 
