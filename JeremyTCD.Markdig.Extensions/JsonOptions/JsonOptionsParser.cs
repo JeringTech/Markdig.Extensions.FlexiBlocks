@@ -30,13 +30,13 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
             }
 
             // First line of JSON options must begin with @{
-            if (processor.Line.PeekChar() != '{')
+            if (processor.Line.PeekChar() != '{') 
             {
                 return BlockState.None;
             }
 
-            // Discard "@" by starting line at "{" (BlockProcessor appends processor.Line to the new JsonOptionsBlock, so it must start at the curly bracket)
-            processor.Line.Start = 1;
+            // Dispose of @ (BlockProcessor appends processor.Line to the new JsonOptionsBlock, so it must start at the curly bracket)
+            processor.Line.Start++;
 
             var jsonOptionsblock = new JsonOptionsBlock(this)
             {
