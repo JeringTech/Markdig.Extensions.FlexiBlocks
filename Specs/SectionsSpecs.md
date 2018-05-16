@@ -179,7 +179,7 @@ Sections can be linked to by the text content of their headings:
 [foo bar]
 #### foo bar baz
 
-[foo bar baz]
+[Link Text][foo bar baz]
 .
 <p><a href="#foo">foo</a></p>
 <section id="foo">
@@ -189,7 +189,7 @@ Sections can be linked to by the text content of their headings:
 <p><a href="#foo-bar">foo bar</a></p>
 <section id="foo-bar-baz">
 <h4>foo bar baz</h4>
-<p><a href="#foo-bar-baz">foo bar baz</a></p>
+<p><a href="#foo-bar-baz">Link Text</a></p>
 </section>
 </section>
 </section>

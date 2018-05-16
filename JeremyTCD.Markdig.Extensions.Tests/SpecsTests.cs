@@ -12955,7 +12955,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     [foo bar]
             //     #### foo bar baz
             //     
-            //     [foo bar baz]
+            //     [Link Text][foo bar baz]
             //
             // Should be rendered as:
             //     <p><a href="#foo">foo</a></p>
@@ -12966,13 +12966,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><a href="#foo-bar">foo bar</a></p>
             //     <section id="foo-bar-baz">
             //     <h4>foo bar baz</h4>
-            //     <p><a href="#foo-bar-baz">foo bar baz</a></p>
+            //     <p><a href="#foo-bar-baz">Link Text</a></p>
             //     </section>
             //     </section>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
-                "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p><a href=\"#foo-bar-baz\">foo bar baz</a></p>\n</section>\n</section>\n</section>", 
+            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[Link Text][foo bar baz]", 
+                "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p><a href=\"#foo-bar-baz\">Link Text</a></p>\n</section>\n</section>\n</section>", 
                 "sections");
         }
 
@@ -12988,7 +12988,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     [foo bar]
             //     #### foo bar baz
             //     
-            //     [foo bar baz]
+            //     [Link Text][foo bar baz]
             //
             // Should be rendered as:
             //     <p><a href="#foo">foo</a></p>
@@ -12999,13 +12999,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             //     <p><a href="#foo-bar">foo bar</a></p>
             //     <section id="foo-bar-baz">
             //     <h4>foo bar baz</h4>
-            //     <p><a href="#foo-bar-baz">foo bar baz</a></p>
+            //     <p><a href="#foo-bar-baz">Link Text</a></p>
             //     </section>
             //     </section>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
-                "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p><a href=\"#foo-bar-baz\">foo bar baz</a></p>\n</section>\n</section>\n</section>", 
+            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[Link Text][foo bar baz]", 
+                "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p><a href=\"#foo-bar-baz\">Link Text</a></p>\n</section>\n</section>\n</section>", 
                 "all");
         }
 
