@@ -1,4 +1,5 @@
-﻿using Markdig.Helpers;
+﻿using JeremyTCD.Markdig.Extensions.JsonOptions;
+using Markdig.Helpers;
 using Newtonsoft.Json;
 using System;
 using Xunit;

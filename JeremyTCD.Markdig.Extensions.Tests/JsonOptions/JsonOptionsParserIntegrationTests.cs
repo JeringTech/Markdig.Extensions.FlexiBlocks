@@ -1,4 +1,5 @@
-﻿using Markdig.Helpers;
+﻿using JeremyTCD.Markdig.Extensions.JsonOptions;
+using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using Moq;

@@ -1,9 +1,10 @@
-﻿using Markdig.Parsers;
+﻿using JeremyTCD.Markdig.Extensions.JsonOptions;
+using Markdig.Parsers;
 using Markdig.Syntax;
 using System;
 using System.Linq;
 
-namespace JeremyTCD.Markdig.Extensions
+namespace JeremyTCD.Markdig.Extensions.Sections
 {
     public class SectionBlockParser : BlockParser
     {

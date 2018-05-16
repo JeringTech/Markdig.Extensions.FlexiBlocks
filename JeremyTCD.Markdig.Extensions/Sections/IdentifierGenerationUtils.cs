@@ -7,7 +7,7 @@ using Markdig.Syntax.Inlines;
 using System.Collections.Generic;
 using System.IO;
 
-namespace JeremyTCD.Markdig.Extensions
+namespace JeremyTCD.Markdig.Extensions.Sections
 {
     public static class IdentifierGenerationUtils
     {

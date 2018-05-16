@@ -2,7 +2,7 @@
 using Markdig.Parsers;
 using Markdig.Syntax;
 
-namespace JeremyTCD.Markdig.Extensions
+namespace JeremyTCD.Markdig.Extensions.JsonOptions
 {
     public class JsonOptionsParser : BlockParser
     {

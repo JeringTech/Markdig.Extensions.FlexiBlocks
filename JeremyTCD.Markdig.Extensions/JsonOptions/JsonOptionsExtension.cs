@@ -1,7 +1,7 @@
 ﻿using Markdig;
 using Markdig.Renderers;
 
-namespace JeremyTCD.Markdig.Extensions
+namespace JeremyTCD.Markdig.Extensions.JsonOptions
 {
     public class JsonOptionsExtension : IMarkdownExtension
     {

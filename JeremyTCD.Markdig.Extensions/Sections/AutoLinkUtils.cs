@@ -4,7 +4,7 @@ using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 using System.Collections.Generic;
 
-namespace JeremyTCD.Markdig.Extensions
+namespace JeremyTCD.Markdig.Extensions.Sections
 {
     /// <summary>
     /// Logic for generating link references

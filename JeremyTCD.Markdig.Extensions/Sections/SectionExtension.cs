@@ -2,7 +2,7 @@
 using Markdig.Parsers;
 using Markdig.Renderers;
 
-namespace JeremyTCD.Markdig.Extensions
+namespace JeremyTCD.Markdig.Extensions.Sections
 {
     /// <summary>
     /// Wraps sections demarcated by ATX headings in sectioning content elements, as recommended by the HTML spec - https://html.spec.whatwg.org/multipage/sections.html#headings-and-sections.

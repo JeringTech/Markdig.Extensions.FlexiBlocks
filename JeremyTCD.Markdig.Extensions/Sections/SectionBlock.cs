@@ -1,7 +1,7 @@
 ﻿using Markdig.Parsers;
 using Markdig.Syntax;
 
-namespace JeremyTCD.Markdig.Extensions
+namespace JeremyTCD.Markdig.Extensions.Sections
 {
     /// <summary>
     /// A <see cref="ContainerBlock"/> that holds a logical section of a page.

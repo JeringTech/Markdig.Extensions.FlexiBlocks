@@ -1,4 +1,6 @@
-﻿using Markdig;
+﻿using JeremyTCD.Markdig.Extensions.JsonOptions;
+using JeremyTCD.Markdig.Extensions.Sections;
+using Markdig;
 
 namespace JeremyTCD.Markdig.Extensions
 {

@@ -1,6 +1,6 @@
 ﻿using Markdig.Syntax;
 
-namespace JeremyTCD.Markdig.Extensions
+namespace JeremyTCD.Markdig.Extensions.JsonOptions
 {
     /// <summary>
     /// A <see cref="LeafBlock"/> that holds a JSON string to be consumed by a subsequent block.

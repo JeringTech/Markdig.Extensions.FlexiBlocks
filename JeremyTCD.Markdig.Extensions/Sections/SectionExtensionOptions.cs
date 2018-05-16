@@ -1,4 +1,4 @@
-﻿namespace JeremyTCD.Markdig.Extensions
+﻿namespace JeremyTCD.Markdig.Extensions.Sections
 {
     public class SectionExtensionOptions
     {

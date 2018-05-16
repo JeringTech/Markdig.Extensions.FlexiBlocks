@@ -1,7 +1,7 @@
 ﻿using Markdig.Renderers;
 using Markdig.Renderers.Html;
 
-namespace JeremyTCD.Markdig.Extensions
+namespace JeremyTCD.Markdig.Extensions.Sections
 {
     public class SectionBlockRenderer : HtmlObjectRenderer<SectionBlock>
     {

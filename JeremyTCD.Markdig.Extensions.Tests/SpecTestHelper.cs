@@ -1,4 +1,5 @@
-﻿using Markdig;
+﻿using JeremyTCD.Markdig.Extensions.Sections;
+using Markdig;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;

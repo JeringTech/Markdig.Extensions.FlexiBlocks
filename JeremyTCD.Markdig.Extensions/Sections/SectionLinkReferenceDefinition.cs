@@ -1,6 +1,6 @@
 ﻿using Markdig.Syntax;
 
-namespace JeremyTCD.Markdig.Extensions
+namespace JeremyTCD.Markdig.Extensions.Sections
 {
     public class SectionLinkReferenceDefinition : LinkReferenceDefinition
     {
