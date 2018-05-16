@@ -7,9 +7,9 @@
 <#@ import namespace="System.Threading" #>
 <#
     var specFiles = new KeyValuePair<string, string>[] {
-		new KeyValuePair<string, string>(Host.ResolvePath("../Specs/CommonMarkSpecs.md"), "commonmark"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../Specs/SectionsSpecs.md"), "sections|all"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../Specs/JsonOptionsSpecs.md"), "jsonoptions_sections")
+		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/CommonMarkSpecs.md"), "commonmark"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/SectionsSpecs.md"), "sections|all"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/JsonOptionsSpecs.md"), "jsonoptions_sections")
 	};
 #>
 using Xunit;

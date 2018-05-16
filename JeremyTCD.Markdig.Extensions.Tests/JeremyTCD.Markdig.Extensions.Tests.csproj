@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="SpecsTests.tt">
+    <None Update="Specs\SpecsTests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SpecsTests.cs</LastGenOutput>
     </None>
@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="SpecsTests.cs">
+    <Compile Update="Specs\SpecsTests.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>SpecsTests.tt</DependentUpon>
