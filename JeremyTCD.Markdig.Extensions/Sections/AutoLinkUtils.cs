@@ -11,10 +11,10 @@ namespace JeremyTCD.Markdig.Extensions.Sections
     /// </summary>
     public static class AutoLinkUtils
     {
-        private const string AUTO_LINKS_KEY = "AutoLinks";
+        public const string AUTO_LINKS_KEY = "AutoLinks";
 
         /// <summary>
-        /// Create and store a <see cref="SectionLinkReferenceDefinition"/> in the MarkdownDocument
+        /// Create a <see cref="SectionLinkReferenceDefinition"/> from a <see cref="SectionBlock"/> and store it in the MarkdownDocument.
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="sectionBlock"></param>
