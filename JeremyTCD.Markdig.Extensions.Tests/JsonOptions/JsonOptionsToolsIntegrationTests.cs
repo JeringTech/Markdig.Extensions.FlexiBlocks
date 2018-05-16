@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using System;
 using Xunit;
 
-namespace JeremyTCD.Markdig.Extensions.Tests
+namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
 {
     public class JsonOptionsToolsIntegrationTests
     {

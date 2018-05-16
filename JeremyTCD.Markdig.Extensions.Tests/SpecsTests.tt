@@ -14,7 +14,7 @@
 #>
 using Xunit;
 
-namespace JeremyTCD.Markdig.Extensions.Tests
+namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 {
 <#
 foreach (KeyValuePair<string, string> specFileItem in specFiles)

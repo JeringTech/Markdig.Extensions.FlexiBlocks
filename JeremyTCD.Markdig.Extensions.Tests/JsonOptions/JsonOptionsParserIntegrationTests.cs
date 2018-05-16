@@ -6,7 +6,7 @@ using Moq;
 using System.Collections.Generic;
 using Xunit;
 
-namespace JeremyTCD.Markdig.Extensions.Tests
+namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
 {
     public class JsonParserIntegrationTests
     {

@@ -8,7 +8,7 @@
 
 using Xunit;
 
-namespace JeremyTCD.Markdig.Extensions.Tests
+namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 {
 
     // Tabs in lines are not expanded to [spaces].  However,
