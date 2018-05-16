@@ -14,7 +14,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
         public void TryOpen_ReturnsBlockStateNoneIfInCodeIndent()
         {
             // Arrange
-            BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             // These three lines just set IsCodeIndent to true
             dummyBlockProcessor.Column = 0;
             dummyBlockProcessor.RestartIndent();
@@ -34,7 +34,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
         public void TryOpen_ReturnsBlockStateNoneIfLineDoesNotBeginWithExpectedCharacters(string line)
         {
             // Arrange
-            BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = new StringSlice(line);
             JsonOptionsParser jsonOptionsParser = new JsonOptionsParser();
 
@@ -60,7 +60,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
         {
             // Arrange
             int dummyColumn = 1;
-            BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Column = dummyColumn;
             dummyBlockProcessor.Line = new StringSlice("@{dummy");
             BlockState dummyBlockState = BlockState.Continue;
@@ -87,7 +87,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
         public void TryContinue_ReturnsBlockStateBreakAndSetsBlockSpaneEndIfLineIsACompleteJsonString(string line)
         {
             // Arrange
-            BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = new StringSlice(line);
             JsonOptionsParser jsonOptionsParser = new JsonOptionsParser();
             JsonOptionsBlock jsonOptionsBlock = new JsonOptionsBlock(null);
@@ -119,7 +119,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
         public void TryContinue_ReturnsBlockStateContinueIfLineIsAPartialJsonString(string line, bool endsInString, int numOpenBrackets)
         {
             // Arrange
-            BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = new StringSlice(line);
             JsonOptionsParser jsonOptionsParser = new JsonOptionsParser();
             JsonOptionsBlock jsonOptionsBlock = new JsonOptionsBlock(null);
@@ -141,17 +141,6 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
                 new object[]{"{\"option\": \"val", true, 1},
                 new object[]{"{\"option\": { \"subOption\":", false, 2},
             };
-        }
-
-
-        // BlockProcessor can't be mocked since its members aren't virtual. Markdig does not apply IOC conventions either, so there is not interface to mock.
-        private BlockProcessor CreateBlockProcessor()
-        {
-            StringBuilderCache stringBuilderCache = new StringBuilderCache();
-            MarkdownDocument markdownDocument = new MarkdownDocument();
-            BlockParserList blockParserList = new BlockParserList(new BlockParser[0]);
-
-            return new BlockProcessor(stringBuilderCache, markdownDocument, blockParserList);
         }
     }
 }
