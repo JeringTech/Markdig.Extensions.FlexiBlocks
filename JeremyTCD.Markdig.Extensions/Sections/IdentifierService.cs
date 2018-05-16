@@ -1,21 +1,21 @@
 ﻿using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Renderers;
-using Markdig.Renderers.Html;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
 namespace JeremyTCD.Markdig.Extensions.Sections
 {
-    public static class IdentifierGenerationUtils
+    public class IdentifierService
     {
         private const string SECTION_IDS_KEY = "SectionIDs";
-        private static readonly HtmlRenderer _stripRenderer;
-        private static readonly StringWriter _headingWriter;
+        private readonly HtmlRenderer _stripRenderer;
+        private readonly StringWriter _headingWriter;
 
-        static IdentifierGenerationUtils()
+        public IdentifierService()
         {
             _headingWriter = new StringWriter();
             _stripRenderer = new HtmlRenderer(_headingWriter)
@@ -30,7 +30,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         /// Register delegate that generates identifier
         /// </summary>
         /// <param name="headingBlock"></param>
-        public static void SetupIdentifierGeneration(HeadingBlock headingBlock)
+        public void SetupIdentifierGeneration(HeadingBlock headingBlock)
         {
             headingBlock.ProcessInlinesEnd += HeadingBlockOnProcessInlinesEnd;
         }
@@ -40,7 +40,8 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="inline"></param>
-        internal static void HeadingBlockOnProcessInlinesEnd(InlineProcessor processor, Inline inline)
+        /// <exception cref="InvalidOperationException">Throw if <see cref="HeadingBlock"/>'s parent is not a <see cref="SectionBlock"/>.</exception>
+        internal void HeadingBlockOnProcessInlinesEnd(InlineProcessor processor, Inline inline)
         {
             // Retrieve or create document level HashSet of ids - use to prevent duplicate ids
             if (!(processor.Document.GetData(SECTION_IDS_KEY) is Dictionary<string, int> identifiers))
@@ -50,7 +51,11 @@ namespace JeremyTCD.Markdig.Extensions.Sections
             }
 
             var headingBlock = (HeadingBlock)processor.Block;
-            var sectionBlock = (SectionBlock)headingBlock.Parent;
+
+            if (!(headingBlock.Parent is SectionBlock sectionBlock))
+            {
+                throw new InvalidOperationException("HeadingBlock's parent must be a SectionBlock");
+            }
 
             // If section block already has an id, return
             Dictionary<string, string> attributes = sectionBlock.SectionBlockOptions.Attributes;
@@ -71,10 +76,10 @@ namespace JeremyTCD.Markdig.Extensions.Sections
             string headingId = string.IsNullOrWhiteSpace(uri) ? "section" : uri;
 
             // Check for duplicate ids and append integer if necessary
-            if (identifiers.TryGetValue(headingId, out int duplicates))
+            if (identifiers.TryGetValue(headingId, out int numDuplicates))
             {
-                identifiers[headingId] = ++duplicates;
-                headingId = $"{headingId}-{duplicates}";
+                identifiers[headingId] = ++numDuplicates;
+                headingId = $"{headingId}-{numDuplicates}";
             }
             else
             {

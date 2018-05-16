@@ -11,6 +11,8 @@ namespace JeremyTCD.Markdig.Extensions.Sections
 
         private readonly HeadingBlockParser _headingBlockParser;
         private readonly SectionExtensionOptions _sectionExtensionOptions;
+        private readonly AutoLinkService _autoLinkService;
+        private readonly IdentifierService _identifierService;
 
         public SectionBlockParser(SectionExtensionOptions sectionExtensionOptions)
         {
@@ -19,6 +21,8 @@ namespace JeremyTCD.Markdig.Extensions.Sections
 
             _headingBlockParser = new HeadingBlockParser();
             _sectionExtensionOptions = sectionExtensionOptions;
+            _autoLinkService = new AutoLinkService();
+            _identifierService = new IdentifierService();
         }
 
         public override BlockState TryOpen(BlockProcessor processor)
@@ -128,11 +132,11 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                     throw new InvalidOperationException("A section block must contain a heading block.");
                 }
 
-                IdentifierGenerationUtils.SetupIdentifierGeneration(headingBlock);
+                _identifierService.SetupIdentifierGeneration(headingBlock);
 
                 if (sectionBlockOptions.AutoLinkable)
                 {
-                    AutoLinkUtils.SetupAutoLink(processor, sectionBlock, headingBlock);
+                    _autoLinkService.SetupAutoLink(processor, sectionBlock, headingBlock);
                 }
             }
         }

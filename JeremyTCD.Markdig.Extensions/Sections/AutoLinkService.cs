@@ -7,9 +7,9 @@ using System.Collections.Generic;
 namespace JeremyTCD.Markdig.Extensions.Sections
 {
     /// <summary>
-    /// Logic for generating link references
+    /// Logic for generating link references.
     /// </summary>
-    public static class AutoLinkUtils
+    public class AutoLinkService
     {
         public const string AUTO_LINKS_KEY = "AutoLinks";
 
@@ -19,7 +19,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         /// <param name="processor"></param>
         /// <param name="sectionBlock"></param>
         /// <param name="headingBlock"></param>
-        public static void SetupAutoLink(BlockProcessor processor, SectionBlock sectionBlock, HeadingBlock headingBlock)
+        public void SetupAutoLink(BlockProcessor processor, SectionBlock sectionBlock, HeadingBlock headingBlock)
         {
             string headingBlockText = headingBlock.Lines.Lines[0].ToString();
 
@@ -46,7 +46,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="inline"></param>
-        internal static void DocumentOnProcessInlinesBegin(InlineProcessor processor, Inline inline)
+        internal void DocumentOnProcessInlinesBegin(InlineProcessor processor, Inline inline)
         {
             // Remove callback
             MarkdownDocument document = processor.Document;
@@ -73,7 +73,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         /// <param name="inlineState"></param>
         /// <param name="linkReferenceDefinition"></param>
         /// <param name="child"></param>
-        internal static Inline CreateLinkInline(InlineProcessor inlineState, LinkReferenceDefinition linkReferenceDefinition, Inline child)
+        internal Inline CreateLinkInline(InlineProcessor inlineState, LinkReferenceDefinition linkReferenceDefinition, Inline child)
         {
             var sectionLinkReferenceDefinition = (SectionLinkReferenceDefinition)linkReferenceDefinition;
             return new LinkInline()

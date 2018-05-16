@@ -8,7 +8,7 @@ using Xunit;
 
 namespace JeremyTCD.Markdig.Extensions.Tests.Sections
 {
-    public class AutoLinkUtilsIntegrationTests
+    public class AutoLinkServiceIntegrationTests
     {
         [Fact]
         public void SetupAutoLink_CreatesSectionLinkReferenceDefinitionAndAddsItToMapOfSectionLinkReferenceDefinitions()
@@ -21,12 +21,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             };
             SectionBlock dummySectionBlock = new SectionBlock(null);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            AutoLinkService autoLinkService = new AutoLinkService();
 
             // Act
-            AutoLinkUtils.SetupAutoLink(dummyBlockProcessor, dummySectionBlock, dummyHeadingBlock);
+            autoLinkService.SetupAutoLink(dummyBlockProcessor, dummySectionBlock, dummyHeadingBlock);
 
             // Assert
-            Dictionary<string, SectionLinkReferenceDefinition> resultSlrds = dummyBlockProcessor.Document.GetData(AutoLinkUtils.AUTO_LINKS_KEY) as Dictionary<string, SectionLinkReferenceDefinition>;
+            Dictionary<string, SectionLinkReferenceDefinition> resultSlrds = dummyBlockProcessor.Document.GetData(AutoLinkService.AUTO_LINKS_KEY) as Dictionary<string, SectionLinkReferenceDefinition>;
             Assert.NotNull(resultSlrds);
             resultSlrds.TryGetValue(dummyHeadingText, out SectionLinkReferenceDefinition resultSlrd);
             Assert.NotNull(resultSlrd);
@@ -48,19 +49,20 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             };
             LinkReferenceDefinition dummyLfd = new LinkReferenceDefinition();
             MarkdownDocument dummyDocument = new MarkdownDocument();
-            dummyDocument.SetData(AutoLinkUtils.AUTO_LINKS_KEY, dummySlrds);
+            dummyDocument.SetData(AutoLinkService.AUTO_LINKS_KEY, dummySlrds);
             dummyDocument.SetLinkReferenceDefinition(dummySlrd1Key, dummyLfd);
             InlineProcessor dummyInlineProcessor = MarkdigTypesFactory.CreateInlineProcessor(markdownDocument: dummyDocument);
+            AutoLinkService autoLinkService = new AutoLinkService();
 
             // Act
-            AutoLinkUtils.DocumentOnProcessInlinesBegin(dummyInlineProcessor, null);
+            autoLinkService.DocumentOnProcessInlinesBegin(dummyInlineProcessor, null);
 
             // Assert
             Dictionary<string, LinkReferenceDefinition> resultLinks = dummyDocument.GetLinkReferenceDefinitions().Links;
             Assert.Equal(2, resultLinks.Count);
             Assert.Same(dummyLfd, resultLinks[dummySlrd1Key]); // Not overriden
             Assert.Same(dummySlrd2, resultLinks[dummySlrd2Key]); // Added
-            Assert.False(resultLinks.ContainsKey(AutoLinkUtils.AUTO_LINKS_KEY));
+            Assert.False(resultLinks.ContainsKey(AutoLinkService.AUTO_LINKS_KEY));
         }
 
         [Fact]
@@ -78,9 +80,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
                 SectionBlock = dummySectionBlock,
                 Title = dummyTitle
             };
+            AutoLinkService autoLinkService = new AutoLinkService();
 
             // Act
-            LinkInline result = AutoLinkUtils.CreateLinkInline(null, dummySlrd, null) as LinkInline;
+            LinkInline result = autoLinkService.CreateLinkInline(null, dummySlrd, null) as LinkInline;
 
             // Assert
             Assert.NotNull(result);
