@@ -1,11 +1,14 @@
 ﻿using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
+using System;
 
 namespace JeremyTCD.Markdig.Extensions.JsonOptions
 {
     public class JsonOptionsParser : BlockParser
     {
+        public const string JSON_OPTIONS = "jsonOptions";
+
         public JsonOptionsParser()
         {
             // If options block is not consumed by the following block, it is rendered as a paragraph or in the preceding paragraph, so {, despite being common, should work fine.
@@ -79,6 +82,21 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
                         if (--jsonOptionsBlock.NumOpenBrackets == 0)
                         {
                             jsonOptionsBlock.UpdateSpanEnd(line.End);
+
+                            // Unused JsonOptionsBlock
+                            if (processor.Document.GetData(JSON_OPTIONS) is JsonOptionsBlock pendingJsonOptions)
+                            {
+                                throw new InvalidOperationException(string.Format(
+                                    Strings.InvalidOperationException_UnusedJsonOptions, 
+                                    pendingJsonOptions.Lines.ToString(), 
+                                    pendingJsonOptions.Line, 
+                                    pendingJsonOptions.Column));
+                            }
+
+                            // Move block from ast to Document data
+                            jsonOptionsBlock.Parent.Remove(jsonOptionsBlock);
+                            processor.Document.SetData(JSON_OPTIONS, jsonOptionsBlock);
+
                             return BlockState.Break;
                         }
                     }
