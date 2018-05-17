@@ -8,9 +8,18 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         protected override void Write(HtmlRenderer renderer, SectionBlock sectionBlock)
         {
             SectionBlockOptions sectionBlockOptions = sectionBlock.SectionBlockOptions;
-            string elementName = (sectionBlock.Level == 1 ? sectionBlockOptions.Level1WrapperElement : sectionBlockOptions.Level2PlusWrapperElement).ToString().ToLower();
+            SectioningContentElement sectioningContentElement = sectionBlock.Level == 1 ? sectionBlockOptions.Level1WrapperElement : sectionBlockOptions.Level2PlusWrapperElement;
 
             renderer.EnsureLine();
+
+            if (sectioningContentElement == SectioningContentElement.None)
+            {
+                renderer.WriteChildren(sectionBlock);
+                return;
+            }
+
+            string elementName = sectioningContentElement.ToString().ToLower();
+
             renderer.
                 Write("<").
                 Write(elementName).
