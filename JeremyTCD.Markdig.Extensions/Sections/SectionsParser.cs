@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace JeremyTCD.Markdig.Extensions.Sections
 {
-    public class SectionBlockParser : BlockParser
+    public class SectionsParser : BlockParser
     {
 
         private readonly HeadingBlockParser _headingBlockParser;
@@ -14,7 +14,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         private readonly AutoLinkService _autoLinkService;
         private readonly IdentifierService _identifierService;
 
-        public SectionBlockParser(SectionExtensionOptions sectionExtensionOptions)
+        public SectionsParser(SectionExtensionOptions sectionExtensionOptions)
         {
             OpeningCharacters = new[] { '#' };
             Closed += SectionBlockOnClosed;

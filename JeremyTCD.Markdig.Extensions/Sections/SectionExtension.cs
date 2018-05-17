@@ -18,7 +18,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
 
         public void Setup(MarkdownPipelineBuilder pipelineBuilder)
         {
-            if (!pipelineBuilder.BlockParsers.Contains<SectionBlockParser>())
+            if (!pipelineBuilder.BlockParsers.Contains<SectionsParser>())
             {
                 HeadingBlockParser headingBlockParser = pipelineBuilder.BlockParsers.Find<HeadingBlockParser>();
                 if (headingBlockParser != null)
@@ -26,16 +26,16 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                     pipelineBuilder.BlockParsers.Remove(headingBlockParser);
                 }
 
-                var sectionBlockParser = new SectionBlockParser(_options);
-                pipelineBuilder.BlockParsers.Insert(0, sectionBlockParser);
+                var sectionsParser = new SectionsParser(_options);
+                pipelineBuilder.BlockParsers.Insert(0, sectionsParser);
             }
         }
 
         public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
-            if (renderer is HtmlRenderer htmlRenderer && !htmlRenderer.ObjectRenderers.Contains<SectionBlockRenderer>())
+            if (renderer is HtmlRenderer htmlRenderer && !htmlRenderer.ObjectRenderers.Contains<SectionsRenderer>())
             {
-                htmlRenderer.ObjectRenderers.Insert(0, new SectionBlockRenderer());
+                htmlRenderer.ObjectRenderers.Insert(0, new SectionsRenderer());
             }
         }
     }
