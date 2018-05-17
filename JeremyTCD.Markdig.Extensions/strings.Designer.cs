@@ -62,11 +62,29 @@ namespace JeremyTCD.Markdig.Extensions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to JSON options &quot;{0}&quot; at line &quot;{1}&quot;, column &quot;{2}, does not immediately precede a block that consumes it..
+        /// </summary>
+        public static string InvalidOperationException_JsonOptionsDoesNotImmediatelyPrecedeConsumingBlock {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_JsonOptionsDoesNotImmediatelyPrecedeConsumingBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to parse JSON &quot;{0}&quot; at line &quot;{1}&quot;, column &quot;{2}&quot;..
         /// </summary>
         public static string InvalidOperationException_UnableToParseJson {
             get {
                 return ResourceManager.GetString("InvalidOperationException_UnableToParseJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unused JSON options &quot;{0}&quot; at line &quot;{1}&quot;, column &quot;{2}&quot;..
+        /// </summary>
+        public static string InvalidOperationException_UnusedJsonOptions {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_UnusedJsonOptions", resourceCulture);
             }
         }
     }

@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidOperationException_JsonOptionsDoesNotImmediatelyPrecedeConsumingBlock" xml:space="preserve">
+    <value>JSON options "{0}" at line "{1}", column "{2}, does not immediately precede a block that consumes it.</value>
+  </data>
   <data name="InvalidOperationException_UnableToParseJson" xml:space="preserve">
     <value>Unable to parse JSON "{0}" at line "{1}", column "{2}".</value>
+  </data>
+  <data name="InvalidOperationException_UnusedJsonOptions" xml:space="preserve">
+    <value>Unused JSON options "{0}" at line "{1}", column "{2}".</value>
   </data>
 </root>
