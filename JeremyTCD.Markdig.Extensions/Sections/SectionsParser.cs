@@ -8,23 +8,38 @@ namespace JeremyTCD.Markdig.Extensions.Sections
 {
     public class SectionsParser : BlockParser
     {
-
         private readonly HeadingBlockParser _headingBlockParser;
         private readonly SectionExtensionOptions _sectionExtensionOptions;
         private readonly AutoLinkService _autoLinkService;
         private readonly IdentifierService _identifierService;
+        private readonly JsonOptionsService _jsonOptionsService;
 
-        public SectionsParser(SectionExtensionOptions sectionExtensionOptions)
+        public SectionsParser(SectionExtensionOptions sectionExtensionOptions,
+            HeadingBlockParser headingBlockParser,
+            AutoLinkService autoLinkService,
+            IdentifierService identifierService,
+            JsonOptionsService jsonOptionsService)
         {
             OpeningCharacters = new[] { '#' };
             Closed += SectionBlockOnClosed;
 
-            _headingBlockParser = new HeadingBlockParser();
             _sectionExtensionOptions = sectionExtensionOptions;
-            _autoLinkService = new AutoLinkService();
-            _identifierService = new IdentifierService();
+            _headingBlockParser = headingBlockParser;
+            _autoLinkService = autoLinkService;
+            _identifierService = identifierService;
+            _jsonOptionsService = jsonOptionsService;
         }
 
+        /// <summary>
+        /// Attempts to open a <see cref="HeadingBlock"/>. If a <see cref="HeadingBlock"/> is be opened, optionally wraps it in a <see cref="SectionBlock"/>.
+        /// Adds any new blocks to <paramref name="processor"/>'s NewBlocks property.
+        /// </summary>
+        /// <param name="processor"></param>
+        /// <returns>
+        /// <see cref="BlockState.None"/> if a <see cref="HeadingBlock"/> cannot be opened.
+        /// <see cref="BlockState.Break"/> if a <see cref="HeadingBlock"/> is opened but a <see cref="SectionBlock"/> is not opened (closes the <see cref="HeadingBlock"/>).
+        /// <see cref="BlockState.Continue"/> if a <see cref="SectionBlock"/> is opened.
+        /// </returns>
         public override BlockState TryOpen(BlockProcessor processor)
         {
             BlockState headingBlockState = _headingBlockParser.TryOpen(processor);
@@ -35,41 +50,44 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                 return BlockState.None;
             }
 
-            if (!(processor.NewBlocks.Peek() is HeadingBlock newHeadingBlock))
-            {
-                throw new InvalidOperationException($"Opened a heading block but BlockProcessor.NewBlocks does not contain any blocks.");
-            }
-
             SectionBlockOptions sectionBlockOptions = _sectionExtensionOptions.DefaultSectionBlockOptions.Clone();
 
-            if (processor.CurrentContainer.LastChild is JsonOptionsBlock jsonOptionsBlock)
+            // Apply JSON options if they are provided
+            _jsonOptionsService.TryPopulateOptions(processor, sectionBlockOptions);
+
+            HeadingBlock newHeadingBlock = (HeadingBlock)processor.NewBlocks.Peek();
+
+            // Optionally, don't open a section block (typically useful for an outermost, level 1 heading that will reside in an existing SectioningContentElement)
+            if (newHeadingBlock.Level == 1 && sectionBlockOptions.Level1WrapperElement == SectioningContentElement.None ||
+                newHeadingBlock.Level > 1 && sectionBlockOptions.Level2PlusWrapperElement == SectioningContentElement.None)
             {
-                JsonOptionsTools.PopulateObject(jsonOptionsBlock, sectionBlockOptions);
-                processor.CurrentContainer.Remove(jsonOptionsBlock);
+                // Close heading block
+                return BlockState.Break;
             }
 
-            // Section has a section element specified
-            if (newHeadingBlock.Level == 1 && sectionBlockOptions.Level1WrapperElement != SectioningContentElement.None ||
-                newHeadingBlock.Level > 1 && sectionBlockOptions.Level2PlusWrapperElement != SectioningContentElement.None)
+            var sectionBlock = new SectionBlock(this)
             {
-                var sectionBlock = new SectionBlock(this)
-                {
-                    Level = newHeadingBlock.Level,
-                    SectionBlockOptions = sectionBlockOptions,
-                    Column = newHeadingBlock.Column,
-                    Span = newHeadingBlock.Span
-                };
+                Level = newHeadingBlock.Level,
+                SectionBlockOptions = sectionBlockOptions,
+                Column = newHeadingBlock.Column,
+                Span = newHeadingBlock.Span
+            };
 
-                processor.NewBlocks.Push(sectionBlock);
+            processor.NewBlocks.Push(sectionBlock);
 
-                // Keep section block open (heading block remains open unecessarily)
-                return BlockState.Continue;
-            }
-
-            // Close heading block
-            return BlockState.Break;
+            // Keep section block open (note that this keeps the heading block open unecessarily, TryContinue remedies this, but should keep an eye out for a cleaner solution)
+            return BlockState.Continue;
         }
 
+        /// <summary>
+        /// Attempts to continue a <see cref="SectionBlock"/>.
+        /// </summary>
+        /// <param name="processor"></param>
+        /// <param name="block"></param>
+        /// <returns>
+        /// <see cref="BlockState.Continue"/> if the current line is not a <see cref="HeadingBlock"/> or if the current line is a <see cref="HeadingBlock"/> and the new section is a descendant of <paramref name="block"/>.
+        /// <see cref="BlockState.None"/> the current line is a <see cref="HeadingBlock"/> and the new section is a sibling or an uncle of <paramref name="block"/>.
+        /// </returns>
         public override BlockState TryContinue(BlockProcessor processor, Block block)
         {
             // If first non-whitespace char is not #, continue
@@ -78,6 +96,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                 return BlockState.Continue;
             }
 
+            int initialColumn = processor.Column;
             BlockState headingBlockState = _headingBlockParser.TryOpen(processor);
 
             // Current line is not a heading block
@@ -86,36 +105,19 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                 return BlockState.Continue;
             }
 
-            // Not super efficient (ListBlockParser does somthing similar for thematic breaks), should extract logic for determining if a line is a heading.
-            if (!(processor.NewBlocks.Pop() is HeadingBlock newHeadingBlock))
-            {
-                throw new InvalidOperationException($"Opened a heading block but BlockProcessor.NewBlocks does not contain any blocks.");
-            }
-            processor.GoToColumn(0);
+            // Creating then removing a new HeadingBlock instance isn't efficient, should extract logic for determining if a line is a heading.
+            HeadingBlock newHeadingBlock = (HeadingBlock)processor.NewBlocks.Pop();
+
+            // Return to initial column so that TryOpen can open the HeadingBlock
+            processor.GoToColumn(initialColumn);
 
             SectionBlock sectionBlock = block as SectionBlock;
 
+            // New section is a sibling or uncle of sectionBlock
             if (newHeadingBlock.Level <= sectionBlock.Level)
             {
                 // Close current section block and all of its children, but don't discard line so that a new section block can be opened
                 return BlockState.None;
-            }
-
-            // If next open block is not null and it is not a section block or it is a section block with level higher than or equal to the new heading block's level, 
-            // close it (automatically closes its children as well). This is so that the new section will be added to a section block at the right nesting level.
-            if (processor.NextContinue != null &&
-                (!(processor.NextContinue is SectionBlock nextSectionBlock) || nextSectionBlock.Level >= newHeadingBlock.Level))
-            {
-                // If the last open block is a section block and it's last child is a JsonOptionsBlock, move it up to the section block that the new section will be added to.
-                if(processor.CurrentBlock is SectionBlock lastOpenSectionBlock && 
-                    lastOpenSectionBlock != sectionBlock &&
-                    lastOpenSectionBlock.LastChild is JsonOptionsBlock jsonOptionsBlock)
-                {
-                    lastOpenSectionBlock.Remove(jsonOptionsBlock);
-                    sectionBlock.Add(jsonOptionsBlock);
-                } 
-
-                processor.Close(processor.NextContinue);
             }
 
             // Keep section block open
@@ -123,7 +125,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         }
 
         /// <summary>
-        /// Sets up callbacks that handle section IDs and auto links.
+        /// Called when a section block is closed. Sets up callbacks that handle section IDs and auto links.
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="block"></param>

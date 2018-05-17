@@ -1,4 +1,5 @@
-﻿using Markdig;
+﻿using JeremyTCD.Markdig.Extensions.JsonOptions;
+using Markdig;
 using Markdig.Parsers;
 using Markdig.Renderers;
 
@@ -25,8 +26,16 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                 {
                     pipelineBuilder.BlockParsers.Remove(headingBlockParser);
                 }
+                else
+                {
+                    headingBlockParser = new HeadingBlockParser();
+                }
 
-                var sectionsParser = new SectionsParser(_options);
+                // For testability - could improve IOC infrastructure, measure impact on performance
+                var autoLinkService = new AutoLinkService();
+                var identifierService = new IdentifierService();
+                var jsonOptionsService = new JsonOptionsService();
+                var sectionsParser = new SectionsParser(_options, headingBlockParser, autoLinkService, identifierService, jsonOptionsService);
                 pipelineBuilder.BlockParsers.Insert(0, sectionsParser);
             }
         }
