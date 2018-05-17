@@ -55,7 +55,9 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                 var sectionBlock = new SectionBlock(this)
                 {
                     Level = newHeadingBlock.Level,
-                    SectionBlockOptions = sectionBlockOptions
+                    SectionBlockOptions = sectionBlockOptions,
+                    Column = newHeadingBlock.Column,
+                    Span = newHeadingBlock.Span
                 };
 
                 processor.NewBlocks.Push(sectionBlock);
