@@ -18,6 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{F41F9DD0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C050C90B-0201-435F-AADB-F3A329778318}"
 	ProjectSection(SolutionItems) = preProject
+		JeremyTCD.Markdig.Extensions.ruleset = JeremyTCD.Markdig.Extensions.ruleset
 		ThingsToDo.md = ThingsToDo.md
 	EndProjectSection
 EndProject

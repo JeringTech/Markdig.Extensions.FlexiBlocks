@@ -10,20 +10,20 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void Clone_ReturnsADeepClone()
         {
             // Arrange
-            bool dummyGenerateIdentifier = false;
-            bool dummyAutoLinkable = false;
-            SectioningContentElement dummyLevel1WrapperElement = SectioningContentElement.Article;
-            SectioningContentElement dummyLevel2PlusWrapperElement = SectioningContentElement.Nav;
-            string dummyAttributeKey1 = "dummyAttributeKey1";
-            string dummyAttributeValue1 = "dummyAttributeValue1";
-            string dummyAttributeKey2 = "dummyAttributeKey2";
-            string dummyAttributeValue2 = "dummyAttributeValue2";
-            Dictionary<string, string> dummyAttributes = new Dictionary<string, string>()
+            const bool dummyGenerateIdentifier = false;
+            const bool dummyAutoLinkable = false;
+            const SectioningContentElement dummyLevel1WrapperElement = SectioningContentElement.Article;
+            const SectioningContentElement dummyLevel2PlusWrapperElement = SectioningContentElement.Nav;
+            const string dummyAttributeKey1 = "dummyAttributeKey1";
+            const string dummyAttributeValue1 = "dummyAttributeValue1";
+            const string dummyAttributeKey2 = "dummyAttributeKey2";
+            const string dummyAttributeValue2 = "dummyAttributeValue2";
+            var dummyAttributes = new Dictionary<string, string>()
             {
                 {dummyAttributeKey1, dummyAttributeValue1 },
                 {dummyAttributeKey2, dummyAttributeValue2 }
             };
-            SectionBlockOptions sectionBlockOptions = new SectionBlockOptions()
+            var sectionBlockOptions = new SectionBlockOptions()
             {
                 GenerateIdentifier = dummyGenerateIdentifier,
                 AutoLinkable = dummyAutoLinkable,

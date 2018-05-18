@@ -14,17 +14,17 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void Write_WritesWrapperAttributesAndChildren()
         {
             // Arrange
-            string dummyChildText = "dummyChildText";
-            string dummyAttributeName = "dummyAttributeName";
-            string dummyAttributeValue = "dummyAttributeValue";
-            SectioningContentElement dummySectioningContentElement = SectioningContentElement.Article;
-            ContainerInline dummyContainerInline = new ContainerInline();
+            const string dummyChildText = "dummyChildText";
+            const string dummyAttributeName = "dummyAttributeName";
+            const string dummyAttributeValue = "dummyAttributeValue";
+            const SectioningContentElement dummySectioningContentElement = SectioningContentElement.Article;
+            var dummyContainerInline = new ContainerInline();
             dummyContainerInline.AppendChild(new LiteralInline(dummyChildText));
-            ParagraphBlock dummyParagraphBlock = new ParagraphBlock()
+            var dummyParagraphBlock = new ParagraphBlock()
             {
                 Inline = dummyContainerInline
             };
-            SectionBlock dummySectionBlock = new SectionBlock(null)
+            var dummySectionBlock = new SectionBlock(null)
             {
                 Level = 1,
                 SectionBlockOptions = new SectionBlockOptions()
@@ -35,10 +35,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             };
             dummySectionBlock.Add(dummyParagraphBlock);
             string result = null;
-            using (TextWriter dummyStringWriter = new StringWriter())
+            using (var dummyStringWriter = new StringWriter())
             {
-                HtmlRenderer dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                SectionsRenderer sectionsRenderer = new SectionsRenderer();
+                var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
+                var sectionsRenderer = new SectionsRenderer();
 
                 // Act
                 sectionsRenderer.Write(dummyHtmlRenderer, dummySectionBlock);
@@ -55,8 +55,8 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void Write_UsesLevel2PlusWrapperElementIfSectionBlockIsLevel2Plus(int level)
         {
             // Arrange
-            SectioningContentElement dummySectioningContentElement = SectioningContentElement.Nav;
-            SectionBlock dummySectionBlock = new SectionBlock(null)
+            const SectioningContentElement dummySectioningContentElement = SectioningContentElement.Nav;
+            var dummySectionBlock = new SectionBlock(null)
             {
                 Level = level,
                 SectionBlockOptions = new SectionBlockOptions()
@@ -65,10 +65,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
                 }
             };
             string result = null;
-            using (TextWriter dummyStringWriter = new StringWriter())
+            using (var dummyStringWriter = new StringWriter())
             {
-                HtmlRenderer dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                SectionsRenderer sectionsRenderer = new SectionsRenderer();
+                var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
+                var sectionsRenderer = new SectionsRenderer();
 
                 // Act
                 sectionsRenderer.Write(dummyHtmlRenderer, dummySectionBlock);
@@ -93,14 +93,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void Write_OnlyWritesChildrenIfWrapperElementIsNone()
         {
             // Arrange
-            string dummyChildText = "dummyChildText";
-            ContainerInline dummyContainerInline = new ContainerInline();
+            const string dummyChildText = "dummyChildText";
+            var dummyContainerInline = new ContainerInline();
             dummyContainerInline.AppendChild(new LiteralInline(dummyChildText));
-            ParagraphBlock dummyParagraphBlock = new ParagraphBlock()
+            var dummyParagraphBlock = new ParagraphBlock()
             {
                 Inline = dummyContainerInline
             };
-            SectionBlock dummySectionBlock = new SectionBlock(null)
+            var dummySectionBlock = new SectionBlock(null)
             {
                 Level = 1,
                 SectionBlockOptions = new SectionBlockOptions()
@@ -110,10 +110,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             };
             dummySectionBlock.Add(dummyParagraphBlock);
             string result = null;
-            using (TextWriter dummyStringWriter = new StringWriter())
+            using (var dummyStringWriter = new StringWriter())
             {
-                HtmlRenderer dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                SectionsRenderer sectionsRenderer = new SectionsRenderer();
+                var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
+                var sectionsRenderer = new SectionsRenderer();
 
                 // Act
                 sectionsRenderer.Write(dummyHtmlRenderer, dummySectionBlock);

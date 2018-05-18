@@ -17,14 +17,14 @@ namespace JeremyTCD.Markdig.Extensions.Sections
             _options = options ?? new SectionExtensionOptions();
         }
 
-        public void Setup(MarkdownPipelineBuilder pipelineBuilder)
+        public void Setup(MarkdownPipelineBuilder pipeline)
         {
-            if (!pipelineBuilder.BlockParsers.Contains<SectionsParser>())
+            if (!pipeline.BlockParsers.Contains<SectionsParser>())
             {
-                HeadingBlockParser headingBlockParser = pipelineBuilder.BlockParsers.Find<HeadingBlockParser>();
+                HeadingBlockParser headingBlockParser = pipeline.BlockParsers.Find<HeadingBlockParser>();
                 if (headingBlockParser != null)
                 {
-                    pipelineBuilder.BlockParsers.Remove(headingBlockParser);
+                    pipeline.BlockParsers.Remove(headingBlockParser);
                 }
                 else
                 {
@@ -36,7 +36,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                 var identifierService = new IdentifierService();
                 var jsonOptionsService = new JsonOptionsService();
                 var sectionsParser = new SectionsParser(_options, headingBlockParser, autoLinkService, identifierService, jsonOptionsService);
-                pipelineBuilder.BlockParsers.Insert(0, sectionsParser);
+                pipeline.BlockParsers.Insert(0, sectionsParser);
             }
         }
 

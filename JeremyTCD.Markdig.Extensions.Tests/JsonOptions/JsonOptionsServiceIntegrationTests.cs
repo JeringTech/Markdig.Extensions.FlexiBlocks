@@ -33,10 +33,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
         public void TryExtractOptions_ThrowsExceptionIfJsonParsingFails()
         {
             // Arrange
-            string dummyJson = "{invalid json}";
-            int dummyLine = 1;
-            int dummyColumn = 2;
-            JsonOptionsBlock dummyJsonOptionsBlock = new JsonOptionsBlock(null)
+            const string dummyJson = "{invalid json}";
+            const int dummyLine = 1;
+            const int dummyColumn = 2;
+            var dummyJsonOptionsBlock = new JsonOptionsBlock(null)
             {
                 Lines = new StringLineGroup(dummyJson),
                 Line = dummyLine,
@@ -58,9 +58,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
         public void TryExtractOptions_ExtractsObjectFromJsonOptionsBlock()
         {
             // Arrange
-            string dummyValue1 = "value1";
-            int dummyValue2 = 2;
-            JsonOptionsBlock dummyJsonOptionsBlock = new JsonOptionsBlock(null)
+            const string dummyValue1 = "value1";
+            const int dummyValue2 = 2;
+            var dummyJsonOptionsBlock = new JsonOptionsBlock(null)
             {
                 Lines = new StringLineGroup($"{{\"Option1\": \"{dummyValue1}\", \"Option2\": {dummyValue2}}}")
             };
@@ -86,7 +86,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
             Mock<JsonOptionsService> mockJsonOptionsService = _mockRepository.Create<JsonOptionsService>();
             mockJsonOptionsService.CallBase = true;
             mockJsonOptionsService.Setup(j => j.TryGetJsonOptionsBlock(dummyBlockProcessor)).Returns((JsonOptionsBlock)null);
-            TestOptions dummyTestOptions = new TestOptions();
+            var dummyTestOptions = new TestOptions();
 
             // Act
             bool result = mockJsonOptionsService.Object.TryPopulateOptions(dummyBlockProcessor, dummyTestOptions);
@@ -100,10 +100,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
         public void TryPopulateOptions_ThrowsExceptionIfJsonParsingFails()
         {
             // Arrange
-            string dummyJson = "{invalid json}";
-            int dummyLine = 1;
-            int dummyColumn = 2;
-            JsonOptionsBlock dummyJsonOptionsBlock = new JsonOptionsBlock(null)
+            const string dummyJson = "{invalid json}";
+            const int dummyLine = 1;
+            const int dummyColumn = 2;
+            var dummyJsonOptionsBlock = new JsonOptionsBlock(null)
             {
                 Lines = new StringLineGroup(dummyJson),
                 Line = dummyLine,
@@ -113,7 +113,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
             Mock<JsonOptionsService> mockJsonOptionsService = _mockRepository.Create<JsonOptionsService>();
             mockJsonOptionsService.CallBase = true;
             mockJsonOptionsService.Setup(j => j.TryGetJsonOptionsBlock(dummyBlockProcessor)).Returns(dummyJsonOptionsBlock);
-            TestOptions dummyTestOptions = new TestOptions();
+            var dummyTestOptions = new TestOptions();
 
             // Act and assert
             InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => mockJsonOptionsService.Object.TryPopulateOptions(dummyBlockProcessor, dummyTestOptions));
@@ -126,13 +126,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
         public void TryPopulateOptions_PopulatesObjectFromJsonOptionsBlock()
         {
             // Arrange
-            string dummyValue1 = "value1";
-            int dummyValue2 = 2;
-            JsonOptionsBlock dummyJsonOptionsBlock = new JsonOptionsBlock(null)
+            const string dummyValue1 = "value1";
+            const int dummyValue2 = 2;
+            var dummyJsonOptionsBlock = new JsonOptionsBlock(null)
             {
                 Lines = new StringLineGroup($"{{\"Option1\": \"{dummyValue1}\"}}")
             };
-            TestOptions dummyTestOptions = new TestOptions()
+            var dummyTestOptions = new TestOptions()
             {
                 Option2 = dummyValue2
             };
@@ -155,7 +155,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            JsonOptionsService jsonOptionsService = new JsonOptionsService();
+            var jsonOptionsService = new JsonOptionsService();
 
             // Act
             JsonOptionsBlock result = jsonOptionsService.TryGetJsonOptionsBlock(dummyBlockProcessor);
@@ -168,11 +168,11 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
         public void TryGetJsonOptionsBlock_ThrowsExceptionIfJsonOptionsBlockDoesNotImmediatelyPrecedeCurrentLine()
         {
             // Arrange
-            string dummyJson = "dummyJson";
-            int dummyLine = 0;
-            int dummyEndLine = 1;
-            int dummyColumn = 2;
-            JsonOptionsBlock dummyJsonOptionsBlock = new JsonOptionsBlock(null)
+            const string dummyJson = "dummyJson";
+            const int dummyLine = 0;
+            const int dummyEndLine = 1;
+            const int dummyColumn = 2;
+            var dummyJsonOptionsBlock = new JsonOptionsBlock(null)
             {
                 Line = dummyLine,
                 EndLine = dummyEndLine,
@@ -182,7 +182,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Document.SetData(JsonOptionsParser.JSON_OPTIONS, dummyJsonOptionsBlock);
             dummyBlockProcessor.LineIndex = dummyEndLine + 2; // 1 line gap between options block and current line
-            JsonOptionsService jsonOptionsService = new JsonOptionsService();
+            var jsonOptionsService = new JsonOptionsService();
 
             // Act and Assert
             InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => jsonOptionsService.TryGetJsonOptionsBlock(dummyBlockProcessor));
@@ -197,15 +197,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
         public void TryGetJsonOptionsBlock_IfSuccessfulReturnsJsonOptionsBlockAndRemovesItFromDocumentData()
         {
             // Arrange
-            int dummyEndLine = 1;
-            JsonOptionsBlock dummyJsonOptionsBlock = new JsonOptionsBlock(null)
+            const int dummyEndLine = 1;
+            var dummyJsonOptionsBlock = new JsonOptionsBlock(null)
             {
                 EndLine = dummyEndLine
             };
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Document.SetData(JsonOptionsParser.JSON_OPTIONS, dummyJsonOptionsBlock);
             dummyBlockProcessor.LineIndex = dummyEndLine + 1; // 1 line gap between options block and current line
-            JsonOptionsService jsonOptionsService = new JsonOptionsService();
+            var jsonOptionsService = new JsonOptionsService();
 
             // Act
             JsonOptionsBlock result = jsonOptionsService.TryGetJsonOptionsBlock(dummyBlockProcessor);

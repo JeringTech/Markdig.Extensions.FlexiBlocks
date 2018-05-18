@@ -38,9 +38,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<HeadingBlockParser> mockHeadingBlockParser = _mockRepository.Create<HeadingBlockParser>();
             mockHeadingBlockParser.Setup(h => h.TryOpen(dummyBlockProcessor)).Returns(BlockState.Break);
-            HeadingBlock dummyHeadingBlock = new HeadingBlock(null) { Level = dummyLevel };
+            var dummyHeadingBlock = new HeadingBlock(null) { Level = dummyLevel };
             dummyBlockProcessor.NewBlocks.Push(dummyHeadingBlock);
-            SectionExtensionOptions dummySectionExtensionOptions = new SectionExtensionOptions() { DefaultSectionBlockOptions = dummySectionBlockOptions };
+            var dummySectionExtensionOptions = new SectionExtensionOptions() { DefaultSectionBlockOptions = dummySectionBlockOptions };
             Mock<JsonOptionsService> mockJsonOptionsService = _mockRepository.Create<JsonOptionsService>();
             mockJsonOptionsService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<SectionBlockOptions>())); // A clone of dummySectionBlockOptions is passed to TryPopulateOptions
             SectionsParser sectionsParser = CreateSectionsParser(dummySectionExtensionOptions, mockHeadingBlockParser.Object, jsonOptionsService: mockJsonOptionsService.Object);
@@ -66,13 +66,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void TryOpen_IfSuccessfulCreatesNewSectionBlockAndReturnsBlockStateContinue()
         {
             // Arrange
-            int dummyLevel = 2;
-            int dummyColumn = 1;
+            const int dummyLevel = 2;
+            const int dummyColumn = 1;
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<HeadingBlockParser> mockHeadingBlockParser = _mockRepository.Create<HeadingBlockParser>();
             mockHeadingBlockParser.Setup(h => h.TryOpen(dummyBlockProcessor)).Returns(BlockState.Break);
-            SourceSpan dummySourceSpan = new SourceSpan(3, 4);
-            HeadingBlock dummyHeadingBlock = new HeadingBlock(null) { Level = dummyLevel, Column = dummyColumn, Span = dummySourceSpan };
+            var dummySourceSpan = new SourceSpan(3, 4);
+            var dummyHeadingBlock = new HeadingBlock(null) { Level = dummyLevel, Column = dummyColumn, Span = dummySourceSpan };
             dummyBlockProcessor.NewBlocks.Push(dummyHeadingBlock);
             Mock<JsonOptionsService> mockJsonOptionsService = _mockRepository.Create<JsonOptionsService>();
             mockJsonOptionsService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<SectionBlockOptions>())); // A clone of dummySectionBlockOptions is passed to TryPopulateOptions
@@ -84,7 +84,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             // Assert
             _mockRepository.VerifyAll();
             Assert.Equal(BlockState.Continue, result);
-            SectionBlock resultSectionBlock = dummyBlockProcessor.NewBlocks.Peek() as SectionBlock;
+            var resultSectionBlock = dummyBlockProcessor.NewBlocks.Peek() as SectionBlock;
             Assert.NotNull(resultSectionBlock);
             Assert.Equal(dummyLevel, resultSectionBlock.Level);
             Assert.Equal(dummyColumn, resultSectionBlock.Column);
@@ -95,10 +95,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void TryContinue_ReturnsBlockStateContinueIfTheCurrentCharIsNotTheOpeningCharOfAHeadingBlock()
         {
             // Arrange
-            StringSlice dummyStringSlice = new StringSlice("@"); // Any first character but #
+            var dummyStringSlice = new StringSlice("@"); // Any first character but #
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = dummyStringSlice;
-            HeadingBlockParser dummyHeadingBlockParser = new HeadingBlockParser();
+            var dummyHeadingBlockParser = new HeadingBlockParser();
             SectionsParser sectionsParser = CreateSectionsParser(headingBlockParser: dummyHeadingBlockParser);
 
             // Act
@@ -112,7 +112,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void TryContinue_ReturnsBlockStateContinueIfCurrentLineIsNotAHeadingBlock()
         {
             // Arrange
-            StringSlice dummyStringSlice = new StringSlice("#");
+            var dummyStringSlice = new StringSlice("#");
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = dummyStringSlice;
             Mock<HeadingBlockParser> mockHeadingBlockParser = _mockRepository.Create<HeadingBlockParser>();
@@ -132,8 +132,8 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void TryContinue_ReturnsBlockStateNoneAndRemovesNewHeadingBlockIfNewSectionIsAChildOfTheCurrentSection(int dummyHeadingBlockLevel, int dummySectionBlockLevel)
         {
             // Arrange
-            StringSlice dummyStringSlice = new StringSlice("#");
-            HeadingBlock dummyHeadingBlock = new HeadingBlock(null)
+            var dummyStringSlice = new StringSlice("#");
+            var dummyHeadingBlock = new HeadingBlock(null)
             {
                 Level = dummyHeadingBlockLevel
             };
@@ -142,7 +142,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             dummyBlockProcessor.NewBlocks.Push(dummyHeadingBlock);
             Mock<HeadingBlockParser> mockHeadingBlockParser = _mockRepository.Create<HeadingBlockParser>();
             mockHeadingBlockParser.Setup(h => h.TryOpen(dummyBlockProcessor)).Returns(BlockState.Break);
-            SectionBlock dummySectionBlock = new SectionBlock(null)
+            var dummySectionBlock = new SectionBlock(null)
             {
                 Level = dummySectionBlockLevel
             };
@@ -170,10 +170,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void TryContinue_ReturnsBlockStateContinueAndRemovesNewHeadingBlockIfNewSectionIsAChildOfTheCurrentSection()
         {
             // Arrange
-            int dummyHeadingBlockLevel = 2;
-            int dummySectionBlockLevel = 1;
-            StringSlice dummyStringSlice = new StringSlice("#");
-            HeadingBlock dummyHeadingBlock = new HeadingBlock(null)
+            const int dummyHeadingBlockLevel = 2;
+            const int dummySectionBlockLevel = 1;
+            var dummyStringSlice = new StringSlice("#");
+            var dummyHeadingBlock = new HeadingBlock(null)
             {
                 Level = dummyHeadingBlockLevel
             };
@@ -182,7 +182,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             dummyBlockProcessor.NewBlocks.Push(dummyHeadingBlock);
             Mock<HeadingBlockParser> mockHeadingBlockParser = _mockRepository.Create<HeadingBlockParser>();
             mockHeadingBlockParser.Setup(h => h.TryOpen(dummyBlockProcessor)).Returns(BlockState.Break);
-            SectionBlock dummySectionBlock = new SectionBlock(null)
+            var dummySectionBlock = new SectionBlock(null)
             {
                 Level = dummySectionBlockLevel
             };

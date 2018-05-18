@@ -65,7 +65,7 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
         /// </returns>
         public override BlockState TryContinue(BlockProcessor processor, Block block)
         {
-            JsonOptionsBlock jsonOptionsBlock = (JsonOptionsBlock)block;
+            var jsonOptionsBlock = (JsonOptionsBlock)block;
             StringSlice line = processor.Line;
             char pc = line.PeekCharExtra(-1);
             char c = line.CurrentChar;

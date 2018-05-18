@@ -35,7 +35,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         /// </summary>
         public SectionBlockOptions Clone()
         {
-            SectionBlockOptions result = MemberwiseClone() as SectionBlockOptions;
+            var result = MemberwiseClone() as SectionBlockOptions;
             result.Attributes = new Dictionary<string, string>(Attributes, StringComparer.OrdinalIgnoreCase);
 
             return result;

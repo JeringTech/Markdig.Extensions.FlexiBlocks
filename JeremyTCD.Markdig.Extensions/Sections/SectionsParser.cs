@@ -55,7 +55,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
             // Apply JSON options if they are provided
             _jsonOptionsService.TryPopulateOptions(processor, sectionBlockOptions);
 
-            HeadingBlock newHeadingBlock = (HeadingBlock)processor.NewBlocks.Peek();
+            var newHeadingBlock = (HeadingBlock)processor.NewBlocks.Peek();
 
             // Optionally, don't open a section block (typically useful for an outermost, level 1 heading that will reside in an existing SectioningContentElement)
             if (newHeadingBlock.Level == 1 && sectionBlockOptions.Level1WrapperElement == SectioningContentElement.None ||
@@ -106,12 +106,12 @@ namespace JeremyTCD.Markdig.Extensions.Sections
             }
 
             // Creating then removing a new HeadingBlock instance isn't efficient, should extract logic for determining if a line is a heading.
-            HeadingBlock newHeadingBlock = (HeadingBlock)processor.NewBlocks.Pop();
+            var newHeadingBlock = (HeadingBlock)processor.NewBlocks.Pop();
 
             // Return to initial column so that TryOpen can open the HeadingBlock
             processor.GoToColumn(initialColumn);
 
-            SectionBlock sectionBlock = block as SectionBlock;
+            var sectionBlock = block as SectionBlock;
 
             // New section is a sibling or uncle of sectionBlock
             if (newHeadingBlock.Level <= sectionBlock.Level)
@@ -131,13 +131,13 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         /// <param name="block"></param>
         internal virtual void SectionBlockOnClosed(BlockProcessor processor, Block block)
         {
-            SectionBlock sectionBlock = (SectionBlock)block;
+            var sectionBlock = (SectionBlock)block;
             SectionBlockOptions sectionBlockOptions = sectionBlock.SectionBlockOptions;
 
             // Setup identifier generation and auto links
             if (sectionBlockOptions.GenerateIdentifier)
             {
-                HeadingBlock headingBlock = (HeadingBlock)sectionBlock.FirstOrDefault(child => child is HeadingBlock);
+                var headingBlock = (HeadingBlock)sectionBlock.FirstOrDefault(child => child is HeadingBlock);
 
                 if (headingBlock == null)
                 {

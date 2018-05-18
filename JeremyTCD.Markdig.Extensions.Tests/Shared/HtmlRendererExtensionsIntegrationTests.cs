@@ -11,19 +11,19 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Shared
         public void WriteCustomAttributes_WritesAttributes()
         {
             // Arrange
-            string dummyAttribute1 = "dummyAttribute1";
-            string dummyValue1 = "dummyValue1";
-            string dummyAttribute2 = "dummyAttribute2";
-            string dummyValue2 = "dummyValue2";
-            Dictionary<string, string> dummyAttributes = new Dictionary<string, string>()
+            const string dummyAttribute1 = "dummyAttribute1";
+            const string dummyValue1 = "dummyValue1";
+            const string dummyAttribute2 = "dummyAttribute2";
+            const string dummyValue2 = "dummyValue2";
+            var dummyAttributes = new Dictionary<string, string>()
             {
                 { dummyAttribute1, dummyValue1 },
                 { dummyAttribute2, dummyValue2 }
             };
             string result = null;
-            using (StringWriter stringWriter = new StringWriter())
+            using (var stringWriter = new StringWriter())
             {
-                HtmlRenderer htmlRenderer = new HtmlRenderer(stringWriter);
+                var htmlRenderer = new HtmlRenderer(stringWriter);
 
                 // Act
                 htmlRenderer.WriteCustomAttributes(dummyAttributes);

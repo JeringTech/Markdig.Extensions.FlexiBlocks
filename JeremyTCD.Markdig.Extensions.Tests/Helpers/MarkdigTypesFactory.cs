@@ -4,7 +4,7 @@ using Markdig.Syntax;
 
 namespace JeremyTCD.Markdig.Extensions.Tests
 {
-    public class MarkdigTypesFactory
+    public static class MarkdigTypesFactory
     {
         // BlockProcessor can't be mocked since its members aren't virtual. Markdig does not apply IOC conventions either, so there is not interface to mock.
         public static InlineProcessor CreateInlineProcessor(

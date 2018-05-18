@@ -16,10 +16,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void HeadingBlockOnProcessInlinesEnd_ThrowsExceptionIfHeadingBlocksParentIsNotASectionBlock()
         {
             // Arrange
-            HeadingBlock dummyHeadingBlock = new HeadingBlock(null);
+            var dummyHeadingBlock = new HeadingBlock(null);
             InlineProcessor dummyInlineProcessor = MarkdigTypesFactory.CreateInlineProcessor();
             dummyInlineProcessor.ProcessInlineLeaf(dummyHeadingBlock); // Sets dummyInlineProcessor.Block
-            IdentifierService identifierService = new IdentifierService();
+            var identifierService = new IdentifierService();
 
             // Act and Assert
             Assert.Throws<InvalidOperationException>(() => identifierService.HeadingBlockOnProcessInlinesEnd(dummyInlineProcessor, null));
@@ -29,15 +29,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void HeadingBlockOnProcessInlinesEnd_DoesNothingIfSectionBlockAlreadyHasAnID()
         {
             // Arrange
-            string dummyID = "dummyID";
-            SectionBlockOptions dummySectionBlockOptions = new SectionBlockOptions();
+            const string dummyID = "dummyID";
+            var dummySectionBlockOptions = new SectionBlockOptions();
             dummySectionBlockOptions.Attributes.Add("id", dummyID);
-            HeadingBlock dummyHeadingBlock = new HeadingBlock(null);
-            SectionBlock dummySectionBlock = new SectionBlock(null) { SectionBlockOptions = dummySectionBlockOptions };
+            var dummyHeadingBlock = new HeadingBlock(null);
+            var dummySectionBlock = new SectionBlock(null) { SectionBlockOptions = dummySectionBlockOptions };
             dummySectionBlock.Add(dummyHeadingBlock); // Sets dummyHeadingBlock.Parent to dummySectionBlock
             InlineProcessor dummyInlineProcessor = MarkdigTypesFactory.CreateInlineProcessor();
             dummyInlineProcessor.ProcessInlineLeaf(dummyHeadingBlock); // Sets dummyInlineProcessor.Block
-            IdentifierService identifierService = new IdentifierService();
+            var identifierService = new IdentifierService();
 
             // Act
             identifierService.HeadingBlockOnProcessInlinesEnd(dummyInlineProcessor, null);
@@ -50,23 +50,23 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void HeadingBlockOnProcessInlinesEnd_IfSuccessfulAddsIDToDuplicateCheckingMapAndToSectionBlocksAttributes()
         {
             // Arrange
-            string dummyID = "dummyID";
-            HeadingBlock dummyHeadingBlock = new HeadingBlock(null)
+            const string dummyID = "dummyID";
+            var dummyHeadingBlock = new HeadingBlock(null)
             {
                 Lines = new StringLineGroup(dummyID)
             };
-            SectionBlockOptions dummySectionBlockOptions = new SectionBlockOptions();
-            SectionBlock dummySectionBlock = new SectionBlock(null) { SectionBlockOptions = dummySectionBlockOptions };
+            var dummySectionBlockOptions = new SectionBlockOptions();
+            var dummySectionBlock = new SectionBlock(null) { SectionBlockOptions = dummySectionBlockOptions };
             dummySectionBlock.Add(dummyHeadingBlock); // Sets dummyHeadingBlock.Parent to dummySectionBlock
             InlineProcessor dummyInlineProcessor = MarkdigTypesFactory.CreateInlineProcessor();
             dummyInlineProcessor.ProcessInlineLeaf(dummyHeadingBlock); // Set dummyInlineProcessor.Block and creates InlineBlocks
-            IdentifierService identifierService = new IdentifierService();
+            var identifierService = new IdentifierService();
 
             // Act
             identifierService.HeadingBlockOnProcessInlinesEnd(dummyInlineProcessor, null);
 
             // Assert
-            Dictionary<string, int> resultIdentifiers = dummyInlineProcessor.Document.GetData(IdentifierService.SECTION_IDS_KEY) as Dictionary<string, int>;
+            var resultIdentifiers = dummyInlineProcessor.Document.GetData(IdentifierService.SECTION_IDS_KEY) as Dictionary<string, int>;
             Assert.NotNull(resultIdentifiers);
             Assert.True(resultIdentifiers.TryGetValue(dummyID.ToLower(), out int numDuplicates)); // IDs are converted to kebab case (all lowercase, words seperated by dashes)
             Assert.Equal(0, numDuplicates);
@@ -78,17 +78,17 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void HeadingBlockOnProcessInlinesEnd_IfSuccessfulButHeadingBlockTextIsNullOrWhitespaceUsesSectionAsID()
         {
             // Arrange
-            string dummyID = "";
-            HeadingBlock dummyHeadingBlock = new HeadingBlock(null)
+            const string dummyID = "";
+            var dummyHeadingBlock = new HeadingBlock(null)
             {
                 Lines = new StringLineGroup(dummyID)
             };
-            SectionBlockOptions dummySectionBlockOptions = new SectionBlockOptions();
-            SectionBlock dummySectionBlock = new SectionBlock(null) { SectionBlockOptions = dummySectionBlockOptions };
+            var dummySectionBlockOptions = new SectionBlockOptions();
+            var dummySectionBlock = new SectionBlock(null) { SectionBlockOptions = dummySectionBlockOptions };
             dummySectionBlock.Add(dummyHeadingBlock); // Sets dummyHeadingBlock.Parent to dummySectionBlock
             InlineProcessor dummyInlineProcessor = MarkdigTypesFactory.CreateInlineProcessor();
             dummyInlineProcessor.ProcessInlineLeaf(dummyHeadingBlock); // Set dummyInlineProcessor.Block and creates InlineBlocks
-            IdentifierService identifierService = new IdentifierService();
+            var identifierService = new IdentifierService();
 
             // Act
             identifierService.HeadingBlockOnProcessInlinesEnd(dummyInlineProcessor, null);
@@ -102,17 +102,17 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void HeadingBlockOnProcessInlinesEnd_IfSuccesfulButIDIsInUseAppendsIntegerToID()
         {
             // Arrange
-            string dummyID = "dummyID";
-            HeadingBlock dummyHeadingBlock = new HeadingBlock(null)
+            const string dummyID = "dummyID";
+            var dummyHeadingBlock = new HeadingBlock(null)
             {
                 Lines = new StringLineGroup(dummyID)
             };
-            SectionBlockOptions dummySectionBlockOptions = new SectionBlockOptions();
-            SectionBlock dummySectionBlock = new SectionBlock(null) { SectionBlockOptions = dummySectionBlockOptions };
+            var dummySectionBlockOptions = new SectionBlockOptions();
+            var dummySectionBlock = new SectionBlock(null) { SectionBlockOptions = dummySectionBlockOptions };
             dummySectionBlock.Add(dummyHeadingBlock); // Sets dummyHeadingBlock.Parent to dummySectionBlock
             InlineProcessor dummyInlineProcessor = MarkdigTypesFactory.CreateInlineProcessor();
             dummyInlineProcessor.ProcessInlineLeaf(dummyHeadingBlock); // Set dummyInlineProcessor.Block and creates InlineBlocks
-            IdentifierService identifierService = new IdentifierService();
+            var identifierService = new IdentifierService();
 
             // Act
             identifierService.HeadingBlockOnProcessInlinesEnd(dummyInlineProcessor, null);
@@ -124,7 +124,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             string resultThirdID = dummySectionBlockOptions.Attributes["id"];
 
             // Assert
-            Dictionary<string, int> resultIdentifiers = dummyInlineProcessor.Document.GetData(IdentifierService.SECTION_IDS_KEY) as Dictionary<string, int>;
+            var resultIdentifiers = dummyInlineProcessor.Document.GetData(IdentifierService.SECTION_IDS_KEY) as Dictionary<string, int>;
             Assert.NotNull(resultIdentifiers);
             resultIdentifiers.TryGetValue(dummyID.ToLower(), out int numDuplicates);
             Assert.Equal(2, numDuplicates);

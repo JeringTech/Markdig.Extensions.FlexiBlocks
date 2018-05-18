@@ -9,7 +9,7 @@ using Xunit;
 
 namespace JeremyTCD.Markdig.Extensions.Tests
 {
-    public class SpecTestHelper
+    public static class SpecTestHelper
     {
         private static readonly Dictionary<string, Action<MarkdownPipelineBuilder, JObject>> _extensionAdders =
             new Dictionary<string, Action<MarkdownPipelineBuilder, JObject>>
@@ -49,7 +49,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
 
             string[] extensions = pipelineOptions.Split('_');
 
-            MarkdownPipelineBuilder builder = new MarkdownPipelineBuilder();
+            var builder = new MarkdownPipelineBuilder();
 
             foreach (string extension in extensions)
             {

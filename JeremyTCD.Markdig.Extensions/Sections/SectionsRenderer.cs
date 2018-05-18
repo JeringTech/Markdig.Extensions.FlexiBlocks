@@ -5,16 +5,16 @@ namespace JeremyTCD.Markdig.Extensions.Sections
 {
     public class SectionsRenderer : HtmlObjectRenderer<SectionBlock>
     {
-        protected override void Write(HtmlRenderer renderer, SectionBlock sectionBlock)
+        protected override void Write(HtmlRenderer renderer, SectionBlock obj)
         {
-            SectionBlockOptions sectionBlockOptions = sectionBlock.SectionBlockOptions;
-            SectioningContentElement sectioningContentElement = sectionBlock.Level == 1 ? sectionBlockOptions.Level1WrapperElement : sectionBlockOptions.Level2PlusWrapperElement;
+            SectionBlockOptions sectionBlockOptions = obj.SectionBlockOptions;
+            SectioningContentElement sectioningContentElement = obj.Level == 1 ? sectionBlockOptions.Level1WrapperElement : sectionBlockOptions.Level2PlusWrapperElement;
 
             renderer.EnsureLine();
 
             if (sectioningContentElement == SectioningContentElement.None)
             {
-                renderer.WriteChildren(sectionBlock);
+                renderer.WriteChildren(obj);
                 return;
             }
 
@@ -25,7 +25,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                 Write(elementName).
                 WriteCustomAttributes(sectionBlockOptions.Attributes).
                 WriteLine(">");
-            renderer.WriteChildren(sectionBlock);
+            renderer.WriteChildren(obj);
             renderer.
                 Write("</").
                 Write(elementName).
