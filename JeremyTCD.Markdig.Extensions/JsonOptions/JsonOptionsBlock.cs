@@ -20,5 +20,11 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
         /// True if the JSON ends in a string, for example if the JSON is "{ \"Opti". False otherwise.
         /// </summary>
         public bool EndsInString { get; set; } = false;
+
+
+        /// <summary>
+        /// Gets or sets the line that this block ends at.
+        /// </summary>
+        public int EndLine { get; set; }
     }
 }
