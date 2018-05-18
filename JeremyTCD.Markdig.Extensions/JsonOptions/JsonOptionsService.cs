@@ -103,13 +103,15 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
         {
             if (processor.Document.GetData(JsonOptionsParser.JSON_OPTIONS) is JsonOptionsBlock jsonOptionsBlock)
             {
-                if (jsonOptionsBlock.Line + 1 != processor.LineIndex)
+                if (jsonOptionsBlock.EndLine + 1 != processor.LineIndex)
                 {
                     throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_JsonOptionsDoesNotImmediatelyPrecedeConsumingBlock,
                         jsonOptionsBlock.Lines.ToString(),
                         jsonOptionsBlock.Line,
                         jsonOptionsBlock.Column));
                 }
+
+                processor.Document.RemoveData(JsonOptionsParser.JSON_OPTIONS);
 
                 return jsonOptionsBlock;
             }
