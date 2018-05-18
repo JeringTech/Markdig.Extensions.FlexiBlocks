@@ -244,7 +244,6 @@ Per-section-block options can be overriden if the JSON options extension is enab
     }
 }
 ```````````````````````````````` example
-
 @{
     "attributes": {
         "class": "book"

@@ -13102,7 +13102,6 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
         public void Sections_Spec12_jsonoptions_sections()
         {
             // The following Markdown:
-            //     
             //     @{
             //         "attributes": {
             //             "class": "book"
@@ -13145,7 +13144,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <h1>foo</h1>
             //     </aside>
 
-            SpecTestHelper.AssertCompliance("\n@{\n    \"attributes\": {\n        \"class\": \"book\"\n    }\n}\n# foo\n## foo\n@{\n    \"level2PlusWrapperElement\": \"nav\"\n}\n## foo\n@{\n    \"level1WrapperElement\": \"aside\"\n}\n# foo", 
+            SpecTestHelper.AssertCompliance("@{\n    \"attributes\": {\n        \"class\": \"book\"\n    }\n}\n# foo\n## foo\n@{\n    \"level2PlusWrapperElement\": \"nav\"\n}\n## foo\n@{\n    \"level1WrapperElement\": \"aside\"\n}\n# foo", 
                 "<article class=\"book\" id=\"foo\">\n<h1>foo</h1>\n<section class=\"chapter\" id=\"foo-1\">\n<h2>foo</h2>\n</section>\n<nav class=\"chapter\" id=\"foo-2\">\n<h2>foo</h2>\n</nav>\n</article>\n<aside class=\"chapter\" id=\"foo-3\">\n<h1>foo</h1>\n</aside>", 
                 "jsonoptions_sections", 
                 "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"level1WrapperElement\": \"article\",\n            \"attributes\": {\n                \"class\": \"chapter\"\n            }\n        }\n    }\n}");
@@ -13156,7 +13155,6 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
         public void Sections_Spec12_all()
         {
             // The following Markdown:
-            //     
             //     @{
             //         "attributes": {
             //             "class": "book"
@@ -13199,7 +13197,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <h1>foo</h1>
             //     </aside>
 
-            SpecTestHelper.AssertCompliance("\n@{\n    \"attributes\": {\n        \"class\": \"book\"\n    }\n}\n# foo\n## foo\n@{\n    \"level2PlusWrapperElement\": \"nav\"\n}\n## foo\n@{\n    \"level1WrapperElement\": \"aside\"\n}\n# foo", 
+            SpecTestHelper.AssertCompliance("@{\n    \"attributes\": {\n        \"class\": \"book\"\n    }\n}\n# foo\n## foo\n@{\n    \"level2PlusWrapperElement\": \"nav\"\n}\n## foo\n@{\n    \"level1WrapperElement\": \"aside\"\n}\n# foo", 
                 "<article class=\"book\" id=\"foo\">\n<h1>foo</h1>\n<section class=\"chapter\" id=\"foo-1\">\n<h2>foo</h2>\n</section>\n<nav class=\"chapter\" id=\"foo-2\">\n<h2>foo</h2>\n</nav>\n</article>\n<aside class=\"chapter\" id=\"foo-3\">\n<h1>foo</h1>\n</aside>", 
                 "all", 
                 "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"level1WrapperElement\": \"article\",\n            \"attributes\": {\n                \"class\": \"chapter\"\n            }\n        }\n    }\n}");
