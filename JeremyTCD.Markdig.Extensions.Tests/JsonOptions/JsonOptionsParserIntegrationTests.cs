@@ -84,14 +84,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
         }
 
         [Theory]
-        [MemberData(nameof(TryContinue_ReturnsBlockStateBreakAndSetsBlockSpaneEndIfLineIsACompleteJsonString_Data))]
-        public void TryContinue_ReturnsBlockStateBreakMovedBlockFromAstToDocumentDataAndSetsBlockSpaneEndIfLineIsACompleteJsonString(string dummyLine)
+        [MemberData(nameof(TryContinue_ReturnsBlockStateBreakSavesBlockToDocumentDataAndSetsBlockSpanEndAndEndLineIfLineIsACompleteJsonString_Data))]
+        public void TryContinue_ReturnsBlockStateBreakSavesBlockToDocumentDataAndSetsBlockSpanEndAndEndLineIfLineIsACompleteJsonString(string dummyLine)
         {
             // Arrange
+            int dummyEndLine = 1;
             JsonOptionsBlock dummyJsonOptionsBlock = new JsonOptionsBlock(null);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = new StringSlice(dummyLine);
             dummyBlockProcessor.Document.Add(dummyJsonOptionsBlock); // Sets document as parent of JsonOptionsBlock
+            dummyBlockProcessor.LineIndex = dummyEndLine;
             JsonOptionsParser jsonOptionsParser = new JsonOptionsParser();
 
             // Act
@@ -102,9 +104,11 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
             Assert.Equal(dummyLine.Length - 1, dummyJsonOptionsBlock.Span.End);
             Assert.False(dummyJsonOptionsBlock.EndsInString);
             Assert.Equal(0, dummyJsonOptionsBlock.NumOpenBrackets);
+            Assert.Equal(dummyJsonOptionsBlock, dummyBlockProcessor.Document.GetData(JsonOptionsParser.JSON_OPTIONS));
+            Assert.Equal(dummyEndLine, dummyJsonOptionsBlock.EndLine);
         }
 
-        public static IEnumerable<object[]> TryContinue_ReturnsBlockStateBreakAndSetsBlockSpaneEndIfLineIsACompleteJsonString_Data()
+        public static IEnumerable<object[]> TryContinue_ReturnsBlockStateBreakSavesBlockToDocumentDataAndSetsBlockSpanEndAndEndLineIfLineIsACompleteJsonString_Data()
         {
             return new object[][]
             {

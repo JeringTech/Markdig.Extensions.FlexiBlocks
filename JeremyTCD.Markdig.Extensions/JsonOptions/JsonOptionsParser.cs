@@ -83,6 +83,7 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
                         if (--jsonOptionsBlock.NumOpenBrackets == 0)
                         {
                             jsonOptionsBlock.UpdateSpanEnd(line.End);
+                            jsonOptionsBlock.EndLine = processor.LineIndex;
 
                             // Unused JsonOptionsBlock
                             if (processor.Document.GetData(JSON_OPTIONS) is JsonOptionsBlock pendingJsonOptions)
@@ -94,8 +95,7 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
                                     pendingJsonOptions.Column));
                             }
 
-                            // Move block from ast to Document data
-                            jsonOptionsBlock.Parent.Remove(jsonOptionsBlock);
+                            // Save block to data, leave block in ast so that line gets assigned to block
                             processor.Document.SetData(JSON_OPTIONS, jsonOptionsBlock);
 
                             return BlockState.Break;
