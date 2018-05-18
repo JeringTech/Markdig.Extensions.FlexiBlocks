@@ -86,7 +86,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         /// <param name="block"></param>
         /// <returns>
         /// <see cref="BlockState.Continue"/> if the current line is not a <see cref="HeadingBlock"/> or if the current line is a <see cref="HeadingBlock"/> and the new section is a descendant of <paramref name="block"/>.
-        /// <see cref="BlockState.None"/> the current line is a <see cref="HeadingBlock"/> and the new section is a sibling or an uncle of <paramref name="block"/>.
+        /// <see cref="BlockState.None"/> if the current line is a <see cref="HeadingBlock"/> and the new section is a sibling or an uncle of <paramref name="block"/>.
         /// </returns>
         public override BlockState TryContinue(BlockProcessor processor, Block block)
         {
@@ -116,7 +116,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
             // New section is a sibling or uncle of sectionBlock
             if (newHeadingBlock.Level <= sectionBlock.Level)
             {
-                // Close current section block and all of its children, but don't discard line so that a new section block can be opened
+                // Close current section block and all of its children, but don't discard line so that a new section block is opened
                 return BlockState.None;
             }
 
@@ -129,7 +129,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="block"></param>
-        internal void SectionBlockOnClosed(BlockProcessor processor, Block block)
+        internal virtual void SectionBlockOnClosed(BlockProcessor processor, Block block)
         {
             SectionBlock sectionBlock = (SectionBlock)block;
             SectionBlockOptions sectionBlockOptions = sectionBlock.SectionBlockOptions;
