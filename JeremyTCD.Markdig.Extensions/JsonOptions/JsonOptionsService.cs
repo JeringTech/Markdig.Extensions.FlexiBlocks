@@ -90,11 +90,11 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
         }
 
         /// <summary>
-        /// Attempts to retrieve JSON options string from <paramref name="processor"/>.
+        /// Attempts to retrieve a <see cref="JsonOptionsBlock"/> from <paramref name="processor"/>.
         /// </summary>
         /// <param name="processor"></param>
         /// <returns>
-        /// The JSON options string if it exists, null otherwise.
+        /// A <see cref="JsonOptionsBlock"/> if successful, null otherwise.
         /// </returns>
         /// <exception cref="InvalidOperationException">
         /// Thrown if <see cref="JsonOptionsBlock"/> does not immediately precede current line.
