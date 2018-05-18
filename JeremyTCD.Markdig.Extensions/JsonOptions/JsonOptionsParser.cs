@@ -57,10 +57,11 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
         /// 
         /// This function can be improved on - it does not verify that the line is valid JSON.
         /// </summary>
-        /// <param name="line"></param>
-        /// <param name="jsonOptionsBlock"></param>
+        /// <param name="processor"></param>
+        /// <param name="block"></param>
         /// <returns>
-        /// True if JSON is complete, false otherwise.
+        /// <see cref="BlockState.Continue"/> if <paramref name="block"/> is still open.
+        /// <see cref="BlockState.Break"/> if <paramref name="block"/> has ended and should be closed.
         /// </returns>
         public override BlockState TryContinue(BlockProcessor processor, Block block)
         {

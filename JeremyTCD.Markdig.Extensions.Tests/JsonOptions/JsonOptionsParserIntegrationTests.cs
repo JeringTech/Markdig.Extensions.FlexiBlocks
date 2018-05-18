@@ -3,12 +3,13 @@ using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using Moq;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
 namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
 {
-    public class JsonParserIntegrationTests
+    public class JsonOptionsParserIntegrationTests
     {
         [Fact]
         public void TryOpen_ReturnsBlockStateNoneIfInCodeIndent()
@@ -84,22 +85,23 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
 
         [Theory]
         [MemberData(nameof(TryContinue_ReturnsBlockStateBreakAndSetsBlockSpaneEndIfLineIsACompleteJsonString_Data))]
-        public void TryContinue_ReturnsBlockStateBreakAndSetsBlockSpaneEndIfLineIsACompleteJsonString(string line)
+        public void TryContinue_ReturnsBlockStateBreakMovedBlockFromAstToDocumentDataAndSetsBlockSpaneEndIfLineIsACompleteJsonString(string dummyLine)
         {
             // Arrange
+            JsonOptionsBlock dummyJsonOptionsBlock = new JsonOptionsBlock(null);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Line = new StringSlice(line);
+            dummyBlockProcessor.Line = new StringSlice(dummyLine);
+            dummyBlockProcessor.Document.Add(dummyJsonOptionsBlock); // Sets document as parent of JsonOptionsBlock
             JsonOptionsParser jsonOptionsParser = new JsonOptionsParser();
-            JsonOptionsBlock jsonOptionsBlock = new JsonOptionsBlock(null);
 
             // Act
-            BlockState result = jsonOptionsParser.TryContinue(dummyBlockProcessor, jsonOptionsBlock);
+            BlockState result = jsonOptionsParser.TryContinue(dummyBlockProcessor, dummyJsonOptionsBlock);
 
             // Assert
             Assert.Equal(BlockState.Break, result);
-            Assert.Equal(line.Length - 1, jsonOptionsBlock.Span.End);
-            Assert.False(jsonOptionsBlock.EndsInString);
-            Assert.Equal(0, jsonOptionsBlock.NumOpenBrackets);
+            Assert.Equal(dummyLine.Length - 1, dummyJsonOptionsBlock.Span.End);
+            Assert.False(dummyJsonOptionsBlock.EndsInString);
+            Assert.Equal(0, dummyJsonOptionsBlock.NumOpenBrackets);
         }
 
         public static IEnumerable<object[]> TryContinue_ReturnsBlockStateBreakAndSetsBlockSpaneEndIfLineIsACompleteJsonString_Data()
@@ -114,23 +116,50 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
             };
         }
 
+        [Fact]
+        public void TryContinue_ThrowsExceptionIfDocumentDataAlreadyContainsAJsonOptionsBlock()
+        {
+            // Arrange
+            string dummyPendingJson = "dummyPendingJson";
+            int dummyPendingLine = 1;
+            int dummyPendingColumn = 2;
+            JsonOptionsBlock dummyPendingJsonOptionsBlock = new JsonOptionsBlock(null)
+            {
+                Lines = new StringLineGroup(dummyPendingJson),
+                Line = dummyPendingLine,
+                Column = dummyPendingColumn
+            };
+            string dummyJson = "{\"option\": \"value\"}";
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            dummyBlockProcessor.Line = new StringSlice(dummyJson);
+            dummyBlockProcessor.Document.SetData(JsonOptionsParser.JSON_OPTIONS, dummyPendingJsonOptionsBlock);
+            JsonOptionsBlock dummyJsonOptionsBlock = new JsonOptionsBlock(null);
+            JsonOptionsParser jsonOptionsParser = new JsonOptionsParser();
+
+            // Act and assert
+            InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => jsonOptionsParser.TryContinue(dummyBlockProcessor, dummyJsonOptionsBlock));
+
+            // Assert
+            Assert.Equal(string.Format(Strings.InvalidOperationException_UnusedJsonOptions, dummyPendingJson, dummyPendingLine, dummyPendingColumn), result.Message);
+        }
+
         [Theory]
         [MemberData(nameof(TryContinue_ReturnsBlockStateContinueIfLineIsAPartialJsonString_Data))]
-        public void TryContinue_ReturnsBlockStateContinueIfLineIsAPartialJsonString(string line, bool endsInString, int numOpenBrackets)
+        public void TryContinue_ReturnsBlockStateContinueIfLineIsAPartialJsonString(string dummyLine, bool expectedEndsInString, int expectedNumOpenBrackets)
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Line = new StringSlice(line);
+            dummyBlockProcessor.Line = new StringSlice(dummyLine);
+            JsonOptionsBlock dummyJsonOptionsBlock = new JsonOptionsBlock(null);
             JsonOptionsParser jsonOptionsParser = new JsonOptionsParser();
-            JsonOptionsBlock jsonOptionsBlock = new JsonOptionsBlock(null);
 
             // Act
-            BlockState result = jsonOptionsParser.TryContinue(dummyBlockProcessor, jsonOptionsBlock);
+            BlockState result = jsonOptionsParser.TryContinue(dummyBlockProcessor, dummyJsonOptionsBlock);
 
             // Assert
             Assert.Equal(BlockState.Continue, result);
-            Assert.Equal(endsInString, jsonOptionsBlock.EndsInString);
-            Assert.Equal(numOpenBrackets, jsonOptionsBlock.NumOpenBrackets);
+            Assert.Equal(expectedEndsInString, dummyJsonOptionsBlock.EndsInString);
+            Assert.Equal(expectedNumOpenBrackets, dummyJsonOptionsBlock.NumOpenBrackets);
         }
 
         public static IEnumerable<object[]> TryContinue_ReturnsBlockStateContinueIfLineIsAPartialJsonString_Data()
