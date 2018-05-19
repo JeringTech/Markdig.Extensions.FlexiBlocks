@@ -40,10 +40,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             mockHeadingBlockParser.Setup(h => h.TryOpen(dummyBlockProcessor)).Returns(BlockState.Break);
             var dummyHeadingBlock = new HeadingBlock(null) { Level = dummyLevel };
             dummyBlockProcessor.NewBlocks.Push(dummyHeadingBlock);
-            var dummySectionExtensionOptions = new SectionExtensionOptions() { DefaultSectionBlockOptions = dummySectionBlockOptions };
+            var dummySectionsOptions = new SectionsOptions() { DefaultSectionBlockOptions = dummySectionBlockOptions };
             Mock<JsonOptionsService> mockJsonOptionsService = _mockRepository.Create<JsonOptionsService>();
             mockJsonOptionsService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<SectionBlockOptions>())); // A clone of dummySectionBlockOptions is passed to TryPopulateOptions
-            SectionsParser sectionsParser = CreateSectionsParser(dummySectionExtensionOptions, mockHeadingBlockParser.Object, jsonOptionsService: mockJsonOptionsService.Object);
+            SectionsParser sectionsParser = CreateSectionsParser(dummySectionsOptions, mockHeadingBlockParser.Object, jsonOptionsService: mockJsonOptionsService.Object);
 
             // Act
             BlockState result = sectionsParser.TryOpen(dummyBlockProcessor);
@@ -197,14 +197,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             Assert.Empty(dummyBlockProcessor.NewBlocks);
         }
 
-        private SectionsParser CreateSectionsParser(SectionExtensionOptions sectionExtensionOptions = null,
+        private SectionsParser CreateSectionsParser(SectionsOptions sectionsOptions = null,
             HeadingBlockParser headingBlockParser = null,
             AutoLinkService autoLinkService = null,
             IdentifierService identifierService = null,
             JsonOptionsService jsonOptionsService = null)
         {
             return new SectionsParser(
-                sectionExtensionOptions ?? new SectionExtensionOptions(),
+                sectionsOptions ?? new SectionsOptions(),
                 headingBlockParser ?? new HeadingBlockParser(),
                 autoLinkService ?? new AutoLinkService(),
                 identifierService ?? new IdentifierService(),

@@ -9,12 +9,12 @@ namespace JeremyTCD.Markdig.Extensions.Sections
     public class SectionsParser : BlockParser
     {
         private readonly HeadingBlockParser _headingBlockParser;
-        private readonly SectionExtensionOptions _sectionExtensionOptions;
+        private readonly SectionsOptions _sectionsOptions;
         private readonly AutoLinkService _autoLinkService;
         private readonly IdentifierService _identifierService;
         private readonly JsonOptionsService _jsonOptionsService;
 
-        public SectionsParser(SectionExtensionOptions sectionExtensionOptions,
+        public SectionsParser(SectionsOptions sectionsOptions,
             HeadingBlockParser headingBlockParser,
             AutoLinkService autoLinkService,
             IdentifierService identifierService,
@@ -23,7 +23,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
             OpeningCharacters = new[] { '#' };
             Closed += SectionBlockOnClosed;
 
-            _sectionExtensionOptions = sectionExtensionOptions;
+            _sectionsOptions = sectionsOptions;
             _headingBlockParser = headingBlockParser;
             _autoLinkService = autoLinkService;
             _identifierService = identifierService;
@@ -50,7 +50,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                 return BlockState.None;
             }
 
-            SectionBlockOptions sectionBlockOptions = _sectionExtensionOptions.DefaultSectionBlockOptions.Clone();
+            SectionBlockOptions sectionBlockOptions = _sectionsOptions.DefaultSectionBlockOptions.Clone();
 
             // Apply JSON options if they are provided
             _jsonOptionsService.TryPopulateOptions(processor, sectionBlockOptions);

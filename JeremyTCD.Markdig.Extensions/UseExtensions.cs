@@ -6,17 +6,17 @@ namespace JeremyTCD.Markdig.Extensions
 {
     public static class UseExtensions
     {
-        public static MarkdownPipelineBuilder UseSections(this MarkdownPipelineBuilder pipelineBuilder, SectionExtensionOptions options = null)
+        public static MarkdownPipelineBuilder UseSections(this MarkdownPipelineBuilder pipelineBuilder, SectionsOptions options = null)
         {
-            if (!pipelineBuilder.Extensions.Contains<SectionExtension>())
+            if (!pipelineBuilder.Extensions.Contains<SectionsExtension>())
             {
-                pipelineBuilder.Extensions.Add(new SectionExtension(options));
+                pipelineBuilder.Extensions.Add(new SectionsExtension(options));
             }
 
             return pipelineBuilder;
         }
 
-        public static MarkdownPipelineBuilder UseJsonOptions(this MarkdownPipelineBuilder pipelineBuilder, SectionExtensionOptions options = null)
+        public static MarkdownPipelineBuilder UseJsonOptions(this MarkdownPipelineBuilder pipelineBuilder)
         {
             if (!pipelineBuilder.Extensions.Contains<JsonOptionsExtension>())
             {

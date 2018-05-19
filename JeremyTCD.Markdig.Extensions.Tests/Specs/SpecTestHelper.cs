@@ -16,10 +16,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             {
                 { "genericattributes", (MarkdownPipelineBuilder builder, JObject options) => builder.UseGenericAttributes() },
                 { "jsonoptions", (MarkdownPipelineBuilder builder, JObject options) => builder.UseJsonOptions() },
-                { "sections", (MarkdownPipelineBuilder builder, JObject options) => builder.UseSections(options?["sections"]?.ToObject<SectionExtensionOptions>()) },
+                { "sections", (MarkdownPipelineBuilder builder, JObject options) => builder.UseSections(options?["sections"]?.ToObject<SectionsOptions>()) },
                 { "all", (MarkdownPipelineBuilder builder, JObject options) => {
                     builder.
-                        UseSections(options?["sections"]?.ToObject<SectionExtensionOptions>()).
+                        UseSections(options?["sections"]?.ToObject<SectionsOptions>()).
                         UseJsonOptions();
                 } },
                 { "commonmark", (MarkdownPipelineBuilder builder, JObject options) => { } }

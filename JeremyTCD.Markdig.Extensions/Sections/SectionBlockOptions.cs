@@ -18,7 +18,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         /// <summary>
         /// Used if section's level is 1.
         /// </summary>
-        public SectioningContentElement Level1WrapperElement { get; set; } = SectioningContentElement.None;
+        public SectioningContentElement Level1WrapperElement { get; set; }
 
         /// <summary>
         /// Used if section's level is greater than or equal to 2.
