@@ -12,8 +12,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             // Arrange
             const bool dummyGenerateIdentifier = false;
             const bool dummyAutoLinkable = false;
-            const SectioningContentElement dummyLevel1WrapperElement = SectioningContentElement.Article;
-            const SectioningContentElement dummyLevel2PlusWrapperElement = SectioningContentElement.Nav;
+            const SectioningContentElement dummySectioningContentElement = SectioningContentElement.Article;
             const string dummyAttributeKey1 = "dummyAttributeKey1";
             const string dummyAttributeValue1 = "dummyAttributeValue1";
             const string dummyAttributeKey2 = "dummyAttributeKey2";
@@ -27,8 +26,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             {
                 GenerateIdentifier = dummyGenerateIdentifier,
                 AutoLinkable = dummyAutoLinkable,
-                Level1WrapperElement = dummyLevel1WrapperElement,
-                Level2PlusWrapperElement = dummyLevel2PlusWrapperElement,
+                WrapperElement = dummySectioningContentElement,
                 Attributes = dummyAttributes
             };
 
@@ -39,8 +37,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             Assert.NotSame(sectionBlockOptions, result);
             Assert.Equal(dummyGenerateIdentifier, result.GenerateIdentifier);
             Assert.Equal(dummyAutoLinkable, result.AutoLinkable);
-            Assert.Equal(dummyLevel1WrapperElement, result.Level1WrapperElement);
-            Assert.Equal(dummyLevel2PlusWrapperElement, result.Level2PlusWrapperElement);
+            Assert.Equal(dummySectioningContentElement, result.WrapperElement);
             Dictionary<string, string> resultAttributes = result.Attributes;
             Assert.Equal(2, resultAttributes.Count);
             Assert.Equal(dummyAttributeValue1, resultAttributes[dummyAttributeKey1]);

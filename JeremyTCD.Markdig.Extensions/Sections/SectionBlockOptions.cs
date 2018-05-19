@@ -6,27 +6,22 @@ namespace JeremyTCD.Markdig.Extensions.Sections
     public class SectionBlockOptions : IMarkdownObjectOptions<SectionBlockOptions>
     {
         /// <summary>
-        /// <see cref="IdentifierService"/>
+        /// <see cref="IdentifierService"/>.
         /// </summary>
         public bool GenerateIdentifier { get; set; } = true;
 
         /// <summary>
-        /// <see cref="AutoLinkService"/>
+        /// <see cref="AutoLinkService"/>.
         /// </summary>
         public bool AutoLinkable { get; set; } = true;
 
         /// <summary>
-        /// Used if section's level is 1.
+        /// Sectioning content element used to wrap section.
         /// </summary>
-        public SectioningContentElement Level1WrapperElement { get; set; }
+        public SectioningContentElement WrapperElement { get; set; }
 
         /// <summary>
-        /// Used if section's level is greater than or equal to 2.
-        /// </summary>
-        public SectioningContentElement Level2PlusWrapperElement { get; set; } = SectioningContentElement.Section;
-
-        /// <summary>
-        /// HTML attributes
+        /// HTML attributes.
         /// </summary>
         public Dictionary<string, string> Attributes { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 

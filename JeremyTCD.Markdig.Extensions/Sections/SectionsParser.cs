@@ -50,16 +50,11 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                 return BlockState.None;
             }
 
-            SectionBlockOptions sectionBlockOptions = _sectionsOptions.DefaultSectionBlockOptions.Clone();
-
-            // Apply JSON options if they are provided
-            _jsonOptionsService.TryPopulateOptions(processor, sectionBlockOptions);
-
             var newHeadingBlock = (HeadingBlock)processor.NewBlocks.Peek();
+            SectionBlockOptions sectionBlockOptions = CreateSectionOptions(processor, newHeadingBlock.Level);
 
             // Optionally, don't open a section block (typically useful for an outermost, level 1 heading that will reside in an existing SectioningContentElement)
-            if (newHeadingBlock.Level == 1 && sectionBlockOptions.Level1WrapperElement == SectioningContentElement.None ||
-                newHeadingBlock.Level > 1 && sectionBlockOptions.Level2PlusWrapperElement == SectioningContentElement.None)
+            if (sectionBlockOptions.WrapperElement.CompareTo(SectioningContentElement.None) <= 0)
             {
                 // Close heading block
                 return BlockState.Break;
@@ -122,6 +117,26 @@ namespace JeremyTCD.Markdig.Extensions.Sections
 
             // Keep section block open
             return BlockState.Continue;
+        }
+
+        /// <summary>
+        /// Creates <see cref="SectionBlockOptions"/> for the current block.
+        /// </summary>
+        /// <param name="processor"></param>
+        /// <param name="blockLevel"></param>
+        internal virtual SectionBlockOptions CreateSectionOptions(BlockProcessor processor, int blockLevel)
+        {
+            SectionBlockOptions result = _sectionsOptions.DefaultSectionBlockOptions.Clone();
+
+            // Apply JSON options if they exist
+            _jsonOptionsService.TryPopulateOptions(processor, result);
+
+            if (result.WrapperElement == SectioningContentElement.Undefined)
+            {
+                result.WrapperElement = blockLevel == 1 ? _sectionsOptions.Level1WrapperElement : _sectionsOptions.Level2PlusWrapperElement;
+            }
+
+            return result;
         }
 
         /// <summary>

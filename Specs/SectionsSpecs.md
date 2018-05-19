@@ -101,14 +101,12 @@ Level 3 content line 2.</p>
 </section>
 ````````````````````````````````
 
-To enable wrapping of level 1 headers, set `SectionExtensionOptions.DefaultSectionBlockOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
+To enable wrapping of level 1 headers, set `SectionExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
 
 ```````````````````````````````` options
 {
     "sections": {
-        "defaultSectionBlockOptions": {
-            "level1WrapperElement": "article"
-        }
+        "level1WrapperElement": "article"
     }
 }
 ```````````````````````````````` example
@@ -123,14 +121,12 @@ To enable wrapping of level 1 headers, set `SectionExtensionOptions.DefaultSecti
 </article>
 ````````````````````````````````
 
-To change the element used to wrapped level 2+ headers, set `SectionExtensionOptions.DefaultSectionBlockOptions.Level2PlusWrapperElement". For example:
+To change the element used to wrap level 2+ headers, set `SectionExtensionOptions.Level2PlusWrapperElement". For example:
 
 ```````````````````````````````` options
 {
     "sections": {
-        "defaultSectionBlockOptions": {
-            "level2PlusWrapperElement": "nav"
-        }
+        "level2PlusWrapperElement": "nav"
     }
 }
 ```````````````````````````````` example
@@ -235,8 +231,8 @@ Per-section-block options can be overriden if the JSON options extension is enab
 ```````````````````````````````` options
 {
     "sections": {
+        "level1WrapperElement": "article",
         "defaultSectionBlockOptions": {
-            "level1WrapperElement": "article",
             "attributes": {
                 "class": "chapter"
             }
@@ -252,11 +248,11 @@ Per-section-block options can be overriden if the JSON options extension is enab
 # foo
 ## foo
 @{
-    "level2PlusWrapperElement": "nav"
+    "wrapperElement": "nav"
 }
 ## foo
 @{
-    "level1WrapperElement": "aside"
+    "wrapperElement": "aside"
 }
 # foo
 .

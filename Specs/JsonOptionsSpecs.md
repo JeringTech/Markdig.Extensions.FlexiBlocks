@@ -5,7 +5,7 @@ Json options facilitates per-block options, using a simple and consistent syntax
 Json options are specified as a string above the block they apply to. The first line must begin with `@{`:
 
 ```````````````````````````````` example
-@{"level1WrapperElement": "Aside"}
+@{"wrapperElement": "Aside"}
 # foo
 .
 <aside id="foo">
@@ -17,7 +17,7 @@ Options can be specified across several lines:
 
 ```````````````````````````````` example
 @{
-    "level1WrapperElement": "Aside"
+    "wrapperElement": "Aside"
 }
 # foo
 .
@@ -31,13 +31,13 @@ If the first line does not begin with `@{`, the string becomes a paragraph:
 ```````````````````````````````` example
 @
 {
-    "level1WrapperElement": "Aside"
+    "wrapperElement": "Aside"
 }
 # foo
 .
 <p>@
 {
-&quot;level1WrapperElement&quot;: &quot;Aside&quot;
+&quot;wrapperElement&quot;: &quot;Aside&quot;
 }</p>
 <h1>foo</h1>
 

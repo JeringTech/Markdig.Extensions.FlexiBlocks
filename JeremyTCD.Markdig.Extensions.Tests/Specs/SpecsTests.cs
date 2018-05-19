@@ -12739,7 +12739,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
                 "all");
         }
 
-        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.DefaultSectionBlockOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
+        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
         [Fact]
         public void Sections_Spec6_jsonoptions_sections()
         {
@@ -12750,9 +12750,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             // With extension options:
             //     {
             //         "sections": {
-            //             "defaultSectionBlockOptions": {
-            //                 "level1WrapperElement": "article"
-            //             }
+            //             "level1WrapperElement": "article"
             //         }
             //     }
             //
@@ -12767,10 +12765,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             SpecTestHelper.AssertCompliance("# foo\n## foo", 
                 "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n</article>", 
                 "jsonoptions_sections", 
-                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"level1WrapperElement\": \"article\"\n        }\n    }\n}");
+                "{\n    \"sections\": {\n        \"level1WrapperElement\": \"article\"\n    }\n}");
         }
 
-        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.DefaultSectionBlockOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
+        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
         [Fact]
         public void Sections_Spec6_all()
         {
@@ -12781,9 +12779,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             // With extension options:
             //     {
             //         "sections": {
-            //             "defaultSectionBlockOptions": {
-            //                 "level1WrapperElement": "article"
-            //             }
+            //             "level1WrapperElement": "article"
             //         }
             //     }
             //
@@ -12798,10 +12794,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             SpecTestHelper.AssertCompliance("# foo\n## foo", 
                 "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n</article>", 
                 "all", 
-                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"level1WrapperElement\": \"article\"\n        }\n    }\n}");
+                "{\n    \"sections\": {\n        \"level1WrapperElement\": \"article\"\n    }\n}");
         }
 
-        // To change the element used to wrapped level 2+ headers, set `SectionExtensionOptions.DefaultSectionBlockOptions.Level2PlusWrapperElement". For example:
+        // To change the element used to wrap level 2+ headers, set `SectionExtensionOptions.Level2PlusWrapperElement". For example:
         [Fact]
         public void Sections_Spec7_jsonoptions_sections()
         {
@@ -12811,9 +12807,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             // With extension options:
             //     {
             //         "sections": {
-            //             "defaultSectionBlockOptions": {
-            //                 "level2PlusWrapperElement": "nav"
-            //             }
+            //             "level2PlusWrapperElement": "nav"
             //         }
             //     }
             //
@@ -12825,10 +12819,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             SpecTestHelper.AssertCompliance("## foo", 
                 "<nav id=\"foo\">\n<h2>foo</h2>\n</nav>", 
                 "jsonoptions_sections", 
-                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"level2PlusWrapperElement\": \"nav\"\n        }\n    }\n}");
+                "{\n    \"sections\": {\n        \"level2PlusWrapperElement\": \"nav\"\n    }\n}");
         }
 
-        // To change the element used to wrapped level 2+ headers, set `SectionExtensionOptions.DefaultSectionBlockOptions.Level2PlusWrapperElement". For example:
+        // To change the element used to wrap level 2+ headers, set `SectionExtensionOptions.Level2PlusWrapperElement". For example:
         [Fact]
         public void Sections_Spec7_all()
         {
@@ -12838,9 +12832,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             // With extension options:
             //     {
             //         "sections": {
-            //             "defaultSectionBlockOptions": {
-            //                 "level2PlusWrapperElement": "nav"
-            //             }
+            //             "level2PlusWrapperElement": "nav"
             //         }
             //     }
             //
@@ -12852,7 +12844,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             SpecTestHelper.AssertCompliance("## foo", 
                 "<nav id=\"foo\">\n<h2>foo</h2>\n</nav>", 
                 "all", 
-                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"level2PlusWrapperElement\": \"nav\"\n        }\n    }\n}");
+                "{\n    \"sections\": {\n        \"level2PlusWrapperElement\": \"nav\"\n    }\n}");
         }
 
         // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
@@ -13110,19 +13102,19 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     # foo
             //     ## foo
             //     @{
-            //         "level2PlusWrapperElement": "nav"
+            //         "wrapperElement": "nav"
             //     }
             //     ## foo
             //     @{
-            //         "level1WrapperElement": "aside"
+            //         "wrapperElement": "aside"
             //     }
             //     # foo
             //
             // With extension options:
             //     {
             //         "sections": {
+            //             "level1WrapperElement": "article",
             //             "defaultSectionBlockOptions": {
-            //                 "level1WrapperElement": "article",
             //                 "attributes": {
             //                     "class": "chapter"
             //                 }
@@ -13144,10 +13136,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <h1>foo</h1>
             //     </aside>
 
-            SpecTestHelper.AssertCompliance("@{\n    \"attributes\": {\n        \"class\": \"book\"\n    }\n}\n# foo\n## foo\n@{\n    \"level2PlusWrapperElement\": \"nav\"\n}\n## foo\n@{\n    \"level1WrapperElement\": \"aside\"\n}\n# foo", 
+            SpecTestHelper.AssertCompliance("@{\n    \"attributes\": {\n        \"class\": \"book\"\n    }\n}\n# foo\n## foo\n@{\n    \"wrapperElement\": \"nav\"\n}\n## foo\n@{\n    \"wrapperElement\": \"aside\"\n}\n# foo", 
                 "<article class=\"book\" id=\"foo\">\n<h1>foo</h1>\n<section class=\"chapter\" id=\"foo-1\">\n<h2>foo</h2>\n</section>\n<nav class=\"chapter\" id=\"foo-2\">\n<h2>foo</h2>\n</nav>\n</article>\n<aside class=\"chapter\" id=\"foo-3\">\n<h1>foo</h1>\n</aside>", 
                 "jsonoptions_sections", 
-                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"level1WrapperElement\": \"article\",\n            \"attributes\": {\n                \"class\": \"chapter\"\n            }\n        }\n    }\n}");
+                "{\n    \"sections\": {\n        \"level1WrapperElement\": \"article\",\n        \"defaultSectionBlockOptions\": {\n            \"attributes\": {\n                \"class\": \"chapter\"\n            }\n        }\n    }\n}");
         }
 
         // Per-section-block options can be overriden if the JSON options extension is enabled:
@@ -13163,19 +13155,19 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     # foo
             //     ## foo
             //     @{
-            //         "level2PlusWrapperElement": "nav"
+            //         "wrapperElement": "nav"
             //     }
             //     ## foo
             //     @{
-            //         "level1WrapperElement": "aside"
+            //         "wrapperElement": "aside"
             //     }
             //     # foo
             //
             // With extension options:
             //     {
             //         "sections": {
+            //             "level1WrapperElement": "article",
             //             "defaultSectionBlockOptions": {
-            //                 "level1WrapperElement": "article",
             //                 "attributes": {
             //                     "class": "chapter"
             //                 }
@@ -13197,10 +13189,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <h1>foo</h1>
             //     </aside>
 
-            SpecTestHelper.AssertCompliance("@{\n    \"attributes\": {\n        \"class\": \"book\"\n    }\n}\n# foo\n## foo\n@{\n    \"level2PlusWrapperElement\": \"nav\"\n}\n## foo\n@{\n    \"level1WrapperElement\": \"aside\"\n}\n# foo", 
+            SpecTestHelper.AssertCompliance("@{\n    \"attributes\": {\n        \"class\": \"book\"\n    }\n}\n# foo\n## foo\n@{\n    \"wrapperElement\": \"nav\"\n}\n## foo\n@{\n    \"wrapperElement\": \"aside\"\n}\n# foo", 
                 "<article class=\"book\" id=\"foo\">\n<h1>foo</h1>\n<section class=\"chapter\" id=\"foo-1\">\n<h2>foo</h2>\n</section>\n<nav class=\"chapter\" id=\"foo-2\">\n<h2>foo</h2>\n</nav>\n</article>\n<aside class=\"chapter\" id=\"foo-3\">\n<h1>foo</h1>\n</aside>", 
                 "all", 
-                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"level1WrapperElement\": \"article\",\n            \"attributes\": {\n                \"class\": \"chapter\"\n            }\n        }\n    }\n}");
+                "{\n    \"sections\": {\n        \"level1WrapperElement\": \"article\",\n        \"defaultSectionBlockOptions\": {\n            \"attributes\": {\n                \"class\": \"chapter\"\n            }\n        }\n    }\n}");
         }
     }
 
@@ -13213,7 +13205,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
         public void JsonOptions_Spec1_jsonoptions_sections()
         {
             // The following Markdown:
-            //     @{"level1WrapperElement": "Aside"}
+            //     @{"wrapperElement": "Aside"}
             //     # foo
             //
             // Should be rendered as:
@@ -13221,7 +13213,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <h1>foo</h1>
             //     </aside>
 
-            SpecTestHelper.AssertCompliance("@{\"level1WrapperElement\": \"Aside\"}\n# foo", 
+            SpecTestHelper.AssertCompliance("@{\"wrapperElement\": \"Aside\"}\n# foo", 
                 "<aside id=\"foo\">\n<h1>foo</h1>\n</aside>", 
                 "jsonoptions_sections");
         }
@@ -13232,7 +13224,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
         {
             // The following Markdown:
             //     @{
-            //         "level1WrapperElement": "Aside"
+            //         "wrapperElement": "Aside"
             //     }
             //     # foo
             //
@@ -13241,7 +13233,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <h1>foo</h1>
             //     </aside>
 
-            SpecTestHelper.AssertCompliance("@{\n    \"level1WrapperElement\": \"Aside\"\n}\n# foo", 
+            SpecTestHelper.AssertCompliance("@{\n    \"wrapperElement\": \"Aside\"\n}\n# foo", 
                 "<aside id=\"foo\">\n<h1>foo</h1>\n</aside>", 
                 "jsonoptions_sections");
         }
@@ -13253,20 +13245,20 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             // The following Markdown:
             //     @
             //     {
-            //         "level1WrapperElement": "Aside"
+            //         "wrapperElement": "Aside"
             //     }
             //     # foo
             //
             // Should be rendered as:
             //     <p>@
             //     {
-            //     &quot;level1WrapperElement&quot;: &quot;Aside&quot;
+            //     &quot;wrapperElement&quot;: &quot;Aside&quot;
             //     }</p>
             //     <h1>foo</h1>
             //     
 
-            SpecTestHelper.AssertCompliance("@\n{\n    \"level1WrapperElement\": \"Aside\"\n}\n# foo", 
-                "<p>@\n{\n&quot;level1WrapperElement&quot;: &quot;Aside&quot;\n}</p>\n<h1>foo</h1>\n", 
+            SpecTestHelper.AssertCompliance("@\n{\n    \"wrapperElement\": \"Aside\"\n}\n# foo", 
+                "<p>@\n{\n&quot;wrapperElement&quot;: &quot;Aside&quot;\n}</p>\n<h1>foo</h1>\n", 
                 "jsonoptions_sections");
         }
     }

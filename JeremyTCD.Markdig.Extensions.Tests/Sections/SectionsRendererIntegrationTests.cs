@@ -26,10 +26,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             };
             var dummySectionBlock = new SectionBlock(null)
             {
-                Level = 1,
                 SectionBlockOptions = new SectionBlockOptions()
                 {
-                    Level1WrapperElement = dummySectioningContentElement,
+                    WrapperElement = dummySectioningContentElement,
                     Attributes = new Dictionary<string, string>() { { dummyAttributeName, dummyAttributeValue } }
                 }
             };
@@ -51,46 +50,8 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         }
 
         [Theory]
-        [MemberData(nameof(Write_UsesLevel2PlusWrapperElementIfSectionBlockIsLevel2Plus_Data))]
-        public void Write_UsesLevel2PlusWrapperElementIfSectionBlockIsLevel2Plus(int level)
-        {
-            // Arrange
-            const SectioningContentElement dummySectioningContentElement = SectioningContentElement.Nav;
-            var dummySectionBlock = new SectionBlock(null)
-            {
-                Level = level,
-                SectionBlockOptions = new SectionBlockOptions()
-                {
-                    Level2PlusWrapperElement = dummySectioningContentElement
-                }
-            };
-            string result = null;
-            using (var dummyStringWriter = new StringWriter())
-            {
-                var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                var sectionsRenderer = new SectionsRenderer();
-
-                // Act
-                sectionsRenderer.Write(dummyHtmlRenderer, dummySectionBlock);
-                result = dummyStringWriter.ToString();
-            }
-
-            // Assert
-            string expectedResultElementName = dummySectioningContentElement.ToString().ToLower();
-            Assert.Equal($"<{expectedResultElementName}>\n</{expectedResultElementName}>\n", result);
-        }
-
-        public static IEnumerable<object[]> Write_UsesLevel2PlusWrapperElementIfSectionBlockIsLevel2Plus_Data()
-        {
-            return new object[][]
-            {
-                new object[]{2},
-                new object[]{3}
-            };
-        }
-
-        [Fact]
-        public void Write_OnlyWritesChildrenIfWrapperElementIsNone()
+        [MemberData(nameof(Write_OnlyWritesChildrenIfWrapperElementIsUndefinedOrNone_Data))]
+        public void Write_OnlyWritesChildrenIfWrapperElementIsUndefinedOrNone(SectioningContentElement sectioningContentElement)
         {
             // Arrange
             const string dummyChildText = "dummyChildText";
@@ -102,10 +63,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             };
             var dummySectionBlock = new SectionBlock(null)
             {
-                Level = 1,
                 SectionBlockOptions = new SectionBlockOptions()
                 {
-                    Level1WrapperElement = SectioningContentElement.None
+                    WrapperElement = sectioningContentElement
                 }
             };
             dummySectionBlock.Add(dummyParagraphBlock);
@@ -122,6 +82,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
 
             // Assert
             Assert.Equal($"<p>{dummyChildText}</p>\n", result);
+        }
+
+        public static IEnumerable<object[]> Write_OnlyWritesChildrenIfWrapperElementIsUndefinedOrNone_Data()
+        {
+            return new object[][]
+            {
+                new object[]{SectioningContentElement.None},
+                new object[]{SectioningContentElement.Undefined}
+            };
         }
     }
 }

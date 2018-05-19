@@ -30,35 +30,37 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             Assert.Equal(BlockState.None, result);
         }
 
+
+
         [Theory]
-        [MemberData(nameof(TryOpen_ReturnsBlockStateBreakIfSectioningContentElementForLevelIsNone_Data))]
-        public void TryOpen_ReturnsBlockStateBreakIfSectioningContentElementForLevelIsNone(int dummyLevel, SectionBlockOptions dummySectionBlockOptions)
+        [MemberData(nameof(TryOpen_ReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined_Data))]
+        public void TryOpen_ReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined(SectionBlockOptions dummySectionBlockOptions)
         {
             // Arrange
+            int dummyHeadingLevel = 1;
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<HeadingBlockParser> mockHeadingBlockParser = _mockRepository.Create<HeadingBlockParser>();
             mockHeadingBlockParser.Setup(h => h.TryOpen(dummyBlockProcessor)).Returns(BlockState.Break);
-            var dummyHeadingBlock = new HeadingBlock(null) { Level = dummyLevel };
+            var dummyHeadingBlock = new HeadingBlock(null) { Level = dummyHeadingLevel };
             dummyBlockProcessor.NewBlocks.Push(dummyHeadingBlock);
-            var dummySectionsOptions = new SectionsOptions() { DefaultSectionBlockOptions = dummySectionBlockOptions };
-            Mock<JsonOptionsService> mockJsonOptionsService = _mockRepository.Create<JsonOptionsService>();
-            mockJsonOptionsService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<SectionBlockOptions>())); // A clone of dummySectionBlockOptions is passed to TryPopulateOptions
-            SectionsParser sectionsParser = CreateSectionsParser(dummySectionsOptions, mockHeadingBlockParser.Object, jsonOptionsService: mockJsonOptionsService.Object);
+            Mock<SectionsParser> mockSectionsParser = CreateMockSectionsParser(headingBlockParser: mockHeadingBlockParser.Object);
+            mockSectionsParser.CallBase = true;
+            mockSectionsParser.Setup(s => s.CreateSectionOptions(dummyBlockProcessor, dummyHeadingLevel)).Returns(dummySectionBlockOptions);
 
             // Act
-            BlockState result = sectionsParser.TryOpen(dummyBlockProcessor);
+            BlockState result = mockSectionsParser.Object.TryOpen(dummyBlockProcessor);
 
             // Assert
             _mockRepository.VerifyAll();
             Assert.Equal(BlockState.Break, result);
         }
 
-        public static IEnumerable<object[]> TryOpen_ReturnsBlockStateBreakIfSectioningContentElementForLevelIsNone_Data()
+        public static IEnumerable<object[]> TryOpen_ReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined_Data()
         {
             return new object[][]
             {
-                new object[]{1, new SectionBlockOptions() }, // Level1WrapperElement is SectioningContentElement.None by default
-                new object[]{2, new SectionBlockOptions() { Level2PlusWrapperElement = SectioningContentElement.None} }
+                new object[]{ new SectionBlockOptions() { WrapperElement = SectioningContentElement.None } },
+                new object[]{ new SectionBlockOptions() { WrapperElement = SectioningContentElement.Undefined } }
             };
         }
 
@@ -197,6 +199,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             Assert.Empty(dummyBlockProcessor.NewBlocks);
         }
 
+        // TODO CreateSectionOptions
+
+        // TODO SectionBlockOnClosed
+
         private SectionsParser CreateSectionsParser(SectionsOptions sectionsOptions = null,
             HeadingBlockParser headingBlockParser = null,
             AutoLinkService autoLinkService = null,
@@ -204,6 +210,20 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             JsonOptionsService jsonOptionsService = null)
         {
             return new SectionsParser(
+                sectionsOptions ?? new SectionsOptions(),
+                headingBlockParser ?? new HeadingBlockParser(),
+                autoLinkService ?? new AutoLinkService(),
+                identifierService ?? new IdentifierService(),
+                jsonOptionsService ?? new JsonOptionsService());
+        }
+
+        private Mock<SectionsParser> CreateMockSectionsParser(SectionsOptions sectionsOptions = null,
+            HeadingBlockParser headingBlockParser = null,
+            AutoLinkService autoLinkService = null,
+            IdentifierService identifierService = null,
+            JsonOptionsService jsonOptionsService = null)
+        {
+            return _mockRepository.Create<SectionsParser>(
                 sectionsOptions ?? new SectionsOptions(),
                 headingBlockParser ?? new HeadingBlockParser(),
                 autoLinkService ?? new AutoLinkService(),
