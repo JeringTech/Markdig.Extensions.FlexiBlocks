@@ -4,6 +4,7 @@ using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using Moq;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -37,7 +38,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void TryOpen_ReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined(SectionBlockOptions dummySectionBlockOptions)
         {
             // Arrange
-            int dummyHeadingLevel = 1;
+            const int dummyHeadingLevel = 1;
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<HeadingBlockParser> mockHeadingBlockParser = _mockRepository.Create<HeadingBlockParser>();
             mockHeadingBlockParser.Setup(h => h.TryOpen(dummyBlockProcessor)).Returns(BlockState.Break);
@@ -199,9 +200,89 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             Assert.Empty(dummyBlockProcessor.NewBlocks);
         }
 
-        // TODO CreateSectionOptions
+        [Theory]
+        [MemberData(nameof(CreateSectionOptions_CreatesSectionOptionsUsingSectionsOptionsWrapperElementsIfWrapperElementIsUndefined_Data))]
+        public void CreateSectionOptions_CreatesSectionOptionsUsingSectionsOptionsWrapperElementsIfSectionBlockOptionsWrapperElementIsUndefined(int dummyLevel, SectioningContentElement expectedWrapperElement)
+        {
+            // Arrange
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            var mockJsonOptionsService = new Mock<JsonOptionsService>();
+            mockJsonOptionsService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<SectionBlockOptions>())); // SectionBlockOptions will be a fresh instance (cloned)
+            SectionsParser sectionsParser = CreateSectionsParser();
 
-        // TODO SectionBlockOnClosed
+            // Act
+            SectionBlockOptions result = sectionsParser.CreateSectionOptions(dummyBlockProcessor, dummyLevel);
+
+            // Assert
+            _mockRepository.VerifyAll();
+            Assert.NotNull(result);
+            Assert.Equal(result.WrapperElement, expectedWrapperElement);
+        }
+
+        public static IEnumerable<object[]> CreateSectionOptions_CreatesSectionOptionsUsingSectionsOptionsWrapperElementsIfWrapperElementIsUndefined_Data()
+        {
+            return new object[][]
+            {
+                new object[]{1, SectioningContentElement.None},
+                new object[]{2, SectioningContentElement.Section}
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(SectionBlockOnClosed_SetsUpIdentifierGenerationAndAutoLinkingAccordingToOptions_Data))]
+        public void SectionBlockOnClosed_SetsUpIdentifierGenerationAndAutoLinkingAccordingToOptions(bool dummyGenerateIdentifier,
+            bool dummyAutoLink,
+            Times expectedSetupIdentifierInvocations,
+            Times expectedSetupAutoLinkInvocations)
+        {
+            // Arrange
+            var dummyHeadingBlock = new HeadingBlock(null);
+            var dummySectionBlockOptions = new SectionBlockOptions() { GenerateIdentifier = dummyGenerateIdentifier, AutoLinkable = dummyAutoLink };
+            var dummySectionBlock = new SectionBlock(null)
+            {
+                SectionBlockOptions = dummySectionBlockOptions
+            };
+            dummySectionBlock.Add(dummyHeadingBlock);
+            Mock<IdentifierService> mockIdentifierService = _mockRepository.Create<IdentifierService>();
+            Mock<AutoLinkService> mockAutoLinkService = _mockRepository.Create<AutoLinkService>();
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            SectionsParser sectionsParser = CreateSectionsParser(autoLinkService: mockAutoLinkService.Object, identifierService: mockIdentifierService.Object);
+
+            // Act
+            sectionsParser.SectionBlockOnClosed(dummyBlockProcessor, dummySectionBlock);
+
+            // Assert
+            mockIdentifierService.Verify(i => i.SetupIdentifierGeneration(dummyHeadingBlock), expectedSetupIdentifierInvocations);
+            mockAutoLinkService.Verify(a => a.SetupAutoLink(dummyBlockProcessor, dummySectionBlock, dummyHeadingBlock), expectedSetupAutoLinkInvocations);
+        }
+
+        public static IEnumerable<object[]> SectionBlockOnClosed_SetsUpIdentifierGenerationAndAutoLinkingAccordingToOptions_Data()
+        {
+            return new object[][]
+            {
+                new object[] {false, false, Times.Never(), Times.Never()},
+                new object[] {true, false, Times.Once(), Times.Never()},
+                new object[] {false, true, Times.Never(), Times.Never()},
+                new object[] {true, true, Times.Once(), Times.Once()}
+            };
+        }
+
+        [Fact]
+        public void SectionBlockOnClosed_ThrowsExceptionIfGenerateIdentifierIsTrueButTheSectionBlockHasNoChildHeadingBlock()
+        {
+            // Arrange
+            var dummySectionBlockOptions = new SectionBlockOptions() { GenerateIdentifier = true };
+            var dummySectionBlock = new SectionBlock(null)
+            {
+                SectionBlockOptions = dummySectionBlockOptions
+            };
+            Mock<IdentifierService> mockIdentifierService = _mockRepository.Create<IdentifierService>();
+            Mock<AutoLinkService> mockAutoLinkService = _mockRepository.Create<AutoLinkService>();
+            SectionsParser sectionsParser = CreateSectionsParser(autoLinkService: mockAutoLinkService.Object, identifierService: mockIdentifierService.Object);
+
+            // Act and assert
+            Assert.Throws<InvalidOperationException>(() => sectionsParser.SectionBlockOnClosed(null, dummySectionBlock));
+        }
 
         private SectionsParser CreateSectionsParser(SectionsOptions sectionsOptions = null,
             HeadingBlockParser headingBlockParser = null,

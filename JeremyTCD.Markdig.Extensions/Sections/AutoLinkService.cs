@@ -19,7 +19,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         /// <param name="processor"></param>
         /// <param name="sectionBlock"></param>
         /// <param name="headingBlock"></param>
-        public void SetupAutoLink(BlockProcessor processor, SectionBlock sectionBlock, HeadingBlock headingBlock)
+        public virtual void SetupAutoLink(BlockProcessor processor, SectionBlock sectionBlock, HeadingBlock headingBlock)
         {
             string headingBlockText = headingBlock.Lines.Lines[0].ToString();
 

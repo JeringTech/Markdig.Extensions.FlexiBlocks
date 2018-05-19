@@ -144,6 +144,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="block"></param>
+        /// <exception cref="InvalidOperationException">Thrown if <paramref name="block"/> does not contain a <see cref="HeadingBlock"/>.</exception>
         internal virtual void SectionBlockOnClosed(BlockProcessor processor, Block block)
         {
             var sectionBlock = (SectionBlock)block;

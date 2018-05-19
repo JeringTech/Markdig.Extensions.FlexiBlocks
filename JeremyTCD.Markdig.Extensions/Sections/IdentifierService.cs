@@ -30,7 +30,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         /// Register delegate that generates IDs.
         /// </summary>
         /// <param name="headingBlock"></param>
-        public void SetupIdentifierGeneration(HeadingBlock headingBlock)
+        public virtual void SetupIdentifierGeneration(HeadingBlock headingBlock)
         {
             headingBlock.ProcessInlinesEnd += HeadingBlockOnProcessInlinesEnd;
         }
