@@ -10,9 +10,9 @@ namespace JeremyTCD.Markdig.Extensions.Sections
     {
         private readonly HeadingBlockParser _headingBlockParser;
         private readonly SectionsOptions _sectionsOptions;
+        private readonly JsonOptionsService _jsonOptionsService;
         private readonly AutoLinkService _autoLinkService;
         private readonly IdentifierService _identifierService;
-        private readonly JsonOptionsService _jsonOptionsService;
 
         public SectionsParser(SectionsOptions sectionsOptions,
             HeadingBlockParser headingBlockParser,

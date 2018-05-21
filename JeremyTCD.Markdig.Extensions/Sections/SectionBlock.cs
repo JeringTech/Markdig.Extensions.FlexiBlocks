@@ -18,7 +18,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         public int Level { get; set; }
 
         /// <summary>
-        /// The options for this block
+        /// The options for this block.
         /// </summary>
         public SectionBlockOptions SectionBlockOptions { get; set; }
     }
