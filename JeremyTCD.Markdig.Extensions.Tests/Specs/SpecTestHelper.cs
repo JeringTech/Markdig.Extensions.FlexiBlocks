@@ -1,4 +1,5 @@
-﻿using JeremyTCD.Markdig.Extensions.Sections;
+﻿using JeremyTCD.Markdig.Extensions. Alerts;
+using JeremyTCD.Markdig.Extensions.Sections;
 using Markdig;
 using Newtonsoft.Json.Linq;
 using System;
@@ -14,15 +15,17 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         private static readonly Dictionary<string, Action<MarkdownPipelineBuilder, JObject>> _extensionAdders =
             new Dictionary<string, Action<MarkdownPipelineBuilder, JObject>>
             {
-                { "genericattributes", (MarkdownPipelineBuilder builder, JObject options) => builder.UseGenericAttributes() },
-                { "jsonoptions", (MarkdownPipelineBuilder builder, JObject options) => builder.UseJsonOptions() },
+                { "genericattributes", (MarkdownPipelineBuilder builder, JObject _) => builder.UseGenericAttributes() },
+                { "jsonoptions", (MarkdownPipelineBuilder builder, JObject _) => builder.UseJsonOptions() },
                 { "sections", (MarkdownPipelineBuilder builder, JObject options) => builder.UseSections(options?["sections"]?.ToObject<SectionsOptions>()) },
+                { "alerts", (MarkdownPipelineBuilder builder, JObject options) => builder.UseAlerts(options?["alerts"]?.ToObject<AlertsOptions>()) },
                 { "all", (MarkdownPipelineBuilder builder, JObject options) => {
                     builder.
                         UseSections(options?["sections"]?.ToObject<SectionsOptions>()).
+                        UseAlerts(options?["alerts"]?.ToObject<AlertsOptions>()).
                         UseJsonOptions();
                 } },
-                { "commonmark", (MarkdownPipelineBuilder builder, JObject options) => { } }
+                { "commonmark", (MarkdownPipelineBuilder _, JObject __) => { } }
             };
 
         public static void AssertCompliance(string markdown,

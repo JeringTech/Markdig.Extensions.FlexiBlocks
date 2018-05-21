@@ -9,6 +9,7 @@
     var specFiles = new KeyValuePair<string, string>[] {
 		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/CommonMarkSpecs.md"), "commonmark"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/SectionsSpecs.md"), "jsonoptions_sections|all"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/AlertsSpecs.md"), "jsonoptions_alerts|all"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/JsonOptionsSpecs.md"), "jsonoptions_sections")
 	};
 #>

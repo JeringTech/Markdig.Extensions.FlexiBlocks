@@ -13196,6 +13196,164 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
         }
     }
 
+    // Alerts are boxes within articles that contain tangential content. Such content can be things like extra information and warnings. Alerts have a similar syntax to 
+    // blockquotes. However, they have very different purposes - according to the [specifications](https://html.spec.whatwg.org/multipage/grouping-content.html#the-blockquote-element)
+    // blockquotes should be used when quoting from external articles.
+    public class AlertsTests
+    {
+        // Every line of an alert must start with an `!`. The first line of an alert must be of the form `!<optional space><alert name>` where `<alert name>`
+        // is a string containing 1 or more characters from the regex character set `[A-Za-z0-9_-]`. The result of appending `alert-` to the alert name is used as the
+        // alert block's class:
+        [Fact]
+        public void Alerts_Spec1_jsonoptions_alerts()
+        {
+            // The following Markdown:
+            //     ! critical-warning
+            //     ! This is a critical warning.
+            //
+            // Should be rendered as:
+            //     <div class="alert-critical-warning">
+            //     <p>This is a critical warning.</p>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("! critical-warning\n! This is a critical warning.", 
+                "<div class=\"alert-critical-warning\">\n<p>This is a critical warning.</p>\n</div>", 
+                "jsonoptions_alerts");
+        }
+
+        // Every line of an alert must start with an `!`. The first line of an alert must be of the form `!<optional space><alert name>` where `<alert name>`
+        // is a string containing 1 or more characters from the regex character set `[A-Za-z0-9_-]`. The result of appending `alert-` to the alert name is used as the
+        // alert block's class:
+        [Fact]
+        public void Alerts_Spec1_all()
+        {
+            // The following Markdown:
+            //     ! critical-warning
+            //     ! This is a critical warning.
+            //
+            // Should be rendered as:
+            //     <div class="alert-critical-warning">
+            //     <p>This is a critical warning.</p>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("! critical-warning\n! This is a critical warning.", 
+                "<div class=\"alert-critical-warning\">\n<p>This is a critical warning.</p>\n</div>", 
+                "all");
+        }
+
+        // The block is ignored if the first line does not contain a level name :
+        [Fact]
+        public void Alerts_Spec2_jsonoptions_alerts()
+        {
+            // The following Markdown:
+            //     ! 
+            //     ! This is a warning.
+            //
+            // Should be rendered as:
+            //     <p>!
+            //     ! This is a warning.</p>
+
+            SpecTestHelper.AssertCompliance("! \n! This is a warning.", 
+                "<p>!\n! This is a warning.</p>", 
+                "jsonoptions_alerts");
+        }
+
+        // The block is ignored if the first line does not contain a level name :
+        [Fact]
+        public void Alerts_Spec2_all()
+        {
+            // The following Markdown:
+            //     ! 
+            //     ! This is a warning.
+            //
+            // Should be rendered as:
+            //     <p>!
+            //     ! This is a warning.</p>
+
+            SpecTestHelper.AssertCompliance("! \n! This is a warning.", 
+                "<p>!\n! This is a warning.</p>", 
+                "all");
+        }
+
+        // The block is ignored if the first line contains disallowed characters :
+        [Fact]
+        public void Alerts_Spec3_jsonoptions_alerts()
+        {
+            // The following Markdown:
+            //     ! illegal space
+            //     ! This is a warning.
+            //
+            // Should be rendered as:
+            //     <p>! illegal space
+            //     ! This is a warning.</p>
+
+            SpecTestHelper.AssertCompliance("! illegal space\n! This is a warning.", 
+                "<p>! illegal space\n! This is a warning.</p>", 
+                "jsonoptions_alerts");
+        }
+
+        // The block is ignored if the first line contains disallowed characters :
+        [Fact]
+        public void Alerts_Spec3_all()
+        {
+            // The following Markdown:
+            //     ! illegal space
+            //     ! This is a warning.
+            //
+            // Should be rendered as:
+            //     <p>! illegal space
+            //     ! This is a warning.</p>
+
+            SpecTestHelper.AssertCompliance("! illegal space\n! This is a warning.", 
+                "<p>! illegal space\n! This is a warning.</p>", 
+                "all");
+        }
+
+        // The first space after `!` is ignored. :
+        [Fact]
+        public void Alerts_Spec4_jsonoptions_alerts()
+        {
+            // The following Markdown:
+            //     ! warning
+            //     !This line will be rendered with 0 leading spaces.
+            //     !  This line will be rendered with 0 leading spaces.
+            //     !   This line will be rendered with 1 leading space.
+            //
+            // Should be rendered as:
+            //     <div class="alert-warning">
+            //     <p>
+            //     This is a warning.
+            //     </p>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("! warning\n!This line will be rendered with 0 leading spaces.\n!  This line will be rendered with 0 leading spaces.\n!   This line will be rendered with 1 leading space.", 
+                "<div class=\"alert-warning\">\n<p>\nThis is a warning.\n</p>\n</div>", 
+                "jsonoptions_alerts");
+        }
+
+        // The first space after `!` is ignored. :
+        [Fact]
+        public void Alerts_Spec4_all()
+        {
+            // The following Markdown:
+            //     ! warning
+            //     !This line will be rendered with 0 leading spaces.
+            //     !  This line will be rendered with 0 leading spaces.
+            //     !   This line will be rendered with 1 leading space.
+            //
+            // Should be rendered as:
+            //     <div class="alert-warning">
+            //     <p>
+            //     This is a warning.
+            //     </p>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("! warning\n!This line will be rendered with 0 leading spaces.\n!  This line will be rendered with 0 leading spaces.\n!   This line will be rendered with 1 leading space.", 
+                "<div class=\"alert-warning\">\n<p>\nThis is a warning.\n</p>\n</div>", 
+                "all");
+        }
+    }
+
     // Per-block options are useful for many extensions. For example, per-block options would allow a code extension to add line-numbers to select code blocks. 
     // Json options facilitates per-block options, using a simple and consistent syntax.
     public class JsonOptionsTests

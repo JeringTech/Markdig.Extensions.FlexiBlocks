@@ -1,4 +1,5 @@
-﻿using JeremyTCD.Markdig.Extensions.JsonOptions;
+﻿using JeremyTCD.Markdig.Extensions.Alerts;
+using JeremyTCD.Markdig.Extensions.JsonOptions;
 using JeremyTCD.Markdig.Extensions.Sections;
 using Markdig;
 
@@ -11,6 +12,16 @@ namespace JeremyTCD.Markdig.Extensions
             if (!pipelineBuilder.Extensions.Contains<SectionsExtension>())
             {
                 pipelineBuilder.Extensions.Add(new SectionsExtension(options));
+            }
+
+            return pipelineBuilder;
+        }
+
+        public static MarkdownPipelineBuilder UseAlerts(this MarkdownPipelineBuilder pipelineBuilder, AlertsOptions options = null)
+        {
+            if (!pipelineBuilder.Extensions.Contains<AlertsExtension>())
+            {
+                pipelineBuilder.Extensions.Add(new AlertsExtension(options));
             }
 
             return pipelineBuilder;
