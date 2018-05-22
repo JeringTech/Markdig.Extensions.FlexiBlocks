@@ -6,9 +6,9 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
     public class AlertsOptions
     {
         /// <summary>
-        /// Map of alert type names to icon elements markup.
+        /// Map of alert type names to icon markup.
         /// </summary>
-        public Dictionary<string, string> IconElementMarkups = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        public Dictionary<string, string> IconMarkups = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// Default <see cref="AlertBlockOptions"/>.
