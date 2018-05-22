@@ -14,6 +14,14 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         private readonly AutoLinkService _autoLinkService;
         private readonly IdentifierService _identifierService;
 
+        /// <summary>
+        /// Initializes an instance of type <see cref="SectionsParser"/>.
+        /// </summary>
+        /// <param name="sectionsOptions"></param>
+        /// <param name="headingBlockParser"></param>
+        /// <param name="autoLinkService"></param>
+        /// <param name="identifierService"></param>
+        /// <param name="jsonOptionsService"></param>
         public SectionsParser(SectionsOptions sectionsOptions,
             HeadingBlockParser headingBlockParser,
             AutoLinkService autoLinkService,
