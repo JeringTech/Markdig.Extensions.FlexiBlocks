@@ -36,7 +36,6 @@ The block is ignored if the first line contains disallowed characters :
 ! This is a warning.</p>
 ````````````````````````````````
 
-
 The first space after `!` is ignored. :
 
 ```````````````````````````````` example
@@ -47,5 +46,87 @@ The first space after `!` is ignored. :
 <div class="alert-warning">
 <p>This line will be rendered with 0 leading spaces.
 This line will also be rendered with 0 leading spaces.</p>
+</div>
+````````````````````````````````
+
+Lazy continuation is allowed:
+
+```````````````````````````````` example
+! warning
+! This is part of
+the warning.
+! This is also part of
+the warning.
+.
+<div class="alert-warning">
+<p>This is part of
+the warning.
+This is also part of
+the warning.</p>
+</div>
+````````````````````````````````
+
+`AlertsOptions.IconMarkups` can be used to define icon element markup for alert types:
+
+```````````````````````````````` options
+{
+    "alerts": {
+        "iconMarkups": {
+            "warning": "<svg><use xlink:href=\"#warning-icon\"></use></svg>",
+            "information": "<svg><use xlink:href=\"#information-icon\"></use></svg>"
+        }
+    }
+}
+```````````````````````````````` example
+! warning
+! This is a warning.
+
+! information
+! This is information.
+.
+<div class="alert-warning">
+<svg><use xlink:href="#warning-icon"></use></svg>
+<div class="alert-content">
+<p>This is a warning.</p>
+</div>
+</div>
+<div class="alert-information">
+<svg><use xlink:href="#information-icon"></use></svg>
+<div class="alert-content">
+<p>This is information.</p>
+</div>
+</div>
+````````````````````````````````
+
+Per-alert-block options can be overriden if the JSON options extension is enabled:
+
+```````````````````````````````` options
+{
+    "alerts": {
+        "iconMarkups": {
+            "warning": "<svg><use xlink:href=\"#warning-icon\"></use></svg>"
+        }
+    }
+}
+```````````````````````````````` example
+! warning
+! This is a warning.
+@{
+    "iconMarkup": "<svg><use xlink:href=\"#special-warning-icon\"></use></svg>"
+}
+! warning
+! This is a special warning.
+.
+<div class="alert-warning">
+<svg><use xlink:href="#warning-icon"></use></svg>
+<div class="alert-content">
+<p>This is a warning.</p>
+</div>
+</div>
+<div class="alert-warning">
+<svg><use xlink:href="#special-warning-icon"></use></svg>
+<div class="alert-content">
+<p>This is a special warning.</p>
+</div>
 </div>
 ````````````````````````````````

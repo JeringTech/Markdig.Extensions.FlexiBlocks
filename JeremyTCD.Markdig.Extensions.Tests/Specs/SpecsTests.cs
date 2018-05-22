@@ -13348,6 +13348,220 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
                 "<div class=\"alert-warning\">\n<p>This line will be rendered with 0 leading spaces.\nThis line will also be rendered with 0 leading spaces.</p>\n</div>", 
                 "all");
         }
+
+        // Lazy continuation is allowed:
+        [Fact]
+        public void Alerts_Spec5_jsonoptions_alerts()
+        {
+            // The following Markdown:
+            //     ! warning
+            //     ! This is part of
+            //     the warning.
+            //     ! This is also part of
+            //     the warning.
+            //
+            // Should be rendered as:
+            //     <div class="alert-warning">
+            //     <p>This is part of
+            //     the warning.
+            //     This is also part of
+            //     the warning.</p>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("! warning\n! This is part of\nthe warning.\n! This is also part of\nthe warning.", 
+                "<div class=\"alert-warning\">\n<p>This is part of\nthe warning.\nThis is also part of\nthe warning.</p>\n</div>", 
+                "jsonoptions_alerts");
+        }
+
+        // Lazy continuation is allowed:
+        [Fact]
+        public void Alerts_Spec5_all()
+        {
+            // The following Markdown:
+            //     ! warning
+            //     ! This is part of
+            //     the warning.
+            //     ! This is also part of
+            //     the warning.
+            //
+            // Should be rendered as:
+            //     <div class="alert-warning">
+            //     <p>This is part of
+            //     the warning.
+            //     This is also part of
+            //     the warning.</p>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("! warning\n! This is part of\nthe warning.\n! This is also part of\nthe warning.", 
+                "<div class=\"alert-warning\">\n<p>This is part of\nthe warning.\nThis is also part of\nthe warning.</p>\n</div>", 
+                "all");
+        }
+
+        // `AlertsOptions.IconMarkups` can be used to define icon element markup for alert types:
+        [Fact]
+        public void Alerts_Spec6_jsonoptions_alerts()
+        {
+            // The following Markdown:
+            //     ! warning
+            //     ! This is a warning.
+            //     
+            //     ! information
+            //     ! This is information.
+            //
+            // With extension options:
+            //     {
+            //         "alerts": {
+            //             "iconMarkups": {
+            //                 "warning": "<svg><use xlink:href=\"#warning-icon\"></use></svg>",
+            //                 "information": "<svg><use xlink:href=\"#information-icon\"></use></svg>"
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="alert-warning">
+            //     <svg><use xlink:href="#warning-icon"></use></svg>
+            //     <div class="alert-content">
+            //     <p>This is a warning.</p>
+            //     </div>
+            //     </div>
+            //     <div class="alert-information">
+            //     <svg><use xlink:href="#information-icon"></use></svg>
+            //     <div class="alert-content">
+            //     <p>This is information.</p>
+            //     </div>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n\n! information\n! This is information.", 
+                "<div class=\"alert-warning\">\n<svg><use xlink:href=\"#warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"alert-information\">\n<svg><use xlink:href=\"#information-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is information.</p>\n</div>\n</div>", 
+                "jsonoptions_alerts", 
+                "{\n    \"alerts\": {\n        \"iconMarkups\": {\n            \"warning\": \"<svg><use xlink:href=\\\"#warning-icon\\\"></use></svg>\",\n            \"information\": \"<svg><use xlink:href=\\\"#information-icon\\\"></use></svg>\"\n        }\n    }\n}");
+        }
+
+        // `AlertsOptions.IconMarkups` can be used to define icon element markup for alert types:
+        [Fact]
+        public void Alerts_Spec6_all()
+        {
+            // The following Markdown:
+            //     ! warning
+            //     ! This is a warning.
+            //     
+            //     ! information
+            //     ! This is information.
+            //
+            // With extension options:
+            //     {
+            //         "alerts": {
+            //             "iconMarkups": {
+            //                 "warning": "<svg><use xlink:href=\"#warning-icon\"></use></svg>",
+            //                 "information": "<svg><use xlink:href=\"#information-icon\"></use></svg>"
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="alert-warning">
+            //     <svg><use xlink:href="#warning-icon"></use></svg>
+            //     <div class="alert-content">
+            //     <p>This is a warning.</p>
+            //     </div>
+            //     </div>
+            //     <div class="alert-information">
+            //     <svg><use xlink:href="#information-icon"></use></svg>
+            //     <div class="alert-content">
+            //     <p>This is information.</p>
+            //     </div>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n\n! information\n! This is information.", 
+                "<div class=\"alert-warning\">\n<svg><use xlink:href=\"#warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"alert-information\">\n<svg><use xlink:href=\"#information-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is information.</p>\n</div>\n</div>", 
+                "all", 
+                "{\n    \"alerts\": {\n        \"iconMarkups\": {\n            \"warning\": \"<svg><use xlink:href=\\\"#warning-icon\\\"></use></svg>\",\n            \"information\": \"<svg><use xlink:href=\\\"#information-icon\\\"></use></svg>\"\n        }\n    }\n}");
+        }
+
+        // Per-alert-block options can be overriden if the JSON options extension is enabled:
+        [Fact]
+        public void Alerts_Spec7_jsonoptions_alerts()
+        {
+            // The following Markdown:
+            //     ! warning
+            //     ! This is a warning.
+            //     @{
+            //         "iconMarkup": "<svg><use xlink:href=\"#special-warning-icon\"></use></svg>"
+            //     }
+            //     ! warning
+            //     ! This is a special warning.
+            //
+            // With extension options:
+            //     {
+            //         "alerts": {
+            //             "iconMarkups": {
+            //                 "warning": "<svg><use xlink:href=\"#warning-icon\"></use></svg>"
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="alert-warning">
+            //     <svg><use xlink:href="#warning-icon"></use></svg>
+            //     <div class="alert-content">
+            //     <p>This is a warning.</p>
+            //     </div>
+            //     </div>
+            //     <div class="alert-warning">
+            //     <svg><use xlink:href="#special-warning-icon"></use></svg>
+            //     <div class="alert-content">
+            //     <p>This is a special warning.</p>
+            //     </div>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n@{\n    \"iconMarkup\": \"<svg><use xlink:href=\\\"#special-warning-icon\\\"></use></svg>\"\n}\n! warning\n! This is a special warning.", 
+                "<div class=\"alert-warning\">\n<svg><use xlink:href=\"#warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"alert-warning\">\n<svg><use xlink:href=\"#special-warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a special warning.</p>\n</div>\n</div>", 
+                "jsonoptions_alerts", 
+                "{\n    \"alerts\": {\n        \"iconMarkups\": {\n            \"warning\": \"<svg><use xlink:href=\\\"#warning-icon\\\"></use></svg>\"\n        }\n    }\n}");
+        }
+
+        // Per-alert-block options can be overriden if the JSON options extension is enabled:
+        [Fact]
+        public void Alerts_Spec7_all()
+        {
+            // The following Markdown:
+            //     ! warning
+            //     ! This is a warning.
+            //     @{
+            //         "iconMarkup": "<svg><use xlink:href=\"#special-warning-icon\"></use></svg>"
+            //     }
+            //     ! warning
+            //     ! This is a special warning.
+            //
+            // With extension options:
+            //     {
+            //         "alerts": {
+            //             "iconMarkups": {
+            //                 "warning": "<svg><use xlink:href=\"#warning-icon\"></use></svg>"
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="alert-warning">
+            //     <svg><use xlink:href="#warning-icon"></use></svg>
+            //     <div class="alert-content">
+            //     <p>This is a warning.</p>
+            //     </div>
+            //     </div>
+            //     <div class="alert-warning">
+            //     <svg><use xlink:href="#special-warning-icon"></use></svg>
+            //     <div class="alert-content">
+            //     <p>This is a special warning.</p>
+            //     </div>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n@{\n    \"iconMarkup\": \"<svg><use xlink:href=\\\"#special-warning-icon\\\"></use></svg>\"\n}\n! warning\n! This is a special warning.", 
+                "<div class=\"alert-warning\">\n<svg><use xlink:href=\"#warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"alert-warning\">\n<svg><use xlink:href=\"#special-warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a special warning.</p>\n</div>\n</div>", 
+                "all", 
+                "{\n    \"alerts\": {\n        \"iconMarkups\": {\n            \"warning\": \"<svg><use xlink:href=\\\"#warning-icon\\\"></use></svg>\"\n        }\n    }\n}");
+        }
     }
 
     // Per-block options are useful for many extensions. For example, per-block options would allow a code extension to add line-numbers to select code blocks. 
