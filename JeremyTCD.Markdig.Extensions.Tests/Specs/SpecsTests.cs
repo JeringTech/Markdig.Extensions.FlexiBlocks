@@ -13316,18 +13316,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             // The following Markdown:
             //     ! warning
             //     !This line will be rendered with 0 leading spaces.
-            //     !  This line will be rendered with 0 leading spaces.
-            //     !   This line will be rendered with 1 leading space.
+            //     ! This line will also be rendered with 0 leading spaces.
             //
             // Should be rendered as:
             //     <div class="alert-warning">
-            //     <p>
-            //     This is a warning.
-            //     </p>
+            //     <p>This line will be rendered with 0 leading spaces.
+            //     This line will also be rendered with 0 leading spaces.</p>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("! warning\n!This line will be rendered with 0 leading spaces.\n!  This line will be rendered with 0 leading spaces.\n!   This line will be rendered with 1 leading space.", 
-                "<div class=\"alert-warning\">\n<p>\nThis is a warning.\n</p>\n</div>", 
+            SpecTestHelper.AssertCompliance("! warning\n!This line will be rendered with 0 leading spaces.\n! This line will also be rendered with 0 leading spaces.", 
+                "<div class=\"alert-warning\">\n<p>This line will be rendered with 0 leading spaces.\nThis line will also be rendered with 0 leading spaces.</p>\n</div>", 
                 "jsonoptions_alerts");
         }
 
@@ -13338,18 +13336,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             // The following Markdown:
             //     ! warning
             //     !This line will be rendered with 0 leading spaces.
-            //     !  This line will be rendered with 0 leading spaces.
-            //     !   This line will be rendered with 1 leading space.
+            //     ! This line will also be rendered with 0 leading spaces.
             //
             // Should be rendered as:
             //     <div class="alert-warning">
-            //     <p>
-            //     This is a warning.
-            //     </p>
+            //     <p>This line will be rendered with 0 leading spaces.
+            //     This line will also be rendered with 0 leading spaces.</p>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("! warning\n!This line will be rendered with 0 leading spaces.\n!  This line will be rendered with 0 leading spaces.\n!   This line will be rendered with 1 leading space.", 
-                "<div class=\"alert-warning\">\n<p>\nThis is a warning.\n</p>\n</div>", 
+            SpecTestHelper.AssertCompliance("! warning\n!This line will be rendered with 0 leading spaces.\n! This line will also be rendered with 0 leading spaces.", 
+                "<div class=\"alert-warning\">\n<p>This line will be rendered with 0 leading spaces.\nThis line will also be rendered with 0 leading spaces.</p>\n</div>", 
                 "all");
         }
     }

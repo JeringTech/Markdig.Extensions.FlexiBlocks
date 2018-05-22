@@ -42,12 +42,10 @@ The first space after `!` is ignored. :
 ```````````````````````````````` example
 ! warning
 !This line will be rendered with 0 leading spaces.
-!  This line will be rendered with 0 leading spaces.
-!   This line will be rendered with 1 leading space.
+! This line will also be rendered with 0 leading spaces.
 .
 <div class="alert-warning">
 <p>This line will be rendered with 0 leading spaces.
-This line will be rendered with 0 leading spaces.
-This line will be rendered with 1 leading space.</p>
+This line will also be rendered with 0 leading spaces.</p>
 </div>
 ````````````````````````````````
