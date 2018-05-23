@@ -9,7 +9,9 @@ Json options are specified as a string above the block they apply to. The first 
 # foo
 .
 <aside id="foo">
+<header class="header-level-1">
 <h1>foo</h1>
+</header>
 </aside>
 ````````````````````````````````
 
@@ -22,7 +24,9 @@ Options can be specified across several lines:
 # foo
 .
 <aside id="foo">
+<header class="header-level-1">
 <h1>foo</h1>
+</header>
 </aside>
 ````````````````````````````````
 
@@ -39,6 +43,8 @@ If the first line does not begin with `@{`, the string becomes a paragraph:
 {
 &quot;wrapperElement&quot;: &quot;Aside&quot;
 }</p>
+<header class="header-level-1">
 <h1>foo</h1>
+</header>
 
 ````````````````````````````````

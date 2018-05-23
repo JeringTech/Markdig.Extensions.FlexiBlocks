@@ -2,6 +2,7 @@
 using Markdig;
 using Markdig.Parsers;
 using Markdig.Renderers;
+using Markdig.Renderers.Html;
 
 namespace JeremyTCD.Markdig.Extensions.Sections
 {
@@ -42,9 +43,23 @@ namespace JeremyTCD.Markdig.Extensions.Sections
 
         public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
-            if (renderer is HtmlRenderer htmlRenderer && !htmlRenderer.ObjectRenderers.Contains<SectionBlockRenderer>())
+            if (renderer is HtmlRenderer htmlRenderer)
             {
-                htmlRenderer.ObjectRenderers.Insert(0, new SectionBlockRenderer());
+                if (!htmlRenderer.ObjectRenderers.Contains<SectionBlockRenderer>())
+                {
+                    htmlRenderer.ObjectRenderers.Insert(0, new SectionBlockRenderer());
+                }
+
+                if (!htmlRenderer.ObjectRenderers.Contains<HeadingBlockRenderer>())
+                {
+                    HeadingRenderer headingRenderer = htmlRenderer.ObjectRenderers.Find<HeadingRenderer>();
+                    if(headingRenderer != null)
+                    {
+                        htmlRenderer.ObjectRenderers.Remove(headingRenderer);
+                    }
+
+                    htmlRenderer.ObjectRenderers.Insert(0, new HeadingBlockRenderer());
+                }
             }
         }
     }

@@ -12475,6 +12475,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
     // logical sections in [sectioning content elements](https://html.spec.whatwg.org/multipage/dom.html#sectioning-content-2).
     // This extension wraps logical sections in `<section>` elements, with nesting dependent on [ATX heading](https://spec.commonmark.org/0.28/#atx-headings)
     // levels.
+    // 
+    // Additionally, this extension wraps heading elements (`<h1>, <h2> etc`) in `<header>` elements and renders icon markup. Wrapping heading elements
+    // in header elements is standard usage of the `<header>` element, as per MDN's [documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header).
     public class SectionsTests
     {
         // Sequential higher-level sections are nested:
@@ -12488,19 +12491,27 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     #### foo
             //
             // Should be rendered as:
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
             //     <section id="foo">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     <section id="foo-1">
+            //     <header class="header-level-3">
             //     <h3>foo</h3>
+            //     </header>
             //     <section id="foo-2">
+            //     <header class="header-level-4">
             //     <h4>foo</h4>
+            //     </header>
             //     </section>
             //     </section>
             //     </section>
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n#### foo", 
-                "<h1>foo</h1>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-1\">\n<h3>foo</h3>\n<section id=\"foo-2\">\n<h4>foo</h4>\n</section>\n</section>\n</section>", 
+                "<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n</header>\n<section id=\"foo-2\">\n<header class=\"header-level-4\">\n<h4>foo</h4>\n</header>\n</section>\n</section>\n</section>", 
                 "jsonoptions_sections");
         }
 
@@ -12515,23 +12526,31 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     #### foo
             //
             // Should be rendered as:
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
             //     <section id="foo">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     <section id="foo-1">
+            //     <header class="header-level-3">
             //     <h3>foo</h3>
+            //     </header>
             //     <section id="foo-2">
+            //     <header class="header-level-4">
             //     <h4>foo</h4>
+            //     </header>
             //     </section>
             //     </section>
             //     </section>
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n#### foo", 
-                "<h1>foo</h1>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-1\">\n<h3>foo</h3>\n<section id=\"foo-2\">\n<h4>foo</h4>\n</section>\n</section>\n</section>", 
+                "<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n</header>\n<section id=\"foo-2\">\n<header class=\"header-level-4\">\n<h4>foo</h4>\n</header>\n</section>\n</section>\n</section>", 
                 "all");
         }
 
-        // Sequential lower-level sections are not nested.:
+        // Sequential lower-level sections are not nested:
         [Fact]
         public void Sections_Spec2_jsonoptions_sections()
         {
@@ -12541,16 +12560,20 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <section id="foo">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </section>
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
 
             SpecTestHelper.AssertCompliance("## foo\n# foo", 
-                "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<h1>foo</h1>", 
+                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>", 
                 "jsonoptions_sections");
         }
 
-        // Sequential lower-level sections are not nested.:
+        // Sequential lower-level sections are not nested:
         [Fact]
         public void Sections_Spec2_all()
         {
@@ -12560,12 +12583,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <section id="foo">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </section>
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
 
             SpecTestHelper.AssertCompliance("## foo\n# foo", 
-                "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<h1>foo</h1>", 
+                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>", 
                 "all");
         }
 
@@ -12579,14 +12606,18 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <section id="foo">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </section>
             //     <section id="foo-1">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </section>
 
             SpecTestHelper.AssertCompliance("## foo\n## foo", 
-                "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>", 
+                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>", 
                 "jsonoptions_sections");
         }
 
@@ -12600,14 +12631,18 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <section id="foo">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </section>
             //     <section id="foo-1">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </section>
 
             SpecTestHelper.AssertCompliance("## foo\n## foo", 
-                "<section id=\"foo\">\n<h2>foo</h2>\n</section>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>", 
+                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>", 
                 "all");
         }
 
@@ -12622,19 +12657,27 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     ## foo
             //
             // Should be rendered as:
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
             //     <section id="foo">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     <section id="foo-1">
+            //     <header class="header-level-3">
             //     <h3>foo</h3>
+            //     </header>
             //     </section>
             //     </section>
             //     <section id="foo-2">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </section>
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n## foo", 
-                "<h1>foo</h1>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-1\">\n<h3>foo</h3>\n</section>\n</section>\n<section id=\"foo-2\">\n<h2>foo</h2>\n</section>", 
+                "<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n</header>\n</section>\n</section>\n<section id=\"foo-2\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>", 
                 "jsonoptions_sections");
         }
 
@@ -12649,19 +12692,27 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     ## foo
             //
             // Should be rendered as:
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
             //     <section id="foo">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     <section id="foo-1">
+            //     <header class="header-level-3">
             //     <h3>foo</h3>
+            //     </header>
             //     </section>
             //     </section>
             //     <section id="foo-2">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </section>
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n## foo", 
-                "<h1>foo</h1>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-1\">\n<h3>foo</h3>\n</section>\n</section>\n<section id=\"foo-2\">\n<h2>foo</h2>\n</section>", 
+                "<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n</header>\n</section>\n</section>\n<section id=\"foo-2\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>", 
                 "all");
         }
 
@@ -12680,16 +12731,22 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     > Level 3 content line 2.
             //
             // Should be rendered as:
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
             //     <p>Level 1 content.</p>
             //     <section id="foo">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     <ul>
             //     <li>Level 2 content line 1.</li>
             //     <li>Level 2 content line 2.</li>
             //     </ul>
             //     <section id="foo-1">
+            //     <header class="header-level-3">
             //     <h3>foo</h3>
+            //     </header>
             //     <blockquote>
             //     <p>Level 3 content line 1.
             //     Level 3 content line 2.</p>
@@ -12698,7 +12755,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     </section>
 
             SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", 
-                "<h1>foo</h1>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", 
+                "<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n</header>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", 
                 "jsonoptions_sections");
         }
 
@@ -12717,16 +12774,22 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     > Level 3 content line 2.
             //
             // Should be rendered as:
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
             //     <p>Level 1 content.</p>
             //     <section id="foo">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     <ul>
             //     <li>Level 2 content line 1.</li>
             //     <li>Level 2 content line 2.</li>
             //     </ul>
             //     <section id="foo-1">
+            //     <header class="header-level-3">
             //     <h3>foo</h3>
+            //     </header>
             //     <blockquote>
             //     <p>Level 3 content line 1.
             //     Level 3 content line 2.</p>
@@ -12735,7 +12798,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     </section>
 
             SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", 
-                "<h1>foo</h1>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<h3>foo</h3>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", 
+                "<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n</header>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", 
                 "all");
         }
 
@@ -12756,14 +12819,18 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <article id="foo">
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
             //     <section id="foo-1">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </section>
             //     </article>
 
             SpecTestHelper.AssertCompliance("# foo\n## foo", 
-                "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n</article>", 
+                "<article id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n</article>", 
                 "jsonoptions_sections", 
                 "{\n    \"sections\": {\n        \"level1WrapperElement\": \"article\"\n    }\n}");
         }
@@ -12785,14 +12852,18 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <article id="foo">
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
             //     <section id="foo-1">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </section>
             //     </article>
 
             SpecTestHelper.AssertCompliance("# foo\n## foo", 
-                "<article id=\"foo\">\n<h1>foo</h1>\n<section id=\"foo-1\">\n<h2>foo</h2>\n</section>\n</article>", 
+                "<article id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n</article>", 
                 "all", 
                 "{\n    \"sections\": {\n        \"level1WrapperElement\": \"article\"\n    }\n}");
         }
@@ -12813,11 +12884,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <nav id="foo">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </nav>
 
             SpecTestHelper.AssertCompliance("## foo", 
-                "<nav id=\"foo\">\n<h2>foo</h2>\n</nav>", 
+                "<nav id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</nav>", 
                 "jsonoptions_sections", 
                 "{\n    \"sections\": {\n        \"level2PlusWrapperElement\": \"nav\"\n    }\n}");
         }
@@ -12838,79 +12911,118 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <nav id="foo">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </nav>
 
             SpecTestHelper.AssertCompliance("## foo", 
-                "<nav id=\"foo\">\n<h2>foo</h2>\n</nav>", 
+                "<nav id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</nav>", 
                 "all", 
                 "{\n    \"sections\": {\n        \"level2PlusWrapperElement\": \"nav\"\n    }\n}");
         }
 
-        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
+        // Header icons can be specified by setting `SectionExtensionOptions.DefaultSectionBlockOptions.IconMarkup`. For example:
         [Fact]
         public void Sections_Spec8_jsonoptions_sections()
         {
             // The following Markdown:
-            //     ## Foo Bar Baz
+            //     ## foo
+            //
+            // With extension options:
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "iconMarkup": "<svg><use xlink:href=\"#link-icon\"></use></svg>"
+            //             }
+            //         }
+            //     }
             //
             // Should be rendered as:
-            //     <section id="foo-bar-baz">
-            //     <h2>Foo Bar Baz</h2>
+            //     <section id="foo">
+            //     <header class="header-level-2">
+            //     <h2>foo</h2>
+            //     <svg><use xlink:href="#link-icon"></use></svg>
+            //     </header>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
-                "<section id=\"foo-bar-baz\">\n<h2>Foo Bar Baz</h2>\n</section>", 
-                "jsonoptions_sections");
+            SpecTestHelper.AssertCompliance("## foo", 
+                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#link-icon\"></use></svg>\n</header>\n</section>", 
+                "jsonoptions_sections", 
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"iconMarkup\": \"<svg><use xlink:href=\\\"#link-icon\\\"></use></svg>\"\n        }\n    }\n}");
         }
 
-        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
+        // Header icons can be specified by setting `SectionExtensionOptions.DefaultSectionBlockOptions.IconMarkup`. For example:
         [Fact]
         public void Sections_Spec8_all()
         {
             // The following Markdown:
-            //     ## Foo Bar Baz
+            //     ## foo
+            //
+            // With extension options:
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "iconMarkup": "<svg><use xlink:href=\"#link-icon\"></use></svg>"
+            //             }
+            //         }
+            //     }
             //
             // Should be rendered as:
-            //     <section id="foo-bar-baz">
-            //     <h2>Foo Bar Baz</h2>
+            //     <section id="foo">
+            //     <header class="header-level-2">
+            //     <h2>foo</h2>
+            //     <svg><use xlink:href="#link-icon"></use></svg>
+            //     </header>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
-                "<section id=\"foo-bar-baz\">\n<h2>Foo Bar Baz</h2>\n</section>", 
-                "all");
+            SpecTestHelper.AssertCompliance("## foo", 
+                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#link-icon\"></use></svg>\n</header>\n</section>", 
+                "all", 
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"iconMarkup\": \"<svg><use xlink:href=\\\"#link-icon\\\"></use></svg>\"\n        }\n    }\n}");
         }
 
-        // Auto generation of IDs can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
+        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
         [Fact]
         public void Sections_Spec9_jsonoptions_sections()
         {
             // The following Markdown:
             //     ## Foo Bar Baz
             //
-            // With extension options:
-            //     {
-            //         "sections": {
-            //             "defaultSectionBlockOptions": {
-            //                 "generateIdentifier": false
-            //             }
-            //         }
-            //     }
-            //
             // Should be rendered as:
-            //     <section>
+            //     <section id="foo-bar-baz">
+            //     <header class="header-level-2">
             //     <h2>Foo Bar Baz</h2>
+            //     </header>
             //     </section>
 
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
-                "<section>\n<h2>Foo Bar Baz</h2>\n</section>", 
-                "jsonoptions_sections", 
-                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
+                "<section id=\"foo-bar-baz\">\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n</header>\n</section>", 
+                "jsonoptions_sections");
+        }
+
+        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
+        [Fact]
+        public void Sections_Spec9_all()
+        {
+            // The following Markdown:
+            //     ## Foo Bar Baz
+            //
+            // Should be rendered as:
+            //     <section id="foo-bar-baz">
+            //     <header class="header-level-2">
+            //     <h2>Foo Bar Baz</h2>
+            //     </header>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
+                "<section id=\"foo-bar-baz\">\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n</header>\n</section>", 
+                "all");
         }
 
         // Auto generation of IDs can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
         [Fact]
-        public void Sections_Spec9_all()
+        public void Sections_Spec10_jsonoptions_sections()
         {
             // The following Markdown:
             //     ## Foo Bar Baz
@@ -12926,83 +13038,47 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <section>
+            //     <header class="header-level-2">
             //     <h2>Foo Bar Baz</h2>
+            //     </header>
             //     </section>
 
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
-                "<section>\n<h2>Foo Bar Baz</h2>\n</section>", 
+                "<section>\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n</header>\n</section>", 
+                "jsonoptions_sections", 
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
+        }
+
+        // Auto generation of IDs can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
+        [Fact]
+        public void Sections_Spec10_all()
+        {
+            // The following Markdown:
+            //     ## Foo Bar Baz
+            //
+            // With extension options:
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "generateIdentifier": false
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <section>
+            //     <header class="header-level-2">
+            //     <h2>Foo Bar Baz</h2>
+            //     </header>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
+                "<section>\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n</header>\n</section>", 
                 "all", 
                 "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
         }
 
         // Sections can be linked to by the text content of their headings:
-        [Fact]
-        public void Sections_Spec10_jsonoptions_sections()
-        {
-            // The following Markdown:
-            //     [foo]
-            //     
-            //     ## foo
-            //     ### foo bar
-            //     [foo bar]
-            //     #### foo bar baz
-            //     
-            //     [Link Text][foo bar baz]
-            //
-            // Should be rendered as:
-            //     <p><a href="#foo">foo</a></p>
-            //     <section id="foo">
-            //     <h2>foo</h2>
-            //     <section id="foo-bar">
-            //     <h3>foo bar</h3>
-            //     <p><a href="#foo-bar">foo bar</a></p>
-            //     <section id="foo-bar-baz">
-            //     <h4>foo bar baz</h4>
-            //     <p><a href="#foo-bar-baz">Link Text</a></p>
-            //     </section>
-            //     </section>
-            //     </section>
-
-            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[Link Text][foo bar baz]", 
-                "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p><a href=\"#foo-bar-baz\">Link Text</a></p>\n</section>\n</section>\n</section>", 
-                "jsonoptions_sections");
-        }
-
-        // Sections can be linked to by the text content of their headings:
-        [Fact]
-        public void Sections_Spec10_all()
-        {
-            // The following Markdown:
-            //     [foo]
-            //     
-            //     ## foo
-            //     ### foo bar
-            //     [foo bar]
-            //     #### foo bar baz
-            //     
-            //     [Link Text][foo bar baz]
-            //
-            // Should be rendered as:
-            //     <p><a href="#foo">foo</a></p>
-            //     <section id="foo">
-            //     <h2>foo</h2>
-            //     <section id="foo-bar">
-            //     <h3>foo bar</h3>
-            //     <p><a href="#foo-bar">foo bar</a></p>
-            //     <section id="foo-bar-baz">
-            //     <h4>foo bar baz</h4>
-            //     <p><a href="#foo-bar-baz">Link Text</a></p>
-            //     </section>
-            //     </section>
-            //     </section>
-
-            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[Link Text][foo bar baz]", 
-                "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p><a href=\"#foo-bar-baz\">Link Text</a></p>\n</section>\n</section>\n</section>", 
-                "all");
-        }
-
-        // Linking to sections by the text content of their headings can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
-        // that linking to sections is also disabled if `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
         [Fact]
         public void Sections_Spec11_jsonoptions_sections()
         {
@@ -13014,41 +13090,76 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     [foo bar]
             //     #### foo bar baz
             //     
-            //     [foo bar baz]
-            //
-            // With extension options:
-            //     {
-            //         "sections": {
-            //             "defaultSectionBlockOptions": {
-            //                 "autoLinkable": false
-            //             }
-            //         }
-            //     }
+            //     [Link Text][foo bar baz]
             //
             // Should be rendered as:
-            //     <p>[foo]</p>
+            //     <p><a href="#foo">foo</a></p>
             //     <section id="foo">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     <section id="foo-bar">
+            //     <header class="header-level-3">
             //     <h3>foo bar</h3>
-            //     <p>[foo bar]</p>
+            //     </header>
+            //     <p><a href="#foo-bar">foo bar</a></p>
             //     <section id="foo-bar-baz">
+            //     <header class="header-level-4">
             //     <h4>foo bar baz</h4>
-            //     <p>[foo bar baz]</p>
+            //     </header>
+            //     <p><a href="#foo-bar-baz">Link Text</a></p>
             //     </section>
             //     </section>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
-                "<p>[foo]</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
-                "jsonoptions_sections", 
-                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
+            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[Link Text][foo bar baz]", 
+                "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n</header>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n</header>\n<p><a href=\"#foo-bar-baz\">Link Text</a></p>\n</section>\n</section>\n</section>", 
+                "jsonoptions_sections");
+        }
+
+        // Sections can be linked to by the text content of their headings:
+        [Fact]
+        public void Sections_Spec11_all()
+        {
+            // The following Markdown:
+            //     [foo]
+            //     
+            //     ## foo
+            //     ### foo bar
+            //     [foo bar]
+            //     #### foo bar baz
+            //     
+            //     [Link Text][foo bar baz]
+            //
+            // Should be rendered as:
+            //     <p><a href="#foo">foo</a></p>
+            //     <section id="foo">
+            //     <header class="header-level-2">
+            //     <h2>foo</h2>
+            //     </header>
+            //     <section id="foo-bar">
+            //     <header class="header-level-3">
+            //     <h3>foo bar</h3>
+            //     </header>
+            //     <p><a href="#foo-bar">foo bar</a></p>
+            //     <section id="foo-bar-baz">
+            //     <header class="header-level-4">
+            //     <h4>foo bar baz</h4>
+            //     </header>
+            //     <p><a href="#foo-bar-baz">Link Text</a></p>
+            //     </section>
+            //     </section>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[Link Text][foo bar baz]", 
+                "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n</header>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n</header>\n<p><a href=\"#foo-bar-baz\">Link Text</a></p>\n</section>\n</section>\n</section>", 
+                "all");
         }
 
         // Linking to sections by the text content of their headings can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
         // that linking to sections is also disabled if `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
         [Fact]
-        public void Sections_Spec11_all()
+        public void Sections_Spec12_jsonoptions_sections()
         {
             // The following Markdown:
             //     [foo]
@@ -13072,26 +13183,82 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             // Should be rendered as:
             //     <p>[foo]</p>
             //     <section id="foo">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     <section id="foo-bar">
+            //     <header class="header-level-3">
             //     <h3>foo bar</h3>
+            //     </header>
             //     <p>[foo bar]</p>
             //     <section id="foo-bar-baz">
+            //     <header class="header-level-4">
             //     <h4>foo bar baz</h4>
+            //     </header>
             //     <p>[foo bar baz]</p>
             //     </section>
             //     </section>
             //     </section>
 
             SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
-                "<p>[foo]</p>\n<section id=\"foo\">\n<h2>foo</h2>\n<section id=\"foo-bar\">\n<h3>foo bar</h3>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<h4>foo bar baz</h4>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
+                "<p>[foo]</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n</header>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n</header>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
+                "jsonoptions_sections", 
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
+        }
+
+        // Linking to sections by the text content of their headings can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
+        // that linking to sections is also disabled if `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
+        [Fact]
+        public void Sections_Spec12_all()
+        {
+            // The following Markdown:
+            //     [foo]
+            //     
+            //     ## foo
+            //     ### foo bar
+            //     [foo bar]
+            //     #### foo bar baz
+            //     
+            //     [foo bar baz]
+            //
+            // With extension options:
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "autoLinkable": false
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <p>[foo]</p>
+            //     <section id="foo">
+            //     <header class="header-level-2">
+            //     <h2>foo</h2>
+            //     </header>
+            //     <section id="foo-bar">
+            //     <header class="header-level-3">
+            //     <h3>foo bar</h3>
+            //     </header>
+            //     <p>[foo bar]</p>
+            //     <section id="foo-bar-baz">
+            //     <header class="header-level-4">
+            //     <h4>foo bar baz</h4>
+            //     </header>
+            //     <p>[foo bar baz]</p>
+            //     </section>
+            //     </section>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
+                "<p>[foo]</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n</header>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n</header>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
                 "all", 
                 "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
         }
 
         // Per-section-block options can be overriden if the JSON options extension is enabled:
         [Fact]
-        public void Sections_Spec12_jsonoptions_sections()
+        public void Sections_Spec13_jsonoptions_sections()
         {
             // The following Markdown:
             //     @{
@@ -13124,27 +13291,35 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <article class="book" id="foo">
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
             //     <section class="chapter" id="foo-1">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </section>
             //     <nav class="chapter" id="foo-2">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </nav>
             //     </article>
             //     <aside class="chapter" id="foo-3">
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
             //     </aside>
 
             SpecTestHelper.AssertCompliance("@{\n    \"attributes\": {\n        \"class\": \"book\"\n    }\n}\n# foo\n## foo\n@{\n    \"wrapperElement\": \"nav\"\n}\n## foo\n@{\n    \"wrapperElement\": \"aside\"\n}\n# foo", 
-                "<article class=\"book\" id=\"foo\">\n<h1>foo</h1>\n<section class=\"chapter\" id=\"foo-1\">\n<h2>foo</h2>\n</section>\n<nav class=\"chapter\" id=\"foo-2\">\n<h2>foo</h2>\n</nav>\n</article>\n<aside class=\"chapter\" id=\"foo-3\">\n<h1>foo</h1>\n</aside>", 
+                "<article class=\"book\" id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section class=\"chapter\" id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n<nav class=\"chapter\" id=\"foo-2\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</nav>\n</article>\n<aside class=\"chapter\" id=\"foo-3\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n</aside>", 
                 "jsonoptions_sections", 
                 "{\n    \"sections\": {\n        \"level1WrapperElement\": \"article\",\n        \"defaultSectionBlockOptions\": {\n            \"attributes\": {\n                \"class\": \"chapter\"\n            }\n        }\n    }\n}");
         }
 
         // Per-section-block options can be overriden if the JSON options extension is enabled:
         [Fact]
-        public void Sections_Spec12_all()
+        public void Sections_Spec13_all()
         {
             // The following Markdown:
             //     @{
@@ -13177,20 +13352,28 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <article class="book" id="foo">
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
             //     <section class="chapter" id="foo-1">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </section>
             //     <nav class="chapter" id="foo-2">
+            //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     </header>
             //     </nav>
             //     </article>
             //     <aside class="chapter" id="foo-3">
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
             //     </aside>
 
             SpecTestHelper.AssertCompliance("@{\n    \"attributes\": {\n        \"class\": \"book\"\n    }\n}\n# foo\n## foo\n@{\n    \"wrapperElement\": \"nav\"\n}\n## foo\n@{\n    \"wrapperElement\": \"aside\"\n}\n# foo", 
-                "<article class=\"book\" id=\"foo\">\n<h1>foo</h1>\n<section class=\"chapter\" id=\"foo-1\">\n<h2>foo</h2>\n</section>\n<nav class=\"chapter\" id=\"foo-2\">\n<h2>foo</h2>\n</nav>\n</article>\n<aside class=\"chapter\" id=\"foo-3\">\n<h1>foo</h1>\n</aside>", 
+                "<article class=\"book\" id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section class=\"chapter\" id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n<nav class=\"chapter\" id=\"foo-2\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</nav>\n</article>\n<aside class=\"chapter\" id=\"foo-3\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n</aside>", 
                 "all", 
                 "{\n    \"sections\": {\n        \"level1WrapperElement\": \"article\",\n        \"defaultSectionBlockOptions\": {\n            \"attributes\": {\n                \"class\": \"chapter\"\n            }\n        }\n    }\n}");
         }
@@ -13578,11 +13761,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <aside id="foo">
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
             //     </aside>
 
             SpecTestHelper.AssertCompliance("@{\"wrapperElement\": \"Aside\"}\n# foo", 
-                "<aside id=\"foo\">\n<h1>foo</h1>\n</aside>", 
+                "<aside id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n</aside>", 
                 "jsonoptions_sections");
         }
 
@@ -13598,11 +13783,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <aside id="foo">
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
             //     </aside>
 
             SpecTestHelper.AssertCompliance("@{\n    \"wrapperElement\": \"Aside\"\n}\n# foo", 
-                "<aside id=\"foo\">\n<h1>foo</h1>\n</aside>", 
+                "<aside id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n</aside>", 
                 "jsonoptions_sections");
         }
 
@@ -13622,11 +13809,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     {
             //     &quot;wrapperElement&quot;: &quot;Aside&quot;
             //     }</p>
+            //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     </header>
             //     
 
             SpecTestHelper.AssertCompliance("@\n{\n    \"wrapperElement\": \"Aside\"\n}\n# foo", 
-                "<p>@\n{\n&quot;wrapperElement&quot;: &quot;Aside&quot;\n}</p>\n<h1>foo</h1>\n", 
+                "<p>@\n{\n&quot;wrapperElement&quot;: &quot;Aside&quot;\n}</p>\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n", 
                 "jsonoptions_sections");
         }
     }
