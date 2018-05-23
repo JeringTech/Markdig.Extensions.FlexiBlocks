@@ -11,7 +11,7 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
         private readonly JsonOptionsService _jsonOptionsService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuoteBlockParser"/> class.
+        /// Initializes an instance of type <see cref="AlertsParser"/>.
         /// </summary>
         /// <param name="alertsOptions"></param>
         /// <param name="jsonOptionsService"></param>
@@ -24,6 +24,14 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
             _jsonOptionsService = jsonOptionsService;
         }
 
+        /// <summary>
+        /// Attempts to open an <see cref="AlertBlock"/>.
+        /// </summary>
+        /// <param name="processor"></param>
+        /// <returns>
+        /// <see cref="BlockState.None"/> if current line has code indent or current line does not contain a valid alert type name (any sequence of characters from the regex set [A-Za-z0-9_-]).
+        /// <see cref="BlockState.ContinueDiscard"/> if an <see cref="AlertBlock"/> is opened.
+        /// </returns>
         public override BlockState TryOpen(BlockProcessor processor)
         {
             if (processor.IsCodeIndent)
@@ -31,7 +39,7 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
                 return BlockState.None;
             }
 
-            int column = processor.Column;
+            int initialColumn = processor.Column;
             int initialStart = processor.Line.Start;
 
             // An alert block begins with 0-3 spaces, followed by !, followed by 0 or 1 spaces.
@@ -41,27 +49,37 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
                 processor.NextColumn(); // Skip whitespace
             }
 
-            // Attempt to retrieve alert type
-            string alertType = TryGetAlertType(processor.Line);
-            if (alertType == null)
+            // Attempt to retrieve alert type name
+            string alertTypeName = TryGetAlertTypeName(processor.Line);
+            if (alertTypeName == null)
             {
                 processor.Line.Start = initialStart;
                 return BlockState.None;
             }
 
             // Create options
-            AlertBlockOptions alertBlockOptions = CreateAlertOptions(processor, alertType);
+            AlertBlockOptions alertBlockOptions = CreateAlertOptions(processor, alertTypeName);
 
             processor.NewBlocks.Push(new AlertBlock(this)
             {
-                Column = column,
-                Span = new SourceSpan(initialStart, processor.Line.End), // TODO must end be specified here?
+                Column = initialColumn,
+                Span = new SourceSpan(initialStart, processor.Line.End),
                 AlertBlockOptions = alertBlockOptions
             });
 
-            return BlockState.ContinueDiscard; // Line already consumed and used as alert type
+            return BlockState.ContinueDiscard; // Line already consumed and used as alert type name
         }
 
+        /// <summary>
+        /// Attempts to continue an <see cref="AlertBlock"/>.
+        /// </summary>
+        /// <param name="processor"></param>
+        /// <param name="block"></param>
+        /// <returns>
+        /// <see cref="BlockState.None"/> if the current line has code indent or if the current line does not being with '!'.
+        /// <see cref="BlockState.BreakDiscard"/> if the current line is blank.
+        /// <see cref="BlockState.Continue"/> if successful.
+        /// </returns>
         public override BlockState TryContinue(BlockProcessor processor, Block block)
         {
             if (processor.IsCodeIndent)
@@ -69,11 +87,8 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
                 return BlockState.None; // Close alert block and its children
             }
 
-            var alertBlock = (AlertBlock)block;
-
             if (processor.CurrentChar != OpeningCharacters[0])
             {
-                // TODO what about lazy continuation?
                 return processor.IsBlankLine ? BlockState.BreakDiscard : BlockState.None;
             }
 
@@ -83,7 +98,6 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
                 processor.NextChar(); // Skip whitespace
             }
 
-            // TODO can't we just do this when the block is closed?
             block.UpdateSpanEnd(processor.Line.End);
 
             return BlockState.Continue;
@@ -93,21 +107,21 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
         /// Creates <see cref="AlertBlockOptions"/> for the current block.
         /// </summary>
         /// <param name="processor"></param>
-        /// <param name="alertType"></param>
-        internal virtual AlertBlockOptions CreateAlertOptions(BlockProcessor processor, string alertType)
+        /// <param name="alertTypeName"></param>
+        internal virtual AlertBlockOptions CreateAlertOptions(BlockProcessor processor, string alertTypeName)
         {
             AlertBlockOptions result = _alertsOptions.DefaultAlertBlockOptions.Clone();
 
             _jsonOptionsService.TryPopulateOptions(processor, result);
 
-            // Set icon element
-            if (result.IconElementMarkup == null && _alertsOptions.IconElementMarkups.TryGetValue(alertType, out string iconElementMarkup))
+            // Set icon element (precedence - JSON options > default AlertBlockOptions > AlertOptions.IconMarkups)
+            if (result.IconMarkup == null && _alertsOptions.IconMarkups.TryGetValue(alertTypeName, out string iconMarkup))
             {
-                result.IconElementMarkup = iconElementMarkup;
+                result.IconMarkup = iconMarkup;
             }
 
             // Add alert class
-            string alertClass = $"alert-{alertType}";
+            string alertClass = $"alert-{alertTypeName}";
 
             if (result.Attributes.TryGetValue("class", out string existingClasses) && !string.IsNullOrWhiteSpace(existingClasses))
             {
@@ -121,8 +135,14 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
             return result;
         }
 
-            // First line must be of the form !<optional space><alert type>, where <alert type> contains at least one character and only characters from the regex set [A-Za-z0-9_-]
-        internal virtual string TryGetAlertType(StringSlice line)
+        /// <summary>
+        /// Retrieves alert type name from <paramref name="line"/>. An alert type name is simply a sequence of characters from the regex set [A-Za-z0-9_-].
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns>
+        /// The alert type name if successful, null otherwise.
+        /// </returns>
+        internal virtual string TryGetAlertTypeName(StringSlice line)
         {
             StringSlice duplicateLine = line;
             char c = duplicateLine.CurrentChar;
@@ -130,7 +150,7 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
             while (c != '\0')
             {
                 if (c >= 65 && c <= 90 || // A-Z
-                    c >= 61 && c <= 122 || // a-z
+                    c >= 97 && c <= 122 || // a-z
                     c == '_' ||
                     c == '-')
                 {
