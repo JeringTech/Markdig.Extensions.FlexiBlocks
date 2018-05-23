@@ -9,7 +9,7 @@ using Xunit;
 
 namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
 {
-    public class AlertsParserIntegrationTests
+    public class AlertBlockParserIntegrationTests
     {
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
 
@@ -19,10 +19,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Column = 4; // IsCodeIndent is an expression bodied member that derives its value from Column
-            AlertsParser alertsParser = CreateAlertsParser();
+            AlertBlockParser alertBlockParser = CreateAlertBlockParser();
 
             // Act
-            BlockState result = alertsParser.TryOpen(dummyBlockProcessor);
+            BlockState result = alertBlockParser.TryOpen(dummyBlockProcessor);
 
             // Assert
             Assert.Equal(BlockState.None, result);
@@ -37,12 +37,12 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = dummyStringSlice;
             dummyBlockProcessor.Line.Start = dummyLineStart;
-            Mock<AlertsParser> mockAlertsParser = CreateMockAlertsParser();
-            mockAlertsParser.CallBase = true;
-            mockAlertsParser.Setup(a => a.TryGetAlertTypeName(It.IsAny<StringSlice>())).Returns((string)null);
+            Mock<AlertBlockParser> mockAlertBlockParser = CreateMockAlertBlockParser();
+            mockAlertBlockParser.CallBase = true;
+            mockAlertBlockParser.Setup(a => a.TryGetAlertTypeName(It.IsAny<StringSlice>())).Returns((string)null);
 
             // Act
-            BlockState result = mockAlertsParser.Object.TryOpen(dummyBlockProcessor);
+            BlockState result = mockAlertBlockParser.Object.TryOpen(dummyBlockProcessor);
 
             // Assert
             _mockRepository.VerifyAll();
@@ -63,13 +63,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
             dummyBlockProcessor.Line = dummyStringSlice;
             dummyBlockProcessor.Column = dummyInitialColumn;
             dummyBlockProcessor.Line.Start = dummyInitialStart;
-            Mock<AlertsParser> mockAlertsParser = CreateMockAlertsParser();
-            mockAlertsParser.CallBase = true;
-            mockAlertsParser.Setup(a => a.TryGetAlertTypeName(It.IsAny<StringSlice>())).Returns(dummyAlertTypeName);
-            mockAlertsParser.Setup(a => a.CreateAlertOptions(dummyBlockProcessor, dummyAlertTypeName)).Returns(dummyAlertBlockOptions);
+            Mock<AlertBlockParser> mockAlertBlockParser = CreateMockAlertBlockParser();
+            mockAlertBlockParser.CallBase = true;
+            mockAlertBlockParser.Setup(a => a.TryGetAlertTypeName(It.IsAny<StringSlice>())).Returns(dummyAlertTypeName);
+            mockAlertBlockParser.Setup(a => a.CreateAlertBlockOptions(dummyBlockProcessor, dummyAlertTypeName)).Returns(dummyAlertBlockOptions);
 
             // Act
-            BlockState result = mockAlertsParser.Object.TryOpen(dummyBlockProcessor);
+            BlockState result = mockAlertBlockParser.Object.TryOpen(dummyBlockProcessor);
 
             // Assert
             _mockRepository.VerifyAll();
@@ -89,10 +89,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Column = 4; // IsCodeIndent is an expression bodied member that derives its value from Column
-            AlertsParser alertsParser = CreateAlertsParser();
+            AlertBlockParser alertBlockParser = CreateAlertBlockParser();
 
             // Act
-            BlockState result = alertsParser.TryContinue(dummyBlockProcessor, null);
+            BlockState result = alertBlockParser.TryContinue(dummyBlockProcessor, null);
 
             // Assert
             Assert.Equal(BlockState.None, result);
@@ -105,10 +105,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
             var dummyStringSlice = new StringSlice("dummyString");
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = dummyStringSlice;
-            AlertsParser alertsParser = CreateAlertsParser();
+            AlertBlockParser alertBlockParser = CreateAlertBlockParser();
 
             // Act
-            BlockState result = alertsParser.TryContinue(dummyBlockProcessor, null);
+            BlockState result = alertBlockParser.TryContinue(dummyBlockProcessor, null);
 
             // Assert
             Assert.Equal(BlockState.None, result);
@@ -121,10 +121,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
             var dummyStringSlice = new StringSlice("");
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = dummyStringSlice;
-            AlertsParser alertsParser = CreateAlertsParser();
+            AlertBlockParser alertBlockParser = CreateAlertBlockParser();
 
             // Act
-            BlockState result = alertsParser.TryContinue(dummyBlockProcessor, null);
+            BlockState result = alertBlockParser.TryContinue(dummyBlockProcessor, null);
 
             // Assert
             Assert.Equal(BlockState.BreakDiscard, result);
@@ -138,10 +138,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = dummyStringSlice;
             var dummyAlertBlock = new AlertBlock(null);
-            AlertsParser alertsParser = CreateAlertsParser();
+            AlertBlockParser alertBlockParser = CreateAlertBlockParser();
 
             // Act
-            BlockState result = alertsParser.TryContinue(dummyBlockProcessor, dummyAlertBlock);
+            BlockState result = alertBlockParser.TryContinue(dummyBlockProcessor, dummyAlertBlock);
 
             // Assert
             Assert.Equal(BlockState.Continue, result);
@@ -149,10 +149,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
         }
 
         [Theory]
-        [MemberData(nameof(CreateAlertOptions_CreatesAlertOptions_Data))]
-        public void CreateAlertOptions_CreatesAlertOptions(
+        [MemberData(nameof(CreateAlertBlockOptions_CreatesAlertBlockOptions_Data))]
+        public void CreateAlertBlockOptions_CreatesAlertBlockOptions(
             string dummyAlertTypeName,
-            AlertsOptions dummyAlertsOptions,
+            AlertsExtensionOptions dummyAlertsExtensionOptions,
             AlertBlockOptions dummyJsonAlertBlockOptions,
             AlertBlockOptions expectedResult)
         {
@@ -167,17 +167,17 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
                     a.IconMarkup = dummyJsonAlertBlockOptions.IconMarkup;
                     dummyJsonAlertBlockOptions.Attributes.ToList().ForEach(x => a.Attributes[x.Key] = x.Value); // Overwrite default AlertBlockOptions with JSON AlertBlockOptions
                 });
-            AlertsParser alertsParser = CreateAlertsParser(dummyAlertsOptions, mockJsonOptionsService.Object);
+            AlertBlockParser alertBlockParser = CreateAlertBlockParser(dummyAlertsExtensionOptions, mockJsonOptionsService.Object);
 
             // Act
-            AlertBlockOptions result = alertsParser.CreateAlertOptions(dummyBlockProcessor, dummyAlertTypeName);
+            AlertBlockOptions result = alertBlockParser.CreateAlertBlockOptions(dummyBlockProcessor, dummyAlertTypeName);
 
             // Assert
             Assert.Equal(expectedResult.IconMarkup, result.IconMarkup);
             Assert.Equal(expectedResult.Attributes, result.Attributes); // xunit checks KeyPairValues when determing equality of dictionaries - https://github.com/xunit/xunit/blob/master/test/test.xunit.assert/Asserts/CollectionAssertsTests.cs#L648
         }
 
-        public static IEnumerable<object[]> CreateAlertOptions_CreatesAlertOptions_Data()
+        public static IEnumerable<object[]> CreateAlertBlockOptions_CreatesAlertBlockOptions_Data()
         {
             const string dummyAlertTypeName = "dummyAlertTypeName";
             const string dummyIconMarkup = "dummyIconMarkup";
@@ -185,10 +185,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
 
             return new object[][]
             {
-                // Using AlertsOptions.IconMarkups
+                // Using AlertsExtensionOptions.IconMarkups
                 new object[] {
                     dummyAlertTypeName,
-                    new AlertsOptions() {
+                    new AlertsExtensionOptions() {
                         IconMarkups = new Dictionary<string, string>() {
                             { dummyAlertTypeName, dummyIconMarkup}
                         }
@@ -204,7 +204,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
                 // Using JsonOptions
                 new object[] {
                     dummyAlertTypeName,
-                    new AlertsOptions(),
+                    new AlertsExtensionOptions(),
                     new AlertBlockOptions() {
                         IconMarkup = dummyIconMarkup,
                         Attributes = new Dictionary<string, string>(){ { "class", dummyClass } }
@@ -219,7 +219,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
                 // Using Default AlertBlockOptions
                 new object[] {
                     dummyAlertTypeName,
-                    new AlertsOptions() {
+                    new AlertsExtensionOptions() {
                         DefaultAlertBlockOptions = new AlertBlockOptions() {
                             IconMarkup = dummyIconMarkup,
                             Attributes = new Dictionary<string, string>(){ { "class", dummyClass } }
@@ -242,10 +242,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
         {
             // Arrange
             var dummyStringSlice = new StringSlice(dummyString);
-            AlertsParser alertsParser = CreateAlertsParser();
+            AlertBlockParser alertBlockParser = CreateAlertBlockParser();
 
             // Act
-            string result = alertsParser.TryGetAlertTypeName(dummyStringSlice);
+            string result = alertBlockParser.TryGetAlertTypeName(dummyStringSlice);
 
             // Assert
             Assert.Null(result);
@@ -267,10 +267,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
         {
             // Arrange
             var dummyStringSlice = new StringSlice(dummyString);
-            AlertsParser alertsParser = CreateAlertsParser();
+            AlertBlockParser alertBlockParser = CreateAlertBlockParser();
 
             // Act
-            string result = alertsParser.TryGetAlertTypeName(dummyStringSlice);
+            string result = alertBlockParser.TryGetAlertTypeName(dummyStringSlice);
 
             // Assert
             Assert.Equal(expectedAlertTypeName, result);
@@ -286,19 +286,19 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
             };
         }
 
-        private AlertsParser CreateAlertsParser(AlertsOptions alertsOptions = null,
+        private AlertBlockParser CreateAlertBlockParser(AlertsExtensionOptions alertsExtensionOptions = null,
             JsonOptionsService jsonOptionsService = null)
         {
-            return new AlertsParser(
-                alertsOptions ?? new AlertsOptions(),
+            return new AlertBlockParser(
+                alertsExtensionOptions ?? new AlertsExtensionOptions(),
                 jsonOptionsService ?? new JsonOptionsService());
         }
 
-        private Mock<AlertsParser> CreateMockAlertsParser(AlertsOptions alertsOptions = null,
+        private Mock<AlertBlockParser> CreateMockAlertBlockParser(AlertsExtensionOptions alertsExtensionOptions = null,
             JsonOptionsService jsonOptionsService = null)
         {
-            return _mockRepository.Create<AlertsParser>(
-                alertsOptions ?? new AlertsOptions(),
+            return _mockRepository.Create<AlertBlockParser>(
+                alertsExtensionOptions ?? new AlertsExtensionOptions(),
                 jsonOptionsService ?? new JsonOptionsService());
         }
     }

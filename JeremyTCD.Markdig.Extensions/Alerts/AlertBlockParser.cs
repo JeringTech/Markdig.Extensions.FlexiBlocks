@@ -5,22 +5,22 @@ using Markdig.Syntax;
 
 namespace JeremyTCD.Markdig.Extensions.Alerts
 {
-    public class AlertsParser : BlockParser
+    public class AlertBlockParser : BlockParser
     {
-        private readonly AlertsOptions _alertsOptions;
+        private readonly AlertsExtensionOptions _alertsExtensionOptions;
         private readonly JsonOptionsService _jsonOptionsService;
 
         /// <summary>
-        /// Initializes an instance of type <see cref="AlertsParser"/>.
+        /// Initializes an instance of type <see cref="AlertBlockParser"/>.
         /// </summary>
-        /// <param name="alertsOptions"></param>
+        /// <param name="alertsExtensionOptions"></param>
         /// <param name="jsonOptionsService"></param>
-        public AlertsParser(AlertsOptions alertsOptions,
+        public AlertBlockParser(AlertsExtensionOptions alertsExtensionOptions,
             JsonOptionsService jsonOptionsService)
         {
             OpeningCharacters = new[] { '!' };
 
-            _alertsOptions = alertsOptions;
+            _alertsExtensionOptions = alertsExtensionOptions;
             _jsonOptionsService = jsonOptionsService;
         }
 
@@ -58,7 +58,7 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
             }
 
             // Create options
-            AlertBlockOptions alertBlockOptions = CreateAlertOptions(processor, alertTypeName);
+            AlertBlockOptions alertBlockOptions = CreateAlertBlockOptions(processor, alertTypeName);
 
             processor.NewBlocks.Push(new AlertBlock(this)
             {
@@ -108,14 +108,14 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="alertTypeName"></param>
-        internal virtual AlertBlockOptions CreateAlertOptions(BlockProcessor processor, string alertTypeName)
+        internal virtual AlertBlockOptions CreateAlertBlockOptions(BlockProcessor processor, string alertTypeName)
         {
-            AlertBlockOptions result = _alertsOptions.DefaultAlertBlockOptions.Clone();
+            AlertBlockOptions result = _alertsExtensionOptions.DefaultAlertBlockOptions.Clone();
 
             _jsonOptionsService.TryPopulateOptions(processor, result);
 
             // Set icon element (precedence - JSON options > default AlertBlockOptions > AlertOptions.IconMarkups)
-            if (result.IconMarkup == null && _alertsOptions.IconMarkups.TryGetValue(alertTypeName, out string iconMarkup))
+            if (result.IconMarkup == null && _alertsExtensionOptions.IconMarkups.TryGetValue(alertTypeName, out string iconMarkup))
             {
                 result.IconMarkup = iconMarkup;
             }

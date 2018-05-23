@@ -8,7 +8,7 @@ using Xunit;
 
 namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
 {
-    public class AlertsRendererIntegrationTests
+    public class AlertBlockRendererIntegrationTests
     {
         [Theory]
         [MemberData(nameof(Write_WritesAttributesAndIconMarkup_Data))]
@@ -19,10 +19,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                var alertsRenderer = new AlertsRenderer();
+                var alertBlockRenderer = new AlertBlockRenderer();
 
                 // Act
-                alertsRenderer.Write(dummyHtmlRenderer, dummyAlertBlock);
+                alertBlockRenderer.Write(dummyHtmlRenderer, dummyAlertBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -83,10 +83,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                var alertsRenderer = new AlertsRenderer();
+                var alertBlockRenderer = new AlertBlockRenderer();
 
                 // Act
-                alertsRenderer.Write(dummyHtmlRenderer, dummyAlertBlock);
+                alertBlockRenderer.Write(dummyHtmlRenderer, dummyAlertBlock);
                 result = dummyStringWriter.ToString();
             }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace JeremyTCD.Markdig.Extensions.Alerts
 {
-    public class AlertsOptions
+    public class AlertsExtensionOptions
     {
         /// <summary>
         /// Map of alert type names to icon markup.

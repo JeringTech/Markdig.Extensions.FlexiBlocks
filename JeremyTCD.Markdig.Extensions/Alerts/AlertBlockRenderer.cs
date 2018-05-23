@@ -3,7 +3,7 @@ using Markdig.Renderers.Html;
 
 namespace JeremyTCD.Markdig.Extensions.Alerts
 {
-    public class AlertsRenderer : HtmlObjectRenderer<AlertBlock>
+    public class AlertBlockRenderer : HtmlObjectRenderer<AlertBlock>
     {
         protected override void Write(HtmlRenderer renderer, AlertBlock obj)
         {

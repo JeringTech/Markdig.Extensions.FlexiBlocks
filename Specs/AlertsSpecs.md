@@ -66,7 +66,7 @@ the warning.</p>
 </div>
 ````````````````````````````````
 
-`AlertsOptions.IconMarkups` can be used to define icon element markup for alert types:
+`AlertsExtensionOptions.IconMarkups` can be used to define icon element markup for alert types:
 
 ```````````````````````````````` options
 {

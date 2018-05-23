@@ -13397,7 +13397,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
                 "all");
         }
 
-        // `AlertsOptions.IconMarkups` can be used to define icon element markup for alert types:
+        // `AlertsExtensionOptions.IconMarkups` can be used to define icon element markup for alert types:
         [Fact]
         public void Alerts_Spec6_jsonoptions_alerts()
         {
@@ -13438,7 +13438,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
                 "{\n    \"alerts\": {\n        \"iconMarkups\": {\n            \"warning\": \"<svg><use xlink:href=\\\"#warning-icon\\\"></use></svg>\",\n            \"information\": \"<svg><use xlink:href=\\\"#information-icon\\\"></use></svg>\"\n        }\n    }\n}");
         }
 
-        // `AlertsOptions.IconMarkups` can be used to define icon element markup for alert types:
+        // `AlertsExtensionOptions.IconMarkups` can be used to define icon element markup for alert types:
         [Fact]
         public void Alerts_Spec6_all()
         {

@@ -17,7 +17,7 @@ namespace JeremyTCD.Markdig.Extensions
             return pipelineBuilder;
         }
 
-        public static MarkdownPipelineBuilder UseAlerts(this MarkdownPipelineBuilder pipelineBuilder, AlertsOptions options = null)
+        public static MarkdownPipelineBuilder UseAlerts(this MarkdownPipelineBuilder pipelineBuilder, AlertsExtensionOptions options = null)
         {
             if (!pipelineBuilder.Extensions.Contains<AlertsExtension>())
             {
