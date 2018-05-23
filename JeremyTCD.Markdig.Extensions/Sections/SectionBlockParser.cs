@@ -63,6 +63,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
 
             SectionBlockOptions sectionBlockOptions = CreateSectionOptions(processor, newHeadingBlock.Level);
 
+            // Set heading block icon markup 
             if (!string.IsNullOrWhiteSpace(sectionBlockOptions.IconMarkup))
             {
                 newHeadingBlock.SetData(ICON_MARKUP_KEY, sectionBlockOptions.IconMarkup);

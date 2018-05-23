@@ -31,11 +31,9 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             Assert.Equal(BlockState.None, result);
         }
 
-
-
         [Theory]
         [MemberData(nameof(TryOpen_ReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined_Data))]
-        public void TryOpen_ReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined(SectionBlockOptions dummySectionBlockOptions)
+        public void TryOpen_SetsHeadingBlockIconMarkupAndReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined(SectionBlockOptions dummySectionBlockOptions, string expectedIconMarkup)
         {
             // Arrange
             const int dummyHeadingLevel = 1;
@@ -54,35 +52,44 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             // Assert
             _mockRepository.VerifyAll();
             Assert.Equal(BlockState.Break, result);
+            Assert.Equal(expectedIconMarkup, dummyHeadingBlock.GetData(SectionBlockParser.ICON_MARKUP_KEY));
         }
 
         public static IEnumerable<object[]> TryOpen_ReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined_Data()
         {
+            const string dummyIconMarkup = "dummyIconMarkup";
+
             return new object[][]
             {
-                new object[]{ new SectionBlockOptions() { WrapperElement = SectioningContentElement.None } },
-                new object[]{ new SectionBlockOptions() { WrapperElement = SectioningContentElement.Undefined } }
+                new object[]{ new SectionBlockOptions() { WrapperElement = SectioningContentElement.None, IconMarkup = dummyIconMarkup }, dummyIconMarkup },
+                new object[]{ new SectionBlockOptions() { WrapperElement = SectioningContentElement.Undefined }, null }
             };
         }
 
         [Fact]
-        public void TryOpen_IfSuccessfulCreatesNewSectionBlockAndReturnsBlockStateContinue()
+        public void TryOpen_IfSuccessfulSetsHeadingBlockIconMarkupCreatesNewSectionBlockAndReturnsBlockStateContinue()
         {
             // Arrange
             const int dummyLevel = 2;
             const int dummyColumn = 1;
+            const string dummyIconMarkup = "dummyIconMarkup";
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<HeadingBlockParser> mockHeadingBlockParser = _mockRepository.Create<HeadingBlockParser>();
             mockHeadingBlockParser.Setup(h => h.TryOpen(dummyBlockProcessor)).Returns(BlockState.Break);
             var dummySourceSpan = new SourceSpan(3, 4);
             var dummyHeadingBlock = new HeadingBlock(null) { Level = dummyLevel, Column = dummyColumn, Span = dummySourceSpan };
             dummyBlockProcessor.NewBlocks.Push(dummyHeadingBlock);
-            Mock<JsonOptionsService> mockJsonOptionsService = _mockRepository.Create<JsonOptionsService>();
-            mockJsonOptionsService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<SectionBlockOptions>())); // A clone of dummySectionBlockOptions is passed to TryPopulateOptions
-            SectionBlockParser sectionBlockParser = CreateSectionBlockParser(headingBlockParser: mockHeadingBlockParser.Object, jsonOptionsService: mockJsonOptionsService.Object);
+            var dummySectionBlockOptions = new SectionBlockOptions()
+            {
+                IconMarkup = dummyIconMarkup,
+                WrapperElement = SectioningContentElement.Section // Anything other than undefined and none to avoid break
+            };
+            Mock<SectionBlockParser> sectionBlockParser = CreateMockSectionBlockParser(headingBlockParser: mockHeadingBlockParser.Object);
+            sectionBlockParser.CallBase = true;
+            sectionBlockParser.Setup(s => s.CreateSectionOptions(dummyBlockProcessor, dummyLevel)).Returns(dummySectionBlockOptions);
 
             // Act
-            BlockState result = sectionBlockParser.TryOpen(dummyBlockProcessor);
+            BlockState result = sectionBlockParser.Object.TryOpen(dummyBlockProcessor);
 
             // Assert
             _mockRepository.VerifyAll();
@@ -92,6 +99,8 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             Assert.Equal(dummyLevel, resultSectionBlock.Level);
             Assert.Equal(dummyColumn, resultSectionBlock.Column);
             Assert.Equal(dummySourceSpan, resultSectionBlock.Span); // SourceSpan is a struct, so object.Equals tests for value equality (not reference equality)
+            Assert.Same(dummySectionBlockOptions, resultSectionBlock.SectionBlockOptions);
+            Assert.Equal(dummyIconMarkup, dummyHeadingBlock.GetData(SectionBlockParser.ICON_MARKUP_KEY));
         }
 
         [Fact]
