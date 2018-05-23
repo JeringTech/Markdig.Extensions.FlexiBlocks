@@ -17,11 +17,11 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             {
                 { "genericattributes", (MarkdownPipelineBuilder builder, JObject _) => builder.UseGenericAttributes() },
                 { "jsonoptions", (MarkdownPipelineBuilder builder, JObject _) => builder.UseJsonOptions() },
-                { "sections", (MarkdownPipelineBuilder builder, JObject options) => builder.UseSections(options?["sections"]?.ToObject<SectionsOptions>()) },
+                { "sections", (MarkdownPipelineBuilder builder, JObject options) => builder.UseSections(options?["sections"]?.ToObject<SectionsExtensionOptions>()) },
                 { "alerts", (MarkdownPipelineBuilder builder, JObject options) => builder.UseAlerts(options?["alerts"]?.ToObject<AlertsExtensionOptions>()) },
                 { "all", (MarkdownPipelineBuilder builder, JObject options) => {
                     builder.
-                        UseSections(options?["sections"]?.ToObject<SectionsOptions>()).
+                        UseSections(options?["sections"]?.ToObject<SectionsExtensionOptions>()).
                         UseAlerts(options?["alerts"]?.ToObject<AlertsExtensionOptions>()).
                         UseJsonOptions();
                 } },

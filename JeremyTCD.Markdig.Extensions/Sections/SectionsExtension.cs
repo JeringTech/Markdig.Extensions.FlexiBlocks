@@ -10,16 +10,16 @@ namespace JeremyTCD.Markdig.Extensions.Sections
     /// </summary>
     public class SectionsExtension : IMarkdownExtension
     {
-        private readonly SectionsOptions _options;
+        private readonly SectionsExtensionOptions _options;
 
-        public SectionsExtension(SectionsOptions options)
+        public SectionsExtension(SectionsExtensionOptions options)
         {
-            _options = options ?? new SectionsOptions();
+            _options = options ?? new SectionsExtensionOptions();
         }
 
         public void Setup(MarkdownPipelineBuilder pipeline)
         {
-            if (!pipeline.BlockParsers.Contains<SectionsParser>())
+            if (!pipeline.BlockParsers.Contains<SectionBlockParser>())
             {
                 HeadingBlockParser headingBlockParser = pipeline.BlockParsers.Find<HeadingBlockParser>();
                 if (headingBlockParser != null)
@@ -35,16 +35,16 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                 var autoLinkService = new AutoLinkService();
                 var identifierService = new IdentifierService();
                 var jsonOptionsService = new JsonOptionsService();
-                var sectionsParser = new SectionsParser(_options, headingBlockParser, autoLinkService, identifierService, jsonOptionsService);
-                pipeline.BlockParsers.Insert(0, sectionsParser);
+                var sectionBlockParser = new SectionBlockParser(_options, headingBlockParser, autoLinkService, identifierService, jsonOptionsService);
+                pipeline.BlockParsers.Insert(0, sectionBlockParser);
             }
         }
 
         public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
-            if (renderer is HtmlRenderer htmlRenderer && !htmlRenderer.ObjectRenderers.Contains<SectionsRenderer>())
+            if (renderer is HtmlRenderer htmlRenderer && !htmlRenderer.ObjectRenderers.Contains<SectionBlockRenderer>())
             {
-                htmlRenderer.ObjectRenderers.Insert(0, new SectionsRenderer());
+                htmlRenderer.ObjectRenderers.Insert(0, new SectionBlockRenderer());
             }
         }
     }

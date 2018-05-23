@@ -6,23 +6,24 @@ using System.Linq;
 
 namespace JeremyTCD.Markdig.Extensions.Sections
 {
-    public class SectionsParser : BlockParser
+    public class SectionBlockParser : BlockParser
     {
+        public const string ICON_MARKUP_KEY = "iconMarkup";
         private readonly HeadingBlockParser _headingBlockParser;
-        private readonly SectionsOptions _sectionsOptions;
+        private readonly SectionsExtensionOptions _sectionsExtensionOptions;
         private readonly JsonOptionsService _jsonOptionsService;
         private readonly AutoLinkService _autoLinkService;
         private readonly IdentifierService _identifierService;
 
         /// <summary>
-        /// Initializes an instance of type <see cref="SectionsParser"/>.
+        /// Initializes an instance of type <see cref="SectionBlockParser"/>.
         /// </summary>
-        /// <param name="sectionsOptions"></param>
+        /// <param name="sectionsExtensionOptions"></param>
         /// <param name="headingBlockParser"></param>
         /// <param name="autoLinkService"></param>
         /// <param name="identifierService"></param>
         /// <param name="jsonOptionsService"></param>
-        public SectionsParser(SectionsOptions sectionsOptions,
+        public SectionBlockParser(SectionsExtensionOptions sectionsExtensionOptions,
             HeadingBlockParser headingBlockParser,
             AutoLinkService autoLinkService,
             IdentifierService identifierService,
@@ -31,7 +32,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
             OpeningCharacters = new[] { '#' };
             Closed += SectionBlockOnClosed;
 
-            _sectionsOptions = sectionsOptions;
+            _sectionsExtensionOptions = sectionsExtensionOptions;
             _headingBlockParser = headingBlockParser;
             _autoLinkService = autoLinkService;
             _identifierService = identifierService;
@@ -59,7 +60,13 @@ namespace JeremyTCD.Markdig.Extensions.Sections
             }
 
             var newHeadingBlock = (HeadingBlock)processor.NewBlocks.Peek();
+
             SectionBlockOptions sectionBlockOptions = CreateSectionOptions(processor, newHeadingBlock.Level);
+
+            if (!string.IsNullOrWhiteSpace(sectionBlockOptions.IconMarkup))
+            {
+                newHeadingBlock.SetData(ICON_MARKUP_KEY, sectionBlockOptions.IconMarkup);
+            }
 
             // Optionally, don't open a section block (typically useful for an outermost, level 1 heading that will reside in an existing SectioningContentElement)
             if (sectionBlockOptions.WrapperElement.CompareTo(SectioningContentElement.None) <= 0)
@@ -134,14 +141,14 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         /// <param name="blockLevel"></param>
         internal virtual SectionBlockOptions CreateSectionOptions(BlockProcessor processor, int blockLevel)
         {
-            SectionBlockOptions result = _sectionsOptions.DefaultSectionBlockOptions.Clone();
+            SectionBlockOptions result = _sectionsExtensionOptions.DefaultSectionBlockOptions.Clone();
 
             // Apply JSON options if they exist
             _jsonOptionsService.TryPopulateOptions(processor, result);
 
             if (result.WrapperElement == SectioningContentElement.Undefined)
             {
-                result.WrapperElement = blockLevel == 1 ? _sectionsOptions.Level1WrapperElement : _sectionsOptions.Level2PlusWrapperElement;
+                result.WrapperElement = blockLevel == 1 ? _sectionsExtensionOptions.Level1WrapperElement : _sectionsExtensionOptions.Level2PlusWrapperElement;
             }
 
             return result;

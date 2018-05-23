@@ -3,7 +3,7 @@ using Markdig.Renderers.Html;
 
 namespace JeremyTCD.Markdig.Extensions.Sections
 {
-    public class SectionsRenderer : HtmlObjectRenderer<SectionBlock>
+    public class SectionBlockRenderer : HtmlObjectRenderer<SectionBlock>
     {
         protected override void Write(HtmlRenderer renderer, SectionBlock obj)
         {

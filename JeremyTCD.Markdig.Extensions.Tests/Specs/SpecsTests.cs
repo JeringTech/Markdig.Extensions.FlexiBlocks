@@ -12739,7 +12739,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
                 "all");
         }
 
-        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
+        // To enable wrapping of level 1 headers, set `SectionsExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
         [Fact]
         public void Sections_Spec6_jsonoptions_sections()
         {
@@ -12768,7 +12768,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
                 "{\n    \"sections\": {\n        \"level1WrapperElement\": \"article\"\n    }\n}");
         }
 
-        // To enable wrapping of level 1 headers, set `SectionExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
+        // To enable wrapping of level 1 headers, set `SectionsExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
         [Fact]
         public void Sections_Spec6_all()
         {
@@ -12797,7 +12797,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
                 "{\n    \"sections\": {\n        \"level1WrapperElement\": \"article\"\n    }\n}");
         }
 
-        // To change the element used to wrap level 2+ headers, set `SectionExtensionOptions.Level2PlusWrapperElement". For example:
+        // To change the element used to wrap level 2+ headers, set `SectionsExtensionOptions.Level2PlusWrapperElement". For example:
         [Fact]
         public void Sections_Spec7_jsonoptions_sections()
         {
@@ -12822,7 +12822,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
                 "{\n    \"sections\": {\n        \"level2PlusWrapperElement\": \"nav\"\n    }\n}");
         }
 
-        // To change the element used to wrap level 2+ headers, set `SectionExtensionOptions.Level2PlusWrapperElement". For example:
+        // To change the element used to wrap level 2+ headers, set `SectionsExtensionOptions.Level2PlusWrapperElement". For example:
         [Fact]
         public void Sections_Spec7_all()
         {
@@ -12881,7 +12881,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
                 "all");
         }
 
-        // Auto generation of IDs can be disabled by setting `SectionExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
+        // Auto generation of IDs can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
         [Fact]
         public void Sections_Spec9_jsonoptions_sections()
         {
@@ -12908,7 +12908,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
                 "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
         }
 
-        // Auto generation of IDs can be disabled by setting `SectionExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
+        // Auto generation of IDs can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
         [Fact]
         public void Sections_Spec9_all()
         {
@@ -13001,8 +13001,8 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
                 "all");
         }
 
-        // Linking to sections by the text content of their headings can be disabled by setting `SectionExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
-        // that linking to sections is also disabled if `SectionExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
+        // Linking to sections by the text content of their headings can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
+        // that linking to sections is also disabled if `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
         [Fact]
         public void Sections_Spec11_jsonoptions_sections()
         {
@@ -13045,8 +13045,8 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
                 "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
         }
 
-        // Linking to sections by the text content of their headings can be disabled by setting `SectionExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
-        // that linking to sections is also disabled if `SectionExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
+        // Linking to sections by the text content of their headings can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
+        // that linking to sections is also disabled if `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
         [Fact]
         public void Sections_Spec11_all()
         {

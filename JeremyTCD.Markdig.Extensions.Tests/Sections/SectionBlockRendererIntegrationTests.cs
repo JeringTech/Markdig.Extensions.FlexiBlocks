@@ -8,7 +8,7 @@ using Xunit;
 
 namespace JeremyTCD.Markdig.Extensions.Tests.Sections
 {
-    public class SectionsRendererIntegrationTests
+    public class SectionBlockRendererIntegrationTests
     {
         [Fact]
         public void Write_WritesWrapperAttributesAndChildren()
@@ -37,10 +37,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                var sectionsRenderer = new SectionsRenderer();
+                var sectionBlockRenderer = new SectionBlockRenderer();
 
                 // Act
-                sectionsRenderer.Write(dummyHtmlRenderer, dummySectionBlock);
+                sectionBlockRenderer.Write(dummyHtmlRenderer, dummySectionBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -73,10 +73,10 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                var sectionsRenderer = new SectionsRenderer();
+                var sectionBlockRenderer = new SectionBlockRenderer();
 
                 // Act
-                sectionsRenderer.Write(dummyHtmlRenderer, dummySectionBlock);
+                sectionBlockRenderer.Write(dummyHtmlRenderer, dummySectionBlock);
                 result = dummyStringWriter.ToString();
             }
 

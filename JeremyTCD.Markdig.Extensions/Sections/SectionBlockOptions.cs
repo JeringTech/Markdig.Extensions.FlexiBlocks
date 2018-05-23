@@ -6,6 +6,11 @@ namespace JeremyTCD.Markdig.Extensions.Sections
     public class SectionBlockOptions : IMarkdownObjectOptions<SectionBlockOptions>
     {
         /// <summary>
+        /// Markup for an icon. If specified, rendered as part of the section's header.
+        /// </summary>
+        public string IconMarkup { get; set; }
+
+        /// <summary>
         /// <see cref="IdentifierService"/>.
         /// </summary>
         public bool GenerateIdentifier { get; set; } = true;

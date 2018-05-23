@@ -7,7 +7,7 @@ namespace JeremyTCD.Markdig.Extensions
 {
     public static class UseExtensions
     {
-        public static MarkdownPipelineBuilder UseSections(this MarkdownPipelineBuilder pipelineBuilder, SectionsOptions options = null)
+        public static MarkdownPipelineBuilder UseSections(this MarkdownPipelineBuilder pipelineBuilder, SectionsExtensionOptions options = null)
         {
             if (!pipelineBuilder.Extensions.Contains<SectionsExtension>())
             {

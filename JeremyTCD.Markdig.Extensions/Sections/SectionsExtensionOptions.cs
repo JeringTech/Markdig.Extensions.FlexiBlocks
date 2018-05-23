@@ -1,6 +1,6 @@
 ﻿namespace JeremyTCD.Markdig.Extensions.Sections
 {
-    public class SectionsOptions
+    public class SectionsExtensionOptions
     {
         /// <summary>
         /// Used if section's level is 1.
