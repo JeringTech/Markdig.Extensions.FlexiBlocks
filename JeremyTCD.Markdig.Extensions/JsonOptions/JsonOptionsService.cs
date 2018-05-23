@@ -101,7 +101,7 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
         /// </exception>
         public virtual JsonOptionsBlock TryGetJsonOptionsBlock(BlockProcessor processor)
         {
-            if (processor.Document.GetData(JsonOptionsParser.JSON_OPTIONS) is JsonOptionsBlock jsonOptionsBlock)
+            if (processor.Document.GetData(JsonOptionsBlockParser.JSON_OPTIONS) is JsonOptionsBlock jsonOptionsBlock)
             {
                 if (jsonOptionsBlock.EndLine + 1 != processor.LineIndex)
                 {
@@ -111,7 +111,7 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
                         jsonOptionsBlock.Column));
                 }
 
-                processor.Document.RemoveData(JsonOptionsParser.JSON_OPTIONS);
+                processor.Document.RemoveData(JsonOptionsBlockParser.JSON_OPTIONS);
 
                 return jsonOptionsBlock;
             }

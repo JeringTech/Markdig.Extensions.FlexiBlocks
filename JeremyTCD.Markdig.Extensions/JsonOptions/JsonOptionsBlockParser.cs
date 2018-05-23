@@ -5,11 +5,11 @@ using System;
 
 namespace JeremyTCD.Markdig.Extensions.JsonOptions
 {
-    public class JsonOptionsParser : BlockParser
+    public class JsonOptionsBlockParser : BlockParser
     {
         public const string JSON_OPTIONS = "jsonOptions";
 
-        public JsonOptionsParser()
+        public JsonOptionsBlockParser()
         {
             // If options block is not consumed by the following block, it is rendered as a paragraph or in the preceding paragraph, so {, despite being common, should work fine.
             OpeningCharacters = new[] { '@' };

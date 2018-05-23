@@ -180,7 +180,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
                 Lines = new StringLineGroup(dummyJson)
             };
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Document.SetData(JsonOptionsParser.JSON_OPTIONS, dummyJsonOptionsBlock);
+            dummyBlockProcessor.Document.SetData(JsonOptionsBlockParser.JSON_OPTIONS, dummyJsonOptionsBlock);
             dummyBlockProcessor.LineIndex = dummyEndLine + 2; // 1 line gap between options block and current line
             var jsonOptionsService = new JsonOptionsService();
 
@@ -203,7 +203,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
                 EndLine = dummyEndLine
             };
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Document.SetData(JsonOptionsParser.JSON_OPTIONS, dummyJsonOptionsBlock);
+            dummyBlockProcessor.Document.SetData(JsonOptionsBlockParser.JSON_OPTIONS, dummyJsonOptionsBlock);
             dummyBlockProcessor.LineIndex = dummyEndLine + 1; // 1 line gap between options block and current line
             var jsonOptionsService = new JsonOptionsService();
 
@@ -212,7 +212,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.JsonOptions
 
             // Assert
             Assert.Same(dummyJsonOptionsBlock, result);
-            Assert.Null(dummyBlockProcessor.Document.GetData(JsonOptionsParser.JSON_OPTIONS));
+            Assert.Null(dummyBlockProcessor.Document.GetData(JsonOptionsBlockParser.JSON_OPTIONS));
         }
 
         private class TestOptions

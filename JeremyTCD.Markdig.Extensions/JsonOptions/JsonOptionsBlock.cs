@@ -7,7 +7,7 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
     /// </summary>
     public class JsonOptionsBlock : LeafBlock
     {
-        public JsonOptionsBlock(JsonOptionsParser parser) : base(parser)
+        public JsonOptionsBlock(JsonOptionsBlockParser parser) : base(parser)
         {
         }
 

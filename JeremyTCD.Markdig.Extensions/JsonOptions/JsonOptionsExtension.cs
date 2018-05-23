@@ -7,9 +7,9 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
     {
         public void Setup(MarkdownPipelineBuilder pipeline)
         {
-            if (!pipeline.BlockParsers.Contains<JsonOptionsParser>())
+            if (!pipeline.BlockParsers.Contains<JsonOptionsBlockParser>())
             {
-                pipeline.BlockParsers.Insert(0, new JsonOptionsParser());
+                pipeline.BlockParsers.Insert(0, new JsonOptionsBlockParser());
             }
         }
 
