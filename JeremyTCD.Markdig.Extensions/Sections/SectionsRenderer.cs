@@ -20,16 +20,24 @@ namespace JeremyTCD.Markdig.Extensions.Sections
 
             string elementName = sectionBlockOptions.WrapperElement.ToString().ToLower();
 
-            renderer.
-                Write("<").
-                Write(elementName).
-                WriteCustomAttributes(sectionBlockOptions.Attributes).
-                WriteLine(">");
-            renderer.WriteChildren(obj);
-            renderer.
-                Write("</").
-                Write(elementName).
-                WriteLine(">");
+            if (renderer.EnableHtmlForBlock)
+            {
+                renderer.
+                    Write("<").
+                    Write(elementName).
+                    WriteCustomAttributes(sectionBlockOptions.Attributes).
+                    WriteLine(">");
+            }
+
+            renderer.WriteChildren(obj, false);
+
+            if (renderer.EnableHtmlForBlock)
+            {
+                renderer.
+                    Write("</").
+                    Write(elementName).
+                    WriteLine(">");
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Markdig.Renderers;
+using Markdig.Syntax;
 using System.Collections.Generic;
 
 namespace JeremyTCD.Markdig.Extensions
@@ -16,6 +17,18 @@ namespace JeremyTCD.Markdig.Extensions
                     htmlRenderer.Write($"\"");
                 }
             }
+
+            return htmlRenderer;
+        }
+
+        public static HtmlRenderer WriteChildren(this HtmlRenderer htmlRenderer, ContainerBlock containerBlock, bool implicitParagraph)
+        {
+            bool initialImplicitParagraph = htmlRenderer.ImplicitParagraph;
+            htmlRenderer.ImplicitParagraph = implicitParagraph;
+
+            htmlRenderer.WriteChildren(containerBlock);
+
+            htmlRenderer.ImplicitParagraph = initialImplicitParagraph;
 
             return htmlRenderer;
         }
