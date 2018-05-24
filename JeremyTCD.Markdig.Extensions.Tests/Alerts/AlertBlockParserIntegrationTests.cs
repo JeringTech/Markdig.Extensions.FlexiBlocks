@@ -197,7 +197,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
                     new AlertBlockOptions() {
                         IconMarkup = dummyIconMarkup,
                         Attributes = new Dictionary<string, string>(){
-                            { "class", $"alert-{dummyAlertTypeName}" }
+                            { "class", $"alert-{dummyAlertTypeName.ToLowerInvariant()}" }
                         }
                     }
                 },
@@ -212,7 +212,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
                     new AlertBlockOptions() {
                         IconMarkup = dummyIconMarkup,
                         Attributes = new Dictionary<string, string>(){
-                            { "class", $"{dummyClass} alert-{dummyAlertTypeName}" }
+                            { "class", $"{dummyClass} alert-{dummyAlertTypeName.ToLowerInvariant()}" }
                         }
                     }
                 },
@@ -229,10 +229,48 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
                     new AlertBlockOptions() {
                         IconMarkup = dummyIconMarkup,
                         Attributes = new Dictionary<string, string>(){
-                            { "class", $"{dummyClass} alert-{dummyAlertTypeName}" }
+                            { "class", $"{dummyClass} alert-{dummyAlertTypeName.ToLowerInvariant()}" }
                         }
                     }
                 },
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(CreateAlertBlockOptions_GeneratesValueOfClassAttribute_Data))]
+        public void CreateAlertBlockOptions_GeneratesValueOfClassAttribute(
+            string dummyAlertTypeName,
+            string dummyClassNameFormat,
+            string expectedClassValue)
+        {
+            // Arrange
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            Mock<JsonOptionsService> mockJsonOptionsService = _mockRepository.Create<JsonOptionsService>();
+            mockJsonOptionsService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<AlertBlockOptions>()));
+            var dummyAlertsExtensionOptions = new AlertsExtensionOptions()
+            {
+                DefaultAlertBlockOptions = new AlertBlockOptions() { ClassNameFormat = dummyClassNameFormat }
+            };
+            AlertBlockParser alertBlockParser = CreateAlertBlockParser(dummyAlertsExtensionOptions, mockJsonOptionsService.Object);
+
+            // Act
+            AlertBlockOptions result = alertBlockParser.CreateAlertBlockOptions(dummyBlockProcessor, dummyAlertTypeName);
+
+            // Assert
+            result.Attributes.TryGetValue("class", out string resultClassValue);
+            Assert.Equal(expectedClassValue, resultClassValue);
+        }
+
+        public static IEnumerable<object[]> CreateAlertBlockOptions_GeneratesValueOfClassAttribute_Data()
+        {
+            const string dummyAlertTypeName = "dummyAlertTypeName";
+
+            return new object[][]
+            {
+                new object[]{ dummyAlertTypeName, string.Empty, null},
+                new object[]{ dummyAlertTypeName, " ", null},
+                new object[]{ dummyAlertTypeName, null, null},
+                new object[]{ dummyAlertTypeName, "dummy-format-{0}", $"dummy-format-{dummyAlertTypeName.ToLowerInvariant()}"}
             };
         }
 

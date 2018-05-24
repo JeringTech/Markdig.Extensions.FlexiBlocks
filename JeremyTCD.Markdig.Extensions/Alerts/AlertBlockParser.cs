@@ -121,15 +121,18 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
             }
 
             // Add alert class
-            string alertClass = $"alert-{alertTypeName}";
+            if (!string.IsNullOrWhiteSpace(result.ClassNameFormat))
+            {
+                string alertClass = string.Format(result.ClassNameFormat, alertTypeName.ToLowerInvariant());
 
-            if (result.Attributes.TryGetValue("class", out string existingClasses) && !string.IsNullOrWhiteSpace(existingClasses))
-            {
-                result.Attributes["class"] = $"{existingClasses} {alertClass}";
-            }
-            else
-            {
-                result.Attributes["class"] = alertClass;
+                if (result.Attributes.TryGetValue("class", out string existingClasses) && !string.IsNullOrWhiteSpace(existingClasses))
+                {
+                    result.Attributes["class"] = $"{existingClasses} {alertClass}";
+                }
+                else
+                {
+                    result.Attributes["class"] = alertClass;
+                }
             }
 
             return result;
