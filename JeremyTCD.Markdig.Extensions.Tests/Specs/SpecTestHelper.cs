@@ -1,4 +1,5 @@
 ﻿using JeremyTCD.Markdig.Extensions. Alerts;
+using JeremyTCD.Markdig.Extensions.ResponsiveTables;
 using JeremyTCD.Markdig.Extensions.Sections;
 using Markdig;
 using Newtonsoft.Json.Linq;
@@ -15,14 +16,19 @@ namespace JeremyTCD.Markdig.Extensions.Tests
         private static readonly Dictionary<string, Action<MarkdownPipelineBuilder, JObject>> _extensionAdders =
             new Dictionary<string, Action<MarkdownPipelineBuilder, JObject>>
             {
-                { "genericattributes", (MarkdownPipelineBuilder builder, JObject _) => builder.UseGenericAttributes() },
                 { "jsonoptions", (MarkdownPipelineBuilder builder, JObject _) => builder.UseJsonOptions() },
                 { "sections", (MarkdownPipelineBuilder builder, JObject options) => builder.UseSections(options?["sections"]?.ToObject<SectionsExtensionOptions>()) },
                 { "alerts", (MarkdownPipelineBuilder builder, JObject options) => builder.UseAlerts(options?["alerts"]?.ToObject<AlertsExtensionOptions>()) },
+                { "responsivetables", (MarkdownPipelineBuilder builder, JObject options) => builder.UseResponsiveTables(options?["responsivetables"]?.ToObject<ResponsiveTablesExtensionOptions>()) },
+                { "pipetables", (MarkdownPipelineBuilder builder, JObject _) => builder.UsePipeTables() },
+                { "gridtables", (MarkdownPipelineBuilder builder, JObject _) => builder.UseGridTables() },
                 { "all", (MarkdownPipelineBuilder builder, JObject options) => {
                     builder.
+                        UseResponsiveTables(options?["responsivetables"]?.ToObject<ResponsiveTablesExtensionOptions>()).
                         UseSections(options?["sections"]?.ToObject<SectionsExtensionOptions>()).
                         UseAlerts(options?["alerts"]?.ToObject<AlertsExtensionOptions>()).
+                        UsePipeTables().
+                        UseGridTables().
                         UseJsonOptions();
                 } },
                 { "commonmark", (MarkdownPipelineBuilder _, JObject __) => { } }

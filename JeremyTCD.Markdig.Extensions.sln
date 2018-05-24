@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{F41F9DD0
 		Specs\AlertsSpecs.md = Specs\AlertsSpecs.md
 		Specs\CommonMarkSpecs.md = Specs\CommonMarkSpecs.md
 		Specs\JsonOptionsSpecs.md = Specs\JsonOptionsSpecs.md
+		Specs\ResponsiveTablesSpecs.md = Specs\ResponsiveTablesSpecs.md
 		Specs\SectionsSpecs.md = Specs\SectionsSpecs.md
 	EndProjectSection
 EndProject

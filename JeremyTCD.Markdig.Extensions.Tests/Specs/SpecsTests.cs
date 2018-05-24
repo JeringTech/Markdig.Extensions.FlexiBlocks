@@ -13819,5 +13819,336 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
                 "jsonoptions_sections");
         }
     }
+
+    // This extension changes the markup produced for tables to be compatible with [this](https://www.jeremytcd.com/articles/css-only-responsive-tables)
+    // method for creating responsive tables.
+    public class ResponsiveTablesTests
+    {
+        // In particular, the contents of `<td>` elements are wrapped and `<td>` elements are assigned `data-label` attributes. For example using a pipe table:
+        [Fact]
+        public void ResponsiveTables_Spec1_responsivetables_gridtables_pipetables()
+        {
+            // The following Markdown:
+            //      a | b | c 
+            //      - | - | -
+            //      0 | 1 | 2
+            //      3 | 4 | 5
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     <th>c</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="a"><span>0</span></td>
+            //     <td data-label="b"><span>1</span></td>
+            //     <td data-label="c"><span>2</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="a"><span>3</span></td>
+            //     <td data-label="b"><span>4</span></td>
+            //     <td data-label="c"><span>5</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance(" a | b | c \n - | - | -\n 0 | 1 | 2\n 3 | 4 | 5", 
+                "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n<th>c</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n<td data-label=\"c\"><span>2</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>3</span></td>\n<td data-label=\"b\"><span>4</span></td>\n<td data-label=\"c\"><span>5</span></td>\n</tr>\n</tbody>\n</table>", 
+                "responsivetables_gridtables_pipetables");
+        }
+
+        // In particular, the contents of `<td>` elements are wrapped and `<td>` elements are assigned `data-label` attributes. For example using a pipe table:
+        [Fact]
+        public void ResponsiveTables_Spec1_all()
+        {
+            // The following Markdown:
+            //      a | b | c 
+            //      - | - | -
+            //      0 | 1 | 2
+            //      3 | 4 | 5
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     <th>c</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="a"><span>0</span></td>
+            //     <td data-label="b"><span>1</span></td>
+            //     <td data-label="c"><span>2</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="a"><span>3</span></td>
+            //     <td data-label="b"><span>4</span></td>
+            //     <td data-label="c"><span>5</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance(" a | b | c \n - | - | -\n 0 | 1 | 2\n 3 | 4 | 5", 
+                "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n<th>c</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n<td data-label=\"c\"><span>2</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>3</span></td>\n<td data-label=\"b\"><span>4</span></td>\n<td data-label=\"c\"><span>5</span></td>\n</tr>\n</tbody>\n</table>", 
+                "all");
+        }
+
+        // Similarly, using a grid table:
+        [Fact]
+        public void ResponsiveTables_Spec2_responsivetables_gridtables_pipetables()
+        {
+            // The following Markdown:
+            //     +---+---+---+
+            //     | a | b | c |
+            //     +===+===+===+
+            //     | 0 | 1 | 2 |
+            //     +---+---+---+
+            //     | 3 | 4 | 5 |
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <col style="width:33.33%">
+            //     <col style="width:33.33%">
+            //     <col style="width:33.33%">
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     <th>c</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="a"><span>0</span></td>
+            //     <td data-label="b"><span>1</span></td>
+            //     <td data-label="c"><span>2</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="a"><span>3</span></td>
+            //     <td data-label="b"><span>4</span></td>
+            //     <td data-label="c"><span>5</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance("+---+---+---+\n| a | b | c |\n+===+===+===+\n| 0 | 1 | 2 |\n+---+---+---+\n| 3 | 4 | 5 |", 
+                "<table>\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n<th>c</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n<td data-label=\"c\"><span>2</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>3</span></td>\n<td data-label=\"b\"><span>4</span></td>\n<td data-label=\"c\"><span>5</span></td>\n</tr>\n</tbody>\n</table>", 
+                "responsivetables_gridtables_pipetables");
+        }
+
+        // Similarly, using a grid table:
+        [Fact]
+        public void ResponsiveTables_Spec2_all()
+        {
+            // The following Markdown:
+            //     +---+---+---+
+            //     | a | b | c |
+            //     +===+===+===+
+            //     | 0 | 1 | 2 |
+            //     +---+---+---+
+            //     | 3 | 4 | 5 |
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <col style="width:33.33%">
+            //     <col style="width:33.33%">
+            //     <col style="width:33.33%">
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     <th>c</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="a"><span>0</span></td>
+            //     <td data-label="b"><span>1</span></td>
+            //     <td data-label="c"><span>2</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="a"><span>3</span></td>
+            //     <td data-label="b"><span>4</span></td>
+            //     <td data-label="c"><span>5</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance("+---+---+---+\n| a | b | c |\n+===+===+===+\n| 0 | 1 | 2 |\n+---+---+---+\n| 3 | 4 | 5 |", 
+                "<table>\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n<th>c</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n<td data-label=\"c\"><span>2</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>3</span></td>\n<td data-label=\"b\"><span>4</span></td>\n<td data-label=\"c\"><span>5</span></td>\n</tr>\n</tbody>\n</table>", 
+                "all");
+        }
+
+        // The contents of `<th>` elements are HTML escaped when used as values of `data-label` attributes:
+        [Fact]
+        public void ResponsiveTables_Spec3_responsivetables_gridtables_pipetables()
+        {
+            // The following Markdown:
+            //      "a" | &b&
+            //      - | - 
+            //      0 | 1 
+            //      2 | 3 
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <thead>
+            //     <tr>
+            //     <th>&quot;a&quot;</th>
+            //     <th>&amp;b&amp;</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="&quot;a&quot;"><span>0</span></td>
+            //     <td data-label="&amp;b&amp;"><span>1</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="&quot;a&quot;"><span>2</span></td>
+            //     <td data-label="&amp;b&amp;"><span>3</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance(" \"a\" | &b&\n - | - \n 0 | 1 \n 2 | 3 ", 
+                "<table>\n<thead>\n<tr>\n<th>&quot;a&quot;</th>\n<th>&amp;b&amp;</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"&quot;a&quot;\"><span>0</span></td>\n<td data-label=\"&amp;b&amp;\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"&quot;a&quot;\"><span>2</span></td>\n<td data-label=\"&amp;b&amp;\"><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
+                "responsivetables_gridtables_pipetables");
+        }
+
+        // The contents of `<th>` elements are HTML escaped when used as values of `data-label` attributes:
+        [Fact]
+        public void ResponsiveTables_Spec3_all()
+        {
+            // The following Markdown:
+            //      "a" | &b&
+            //      - | - 
+            //      0 | 1 
+            //      2 | 3 
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <thead>
+            //     <tr>
+            //     <th>&quot;a&quot;</th>
+            //     <th>&amp;b&amp;</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="&quot;a&quot;"><span>0</span></td>
+            //     <td data-label="&amp;b&amp;"><span>1</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="&quot;a&quot;"><span>2</span></td>
+            //     <td data-label="&amp;b&amp;"><span>3</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance(" \"a\" | &b&\n - | - \n 0 | 1 \n 2 | 3 ", 
+                "<table>\n<thead>\n<tr>\n<th>&quot;a&quot;</th>\n<th>&amp;b&amp;</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"&quot;a&quot;\"><span>0</span></td>\n<td data-label=\"&amp;b&amp;\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"&quot;a&quot;\"><span>2</span></td>\n<td data-label=\"&amp;b&amp;\"><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
+                "all");
+        }
+
+        // HTML tags are removed from the contents of `<th>` elements when such contents are used as values of `data-label` attributes:
+        [Fact]
+        public void ResponsiveTables_Spec4_responsivetables_gridtables_pipetables()
+        {
+            // The following Markdown:
+            //     +---+---+---+
+            //     | a | b | c |
+            //     |   |   |   |
+            //     | a |   |   |
+            //     +===+===+===+
+            //     | 0 | 1 | 2 |
+            //     +---+---+---+
+            //     | 3 | 4 | 5 |
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <col style="width:33.33%">
+            //     <col style="width:33.33%">
+            //     <col style="width:33.33%">
+            //     <thead>
+            //     <tr>
+            //     <th><p>a</p>
+            //     <p>a</p>
+            //     </th>
+            //     <th>b</th>
+            //     <th>c</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="aa"><span>0</span></td>
+            //     <td data-label="b"><span>1</span></td>
+            //     <td data-label="c"><span>2</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="aa"><span>3</span></td>
+            //     <td data-label="b"><span>4</span></td>
+            //     <td data-label="c"><span>5</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance("+---+---+---+\n| a | b | c |\n|   |   |   |\n| a |   |   |\n+===+===+===+\n| 0 | 1 | 2 |\n+---+---+---+\n| 3 | 4 | 5 |", 
+                "<table>\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<thead>\n<tr>\n<th><p>a</p>\n<p>a</p>\n</th>\n<th>b</th>\n<th>c</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"aa\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n<td data-label=\"c\"><span>2</span></td>\n</tr>\n<tr>\n<td data-label=\"aa\"><span>3</span></td>\n<td data-label=\"b\"><span>4</span></td>\n<td data-label=\"c\"><span>5</span></td>\n</tr>\n</tbody>\n</table>", 
+                "responsivetables_gridtables_pipetables");
+        }
+
+        // HTML tags are removed from the contents of `<th>` elements when such contents are used as values of `data-label` attributes:
+        [Fact]
+        public void ResponsiveTables_Spec4_all()
+        {
+            // The following Markdown:
+            //     +---+---+---+
+            //     | a | b | c |
+            //     |   |   |   |
+            //     | a |   |   |
+            //     +===+===+===+
+            //     | 0 | 1 | 2 |
+            //     +---+---+---+
+            //     | 3 | 4 | 5 |
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <col style="width:33.33%">
+            //     <col style="width:33.33%">
+            //     <col style="width:33.33%">
+            //     <thead>
+            //     <tr>
+            //     <th><p>a</p>
+            //     <p>a</p>
+            //     </th>
+            //     <th>b</th>
+            //     <th>c</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="aa"><span>0</span></td>
+            //     <td data-label="b"><span>1</span></td>
+            //     <td data-label="c"><span>2</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="aa"><span>3</span></td>
+            //     <td data-label="b"><span>4</span></td>
+            //     <td data-label="c"><span>5</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance("+---+---+---+\n| a | b | c |\n|   |   |   |\n| a |   |   |\n+===+===+===+\n| 0 | 1 | 2 |\n+---+---+---+\n| 3 | 4 | 5 |", 
+                "<table>\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<thead>\n<tr>\n<th><p>a</p>\n<p>a</p>\n</th>\n<th>b</th>\n<th>c</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"aa\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n<td data-label=\"c\"><span>2</span></td>\n</tr>\n<tr>\n<td data-label=\"aa\"><span>3</span></td>\n<td data-label=\"b\"><span>4</span></td>\n<td data-label=\"c\"><span>5</span></td>\n</tr>\n</tbody>\n</table>", 
+                "all");
+        }
+    }
 }
 

@@ -1,5 +1,6 @@
 ﻿using JeremyTCD.Markdig.Extensions.Alerts;
 using JeremyTCD.Markdig.Extensions.JsonOptions;
+using JeremyTCD.Markdig.Extensions.ResponsiveTables;
 using JeremyTCD.Markdig.Extensions.Sections;
 using Markdig;
 
@@ -32,6 +33,16 @@ namespace JeremyTCD.Markdig.Extensions
             if (!pipelineBuilder.Extensions.Contains<JsonOptionsExtension>())
             {
                 pipelineBuilder.Extensions.Add(new JsonOptionsExtension());
+            }
+
+            return pipelineBuilder;
+        }
+
+        public static MarkdownPipelineBuilder UseResponsiveTables(this MarkdownPipelineBuilder pipelineBuilder, ResponsiveTablesExtensionOptions options = null)
+        {
+            if (!pipelineBuilder.Extensions.Contains<ResponsiveTablesExtension>())
+            {
+                pipelineBuilder.Extensions.Add(new ResponsiveTablesExtension(options));
             }
 
             return pipelineBuilder;
