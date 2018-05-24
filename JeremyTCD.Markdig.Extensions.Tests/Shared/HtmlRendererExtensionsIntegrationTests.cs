@@ -8,7 +8,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Shared
     public class HtmlRendererExtensionsIntegrationTests
     {
         [Fact]
-        public void WriteCustomAttributes_WritesAttributes()
+        public void WriteAttributeMap_WritesAttributes()
         {
             // Arrange
             const string dummyAttribute1 = "dummyAttribute1";
@@ -26,7 +26,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Shared
                 var htmlRenderer = new HtmlRenderer(stringWriter);
 
                 // Act
-                htmlRenderer.WriteCustomAttributes(dummyAttributes);
+                htmlRenderer.WriteAttributeMap(dummyAttributes);
                 result = stringWriter.ToString();
             }
 

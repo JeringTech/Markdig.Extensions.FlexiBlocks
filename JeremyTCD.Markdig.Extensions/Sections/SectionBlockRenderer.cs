@@ -25,7 +25,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                 renderer.
                     Write("<").
                     Write(elementName).
-                    WriteCustomAttributes(sectionBlockOptions.Attributes).
+                    WriteAttributeMap(sectionBlockOptions.Attributes).
                     WriteLine(">");
             }
 
