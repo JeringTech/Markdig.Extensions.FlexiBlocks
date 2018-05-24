@@ -20,7 +20,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
             _headingWriter = new StringWriter();
             _stripRenderer = new HtmlRenderer(_headingWriter)
             {
-                // Set to false both to avoid having any HTML tags in the output
+                // Set both to false to avoid having any HTML tags in the output
                 EnableHtmlForInline = false,
                 EnableHtmlEscape = false
             };
