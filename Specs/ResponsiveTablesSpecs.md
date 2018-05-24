@@ -137,3 +137,147 @@ HTML tags are removed from the contents of `<th>` elements when such contents ar
 </tbody>
 </table>
 ````````````````````````````````
+
+The label attribute's name can be customized using `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.LabelAttributeName`:
+
+```````````````````````````````` options
+{
+    "responsivetables": {
+        "defaultResponsiveTableOptions": {
+            "labelAttributeName": "custom-name"
+        }
+    }
+}
+```````````````````````````````` example
+ a | b
+ - | - 
+ 0 | 1 
+ 2 | 3 
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td custom-name="a"><span>0</span></td>
+<td custom-name="b"><span>1</span></td>
+</tr>
+<tr>
+<td custom-name="a"><span>2</span></td>
+<td custom-name="b"><span>3</span></td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
+
+To avoid rendering the label attribute, set `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.LabelAttributeName` to an empty string:
+
+```````````````````````````````` options
+{
+    "responsivetables": {
+        "defaultResponsiveTableOptions": {
+            "labelAttributeName": ""
+        }
+    }
+}
+```````````````````````````````` example
+ a | b
+ - | - 
+ 0 | 1 
+ 2 | 3 
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+<td><span>1</span></td>
+</tr>
+<tr>
+<td><span>2</span></td>
+<td><span>3</span></td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
+
+The `<td>` content wrapper element can be customized using `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.WrapperElementName`:
+
+```````````````````````````````` options
+{
+    "responsivetables": {
+        "defaultResponsiveTableOptions": {
+            "wrapperElementName": "div"
+        }
+    }
+}
+```````````````````````````````` example
+ a | b
+ - | - 
+ 0 | 1 
+ 2 | 3 
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="a"><div>0</div></td>
+<td data-label="b"><div>1</div></td>
+</tr>
+<tr>
+<td data-label="a"><div>2</div></td>
+<td data-label="b"><div>3</div></td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
+
+To avoid rendering wrapper elements, set `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.WrapperElementName` to an empty string:
+
+```````````````````````````````` options
+{
+    "responsivetables": {
+        "defaultResponsiveTableOptions": {
+            "wrapperElementName": ""
+        }
+    }
+}
+```````````````````````````````` example
+ a | b
+ - | - 
+ 0 | 1 
+ 2 | 3 
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="a">0</td>
+<td data-label="b">1</td>
+</tr>
+<tr>
+<td data-label="a">2</td>
+<td data-label="b">3</td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````

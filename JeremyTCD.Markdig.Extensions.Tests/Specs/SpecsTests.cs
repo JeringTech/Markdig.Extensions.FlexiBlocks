@@ -14149,6 +14149,366 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
                 "<table>\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<thead>\n<tr>\n<th><p>a</p>\n<p>a</p>\n</th>\n<th>b</th>\n<th>c</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"aa\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n<td data-label=\"c\"><span>2</span></td>\n</tr>\n<tr>\n<td data-label=\"aa\"><span>3</span></td>\n<td data-label=\"b\"><span>4</span></td>\n<td data-label=\"c\"><span>5</span></td>\n</tr>\n</tbody>\n</table>", 
                 "all");
         }
+
+        // The label attribute's name can be customized using `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.LabelAttributeName`:
+        [Fact]
+        public void ResponsiveTables_Spec5_responsivetables_gridtables_pipetables()
+        {
+            // The following Markdown:
+            //      a | b
+            //      - | - 
+            //      0 | 1 
+            //      2 | 3 
+            //
+            // With extension options:
+            //     {
+            //         "responsivetables": {
+            //             "defaultResponsiveTableOptions": {
+            //                 "labelAttributeName": "custom-name"
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td custom-name="a"><span>0</span></td>
+            //     <td custom-name="b"><span>1</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td custom-name="a"><span>2</span></td>
+            //     <td custom-name="b"><span>3</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+                "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td custom-name=\"a\"><span>0</span></td>\n<td custom-name=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td custom-name=\"a\"><span>2</span></td>\n<td custom-name=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
+                "responsivetables_gridtables_pipetables", 
+                "{\n    \"responsivetables\": {\n        \"defaultResponsiveTableOptions\": {\n            \"labelAttributeName\": \"custom-name\"\n        }\n    }\n}");
+        }
+
+        // The label attribute's name can be customized using `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.LabelAttributeName`:
+        [Fact]
+        public void ResponsiveTables_Spec5_all()
+        {
+            // The following Markdown:
+            //      a | b
+            //      - | - 
+            //      0 | 1 
+            //      2 | 3 
+            //
+            // With extension options:
+            //     {
+            //         "responsivetables": {
+            //             "defaultResponsiveTableOptions": {
+            //                 "labelAttributeName": "custom-name"
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td custom-name="a"><span>0</span></td>
+            //     <td custom-name="b"><span>1</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td custom-name="a"><span>2</span></td>
+            //     <td custom-name="b"><span>3</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+                "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td custom-name=\"a\"><span>0</span></td>\n<td custom-name=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td custom-name=\"a\"><span>2</span></td>\n<td custom-name=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
+                "all", 
+                "{\n    \"responsivetables\": {\n        \"defaultResponsiveTableOptions\": {\n            \"labelAttributeName\": \"custom-name\"\n        }\n    }\n}");
+        }
+
+        // To avoid rendering the label attribute, set `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.LabelAttributeName` to an empty string:
+        [Fact]
+        public void ResponsiveTables_Spec6_responsivetables_gridtables_pipetables()
+        {
+            // The following Markdown:
+            //      a | b
+            //      - | - 
+            //      0 | 1 
+            //      2 | 3 
+            //
+            // With extension options:
+            //     {
+            //         "responsivetables": {
+            //             "defaultResponsiveTableOptions": {
+            //                 "labelAttributeName": ""
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td><span>0</span></td>
+            //     <td><span>1</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td><span>2</span></td>
+            //     <td><span>3</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+                "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><span>0</span></td>\n<td><span>1</span></td>\n</tr>\n<tr>\n<td><span>2</span></td>\n<td><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
+                "responsivetables_gridtables_pipetables", 
+                "{\n    \"responsivetables\": {\n        \"defaultResponsiveTableOptions\": {\n            \"labelAttributeName\": \"\"\n        }\n    }\n}");
+        }
+
+        // To avoid rendering the label attribute, set `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.LabelAttributeName` to an empty string:
+        [Fact]
+        public void ResponsiveTables_Spec6_all()
+        {
+            // The following Markdown:
+            //      a | b
+            //      - | - 
+            //      0 | 1 
+            //      2 | 3 
+            //
+            // With extension options:
+            //     {
+            //         "responsivetables": {
+            //             "defaultResponsiveTableOptions": {
+            //                 "labelAttributeName": ""
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td><span>0</span></td>
+            //     <td><span>1</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td><span>2</span></td>
+            //     <td><span>3</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+                "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><span>0</span></td>\n<td><span>1</span></td>\n</tr>\n<tr>\n<td><span>2</span></td>\n<td><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
+                "all", 
+                "{\n    \"responsivetables\": {\n        \"defaultResponsiveTableOptions\": {\n            \"labelAttributeName\": \"\"\n        }\n    }\n}");
+        }
+
+        // The `<td>` content wrapper element can be customized using `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.WrapperElementName`:
+        [Fact]
+        public void ResponsiveTables_Spec7_responsivetables_gridtables_pipetables()
+        {
+            // The following Markdown:
+            //      a | b
+            //      - | - 
+            //      0 | 1 
+            //      2 | 3 
+            //
+            // With extension options:
+            //     {
+            //         "responsivetables": {
+            //             "defaultResponsiveTableOptions": {
+            //                 "wrapperElementName": "div"
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="a"><div>0</div></td>
+            //     <td data-label="b"><div>1</div></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="a"><div>2</div></td>
+            //     <td data-label="b"><div>3</div></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+                "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><div>0</div></td>\n<td data-label=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-label=\"a\"><div>2</div></td>\n<td data-label=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>", 
+                "responsivetables_gridtables_pipetables", 
+                "{\n    \"responsivetables\": {\n        \"defaultResponsiveTableOptions\": {\n            \"wrapperElementName\": \"div\"\n        }\n    }\n}");
+        }
+
+        // The `<td>` content wrapper element can be customized using `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.WrapperElementName`:
+        [Fact]
+        public void ResponsiveTables_Spec7_all()
+        {
+            // The following Markdown:
+            //      a | b
+            //      - | - 
+            //      0 | 1 
+            //      2 | 3 
+            //
+            // With extension options:
+            //     {
+            //         "responsivetables": {
+            //             "defaultResponsiveTableOptions": {
+            //                 "wrapperElementName": "div"
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="a"><div>0</div></td>
+            //     <td data-label="b"><div>1</div></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="a"><div>2</div></td>
+            //     <td data-label="b"><div>3</div></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+                "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><div>0</div></td>\n<td data-label=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-label=\"a\"><div>2</div></td>\n<td data-label=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>", 
+                "all", 
+                "{\n    \"responsivetables\": {\n        \"defaultResponsiveTableOptions\": {\n            \"wrapperElementName\": \"div\"\n        }\n    }\n}");
+        }
+
+        // To avoid rendering wrapper elements, set `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.WrapperElementName` to an empty string:
+        [Fact]
+        public void ResponsiveTables_Spec8_responsivetables_gridtables_pipetables()
+        {
+            // The following Markdown:
+            //      a | b
+            //      - | - 
+            //      0 | 1 
+            //      2 | 3 
+            //
+            // With extension options:
+            //     {
+            //         "responsivetables": {
+            //             "defaultResponsiveTableOptions": {
+            //                 "wrapperElementName": ""
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="a">0</td>
+            //     <td data-label="b">1</td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="a">2</td>
+            //     <td data-label="b">3</td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+                "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\">0</td>\n<td data-label=\"b\">1</td>\n</tr>\n<tr>\n<td data-label=\"a\">2</td>\n<td data-label=\"b\">3</td>\n</tr>\n</tbody>\n</table>", 
+                "responsivetables_gridtables_pipetables", 
+                "{\n    \"responsivetables\": {\n        \"defaultResponsiveTableOptions\": {\n            \"wrapperElementName\": \"\"\n        }\n    }\n}");
+        }
+
+        // To avoid rendering wrapper elements, set `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.WrapperElementName` to an empty string:
+        [Fact]
+        public void ResponsiveTables_Spec8_all()
+        {
+            // The following Markdown:
+            //      a | b
+            //      - | - 
+            //      0 | 1 
+            //      2 | 3 
+            //
+            // With extension options:
+            //     {
+            //         "responsivetables": {
+            //             "defaultResponsiveTableOptions": {
+            //                 "wrapperElementName": ""
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="a">0</td>
+            //     <td data-label="b">1</td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="a">2</td>
+            //     <td data-label="b">3</td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+                "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\">0</td>\n<td data-label=\"b\">1</td>\n</tr>\n<tr>\n<td data-label=\"a\">2</td>\n<td data-label=\"b\">3</td>\n</tr>\n</tbody>\n</table>", 
+                "all", 
+                "{\n    \"responsivetables\": {\n        \"defaultResponsiveTableOptions\": {\n            \"wrapperElementName\": \"\"\n        }\n    }\n}");
+        }
     }
 }
 
