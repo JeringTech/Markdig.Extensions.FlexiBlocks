@@ -11,6 +11,20 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
         public string IconMarkup { get; set; }
 
         /// <summary>
+        /// Gets or sets the value used as the format for the alert's outer div's class. The inserted sub-string is the alert's type name (the string provided in the first line 
+        /// of the markdown for an alert). 
+        /// 
+        /// If the value is null, whitespace or an empty string, no class is assigned to the alert's outer div.
+        /// </summary>
+        public string ClassNameFormat { get; set; } = "alert-{0}";
+
+        /// <summary>
+        /// Gets or sets the value used as the class of the alert's content wrapper (rendered only if <see cref="IconMarkup"/> is a valid string). If the value is null, whitespace or an empty string, 
+        /// no class is assigned. 
+        /// </summary>
+        public string ContentClassName { get; set; } = "alert-content";
+
+        /// <summary>
         /// HTML attributes.
         /// </summary>
         public Dictionary<string, string> Attributes { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
