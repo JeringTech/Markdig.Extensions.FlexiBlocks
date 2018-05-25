@@ -13396,11 +13396,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <div class="alert-critical-warning">
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
+            //     <div class="alert-content">
             //     <p>This is a critical warning.</p>
+            //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("! critical-warning\n! This is a critical warning.", 
-                "<div class=\"alert-critical-warning\">\n<p>This is a critical warning.</p>\n</div>", 
+                "<div class=\"alert-critical-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"alert-content\">\n<p>This is a critical warning.</p>\n</div>\n</div>", 
                 "jsonoptions_alerts");
         }
 
@@ -13416,11 +13419,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <div class="alert-critical-warning">
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
+            //     <div class="alert-content">
             //     <p>This is a critical warning.</p>
+            //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("! critical-warning\n! This is a critical warning.", 
-                "<div class=\"alert-critical-warning\">\n<p>This is a critical warning.</p>\n</div>", 
+                "<div class=\"alert-critical-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"alert-content\">\n<p>This is a critical warning.</p>\n</div>\n</div>", 
                 "all");
         }
 
@@ -13503,12 +13509,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <div class="alert-warning">
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
+            //     <div class="alert-content">
             //     <p>This line will be rendered with 0 leading spaces.
             //     This line will also be rendered with 0 leading spaces.</p>
             //     </div>
+            //     </div>
 
             SpecTestHelper.AssertCompliance("! warning\n!This line will be rendered with 0 leading spaces.\n! This line will also be rendered with 0 leading spaces.", 
-                "<div class=\"alert-warning\">\n<p>This line will be rendered with 0 leading spaces.\nThis line will also be rendered with 0 leading spaces.</p>\n</div>", 
+                "<div class=\"alert-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"alert-content\">\n<p>This line will be rendered with 0 leading spaces.\nThis line will also be rendered with 0 leading spaces.</p>\n</div>\n</div>", 
                 "jsonoptions_alerts");
         }
 
@@ -13523,12 +13532,15 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //
             // Should be rendered as:
             //     <div class="alert-warning">
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
+            //     <div class="alert-content">
             //     <p>This line will be rendered with 0 leading spaces.
             //     This line will also be rendered with 0 leading spaces.</p>
             //     </div>
+            //     </div>
 
             SpecTestHelper.AssertCompliance("! warning\n!This line will be rendered with 0 leading spaces.\n! This line will also be rendered with 0 leading spaces.", 
-                "<div class=\"alert-warning\">\n<p>This line will be rendered with 0 leading spaces.\nThis line will also be rendered with 0 leading spaces.</p>\n</div>", 
+                "<div class=\"alert-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"alert-content\">\n<p>This line will be rendered with 0 leading spaces.\nThis line will also be rendered with 0 leading spaces.</p>\n</div>\n</div>", 
                 "all");
         }
 
@@ -13537,22 +13549,25 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
         public void Alerts_Spec5_jsonoptions_alerts()
         {
             // The following Markdown:
-            //     ! warning
+            //     ! info
             //     ! This is part of
-            //     the warning.
+            //     the info.
             //     ! This is also part of
-            //     the warning.
+            //     the info.
             //
             // Should be rendered as:
-            //     <div class="alert-warning">
+            //     <div class="alert-info">
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
+            //     <div class="alert-content">
             //     <p>This is part of
-            //     the warning.
+            //     the info.
             //     This is also part of
-            //     the warning.</p>
+            //     the info.</p>
+            //     </div>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("! warning\n! This is part of\nthe warning.\n! This is also part of\nthe warning.", 
-                "<div class=\"alert-warning\">\n<p>This is part of\nthe warning.\nThis is also part of\nthe warning.</p>\n</div>", 
+            SpecTestHelper.AssertCompliance("! info\n! This is part of\nthe info.\n! This is also part of\nthe info.", 
+                "<div class=\"alert-info\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z\"></path></svg>\n<div class=\"alert-content\">\n<p>This is part of\nthe info.\nThis is also part of\nthe info.</p>\n</div>\n</div>", 
                 "jsonoptions_alerts");
         }
 
@@ -13561,105 +13576,88 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
         public void Alerts_Spec5_all()
         {
             // The following Markdown:
-            //     ! warning
+            //     ! info
             //     ! This is part of
-            //     the warning.
+            //     the info.
             //     ! This is also part of
-            //     the warning.
+            //     the info.
             //
             // Should be rendered as:
-            //     <div class="alert-warning">
+            //     <div class="alert-info">
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
+            //     <div class="alert-content">
             //     <p>This is part of
-            //     the warning.
+            //     the info.
             //     This is also part of
-            //     the warning.</p>
+            //     the info.</p>
+            //     </div>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("! warning\n! This is part of\nthe warning.\n! This is also part of\nthe warning.", 
-                "<div class=\"alert-warning\">\n<p>This is part of\nthe warning.\nThis is also part of\nthe warning.</p>\n</div>", 
+            SpecTestHelper.AssertCompliance("! info\n! This is part of\nthe info.\n! This is also part of\nthe info.", 
+                "<div class=\"alert-info\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z\"></path></svg>\n<div class=\"alert-content\">\n<p>This is part of\nthe info.\nThis is also part of\nthe info.</p>\n</div>\n</div>", 
                 "all");
         }
 
-        // `AlertsExtensionOptions.IconMarkups` can be used to define icon element markup for alert types:
+        // `AlertsExtensionOptions.IconMarkups` can be used to define icon element markup for custom alert types:
         [Fact]
         public void Alerts_Spec6_jsonoptions_alerts()
         {
             // The following Markdown:
-            //     ! warning
-            //     ! This is a warning.
-            //     
-            //     ! information
-            //     ! This is information.
+            //     ! closer-look
+            //     ! This is a closer look at some topic.
             //
             // With extension options:
             //     {
             //         "alerts": {
             //             "iconMarkups": {
-            //                 "warning": "<svg><use xlink:href=\"#warning-icon\"></use></svg>",
-            //                 "information": "<svg><use xlink:href=\"#information-icon\"></use></svg>"
+            //                 "closer-look": "<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>"
             //             }
             //         }
             //     }
             //
             // Should be rendered as:
-            //     <div class="alert-warning">
-            //     <svg><use xlink:href="#warning-icon"></use></svg>
+            //     <div class="alert-closer-look">
+            //     <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
             //     <div class="alert-content">
-            //     <p>This is a warning.</p>
-            //     </div>
-            //     </div>
-            //     <div class="alert-information">
-            //     <svg><use xlink:href="#information-icon"></use></svg>
-            //     <div class="alert-content">
-            //     <p>This is information.</p>
+            //     <p>This is a closer look at some topic.</p>
             //     </div>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n\n! information\n! This is information.", 
-                "<div class=\"alert-warning\">\n<svg><use xlink:href=\"#warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"alert-information\">\n<svg><use xlink:href=\"#information-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is information.</p>\n</div>\n</div>", 
+            SpecTestHelper.AssertCompliance("! closer-look\n! This is a closer look at some topic.", 
+                "<div class=\"alert-closer-look\">\n<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>\n<div class=\"alert-content\">\n<p>This is a closer look at some topic.</p>\n</div>\n</div>", 
                 "jsonoptions_alerts", 
-                "{\n    \"alerts\": {\n        \"iconMarkups\": {\n            \"warning\": \"<svg><use xlink:href=\\\"#warning-icon\\\"></use></svg>\",\n            \"information\": \"<svg><use xlink:href=\\\"#information-icon\\\"></use></svg>\"\n        }\n    }\n}");
+                "{\n    \"alerts\": {\n        \"iconMarkups\": {\n            \"closer-look\": \"<svg height=\\\"24\\\" viewBox=\\\"0 0 24 24\\\" width=\\\"24\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><path d=\\\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\\\"/></svg>\"\n        }\n    }\n}");
         }
 
-        // `AlertsExtensionOptions.IconMarkups` can be used to define icon element markup for alert types:
+        // `AlertsExtensionOptions.IconMarkups` can be used to define icon element markup for custom alert types:
         [Fact]
         public void Alerts_Spec6_all()
         {
             // The following Markdown:
-            //     ! warning
-            //     ! This is a warning.
-            //     
-            //     ! information
-            //     ! This is information.
+            //     ! closer-look
+            //     ! This is a closer look at some topic.
             //
             // With extension options:
             //     {
             //         "alerts": {
             //             "iconMarkups": {
-            //                 "warning": "<svg><use xlink:href=\"#warning-icon\"></use></svg>",
-            //                 "information": "<svg><use xlink:href=\"#information-icon\"></use></svg>"
+            //                 "closer-look": "<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>"
             //             }
             //         }
             //     }
             //
             // Should be rendered as:
-            //     <div class="alert-warning">
-            //     <svg><use xlink:href="#warning-icon"></use></svg>
+            //     <div class="alert-closer-look">
+            //     <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
             //     <div class="alert-content">
-            //     <p>This is a warning.</p>
-            //     </div>
-            //     </div>
-            //     <div class="alert-information">
-            //     <svg><use xlink:href="#information-icon"></use></svg>
-            //     <div class="alert-content">
-            //     <p>This is information.</p>
+            //     <p>This is a closer look at some topic.</p>
             //     </div>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n\n! information\n! This is information.", 
-                "<div class=\"alert-warning\">\n<svg><use xlink:href=\"#warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"alert-information\">\n<svg><use xlink:href=\"#information-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is information.</p>\n</div>\n</div>", 
+            SpecTestHelper.AssertCompliance("! closer-look\n! This is a closer look at some topic.", 
+                "<div class=\"alert-closer-look\">\n<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>\n<div class=\"alert-content\">\n<p>This is a closer look at some topic.</p>\n</div>\n</div>", 
                 "all", 
-                "{\n    \"alerts\": {\n        \"iconMarkups\": {\n            \"warning\": \"<svg><use xlink:href=\\\"#warning-icon\\\"></use></svg>\",\n            \"information\": \"<svg><use xlink:href=\\\"#information-icon\\\"></use></svg>\"\n        }\n    }\n}");
+                "{\n    \"alerts\": {\n        \"iconMarkups\": {\n            \"closer-look\": \"<svg height=\\\"24\\\" viewBox=\\\"0 0 24 24\\\" width=\\\"24\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><path d=\\\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\\\"/></svg>\"\n        }\n    }\n}");
         }
 
         // Per-alert-block options can be overriden if the JSON options extension is enabled:
@@ -13670,38 +13668,28 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     ! warning
             //     ! This is a warning.
             //     @{
-            //         "iconMarkup": "<svg><use xlink:href=\"#special-warning-icon\"></use></svg>"
+            //         "iconMarkup": "<svg><use xlink:href=\"#alternative-warning-icon\"></use></svg>"
             //     }
             //     ! warning
             //     ! This is a special warning.
             //
-            // With extension options:
-            //     {
-            //         "alerts": {
-            //             "iconMarkups": {
-            //                 "warning": "<svg><use xlink:href=\"#warning-icon\"></use></svg>"
-            //             }
-            //         }
-            //     }
-            //
             // Should be rendered as:
             //     <div class="alert-warning">
-            //     <svg><use xlink:href="#warning-icon"></use></svg>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
             //     <div class="alert-content">
             //     <p>This is a warning.</p>
             //     </div>
             //     </div>
             //     <div class="alert-warning">
-            //     <svg><use xlink:href="#special-warning-icon"></use></svg>
+            //     <svg><use xlink:href="#alternative-warning-icon"></use></svg>
             //     <div class="alert-content">
             //     <p>This is a special warning.</p>
             //     </div>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n@{\n    \"iconMarkup\": \"<svg><use xlink:href=\\\"#special-warning-icon\\\"></use></svg>\"\n}\n! warning\n! This is a special warning.", 
-                "<div class=\"alert-warning\">\n<svg><use xlink:href=\"#warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"alert-warning\">\n<svg><use xlink:href=\"#special-warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a special warning.</p>\n</div>\n</div>", 
-                "jsonoptions_alerts", 
-                "{\n    \"alerts\": {\n        \"iconMarkups\": {\n            \"warning\": \"<svg><use xlink:href=\\\"#warning-icon\\\"></use></svg>\"\n        }\n    }\n}");
+            SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n@{\n    \"iconMarkup\": \"<svg><use xlink:href=\\\"#alternative-warning-icon\\\"></use></svg>\"\n}\n! warning\n! This is a special warning.", 
+                "<div class=\"alert-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"alert-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"alert-warning\">\n<svg><use xlink:href=\"#alternative-warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a special warning.</p>\n</div>\n</div>", 
+                "jsonoptions_alerts");
         }
 
         // Per-alert-block options can be overriden if the JSON options extension is enabled:
@@ -13712,38 +13700,28 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     ! warning
             //     ! This is a warning.
             //     @{
-            //         "iconMarkup": "<svg><use xlink:href=\"#special-warning-icon\"></use></svg>"
+            //         "iconMarkup": "<svg><use xlink:href=\"#alternative-warning-icon\"></use></svg>"
             //     }
             //     ! warning
             //     ! This is a special warning.
             //
-            // With extension options:
-            //     {
-            //         "alerts": {
-            //             "iconMarkups": {
-            //                 "warning": "<svg><use xlink:href=\"#warning-icon\"></use></svg>"
-            //             }
-            //         }
-            //     }
-            //
             // Should be rendered as:
             //     <div class="alert-warning">
-            //     <svg><use xlink:href="#warning-icon"></use></svg>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
             //     <div class="alert-content">
             //     <p>This is a warning.</p>
             //     </div>
             //     </div>
             //     <div class="alert-warning">
-            //     <svg><use xlink:href="#special-warning-icon"></use></svg>
+            //     <svg><use xlink:href="#alternative-warning-icon"></use></svg>
             //     <div class="alert-content">
             //     <p>This is a special warning.</p>
             //     </div>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n@{\n    \"iconMarkup\": \"<svg><use xlink:href=\\\"#special-warning-icon\\\"></use></svg>\"\n}\n! warning\n! This is a special warning.", 
-                "<div class=\"alert-warning\">\n<svg><use xlink:href=\"#warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"alert-warning\">\n<svg><use xlink:href=\"#special-warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a special warning.</p>\n</div>\n</div>", 
-                "all", 
-                "{\n    \"alerts\": {\n        \"iconMarkups\": {\n            \"warning\": \"<svg><use xlink:href=\\\"#warning-icon\\\"></use></svg>\"\n        }\n    }\n}");
+            SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n@{\n    \"iconMarkup\": \"<svg><use xlink:href=\\\"#alternative-warning-icon\\\"></use></svg>\"\n}\n! warning\n! This is a special warning.", 
+                "<div class=\"alert-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"alert-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"alert-warning\">\n<svg><use xlink:href=\"#alternative-warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a special warning.</p>\n</div>\n</div>", 
+                "all");
         }
     }
 
