@@ -5,6 +5,8 @@ namespace JeremyTCD.Markdig.Extensions.Sections
 {
     public class SectionBlockOptions : IMarkdownObjectOptions<SectionBlockOptions>
     {
+        // The SVG is part of the excellent material design icon set - https://material.io/tools/icons/?style=baseline
+        // It is licensed under an Apache License Version 2 license - https://www.apache.org/licenses/LICENSE-2.0.html
         /// <summary>
         /// Gets or sets the value used as the markup for the section header's icon. 
         /// 
