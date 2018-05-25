@@ -12493,25 +12493,29 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             // Should be rendered as:
             //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <section id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <section id="foo-1">
             //     <header class="header-level-3">
             //     <h3>foo</h3>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <section id="foo-2">
             //     <header class="header-level-4">
             //     <h4>foo</h4>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
             //     </section>
             //     </section>
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n#### foo", 
-                "<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n</header>\n<section id=\"foo-2\">\n<header class=\"header-level-4\">\n<h4>foo</h4>\n</header>\n</section>\n</section>\n</section>", 
+                "<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-2\">\n<header class=\"header-level-4\">\n<h4>foo</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</section>\n</section>", 
                 "jsonoptions_sections");
         }
 
@@ -12528,25 +12532,29 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             // Should be rendered as:
             //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <section id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <section id="foo-1">
             //     <header class="header-level-3">
             //     <h3>foo</h3>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <section id="foo-2">
             //     <header class="header-level-4">
             //     <h4>foo</h4>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
             //     </section>
             //     </section>
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n#### foo", 
-                "<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n</header>\n<section id=\"foo-2\">\n<header class=\"header-level-4\">\n<h4>foo</h4>\n</header>\n</section>\n</section>\n</section>", 
+                "<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-2\">\n<header class=\"header-level-4\">\n<h4>foo</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</section>\n</section>", 
                 "all");
         }
 
@@ -12562,14 +12570,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <section id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
             //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
 
             SpecTestHelper.AssertCompliance("## foo\n# foo", 
-                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>", 
+                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>", 
                 "jsonoptions_sections");
         }
 
@@ -12585,14 +12595,16 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <section id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
             //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
 
             SpecTestHelper.AssertCompliance("## foo\n# foo", 
-                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>", 
+                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>", 
                 "all");
         }
 
@@ -12608,16 +12620,18 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <section id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
             //     <section id="foo-1">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
 
             SpecTestHelper.AssertCompliance("## foo\n## foo", 
-                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>", 
+                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
                 "jsonoptions_sections");
         }
 
@@ -12633,16 +12647,18 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <section id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
             //     <section id="foo-1">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
 
             SpecTestHelper.AssertCompliance("## foo\n## foo", 
-                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>", 
+                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
                 "all");
         }
 
@@ -12659,25 +12675,29 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             // Should be rendered as:
             //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <section id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <section id="foo-1">
             //     <header class="header-level-3">
             //     <h3>foo</h3>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
             //     </section>
             //     <section id="foo-2">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n## foo", 
-                "<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n</header>\n</section>\n</section>\n<section id=\"foo-2\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>", 
+                "<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</section>\n<section id=\"foo-2\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
                 "jsonoptions_sections");
         }
 
@@ -12694,25 +12714,29 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             // Should be rendered as:
             //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <section id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <section id="foo-1">
             //     <header class="header-level-3">
             //     <h3>foo</h3>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
             //     </section>
             //     <section id="foo-2">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n## foo", 
-                "<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n</header>\n</section>\n</section>\n<section id=\"foo-2\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>", 
+                "<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</section>\n<section id=\"foo-2\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
                 "all");
         }
 
@@ -12733,11 +12757,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             // Should be rendered as:
             //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <p>Level 1 content.</p>
             //     <section id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <ul>
             //     <li>Level 2 content line 1.</li>
@@ -12746,6 +12772,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <section id="foo-1">
             //     <header class="header-level-3">
             //     <h3>foo</h3>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <blockquote>
             //     <p>Level 3 content line 1.
@@ -12755,7 +12782,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     </section>
 
             SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", 
-                "<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n</header>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", 
+                "<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", 
                 "jsonoptions_sections");
         }
 
@@ -12776,11 +12803,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             // Should be rendered as:
             //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <p>Level 1 content.</p>
             //     <section id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <ul>
             //     <li>Level 2 content line 1.</li>
@@ -12789,6 +12818,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <section id="foo-1">
             //     <header class="header-level-3">
             //     <h3>foo</h3>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <blockquote>
             //     <p>Level 3 content line 1.
@@ -12798,7 +12828,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     </section>
 
             SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", 
-                "<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n</header>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", 
+                "<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", 
                 "all");
         }
 
@@ -12821,16 +12851,18 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <article id="foo">
             //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <section id="foo-1">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
             //     </article>
 
             SpecTestHelper.AssertCompliance("# foo\n## foo", 
-                "<article id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n</article>", 
+                "<article id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</article>", 
                 "jsonoptions_sections", 
                 "{\n    \"sections\": {\n        \"level1WrapperElement\": \"article\"\n    }\n}");
         }
@@ -12854,16 +12886,18 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <article id="foo">
             //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <section id="foo-1">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
             //     </article>
 
             SpecTestHelper.AssertCompliance("# foo\n## foo", 
-                "<article id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n</article>", 
+                "<article id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</article>", 
                 "all", 
                 "{\n    \"sections\": {\n        \"level1WrapperElement\": \"article\"\n    }\n}");
         }
@@ -12886,11 +12920,12 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <nav id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </nav>
 
             SpecTestHelper.AssertCompliance("## foo", 
-                "<nav id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</nav>", 
+                "<nav id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</nav>", 
                 "jsonoptions_sections", 
                 "{\n    \"sections\": {\n        \"level2PlusWrapperElement\": \"nav\"\n    }\n}");
         }
@@ -12913,16 +12948,17 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <nav id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </nav>
 
             SpecTestHelper.AssertCompliance("## foo", 
-                "<nav id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</nav>", 
+                "<nav id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</nav>", 
                 "all", 
                 "{\n    \"sections\": {\n        \"level2PlusWrapperElement\": \"nav\"\n    }\n}");
         }
 
-        // Header icons can be specified by setting `SectionExtensionOptions.DefaultSectionBlockOptions.IconMarkup`. For example:
+        // The icon used for headers can be customized by setting `SectionExtensionOptions.DefaultSectionBlockOptions.HeaderIconMarkup`. For example:
         [Fact]
         public void Sections_Spec8_jsonoptions_sections()
         {
@@ -12933,7 +12969,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     {
             //         "sections": {
             //             "defaultSectionBlockOptions": {
-            //                 "iconMarkup": "<svg><use xlink:href=\"#link-icon\"></use></svg>"
+            //                 "headerIconMarkup": "<svg><use xlink:href=\"#custom-link-icon\"></use></svg>"
             //             }
             //         }
             //     }
@@ -12942,17 +12978,17 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <section id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
-            //     <svg><use xlink:href="#link-icon"></use></svg>
+            //     <svg><use xlink:href="#custom-link-icon"></use></svg>
             //     </header>
             //     </section>
 
             SpecTestHelper.AssertCompliance("## foo", 
-                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#link-icon\"></use></svg>\n</header>\n</section>", 
+                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#custom-link-icon\"></use></svg>\n</header>\n</section>", 
                 "jsonoptions_sections", 
-                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"iconMarkup\": \"<svg><use xlink:href=\\\"#link-icon\\\"></use></svg>\"\n        }\n    }\n}");
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"headerIconMarkup\": \"<svg><use xlink:href=\\\"#custom-link-icon\\\"></use></svg>\"\n        }\n    }\n}");
         }
 
-        // Header icons can be specified by setting `SectionExtensionOptions.DefaultSectionBlockOptions.IconMarkup`. For example:
+        // The icon used for headers can be customized by setting `SectionExtensionOptions.DefaultSectionBlockOptions.HeaderIconMarkup`. For example:
         [Fact]
         public void Sections_Spec8_all()
         {
@@ -12963,7 +12999,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     {
             //         "sections": {
             //             "defaultSectionBlockOptions": {
-            //                 "iconMarkup": "<svg><use xlink:href=\"#link-icon\"></use></svg>"
+            //                 "headerIconMarkup": "<svg><use xlink:href=\"#custom-link-icon\"></use></svg>"
             //             }
             //         }
             //     }
@@ -12972,86 +13008,119 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <section id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
-            //     <svg><use xlink:href="#link-icon"></use></svg>
+            //     <svg><use xlink:href="#custom-link-icon"></use></svg>
             //     </header>
             //     </section>
 
             SpecTestHelper.AssertCompliance("## foo", 
-                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#link-icon\"></use></svg>\n</header>\n</section>", 
+                "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#custom-link-icon\"></use></svg>\n</header>\n</section>", 
                 "all", 
-                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"iconMarkup\": \"<svg><use xlink:href=\\\"#link-icon\\\"></use></svg>\"\n        }\n    }\n}");
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"headerIconMarkup\": \"<svg><use xlink:href=\\\"#custom-link-icon\\\"></use></svg>\"\n        }\n    }\n}");
         }
 
-        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
+        // The format string for header classes can be customized by setting `SectionExtensionOptions.DefaultSectionBlockOptions.HeaderClassNameFormat`. For example:
         [Fact]
         public void Sections_Spec9_jsonoptions_sections()
         {
             // The following Markdown:
-            //     ## Foo Bar Baz
+            //     ## foo
+            //
+            // With extension options:
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "headerClassNameFormat": "custom-{0}"
+            //             }
+            //         }
+            //     }
             //
             // Should be rendered as:
-            //     <section id="foo-bar-baz">
-            //     <header class="header-level-2">
-            //     <h2>Foo Bar Baz</h2>
+            //     <section id="foo">
+            //     <header class="custom-2">
+            //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
-                "<section id=\"foo-bar-baz\">\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n</header>\n</section>", 
-                "jsonoptions_sections");
+            SpecTestHelper.AssertCompliance("## foo", 
+                "<section id=\"foo\">\n<header class=\"custom-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
+                "jsonoptions_sections", 
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"headerClassNameFormat\": \"custom-{0}\"\n        }\n    }\n}");
         }
 
-        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
+        // The format string for header classes can be customized by setting `SectionExtensionOptions.DefaultSectionBlockOptions.HeaderClassNameFormat`. For example:
         [Fact]
         public void Sections_Spec9_all()
         {
             // The following Markdown:
-            //     ## Foo Bar Baz
+            //     ## foo
+            //
+            // With extension options:
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "headerClassNameFormat": "custom-{0}"
+            //             }
+            //         }
+            //     }
             //
             // Should be rendered as:
-            //     <section id="foo-bar-baz">
-            //     <header class="header-level-2">
-            //     <h2>Foo Bar Baz</h2>
+            //     <section id="foo">
+            //     <header class="custom-2">
+            //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
-                "<section id=\"foo-bar-baz\">\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n</header>\n</section>", 
-                "all");
+            SpecTestHelper.AssertCompliance("## foo", 
+                "<section id=\"foo\">\n<header class=\"custom-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
+                "all", 
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"headerClassNameFormat\": \"custom-{0}\"\n        }\n    }\n}");
         }
 
-        // Auto generation of IDs can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
+        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
         [Fact]
         public void Sections_Spec10_jsonoptions_sections()
         {
             // The following Markdown:
             //     ## Foo Bar Baz
             //
-            // With extension options:
-            //     {
-            //         "sections": {
-            //             "defaultSectionBlockOptions": {
-            //                 "generateIdentifier": false
-            //             }
-            //         }
-            //     }
-            //
             // Should be rendered as:
-            //     <section>
+            //     <section id="foo-bar-baz">
             //     <header class="header-level-2">
             //     <h2>Foo Bar Baz</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
 
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
-                "<section>\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n</header>\n</section>", 
-                "jsonoptions_sections", 
-                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
+                "<section id=\"foo-bar-baz\">\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
+                "jsonoptions_sections");
+        }
+
+        // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
+        [Fact]
+        public void Sections_Spec10_all()
+        {
+            // The following Markdown:
+            //     ## Foo Bar Baz
+            //
+            // Should be rendered as:
+            //     <section id="foo-bar-baz">
+            //     <header class="header-level-2">
+            //     <h2>Foo Bar Baz</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
+                "<section id=\"foo-bar-baz\">\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
+                "all");
         }
 
         // Auto generation of IDs can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
         [Fact]
-        public void Sections_Spec10_all()
+        public void Sections_Spec11_jsonoptions_sections()
         {
             // The following Markdown:
             //     ## Foo Bar Baz
@@ -13069,95 +13138,47 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <section>
             //     <header class="header-level-2">
             //     <h2>Foo Bar Baz</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </section>
 
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
-                "<section>\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n</header>\n</section>", 
+                "<section>\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
+                "jsonoptions_sections", 
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
+        }
+
+        // Auto generation of IDs can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
+        [Fact]
+        public void Sections_Spec11_all()
+        {
+            // The following Markdown:
+            //     ## Foo Bar Baz
+            //
+            // With extension options:
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "generateIdentifier": false
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <section>
+            //     <header class="header-level-2">
+            //     <h2>Foo Bar Baz</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
+                "<section>\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
                 "all", 
                 "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
         }
 
         // Sections can be linked to by the text content of their headings:
-        [Fact]
-        public void Sections_Spec11_jsonoptions_sections()
-        {
-            // The following Markdown:
-            //     [foo]
-            //     
-            //     ## foo
-            //     ### foo bar
-            //     [foo bar]
-            //     #### foo bar baz
-            //     
-            //     [Link Text][foo bar baz]
-            //
-            // Should be rendered as:
-            //     <p><a href="#foo">foo</a></p>
-            //     <section id="foo">
-            //     <header class="header-level-2">
-            //     <h2>foo</h2>
-            //     </header>
-            //     <section id="foo-bar">
-            //     <header class="header-level-3">
-            //     <h3>foo bar</h3>
-            //     </header>
-            //     <p><a href="#foo-bar">foo bar</a></p>
-            //     <section id="foo-bar-baz">
-            //     <header class="header-level-4">
-            //     <h4>foo bar baz</h4>
-            //     </header>
-            //     <p><a href="#foo-bar-baz">Link Text</a></p>
-            //     </section>
-            //     </section>
-            //     </section>
-
-            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[Link Text][foo bar baz]", 
-                "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n</header>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n</header>\n<p><a href=\"#foo-bar-baz\">Link Text</a></p>\n</section>\n</section>\n</section>", 
-                "jsonoptions_sections");
-        }
-
-        // Sections can be linked to by the text content of their headings:
-        [Fact]
-        public void Sections_Spec11_all()
-        {
-            // The following Markdown:
-            //     [foo]
-            //     
-            //     ## foo
-            //     ### foo bar
-            //     [foo bar]
-            //     #### foo bar baz
-            //     
-            //     [Link Text][foo bar baz]
-            //
-            // Should be rendered as:
-            //     <p><a href="#foo">foo</a></p>
-            //     <section id="foo">
-            //     <header class="header-level-2">
-            //     <h2>foo</h2>
-            //     </header>
-            //     <section id="foo-bar">
-            //     <header class="header-level-3">
-            //     <h3>foo bar</h3>
-            //     </header>
-            //     <p><a href="#foo-bar">foo bar</a></p>
-            //     <section id="foo-bar-baz">
-            //     <header class="header-level-4">
-            //     <h4>foo bar baz</h4>
-            //     </header>
-            //     <p><a href="#foo-bar-baz">Link Text</a></p>
-            //     </section>
-            //     </section>
-            //     </section>
-
-            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[Link Text][foo bar baz]", 
-                "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n</header>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n</header>\n<p><a href=\"#foo-bar-baz\">Link Text</a></p>\n</section>\n</section>\n</section>", 
-                "all");
-        }
-
-        // Linking to sections by the text content of their headings can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
-        // that linking to sections is also disabled if `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
         [Fact]
         public void Sections_Spec12_jsonoptions_sections()
         {
@@ -13169,47 +13190,82 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     [foo bar]
             //     #### foo bar baz
             //     
-            //     [foo bar baz]
-            //
-            // With extension options:
-            //     {
-            //         "sections": {
-            //             "defaultSectionBlockOptions": {
-            //                 "autoLinkable": false
-            //             }
-            //         }
-            //     }
+            //     [Link Text][foo bar baz]
             //
             // Should be rendered as:
-            //     <p>[foo]</p>
+            //     <p><a href="#foo">foo</a></p>
             //     <section id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <section id="foo-bar">
             //     <header class="header-level-3">
             //     <h3>foo bar</h3>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
-            //     <p>[foo bar]</p>
+            //     <p><a href="#foo-bar">foo bar</a></p>
             //     <section id="foo-bar-baz">
             //     <header class="header-level-4">
             //     <h4>foo bar baz</h4>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
-            //     <p>[foo bar baz]</p>
+            //     <p><a href="#foo-bar-baz">Link Text</a></p>
             //     </section>
             //     </section>
             //     </section>
 
-            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
-                "<p>[foo]</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n</header>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n</header>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
-                "jsonoptions_sections", 
-                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
+            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[Link Text][foo bar baz]", 
+                "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p><a href=\"#foo-bar-baz\">Link Text</a></p>\n</section>\n</section>\n</section>", 
+                "jsonoptions_sections");
+        }
+
+        // Sections can be linked to by the text content of their headings:
+        [Fact]
+        public void Sections_Spec12_all()
+        {
+            // The following Markdown:
+            //     [foo]
+            //     
+            //     ## foo
+            //     ### foo bar
+            //     [foo bar]
+            //     #### foo bar baz
+            //     
+            //     [Link Text][foo bar baz]
+            //
+            // Should be rendered as:
+            //     <p><a href="#foo">foo</a></p>
+            //     <section id="foo">
+            //     <header class="header-level-2">
+            //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     <section id="foo-bar">
+            //     <header class="header-level-3">
+            //     <h3>foo bar</h3>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     <p><a href="#foo-bar">foo bar</a></p>
+            //     <section id="foo-bar-baz">
+            //     <header class="header-level-4">
+            //     <h4>foo bar baz</h4>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     <p><a href="#foo-bar-baz">Link Text</a></p>
+            //     </section>
+            //     </section>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[Link Text][foo bar baz]", 
+                "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p><a href=\"#foo-bar-baz\">Link Text</a></p>\n</section>\n</section>\n</section>", 
+                "all");
         }
 
         // Linking to sections by the text content of their headings can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
         // that linking to sections is also disabled if `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
         [Fact]
-        public void Sections_Spec12_all()
+        public void Sections_Spec13_jsonoptions_sections()
         {
             // The following Markdown:
             //     [foo]
@@ -13235,15 +13291,18 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <section id="foo">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <section id="foo-bar">
             //     <header class="header-level-3">
             //     <h3>foo bar</h3>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <p>[foo bar]</p>
             //     <section id="foo-bar-baz">
             //     <header class="header-level-4">
             //     <h4>foo bar baz</h4>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     <p>[foo bar baz]</p>
             //     </section>
@@ -13251,131 +13310,148 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     </section>
 
             SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
-                "<p>[foo]</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n</header>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n</header>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
+                "<p>[foo]</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
+                "jsonoptions_sections", 
+                "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
+        }
+
+        // Linking to sections by the text content of their headings can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
+        // that linking to sections is also disabled if `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
+        [Fact]
+        public void Sections_Spec13_all()
+        {
+            // The following Markdown:
+            //     [foo]
+            //     
+            //     ## foo
+            //     ### foo bar
+            //     [foo bar]
+            //     #### foo bar baz
+            //     
+            //     [foo bar baz]
+            //
+            // With extension options:
+            //     {
+            //         "sections": {
+            //             "defaultSectionBlockOptions": {
+            //                 "autoLinkable": false
+            //             }
+            //         }
+            //     }
+            //
+            // Should be rendered as:
+            //     <p>[foo]</p>
+            //     <section id="foo">
+            //     <header class="header-level-2">
+            //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     <section id="foo-bar">
+            //     <header class="header-level-3">
+            //     <h3>foo bar</h3>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     <p>[foo bar]</p>
+            //     <section id="foo-bar-baz">
+            //     <header class="header-level-4">
+            //     <h4>foo bar baz</h4>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     <p>[foo bar baz]</p>
+            //     </section>
+            //     </section>
+            //     </section>
+
+            SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
+                "<p>[foo]</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
                 "all", 
                 "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
         }
 
         // Per-section-block options can be overriden if the JSON options extension is enabled:
         [Fact]
-        public void Sections_Spec13_jsonoptions_sections()
+        public void Sections_Spec14_jsonoptions_sections()
         {
             // The following Markdown:
             //     @{
-            //         "attributes": {
-            //             "class": "book"
-            //         }
+            //         "wrapperElement": "article"
             //     }
             //     # foo
-            //     ## foo
             //     @{
-            //         "wrapperElement": "nav"
+            //         "headerIconMarkup": "<svg><use xlink:href=\"#custom-link-icon\"></use></svg>"
             //     }
             //     ## foo
             //     @{
-            //         "wrapperElement": "aside"
+            //         "headerClassNameFormat": "custom-{0}"
             //     }
-            //     # foo
-            //
-            // With extension options:
-            //     {
-            //         "sections": {
-            //             "level1WrapperElement": "article",
-            //             "defaultSectionBlockOptions": {
-            //                 "attributes": {
-            //                     "class": "chapter"
-            //                 }
-            //             }
-            //         }
-            //     }
+            //     ## foo
             //
             // Should be rendered as:
-            //     <article class="book" id="foo">
+            //     <article id="foo">
             //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
-            //     <section class="chapter" id="foo-1">
+            //     <section id="foo-1">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg><use xlink:href="#custom-link-icon"></use></svg>
             //     </header>
             //     </section>
-            //     <nav class="chapter" id="foo-2">
-            //     <header class="header-level-2">
+            //     <section id="foo-2">
+            //     <header class="custom-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
-            //     </nav>
+            //     </section>
             //     </article>
-            //     <aside class="chapter" id="foo-3">
-            //     <header class="header-level-1">
-            //     <h1>foo</h1>
-            //     </header>
-            //     </aside>
 
-            SpecTestHelper.AssertCompliance("@{\n    \"attributes\": {\n        \"class\": \"book\"\n    }\n}\n# foo\n## foo\n@{\n    \"wrapperElement\": \"nav\"\n}\n## foo\n@{\n    \"wrapperElement\": \"aside\"\n}\n# foo", 
-                "<article class=\"book\" id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section class=\"chapter\" id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n<nav class=\"chapter\" id=\"foo-2\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</nav>\n</article>\n<aside class=\"chapter\" id=\"foo-3\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n</aside>", 
-                "jsonoptions_sections", 
-                "{\n    \"sections\": {\n        \"level1WrapperElement\": \"article\",\n        \"defaultSectionBlockOptions\": {\n            \"attributes\": {\n                \"class\": \"chapter\"\n            }\n        }\n    }\n}");
+            SpecTestHelper.AssertCompliance("@{\n    \"wrapperElement\": \"article\"\n}\n# foo\n@{\n    \"headerIconMarkup\": \"<svg><use xlink:href=\\\"#custom-link-icon\\\"></use></svg>\"\n}\n## foo\n@{\n    \"headerClassNameFormat\": \"custom-{0}\"\n}\n## foo", 
+                "<article id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#custom-link-icon\"></use></svg>\n</header>\n</section>\n<section id=\"foo-2\">\n<header class=\"custom-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</article>", 
+                "jsonoptions_sections");
         }
 
         // Per-section-block options can be overriden if the JSON options extension is enabled:
         [Fact]
-        public void Sections_Spec13_all()
+        public void Sections_Spec14_all()
         {
             // The following Markdown:
             //     @{
-            //         "attributes": {
-            //             "class": "book"
-            //         }
+            //         "wrapperElement": "article"
             //     }
             //     # foo
-            //     ## foo
             //     @{
-            //         "wrapperElement": "nav"
+            //         "headerIconMarkup": "<svg><use xlink:href=\"#custom-link-icon\"></use></svg>"
             //     }
             //     ## foo
             //     @{
-            //         "wrapperElement": "aside"
+            //         "headerClassNameFormat": "custom-{0}"
             //     }
-            //     # foo
-            //
-            // With extension options:
-            //     {
-            //         "sections": {
-            //             "level1WrapperElement": "article",
-            //             "defaultSectionBlockOptions": {
-            //                 "attributes": {
-            //                     "class": "chapter"
-            //                 }
-            //             }
-            //         }
-            //     }
+            //     ## foo
             //
             // Should be rendered as:
-            //     <article class="book" id="foo">
+            //     <article id="foo">
             //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
-            //     <section class="chapter" id="foo-1">
+            //     <section id="foo-1">
             //     <header class="header-level-2">
             //     <h2>foo</h2>
+            //     <svg><use xlink:href="#custom-link-icon"></use></svg>
             //     </header>
             //     </section>
-            //     <nav class="chapter" id="foo-2">
-            //     <header class="header-level-2">
+            //     <section id="foo-2">
+            //     <header class="custom-2">
             //     <h2>foo</h2>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
-            //     </nav>
+            //     </section>
             //     </article>
-            //     <aside class="chapter" id="foo-3">
-            //     <header class="header-level-1">
-            //     <h1>foo</h1>
-            //     </header>
-            //     </aside>
 
-            SpecTestHelper.AssertCompliance("@{\n    \"attributes\": {\n        \"class\": \"book\"\n    }\n}\n# foo\n## foo\n@{\n    \"wrapperElement\": \"nav\"\n}\n## foo\n@{\n    \"wrapperElement\": \"aside\"\n}\n# foo", 
-                "<article class=\"book\" id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n<section class=\"chapter\" id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</section>\n<nav class=\"chapter\" id=\"foo-2\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n</header>\n</nav>\n</article>\n<aside class=\"chapter\" id=\"foo-3\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n</aside>", 
-                "all", 
-                "{\n    \"sections\": {\n        \"level1WrapperElement\": \"article\",\n        \"defaultSectionBlockOptions\": {\n            \"attributes\": {\n                \"class\": \"chapter\"\n            }\n        }\n    }\n}");
+            SpecTestHelper.AssertCompliance("@{\n    \"wrapperElement\": \"article\"\n}\n# foo\n@{\n    \"headerIconMarkup\": \"<svg><use xlink:href=\\\"#custom-link-icon\\\"></use></svg>\"\n}\n## foo\n@{\n    \"headerClassNameFormat\": \"custom-{0}\"\n}\n## foo", 
+                "<article id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#custom-link-icon\"></use></svg>\n</header>\n</section>\n<section id=\"foo-2\">\n<header class=\"custom-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</article>", 
+                "all");
         }
     }
 
@@ -13741,11 +13817,12 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <aside id="foo">
             //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </aside>
 
             SpecTestHelper.AssertCompliance("@{\"wrapperElement\": \"Aside\"}\n# foo", 
-                "<aside id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n</aside>", 
+                "<aside id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</aside>", 
                 "jsonoptions_sections");
         }
 
@@ -13763,11 +13840,12 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <aside id="foo">
             //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     </aside>
 
             SpecTestHelper.AssertCompliance("@{\n    \"wrapperElement\": \"Aside\"\n}\n# foo", 
-                "<aside id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n</aside>", 
+                "<aside id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</aside>", 
                 "jsonoptions_sections");
         }
 
@@ -13789,11 +13867,12 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     }</p>
             //     <header class="header-level-1">
             //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
             //     </header>
             //     
 
             SpecTestHelper.AssertCompliance("@\n{\n    \"wrapperElement\": \"Aside\"\n}\n# foo", 
-                "<p>@\n{\n&quot;wrapperElement&quot;: &quot;Aside&quot;\n}</p>\n<header class=\"header-level-1\">\n<h1>foo</h1>\n</header>\n", 
+                "<p>@\n{\n&quot;wrapperElement&quot;: &quot;Aside&quot;\n}</p>\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n", 
                 "jsonoptions_sections");
         }
     }
