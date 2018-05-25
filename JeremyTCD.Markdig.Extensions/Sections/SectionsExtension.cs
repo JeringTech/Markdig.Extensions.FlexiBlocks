@@ -50,7 +50,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                     htmlRenderer.ObjectRenderers.Insert(0, new SectionBlockRenderer());
                 }
 
-                if (!htmlRenderer.ObjectRenderers.Contains<HeadingBlockRenderer>())
+                if (!htmlRenderer.ObjectRenderers.Contains<SectionHeaderRenderer>())
                 {
                     HeadingRenderer headingRenderer = htmlRenderer.ObjectRenderers.Find<HeadingRenderer>();
                     if(headingRenderer != null)
@@ -58,7 +58,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                         htmlRenderer.ObjectRenderers.Remove(headingRenderer);
                     }
 
-                    htmlRenderer.ObjectRenderers.Insert(0, new HeadingBlockRenderer());
+                    htmlRenderer.ObjectRenderers.Insert(0, new SectionHeaderRenderer());
                 }
             }
         }
