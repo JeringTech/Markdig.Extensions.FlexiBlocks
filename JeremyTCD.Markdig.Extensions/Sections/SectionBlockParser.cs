@@ -8,7 +8,8 @@ namespace JeremyTCD.Markdig.Extensions.Sections
 {
     public class SectionBlockParser : BlockParser
     {
-        public const string ICON_MARKUP_KEY = "iconMarkup";
+        public const string HEADER_ICON_MARKUP_KEY = "headerIconMarkup";
+        public const string HEADER_CLASS_NAME_FORMAT_KEY = "headerClassNameFormat";
         private readonly HeadingBlockParser _headingBlockParser;
         private readonly SectionsExtensionOptions _sectionsExtensionOptions;
         private readonly JsonOptionsService _jsonOptionsService;
@@ -64,10 +65,8 @@ namespace JeremyTCD.Markdig.Extensions.Sections
             SectionBlockOptions sectionBlockOptions = CreateSectionOptions(processor, newHeadingBlock.Level);
 
             // Set heading block icon markup 
-            if (!string.IsNullOrWhiteSpace(sectionBlockOptions.IconMarkup))
-            {
-                newHeadingBlock.SetData(ICON_MARKUP_KEY, sectionBlockOptions.IconMarkup);
-            }
+            newHeadingBlock.SetData(HEADER_ICON_MARKUP_KEY, sectionBlockOptions.HeaderIconMarkup);
+            newHeadingBlock.SetData(HEADER_CLASS_NAME_FORMAT_KEY, sectionBlockOptions.HeaderClassNameFormat);
 
             // Optionally, don't open a section block (typically useful for an outermost, level 1 heading that will reside in an existing SectioningContentElement)
             if (sectionBlockOptions.WrapperElement.CompareTo(SectioningContentElement.None) <= 0)

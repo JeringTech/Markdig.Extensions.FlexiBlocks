@@ -32,8 +32,8 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         }
 
         [Theory]
-        [MemberData(nameof(TryOpen_ReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined_Data))]
-        public void TryOpen_SetsHeadingBlockIconMarkupAndReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined(SectionBlockOptions dummySectionBlockOptions, string expectedIconMarkup)
+        [MemberData(nameof(TryOpen_SetsHeaderDataAndReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined_Data))]
+        public void TryOpen_SetsHeaderDataAndReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined(SectionBlockOptions dummySectionBlockOptions)
         {
             // Arrange
             const int dummyHeadingLevel = 1;
@@ -52,27 +52,25 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             // Assert
             _mockRepository.VerifyAll();
             Assert.Equal(BlockState.Break, result);
-            Assert.Equal(expectedIconMarkup, dummyHeadingBlock.GetData(SectionBlockParser.ICON_MARKUP_KEY));
+            Assert.Equal(dummySectionBlockOptions.HeaderIconMarkup, dummyHeadingBlock.GetData(SectionBlockParser.HEADER_ICON_MARKUP_KEY));
+            Assert.Equal(dummySectionBlockOptions.HeaderClassNameFormat, dummyHeadingBlock.GetData(SectionBlockParser.HEADER_CLASS_NAME_FORMAT_KEY));
         }
 
-        public static IEnumerable<object[]> TryOpen_ReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined_Data()
+        public static IEnumerable<object[]> TryOpen_SetsHeaderDataAndReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined_Data()
         {
-            const string dummyIconMarkup = "dummyIconMarkup";
-
             return new object[][]
             {
-                new object[]{ new SectionBlockOptions() { WrapperElement = SectioningContentElement.None, IconMarkup = dummyIconMarkup }, dummyIconMarkup },
-                new object[]{ new SectionBlockOptions() { WrapperElement = SectioningContentElement.Undefined }, null }
+                new object[]{ new SectionBlockOptions() { WrapperElement = SectioningContentElement.None} },
+                new object[]{ new SectionBlockOptions() { WrapperElement = SectioningContentElement.Undefined } }
             };
         }
 
         [Fact]
-        public void TryOpen_IfSuccessfulSetsHeadingBlockIconMarkupCreatesNewSectionBlockAndReturnsBlockStateContinue()
+        public void TryOpen_IfSuccessfulSetsHeaderDataCreatesNewSectionBlockAndReturnsBlockStateContinue()
         {
             // Arrange
             const int dummyLevel = 2;
             const int dummyColumn = 1;
-            const string dummyIconMarkup = "dummyIconMarkup";
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<HeadingBlockParser> mockHeadingBlockParser = _mockRepository.Create<HeadingBlockParser>();
             mockHeadingBlockParser.Setup(h => h.TryOpen(dummyBlockProcessor)).Returns(BlockState.Break);
@@ -81,7 +79,6 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             dummyBlockProcessor.NewBlocks.Push(dummyHeadingBlock);
             var dummySectionBlockOptions = new SectionBlockOptions()
             {
-                IconMarkup = dummyIconMarkup,
                 WrapperElement = SectioningContentElement.Section // Anything other than undefined and none to avoid break
             };
             Mock<SectionBlockParser> sectionBlockParser = CreateMockSectionBlockParser(headingBlockParser: mockHeadingBlockParser.Object);
@@ -100,7 +97,8 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             Assert.Equal(dummyColumn, resultSectionBlock.Column);
             Assert.Equal(dummySourceSpan, resultSectionBlock.Span); // SourceSpan is a struct, so object.Equals tests for value equality (not reference equality)
             Assert.Same(dummySectionBlockOptions, resultSectionBlock.SectionBlockOptions);
-            Assert.Equal(dummyIconMarkup, dummyHeadingBlock.GetData(SectionBlockParser.ICON_MARKUP_KEY));
+            Assert.Equal(dummySectionBlockOptions.HeaderIconMarkup, dummyHeadingBlock.GetData(SectionBlockParser.HEADER_ICON_MARKUP_KEY));
+            Assert.Equal(dummySectionBlockOptions.HeaderClassNameFormat, dummyHeadingBlock.GetData(SectionBlockParser.HEADER_CLASS_NAME_FORMAT_KEY));
         }
 
         [Fact]
