@@ -135,7 +135,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         }
 
         /// <summary>
-        /// Creates <see cref="SectionBlockOptions"/> for the current block.
+        /// Creates the <see cref="SectionBlockOptions"/> for the current block.
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="blockLevel"></param>
