@@ -6,7 +6,7 @@ namespace JeremyTCD.Markdig.Extensions
 {
     public static class HtmlRendererExtensions
     {
-        public static HtmlRenderer WriteAttributeMap(this HtmlRenderer htmlRenderer, Dictionary<string, string> attributes)
+        public static HtmlRenderer WriteHtmlAttributeDictionary(this HtmlRenderer htmlRenderer, HtmlAttributeDictionary attributes)
         {
             if (attributes != null)
             {

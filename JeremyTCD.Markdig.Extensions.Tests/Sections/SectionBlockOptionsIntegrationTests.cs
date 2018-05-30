@@ -17,7 +17,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             const string dummyAttributeValue1 = "dummyAttributeValue1";
             const string dummyAttributeKey2 = "dummyAttributeKey2";
             const string dummyAttributeValue2 = "dummyAttributeValue2";
-            var dummyAttributes = new Dictionary<string, string>()
+            var dummyAttributes = new HtmlAttributeDictionary()
             {
                 {dummyAttributeKey1, dummyAttributeValue1 },
                 {dummyAttributeKey2, dummyAttributeValue2 }
@@ -38,7 +38,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             Assert.Equal(dummyGenerateIdentifier, result.GenerateIdentifier);
             Assert.Equal(dummyAutoLinkable, result.AutoLinkable);
             Assert.Equal(dummySectioningContentElement, result.WrapperElement);
-            Dictionary<string, string> resultAttributes = result.Attributes;
+            HtmlAttributeDictionary resultAttributes = result.Attributes;
             Assert.Equal(2, resultAttributes.Count);
             Assert.Equal(dummyAttributeValue1, resultAttributes[dummyAttributeKey1]);
             Assert.Equal(dummyAttributeValue2, resultAttributes[dummyAttributeKey2]);

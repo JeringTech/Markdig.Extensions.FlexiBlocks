@@ -73,7 +73,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
             const string dummyTitle = "dummyTitle";
             var dummySectionBlock = new SectionBlock(null)
             {
-                SectionBlockOptions = new SectionBlockOptions() { Attributes = new Dictionary<string, string> { { "id", dummyID } } }
+                SectionBlockOptions = new SectionBlockOptions() { Attributes = new HtmlAttributeDictionary { { "id", dummyID } } }
             };
             var dummySlrd = new SectionLinkReferenceDefinition()
             {

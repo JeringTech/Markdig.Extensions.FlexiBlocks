@@ -39,7 +39,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         /// <summary>
         /// HTML attributes.
         /// </summary>
-        public Dictionary<string, string> Attributes { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        public HtmlAttributeDictionary Attributes { get; set; } = new HtmlAttributeDictionary();
 
         /// <summary>
         /// Returns a deep clone.
@@ -47,7 +47,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         public SectionBlockOptions Clone()
         {
             var result = MemberwiseClone() as SectionBlockOptions;
-            result.Attributes = new Dictionary<string, string>(Attributes, StringComparer.OrdinalIgnoreCase);
+            result.Attributes = new HtmlAttributeDictionary(Attributes);
 
             return result;
         }

@@ -8,14 +8,14 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Shared
     public class HtmlRendererExtensionsIntegrationTests
     {
         [Fact]
-        public void WriteAttributeMap_WritesAttributes()
+        public void WriteHtmlAttributeDictionary_WritesAttributes()
         {
             // Arrange
             const string dummyAttribute1 = "dummyAttribute1";
             const string dummyValue1 = "dummyValue1";
             const string dummyAttribute2 = "dummyAttribute2";
             const string dummyValue2 = "dummyValue2";
-            var dummyAttributes = new Dictionary<string, string>()
+            var dummyAttributes = new HtmlAttributeDictionary()
             {
                 { dummyAttribute1, dummyValue1 },
                 { dummyAttribute2, dummyValue2 }
@@ -26,7 +26,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Shared
                 var htmlRenderer = new HtmlRenderer(stringWriter);
 
                 // Act
-                htmlRenderer.WriteAttributeMap(dummyAttributes);
+                htmlRenderer.WriteHtmlAttributeDictionary(dummyAttributes);
                 result = stringWriter.ToString();
             }
 

@@ -45,7 +45,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
                     {
                         AlertBlockOptions = new AlertBlockOptions()
                         {
-                            Attributes = new Dictionary<string, string>(){ { dummyAttribute, dummyAttributeValue } }
+                            Attributes = new HtmlAttributeDictionary(){ { dummyAttribute, dummyAttributeValue } }
                         }
                     },
                     $"<div {dummyAttribute}=\"{dummyAttributeValue}\">\n</div>\n"

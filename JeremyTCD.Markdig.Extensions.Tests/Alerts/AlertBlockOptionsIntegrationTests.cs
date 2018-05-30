@@ -15,7 +15,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
             const string dummyAttributeValue1 = "dummyAttributeValue1";
             const string dummyAttributeKey2 = "dummyAttributeKey2";
             const string dummyAttributeValue2 = "dummyAttributeValue2";
-            var dummyAttributes = new Dictionary<string, string>()
+            var dummyAttributes = new HtmlAttributeDictionary()
             {
                 {dummyAttributeKey1, dummyAttributeValue1 },
                 {dummyAttributeKey2, dummyAttributeValue2 }
@@ -32,7 +32,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
             // Assert
             Assert.NotSame(alertBlockOptions, result);
             Assert.Equal(dummyIconMarkup, result.IconMarkup);
-            Dictionary<string, string> resultAttributes = result.Attributes;
+            HtmlAttributeDictionary resultAttributes = result.Attributes;
             Assert.Equal(2, resultAttributes.Count);
             Assert.Equal(dummyAttributeValue1, resultAttributes[dummyAttributeKey1]);
             Assert.Equal(dummyAttributeValue2, resultAttributes[dummyAttributeKey2]);

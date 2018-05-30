@@ -27,7 +27,7 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
         /// <summary>
         /// HTML attributes.
         /// </summary>
-        public Dictionary<string, string> Attributes { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        public HtmlAttributeDictionary Attributes { get; set; } = new HtmlAttributeDictionary();
 
         /// <summary>
         /// Returns a deep clone.
@@ -35,7 +35,7 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
         public AlertBlockOptions Clone()
         {
             var result = (AlertBlockOptions)MemberwiseClone();
-            result.Attributes = new Dictionary<string, string>(Attributes);
+            result.Attributes = new HtmlAttributeDictionary(Attributes);
 
             return result;
         }

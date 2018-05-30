@@ -58,7 +58,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
             }
 
             // If section block already has an id, return
-            Dictionary<string, string> attributes = sectionBlock.SectionBlockOptions.Attributes;
+            HtmlAttributeDictionary attributes = sectionBlock.SectionBlockOptions.Attributes;
             if (attributes.ContainsKey("id"))
             {
                 return;

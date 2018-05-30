@@ -29,7 +29,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
                 SectionBlockOptions = new SectionBlockOptions()
                 {
                     WrapperElement = dummySectioningContentElement,
-                    Attributes = new Dictionary<string, string>() { { dummyAttributeName, dummyAttributeValue } }
+                    Attributes = new HtmlAttributeDictionary() { { dummyAttributeName, dummyAttributeValue } }
                 }
             };
             dummySectionBlock.Add(dummyParagraphBlock);

@@ -196,7 +196,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
                     null,
                     new AlertBlockOptions() {
                         IconMarkup = dummyIconMarkup,
-                        Attributes = new Dictionary<string, string>(){
+                        Attributes = new HtmlAttributeDictionary(){
                             { "class", $"alert-{dummyAlertTypeName.ToLowerInvariant()}" }
                         }
                     }
@@ -207,11 +207,11 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
                     new AlertsExtensionOptions(),
                     new AlertBlockOptions() {
                         IconMarkup = dummyIconMarkup,
-                        Attributes = new Dictionary<string, string>(){ { "class", dummyClass } }
+                        Attributes = new HtmlAttributeDictionary(){ { "class", dummyClass } }
                     },
                     new AlertBlockOptions() {
                         IconMarkup = dummyIconMarkup,
-                        Attributes = new Dictionary<string, string>(){
+                        Attributes = new HtmlAttributeDictionary(){
                             { "class", $"{dummyClass} alert-{dummyAlertTypeName.ToLowerInvariant()}" }
                         }
                     }
@@ -222,13 +222,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
                     new AlertsExtensionOptions() {
                         DefaultAlertBlockOptions = new AlertBlockOptions() {
                             IconMarkup = dummyIconMarkup,
-                            Attributes = new Dictionary<string, string>(){ { "class", dummyClass } }
+                            Attributes = new HtmlAttributeDictionary(){ { "class", dummyClass } }
                         },
                     },
                     null,
                     new AlertBlockOptions() {
                         IconMarkup = dummyIconMarkup,
-                        Attributes = new Dictionary<string, string>(){
+                        Attributes = new HtmlAttributeDictionary(){
                             { "class", $"{dummyClass} alert-{dummyAlertTypeName.ToLowerInvariant()}" }
                         }
                     }

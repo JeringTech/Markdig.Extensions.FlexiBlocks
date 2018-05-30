@@ -13,7 +13,7 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
 
             if (renderer.EnableHtmlForBlock)
             {
-                renderer.Write("<div").WriteAttributeMap(alertBlockOptions.Attributes).WriteLine(">");
+                renderer.Write("<div").WriteHtmlAttributeDictionary(alertBlockOptions.Attributes).WriteLine(">");
 
                 if (alertBlockOptions.IconMarkup != null)
                 {

@@ -38,7 +38,8 @@ namespace JeremyTCD.Markdig.Extensions.ResponsiveTables
         protected override void Write(HtmlRenderer renderer, Table obj)
         {
             renderer.EnsureLine();
-            renderer.Write("<table").WriteAttributeMap(_options.Attributes).WriteAttributes(obj).WriteLine(">");
+            // TODO merge attributes? - ideally, PipeTableParser should be converted to a BlockParser so that the GenericAttributes extension is not required
+            renderer.Write("<table").WriteHtmlAttributeDictionary(_options.Attributes).WriteAttributes(obj).WriteLine(">");
 
             bool hasBody = false;
             bool hasAlreadyHeader = false;

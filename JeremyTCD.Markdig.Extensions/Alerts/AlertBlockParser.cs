@@ -124,15 +124,7 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
             if (!string.IsNullOrWhiteSpace(result.ClassNameFormat))
             {
                 string alertClass = string.Format(result.ClassNameFormat, alertTypeName.ToLowerInvariant());
-
-                if (result.Attributes.TryGetValue("class", out string existingClasses) && !string.IsNullOrWhiteSpace(existingClasses))
-                {
-                    result.Attributes["class"] = $"{existingClasses} {alertClass}";
-                }
-                else
-                {
-                    result.Attributes["class"] = alertClass;
-                }
+                result.Attributes.Add("class", alertClass);
             }
 
             return result;

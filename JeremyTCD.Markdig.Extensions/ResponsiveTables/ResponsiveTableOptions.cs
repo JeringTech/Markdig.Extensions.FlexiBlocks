@@ -20,7 +20,7 @@ namespace JeremyTCD.Markdig.Extensions.ResponsiveTables
         /// <summary>
         /// HTML attributes.
         /// </summary>
-        public Dictionary<string, string> Attributes { get; set; }
+        public HtmlAttributeDictionary Attributes { get; set; } = new HtmlAttributeDictionary();
 
         /// <summary>
         /// Returns a deep clone.
@@ -28,7 +28,7 @@ namespace JeremyTCD.Markdig.Extensions.ResponsiveTables
         public ResponsiveTableOptions Clone()
         {
             var result = (ResponsiveTableOptions)MemberwiseClone();
-            result.Attributes = new Dictionary<string, string>(Attributes);
+            result.Attributes = new HtmlAttributeDictionary(Attributes);
 
             return result;
         }
