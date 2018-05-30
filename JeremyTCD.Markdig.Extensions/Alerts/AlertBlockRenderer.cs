@@ -21,7 +21,7 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
                     renderer.Write("<div");
                     if (!string.IsNullOrWhiteSpace(alertBlockOptions.ContentClassName))
                     {
-                        renderer.Write(" class=\"alert-content\"");
+                        renderer.Write($" class=\"{alertBlockOptions.ContentClassName}\"");
                     }
                     renderer.WriteLine(">");
                 }
