@@ -6,7 +6,7 @@ namespace JeremyTCD.Markdig.Extensions
 {
     public class HtmlAttributeDictionary : IDictionary<string, string>
     {
-        private Dictionary<string, string> _map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, string> _map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// Instantiates a <see cref="HtmlAttributeDictionary"/>.
@@ -41,7 +41,8 @@ namespace JeremyTCD.Markdig.Extensions
 
         /// <summary>
         /// If <paramref name="key"/> is class and a <see cref="KeyValuePair{string, string}"/> already exists with key class, appends <paramref name="value"/> to the existing value.
-        /// Otherwise, has the same behaviour as <see cref="Dictionary{TKey, TValue}.Add(TKey, TValue)"/>.
+        /// Otherwise, has the same behaviour as the <see cref="Dictionary{string, string}"/>'s indexer (adds <see cref="KeyValuePair{string, string}"/> if key does not exist,
+        /// overwrites value if key exists).
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
@@ -50,11 +51,11 @@ namespace JeremyTCD.Markdig.Extensions
             if (string.Equals(key, "class", StringComparison.OrdinalIgnoreCase) &&
                 _map.TryGetValue("class", out string existingClasses))
             {
-                _map["class"] = (!string.IsNullOrWhiteSpace(existingClasses) ? existingClasses + " " : "") + value;
+                _map["class"] = (!string.IsNullOrWhiteSpace(existingClasses) ? existingClasses + " " : "") + value?.Trim();
             }
             else
             {
-                _map.Add(key, value);
+                _map[key] = value;
             }
         }
 
