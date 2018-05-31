@@ -12482,7 +12482,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
     {
         // Sequential higher-level sections are nested:
         [Fact]
-        public void Sections_Spec1_jsonoptions_sections()
+        public void Sections_Spec1_sections_jsonoptions()
         {
             // The following Markdown:
             //     # foo
@@ -12516,7 +12516,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n#### foo", 
                 "<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-2\">\n<header class=\"header-level-4\">\n<h4>foo</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</section>\n</section>", 
-                "jsonoptions_sections");
+                "sections_jsonoptions");
         }
 
         // Sequential higher-level sections are nested:
@@ -12560,7 +12560,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // Sequential lower-level sections are not nested:
         [Fact]
-        public void Sections_Spec2_jsonoptions_sections()
+        public void Sections_Spec2_sections_jsonoptions()
         {
             // The following Markdown:
             //     ## foo
@@ -12580,7 +12580,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo\n# foo", 
                 "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>", 
-                "jsonoptions_sections");
+                "sections_jsonoptions");
         }
 
         // Sequential lower-level sections are not nested:
@@ -12610,7 +12610,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // Sequential same-level sections are not nested:
         [Fact]
-        public void Sections_Spec3_jsonoptions_sections()
+        public void Sections_Spec3_sections_jsonoptions()
         {
             // The following Markdown:
             //     ## foo
@@ -12632,7 +12632,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo\n## foo", 
                 "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
-                "jsonoptions_sections");
+                "sections_jsonoptions");
         }
 
         // Sequential same-level sections are not nested:
@@ -12664,7 +12664,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // Mixed sections:
         [Fact]
-        public void Sections_Spec4_jsonoptions_sections()
+        public void Sections_Spec4_sections_jsonoptions()
         {
             // The following Markdown:
             //     # foo
@@ -12698,7 +12698,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n## foo", 
                 "<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</section>\n<section id=\"foo-2\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
-                "jsonoptions_sections");
+                "sections_jsonoptions");
         }
 
         // Mixed sections:
@@ -12742,7 +12742,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // Sections wrap content:
         [Fact]
-        public void Sections_Spec5_jsonoptions_sections()
+        public void Sections_Spec5_sections_jsonoptions()
         {
             // The following Markdown:
             //     # foo
@@ -12783,7 +12783,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", 
                 "<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", 
-                "jsonoptions_sections");
+                "sections_jsonoptions");
         }
 
         // Sections wrap content:
@@ -12834,7 +12834,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // To enable wrapping of level 1 headers, set `SectionsExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
         [Fact]
-        public void Sections_Spec6_jsonoptions_sections()
+        public void Sections_Spec6_sections_jsonoptions()
         {
             // The following Markdown:
             //     # foo
@@ -12863,7 +12863,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo\n## foo", 
                 "<article id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</article>", 
-                "jsonoptions_sections", 
+                "sections_jsonoptions", 
                 "{\n    \"sections\": {\n        \"level1WrapperElement\": \"article\"\n    }\n}");
         }
 
@@ -12904,7 +12904,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // To change the element used to wrap level 2+ headers, set `SectionsExtensionOptions.Level2PlusWrapperElement". For example:
         [Fact]
-        public void Sections_Spec7_jsonoptions_sections()
+        public void Sections_Spec7_sections_jsonoptions()
         {
             // The following Markdown:
             //     ## foo
@@ -12926,7 +12926,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo", 
                 "<nav id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</nav>", 
-                "jsonoptions_sections", 
+                "sections_jsonoptions", 
                 "{\n    \"sections\": {\n        \"level2PlusWrapperElement\": \"nav\"\n    }\n}");
         }
 
@@ -12960,7 +12960,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // The icon used for headers can be customized by setting `SectionExtensionOptions.DefaultSectionBlockOptions.HeaderIconMarkup`. For example:
         [Fact]
-        public void Sections_Spec8_jsonoptions_sections()
+        public void Sections_Spec8_sections_jsonoptions()
         {
             // The following Markdown:
             //     ## foo
@@ -12984,7 +12984,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo", 
                 "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#custom-link-icon\"></use></svg>\n</header>\n</section>", 
-                "jsonoptions_sections", 
+                "sections_jsonoptions", 
                 "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"headerIconMarkup\": \"<svg><use xlink:href=\\\"#custom-link-icon\\\"></use></svg>\"\n        }\n    }\n}");
         }
 
@@ -13020,7 +13020,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // The format string for header classes can be customized by setting `SectionExtensionOptions.DefaultSectionBlockOptions.HeaderClassNameFormat`. For example:
         [Fact]
-        public void Sections_Spec9_jsonoptions_sections()
+        public void Sections_Spec9_sections_jsonoptions()
         {
             // The following Markdown:
             //     ## foo
@@ -13044,7 +13044,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo", 
                 "<section id=\"foo\">\n<header class=\"custom-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
-                "jsonoptions_sections", 
+                "sections_jsonoptions", 
                 "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"headerClassNameFormat\": \"custom-{0}\"\n        }\n    }\n}");
         }
 
@@ -13080,7 +13080,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
         [Fact]
-        public void Sections_Spec10_jsonoptions_sections()
+        public void Sections_Spec10_sections_jsonoptions()
         {
             // The following Markdown:
             //     ## Foo Bar Baz
@@ -13095,7 +13095,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
                 "<section id=\"foo-bar-baz\">\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
-                "jsonoptions_sections");
+                "sections_jsonoptions");
         }
 
         // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
@@ -13120,7 +13120,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // Auto generation of IDs can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
         [Fact]
-        public void Sections_Spec11_jsonoptions_sections()
+        public void Sections_Spec11_sections_jsonoptions()
         {
             // The following Markdown:
             //     ## Foo Bar Baz
@@ -13144,7 +13144,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
                 "<section>\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
-                "jsonoptions_sections", 
+                "sections_jsonoptions", 
                 "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
         }
 
@@ -13180,7 +13180,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // Sections can be linked to by the text content of their headings:
         [Fact]
-        public void Sections_Spec12_jsonoptions_sections()
+        public void Sections_Spec12_sections_jsonoptions()
         {
             // The following Markdown:
             //     [foo]
@@ -13217,7 +13217,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[Link Text][foo bar baz]", 
                 "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p><a href=\"#foo-bar-baz\">Link Text</a></p>\n</section>\n</section>\n</section>", 
-                "jsonoptions_sections");
+                "sections_jsonoptions");
         }
 
         // Sections can be linked to by the text content of their headings:
@@ -13265,7 +13265,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
         // Linking to sections by the text content of their headings can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
         // that linking to sections is also disabled if `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
         [Fact]
-        public void Sections_Spec13_jsonoptions_sections()
+        public void Sections_Spec13_sections_jsonoptions()
         {
             // The following Markdown:
             //     [foo]
@@ -13311,7 +13311,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
                 "<p>[foo]</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
-                "jsonoptions_sections", 
+                "sections_jsonoptions", 
                 "{\n    \"sections\": {\n        \"defaultSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
         }
 
@@ -13370,7 +13370,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // Per-section-block options can be overriden if the JSON options extension is enabled:
         [Fact]
-        public void Sections_Spec14_jsonoptions_sections()
+        public void Sections_Spec14_sections_jsonoptions()
         {
             // The following Markdown:
             //     @{
@@ -13408,7 +13408,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"wrapperElement\": \"article\"\n}\n# foo\n@{\n    \"headerIconMarkup\": \"<svg><use xlink:href=\\\"#custom-link-icon\\\"></use></svg>\"\n}\n## foo\n@{\n    \"headerClassNameFormat\": \"custom-{0}\"\n}\n## foo", 
                 "<article id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#custom-link-icon\"></use></svg>\n</header>\n</section>\n<section id=\"foo-2\">\n<header class=\"custom-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</article>", 
-                "jsonoptions_sections");
+                "sections_jsonoptions");
         }
 
         // Per-section-block options can be overriden if the JSON options extension is enabled:
@@ -13464,7 +13464,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
         // is a string containing 1 or more characters from the regex character set `[A-Za-z0-9_-]`. The result of appending `alert-` to the alert name is used as the
         // alert block's class:
         [Fact]
-        public void Alerts_Spec1_jsonoptions_alerts()
+        public void Alerts_Spec1_alerts_jsonoptions()
         {
             // The following Markdown:
             //     ! critical-warning
@@ -13480,7 +13480,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! critical-warning\n! This is a critical warning.", 
                 "<div class=\"alert-critical-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"alert-content\">\n<p>This is a critical warning.</p>\n</div>\n</div>", 
-                "jsonoptions_alerts");
+                "alerts_jsonoptions");
         }
 
         // Every line of an alert must start with an `!`. The first line of an alert must be of the form `!<optional space><alert name>` where `<alert name>`
@@ -13508,7 +13508,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // The block is ignored if the first line does not contain a level name :
         [Fact]
-        public void Alerts_Spec2_jsonoptions_alerts()
+        public void Alerts_Spec2_alerts_jsonoptions()
         {
             // The following Markdown:
             //     ! 
@@ -13520,7 +13520,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! \n! This is a warning.", 
                 "<p>!\n! This is a warning.</p>", 
-                "jsonoptions_alerts");
+                "alerts_jsonoptions");
         }
 
         // The block is ignored if the first line does not contain a level name :
@@ -13542,7 +13542,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // The block is ignored if the first line contains disallowed characters :
         [Fact]
-        public void Alerts_Spec3_jsonoptions_alerts()
+        public void Alerts_Spec3_alerts_jsonoptions()
         {
             // The following Markdown:
             //     ! illegal space
@@ -13554,7 +13554,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! illegal space\n! This is a warning.", 
                 "<p>! illegal space\n! This is a warning.</p>", 
-                "jsonoptions_alerts");
+                "alerts_jsonoptions");
         }
 
         // The block is ignored if the first line contains disallowed characters :
@@ -13576,7 +13576,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // The first space after `!` is ignored. :
         [Fact]
-        public void Alerts_Spec4_jsonoptions_alerts()
+        public void Alerts_Spec4_alerts_jsonoptions()
         {
             // The following Markdown:
             //     ! warning
@@ -13594,7 +13594,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! warning\n!This line will be rendered with 0 leading spaces.\n! This line will also be rendered with 0 leading spaces.", 
                 "<div class=\"alert-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"alert-content\">\n<p>This line will be rendered with 0 leading spaces.\nThis line will also be rendered with 0 leading spaces.</p>\n</div>\n</div>", 
-                "jsonoptions_alerts");
+                "alerts_jsonoptions");
         }
 
         // The first space after `!` is ignored. :
@@ -13622,7 +13622,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // Lazy continuation is allowed:
         [Fact]
-        public void Alerts_Spec5_jsonoptions_alerts()
+        public void Alerts_Spec5_alerts_jsonoptions()
         {
             // The following Markdown:
             //     ! info
@@ -13644,7 +13644,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! info\n! This is part of\nthe info.\n! This is also part of\nthe info.", 
                 "<div class=\"alert-info\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z\"></path></svg>\n<div class=\"alert-content\">\n<p>This is part of\nthe info.\nThis is also part of\nthe info.</p>\n</div>\n</div>", 
-                "jsonoptions_alerts");
+                "alerts_jsonoptions");
         }
 
         // Lazy continuation is allowed:
@@ -13676,7 +13676,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // `AlertsExtensionOptions.IconMarkups` can be used to define icon element markup for custom alert types:
         [Fact]
-        public void Alerts_Spec6_jsonoptions_alerts()
+        public void Alerts_Spec6_alerts_jsonoptions()
         {
             // The following Markdown:
             //     ! closer-look
@@ -13701,7 +13701,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! closer-look\n! This is a closer look at some topic.", 
                 "<div class=\"alert-closer-look\">\n<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>\n<div class=\"alert-content\">\n<p>This is a closer look at some topic.</p>\n</div>\n</div>", 
-                "jsonoptions_alerts", 
+                "alerts_jsonoptions", 
                 "{\n    \"alerts\": {\n        \"iconMarkups\": {\n            \"closer-look\": \"<svg height=\\\"24\\\" viewBox=\\\"0 0 24 24\\\" width=\\\"24\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><path d=\\\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\\\"/></svg>\"\n        }\n    }\n}");
         }
 
@@ -13738,7 +13738,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
         // Per-alert-block options can be overriden if the JSON options extension is enabled:
         [Fact]
-        public void Alerts_Spec7_jsonoptions_alerts()
+        public void Alerts_Spec7_alerts_jsonoptions()
         {
             // The following Markdown:
             //     ! warning
@@ -13765,7 +13765,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n@{\n    \"iconMarkup\": \"<svg><use xlink:href=\\\"#alternative-warning-icon\\\"></use></svg>\"\n}\n! warning\n! This is a special warning.", 
                 "<div class=\"alert-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"alert-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"alert-warning\">\n<svg><use xlink:href=\"#alternative-warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a special warning.</p>\n</div>\n</div>", 
-                "jsonoptions_alerts");
+                "alerts_jsonoptions");
         }
 
         // Per-alert-block options can be overriden if the JSON options extension is enabled:
@@ -13801,79 +13801,105 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
         }
     }
 
-    // Per-block options are useful for many extensions. For example, per-block options would allow a code extension to add line-numbers to select code blocks. 
-    // Json options facilitates per-block options, using a simple and consistent syntax.
-    public class JsonOptionsTests
+    // Flexi code has the following features:
+    // 
+    // - Copy code icon
+    // - Code block title
+    // - Syntax highlighting
+    // - Line numbers
+    // 
+    // These features can be configured at the extension level using `FlexiCodeExtensionOptions` and can also be configured at the 
+    // block level using JSON options.
+    public class FlexiCodeTests
     {
-        // Json options are specified as a string above the block they apply to. The first line must begin with `@{`:
+        // Flexi code blocks have the same syntax as CommonMark fenced and indented code blocks.
+        // The following is an example of a fenced flexi code block with the default options:
         [Fact]
-        public void JsonOptions_Spec1_jsonoptions_sections()
+        public void FlexiCode_Spec1_flexicode_jsonoptions()
         {
             // The following Markdown:
-            //     @{"wrapperElement": "Aside"}
-            //     # foo
+            //     ```
+            //     Code here!
+            //     ```
             //
             // Should be rendered as:
-            //     <aside id="foo">
-            //     <header class="header-level-1">
-            //     <h1>foo</h1>
-            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
             //     </header>
-            //     </aside>
+            //     <pre><code>Code here!
+            //     </code></pre>
+            //     </div>
 
-            SpecTestHelper.AssertCompliance("@{\"wrapperElement\": \"Aside\"}\n# foo", 
-                "<aside id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</aside>", 
-                "jsonoptions_sections");
+            SpecTestHelper.AssertCompliance("```\nCode here!\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>Code here!\n</code></pre>\n</div>", 
+                "flexicode_jsonoptions");
         }
 
-        // Options can be specified across several lines:
+        // Flexi code blocks have the same syntax as CommonMark fenced and indented code blocks.
+        // The following is an example of a fenced flexi code block with the default options:
         [Fact]
-        public void JsonOptions_Spec2_jsonoptions_sections()
+        public void FlexiCode_Spec1_all()
         {
             // The following Markdown:
-            //     @{
-            //         "wrapperElement": "Aside"
-            //     }
-            //     # foo
+            //     ```
+            //     Code here!
+            //     ```
             //
             // Should be rendered as:
-            //     <aside id="foo">
-            //     <header class="header-level-1">
-            //     <h1>foo</h1>
-            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
             //     </header>
-            //     </aside>
+            //     <pre><code>Code here!
+            //     </code></pre>
+            //     </div>
 
-            SpecTestHelper.AssertCompliance("@{\n    \"wrapperElement\": \"Aside\"\n}\n# foo", 
-                "<aside id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</aside>", 
-                "jsonoptions_sections");
+            SpecTestHelper.AssertCompliance("```\nCode here!\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>Code here!\n</code></pre>\n</div>", 
+                "all");
         }
 
-        // If the first line does not begin with `@{`, the string becomes a paragraph:
+        // The following is an example of an indented flexi code block with the default options:
         [Fact]
-        public void JsonOptions_Spec3_jsonoptions_sections()
+        public void FlexiCode_Spec2_flexicode_jsonoptions()
         {
             // The following Markdown:
-            //     @
-            //     {
-            //         "wrapperElement": "Aside"
-            //     }
-            //     # foo
+            //         Code here!
             //
             // Should be rendered as:
-            //     <p>@
-            //     {
-            //     &quot;wrapperElement&quot;: &quot;Aside&quot;
-            //     }</p>
-            //     <header class="header-level-1">
-            //     <h1>foo</h1>
-            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
             //     </header>
-            //     
+            //     <pre><code>Code here!
+            //     </code></pre>
+            //     </div>
 
-            SpecTestHelper.AssertCompliance("@\n{\n    \"wrapperElement\": \"Aside\"\n}\n# foo", 
-                "<p>@\n{\n&quot;wrapperElement&quot;: &quot;Aside&quot;\n}</p>\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n", 
-                "jsonoptions_sections");
+            SpecTestHelper.AssertCompliance("    Code here!", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>Code here!\n</code></pre>\n</div>", 
+                "flexicode_jsonoptions");
+        }
+
+        // The following is an example of an indented flexi code block with the default options:
+        [Fact]
+        public void FlexiCode_Spec2_all()
+        {
+            // The following Markdown:
+            //         Code here!
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>Code here!
+            //     </code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("    Code here!", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>Code here!\n</code></pre>\n</div>", 
+                "all");
         }
     }
 
@@ -14565,6 +14591,82 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\">0</td>\n<td data-label=\"b\">1</td>\n</tr>\n<tr>\n<td data-label=\"a\">2</td>\n<td data-label=\"b\">3</td>\n</tr>\n</tbody>\n</table>", 
                 "all", 
                 "{\n    \"responsivetables\": {\n        \"defaultResponsiveTableOptions\": {\n            \"wrapperElementName\": \"\"\n        }\n    }\n}");
+        }
+    }
+
+    // Per-block options are useful for many extensions. For example, per-block options would allow a code extension to add line-numbers to select code blocks. 
+    // Json options facilitates per-block options, using a simple and consistent syntax.
+    public class JsonOptionsTests
+    {
+        // Json options are specified as a string above the block they apply to. The first line must begin with `@{`:
+        [Fact]
+        public void JsonOptions_Spec1_all()
+        {
+            // The following Markdown:
+            //     @{"wrapperElement": "Aside"}
+            //     # foo
+            //
+            // Should be rendered as:
+            //     <aside id="foo">
+            //     <header class="header-level-1">
+            //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     </aside>
+
+            SpecTestHelper.AssertCompliance("@{\"wrapperElement\": \"Aside\"}\n# foo", 
+                "<aside id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</aside>", 
+                "all");
+        }
+
+        // Options can be specified across several lines:
+        [Fact]
+        public void JsonOptions_Spec2_all()
+        {
+            // The following Markdown:
+            //     @{
+            //         "wrapperElement": "Aside"
+            //     }
+            //     # foo
+            //
+            // Should be rendered as:
+            //     <aside id="foo">
+            //     <header class="header-level-1">
+            //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     </aside>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"wrapperElement\": \"Aside\"\n}\n# foo", 
+                "<aside id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</aside>", 
+                "all");
+        }
+
+        // If the first line does not begin with `@{`, the string becomes a paragraph:
+        [Fact]
+        public void JsonOptions_Spec3_all()
+        {
+            // The following Markdown:
+            //     @
+            //     {
+            //         "wrapperElement": "Aside"
+            //     }
+            //     # foo
+            //
+            // Should be rendered as:
+            //     <p>@
+            //     {
+            //     &quot;wrapperElement&quot;: &quot;Aside&quot;
+            //     }</p>
+            //     <header class="header-level-1">
+            //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     
+
+            SpecTestHelper.AssertCompliance("@\n{\n    \"wrapperElement\": \"Aside\"\n}\n# foo", 
+                "<p>@\n{\n&quot;wrapperElement&quot;: &quot;Aside&quot;\n}</p>\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n", 
+                "all");
         }
     }
 }

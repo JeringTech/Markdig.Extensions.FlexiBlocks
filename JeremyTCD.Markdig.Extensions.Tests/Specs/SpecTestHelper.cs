@@ -1,4 +1,5 @@
 ﻿using JeremyTCD.Markdig.Extensions. Alerts;
+using JeremyTCD.Markdig.Extensions.FlexiCode;
 using JeremyTCD.Markdig.Extensions.ResponsiveTables;
 using JeremyTCD.Markdig.Extensions.Sections;
 using Markdig;
@@ -17,6 +18,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
             new Dictionary<string, Action<MarkdownPipelineBuilder, JObject>>
             {
                 { "jsonoptions", (MarkdownPipelineBuilder builder, JObject _) => builder.UseJsonOptions() },
+                { "flexicode", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiCode(options?["flexicode"]?.ToObject<FlexiCodeExtensionOptions>()) },
                 { "sections", (MarkdownPipelineBuilder builder, JObject options) => builder.UseSections(options?["sections"]?.ToObject<SectionsExtensionOptions>()) },
                 { "alerts", (MarkdownPipelineBuilder builder, JObject options) => builder.UseAlerts(options?["alerts"]?.ToObject<AlertsExtensionOptions>()) },
                 { "responsivetables", (MarkdownPipelineBuilder builder, JObject options) => builder.UseResponsiveTables(options?["responsivetables"]?.ToObject<ResponsiveTablesExtensionOptions>()) },
@@ -27,6 +29,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests
                         UseResponsiveTables(options?["responsivetables"]?.ToObject<ResponsiveTablesExtensionOptions>()).
                         UseSections(options?["sections"]?.ToObject<SectionsExtensionOptions>()).
                         UseAlerts(options?["alerts"]?.ToObject<AlertsExtensionOptions>()).
+                        UseFlexiCode(options?["flexicode"]?.ToObject<FlexiCodeExtensionOptions>()).
                         UsePipeTables().
                         UseGridTables().
                         UseJsonOptions();

@@ -1,4 +1,5 @@
 ﻿using JeremyTCD.Markdig.Extensions.Alerts;
+using JeremyTCD.Markdig.Extensions.FlexiCode;
 using JeremyTCD.Markdig.Extensions.JsonOptions;
 using JeremyTCD.Markdig.Extensions.ResponsiveTables;
 using JeremyTCD.Markdig.Extensions.Sections;
@@ -43,6 +44,16 @@ namespace JeremyTCD.Markdig.Extensions
             if (!pipelineBuilder.Extensions.Contains<ResponsiveTablesExtension>())
             {
                 pipelineBuilder.Extensions.Add(new ResponsiveTablesExtension(options));
+            }
+
+            return pipelineBuilder;
+        }
+
+        public static MarkdownPipelineBuilder UseFlexiCode(this MarkdownPipelineBuilder pipelineBuilder, FlexiCodeExtensionOptions options = null)
+        {
+            if (!pipelineBuilder.Extensions.Contains<FlexiCodeExtension>())
+            {
+                pipelineBuilder.Extensions.Add(new FlexiCodeExtension(options));
             }
 
             return pipelineBuilder;

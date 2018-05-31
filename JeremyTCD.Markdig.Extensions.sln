@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{F41F9DD0
 	ProjectSection(SolutionItems) = preProject
 		Specs\AlertsSpecs.md = Specs\AlertsSpecs.md
 		Specs\CommonMarkSpecs.md = Specs\CommonMarkSpecs.md
+		Specs\FlexiCodeSpecs.md = Specs\FlexiCodeSpecs.md
 		Specs\JsonOptionsSpecs.md = Specs\JsonOptionsSpecs.md
 		Specs\ResponsiveTablesSpecs.md = Specs\ResponsiveTablesSpecs.md
 		Specs\SectionsSpecs.md = Specs\SectionsSpecs.md

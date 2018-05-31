@@ -38,4 +38,8 @@
         </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Code\" />
+    </ItemGroup>
+
 </Project>
