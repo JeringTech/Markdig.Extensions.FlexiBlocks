@@ -157,11 +157,13 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
             AlertBlockOptions expectedResult)
         {
             // Arrange
+            const int dummyLineIndex = 1;
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            dummyBlockProcessor.LineIndex = dummyLineIndex;
             Mock<JsonOptionsService> mockJsonOptionsService = _mockRepository.Create<JsonOptionsService>();
             mockJsonOptionsService.
-                Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<AlertBlockOptions>())).
-                Callback<BlockProcessor, AlertBlockOptions>((_, a) =>
+                Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<AlertBlockOptions>(), dummyLineIndex)).
+                Callback<BlockProcessor, AlertBlockOptions, int>((_, a, __) =>
                 {
                     if (dummyJsonAlertBlockOptions == null) { return; };
                     a.IconMarkup = dummyJsonAlertBlockOptions.IconMarkup;
@@ -244,9 +246,11 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Alerts
             string expectedClassValue)
         {
             // Arrange
+            const int dummyLineIndex = 1;
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            dummyBlockProcessor.LineIndex = dummyLineIndex;
             Mock<JsonOptionsService> mockJsonOptionsService = _mockRepository.Create<JsonOptionsService>();
-            mockJsonOptionsService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<AlertBlockOptions>()));
+            mockJsonOptionsService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<AlertBlockOptions>(), dummyLineIndex));
             var dummyAlertsExtensionOptions = new AlertsExtensionOptions()
             {
                 DefaultAlertBlockOptions = new AlertBlockOptions() { ClassNameFormat = dummyClassNameFormat }

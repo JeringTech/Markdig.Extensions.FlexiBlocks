@@ -11,19 +11,20 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="processor"></param>
+        /// <param name="blockStartLine"></param>
         /// <returns>
         /// Instance of type <typeparamref name="T"/> or null if no JSON options exists.
         /// </returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="processor"/> is null.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the JSON cannot be parsed.</exception>
-        public virtual T TryExtractOptions<T>(BlockProcessor processor) where T : class
+        public virtual T TryExtractOptions<T>(BlockProcessor processor, int blockStartLine) where T : class
         {
             if (processor == null)
             {
                 throw new ArgumentNullException(nameof(processor));
             }
 
-            JsonOptionsBlock jsonOptionsBlock = TryGetJsonOptionsBlock(processor);
+            JsonOptionsBlock jsonOptionsBlock = TryGetJsonOptionsBlock(processor, blockStartLine);
 
             if (jsonOptionsBlock == null)
             {
@@ -53,10 +54,11 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
         /// <typeparam name="T"></typeparam>
         /// <param name="processor"></param>
         /// <param name="target"></param>
+        /// <param name="blockStartLine"></param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="processor"/> is null.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the JSON cannot be parsed.</exception>
-        public virtual bool TryPopulateOptions<T>(BlockProcessor processor, T target) where T : class
+        public virtual bool TryPopulateOptions<T>(BlockProcessor processor, T target, int blockStartLine) where T : class
         {
             if (processor == null)
             {
@@ -68,7 +70,7 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
                 throw new ArgumentNullException(nameof(target));
             }
 
-            JsonOptionsBlock jsonOptionsBlock = TryGetJsonOptionsBlock(processor);
+            JsonOptionsBlock jsonOptionsBlock = TryGetJsonOptionsBlock(processor, blockStartLine);
 
             if(jsonOptionsBlock == null)
             {
@@ -93,17 +95,18 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
         /// Attempts to retrieve a <see cref="JsonOptionsBlock"/> from <paramref name="processor"/>.
         /// </summary>
         /// <param name="processor"></param>
+        /// <param name="blockStartLine"></param>
         /// <returns>
         /// A <see cref="JsonOptionsBlock"/> if successful, null otherwise.
         /// </returns>
         /// <exception cref="InvalidOperationException">
         /// Thrown if <see cref="JsonOptionsBlock"/> does not immediately precede current line.
         /// </exception>
-        public virtual JsonOptionsBlock TryGetJsonOptionsBlock(BlockProcessor processor)
+        public virtual JsonOptionsBlock TryGetJsonOptionsBlock(BlockProcessor processor, int blockStartLine)
         {
             if (processor.Document.GetData(JsonOptionsBlockParser.JSON_OPTIONS) is JsonOptionsBlock jsonOptionsBlock)
             {
-                if (jsonOptionsBlock.EndLine + 1 != processor.LineIndex)
+                if (jsonOptionsBlock.EndLine + 1 != blockStartLine)
                 {
                     throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_JsonOptionsDoesNotImmediatelyPrecedeConsumingBlock,
                         jsonOptionsBlock.Lines.ToString(),

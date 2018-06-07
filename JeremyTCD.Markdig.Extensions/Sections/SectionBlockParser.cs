@@ -144,7 +144,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
             SectionBlockOptions result = _sectionsExtensionOptions.DefaultSectionBlockOptions.Clone();
 
             // Apply JSON options if they exist
-            _jsonOptionsService.TryPopulateOptions(processor, result);
+            _jsonOptionsService.TryPopulateOptions(processor, result, processor.LineIndex);
 
             if (result.WrapperElement == SectioningContentElement.Undefined)
             {

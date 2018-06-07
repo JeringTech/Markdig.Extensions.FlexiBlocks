@@ -212,9 +212,11 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Sections
         public void CreateSectionOptions_CreatesSectionOptionsUsingSectionsExtensionOptionsWrapperElementsIfSectionBlockOptionsWrapperElementIsUndefined(int dummyLevel, SectioningContentElement expectedWrapperElement)
         {
             // Arrange
+            const int dummyLineIndex = 1;
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            dummyBlockProcessor.LineIndex = dummyLineIndex;
             var mockJsonOptionsService = new Mock<JsonOptionsService>();
-            mockJsonOptionsService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<SectionBlockOptions>())); // SectionBlockOptions will be a fresh instance (cloned)
+            mockJsonOptionsService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<SectionBlockOptions>(), dummyLineIndex)); // SectionBlockOptions will be a fresh instance (cloned)
             SectionBlockParser sectionBlockParser = CreateSectionBlockParser();
 
             // Act

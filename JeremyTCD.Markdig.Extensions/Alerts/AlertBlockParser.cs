@@ -112,7 +112,7 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
         {
             AlertBlockOptions result = _alertsExtensionOptions.DefaultAlertBlockOptions.Clone();
 
-            _jsonOptionsService.TryPopulateOptions(processor, result);
+            _jsonOptionsService.TryPopulateOptions(processor, result, processor.LineIndex);
 
             // Set icon element (precedence - JSON options > default AlertBlockOptions > AlertOptions.IconMarkups)
             if (result.IconMarkup == null && _alertsExtensionOptions.IconMarkups.TryGetValue(alertTypeName, out string iconMarkup))
