@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace JeremyTCD.Markdig.Extensions.FlexiCode
+﻿namespace JeremyTCD.Markdig.Extensions.FlexiCode
 {
     public class FlexiCodeOptions : IMarkdownObjectOptions<FlexiCodeOptions>
     {
@@ -32,10 +29,22 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
         public bool RenderLineNumbers { get; set; }
 
         /// <summary>
-        /// Gets or sets the value used as the language for syntax highlighting of the flexi code block's contents.
-        /// If the value is null, whitespace or an empty string, the flexi code block's contents are not highlighted.
+        /// Gets or sets the value used as the language for syntax highlighting of the flexi code block's code.
+        /// If <see cref="Highlight"/> is true, <see cref="FlexiCodeRenderer"/> highlights the code using PrismJs. 
+        /// Otherwise, a class with format <see cref="CodeLanguageClassNameFormat"/> is added to the code element to facilitate 
+        /// client side syntax highlighting.
         /// </summary>
-        public string HighlightLanguage { get; set; }
+        public string Language { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value used as the format for the flexi code block's code element's language class.
+        /// </summary>
+        public string CodeLanguageClassNameFormat { get; set; } = "language-{0}";
+
+        /// <summary>
+        /// Gets or sets the value indicating whether <see cref="FlexiCodeRenderer"/> should highlight the flexi code block's code.
+        /// </summary>
+        public bool Highlight { get; set; } = true;
 
         /// <summary>
         /// HTML attributes.
