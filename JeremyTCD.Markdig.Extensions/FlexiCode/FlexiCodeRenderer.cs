@@ -11,7 +11,7 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
     {
         private readonly HtmlRenderer _codeRenderer;
         private readonly StringWriter _stringWriter;
-        private readonly IPrism _prism;
+        private readonly IPrismService _prismService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeBlockRenderer"/> class.
@@ -25,7 +25,7 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
             var services = new ServiceCollection();
             services.AddPrism();
             ServiceProvider serviceProvider = services.BuildServiceProvider();
-            _prism = serviceProvider.GetRequiredService<IPrism>();
+            _prismService = serviceProvider.GetRequiredService<IPrismService>();
         }
 
         protected override void Write(HtmlRenderer renderer, CodeBlock obj)
@@ -65,7 +65,7 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
                     string code = _stringWriter.ToString();
                     _stringWriter.GetStringBuilder().Length = 0;
 
-                    string highlightedCode = _prism.Highlight(code, flexiCodeOptions.Language).Result;
+                    string highlightedCode = _prismService.Highlight(code, flexiCodeOptions.Language).Result;
 
                     renderer.Write(highlightedCode);
                 }
