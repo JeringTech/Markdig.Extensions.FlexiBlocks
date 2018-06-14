@@ -65,7 +65,7 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
                     string code = _stringWriter.ToString();
                     _stringWriter.GetStringBuilder().Length = 0;
 
-                    string highlightedCode = _prismService.Highlight(code, flexiCodeOptions.Language).Result;
+                    string highlightedCode = _prismService.HighlightAsync(code, flexiCodeOptions.Language).Result;
 
                     renderer.Write(highlightedCode);
                 }
