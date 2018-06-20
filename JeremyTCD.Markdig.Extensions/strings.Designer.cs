@@ -10,7 +10,6 @@
 
 namespace JeremyTCD.Markdig.Extensions {
     using System;
-    using System.Reflection;
     
     
     /// <summary>
@@ -40,7 +39,7 @@ namespace JeremyTCD.Markdig.Extensions {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JeremyTCD.Markdig.Extensions.Strings", typeof(Strings).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JeremyTCD.Markdig.Extensions.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -58,6 +57,33 @@ namespace JeremyTCD.Markdig.Extensions {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid end line &quot;{0}&quot;. If end line isn&apos;t negative, it must be greater than or equal to start line, &quot;{1}&quot;..
+        /// </summary>
+        public static string ArgumentException_InvalidEndLine {
+            get {
+                return ResourceManager.GetString("ArgumentException_InvalidEndLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid start line &quot;{0}&quot;. Start line must be positive..
+        /// </summary>
+        public static string ArgumentException_InvalidStartLine {
+            get {
+                return ResourceManager.GetString("ArgumentException_InvalidStartLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid start line number &quot;{0}&quot;. Start line number must be positive..
+        /// </summary>
+        public static string ArgumentException_InvalidStartLineNumber {
+            get {
+                return ResourceManager.GetString("ArgumentException_InvalidStartLineNumber", resourceCulture);
             }
         }
         

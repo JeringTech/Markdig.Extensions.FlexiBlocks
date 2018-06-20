@@ -24,13 +24,8 @@
         public string Title { get; set; }
 
         /// <summary>
-        /// Gets or sets the boolean value indicating whether or not line numbers should be rendered.
-        /// </summary>
-        public bool RenderLineNumbers { get; set; }
-
-        /// <summary>
         /// Gets or sets the value used as the language for syntax highlighting of the flexi code block's code.
-        /// If <see cref="Highlight"/> is true, <see cref="FlexiCodeRenderer"/> highlights the code using PrismJs. 
+        /// If <see cref="HighlightSyntax"/> is true, <see cref="FlexiCodeRenderer"/> highlights the code using PrismJs. 
         /// Otherwise, a class with format <see cref="CodeLanguageClassNameFormat"/> is added to the code element to facilitate 
         /// client side syntax highlighting.
         /// </summary>
@@ -44,7 +39,24 @@
         /// <summary>
         /// Gets or sets the value indicating whether <see cref="FlexiCodeRenderer"/> should highlight the flexi code block's code.
         /// </summary>
-        public bool Highlight { get; set; } = true;
+        public bool HighlightSyntax { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets the boolean value indicating whether or not line numbers should be rendered
+        /// </summary>
+        public bool RenderLineNumbers { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets the <see cref="LineNumberRange"/>s that specify the line number for each line of code. 
+        /// If this array is null, the first line of code is will have line number 1, and line number will be
+        /// incremented for each subsequent line of code.
+        /// </summary>
+        public LineNumberRangeCollection LineNumberRanges { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="LineRange"/>s that specify which lines of code to highlight.
+        /// </summary>
+        public LineRangeCollection HighlightRanges { get; set; }
 
         /// <summary>
         /// HTML attributes.

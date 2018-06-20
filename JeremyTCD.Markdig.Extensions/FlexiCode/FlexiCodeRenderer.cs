@@ -58,7 +58,7 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
             renderer.Write("<pre><code");
             if (!string.IsNullOrWhiteSpace(flexiCodeOptions.Language))
             {
-                if (flexiCodeOptions.Highlight)
+                if (flexiCodeOptions.HighlightSyntax)
                 {
                     renderer.Write(">");
                     _codeRenderer.WriteLeafRawLines(obj, true, false); // Don't escape, prism can't deal with escaped chars
