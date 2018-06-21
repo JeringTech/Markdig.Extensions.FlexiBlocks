@@ -1,4 +1,6 @@
-﻿namespace JeremyTCD.Markdig.Extensions.FlexiCode
+﻿using System.Collections.Generic;
+
+namespace JeremyTCD.Markdig.Extensions.FlexiCode
 {
     public class FlexiCodeOptions : IMarkdownObjectOptions<FlexiCodeOptions>
     {
@@ -51,12 +53,12 @@
         /// If this array is null, the first line of code is will have line number 1, and line number will be
         /// incremented for each subsequent line of code.
         /// </summary>
-        public OrderedLineNumberRangeCollection LineNumberRanges { get; set; }
+        public List<LineNumberRange> LineNumberRanges { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="LineRange"/>s that specify which lines of code to highlight.
         /// </summary>
-        public OrderedLineRangeCollection HighlightRanges { get; set; }
+        public List<LineRange> HighlightRanges { get; set; }
 
         /// <summary>
         /// HTML attributes.
