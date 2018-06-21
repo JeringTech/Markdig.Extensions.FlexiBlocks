@@ -40,13 +40,18 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
         public int EndLine { get; }
 
         /// <summary>
+        /// Gets the value specifying the number of lines in the range.
+        /// </summary>
+        public int NumLines => EndLine == -1 ? -1 : EndLine - StartLine + 1;
+
+        /// <summary>
         /// Checks whether <paramref name="line"/> is within the range.
         /// </summary>
         /// <param name="line"></param>
         /// <returns>True if <paramref name="line"/> is within the range, otherwise false.</returns>
         public bool Contains(int line)
         {
-            return line >= StartLine && EndLine == -1 || line <= EndLine;
+            return line >= StartLine && (EndLine == -1 || line <= EndLine);
         }
 
         /// <summary>
@@ -61,7 +66,8 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
             {
                 return -1;
             }
-            else if(StartLine <= lineRange.EndLine && EndLine == -1 || EndLine >= lineRange.StartLine)
+            else if((StartLine <= lineRange.EndLine && (EndLine == -1 || EndLine >= lineRange.StartLine)) ||
+                (lineRange.EndLine == -1 && lineRange.StartLine <= EndLine))
             {
                 return 0;
             }
