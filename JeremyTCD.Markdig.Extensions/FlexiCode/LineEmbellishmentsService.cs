@@ -19,8 +19,8 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
         /// <param name="highlightLineRanges"></param>
         /// <param name="prefixForClasses"></param>
         public string EmbellishLines(string lines,
-            LineNumberRangeCollection lineNumberRanges = null,
-            LineRangeCollection highlightLineRanges = null,
+            OrderedLineNumberRangeCollection lineNumberRanges = null,
+            OrderedLineRangeCollection highlightLineRanges = null,
             string prefixForClasses = null)
         {
             if (lineNumberRanges == null && highlightLineRanges == null)

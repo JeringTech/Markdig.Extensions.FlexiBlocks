@@ -6,11 +6,11 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
     /// <summary>
     /// TODO verify that ranges do not overlap and that start lines are in increasing order
     /// </summary>
-    public class LineRangeCollection : IList<LineRange>
+    public class OrderedLineRangeCollection : IList<LineRange>
     {
         private readonly List<LineRange> _lineRanges;
 
-        public LineRangeCollection()
+        public OrderedLineRangeCollection()
         {
             _lineRanges = new List<LineRange>();
         }
