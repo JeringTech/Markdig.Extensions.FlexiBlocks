@@ -61,7 +61,7 @@ namespace JeremyTCD.Markdig.Extensions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid end line &quot;{0}&quot;. If end line isn&apos;t negative, it must be greater than or equal to start line, &quot;{1}&quot;..
+        ///   Looks up a localized string similar to Invalid end line &quot;{0}&quot;. If end line isn&apos;t -1, it must be greater than or equal to start line, &quot;{1}&quot;..
         /// </summary>
         public static string ArgumentException_InvalidEndLine {
             get {
@@ -70,7 +70,7 @@ namespace JeremyTCD.Markdig.Extensions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid start line &quot;{0}&quot;. Start line must be positive..
+        ///   Looks up a localized string similar to Invalid start line &quot;{0}&quot;. Start line must be greater than 0..
         /// </summary>
         public static string ArgumentException_InvalidStartLine {
             get {
@@ -79,7 +79,7 @@ namespace JeremyTCD.Markdig.Extensions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid start line number &quot;{0}&quot;. Start line number must be positive..
+        ///   Looks up a localized string similar to Invalid start line number &quot;{0}&quot;. Start line number must be greater than 0..
         /// </summary>
         public static string ArgumentException_InvalidStartLineNumber {
             get {
