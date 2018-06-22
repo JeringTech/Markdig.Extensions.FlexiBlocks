@@ -41,5 +41,38 @@ namespace JeremyTCD.Markdig.Extensions.Tests.FlexiCode
             Assert.Equal(dummyEndLine, result.LineRange.EndLine);
             Assert.Equal(dummyStartLineNumber, result.StartLineNumber);
         }
+
+        [Theory]
+        [MemberData(nameof(EndLineNumber_ReturnsEndLineNumber_Data))]
+        public void EndLineNumber_ReturnsEndLineNumber(int dummyStartLine, int dummyEndLine, int dummyStartLineNumber, int expectedEndLineNumber)
+        {
+            // Arrange
+            var lineNumberRange = new LineNumberRange(dummyStartLine, dummyEndLine, dummyStartLineNumber);
+
+            // Act and assert
+            Assert.Equal(expectedEndLineNumber, lineNumberRange.EndLineNumber);
+        }
+
+        public static IEnumerable<object[]> EndLineNumber_ReturnsEndLineNumber_Data()
+        {
+            return new object[][]
+            {
+                new object[]{ 2, 5, 1, 4 },
+                new object[]{ 3, -1, 10, -1 } // Infinite range of lines
+            };
+        }
+
+        [Fact]
+        public void ToString_ReturnsLineNumberRangeAsString()
+        {
+            // Arrange
+            var lineNumberRange = new LineNumberRange(1, 5, 10);
+
+            // Act
+            string result = lineNumberRange.ToString();
+
+            // Assert
+            Assert.Equal("Lines: 1-5, Line numbers: 10-14", result);
+        }
     }
 }

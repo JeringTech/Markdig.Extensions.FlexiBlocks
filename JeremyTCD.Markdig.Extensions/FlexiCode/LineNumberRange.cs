@@ -44,8 +44,18 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
         public int StartLineNumber { get; }
 
         /// <summary>
+        /// Gets the value specifying the last line number for the line number range.
+        /// </summary>
+        public int EndLineNumber => LineRange.NumLines == -1 ? -1 : StartLineNumber + LineRange.NumLines - 1;
+
+        /// <summary>
         /// Gets the <see cref="LineRange"/> that specifies the range of lines to apply line numbers to.
         /// </summary>
         public LineRange LineRange { get; }
+
+        public override string ToString()
+        {
+            return $"Lines: {LineRange}, Line numbers: {StartLineNumber}-{EndLineNumber}";
+        }
     }
 }
