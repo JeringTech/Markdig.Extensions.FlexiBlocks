@@ -8,6 +8,40 @@ namespace JeremyTCD.Markdig.Extensions.Tests.FlexiCode
     public class LineRangeUnitTests
     {
         [Theory]
+        [MemberData(nameof(NumLines_ReturnsNumberOfLinesInRange_Data))]
+        public void NumLines_ReturnsNumberOfLinesInRange(int startLine, int endLine, int expectedNumLines)
+        {
+            // Arrange
+            var lineRange = new LineRange(startLine, endLine);
+
+            // Assert
+            Assert.Equal(expectedNumLines, lineRange.NumLines);
+        }
+
+        public static IEnumerable<object[]> NumLines_ReturnsNumberOfLinesInRange_Data()
+        {
+            return new object[][]
+            {
+                new object[]{ 2, 5, 4 },
+                new object[]{ 4, 4, 1 }, // Single line
+                new object[]{ 3, -1, -1 } // Infinite number of lines
+            };
+        }
+
+        [Fact]
+        public void ToString_ReturnsLineRangeAsString()
+        {
+            // Arrange
+            var lineRange = new LineRange(2, 4);
+
+            // Act
+            string result = lineRange.ToString();
+
+            // Assert
+            Assert.Equal("2-4", result);
+        }
+
+        [Theory]
         [MemberData(nameof(Constructor_ThrowsExceptionIfStartLineIsInvalid_Data))]
         public void Constructor_ThrowsExceptionIfStartLineIsInvalid(int dummyStartLine)
         {

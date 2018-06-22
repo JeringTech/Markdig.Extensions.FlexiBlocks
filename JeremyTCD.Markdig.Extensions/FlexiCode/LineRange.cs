@@ -60,7 +60,7 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
         /// <param name="lineRange"></param>
         /// <returns>-1 if the current <see cref="LineRange"/> occurs before <paramref name="lineRange"/>. 0 if the <see cref="LineRange"/>s overlap.
         /// 1 if the current <see cref="LineRange"/> occurs after <paramref name="lineRange"/>.</returns>
-        public int CompareTo(LineRange lineRange)
+        public virtual int CompareTo(LineRange lineRange)
         {
             if(EndLine != -1 && EndLine < lineRange.StartLine)
             {
@@ -76,6 +76,11 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
                 // StartLine > lineRange.EndLine
                 return 1;
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{StartLine}-{EndLine}";
         }
     }
 }
