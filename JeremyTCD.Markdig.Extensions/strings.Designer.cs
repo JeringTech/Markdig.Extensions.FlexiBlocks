@@ -88,11 +88,47 @@ namespace JeremyTCD.Markdig.Extensions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The highlight line range &quot;{0}&quot; is not a subset of the actual number of lines, &quot;{1}&quot;..
+        /// </summary>
+        public static string InvalidOperationException_InvalidHighlightLineRange {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_InvalidHighlightLineRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The line number line range &quot;{0}&quot; is not a subset of the actual number of lines, &quot;{1}&quot;..
+        /// </summary>
+        public static string InvalidOperationException_InvalidLineNumberLineRange {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_InvalidLineNumberLineRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to JSON options &quot;{0}&quot; at line &quot;{1}&quot;, column &quot;{2}, does not immediately precede a block that consumes it..
         /// </summary>
         public static string InvalidOperationException_JsonOptionsDoesNotImmediatelyPrecedeConsumingBlock {
             get {
                 return ResourceManager.GetString("InvalidOperationException_JsonOptionsDoesNotImmediatelyPrecedeConsumingBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid line number ranges: the line number ranges &quot;{0}&quot; and &quot;{1}&quot; overlap..
+        /// </summary>
+        public static string InvalidOperationException_LineNumbersCannotOverlap {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_LineNumbersCannotOverlap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid line ranges for highlighting: the ranges &quot;{0}&quot; and &quot;{1}&quot; overlap..
+        /// </summary>
+        public static string InvalidOperationException_LineRangesForHighlightingCannotOverlap {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_LineRangesForHighlightingCannotOverlap", resourceCulture);
             }
         }
         
