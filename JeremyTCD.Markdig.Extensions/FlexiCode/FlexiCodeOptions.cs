@@ -46,7 +46,7 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
         /// <summary>
         /// Gets or sets the boolean value indicating whether or not line numbers should be rendered
         /// </summary>
-        public bool RenderLineNumbers { get; set; } = true;
+        public bool RenderLineNumbers { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="LineNumberRange"/>s that specify the line number for each line of code. 
