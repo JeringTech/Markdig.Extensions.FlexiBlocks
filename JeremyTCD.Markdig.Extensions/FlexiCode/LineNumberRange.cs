@@ -55,7 +55,7 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
 
         public override string ToString()
         {
-            return $"Lines: {LineRange}, Line numbers: {StartLineNumber}-{EndLineNumber}";
+            return $"Lines: {LineRange}, Line numbers: {StartLineNumber} - {EndLineNumber}";
         }
     }
 }

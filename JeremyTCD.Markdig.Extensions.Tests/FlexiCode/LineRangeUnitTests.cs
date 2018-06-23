@@ -38,7 +38,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.FlexiCode
             string result = lineRange.ToString();
 
             // Assert
-            Assert.Equal("2-4", result);
+            Assert.Equal("2 - 4", result);
         }
 
         [Theory]

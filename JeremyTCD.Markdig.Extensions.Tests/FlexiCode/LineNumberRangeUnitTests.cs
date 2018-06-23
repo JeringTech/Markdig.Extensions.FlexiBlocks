@@ -72,7 +72,7 @@ namespace JeremyTCD.Markdig.Extensions.Tests.FlexiCode
             string result = lineNumberRange.ToString();
 
             // Assert
-            Assert.Equal("Lines: 1-5, Line numbers: 10-14", result);
+            Assert.Equal("Lines: 1 - 5, Line numbers: 10 - 14", result);
         }
     }
 }

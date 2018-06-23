@@ -80,7 +80,7 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
 
         public override string ToString()
         {
-            return $"{StartLine}-{EndLine}";
+            return $"{StartLine} - {EndLine}";
         }
     }
 }
