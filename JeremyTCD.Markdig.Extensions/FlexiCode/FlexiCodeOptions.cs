@@ -17,7 +17,7 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
         /// The default SVG is part of the excellent material design icon set - https://material.io/tools/icons/?style=baseline
         /// It is licensed under an Apache License Version 2 license - https://www.apache.org/licenses/LICENSE-2.0.html
         /// </summary>
-        public string IconMarkup { get; set; } = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>";
+        public string CopyIconMarkup { get; set; } = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>";
 
         /// <summary>
         /// Gets or sets the value used as the flexi code block's title.
@@ -58,7 +58,13 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
         /// <summary>
         /// Gets or sets the <see cref="LineRange"/>s that specify which lines of code to highlight.
         /// </summary>
-        public List<LineRange> HighlightRanges { get; set; }
+        public List<LineRange> HighlightLineRanges { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value used to prefix line number and line highlighting classes (line embellishment classes). 
+        /// If the value is null, whitespace or an empty string, no prefix is added to line embellishment classes.
+        /// </summary>
+        public string LineEmbellishmentClassesPrefix { get; set; }
 
         /// <summary>
         /// HTML attributes.
