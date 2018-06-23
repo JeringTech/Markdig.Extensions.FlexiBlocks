@@ -10,8 +10,8 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
     /// </summary>
     public class LineEmbellishmentsService
     {
-        private static readonly string[] NewLineStrings = new string[] { "\r\n", "\n", "\r" };
-        private const string SpanEndTag = "</span>";
+        private static readonly string[] _newLineStrings = new string[] { "\r\n", "\n", "\r" };
+        private const string _spanEndTag = "</span>";
 
         /// <summary>
         /// Adds line numbers and highlights lines.
@@ -42,7 +42,7 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
             highlightLineRanges?.Sort(CompareHighlightLineRanges);
 
             // Get lines, we need to know the number of lines in the text to verify that the provided ranges are valid
-            string[] lines = text.Split(NewLineStrings, StringSplitOptions.None);
+            string[] lines = text.Split(_newLineStrings, StringSplitOptions.None);
             int numLines = lines.Length;
 
             // Validate ranges
@@ -101,14 +101,14 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
                 // If within line number range, add line number
                 if (currentLineNumberRange?.LineRange.Contains(currentLine) == true)
                 {
-                    result.Append(lineNumberStartTag).Append(currentLineNumber++).Append(SpanEndTag);
+                    result.Append(lineNumberStartTag).Append(currentLineNumber++).Append(_spanEndTag);
                 }
 
                 // Add line text
-                result.Append(lineTextStartTag).Append(line).Append(SpanEndTag);
+                result.Append(lineTextStartTag).Append(line).Append(_spanEndTag);
 
                 // End tag for line start tag
-                result.AppendLine(SpanEndTag);
+                result.AppendLine(_spanEndTag);
 
                 currentLine++;
             }
