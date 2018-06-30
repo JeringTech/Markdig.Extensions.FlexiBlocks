@@ -10,7 +10,7 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
         /// <summary>
         /// Creates an instance of type <see cref="LineNumberRange"/>.
         /// </summary>
-        /// <param name="startLine">Start line of range that this <see cref="LineNumberRange"/> applies to. Must be greater than 0, <see cref="StartLine"/></param>
+        /// <param name="startLine">Start line of range that this <see cref="LineNumberRange"/> applies to. Must be greater than 0.</param>
         /// <param name="endLine">End line of range that his <see cref="LineNumberRange"/> applies to. -1 denotes a range that extends to infinity. If 
         /// <paramref name="endLine"/> is not -1, it must be greater than or equal to <paramref name="startLine"/></param>
         /// <param name="startLineNumber">Starting line number for the lines specified by <paramref name="startLine"/> and <paramref name="endLine"/>. Must
