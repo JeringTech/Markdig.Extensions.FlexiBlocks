@@ -68,7 +68,7 @@ line 10";
 <span class=""line highlight""><span class=""line-number"">10</span><span class=""line-text"">line 10</span></span>"
                 },
                 // Only line numbers (empty list of highlight line ranges) 
-                                new object[]{
+                new object[]{
                     new List<LineNumberRange> { new LineNumberRange(1, 4, 2), new LineNumberRange(7, -1, 7) },
                     new List<LineRange>(),
                     null,
@@ -135,7 +135,7 @@ line 10";
                 new object[]{
                     new List<LineNumberRange> { new LineNumberRange(1, 4, 1), new LineNumberRange(7, 10, 7) },
                     new List<LineRange> { new LineRange(2, 2), new LineRange(8, 9) },
-                    "dummy-prefix",
+                    "dummy-prefix-",
                     @"<span class=""dummy-prefix-line""><span class=""dummy-prefix-line-number"">1</span><span class=""dummy-prefix-line-text"">line 1</span></span>
 <span class=""dummy-prefix-line dummy-prefix-highlight""><span class=""dummy-prefix-line-number"">2</span><span class=""dummy-prefix-line-text"">line 2</span></span>
 <span class=""dummy-prefix-line""><span class=""dummy-prefix-line-number"">3</span><span class=""dummy-prefix-line-text"">line 3</span></span>

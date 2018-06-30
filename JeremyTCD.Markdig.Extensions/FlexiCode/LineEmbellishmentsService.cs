@@ -49,7 +49,10 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
             ValidateRanges(lineNumberRanges, highlightLineRanges, numLines);
 
             // Embellishments
-            prefixForClasses = prefixForClasses != null ? $"{prefixForClasses}-" : string.Empty;
+            if (string.IsNullOrWhiteSpace(prefixForClasses))
+            {
+                prefixForClasses = string.Empty;
+            }
             string lineStartTag = $"<span class=\"{prefixForClasses}line\">";
             string highlightedLineStartTag = $"<span class=\"{prefixForClasses}line {prefixForClasses}highlight\">";
             string lineNumberStartTag = $"<span class=\"{prefixForClasses}line-number\">";
