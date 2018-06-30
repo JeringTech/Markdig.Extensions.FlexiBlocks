@@ -60,8 +60,8 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
             int currentLine = 1; // Actual line we are at
 
             int currentLineNumberRangeIndex = 0;
-            int currentLineNumber = 1; // Line number to render
             LineNumberRange currentLineNumberRange = lineNumberRanges?.FirstOrDefault();
+            int currentLineNumber = currentLineNumberRange?.StartLineNumber ?? 0; // Line number to render
             int currentLineNumberRangeEndLine = currentLineNumberRange?.LineRange.EndLine ?? 0;
 
             int currentHighlightLineRangeIndex = 0;

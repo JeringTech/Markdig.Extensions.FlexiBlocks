@@ -69,13 +69,13 @@ line 10";
                 },
                 // Only line numbers (empty list of highlight line ranges) 
                                 new object[]{
-                    new List<LineNumberRange> { new LineNumberRange(1, 4, 1), new LineNumberRange(7, -1, 7) },
+                    new List<LineNumberRange> { new LineNumberRange(1, 4, 2), new LineNumberRange(7, -1, 7) },
                     new List<LineRange>(),
                     null,
-                    @"<span class=""line""><span class=""line-number"">1</span><span class=""line-text"">line 1</span></span>
-<span class=""line""><span class=""line-number"">2</span><span class=""line-text"">line 2</span></span>
-<span class=""line""><span class=""line-number"">3</span><span class=""line-text"">line 3</span></span>
-<span class=""line""><span class=""line-number"">4</span><span class=""line-text"">line 4</span></span>
+                    @"<span class=""line""><span class=""line-number"">2</span><span class=""line-text"">line 1</span></span>
+<span class=""line""><span class=""line-number"">3</span><span class=""line-text"">line 2</span></span>
+<span class=""line""><span class=""line-number"">4</span><span class=""line-text"">line 3</span></span>
+<span class=""line""><span class=""line-number"">5</span><span class=""line-text"">line 4</span></span>
 <span class=""line""><span class=""line-text"">line 5</span></span>
 <span class=""line""><span class=""line-text"">line 6</span></span>
 <span class=""line""><span class=""line-number"">7</span><span class=""line-text"">line 7</span></span>
