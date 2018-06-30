@@ -1,4 +1,6 @@
 ﻿using JeremyTCD.Markdig.Extensions.JsonOptions;
+using JeremyTCD.WebUtils.SyntaxHighlighters.HighlightJS;
+using JeremyTCD.WebUtils.SyntaxHighlighters.Prism;
 using Markdig;
 using Markdig.Parsers;
 using Markdig.Renderers;
@@ -12,11 +14,17 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
         private readonly FlexiCodeExtensionOptions _options;
         private readonly JsonOptionsService _jsonOptionsService;
         public const string FLEXI_CODE_OPTIONS_KEY = "flexiCodeOptions";
+        private readonly IPrismService _prismService;
+        private readonly IHighlightJSService _highlightJSService;
 
-        public FlexiCodeExtension(FlexiCodeExtensionOptions options)
+        public FlexiCodeExtension(FlexiCodeExtensionOptions options,
+            IPrismService prismService,
+            IHighlightJSService highlightJSService)
         {
             _options = options ?? new FlexiCodeExtensionOptions();
             _jsonOptionsService = new JsonOptionsService();
+            _prismService = prismService;
+            _highlightJSService = highlightJSService;
         }
 
         public void Setup(MarkdownPipelineBuilder pipeline)
@@ -41,7 +49,7 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
             {
                 if (!htmlRenderer.ObjectRenderers.Contains<FlexiCodeRenderer>())
                 {
-                    htmlRenderer.ObjectRenderers.Insert(0, new FlexiCodeRenderer());
+                    htmlRenderer.ObjectRenderers.Insert(0, new FlexiCodeRenderer(_prismService, _highlightJSService));
                 }
 
                 CodeBlockRenderer codeBlockRenderer = htmlRenderer.ObjectRenderers.Find<CodeBlockRenderer>();
@@ -61,14 +69,8 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
         {
             FlexiCodeOptions flexiCodeOptions = _options.DefaultFlexiCodeOptions.Clone();
 
-            // TODO merge class attribute with attributes map 
             // Apply JSON options if they exist
             _jsonOptionsService.TryPopulateOptions(processor, flexiCodeOptions, block.Line);
-
-            if (!string.IsNullOrWhiteSpace(flexiCodeOptions.FlexiCodeClassName))
-            {
-                flexiCodeOptions.Attributes.Add("class", flexiCodeOptions.FlexiCodeClassName);
-            }
 
             block.SetData(FLEXI_CODE_OPTIONS_KEY, flexiCodeOptions);
         }
