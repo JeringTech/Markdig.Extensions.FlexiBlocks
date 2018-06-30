@@ -5,12 +5,6 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
     public class FlexiCodeOptions : IMarkdownObjectOptions<FlexiCodeOptions>
     {
         /// <summary>
-        /// Gets or sets the value used as the flexi code blocks' outer div's class.
-        /// If the value is null, whitespace or an empty string, no class is assigned to the flexi code block's outer div.
-        /// </summary>
-        public string FlexiCodeClassName { get; set; } = "flexi-code";
-
-        /// <summary>
         /// Gets or sets the value used as the markup for the flexi code block's copy icon. 
         /// If the value is null, whitespace or an empty string, no copy icon is rendered.
         /// 
@@ -27,14 +21,19 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
 
         /// <summary>
         /// Gets or sets the value used as the language for syntax highlighting of the flexi code block's code.
-        /// If <see cref="HighlightSyntax"/> is true, <see cref="FlexiCodeRenderer"/> highlights the code using PrismJs. 
-        /// Otherwise, a class with format <see cref="CodeLanguageClassNameFormat"/> is added to the code element to facilitate 
-        /// client side syntax highlighting.
+        /// The value must be a valid language alias for the chosen <see cref="SyntaxHighlighter"/> (defaults to <see cref="SyntaxHighlighter.Prism"/>).
+        /// Valid langauge aliases for Prism can be found here: https://prismjs.com/index.html#languages-list.
+        /// Valid language aliases for HighlightJS can be found here: http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases
+        /// 
+        /// If <see cref="CodeLanguageClassNameFormat"/> is specified, the value is inserted into the format.
         /// </summary>
         public string Language { get; set; }
 
         /// <summary>
         /// Gets or sets the value used as the format for the flexi code block's code element's language class.
+        /// If the value is null, whitespace or an empty string, no language class is assigned to the code element.
+        /// 
+        /// <see cref="Language"/> will be inserted into the format.
         /// </summary>
         public string CodeLanguageClassNameFormat { get; set; } = "language-{0}";
 
@@ -44,13 +43,25 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
         public bool HighlightSyntax { get; set; } = true;
 
         /// <summary>
-        /// Gets or sets the boolean value indicating whether or not line numbers should be rendered
+        /// Gets or sets the value indicating which <see cref="SyntaxHighlighter"/> to use for syntax highlighting.
+        /// Defaults to <see cref="SyntaxHighlighter.Prism"/>.
+        /// </summary>
+        public SyntaxHighlighter SyntaxHighlighter { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value used as the prefix for HighlightJS classes. Only relevant if <see cref="SyntaxHighlighter"/>
+        /// is set to <see cref="SyntaxHighlighter.HighlightJS"/>.
+        /// </summary>
+        public string HighlightJSClassPrefix { get; set; } = "hljs-";
+
+        /// <summary>
+        /// Gets or sets the boolean value indicating whether or not line numbers should be rendered.
         /// </summary>
         public bool RenderLineNumbers { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="LineNumberRange"/>s that specify the line number for each line of code. 
-        /// If this array is null, the first line of code is will have line number 1, and line number will be
+        /// If this List is null but <see cref="RenderLineNumbers"/> is true, the first line of code is will have line number 1, and the line number will be
         /// incremented for each subsequent line of code.
         /// </summary>
         public List<LineNumberRange> LineNumberRanges { get; set; }
@@ -67,9 +78,9 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
         public string LineEmbellishmentClassesPrefix { get; set; }
 
         /// <summary>
-        /// HTML attributes.
+        /// HTML attributes for the outermost element of the flexi code block. Includes a "class" attribute with value "flex-code" by default.
         /// </summary>
-        public HtmlAttributeDictionary Attributes { get; set; } = new HtmlAttributeDictionary();
+        public HtmlAttributeDictionary Attributes { get; set; } = new HtmlAttributeDictionary { { "class", "flexi-code" } };
 
         /// <summary>
         /// Returns a deep clone.
