@@ -1,31 +1,36 @@
-﻿using Markdig.Renderers;
+﻿using JeremyTCD.WebUtils.SyntaxHighlighters.HighlightJS;
+using JeremyTCD.WebUtils.SyntaxHighlighters.Prism;
+using Markdig.Renderers;
 using Markdig.Renderers.Html;
 using Markdig.Syntax;
+using System.Collections.Generic;
 using System.IO;
-using JeremyTCD.WebUtils.SyntaxHighlighters.Prism;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace JeremyTCD.Markdig.Extensions.FlexiCode
 {
     public class FlexiCodeRenderer : HtmlObjectRenderer<CodeBlock>
     {
+        private static readonly List<LineNumberRange> _defaultLineNumberRanges = new List<LineNumberRange> { new LineNumberRange(1, -1, 1) };
+
         private readonly HtmlRenderer _codeRenderer;
         private readonly StringWriter _stringWriter;
         private readonly IPrismService _prismService;
+        private readonly IHighlightJSService _highlightJSService;
+        private readonly LineEmbellishmentsService _lineEmbellishmentsService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeBlockRenderer"/> class.
         /// </summary>
-        public FlexiCodeRenderer()
+        /// <param name="prismService"></param>
+        /// <param name="highlightJSService"></param>
+        public FlexiCodeRenderer(IPrismService prismService,
+            IHighlightJSService highlightJSService)
         {
             _stringWriter = new StringWriter();
             _codeRenderer = new HtmlRenderer(_stringWriter);
-
-            // TODO should be shared amongst extension so that there aren't multiple nodeservices instances
-            var services = new ServiceCollection();
-            services.AddPrism();
-            ServiceProvider serviceProvider = services.BuildServiceProvider();
-            _prismService = serviceProvider.GetRequiredService<IPrismService>();
+            _prismService = prismService;
+            _highlightJSService = highlightJSService;
+            _lineEmbellishmentsService = new LineEmbellishmentsService();
         }
 
         protected override void Write(HtmlRenderer renderer, CodeBlock obj)
@@ -47,44 +52,69 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
             renderer.WriteLine("<header>");
             if (!string.IsNullOrWhiteSpace(flexiCodeOptions.Title))
             {
+                // Title
                 renderer.WriteLine($"<span>{flexiCodeOptions.Title}</span>");
             }
-            if (!string.IsNullOrWhiteSpace(flexiCodeOptions.IconMarkup))
+            if (!string.IsNullOrWhiteSpace(flexiCodeOptions.CopyIconMarkup))
             {
-                renderer.WriteLine(flexiCodeOptions.IconMarkup);
+                // Copy icon
+                renderer.WriteLine(flexiCodeOptions.CopyIconMarkup);
             }
             renderer.WriteLine("</header>");
 
             renderer.Write("<pre><code");
-            if (!string.IsNullOrWhiteSpace(flexiCodeOptions.Language))
+
+            // Add language class to code element
+            bool languageIsDefined = !string.IsNullOrWhiteSpace(flexiCodeOptions.Language);
+            if (languageIsDefined && !string.IsNullOrWhiteSpace(flexiCodeOptions.CodeLanguageClassNameFormat))
             {
-                if (flexiCodeOptions.HighlightSyntax)
+                renderer.Write($" class=\"{string.Format(flexiCodeOptions.CodeLanguageClassNameFormat, flexiCodeOptions.Language)}\"");
+            }
+            renderer.Write(">");
+
+            // Highlight syntax
+            string code = null;
+            if (languageIsDefined && flexiCodeOptions.HighlightSyntax)
+            {
+                _codeRenderer.WriteLeafRawLines(obj, false, false); // Don't escape, prism can't deal with escaped chars
+
+                code = _stringWriter.ToString();
+                _stringWriter.GetStringBuilder().Length = 0;
+
+                // Default to Prism
+                code = flexiCodeOptions.SyntaxHighlighter == SyntaxHighlighter.HighlightJS ?
+                    _highlightJSService.HighlightAsync(code, flexiCodeOptions.Language, flexiCodeOptions.HighlightJSClassPrefix).Result :
+                    _prismService.HighlightAsync(code, flexiCodeOptions.Language).Result;
+            }
+
+            // Embellish code
+            if (flexiCodeOptions.RenderLineNumbers ||
+                flexiCodeOptions.HighlightLineRanges?.Count > 0)
+            {
+                // TODO optimize - possible to pass obj.Lines directly to EmbellishLines?
+                // Code still null since syntax highlighting wasn't done
+                if (code == null)
                 {
-                    renderer.Write(">");
-                    _codeRenderer.WriteLeafRawLines(obj, true, false); // Don't escape, prism can't deal with escaped chars
-                    string code = _stringWriter.ToString();
+                    _codeRenderer.WriteLeafRawLines(obj, false, true); // Escape
+                    code = _stringWriter.ToString();
                     _stringWriter.GetStringBuilder().Length = 0;
-
-                    string highlightedCode = _prismService.HighlightAsync(code, flexiCodeOptions.Language).Result;
-
-                    renderer.Write(highlightedCode);
                 }
-                else if (!string.IsNullOrWhiteSpace(flexiCodeOptions.CodeLanguageClassNameFormat))
-                {
-                    // No highlighting, but include class
-                    renderer.Write($" class=\"{string.Format(flexiCodeOptions.CodeLanguageClassNameFormat, flexiCodeOptions.Language)}\"");
-                    renderer.Write(">");
-                    renderer.WriteLeafRawLines(obj, true, true);
-                }
+
+                code = _lineEmbellishmentsService.EmbellishLines(code,
+                    flexiCodeOptions.LineNumberRanges == null || flexiCodeOptions.LineNumberRanges.Count == 0 ? _defaultLineNumberRanges : flexiCodeOptions.LineNumberRanges,
+                    flexiCodeOptions.HighlightLineRanges,
+                    flexiCodeOptions.LineEmbellishmentClassesPrefix);
+            }
+
+            if (code != null)
+            {
+                renderer.Write(code);
             }
             else
             {
-                // No highlighting, no class - close and write raw
-                renderer.Write(">");
-                renderer.WriteLeafRawLines(obj, true, true);
+                // No embellishing and no syntax highlighting, write directly to renderer to avoid unecessary string allocation
+                renderer.WriteLeafRawLines(obj, false, true);
             }
-
-            // TODO add line numbers if flexiCodeOptions.RenderLineNumbers is true
 
             renderer.WriteLine("</code></pre>");
             renderer.WriteLine("</div>");
