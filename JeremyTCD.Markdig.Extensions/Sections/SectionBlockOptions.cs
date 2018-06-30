@@ -36,7 +36,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
         public SectioningContentElement WrapperElement { get; set; }
 
         /// <summary>
-        /// HTML attributes.
+        /// HTML attributes for the outermost element of the section block.
         /// </summary>
         public HtmlAttributeDictionary Attributes { get; set; } = new HtmlAttributeDictionary();
 

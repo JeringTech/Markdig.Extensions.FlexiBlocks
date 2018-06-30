@@ -25,7 +25,7 @@ namespace JeremyTCD.Markdig.Extensions.Alerts
         public string ContentClassName { get; set; } = "alert-content";
 
         /// <summary>
-        /// HTML attributes.
+        /// HTML attributes for the outermost element of the alert block.
         /// </summary>
         public HtmlAttributeDictionary Attributes { get; set; } = new HtmlAttributeDictionary();
 

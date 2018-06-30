@@ -18,7 +18,7 @@ namespace JeremyTCD.Markdig.Extensions.ResponsiveTables
         public string LabelAttributeName { get; set; } = "data-label";
 
         /// <summary>
-        /// HTML attributes.
+        /// HTML attributes for the outermost element of the responsive table block.
         /// </summary>
         public HtmlAttributeDictionary Attributes { get; set; } = new HtmlAttributeDictionary();
 
