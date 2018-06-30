@@ -15,7 +15,6 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
             OpeningCharacters = new[] { '@' };
         }
 
-        // TODO test 
         /// <summary>
         /// Opens a JsonOptionsBlock if a line begins with @{
         /// </summary>
