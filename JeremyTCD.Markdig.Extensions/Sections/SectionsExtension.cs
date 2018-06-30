@@ -32,7 +32,7 @@ namespace JeremyTCD.Markdig.Extensions.Sections
                     headingBlockParser = new HeadingBlockParser();
                 }
 
-                // For testability - could improve IOC infrastructure, measure impact on performance
+                // TODO For testability - could improve IOC infrastructure, measure impact on performance
                 var autoLinkService = new AutoLinkService();
                 var identifierService = new IdentifierService();
                 var jsonOptionsService = new JsonOptionsService();
