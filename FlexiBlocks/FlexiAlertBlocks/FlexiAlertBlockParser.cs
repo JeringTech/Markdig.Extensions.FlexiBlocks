@@ -7,21 +7,21 @@ namespace FlexiBlocks.Alerts
 {
     public class FlexiAlertBlockParser : BlockParser
     {
-        private readonly FlexiAlertBlocksExtensionOptions _flexiAlertsExtensionOptions;
-        private readonly FlexiOptionBlocksService _flexiOptionsService;
+        private readonly FlexiAlertBlocksExtensionOptions _flexiAlertBlocksExtensionOptions;
+        private readonly FlexiOptionBlocksService _flexiOptionBlocksService;
 
         /// <summary>
         /// Initializes an instance of type <see cref="FlexiAlertBlockParser"/>.
         /// </summary>
-        /// <param name="flexiAlertsExtensionOptions"></param>
-        /// <param name="flexiOptionsService"></param>
-        public FlexiAlertBlockParser(FlexiAlertBlocksExtensionOptions flexiAlertsExtensionOptions,
-            FlexiOptionBlocksService flexiOptionsService)
+        /// <param name="flexiAlertBlocksExtensionOptions"></param>
+        /// <param name="flexiOptionBlocksService"></param>
+        public FlexiAlertBlockParser(FlexiAlertBlocksExtensionOptions flexiAlertBlocksExtensionOptions,
+            FlexiOptionBlocksService flexiOptionBlocksService)
         {
             OpeningCharacters = new[] { '!' };
 
-            _flexiAlertsExtensionOptions = flexiAlertsExtensionOptions;
-            _flexiOptionsService = flexiOptionsService;
+            _flexiAlertBlocksExtensionOptions = flexiAlertBlocksExtensionOptions;
+            _flexiOptionBlocksService = flexiOptionBlocksService;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace FlexiBlocks.Alerts
         /// </summary>
         /// <param name="processor"></param>
         /// <returns>
-        /// <see cref="BlockState.None"/> if current line has code indent or does not contain a valid FlexiAlert type (any sequence of characters from the regex set [A-Za-z0-9_-]).
+        /// <see cref="BlockState.None"/> if current line has code indent or does not contain a valid FlexiAlertBlock type (any sequence of characters from the regex set [A-Za-z0-9_-]).
         /// <see cref="BlockState.ContinueDiscard"/> if a <see cref="FlexiAlertBlock"/> is opened.
         /// </returns>
         public override BlockState TryOpen(BlockProcessor processor)
@@ -42,23 +42,23 @@ namespace FlexiBlocks.Alerts
             int initialColumn = processor.Column;
             int initialStart = processor.Line.Start;
 
-            // A FlexiAlert block begins with 0-3 spaces, followed by !, followed by 0 or 1 spaces.
+            // A FlexiAlertBlock begins with 0-3 spaces, followed by !, followed by 0 or 1 spaces.
             char c = processor.NextChar();
             if (c.IsSpaceOrTab())
             {
                 processor.NextColumn(); // Skip whitespace
             }
 
-            // Attempt to retrieve the FlexiAlert's type
-            string flexiAlertType = TryGetFlexiAlertType(processor.Line);
-            if (flexiAlertType == null)
+            // Attempt to retrieve the FlexiAlertBlock's type
+            string flexiAlertBlockType = TryGetFlexiAlertBlockType(processor.Line);
+            if (flexiAlertBlockType == null)
             {
                 processor.Line.Start = initialStart;
                 return BlockState.None;
             }
 
             // Create options
-            FlexiAlertBlockOptions flexiAlertBlockOptions = CreateFlexiAlertBlockOptions(processor, flexiAlertType);
+            FlexiAlertBlockOptions flexiAlertBlockOptions = CreateFlexiAlertBlockOptions(processor, flexiAlertBlockType);
 
             processor.NewBlocks.Push(new FlexiAlertBlock(this)
             {
@@ -67,7 +67,7 @@ namespace FlexiBlocks.Alerts
                 FlexiAlertBlockOptions = flexiAlertBlockOptions
             });
 
-            return BlockState.ContinueDiscard; // Line already consumed and used as alert type name
+            return BlockState.ContinueDiscard; // Discard since line already consumed and used as alert type name
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace FlexiBlocks.Alerts
         {
             if (processor.IsCodeIndent)
             {
-                return BlockState.None; // Close FlexiAlert block and its children
+                return BlockState.None; // Close FlexiAlertBlock and its children
             }
 
             if (processor.CurrentChar != OpeningCharacters[0])
@@ -104,23 +104,23 @@ namespace FlexiBlocks.Alerts
         }
 
         /// <summary>
-        /// Creates <see cref="FlexiAlertBlockOptions"/> for the current block.
+        /// Creates the <see cref="FlexiAlertBlockOptions"/> for the current block.
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="alertType"></param>
         internal virtual FlexiAlertBlockOptions CreateFlexiAlertBlockOptions(BlockProcessor processor, string alertType)
         {
-            FlexiAlertBlockOptions result = _flexiAlertsExtensionOptions.DefaultFlexiAlertBlockOptions.Clone();
+            FlexiAlertBlockOptions result = _flexiAlertBlocksExtensionOptions.DefaultFlexiAlertBlockOptions.Clone();
 
-            _flexiOptionsService.TryPopulateOptions(processor, result, processor.LineIndex);
+            _flexiOptionBlocksService.TryPopulateOptions(processor, result, processor.LineIndex);
 
-            // Set icon markup (precedence - FlexiOptions > default FlexiAlertBlockOptions > FlexiAlertsExtensionOptions.IconMarkups)
-            if (result.IconMarkup == null && _flexiAlertsExtensionOptions.IconMarkups.TryGetValue(alertType, out string iconMarkup))
+            // Set icon markup (precedence - FlexiOptionBlock > default FlexiAlertBlockOptions > FlexiAlertBlocksExtensionOptions.IconMarkups)
+            if (result.IconMarkup == null && _flexiAlertBlocksExtensionOptions.IconMarkups.TryGetValue(alertType, out string iconMarkup))
             {
                 result.IconMarkup = iconMarkup;
             }
 
-            // Add FlexiAlert class
+            // Add FlexiAlertBlock class
             if (!string.IsNullOrWhiteSpace(result.ClassNameFormat))
             {
                 string alertClass = string.Format(result.ClassNameFormat, alertType.ToLowerInvariant());
@@ -131,13 +131,13 @@ namespace FlexiBlocks.Alerts
         }
 
         /// <summary>
-        /// Retrieves FlexiAlert type from <paramref name="line"/>. A FlexiAlert type is simply a sequence of characters from the regex set [A-Za-z0-9_-].
+        /// Retrieves FlexiAlertBlock type from <paramref name="line"/>. A FlexiAlertBlock type is simply a sequence of characters from the regex set [A-Za-z0-9_-].
         /// </summary>
         /// <param name="line"></param>
         /// <returns>
-        /// The FlexiAlert type if successful, null otherwise.
+        /// The FlexiAlertBlock type if successful, null otherwise.
         /// </returns>
-        internal virtual string TryGetFlexiAlertType(StringSlice line)
+        internal virtual string TryGetFlexiAlertBlockType(StringSlice line)
         {
             StringSlice duplicateLine = line;
             char c = duplicateLine.CurrentChar;

@@ -4,7 +4,7 @@ using Markdig.Syntax;
 namespace FlexiBlocks.Alerts
 {
     /// <summary>
-    /// A FlexiAlert block.
+    /// A block containing content that is tangential to its containing article.
     /// </summary>
     public class FlexiAlertBlock : ContainerBlock
     {

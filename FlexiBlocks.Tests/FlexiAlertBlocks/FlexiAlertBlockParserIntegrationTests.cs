@@ -39,7 +39,7 @@ namespace FlexiBlocks.Tests.Alerts
             dummyBlockProcessor.Line.Start = dummyLineStart;
             Mock<FlexiAlertBlockParser> mockFlexiAlertBlockParser = CreateMockFlexiAlertBlockParser();
             mockFlexiAlertBlockParser.CallBase = true;
-            mockFlexiAlertBlockParser.Setup(a => a.TryGetFlexiAlertType(It.IsAny<StringSlice>())).Returns((string)null);
+            mockFlexiAlertBlockParser.Setup(a => a.TryGetFlexiAlertBlockType(It.IsAny<StringSlice>())).Returns((string)null);
 
             // Act
             BlockState result = mockFlexiAlertBlockParser.Object.TryOpen(dummyBlockProcessor);
@@ -65,7 +65,7 @@ namespace FlexiBlocks.Tests.Alerts
             dummyBlockProcessor.Line.Start = dummyInitialStart;
             Mock<FlexiAlertBlockParser> mockFlexiAlertBlockParser = CreateMockFlexiAlertBlockParser();
             mockFlexiAlertBlockParser.CallBase = true;
-            mockFlexiAlertBlockParser.Setup(a => a.TryGetFlexiAlertType(It.IsAny<StringSlice>())).Returns(dummyAlertType);
+            mockFlexiAlertBlockParser.Setup(a => a.TryGetFlexiAlertBlockType(It.IsAny<StringSlice>())).Returns(dummyAlertType);
             mockFlexiAlertBlockParser.Setup(a => a.CreateFlexiAlertBlockOptions(dummyBlockProcessor, dummyAlertType)).Returns(dummyFlexiAlertBlockOptions);
 
             // Act
@@ -202,7 +202,7 @@ namespace FlexiBlocks.Tests.Alerts
                         new FlexiAlertBlockOptions() {
                             IconMarkup = dummyIconMarkup,
                             Attributes = new HtmlAttributeDictionary(){
-                                { "class", $"flexi-alert-{dummyFlexiAlertType.ToLowerInvariant()}" }
+                                { "class", $"fab-{dummyFlexiAlertType.ToLowerInvariant()}" }
                             }
                         }
                     )
@@ -223,7 +223,7 @@ namespace FlexiBlocks.Tests.Alerts
                         new FlexiAlertBlockOptions() {
                             IconMarkup = dummyIconMarkup,
                             Attributes = new HtmlAttributeDictionary(){
-                                { "class", $"{dummyClass} flexi-alert-{dummyFlexiAlertType.ToLowerInvariant()}" }
+                                { "class", $"{dummyClass} fab-{dummyFlexiAlertType.ToLowerInvariant()}" }
                             }
                         }
                     )
@@ -244,7 +244,7 @@ namespace FlexiBlocks.Tests.Alerts
                         new FlexiAlertBlockOptions() {
                             IconMarkup = dummyIconMarkup,
                             Attributes = new HtmlAttributeDictionary(){
-                                { "class", $"{dummyClass} flexi-alert-{dummyFlexiAlertType.ToLowerInvariant()}" }
+                                { "class", $"{dummyClass} fab-{dummyFlexiAlertType.ToLowerInvariant()}" }
                             }
                         }
                     )
@@ -301,7 +301,7 @@ namespace FlexiBlocks.Tests.Alerts
             FlexiAlertBlockParser flexiAlertBlockParser = CreateFlexiAlertBlockParser();
 
             // Act
-            string result = flexiAlertBlockParser.TryGetFlexiAlertType(dummyStringSlice);
+            string result = flexiAlertBlockParser.TryGetFlexiAlertBlockType(dummyStringSlice);
 
             // Assert
             Assert.Null(result);
@@ -326,7 +326,7 @@ namespace FlexiBlocks.Tests.Alerts
             FlexiAlertBlockParser flexiAlertBlockParser = CreateFlexiAlertBlockParser();
 
             // Act
-            string result = flexiAlertBlockParser.TryGetFlexiAlertType(dummyStringSlice);
+            string result = flexiAlertBlockParser.TryGetFlexiAlertBlockType(dummyStringSlice);
 
             // Assert
             Assert.Equal(expectedFlexiAlertType, result);

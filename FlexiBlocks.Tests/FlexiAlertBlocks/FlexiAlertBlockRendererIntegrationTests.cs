@@ -11,8 +11,8 @@ namespace FlexiBlocks.Tests.Alerts
     public class FlexiAlertBlockRendererIntegrationTests
     {
         [Theory]
-        [MemberData(nameof(Write_RendersAlert_Data))]
-        public void Write_RendersAlert(SerializableWrapper<FlexiAlertBlock> dummyFlexiAlertBlockWrapper, string expectedResult)
+        [MemberData(nameof(Write_RendersFlexiAlertBlock_Data))]
+        public void Write_RendersFlexiAlertBlock(SerializableWrapper<FlexiAlertBlock> dummyFlexiAlertBlockWrapper, string expectedResult)
         {
             // Arrange
             string result = null;
@@ -30,7 +30,7 @@ namespace FlexiBlocks.Tests.Alerts
             Assert.Equal(expectedResult, result);
         }
 
-        public static IEnumerable<object[]> Write_RendersAlert_Data()
+        public static IEnumerable<object[]> Write_RendersFlexiAlertBlock_Data()
         {
             const string dummyIconMarkup = "dummyIconMarkup";
             const string dummyAttribute = "dummyAttribute";
@@ -50,7 +50,7 @@ namespace FlexiBlocks.Tests.Alerts
                             }
                         }
                     ),
-                    $"<div {dummyAttribute}=\"{dummyAttributeValue}\">\n<div class=\"flexi-alert-content\">\n</div>\n</div>\n"
+                    $"<div {dummyAttribute}=\"{dummyAttributeValue}\">\n<div class=\"fab-content\">\n</div>\n</div>\n"
                 },
                 // Writes icon markup if specified
                 new object[]
@@ -61,7 +61,7 @@ namespace FlexiBlocks.Tests.Alerts
                             FlexiAlertBlockOptions = new FlexiAlertBlockOptions(){IconMarkup = dummyIconMarkup}
                         }
                     ),
-                    $"<div>\n{dummyIconMarkup}\n<div class=\"flexi-alert-content\">\n</div>\n</div>\n"
+                    $"<div>\n{dummyIconMarkup}\n<div class=\"fab-content\">\n</div>\n</div>\n"
                 },
             };
         }
@@ -129,7 +129,7 @@ namespace FlexiBlocks.Tests.Alerts
             }
 
             // Assert
-            Assert.Equal($"<div>\n<div class=\"flexi-alert-content\">\n<p>{dummyChildText}</p>\n</div>\n</div>\n", result);
+            Assert.Equal($"<div>\n<div class=\"fab-content\">\n<p>{dummyChildText}</p>\n</div>\n</div>\n", result);
         }
     }
 }

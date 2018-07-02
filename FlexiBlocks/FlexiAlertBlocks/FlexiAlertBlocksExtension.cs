@@ -17,8 +17,8 @@ namespace FlexiBlocks.Alerts
         {
             if (!pipeline.BlockParsers.Contains<FlexiAlertBlockParser>())
             {
-                var flexiOptionsService = new FlexiOptionBlocksService();
-                var flexiAlertBlockParser = new FlexiAlertBlockParser(_options, flexiOptionsService);
+                var flexiOptionBlocksService = new FlexiOptionBlocksService();
+                var flexiAlertBlockParser = new FlexiAlertBlockParser(_options, flexiOptionBlocksService);
                 pipeline.BlockParsers.Insert(0, flexiAlertBlockParser);
             }
         }
