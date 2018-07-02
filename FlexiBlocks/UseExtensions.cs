@@ -27,51 +27,51 @@ namespace FlexiBlocks
             _serviceProvider = services.BuildServiceProvider();
         }
 
-        public static MarkdownPipelineBuilder UseSections(this MarkdownPipelineBuilder pipelineBuilder, FlexiSectionsExtensionOptions options = null)
+        public static MarkdownPipelineBuilder UseFlexiSectionBlocks(this MarkdownPipelineBuilder pipelineBuilder, FlexiSectionBlocksExtensionOptions options = null)
         {
-            if (!pipelineBuilder.Extensions.Contains<FlexiSectionsExtension>())
+            if (!pipelineBuilder.Extensions.Contains<FlexiSectionBlocksExtension>())
             {
-                pipelineBuilder.Extensions.Add(new FlexiSectionsExtension(options));
+                pipelineBuilder.Extensions.Add(new FlexiSectionBlocksExtension(options));
             }
 
             return pipelineBuilder;
         }
 
-        public static MarkdownPipelineBuilder UseFlexiAlerts(this MarkdownPipelineBuilder pipelineBuilder, FlexiAlertsExtensionOptions options = null)
+        public static MarkdownPipelineBuilder UseFlexiAlertBlocks(this MarkdownPipelineBuilder pipelineBuilder, FlexiAlertBlocksExtensionOptions options = null)
         {
-            if (!pipelineBuilder.Extensions.Contains<FlexiAlertsExtension>())
+            if (!pipelineBuilder.Extensions.Contains<FlexiAlertBlocksExtension>())
             {
-                pipelineBuilder.Extensions.Add(new FlexiAlertsExtension(options));
+                pipelineBuilder.Extensions.Add(new FlexiAlertBlocksExtension(options));
             }
 
             return pipelineBuilder;
         }
 
-        public static MarkdownPipelineBuilder UseFlexiOptions(this MarkdownPipelineBuilder pipelineBuilder)
+        public static MarkdownPipelineBuilder UseFlexiOptionBlocks(this MarkdownPipelineBuilder pipelineBuilder)
         {
-            if (!pipelineBuilder.Extensions.Contains<FlexiOptionsExtension>())
+            if (!pipelineBuilder.Extensions.Contains<FlexiOptionBlocksExtension>())
             {
-                pipelineBuilder.Extensions.Add(new FlexiOptionsExtension());
+                pipelineBuilder.Extensions.Add(new FlexiOptionBlocksExtension());
             }
 
             return pipelineBuilder;
         }
 
-        public static MarkdownPipelineBuilder UseResponsiveTables(this MarkdownPipelineBuilder pipelineBuilder, FlexiTablesExtensionOptions options = null)
+        public static MarkdownPipelineBuilder UseFlexiTableBlocks(this MarkdownPipelineBuilder pipelineBuilder, FlexiTableBlocksExtensionOptions options = null)
         {
-            if (!pipelineBuilder.Extensions.Contains<FlexiTablesExtension>())
+            if (!pipelineBuilder.Extensions.Contains<FlexiTableBlocksExtension>())
             {
-                pipelineBuilder.Extensions.Add(new FlexiTablesExtension(options));
+                pipelineBuilder.Extensions.Add(new FlexiTableBlocksExtension(options));
             }
 
             return pipelineBuilder;
         }
 
-        public static MarkdownPipelineBuilder UseFlexiCode(this MarkdownPipelineBuilder pipelineBuilder, FlexiCodeExtensionOptions options = null)
+        public static MarkdownPipelineBuilder UseFlexiCodeBlocks(this MarkdownPipelineBuilder pipelineBuilder, FlexiCodeBlocksExtensionOptions options = null)
         {
-            if (!pipelineBuilder.Extensions.Contains<FlexiCodeExtension>())
+            if (!pipelineBuilder.Extensions.Contains<FlexiCodeBlocksExtension>())
             {
-                pipelineBuilder.Extensions.Add(new FlexiCodeExtension(options,
+                pipelineBuilder.Extensions.Add(new FlexiCodeBlocksExtension(options,
                     _serviceProvider.GetRequiredService<IPrismService>(),
                     _serviceProvider.GetRequiredService<IHighlightJSService>()));
             }

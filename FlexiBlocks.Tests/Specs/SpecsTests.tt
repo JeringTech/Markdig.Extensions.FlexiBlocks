@@ -8,11 +8,11 @@
 <#
     var specFiles = new KeyValuePair<string, string>[] {
 		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/CommonMarkSpecs.md"), "commonmark"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiSectionsSpecs.md"), "flexisections_flexioptions|all"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiAlertsSpecs.md"), "flexialerts_flexioptions|all"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiCodeSpecs.md"), "flexicode_flexioptions|all"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiTablesSpecs.md"), "flexitables_gridtables_pipetables|all"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiOptionsSpecs.md"), "all")
+		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiSectionBlocksSpecs.md"), "flexisectionblocks_flexioptionblocks|all"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiAlertBlocksSpecs.md"), "flexialertblocks_flexioptionblocks|all"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiCodeBlocksSpecs.md"), "flexicodeblocks_flexioptionblocks|all"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiTableBlocksSpecs.md"), "flexitableblocks_gridtables_pipetables|all"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiOptionBlocksSpecs.md"), "all")
 	};
 #>
 using Xunit;

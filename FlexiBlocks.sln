@@ -12,11 +12,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{F41F9DD0-C122-4F19-9C90-1E5DC00D59F4}"
 	ProjectSection(SolutionItems) = preProject
 		Specs\CommonMarkSpecs.md = Specs\CommonMarkSpecs.md
-		Specs\FlexiAlertsSpecs.md = Specs\FlexiAlertsSpecs.md
-		Specs\FlexiCodeSpecs.md = Specs\FlexiCodeSpecs.md
-		Specs\FlexiOptionsSpecs.md = Specs\FlexiOptionsSpecs.md
-		Specs\FlexiSectionsSpecs.md = Specs\FlexiSectionsSpecs.md
-		Specs\FlexiTablesSpecs.md = Specs\FlexiTablesSpecs.md
+		Specs\FlexiAlertBlocksSpecs.md = Specs\FlexiAlertBlocksSpecs.md
+		Specs\FlexiCodeBlocksSpecs.md = Specs\FlexiCodeBlocksSpecs.md
+		Specs\FlexiOptionBlocksSpecs.md = Specs\FlexiOptionBlocksSpecs.md
+		Specs\FlexiSectionBlocksSpecs.md = Specs\FlexiSectionBlocksSpecs.md
+		Specs\FlexiTableBlocksSpecs.md = Specs\FlexiTableBlocksSpecs.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C050C90B-0201-435F-AADB-F3A329778318}"

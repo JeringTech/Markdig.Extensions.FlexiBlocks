@@ -17,22 +17,22 @@ namespace FlexiBlocks.Tests
         private static readonly Dictionary<string, Action<MarkdownPipelineBuilder, JObject>> _extensionAdders =
             new Dictionary<string, Action<MarkdownPipelineBuilder, JObject>>
             {
-                { "flexioptions", (MarkdownPipelineBuilder builder, JObject _) => builder.UseFlexiOptions() },
-                { "flexicode", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiCode(options?["flexicode"]?.ToObject<FlexiCodeExtensionOptions>()) },
-                { "flexisections", (MarkdownPipelineBuilder builder, JObject options) => builder.UseSections(options?["flexisections"]?.ToObject<FlexiSectionsExtensionOptions>()) },
-                { "flexialerts", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiAlerts(options?["flexialerts"]?.ToObject<FlexiAlertsExtensionOptions>()) },
-                { "flexitables", (MarkdownPipelineBuilder builder, JObject options) => builder.UseResponsiveTables(options?["flexitables"]?.ToObject<FlexiTablesExtensionOptions>()) },
+                { "flexioptionblocks", (MarkdownPipelineBuilder builder, JObject _) => builder.UseFlexiOptionBlocks() },
+                { "flexicodeblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiCodeBlocks(options?["flexicodeblocks"]?.ToObject<FlexiCodeBlocksExtensionOptions>()) },
+                { "flexisectionblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiSectionBlocks(options?["flexisectionblocks"]?.ToObject<FlexiSectionBlocksExtensionOptions>()) },
+                { "flexialertblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiAlertBlocks(options?["flexialertblocks"]?.ToObject<FlexiAlertBlocksExtensionOptions>()) },
+                { "flexitableblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiTableBlocks(options?["flexitableblocks"]?.ToObject<FlexiTableBlocksExtensionOptions>()) },
                 { "pipetables", (MarkdownPipelineBuilder builder, JObject _) => builder.UsePipeTables() },
                 { "gridtables", (MarkdownPipelineBuilder builder, JObject _) => builder.UseGridTables() },
                 { "all", (MarkdownPipelineBuilder builder, JObject options) => {
                     builder.
-                        UseResponsiveTables(options?["flexitables"]?.ToObject<FlexiTablesExtensionOptions>()).
-                        UseSections(options?["flexisections"]?.ToObject<FlexiSectionsExtensionOptions>()).
-                        UseFlexiAlerts(options?["flexialerts"]?.ToObject<FlexiAlertsExtensionOptions>()).
-                        UseFlexiCode(options?["flexicode"]?.ToObject<FlexiCodeExtensionOptions>()).
+                        UseFlexiTableBlocks(options?["flexitableblocks"]?.ToObject<FlexiTableBlocksExtensionOptions>()).
+                        UseFlexiSectionBlocks(options?["flexisectionblocks"]?.ToObject<FlexiSectionBlocksExtensionOptions>()).
+                        UseFlexiAlertBlocks(options?["flexialertblocks"]?.ToObject<FlexiAlertBlocksExtensionOptions>()).
+                        UseFlexiCodeBlocks(options?["flexicodeblocks"]?.ToObject<FlexiCodeBlocksExtensionOptions>()).
                         UsePipeTables().
                         UseGridTables().
-                        UseFlexiOptions();
+                        UseFlexiOptionBlocks();
                 } },
                 { "commonmark", (MarkdownPipelineBuilder _, JObject __) => { } }
             };
