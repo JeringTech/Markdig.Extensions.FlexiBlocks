@@ -32,7 +32,7 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
             }
 
             // First line of JSON options must begin with @{
-            if (processor.Line.PeekChar() != '{') 
+            if (processor.Line.PeekChar() != '{')
             {
                 return BlockState.None;
             }
@@ -88,9 +88,9 @@ namespace JeremyTCD.Markdig.Extensions.JsonOptions
                             if (processor.Document.GetData(JSON_OPTIONS) is JsonOptionsBlock pendingJsonOptions)
                             {
                                 throw new InvalidOperationException(string.Format(
-                                    Strings.InvalidOperationException_UnusedJsonOptions, 
-                                    pendingJsonOptions.Lines.ToString(), 
-                                    pendingJsonOptions.Line, 
+                                    Strings.InvalidOperationException_UnusedJsonOptions,
+                                    pendingJsonOptions.Lines.ToString(),
+                                    pendingJsonOptions.Line,
                                     pendingJsonOptions.Column));
                             }
 
