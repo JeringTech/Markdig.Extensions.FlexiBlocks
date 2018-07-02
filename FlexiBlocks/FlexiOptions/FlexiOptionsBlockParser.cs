@@ -7,7 +7,7 @@ namespace FlexiBlocks.JsonOptions
 {
     public class FlexiOptionsBlockParser : BlockParser
     {
-        public const string JSON_OPTIONS = "jsonOptions";
+        public const string FLEXI_OPTIONS = "flexiOptions";
 
         public FlexiOptionsBlockParser()
         {
@@ -85,7 +85,7 @@ namespace FlexiBlocks.JsonOptions
                             jsonOptionsBlock.EndLine = processor.LineIndex;
 
                             // Unused JsonOptionsBlock
-                            if (processor.Document.GetData(JSON_OPTIONS) is FlexiOptionsBlock pendingJsonOptions)
+                            if (processor.Document.GetData(FLEXI_OPTIONS) is FlexiOptionsBlock pendingJsonOptions)
                             {
                                 throw new InvalidOperationException(string.Format(
                                     Strings.InvalidOperationException_UnusedJsonOptions,
@@ -95,7 +95,7 @@ namespace FlexiBlocks.JsonOptions
                             }
 
                             // Save block to data, leave block in ast so that line gets assigned to block
-                            processor.Document.SetData(JSON_OPTIONS, jsonOptionsBlock);
+                            processor.Document.SetData(FLEXI_OPTIONS, jsonOptionsBlock);
 
                             return BlockState.Break;
                         }

@@ -104,7 +104,7 @@ namespace FlexiBlocks.Tests.JsonOptions
             Assert.Equal(dummyLine.Length - 1, dummyJsonOptionsBlock.Span.End);
             Assert.False(dummyJsonOptionsBlock.EndsInString);
             Assert.Equal(0, dummyJsonOptionsBlock.NumOpenBrackets);
-            Assert.Equal(dummyJsonOptionsBlock, dummyBlockProcessor.Document.GetData(FlexiOptionsBlockParser.JSON_OPTIONS));
+            Assert.Equal(dummyJsonOptionsBlock, dummyBlockProcessor.Document.GetData(FlexiOptionsBlockParser.FLEXI_OPTIONS));
             Assert.Equal(dummyEndLine, dummyJsonOptionsBlock.EndLine);
         }
 
@@ -136,7 +136,7 @@ namespace FlexiBlocks.Tests.JsonOptions
             const string dummyJson = "{\"option\": \"value\"}";
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = new StringSlice(dummyJson);
-            dummyBlockProcessor.Document.SetData(FlexiOptionsBlockParser.JSON_OPTIONS, dummyPendingJsonOptionsBlock);
+            dummyBlockProcessor.Document.SetData(FlexiOptionsBlockParser.FLEXI_OPTIONS, dummyPendingJsonOptionsBlock);
             var dummyJsonOptionsBlock = new FlexiOptionsBlock(null);
             var jsonOptionsBlockParser = new FlexiOptionsBlockParser();
 

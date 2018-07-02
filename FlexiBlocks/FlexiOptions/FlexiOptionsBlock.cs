@@ -3,7 +3,7 @@
 namespace FlexiBlocks.JsonOptions
 {
     /// <summary>
-    /// A <see cref="LeafBlock"/> that holds a JSON string to be consumed by a subsequent block.
+    /// A <see cref="LeafBlock"/> that holds a JSON string representing options for the following block.
     /// </summary>
     public class FlexiOptionsBlock : LeafBlock
     {
@@ -17,7 +17,7 @@ namespace FlexiBlocks.JsonOptions
         public int NumOpenBrackets { get; set; } = 0;
 
         /// <summary>
-        /// True if the JSON ends in a string, for example if the JSON is "{ \"Opti". False otherwise.
+        /// True if the JSON parsed so far ends within a string, for example if the JSON parsed so far is "{ \"part". False otherwise.
         /// </summary>
         public bool EndsInString { get; set; } = false;
 

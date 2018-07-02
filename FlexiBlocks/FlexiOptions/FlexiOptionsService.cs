@@ -104,7 +104,7 @@ namespace FlexiBlocks.JsonOptions
         /// </exception>
         public virtual FlexiOptionsBlock TryGetJsonOptionsBlock(BlockProcessor processor, int blockStartLine)
         {
-            if (processor.Document.GetData(FlexiOptionsBlockParser.JSON_OPTIONS) is FlexiOptionsBlock jsonOptionsBlock)
+            if (processor.Document.GetData(FlexiOptionsBlockParser.FLEXI_OPTIONS) is FlexiOptionsBlock jsonOptionsBlock)
             {
                 if (jsonOptionsBlock.EndLine + 1 != blockStartLine)
                 {
@@ -114,7 +114,7 @@ namespace FlexiBlocks.JsonOptions
                         jsonOptionsBlock.Column));
                 }
 
-                processor.Document.RemoveData(FlexiOptionsBlockParser.JSON_OPTIONS);
+                processor.Document.RemoveData(FlexiOptionsBlockParser.FLEXI_OPTIONS);
 
                 return jsonOptionsBlock;
             }

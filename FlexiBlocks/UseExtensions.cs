@@ -47,7 +47,7 @@ namespace FlexiBlocks
             return pipelineBuilder;
         }
 
-        public static MarkdownPipelineBuilder UseJsonOptions(this MarkdownPipelineBuilder pipelineBuilder)
+        public static MarkdownPipelineBuilder UseFlexiOptions(this MarkdownPipelineBuilder pipelineBuilder)
         {
             if (!pipelineBuilder.Extensions.Contains<FlexiOptionsExtension>())
             {

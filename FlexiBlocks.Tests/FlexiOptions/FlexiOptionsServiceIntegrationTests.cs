@@ -188,7 +188,7 @@ namespace FlexiBlocks.Tests.JsonOptions
                 Lines = new StringLineGroup(dummyJson)
             };
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Document.SetData(FlexiOptionsBlockParser.JSON_OPTIONS, dummyJsonOptionsBlock);
+            dummyBlockProcessor.Document.SetData(FlexiOptionsBlockParser.FLEXI_OPTIONS, dummyJsonOptionsBlock);
             var jsonOptionsService = new FlexiOptionsService();
 
             // Act and Assert
@@ -212,7 +212,7 @@ namespace FlexiBlocks.Tests.JsonOptions
                 EndLine = dummyOptionsEndLine
             };
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Document.SetData(FlexiOptionsBlockParser.JSON_OPTIONS, dummyJsonOptionsBlock);
+            dummyBlockProcessor.Document.SetData(FlexiOptionsBlockParser.FLEXI_OPTIONS, dummyJsonOptionsBlock);
             var jsonOptionsService = new FlexiOptionsService();
 
             // Act
@@ -220,7 +220,7 @@ namespace FlexiBlocks.Tests.JsonOptions
 
             // Assert
             Assert.Same(dummyJsonOptionsBlock, result);
-            Assert.Null(dummyBlockProcessor.Document.GetData(FlexiOptionsBlockParser.JSON_OPTIONS));
+            Assert.Null(dummyBlockProcessor.Document.GetData(FlexiOptionsBlockParser.FLEXI_OPTIONS));
         }
 
         private class TestOptions
