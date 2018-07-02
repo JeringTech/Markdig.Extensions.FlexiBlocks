@@ -12,7 +12,7 @@ namespace FlexiBlocks.FlexiCode
     public class FlexiCodeExtension : IMarkdownExtension
     {
         private readonly FlexiCodeExtensionOptions _options;
-        private readonly FlexiOptionsService _jsonOptionsService;
+        private readonly FlexiOptionsService _flexiOptionsService;
         public const string FLEXI_CODE_OPTIONS_KEY = "flexiCodeOptions";
         private readonly IPrismService _prismService;
         private readonly IHighlightJSService _highlightJSService;
@@ -22,7 +22,7 @@ namespace FlexiBlocks.FlexiCode
             IHighlightJSService highlightJSService)
         {
             _options = options ?? new FlexiCodeExtensionOptions();
-            _jsonOptionsService = new FlexiOptionsService();
+            _flexiOptionsService = new FlexiOptionsService();
             _prismService = prismService;
             _highlightJSService = highlightJSService;
         }
@@ -69,8 +69,8 @@ namespace FlexiBlocks.FlexiCode
         {
             FlexiCodeBlockOptions flexiCodeOptions = _options.DefaultFlexiCodeOptions.Clone();
 
-            // Apply JSON options if they exist
-            _jsonOptionsService.TryPopulateOptions(processor, flexiCodeOptions, block.Line);
+            // Apply FlexiOptions if they exist
+            _flexiOptionsService.TryPopulateOptions(processor, flexiCodeOptions, block.Line);
 
             block.SetData(FLEXI_CODE_OPTIONS_KEY, flexiCodeOptions);
         }

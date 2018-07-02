@@ -101,10 +101,13 @@ namespace FlexiBlocks.Tests.FlexiCode
 
         [Theory]
         [MemberData(nameof(Contains_ReturnsTrueIfRangeContainsLineOtherwiseReturnsFalse_Data))]
-        public void Contains_ReturnsTrueIfRangeContainsLineOtherwiseReturnsFalse(LineRange dummyLineRange, int dummyLine, bool expectedResult)
+        public void Contains_ReturnsTrueIfRangeContainsLineOtherwiseReturnsFalse(int startLine, int endLine, int dummyLine, bool expectedResult)
         {
+            // Arrange
+            var lineRange = new LineRange(startLine, endLine);
+
             // Act
-            bool result = dummyLineRange.Contains(dummyLine);
+            bool result = lineRange.Contains(dummyLine);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -114,24 +117,30 @@ namespace FlexiBlocks.Tests.FlexiCode
         {
             return new object[][]
             {
-                new object[]{ new LineRange(10, 12), 10, true}, // Range is inclusive of start line
-                new object[]{ new LineRange(1, 5), 5, true}, // Range is inclusive of end line
-                new object[]{ new LineRange(2, 2), 2, true}, // Single line range
-                new object[]{ new LineRange(3, -1), 1000, true}, // -1 = infinity
-                new object[]{ new LineRange(4, 8), -1, false }, // Negative numbers can't be in a range
-                new object[]{ new LineRange(9, 13), 0, false }, // 0 can't be in a range
-                new object[]{ new LineRange(11, 14), 10, false }, // Before range
-                new object[]{ new LineRange(22, 105), 106, false }, // After range
+                new object[]{ 10, 12, 10, true}, // Range is inclusive of start line
+                new object[]{ 1, 5, 5, true}, // Range is inclusive of end line
+                new object[]{ 2, 2, 2, true}, // Single line range
+                new object[]{ 3, -1, 1000, true}, // -1 = infinity
+                new object[]{ 4, 8, -1, false }, // Negative numbers can't be in a range
+                new object[]{ 9, 13, 0, false }, // 0 can't be in a range
+                new object[]{ 11, 14, 10, false }, // Before range
+                new object[]{ 22, 105, 106, false }, // After range
             };
         }
 
         [Theory]
         [MemberData(nameof(CompareTo_ReturnsMinus1IfCurrentRangeOccursBeforeLineRange0IfTheRangesOverlapAnd1IfCurrentRangeOccursAfterLineRange_Data))]
         public void CompareTo_ReturnsMinus1IfCurrentRangeOccursBeforeLineRange0IfTheRangesOverlapAnd1IfCurrentRangeOccursAfterLineRange(
-            LineRange dummyMainLineRange, LineRange dummyOtherLineRange, int expectedResult)
+            int primaryRangeStartLine, int primaryRangeEndLine,
+            int secondaryRangeStartLine, int secondaryRangeEndLine,
+            int expectedResult)
         {
+            // Arrange
+            var primaryLineRange = new LineRange(primaryRangeStartLine, primaryRangeEndLine);
+            var secondaryLineRange = new LineRange(secondaryRangeStartLine, secondaryRangeEndLine);
+
             // Act
-            int result = dummyMainLineRange.CompareTo(dummyOtherLineRange);
+            int result = primaryLineRange.CompareTo(secondaryLineRange);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -141,14 +150,14 @@ namespace FlexiBlocks.Tests.FlexiCode
         {
             return new object[][]
             {
-                new object[]{ new LineRange(1, 5), new LineRange(6, 10), -1 }, // Before
-                new object[]{ new LineRange(11, 15), new LineRange(6, 10), 1 }, // After
-                new object[]{ new LineRange(2, 7), new LineRange(7, 11), 0 }, // Overlap at end of main line range
-                new object[]{ new LineRange(11, 15), new LineRange(7, 11), 0 }, // Overlap at start of main line range
-                new object[]{ new LineRange(5, 12), new LineRange(8, 12), 0 }, // Main line range contains other line range
-                new object[]{ new LineRange(5, -1), new LineRange(1000, 1234), 0 }, // Main line range contains other line range
-                new object[]{ new LineRange(8, 12), new LineRange(5, 12), 0 }, // Other line range contains main line range
-                new object[]{ new LineRange(1000, 1234), new LineRange(5, -1), 0 }, // Other line range contains main line range
+                new object[]{ 1, 5, 6, 10, -1 }, // Before
+                new object[]{ 11, 15, 6, 10, 1 }, // After
+                new object[]{ 2, 7, 7, 11, 0 }, // Overlap at end of main line range
+                new object[]{ 11, 15, 7, 11, 0 }, // Overlap at start of main line range
+                new object[]{ 5, 12, 8, 12, 0 }, // Main line range contains other line range
+                new object[]{ 5, -1, 1000, 1234, 0 }, // Main line range contains other line range
+                new object[]{ 8, 12, 5, 12, 0 }, // Other line range contains main line range
+                new object[]{ 1000, 1234, 5, -1, 0 }, // Other line range contains main line range
             };
         }
     }

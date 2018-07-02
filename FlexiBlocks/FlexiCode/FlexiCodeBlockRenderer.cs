@@ -19,7 +19,7 @@ namespace FlexiBlocks.FlexiCode
         private readonly LineEmbellishmentsService _lineEmbellishmentsService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeBlockRenderer"/> class.
+        /// Initializes a new instance of the <see cref="FlexiCodeBlockRenderer"/> class.
         /// </summary>
         /// <param name="prismService"></param>
         /// <param name="highlightJSService"></param>
