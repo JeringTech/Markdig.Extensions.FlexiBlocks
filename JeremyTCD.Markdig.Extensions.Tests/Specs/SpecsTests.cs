@@ -13803,10 +13803,11 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
 
     // Flexi code has the following features:
     // 
+    // - Title
     // - Copy code icon
-    // - Code block title
     // - Syntax highlighting
     // - Line numbers
+    // - Line highlighting
     // 
     // These features can be configured at the extension level using `FlexiCodeExtensionOptions` and can also be configured at the 
     // block level using JSON options.
@@ -13835,12 +13836,11 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     {
             //         // Example comment
             //         return arg + &quot;dummyString&quot;;
-            //     }
-            //     </code></pre>
+            //     }</code></pre>
             //     </div>
 
             SpecTestHelper.AssertCompliance("```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
-                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}\n</code></pre>\n</div>", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
                 "flexicode_jsonoptions");
         }
 
@@ -13867,12 +13867,11 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     {
             //         // Example comment
             //         return arg + &quot;dummyString&quot;;
-            //     }
-            //     </code></pre>
+            //     }</code></pre>
             //     </div>
 
             SpecTestHelper.AssertCompliance("```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
-                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}\n</code></pre>\n</div>", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
                 "all");
         }
 
@@ -13896,12 +13895,11 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     {
             //         // Example comment
             //         return arg + &quot;dummyString&quot;;
-            //     }
-            //     </code></pre>
+            //     }</code></pre>
             //     </div>
 
             SpecTestHelper.AssertCompliance("    public string ExampleFunction(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }", 
-                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}\n</code></pre>\n</div>", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
                 "flexicode_jsonoptions");
         }
 
@@ -13925,22 +13923,21 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     {
             //         // Example comment
             //         return arg + &quot;dummyString&quot;;
-            //     }
-            //     </code></pre>
+            //     }</code></pre>
             //     </div>
 
             SpecTestHelper.AssertCompliance("    public string ExampleFunction(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }", 
-                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}\n</code></pre>\n</div>", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
                 "all");
         }
 
-        // The following is an example of a fenced flexi code block with code syntax highlighting:
+        // `FlexiCodeOptions.Title` can be used to define a title for the flexi code block:
         [Fact]
         public void FlexiCode_Spec3_flexicode_jsonoptions()
         {
             // The following Markdown:
             //     @{
-            //         "language": "csharp"
+            //         "title": "ExampleDocument.cs"
             //     }
             //     ```
             //     public string ExampleFunction(string arg)
@@ -13953,27 +13950,128 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             // Should be rendered as:
             //     <div class="flexi-code">
             //     <header>
+            //     <span>ExampleDocument.cs</span>
             //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
             //     </header>
-            //     <pre><code><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span>
-            //     <span class="token punctuation">{</span>
-            //         <span class="token comment">// Example comment</span>
-            //         <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">"dummyString"</span><span class="token punctuation">;</span>
-            //     <span class="token punctuation">}</span>
-            //     </code></pre>
+            //     <pre><code>public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + &quot;dummyString&quot;;
+            //     }</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"csharp\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
-                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"token keyword\">public</span> <span class=\"token keyword\">string</span> <span class=\"token function\">ExampleFunction</span><span class=\"token punctuation\">(</span><span class=\"token keyword\">string</span> arg<span class=\"token punctuation\">)</span>\n<span class=\"token punctuation\">{</span>\n    <span class=\"token comment\">// Example comment</span>\n    <span class=\"token keyword\">return</span> arg <span class=\"token operator\">+</span> <span class=\"token string\">\"dummyString\"</span><span class=\"token punctuation\">;</span>\n<span class=\"token punctuation\">}</span>\n</code></pre>\n</div>", 
+            SpecTestHelper.AssertCompliance("@{\n    \"title\": \"ExampleDocument.cs\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<span>ExampleDocument.cs</span>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
                 "flexicode_jsonoptions");
         }
 
-        // The following is an example of a fenced flexi code block with code syntax highlighting:
+        // `FlexiCodeOptions.Title` can be used to define a title for the flexi code block:
         [Fact]
         public void FlexiCode_Spec3_all()
         {
             // The following Markdown:
             //     @{
+            //         "title": "ExampleDocument.cs"
+            //     }
+            //     ```
+            //     public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + "dummyString";
+            //     }
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <span>ExampleDocument.cs</span>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + &quot;dummyString&quot;;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"title\": \"ExampleDocument.cs\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<span>ExampleDocument.cs</span>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
+                "all");
+        }
+
+        // `FlexiCodeOptions.CopyIconMarkup` can be used to customize the copy icon:
+        [Fact]
+        public void FlexiCode_Spec4_flexicode_jsonoptions()
+        {
+            // The following Markdown:
+            //     @{
+            //         "copyIconMarkup": "<svg><use xlink:href=\"#material-design-copy\"></use></svg>"
+            //     }
+            //     ```
+            //     public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + "dummyString";
+            //     }
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg><use xlink:href="#material-design-copy"></use></svg>
+            //     </header>
+            //     <pre><code>public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + &quot;dummyString&quot;;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"copyIconMarkup\": \"<svg><use xlink:href=\\\"#material-design-copy\\\"></use></svg>\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg><use xlink:href=\"#material-design-copy\"></use></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
+                "flexicode_jsonoptions");
+        }
+
+        // `FlexiCodeOptions.CopyIconMarkup` can be used to customize the copy icon:
+        [Fact]
+        public void FlexiCode_Spec4_all()
+        {
+            // The following Markdown:
+            //     @{
+            //         "copyIconMarkup": "<svg><use xlink:href=\"#material-design-copy\"></use></svg>"
+            //     }
+            //     ```
+            //     public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + "dummyString";
+            //     }
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg><use xlink:href="#material-design-copy"></use></svg>
+            //     </header>
+            //     <pre><code>public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + &quot;dummyString&quot;;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"copyIconMarkup\": \"<svg><use xlink:href=\\\"#material-design-copy\\\"></use></svg>\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg><use xlink:href=\"#material-design-copy\"></use></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
+                "all");
+        }
+
+        // To enable syntax highlighting, assign a valid
+        // [Prism language alias](https://prismjs.com/index.html#languages-list) to `FlexiCodeOptions.Langauge`:
+        [Fact]
+        public void FlexiCode_Spec5_flexicode_jsonoptions()
+        {
+            // The following Markdown:
+            //     @{
             //         "language": "csharp"
             //     }
             //     ```
@@ -13989,106 +14087,203 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <header>
             //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
             //     </header>
-            //     <pre><code><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span>
+            //     <pre><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span>
             //     <span class="token punctuation">{</span>
             //         <span class="token comment">// Example comment</span>
             //         <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">"dummyString"</span><span class="token punctuation">;</span>
-            //     <span class="token punctuation">}</span>
-            //     </code></pre>
+            //     <span class="token punctuation">}</span></code></pre>
             //     </div>
 
             SpecTestHelper.AssertCompliance("@{\n    \"language\": \"csharp\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
-                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"token keyword\">public</span> <span class=\"token keyword\">string</span> <span class=\"token function\">ExampleFunction</span><span class=\"token punctuation\">(</span><span class=\"token keyword\">string</span> arg<span class=\"token punctuation\">)</span>\n<span class=\"token punctuation\">{</span>\n    <span class=\"token comment\">// Example comment</span>\n    <span class=\"token keyword\">return</span> arg <span class=\"token operator\">+</span> <span class=\"token string\">\"dummyString\"</span><span class=\"token punctuation\">;</span>\n<span class=\"token punctuation\">}</span>\n</code></pre>\n</div>", 
-                "all");
-        }
-
-        // Under the hood, the syntax highlighter, Prism, escapes `<` and `&` characters:
-        [Fact]
-        public void FlexiCode_Spec4_flexicode_jsonoptions()
-        {
-            // The following Markdown:
-            //     @{
-            //         "language": "html"
-            //     }
-            //     ```
-            //     <div>"<" and "&" are escaped</div>
-            //     ```
-            //
-            // Should be rendered as:
-            //     <div class="flexi-code">
-            //     <header>
-            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
-            //     </header>
-            //     <pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>"&lt;" and "&amp;" are escaped<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-            //     </code></pre>
-            //     </div>
-
-            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\"\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
-                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"token tag\"><span class=\"token tag\"><span class=\"token punctuation\">&lt;</span>div</span><span class=\"token punctuation\">></span></span>\"&lt;\" and \"&amp;\" are escaped<span class=\"token tag\"><span class=\"token tag\"><span class=\"token punctuation\">&lt;/</span>div</span><span class=\"token punctuation\">></span></span>\n</code></pre>\n</div>", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-csharp\"><span class=\"token keyword\">public</span> <span class=\"token keyword\">string</span> <span class=\"token function\">ExampleFunction</span><span class=\"token punctuation\">(</span><span class=\"token keyword\">string</span> arg<span class=\"token punctuation\">)</span>\n<span class=\"token punctuation\">{</span>\n    <span class=\"token comment\">// Example comment</span>\n    <span class=\"token keyword\">return</span> arg <span class=\"token operator\">+</span> <span class=\"token string\">\"dummyString\"</span><span class=\"token punctuation\">;</span>\n<span class=\"token punctuation\">}</span></code></pre>\n</div>", 
                 "flexicode_jsonoptions");
         }
 
-        // Under the hood, the syntax highlighter, Prism, escapes `<` and `&` characters:
-        [Fact]
-        public void FlexiCode_Spec4_all()
-        {
-            // The following Markdown:
-            //     @{
-            //         "language": "html"
-            //     }
-            //     ```
-            //     <div>"<" and "&" are escaped</div>
-            //     ```
-            //
-            // Should be rendered as:
-            //     <div class="flexi-code">
-            //     <header>
-            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
-            //     </header>
-            //     <pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>"&lt;" and "&amp;" are escaped<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-            //     </code></pre>
-            //     </div>
-
-            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\"\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
-                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"token tag\"><span class=\"token tag\"><span class=\"token punctuation\">&lt;</span>div</span><span class=\"token punctuation\">></span></span>\"&lt;\" and \"&amp;\" are escaped<span class=\"token tag\"><span class=\"token tag\"><span class=\"token punctuation\">&lt;/</span>div</span><span class=\"token punctuation\">></span></span>\n</code></pre>\n</div>", 
-                "all");
-        }
-
-        // If you prefer to do highlighting client-side, set `highlight` to `false`. A language class will be assigned to the `code` element:
-        [Fact]
-        public void FlexiCode_Spec5_flexicode_jsonoptions()
-        {
-            // The following Markdown:
-            //     @{
-            //         "language": "html",
-            //         "highlight": false
-            //     }
-            //     ```
-            //     <div>"<" and "&" are escaped</div>
-            //     ```
-            //
-            // Should be rendered as:
-            //     <div class="flexi-code">
-            //     <header>
-            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
-            //     </header>
-            //     <pre><code class="language-html">&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;
-            //     </code></pre>
-            //     </div>
-
-            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\",\n    \"highlight\": false\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
-                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-html\">&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;\n</code></pre>\n</div>", 
-                "flexicode_jsonoptions");
-        }
-
-        // If you prefer to do highlighting client-side, set `highlight` to `false`. A language class will be assigned to the `code` element:
+        // To enable syntax highlighting, assign a valid
+        // [Prism language alias](https://prismjs.com/index.html#languages-list) to `FlexiCodeOptions.Langauge`:
         [Fact]
         public void FlexiCode_Spec5_all()
         {
             // The following Markdown:
             //     @{
+            //         "language": "csharp"
+            //     }
+            //     ```
+            //     public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + "dummyString";
+            //     }
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span>
+            //     <span class="token punctuation">{</span>
+            //         <span class="token comment">// Example comment</span>
+            //         <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">"dummyString"</span><span class="token punctuation">;</span>
+            //     <span class="token punctuation">}</span></code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"csharp\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-csharp\"><span class=\"token keyword\">public</span> <span class=\"token keyword\">string</span> <span class=\"token function\">ExampleFunction</span><span class=\"token punctuation\">(</span><span class=\"token keyword\">string</span> arg<span class=\"token punctuation\">)</span>\n<span class=\"token punctuation\">{</span>\n    <span class=\"token comment\">// Example comment</span>\n    <span class=\"token keyword\">return</span> arg <span class=\"token operator\">+</span> <span class=\"token string\">\"dummyString\"</span><span class=\"token punctuation\">;</span>\n<span class=\"token punctuation\">}</span></code></pre>\n</div>", 
+                "all");
+        }
+
+        // If you prefer the syntax highlighter [HighlightJS](http://highlightjs.readthedocs.io/en/latest/index.html), set the 
+        // value of `FlexiCodeOptions.SyntaxHighlighter` to `HighlightJS` and assign a valid [HighlightJS language alias](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases)
+        // to `FlexiCodeOptions.Language`:
+        [Fact]
+        public void FlexiCode_Spec6_flexicode_jsonoptions()
+        {
+            // The following Markdown:
+            //     @{
+            //         "language": "csharp",
+            //         "syntaxHighlighter": "highlightJS"
+            //     }
+            //     ```
+            //     public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + "dummyString";
+            //     }
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code class="language-csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">ExampleFunction</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> arg</span>)
+            //     </span>{
+            //         <span class="hljs-comment">// Example comment</span>
+            //         <span class="hljs-keyword">return</span> arg + <span class="hljs-string">"dummyString"</span>;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"csharp\",\n    \"syntaxHighlighter\": \"highlightJS\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-csharp\"><span class=\"hljs-function\"><span class=\"hljs-keyword\">public</span> <span class=\"hljs-keyword\">string</span> <span class=\"hljs-title\">ExampleFunction</span>(<span class=\"hljs-params\"><span class=\"hljs-keyword\">string</span> arg</span>)\n</span>{\n    <span class=\"hljs-comment\">// Example comment</span>\n    <span class=\"hljs-keyword\">return</span> arg + <span class=\"hljs-string\">\"dummyString\"</span>;\n}</code></pre>\n</div>", 
+                "flexicode_jsonoptions");
+        }
+
+        // If you prefer the syntax highlighter [HighlightJS](http://highlightjs.readthedocs.io/en/latest/index.html), set the 
+        // value of `FlexiCodeOptions.SyntaxHighlighter` to `HighlightJS` and assign a valid [HighlightJS language alias](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases)
+        // to `FlexiCodeOptions.Language`:
+        [Fact]
+        public void FlexiCode_Spec6_all()
+        {
+            // The following Markdown:
+            //     @{
+            //         "language": "csharp",
+            //         "syntaxHighlighter": "highlightJS"
+            //     }
+            //     ```
+            //     public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + "dummyString";
+            //     }
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code class="language-csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">ExampleFunction</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> arg</span>)
+            //     </span>{
+            //         <span class="hljs-comment">// Example comment</span>
+            //         <span class="hljs-keyword">return</span> arg + <span class="hljs-string">"dummyString"</span>;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"csharp\",\n    \"syntaxHighlighter\": \"highlightJS\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-csharp\"><span class=\"hljs-function\"><span class=\"hljs-keyword\">public</span> <span class=\"hljs-keyword\">string</span> <span class=\"hljs-title\">ExampleFunction</span>(<span class=\"hljs-params\"><span class=\"hljs-keyword\">string</span> arg</span>)\n</span>{\n    <span class=\"hljs-comment\">// Example comment</span>\n    <span class=\"hljs-keyword\">return</span> arg + <span class=\"hljs-string\">\"dummyString\"</span>;\n}</code></pre>\n</div>", 
+                "all");
+        }
+
+        // Assign a prefix to `FlexiCodeOptions.HighlightJSClassPrefix` to customize the prefix for HighlightJS classes:
+        [Fact]
+        public void FlexiCode_Spec7_flexicode_jsonoptions()
+        {
+            // The following Markdown:
+            //     @{
+            //         "language": "csharp",
+            //         "syntaxHighlighter": "highlightJS",
+            //         "highlightJSClassPrefix": "my-prefix-"
+            //     }
+            //     ```
+            //     public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + "dummyString";
+            //     }
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code class="language-csharp"><span class="my-prefix-function"><span class="my-prefix-keyword">public</span> <span class="my-prefix-keyword">string</span> <span class="my-prefix-title">ExampleFunction</span>(<span class="my-prefix-params"><span class="my-prefix-keyword">string</span> arg</span>)
+            //     </span>{
+            //         <span class="my-prefix-comment">// Example comment</span>
+            //         <span class="my-prefix-keyword">return</span> arg + <span class="my-prefix-string">"dummyString"</span>;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"csharp\",\n    \"syntaxHighlighter\": \"highlightJS\",\n    \"highlightJSClassPrefix\": \"my-prefix-\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-csharp\"><span class=\"my-prefix-function\"><span class=\"my-prefix-keyword\">public</span> <span class=\"my-prefix-keyword\">string</span> <span class=\"my-prefix-title\">ExampleFunction</span>(<span class=\"my-prefix-params\"><span class=\"my-prefix-keyword\">string</span> arg</span>)\n</span>{\n    <span class=\"my-prefix-comment\">// Example comment</span>\n    <span class=\"my-prefix-keyword\">return</span> arg + <span class=\"my-prefix-string\">\"dummyString\"</span>;\n}</code></pre>\n</div>", 
+                "flexicode_jsonoptions");
+        }
+
+        // Assign a prefix to `FlexiCodeOptions.HighlightJSClassPrefix` to customize the prefix for HighlightJS classes:
+        [Fact]
+        public void FlexiCode_Spec7_all()
+        {
+            // The following Markdown:
+            //     @{
+            //         "language": "csharp",
+            //         "syntaxHighlighter": "highlightJS",
+            //         "highlightJSClassPrefix": "my-prefix-"
+            //     }
+            //     ```
+            //     public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + "dummyString";
+            //     }
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code class="language-csharp"><span class="my-prefix-function"><span class="my-prefix-keyword">public</span> <span class="my-prefix-keyword">string</span> <span class="my-prefix-title">ExampleFunction</span>(<span class="my-prefix-params"><span class="my-prefix-keyword">string</span> arg</span>)
+            //     </span>{
+            //         <span class="my-prefix-comment">// Example comment</span>
+            //         <span class="my-prefix-keyword">return</span> arg + <span class="my-prefix-string">"dummyString"</span>;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"csharp\",\n    \"syntaxHighlighter\": \"highlightJS\",\n    \"highlightJSClassPrefix\": \"my-prefix-\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-csharp\"><span class=\"my-prefix-function\"><span class=\"my-prefix-keyword\">public</span> <span class=\"my-prefix-keyword\">string</span> <span class=\"my-prefix-title\">ExampleFunction</span>(<span class=\"my-prefix-params\"><span class=\"my-prefix-keyword\">string</span> arg</span>)\n</span>{\n    <span class=\"my-prefix-comment\">// Example comment</span>\n    <span class=\"my-prefix-keyword\">return</span> arg + <span class=\"my-prefix-string\">\"dummyString\"</span>;\n}</code></pre>\n</div>", 
+                "all");
+        }
+
+        // If you prefer to do highlighting client-side, set `highlightSyntax` to `false`. As long as `FlexiCodeOptions.Langauge` is not
+        // null, whitespace or an empty string, a language class will be assigned to the `code` element:
+        [Fact]
+        public void FlexiCode_Spec8_flexicode_jsonoptions()
+        {
+            // The following Markdown:
+            //     @{
             //         "language": "html",
-            //         "highlight": false
+            //         "highlightSyntax": false
             //     }
             //     ```
             //     <div>"<" and "&" are escaped</div>
@@ -14099,12 +14294,480 @@ namespace JeremyTCD.Markdig.Extensions.Tests.Specs
             //     <header>
             //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
             //     </header>
-            //     <pre><code class="language-html">&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;
-            //     </code></pre>
+            //     <pre><code class="language-html">&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\",\n    \"highlight\": false\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
-                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-html\">&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;\n</code></pre>\n</div>", 
+            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\",\n    \"highlightSyntax\": false\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-html\">&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;</code></pre>\n</div>", 
+                "flexicode_jsonoptions");
+        }
+
+        // If you prefer to do highlighting client-side, set `highlightSyntax` to `false`. As long as `FlexiCodeOptions.Langauge` is not
+        // null, whitespace or an empty string, a language class will be assigned to the `code` element:
+        [Fact]
+        public void FlexiCode_Spec8_all()
+        {
+            // The following Markdown:
+            //     @{
+            //         "language": "html",
+            //         "highlightSyntax": false
+            //     }
+            //     ```
+            //     <div>"<" and "&" are escaped</div>
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code class="language-html">&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\",\n    \"highlightSyntax\": false\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-html\">&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;</code></pre>\n</div>", 
+                "all");
+        }
+
+        // Add line numbers by setting `FlexiCodeOptions.RenderLineNumbers` to true:
+        [Fact]
+        public void FlexiCode_Spec9_flexicode_jsonoptions()
+        {
+            // The following Markdown:
+            //     @{
+            //         "renderLineNumbers": true
+            //     }
+            //     ```
+            //     public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + "dummyString";
+            //     }
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code><span class="line"><span class="line-number">1</span><span class="line-text">public string ExampleFunction(string arg)</span></span>
+            //     <span class="line"><span class="line-number">2</span><span class="line-text">{</span></span>
+            //     <span class="line"><span class="line-number">3</span><span class="line-text">    // Example comment</span></span>
+            //     <span class="line"><span class="line-number">4</span><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
+            //     <span class="line"><span class="line-number">5</span><span class="line-text">}</span></span></code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"renderLineNumbers\": true\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line\"><span class=\"line-number\">1</span><span class=\"line-text\">public string ExampleFunction(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line\"><span class=\"line-number\">3</span><span class=\"line-text\">    // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">4</span><span class=\"line-text\">    return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
+                "flexicode_jsonoptions");
+        }
+
+        // Add line numbers by setting `FlexiCodeOptions.RenderLineNumbers` to true:
+        [Fact]
+        public void FlexiCode_Spec9_all()
+        {
+            // The following Markdown:
+            //     @{
+            //         "renderLineNumbers": true
+            //     }
+            //     ```
+            //     public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + "dummyString";
+            //     }
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code><span class="line"><span class="line-number">1</span><span class="line-text">public string ExampleFunction(string arg)</span></span>
+            //     <span class="line"><span class="line-number">2</span><span class="line-text">{</span></span>
+            //     <span class="line"><span class="line-number">3</span><span class="line-text">    // Example comment</span></span>
+            //     <span class="line"><span class="line-number">4</span><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
+            //     <span class="line"><span class="line-number">5</span><span class="line-text">}</span></span></code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"renderLineNumbers\": true\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line\"><span class=\"line-number\">1</span><span class=\"line-text\">public string ExampleFunction(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line\"><span class=\"line-number\">3</span><span class=\"line-text\">    // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">4</span><span class=\"line-text\">    return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
+                "all");
+        }
+
+        // Customize which numbers line numbering start from and the lines that line numbers are rendered for using
+        // `FlexiCodeOptions.LineNumberRanges`:
+        [Fact]
+        public void FlexiCode_Spec10_flexicode_jsonoptions()
+        {
+            // The following Markdown:
+            //     @{
+            //         "renderLineNumbers": true,
+            //         "lineNumberRanges": [
+            //             {
+            //                 "startLine": 1,
+            //                 "endLine": 8,
+            //                 "startLineNumber": 1
+            //             },
+            //             {
+            //                 "startLine": 11,
+            //                 "endLine": -1,
+            //                 "startLineNumber": 32
+            //             }
+            //         ]
+            //     }
+            //     ```
+            //     public class ExampleClass
+            //     {
+            //         public string ExampleFunction1(string arg)
+            //         {
+            //             // Example comment
+            //             return arg + "dummyString";
+            //         }
+            //     
+            //         // Some functions omitted for brevity
+            //         ...
+            //     
+            //         public string ExampleFunction3(string arg)
+            //         {
+            //             // Example comment
+            //             return arg + "dummyString";
+            //         }
+            //     }
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code><span class="line"><span class="line-number">1</span><span class="line-text">public class ExampleClass</span></span>
+            //     <span class="line"><span class="line-number">2</span><span class="line-text">{</span></span>
+            //     <span class="line"><span class="line-number">3</span><span class="line-text">    public string ExampleFunction1(string arg)</span></span>
+            //     <span class="line"><span class="line-number">4</span><span class="line-text">    {</span></span>
+            //     <span class="line"><span class="line-number">5</span><span class="line-text">        // Example comment</span></span>
+            //     <span class="line"><span class="line-number">6</span><span class="line-text">        return arg + &quot;dummyString&quot;;</span></span>
+            //     <span class="line"><span class="line-number">7</span><span class="line-text">    }</span></span>
+            //     <span class="line"><span class="line-number">8</span><span class="line-text"></span></span>
+            //     <span class="line"><span class="line-text">    // Some functions omitted for brevity</span></span>
+            //     <span class="line"><span class="line-text">    ...</span></span>
+            //     <span class="line"><span class="line-number">32</span><span class="line-text"></span></span>
+            //     <span class="line"><span class="line-number">33</span><span class="line-text">    public string ExampleFunction3(string arg)</span></span>
+            //     <span class="line"><span class="line-number">34</span><span class="line-text">    {</span></span>
+            //     <span class="line"><span class="line-number">35</span><span class="line-text">        // Example comment</span></span>
+            //     <span class="line"><span class="line-number">36</span><span class="line-text">        return arg + &quot;dummyString&quot;;</span></span>
+            //     <span class="line"><span class="line-number">37</span><span class="line-text">    }</span></span>
+            //     <span class="line"><span class="line-number">38</span><span class="line-text">}</span></span></code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"renderLineNumbers\": true,\n    \"lineNumberRanges\": [\n        {\n            \"startLine\": 1,\n            \"endLine\": 8,\n            \"startLineNumber\": 1\n        },\n        {\n            \"startLine\": 11,\n            \"endLine\": -1,\n            \"startLineNumber\": 32\n        }\n    ]\n}\n```\npublic class ExampleClass\n{\n    public string ExampleFunction1(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n\n    // Some functions omitted for brevity\n    ...\n\n    public string ExampleFunction3(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n}\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line\"><span class=\"line-number\">1</span><span class=\"line-text\">public class ExampleClass</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line\"><span class=\"line-number\">3</span><span class=\"line-text\">    public string ExampleFunction1(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">4</span><span class=\"line-text\">    {</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">        // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">6</span><span class=\"line-text\">        return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">7</span><span class=\"line-text\">    }</span></span>\n<span class=\"line\"><span class=\"line-number\">8</span><span class=\"line-text\"></span></span>\n<span class=\"line\"><span class=\"line-text\">    // Some functions omitted for brevity</span></span>\n<span class=\"line\"><span class=\"line-text\">    ...</span></span>\n<span class=\"line\"><span class=\"line-number\">32</span><span class=\"line-text\"></span></span>\n<span class=\"line\"><span class=\"line-number\">33</span><span class=\"line-text\">    public string ExampleFunction3(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">34</span><span class=\"line-text\">    {</span></span>\n<span class=\"line\"><span class=\"line-number\">35</span><span class=\"line-text\">        // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">36</span><span class=\"line-text\">        return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">37</span><span class=\"line-text\">    }</span></span>\n<span class=\"line\"><span class=\"line-number\">38</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
+                "flexicode_jsonoptions");
+        }
+
+        // Customize which numbers line numbering start from and the lines that line numbers are rendered for using
+        // `FlexiCodeOptions.LineNumberRanges`:
+        [Fact]
+        public void FlexiCode_Spec10_all()
+        {
+            // The following Markdown:
+            //     @{
+            //         "renderLineNumbers": true,
+            //         "lineNumberRanges": [
+            //             {
+            //                 "startLine": 1,
+            //                 "endLine": 8,
+            //                 "startLineNumber": 1
+            //             },
+            //             {
+            //                 "startLine": 11,
+            //                 "endLine": -1,
+            //                 "startLineNumber": 32
+            //             }
+            //         ]
+            //     }
+            //     ```
+            //     public class ExampleClass
+            //     {
+            //         public string ExampleFunction1(string arg)
+            //         {
+            //             // Example comment
+            //             return arg + "dummyString";
+            //         }
+            //     
+            //         // Some functions omitted for brevity
+            //         ...
+            //     
+            //         public string ExampleFunction3(string arg)
+            //         {
+            //             // Example comment
+            //             return arg + "dummyString";
+            //         }
+            //     }
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code><span class="line"><span class="line-number">1</span><span class="line-text">public class ExampleClass</span></span>
+            //     <span class="line"><span class="line-number">2</span><span class="line-text">{</span></span>
+            //     <span class="line"><span class="line-number">3</span><span class="line-text">    public string ExampleFunction1(string arg)</span></span>
+            //     <span class="line"><span class="line-number">4</span><span class="line-text">    {</span></span>
+            //     <span class="line"><span class="line-number">5</span><span class="line-text">        // Example comment</span></span>
+            //     <span class="line"><span class="line-number">6</span><span class="line-text">        return arg + &quot;dummyString&quot;;</span></span>
+            //     <span class="line"><span class="line-number">7</span><span class="line-text">    }</span></span>
+            //     <span class="line"><span class="line-number">8</span><span class="line-text"></span></span>
+            //     <span class="line"><span class="line-text">    // Some functions omitted for brevity</span></span>
+            //     <span class="line"><span class="line-text">    ...</span></span>
+            //     <span class="line"><span class="line-number">32</span><span class="line-text"></span></span>
+            //     <span class="line"><span class="line-number">33</span><span class="line-text">    public string ExampleFunction3(string arg)</span></span>
+            //     <span class="line"><span class="line-number">34</span><span class="line-text">    {</span></span>
+            //     <span class="line"><span class="line-number">35</span><span class="line-text">        // Example comment</span></span>
+            //     <span class="line"><span class="line-number">36</span><span class="line-text">        return arg + &quot;dummyString&quot;;</span></span>
+            //     <span class="line"><span class="line-number">37</span><span class="line-text">    }</span></span>
+            //     <span class="line"><span class="line-number">38</span><span class="line-text">}</span></span></code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"renderLineNumbers\": true,\n    \"lineNumberRanges\": [\n        {\n            \"startLine\": 1,\n            \"endLine\": 8,\n            \"startLineNumber\": 1\n        },\n        {\n            \"startLine\": 11,\n            \"endLine\": -1,\n            \"startLineNumber\": 32\n        }\n    ]\n}\n```\npublic class ExampleClass\n{\n    public string ExampleFunction1(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n\n    // Some functions omitted for brevity\n    ...\n\n    public string ExampleFunction3(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n}\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line\"><span class=\"line-number\">1</span><span class=\"line-text\">public class ExampleClass</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line\"><span class=\"line-number\">3</span><span class=\"line-text\">    public string ExampleFunction1(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">4</span><span class=\"line-text\">    {</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">        // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">6</span><span class=\"line-text\">        return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">7</span><span class=\"line-text\">    }</span></span>\n<span class=\"line\"><span class=\"line-number\">8</span><span class=\"line-text\"></span></span>\n<span class=\"line\"><span class=\"line-text\">    // Some functions omitted for brevity</span></span>\n<span class=\"line\"><span class=\"line-text\">    ...</span></span>\n<span class=\"line\"><span class=\"line-number\">32</span><span class=\"line-text\"></span></span>\n<span class=\"line\"><span class=\"line-number\">33</span><span class=\"line-text\">    public string ExampleFunction3(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">34</span><span class=\"line-text\">    {</span></span>\n<span class=\"line\"><span class=\"line-number\">35</span><span class=\"line-text\">        // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">36</span><span class=\"line-text\">        return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">37</span><span class=\"line-text\">    }</span></span>\n<span class=\"line\"><span class=\"line-number\">38</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
+                "all");
+        }
+
+        // Highlight lines using `FlexiCodeOptions.HighlightLineRanges` (line highlighting should not be confused with syntax highlighting - a highlighted line is simply
+        // a line with perhaps a different background color, syntax highlighting adds color to syntax tokens):
+        [Fact]
+        public void FlexiCode_Spec11_flexicode_jsonoptions()
+        {
+            // The following Markdown:
+            //     @{
+            //         "highlightLineRanges": [
+            //             {
+            //                 "startLine": 1,
+            //                 "endLine": 1
+            //             },
+            //             {
+            //                 "startLine": 3,
+            //                 "endLine": 4
+            //             }
+            //         ]
+            //     }
+            //     ```
+            //     public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + "dummyString";
+            //     }
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code><span class="line highlight"><span class="line-number">1</span><span class="line-text">public string ExampleFunction(string arg)</span></span>
+            //     <span class="line"><span class="line-number">2</span><span class="line-text">{</span></span>
+            //     <span class="line highlight"><span class="line-number">3</span><span class="line-text">    // Example comment</span></span>
+            //     <span class="line highlight"><span class="line-number">4</span><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
+            //     <span class="line"><span class="line-number">5</span><span class="line-text">}</span></span></code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"highlightLineRanges\": [\n        {\n            \"startLine\": 1,\n            \"endLine\": 1\n        },\n        {\n            \"startLine\": 3,\n            \"endLine\": 4\n        }\n    ]\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line highlight\"><span class=\"line-number\">1</span><span class=\"line-text\">public string ExampleFunction(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">3</span><span class=\"line-text\">    // Example comment</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">4</span><span class=\"line-text\">    return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
+                "flexicode_jsonoptions");
+        }
+
+        // Highlight lines using `FlexiCodeOptions.HighlightLineRanges` (line highlighting should not be confused with syntax highlighting - a highlighted line is simply
+        // a line with perhaps a different background color, syntax highlighting adds color to syntax tokens):
+        [Fact]
+        public void FlexiCode_Spec11_all()
+        {
+            // The following Markdown:
+            //     @{
+            //         "highlightLineRanges": [
+            //             {
+            //                 "startLine": 1,
+            //                 "endLine": 1
+            //             },
+            //             {
+            //                 "startLine": 3,
+            //                 "endLine": 4
+            //             }
+            //         ]
+            //     }
+            //     ```
+            //     public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + "dummyString";
+            //     }
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code><span class="line highlight"><span class="line-number">1</span><span class="line-text">public string ExampleFunction(string arg)</span></span>
+            //     <span class="line"><span class="line-number">2</span><span class="line-text">{</span></span>
+            //     <span class="line highlight"><span class="line-number">3</span><span class="line-text">    // Example comment</span></span>
+            //     <span class="line highlight"><span class="line-number">4</span><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
+            //     <span class="line"><span class="line-number">5</span><span class="line-text">}</span></span></code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"highlightLineRanges\": [\n        {\n            \"startLine\": 1,\n            \"endLine\": 1\n        },\n        {\n            \"startLine\": 3,\n            \"endLine\": 4\n        }\n    ]\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line highlight\"><span class=\"line-number\">1</span><span class=\"line-text\">public string ExampleFunction(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">3</span><span class=\"line-text\">    // Example comment</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">4</span><span class=\"line-text\">    return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
+                "all");
+        }
+
+        // Certain characters in code blocks must be escaped for the block to render properly. If syntax highlighting isn't enabled, the characters
+        // `<`, `>` and `&` are escaped:
+        [Fact]
+        public void FlexiCode_Spec12_flexicode_jsonoptions()
+        {
+            // The following Markdown:
+            //     ```
+            //     <div>"<" and "&" are escaped</div>
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;</code></pre>\n</div>", 
+                "flexicode_jsonoptions");
+        }
+
+        // Certain characters in code blocks must be escaped for the block to render properly. If syntax highlighting isn't enabled, the characters
+        // `<`, `>` and `&` are escaped:
+        [Fact]
+        public void FlexiCode_Spec12_all()
+        {
+            // The following Markdown:
+            //     ```
+            //     <div>"<" and "&" are escaped</div>
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;</code></pre>\n</div>", 
+                "all");
+        }
+
+        // Both Prism and HighlightJS cannot process escaped characters (can't escape code then pass it to the highlighters), fortunately,
+        // both of them can do escaping on their own. Prism, escapes `<` and `&` characters:
+        [Fact]
+        public void FlexiCode_Spec13_flexicode_jsonoptions()
+        {
+            // The following Markdown:
+            //     @{
+            //         "language": "html"
+            //     }
+            //     ```
+            //     <div>"<" and "&" are escaped</div>
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>"&lt;" and "&amp;" are escaped<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\"\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-html\"><span class=\"token tag\"><span class=\"token tag\"><span class=\"token punctuation\">&lt;</span>div</span><span class=\"token punctuation\">></span></span>\"&lt;\" and \"&amp;\" are escaped<span class=\"token tag\"><span class=\"token tag\"><span class=\"token punctuation\">&lt;/</span>div</span><span class=\"token punctuation\">></span></span></code></pre>\n</div>", 
+                "flexicode_jsonoptions");
+        }
+
+        // Both Prism and HighlightJS cannot process escaped characters (can't escape code then pass it to the highlighters), fortunately,
+        // both of them can do escaping on their own. Prism, escapes `<` and `&` characters:
+        [Fact]
+        public void FlexiCode_Spec13_all()
+        {
+            // The following Markdown:
+            //     @{
+            //         "language": "html"
+            //     }
+            //     ```
+            //     <div>"<" and "&" are escaped</div>
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>"&lt;" and "&amp;" are escaped<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\"\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-html\"><span class=\"token tag\"><span class=\"token tag\"><span class=\"token punctuation\">&lt;</span>div</span><span class=\"token punctuation\">></span></span>\"&lt;\" and \"&amp;\" are escaped<span class=\"token tag\"><span class=\"token tag\"><span class=\"token punctuation\">&lt;/</span>div</span><span class=\"token punctuation\">></span></span></code></pre>\n</div>", 
+                "all");
+        }
+
+        // HighlightJS, escapes `<`, `>` and `&` characters:
+        [Fact]
+        public void FlexiCode_Spec14_flexicode_jsonoptions()
+        {
+            // The following Markdown:
+            //     @{
+            //         "language": "html",
+            //         "syntaxHighlighter": "highlightJS"
+            //     }
+            //     ```
+            //     <div>"<" and "&" are escaped</div>
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>"<span class="hljs-tag">&lt;<span class="hljs-name">"</span> <span class="hljs-attr">and</span> "&amp;" <span class="hljs-attr">are</span> <span class="hljs-attr">escaped</span>&lt;/<span class="hljs-attr">div</span>&gt;</span></code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\",\n    \"syntaxHighlighter\": \"highlightJS\"\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">div</span>&gt;</span>\"<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">\"</span> <span class=\"hljs-attr\">and</span> \"&amp;\" <span class=\"hljs-attr\">are</span> <span class=\"hljs-attr\">escaped</span>&lt;/<span class=\"hljs-attr\">div</span>&gt;</span></code></pre>\n</div>", 
+                "flexicode_jsonoptions");
+        }
+
+        // HighlightJS, escapes `<`, `>` and `&` characters:
+        [Fact]
+        public void FlexiCode_Spec14_all()
+        {
+            // The following Markdown:
+            //     @{
+            //         "language": "html",
+            //         "syntaxHighlighter": "highlightJS"
+            //     }
+            //     ```
+            //     <div>"<" and "&" are escaped</div>
+            //     ```
+            //
+            // Should be rendered as:
+            //     <div class="flexi-code">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>"<span class="hljs-tag">&lt;<span class="hljs-name">"</span> <span class="hljs-attr">and</span> "&amp;" <span class="hljs-attr">are</span> <span class="hljs-attr">escaped</span>&lt;/<span class="hljs-attr">div</span>&gt;</span></code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\",\n    \"syntaxHighlighter\": \"highlightJS\"\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
+                "<div class=\"flexi-code\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">div</span>&gt;</span>\"<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">\"</span> <span class=\"hljs-attr\">and</span> \"&amp;\" <span class=\"hljs-attr\">are</span> <span class=\"hljs-attr\">escaped</span>&lt;/<span class=\"hljs-attr\">div</span>&gt;</span></code></pre>\n</div>", 
                 "all");
         }
     }
