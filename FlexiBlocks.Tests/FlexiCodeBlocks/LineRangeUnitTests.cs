@@ -1,9 +1,9 @@
-﻿using FlexiBlocks.FlexiCode;
+﻿using FlexiBlocks.FlexiCodeBlocks;
 using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace FlexiBlocks.Tests.FlexiCode
+namespace FlexiBlocks.Tests.FlexiCodeBlocks
 {
     public class LineRangeUnitTests
     {

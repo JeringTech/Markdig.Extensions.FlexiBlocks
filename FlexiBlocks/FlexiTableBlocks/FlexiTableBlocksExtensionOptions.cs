@@ -1,4 +1,4 @@
-﻿namespace FlexiBlocks.ResponsiveTables
+﻿namespace FlexiBlocks.FlexiTableBlocks
 {
     /// <summary>
     /// Options for <see cref="FlexiTableBlocksExtension"/>. Note that JSON options cannot be used with responsive tables because <see cref="PipeTableParser"/> is

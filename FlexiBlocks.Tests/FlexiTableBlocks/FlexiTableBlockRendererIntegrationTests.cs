@@ -1,4 +1,4 @@
-﻿using FlexiBlocks.ResponsiveTables;
+﻿using FlexiBlocks.FlexiTableBlocks;
 using Markdig.Extensions.Tables;
 using Markdig.Renderers;
 using Markdig.Syntax;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
-namespace FlexiBlocks.Tests.ResponsiveTables
+namespace FlexiBlocks.Tests.FlexiTableBlocks
 {
     /// <summary>
     /// Refer to ResponsiveTablesSpecs.md for additional tests.

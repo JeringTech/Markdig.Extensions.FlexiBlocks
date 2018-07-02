@@ -1,4 +1,4 @@
-﻿namespace FlexiBlocks.FlexiCode
+﻿namespace FlexiBlocks.FlexiCodeBlocks
 {
     public class FlexiCodeBlocksExtensionOptions
     {

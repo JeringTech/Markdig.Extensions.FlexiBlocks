@@ -1,8 +1,8 @@
-﻿using FlexiBlocks.Sections;
+﻿using FlexiBlocks.FlexiSectionBlocks;
 using System.Collections.Generic;
 using Xunit;
 
-namespace FlexiBlocks.Tests.Sections
+namespace FlexiBlocks.Tests.FlexiSectionBlocks
 {
     public class FlexiSectionBlockOptionsIntegrationTests
     {

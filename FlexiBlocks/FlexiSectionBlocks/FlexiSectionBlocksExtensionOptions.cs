@@ -1,4 +1,4 @@
-﻿namespace FlexiBlocks.Sections
+﻿namespace FlexiBlocks.FlexiSectionBlocks
 {
     public class FlexiSectionBlocksExtensionOptions
     {

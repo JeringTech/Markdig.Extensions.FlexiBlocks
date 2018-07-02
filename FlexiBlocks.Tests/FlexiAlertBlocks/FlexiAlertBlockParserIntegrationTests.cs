@@ -1,5 +1,5 @@
-﻿using FlexiBlocks.Alerts;
-using FlexiBlocks.JsonOptions;
+﻿using FlexiBlocks.FlexiAlertBlocks;
+using FlexiBlocks.FlexiOptionBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Moq;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace FlexiBlocks.Tests.Alerts
+namespace FlexiBlocks.Tests.FlexiAlertBlocks
 {
     public class FlexiAlertBlockParserIntegrationTests
     {

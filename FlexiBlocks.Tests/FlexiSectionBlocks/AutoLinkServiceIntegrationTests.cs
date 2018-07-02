@@ -1,4 +1,4 @@
-﻿using FlexiBlocks.Sections;
+﻿using FlexiBlocks.FlexiSectionBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
@@ -6,7 +6,7 @@ using Markdig.Syntax.Inlines;
 using System.Collections.Generic;
 using Xunit;
 
-namespace FlexiBlocks.Tests.Sections
+namespace FlexiBlocks.Tests.FlexiSectionBlocks
 {
     public class AutoLinkServiceIntegrationTests
     {

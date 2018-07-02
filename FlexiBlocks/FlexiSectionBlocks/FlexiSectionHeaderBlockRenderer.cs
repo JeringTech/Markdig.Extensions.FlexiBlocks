@@ -2,7 +2,7 @@
 using Markdig.Renderers.Html;
 using Markdig.Syntax;
 
-namespace FlexiBlocks.Sections
+namespace FlexiBlocks.FlexiSectionBlocks
 {
     /// <summary>
     /// An HTML renderer for a <see cref="HeadingBlock"/>.

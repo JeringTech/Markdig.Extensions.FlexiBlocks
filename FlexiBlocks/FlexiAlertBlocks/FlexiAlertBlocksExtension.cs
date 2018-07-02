@@ -1,8 +1,8 @@
-﻿using FlexiBlocks.JsonOptions;
+﻿using FlexiBlocks.FlexiOptionBlocks;
 using Markdig;
 using Markdig.Renderers;
 
-namespace FlexiBlocks.Alerts
+namespace FlexiBlocks.FlexiAlertBlocks
 {
     public class FlexiAlertBlocksExtension : IMarkdownExtension
     {

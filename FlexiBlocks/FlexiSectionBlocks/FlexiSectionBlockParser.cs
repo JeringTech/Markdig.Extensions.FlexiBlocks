@@ -1,10 +1,10 @@
-﻿using FlexiBlocks.JsonOptions;
+﻿using FlexiBlocks.FlexiOptionBlocks;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using System;
 using System.Linq;
 
-namespace FlexiBlocks.Sections
+namespace FlexiBlocks.FlexiSectionBlocks
 {
     public class FlexiSectionBlockParser : BlockParser
     {

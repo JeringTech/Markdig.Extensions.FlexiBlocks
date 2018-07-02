@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System;
 
-namespace FlexiBlocks.JsonOptions
+namespace FlexiBlocks.FlexiOptionBlocks
 {
     public class FlexiOptionBlocksService
     {

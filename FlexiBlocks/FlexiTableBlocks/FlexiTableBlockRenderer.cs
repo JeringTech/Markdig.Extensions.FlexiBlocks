@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
-namespace FlexiBlocks.ResponsiveTables
+namespace FlexiBlocks.FlexiTableBlocks
 {
     /// <summary>
     /// A HTML renderer for a <see cref="Table"/>. Based on <see cref="HtmlTableRenderer"/>. This renderer wraps the contents of td elements and adds

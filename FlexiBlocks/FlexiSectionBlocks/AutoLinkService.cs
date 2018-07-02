@@ -4,7 +4,7 @@ using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 using System.Collections.Generic;
 
-namespace FlexiBlocks.Sections
+namespace FlexiBlocks.FlexiSectionBlocks
 {
     /// <summary>
     /// Logic for generating link references.

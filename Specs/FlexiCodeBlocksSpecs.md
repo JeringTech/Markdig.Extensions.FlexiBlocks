@@ -1,5 +1,5 @@
-## Flexi Code Blocks
-Flexi code has the following features:
+## FlexiCodeBlocks
+FlexiCodeBlocks have the following configurable features:
 
 - Title
 - Copy code icon
@@ -7,11 +7,11 @@ Flexi code has the following features:
 - Line numbers
 - Line highlighting
 
-These features can be configured at the extension level using `FlexiCodeExtensionOptions` and can also be configured at the 
-block level using JSON options.
+These features can be configured at the extension level using `FlexiCodeBlocksExtensionOptions` and can also be configured at the 
+block level using FlexiBlockOptions.
 
-Flexi code blocks have the same syntax as CommonMark fenced and indented code blocks.
-The following is an example of a fenced flexi code block with the default options:
+FlexiCodeBlocks have the same syntax as CommonMark fenced and indented code blocks.
+The following is an example of a fenced FlexiCodeBlock with the default options:
 
 ```````````````````````````````` example
 ```
@@ -22,7 +22,7 @@ public string ExampleFunction(string arg)
 }
 ```
 .
-<div class="flexi-code">
+<div class="fcb">
 <header>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
 </header>
@@ -34,7 +34,7 @@ public string ExampleFunction(string arg)
 </div>
 ````````````````````````````````
 
-The following is an example of an indented flexi code block with the default options:
+The following is an example of an indented FlexiCodeBlock with the default options:
 
 ```````````````````````````````` example
     public string ExampleFunction(string arg)
@@ -43,7 +43,7 @@ The following is an example of an indented flexi code block with the default opt
         return arg + "dummyString";
     }
 .
-<div class="flexi-code">
+<div class="fcb">
 <header>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
 </header>
@@ -55,7 +55,7 @@ The following is an example of an indented flexi code block with the default opt
 </div>
 ````````````````````````````````
 
-`FlexiCodeOptions.Title` can be used to define a title for the flexi code block:
+`FlexiCodeBlockOptions.Title` can be used to define a title for a FlexiCodeBlock:
 
 ```````````````````````````````` example
 @{
@@ -69,7 +69,7 @@ public string ExampleFunction(string arg)
 }
 ```
 .
-<div class="flexi-code">
+<div class="fcb">
 <header>
 <span>ExampleDocument.cs</span>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
@@ -82,7 +82,7 @@ public string ExampleFunction(string arg)
 </div>
 ````````````````````````````````
 
-`FlexiCodeOptions.CopyIconMarkup` can be used to customize the copy icon:
+`FlexiCodeBlockOptions.CopyIconMarkup` can be used to customize the copy icon for a FlexiCodeBlock:
 
 ```````````````````````````````` example
 @{
@@ -96,7 +96,7 @@ public string ExampleFunction(string arg)
 }
 ```
 .
-<div class="flexi-code">
+<div class="fcb">
 <header>
 <svg><use xlink:href="#material-design-copy"></use></svg>
 </header>
@@ -109,7 +109,7 @@ public string ExampleFunction(string arg)
 ````````````````````````````````
 
 To enable syntax highlighting, assign a valid
-[Prism language alias](https://prismjs.com/index.html#languages-list) to `FlexiCodeOptions.Langauge`:
+[Prism language alias](https://prismjs.com/index.html#languages-list) to `FlexiCodeBlockOptions.Langauge`:
 ```````````````````````````````` example
 @{
     "language": "csharp"
@@ -122,7 +122,7 @@ public string ExampleFunction(string arg)
 }
 ```
 .
-<div class="flexi-code">
+<div class="fcb">
 <header>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
 </header>
@@ -135,8 +135,8 @@ public string ExampleFunction(string arg)
 ````````````````````````````````
 
 If you prefer the syntax highlighter [HighlightJS](http://highlightjs.readthedocs.io/en/latest/index.html), set the 
-value of `FlexiCodeOptions.SyntaxHighlighter` to `HighlightJS` and assign a valid [HighlightJS language alias](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases)
-to `FlexiCodeOptions.Language`:
+value of `FlexiCodeBlockOptions.SyntaxHighlighter` to `HighlightJS` and assign a valid [HighlightJS language alias](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases)
+to `FlexiCodeBlockOptions.Language`:
 ```````````````````````````````` example
 @{
     "language": "csharp",
@@ -150,7 +150,7 @@ public string ExampleFunction(string arg)
 }
 ```
 .
-<div class="flexi-code">
+<div class="fcb">
 <header>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
 </header>
@@ -162,7 +162,7 @@ public string ExampleFunction(string arg)
 </div>
 ````````````````````````````````
 
-Assign a prefix to `FlexiCodeOptions.HighlightJSClassPrefix` to customize the prefix for HighlightJS classes:
+Assign a prefix to `FlexiCodeBlockOptions.HighlightJSClassPrefix` to customize the prefix for HighlightJS classes:
 ```````````````````````````````` example
 @{
     "language": "csharp",
@@ -177,7 +177,7 @@ public string ExampleFunction(string arg)
 }
 ```
 .
-<div class="flexi-code">
+<div class="fcb">
 <header>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
 </header>
@@ -189,7 +189,7 @@ public string ExampleFunction(string arg)
 </div>
 ````````````````````````````````
 
-If you prefer to do highlighting client-side, set `highlightSyntax` to `false`. As long as `FlexiCodeOptions.Langauge` is not
+If you prefer to do highlighting client-side, set `highlightSyntax` to `false`. As long as `FlexiCodeBlockOptions.Langauge` is not
 null, whitespace or an empty string, a language class will be assigned to the `code` element:
 ```````````````````````````````` example
 @{
@@ -200,7 +200,7 @@ null, whitespace or an empty string, a language class will be assigned to the `c
 <div>"<" and "&" are escaped</div>
 ```
 .
-<div class="flexi-code">
+<div class="fcb">
 <header>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
 </header>
@@ -208,7 +208,7 @@ null, whitespace or an empty string, a language class will be assigned to the `c
 </div>
 ````````````````````````````````
 
-Add line numbers by setting `FlexiCodeOptions.RenderLineNumbers` to true:
+Add line numbers by setting `FlexiCodeBlockOptions.RenderLineNumbers` to true:
 ```````````````````````````````` example
 @{
     "renderLineNumbers": true
@@ -221,7 +221,7 @@ public string ExampleFunction(string arg)
 }
 ```
 .
-<div class="flexi-code">
+<div class="fcb">
 <header>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
 </header>
@@ -233,8 +233,8 @@ public string ExampleFunction(string arg)
 </div>
 ````````````````````````````````
 
-Customize which numbers line numbering start from and the lines that line numbers are rendered for using
-`FlexiCodeOptions.LineNumberRanges`:
+Customize which numbers line number sequences start from and the lines that line numbers are rendered for using
+`FlexiCodeBlockOptions.LineNumberRanges`:
 ```````````````````````````````` example
 @{
     "renderLineNumbers": true,
@@ -271,7 +271,7 @@ public class ExampleClass
 }
 ```
 .
-<div class="flexi-code">
+<div class="fcb">
 <header>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
 </header>
@@ -295,7 +295,7 @@ public class ExampleClass
 </div>
 ````````````````````````````````
 
-Highlight lines using `FlexiCodeOptions.HighlightLineRanges` (line highlighting should not be confused with syntax highlighting - a highlighted line is simply
+Highlight lines using `FlexiCodeBlockOptions.HighlightLineRanges` (line highlighting should not be confused with syntax highlighting - a highlighted line is simply
 a line with perhaps a different background color, syntax highlighting adds color to syntax tokens):
 ```````````````````````````````` example
 @{
@@ -318,7 +318,7 @@ public string ExampleFunction(string arg)
 }
 ```
 .
-<div class="flexi-code">
+<div class="fcb">
 <header>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
 </header>
@@ -330,14 +330,14 @@ public string ExampleFunction(string arg)
 </div>
 ````````````````````````````````
 
-Certain characters in code blocks must be escaped for the block to render properly. If syntax highlighting isn't enabled, the characters
+Certain characters within code elements must be escaped. If syntax highlighting isn't enabled, the characters
 `<`, `>` and `&` are escaped:
 ```````````````````````````````` example
 ```
 <div>"<" and "&" are escaped</div>
 ```
 .
-<div class="flexi-code">
+<div class="fcb">
 <header>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
 </header>
@@ -345,7 +345,7 @@ Certain characters in code blocks must be escaped for the block to render proper
 </div>
 ````````````````````````````````
 
-Both Prism and HighlightJS cannot process escaped characters (can't escape code then pass it to the highlighters), fortunately,
+Both Prism and HighlightJS cannot process escaped characters, so it isn't possible to escape code then pass it to the highlighters. Fortunately,
 both of them can do escaping on their own. Prism, escapes `<` and `&` characters:
 ```````````````````````````````` example
 @{
@@ -355,7 +355,7 @@ both of them can do escaping on their own. Prism, escapes `<` and `&` characters
 <div>"<" and "&" are escaped</div>
 ```
 .
-<div class="flexi-code">
+<div class="fcb">
 <header>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
 </header>
@@ -373,7 +373,7 @@ HighlightJS, escapes `<`, `>` and `&` characters:
 <div>"<" and "&" are escaped</div>
 ```
 .
-<div class="flexi-code">
+<div class="fcb">
 <header>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
 </header>

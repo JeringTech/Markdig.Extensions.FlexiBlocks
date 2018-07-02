@@ -1,4 +1,4 @@
-## Flexi Table Blocks
+## FlexiTableBlocks
 
 This extension changes the markup produced for tables to be compatible with [this](https://www.jeremytcd.com/articles/css-only-responsive-tables)
 method for creating responsive tables. 

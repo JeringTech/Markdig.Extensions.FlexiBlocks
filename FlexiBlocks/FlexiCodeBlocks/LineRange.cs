@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FlexiBlocks.FlexiCode
+namespace FlexiBlocks.FlexiCodeBlocks
 {
     /// <summary>
     /// Represents a range of lines.

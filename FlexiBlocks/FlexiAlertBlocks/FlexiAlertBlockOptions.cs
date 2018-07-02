@@ -1,4 +1,4 @@
-﻿namespace FlexiBlocks.Alerts
+﻿namespace FlexiBlocks.FlexiAlertBlocks
 {
     public class FlexiAlertBlockOptions : IMarkdownObjectOptions<FlexiAlertBlockOptions>
     {

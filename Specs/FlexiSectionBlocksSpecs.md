@@ -1,4 +1,4 @@
-﻿## Flexi Section Blocks
+﻿## FlexiSectionBlocks
 A typical article is divided into logical sections. Often, the HTML for logical sections are demarcated by heading elements.
 The [HTML spec](https://html.spec.whatwg.org/multipage/sections.html#headings-and-sections) encourages wrapping of 
 logical sections in [sectioning content elements](https://html.spec.whatwg.org/multipage/dom.html#sectioning-content-2).

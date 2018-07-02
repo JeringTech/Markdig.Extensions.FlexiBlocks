@@ -2,7 +2,7 @@
 using Markdig.Extensions.Tables;
 using Markdig.Renderers;
 
-namespace FlexiBlocks.ResponsiveTables
+namespace FlexiBlocks.FlexiTableBlocks
 {
     public class FlexiTableBlocksExtension : IMarkdownExtension
     {

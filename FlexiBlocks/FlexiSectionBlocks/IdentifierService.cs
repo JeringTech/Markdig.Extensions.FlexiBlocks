@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace FlexiBlocks.Sections
+namespace FlexiBlocks.FlexiSectionBlocks
 {
     public class IdentifierService
     {

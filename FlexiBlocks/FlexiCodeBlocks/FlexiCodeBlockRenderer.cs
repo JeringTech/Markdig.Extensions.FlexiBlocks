@@ -6,7 +6,7 @@ using Markdig.Syntax;
 using System.Collections.Generic;
 using System.IO;
 
-namespace FlexiBlocks.FlexiCode
+namespace FlexiBlocks.FlexiCodeBlocks
 {
     public class FlexiCodeBlockRenderer : HtmlObjectRenderer<CodeBlock>
     {

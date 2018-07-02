@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FlexiBlocks.FlexiCode
+namespace FlexiBlocks.FlexiCodeBlocks
 {
     /// <summary>
     /// Adds embellishements to lines in a block of text.

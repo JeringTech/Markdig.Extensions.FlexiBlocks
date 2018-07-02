@@ -1,4 +1,4 @@
-﻿using FlexiBlocks.Alerts;
+﻿using FlexiBlocks.FlexiAlertBlocks;
 using Markdig.Renderers;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
-namespace FlexiBlocks.Tests.Alerts
+namespace FlexiBlocks.Tests.FlexiAlertBlocks
 {
     public class FlexiAlertBlockRendererIntegrationTests
     {

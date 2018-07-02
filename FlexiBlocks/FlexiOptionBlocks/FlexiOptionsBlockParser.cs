@@ -3,7 +3,7 @@ using Markdig.Parsers;
 using Markdig.Syntax;
 using System;
 
-namespace FlexiBlocks.JsonOptions
+namespace FlexiBlocks.FlexiOptionBlocks
 {
     public class FlexiOptionsBlockParser : BlockParser
     {

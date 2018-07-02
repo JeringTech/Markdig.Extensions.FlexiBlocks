@@ -1,7 +1,7 @@
 ﻿using Markdig.Renderers;
 using Markdig.Renderers.Html;
 
-namespace FlexiBlocks.Sections
+namespace FlexiBlocks.FlexiSectionBlocks
 {
     public class FlexiSectionBlockRenderer : HtmlObjectRenderer<FlexiSectionBlock>
     {

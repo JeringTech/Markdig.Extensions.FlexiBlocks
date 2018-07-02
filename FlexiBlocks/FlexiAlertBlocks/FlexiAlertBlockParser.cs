@@ -1,9 +1,9 @@
-﻿using FlexiBlocks.JsonOptions;
+﻿using FlexiBlocks.FlexiOptionBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
 
-namespace FlexiBlocks.Alerts
+namespace FlexiBlocks.FlexiAlertBlocks
 {
     public class FlexiAlertBlockParser : BlockParser
     {

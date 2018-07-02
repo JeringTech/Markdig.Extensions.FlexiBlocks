@@ -1,8 +1,8 @@
-﻿using FlexiBlocks.Alerts;
-using FlexiBlocks.FlexiCode;
-using FlexiBlocks.JsonOptions;
-using FlexiBlocks.ResponsiveTables;
-using FlexiBlocks.Sections;
+﻿using FlexiBlocks.FlexiAlertBlocks;
+using FlexiBlocks.FlexiCodeBlocks;
+using FlexiBlocks.FlexiOptionBlocks;
+using FlexiBlocks.FlexiTableBlocks;
+using FlexiBlocks.FlexiSectionBlocks;
 using JeremyTCD.WebUtils.SyntaxHighlighters.HighlightJS;
 using JeremyTCD.WebUtils.SyntaxHighlighters.Prism;
 using Markdig;

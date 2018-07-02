@@ -1,5 +1,5 @@
-﻿using FlexiBlocks.JsonOptions;
-using FlexiBlocks.Sections;
+﻿using FlexiBlocks.FlexiOptionBlocks;
+using FlexiBlocks.FlexiSectionBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace FlexiBlocks.Tests.Sections
+namespace FlexiBlocks.Tests.FlexiSectionBlocks
 {
     public class FlexiSectionBlockParserIntegrationTests
     {

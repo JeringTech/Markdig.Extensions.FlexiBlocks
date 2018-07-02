@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace FlexiBlocks.FlexiCode
+namespace FlexiBlocks.FlexiCodeBlocks
 {
     public class FlexiCodeBlockOptions : IMarkdownObjectOptions<FlexiCodeBlockOptions>
     {
         /// <summary>
-        /// Gets or sets the value used as the markup for the FlexiCode block's copy icon. 
+        /// Gets or sets the value used as the markup for the FlexiCodeBlock's copy icon. 
         /// If the value is null, whitespace or an empty string, no copy icon is rendered.
         /// 
         /// The default SVG is part of the excellent material design icon set - https://material.io/tools/icons/?style=baseline
@@ -14,13 +14,13 @@ namespace FlexiBlocks.FlexiCode
         public string CopyIconMarkup { get; set; } = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>";
 
         /// <summary>
-        /// Gets or sets the value used as the FlexiCode block's title.
+        /// Gets or sets the value used as the FlexiCodeBlock's title.
         /// If the value is null, whitespace or an empty string, no title is rendered.
         /// </summary>
         public string Title { get; set; }
 
         /// <summary>
-        /// Gets or sets the value used as the language for syntax highlighting of the FlexiCode block's code.
+        /// Gets or sets the value used as the language for syntax highlighting of the FlexiCodeBlock's code.
         /// The value must be a valid language alias for the chosen <see cref="SyntaxHighlighter"/> (defaults to <see cref="SyntaxHighlighter.Prism"/>).
         /// Valid langauge aliases for Prism can be found here: https://prismjs.com/index.html#languages-list.
         /// Valid language aliases for HighlightJS can be found here: http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases.
@@ -28,9 +28,9 @@ namespace FlexiBlocks.FlexiCode
         public string Language { get; set; }
 
         /// <summary>
-        /// Gets or sets the value used as the format for the FlexiCode block's code element's language class.
+        /// Gets or sets the value used as the format for the FlexiCodeBlock's code element's language class.
         /// <see cref="Language"/> will be inserted into the format.
-        /// If either format or <see cref="Language"/> is null, whitespace or an empty string, no language class is assigned to the code element.
+        /// If either this format or <see cref="Language"/> is null, whitespace or an empty string, no language class is assigned to the code element.
         /// </summary>
         public string CodeLanguageClassNameFormat { get; set; } = "language-{0}";
 
@@ -75,9 +75,9 @@ namespace FlexiBlocks.FlexiCode
         public string LineEmbellishmentClassesPrefix { get; set; }
 
         /// <summary>
-        /// HTML attributes for the outermost element of the FlexiCode block. Includes a "class" attribute with value "flex-code" by default.
+        /// HTML attributes for the outermost element of the FlexiCodeBlock. Includes a "class" attribute with value "fcb" by default.
         /// </summary>
-        public HtmlAttributeDictionary Attributes { get; set; } = new HtmlAttributeDictionary { { "class", "flexi-code" } };
+        public HtmlAttributeDictionary Attributes { get; set; } = new HtmlAttributeDictionary { { "class", "fcb" } };
 
         /// <summary>
         /// Returns a deep clone.

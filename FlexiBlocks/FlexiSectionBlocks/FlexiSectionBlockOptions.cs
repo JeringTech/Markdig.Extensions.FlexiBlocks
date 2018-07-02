@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FlexiBlocks.Sections
+namespace FlexiBlocks.FlexiSectionBlocks
 {
     public class FlexiSectionBlockOptions : IMarkdownObjectOptions<FlexiSectionBlockOptions>
     {

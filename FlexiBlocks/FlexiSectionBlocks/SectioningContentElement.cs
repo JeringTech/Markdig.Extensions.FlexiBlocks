@@ -1,4 +1,4 @@
-﻿namespace FlexiBlocks.Sections
+﻿namespace FlexiBlocks.FlexiSectionBlocks
 {
     /// <summary>
     /// Sectioning content elements - https://html.spec.whatwg.org/multipage/dom.html#sectioning-content

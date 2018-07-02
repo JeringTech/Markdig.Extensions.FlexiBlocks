@@ -1,7 +1,7 @@
 ﻿using Markdig.Parsers;
 using Markdig.Syntax;
 
-namespace FlexiBlocks.Alerts
+namespace FlexiBlocks.FlexiAlertBlocks
 {
     /// <summary>
     /// A block containing content that is tangential to its containing article.

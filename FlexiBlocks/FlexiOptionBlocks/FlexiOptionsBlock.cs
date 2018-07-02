@@ -1,6 +1,6 @@
 ﻿using Markdig.Syntax;
 
-namespace FlexiBlocks.JsonOptions
+namespace FlexiBlocks.FlexiOptionBlocks
 {
     /// <summary>
     /// A <see cref="LeafBlock"/> that holds a JSON string representing options for the following block.

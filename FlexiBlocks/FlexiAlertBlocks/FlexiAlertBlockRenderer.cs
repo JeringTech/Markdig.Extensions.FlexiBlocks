@@ -1,7 +1,7 @@
 ﻿using Markdig.Renderers;
 using Markdig.Renderers.Html;
 
-namespace FlexiBlocks.Alerts
+namespace FlexiBlocks.FlexiAlertBlocks
 {
     public class FlexiAlertBlockRenderer : HtmlObjectRenderer<FlexiAlertBlock>
     {

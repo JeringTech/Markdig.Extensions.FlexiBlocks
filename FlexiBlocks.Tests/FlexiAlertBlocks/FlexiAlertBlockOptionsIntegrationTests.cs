@@ -1,7 +1,7 @@
-﻿using FlexiBlocks.Alerts;
+﻿using FlexiBlocks.FlexiAlertBlocks;
 using Xunit;
 
-namespace FlexiBlocks.Tests.Alerts
+namespace FlexiBlocks.Tests.FlexiAlertBlocks
 {
     public class FlexiAlertBlockOptionsIntegrationTests
     {

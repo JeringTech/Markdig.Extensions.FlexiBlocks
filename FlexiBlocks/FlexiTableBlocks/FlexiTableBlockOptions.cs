@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace FlexiBlocks.ResponsiveTables
+﻿namespace FlexiBlocks.FlexiTableBlocks
 {
     /// <summary>
     /// Options for a responsive table.

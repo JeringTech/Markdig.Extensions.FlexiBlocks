@@ -1,7 +1,7 @@
 ﻿using Markdig;
 using Markdig.Renderers;
 
-namespace FlexiBlocks.JsonOptions
+namespace FlexiBlocks.FlexiOptionBlocks
 {
     public class FlexiOptionBlocksExtension : IMarkdownExtension
     {

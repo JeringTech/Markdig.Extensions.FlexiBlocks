@@ -1,4 +1,4 @@
-﻿using FlexiBlocks.JsonOptions;
+﻿using FlexiBlocks.FlexiOptionBlocks;
 using JeremyTCD.WebUtils.SyntaxHighlighters.HighlightJS;
 using JeremyTCD.WebUtils.SyntaxHighlighters.Prism;
 using Markdig;
@@ -7,7 +7,7 @@ using Markdig.Renderers;
 using Markdig.Renderers.Html;
 using Markdig.Syntax;
 
-namespace FlexiBlocks.FlexiCode
+namespace FlexiBlocks.FlexiCodeBlocks
 {
     public class FlexiCodeBlocksExtension : IMarkdownExtension
     {
