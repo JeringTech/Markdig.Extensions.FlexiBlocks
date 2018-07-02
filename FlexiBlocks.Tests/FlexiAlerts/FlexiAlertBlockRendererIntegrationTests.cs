@@ -12,17 +12,17 @@ namespace FlexiBlocks.Tests.Alerts
     {
         [Theory]
         [MemberData(nameof(Write_RendersAlert_Data))]
-        public void Write_RendersAlert(FlexiAlertBlock dummyAlertBlock, string expectedResult)
+        public void Write_RendersAlert(SerializableWrapper<FlexiAlertBlock> dummyFlexiAlertBlockWrapper, string expectedResult)
         {
             // Arrange
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                var alertBlockRenderer = new FlexiAlertBlockRenderer();
+                var flexiAlertBlockRenderer = new FlexiAlertBlockRenderer();
 
                 // Act
-                alertBlockRenderer.Write(dummyHtmlRenderer, dummyAlertBlock);
+                flexiAlertBlockRenderer.Write(dummyHtmlRenderer, dummyFlexiAlertBlockWrapper.Value);
                 result = dummyStringWriter.ToString();
             }
 
@@ -41,23 +41,27 @@ namespace FlexiBlocks.Tests.Alerts
                 // Writes attributes if specified
                 new object[]
                 {
-                    new FlexiAlertBlock(null)
-                    {
-                        AlertBlockOptions = new FlexiAlertBlockOptions()
+                    new SerializableWrapper<FlexiAlertBlock>(
+                        new FlexiAlertBlock(null)
                         {
-                            Attributes = new HtmlAttributeDictionary(){ { dummyAttribute, dummyAttributeValue } }
+                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions()
+                            {
+                                Attributes = new HtmlAttributeDictionary(){ { dummyAttribute, dummyAttributeValue } }
+                            }
                         }
-                    },
-                    $"<div {dummyAttribute}=\"{dummyAttributeValue}\">\n</div>\n"
+                    ),
+                    $"<div {dummyAttribute}=\"{dummyAttributeValue}\">\n<div class=\"flexi-alert-content\">\n</div>\n</div>\n"
                 },
                 // Writes icon markup if specified
                 new object[]
                 {
-                    new FlexiAlertBlock(null)
-                    {
-                        AlertBlockOptions = new FlexiAlertBlockOptions(){IconMarkup = dummyIconMarkup}
-                    },
-                    $"<div>\n{dummyIconMarkup}\n<div class=\"alert-content\">\n</div>\n</div>\n"
+                    new SerializableWrapper<FlexiAlertBlock>(
+                        new FlexiAlertBlock(null)
+                        {
+                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions(){IconMarkup = dummyIconMarkup}
+                        }
+                    ),
+                    $"<div>\n{dummyIconMarkup}\n<div class=\"flexi-alert-content\">\n</div>\n</div>\n"
                 },
             };
         }
@@ -67,24 +71,23 @@ namespace FlexiBlocks.Tests.Alerts
         public void Write_DoesNotRenderContentClassIfContentClassNameIsNullWhitespaceOrEmpty(string dummyContentClassName)
         {
             // Arrange
-            const string dummyIconMarkup = "dummyIconMarkup";
-            var dummyAlertBlock = new FlexiAlertBlock(null)
+            var dummyFlexiAlertBlock = new FlexiAlertBlock(null)
             {
-                AlertBlockOptions = new FlexiAlertBlockOptions() { IconMarkup = dummyIconMarkup, ContentClassName = dummyContentClassName }
+                FlexiAlertBlockOptions = new FlexiAlertBlockOptions() { ContentClassName = dummyContentClassName }
             };
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                var alertBlockRenderer = new FlexiAlertBlockRenderer();
+                var flexiAlertBlockRenderer = new FlexiAlertBlockRenderer();
 
                 // Act
-                alertBlockRenderer.Write(dummyHtmlRenderer, dummyAlertBlock);
+                flexiAlertBlockRenderer.Write(dummyHtmlRenderer, dummyFlexiAlertBlock);
                 result = dummyStringWriter.ToString();
             }
 
             // Assert
-            Assert.Equal($"<div>\n{dummyIconMarkup}\n<div>\n</div>\n</div>\n", result);
+            Assert.Equal($"<div>\n<div>\n</div>\n</div>\n", result);
         }
 
         public static IEnumerable<object[]> Write_DoesNotRenderContentClassIfContentClassNameIsNullWhitespaceOrEmpty_Data()
@@ -108,25 +111,25 @@ namespace FlexiBlocks.Tests.Alerts
             {
                 Inline = dummyContainerInline
             };
-            var dummyAlertBlock = new FlexiAlertBlock(null)
+            var dummyFlexiAlertBlock = new FlexiAlertBlock(null)
             {
-                AlertBlockOptions = new FlexiAlertBlockOptions()
+                FlexiAlertBlockOptions = new FlexiAlertBlockOptions()
             };
-            dummyAlertBlock.Add(dummyParagraphBlock);
+            dummyFlexiAlertBlock.Add(dummyParagraphBlock);
 
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                var alertBlockRenderer = new FlexiAlertBlockRenderer();
+                var flexiAlertBlockRenderer = new FlexiAlertBlockRenderer();
 
                 // Act
-                alertBlockRenderer.Write(dummyHtmlRenderer, dummyAlertBlock);
+                flexiAlertBlockRenderer.Write(dummyHtmlRenderer, dummyFlexiAlertBlock);
                 result = dummyStringWriter.ToString();
             }
 
             // Assert
-            Assert.Equal($"<div>\n<p>{dummyChildText}</p>\n</div>\n", result);
+            Assert.Equal($"<div>\n<div class=\"flexi-alert-content\">\n<p>{dummyChildText}</p>\n</div>\n</div>\n", result);
         }
     }
 }

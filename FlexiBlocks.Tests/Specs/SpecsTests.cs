@@ -13455,60 +13455,58 @@ namespace FlexiBlocks.Tests.Specs
         }
     }
 
-    // Alerts are boxes within articles that contain tangential content. Such content can be things like extra information and warnings. Alerts have a similar syntax to 
-    // blockquotes. However, they have very different purposes - according to the [specifications](https://html.spec.whatwg.org/multipage/grouping-content.html#the-blockquote-element)
-    // blockquotes should be used when quoting from external articles.
-    public class AlertsTests
+    // FlexiAlerts contain tangential content, such as extra information and warnings.
+    public class FlexialertsTests
     {
-        // Every line of an alert must start with an `!`. The first line of an alert must be of the form `!<optional space><alert name>` where `<alert name>`
-        // is a string containing 1 or more characters from the regex character set `[A-Za-z0-9_-]`. The result of appending `alert-` to the alert name is used as the
-        // alert block's class:
+        // Every line of a FlexiAlert must start with an `!`. The first line of a FlexiAlert must be of the form `!<optional space><flexi alert type>`, where `<flexi alert type>`
+        // is a string containing 1 or more characters from the regex character set `[A-Za-z0-9_-]`. The result of appending `flexi-alert-` to the `<flexi alert type>` is used as the
+        // FlexiAlert's class:
         [Fact]
-        public void Alerts_Spec1_flexialerts_flexioptions()
+        public void Flexialerts_Spec1_flexialerts_flexioptions()
         {
             // The following Markdown:
             //     ! critical-warning
             //     ! This is a critical warning.
             //
             // Should be rendered as:
-            //     <div class="alert-critical-warning">
+            //     <div class="flexi-alert-critical-warning">
             //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
-            //     <div class="alert-content">
+            //     <div class="flexi-alert-content">
             //     <p>This is a critical warning.</p>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("! critical-warning\n! This is a critical warning.", 
-                "<div class=\"alert-critical-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"alert-content\">\n<p>This is a critical warning.</p>\n</div>\n</div>", 
+                "<div class=\"flexi-alert-critical-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"flexi-alert-content\">\n<p>This is a critical warning.</p>\n</div>\n</div>", 
                 "flexialerts_flexioptions");
         }
 
-        // Every line of an alert must start with an `!`. The first line of an alert must be of the form `!<optional space><alert name>` where `<alert name>`
-        // is a string containing 1 or more characters from the regex character set `[A-Za-z0-9_-]`. The result of appending `alert-` to the alert name is used as the
-        // alert block's class:
+        // Every line of a FlexiAlert must start with an `!`. The first line of a FlexiAlert must be of the form `!<optional space><flexi alert type>`, where `<flexi alert type>`
+        // is a string containing 1 or more characters from the regex character set `[A-Za-z0-9_-]`. The result of appending `flexi-alert-` to the `<flexi alert type>` is used as the
+        // FlexiAlert's class:
         [Fact]
-        public void Alerts_Spec1_all()
+        public void Flexialerts_Spec1_all()
         {
             // The following Markdown:
             //     ! critical-warning
             //     ! This is a critical warning.
             //
             // Should be rendered as:
-            //     <div class="alert-critical-warning">
+            //     <div class="flexi-alert-critical-warning">
             //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
-            //     <div class="alert-content">
+            //     <div class="flexi-alert-content">
             //     <p>This is a critical warning.</p>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("! critical-warning\n! This is a critical warning.", 
-                "<div class=\"alert-critical-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"alert-content\">\n<p>This is a critical warning.</p>\n</div>\n</div>", 
+                "<div class=\"flexi-alert-critical-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"flexi-alert-content\">\n<p>This is a critical warning.</p>\n</div>\n</div>", 
                 "all");
         }
 
-        // The block is ignored if the first line does not contain a level name :
+        // The following is not a FlexiAlert since the first line does not contain a FlexiAlert type:
         [Fact]
-        public void Alerts_Spec2_flexialerts_flexioptions()
+        public void Flexialerts_Spec2_flexialerts_flexioptions()
         {
             // The following Markdown:
             //     ! 
@@ -13523,9 +13521,9 @@ namespace FlexiBlocks.Tests.Specs
                 "flexialerts_flexioptions");
         }
 
-        // The block is ignored if the first line does not contain a level name :
+        // The following is not a FlexiAlert since the first line does not contain a FlexiAlert type:
         [Fact]
-        public void Alerts_Spec2_all()
+        public void Flexialerts_Spec2_all()
         {
             // The following Markdown:
             //     ! 
@@ -13540,9 +13538,9 @@ namespace FlexiBlocks.Tests.Specs
                 "all");
         }
 
-        // The block is ignored if the first line contains disallowed characters :
+        // The following is not a FlexiAlert since the first line does not contain a valid FlexiAlert type:
         [Fact]
-        public void Alerts_Spec3_flexialerts_flexioptions()
+        public void Flexialerts_Spec3_flexialerts_flexioptions()
         {
             // The following Markdown:
             //     ! illegal space
@@ -13557,9 +13555,9 @@ namespace FlexiBlocks.Tests.Specs
                 "flexialerts_flexioptions");
         }
 
-        // The block is ignored if the first line contains disallowed characters :
+        // The following is not a FlexiAlert since the first line does not contain a valid FlexiAlert type:
         [Fact]
-        public void Alerts_Spec3_all()
+        public void Flexialerts_Spec3_all()
         {
             // The following Markdown:
             //     ! illegal space
@@ -13574,9 +13572,9 @@ namespace FlexiBlocks.Tests.Specs
                 "all");
         }
 
-        // The first space after `!` is ignored. :
+        // The first space after each `!` is ignored. :
         [Fact]
-        public void Alerts_Spec4_flexialerts_flexioptions()
+        public void Flexialerts_Spec4_flexialerts_flexioptions()
         {
             // The following Markdown:
             //     ! warning
@@ -13584,22 +13582,22 @@ namespace FlexiBlocks.Tests.Specs
             //     ! This line will also be rendered with 0 leading spaces.
             //
             // Should be rendered as:
-            //     <div class="alert-warning">
+            //     <div class="flexi-alert-warning">
             //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
-            //     <div class="alert-content">
+            //     <div class="flexi-alert-content">
             //     <p>This line will be rendered with 0 leading spaces.
             //     This line will also be rendered with 0 leading spaces.</p>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("! warning\n!This line will be rendered with 0 leading spaces.\n! This line will also be rendered with 0 leading spaces.", 
-                "<div class=\"alert-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"alert-content\">\n<p>This line will be rendered with 0 leading spaces.\nThis line will also be rendered with 0 leading spaces.</p>\n</div>\n</div>", 
+                "<div class=\"flexi-alert-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"flexi-alert-content\">\n<p>This line will be rendered with 0 leading spaces.\nThis line will also be rendered with 0 leading spaces.</p>\n</div>\n</div>", 
                 "flexialerts_flexioptions");
         }
 
-        // The first space after `!` is ignored. :
+        // The first space after each `!` is ignored. :
         [Fact]
-        public void Alerts_Spec4_all()
+        public void Flexialerts_Spec4_all()
         {
             // The following Markdown:
             //     ! warning
@@ -13607,22 +13605,22 @@ namespace FlexiBlocks.Tests.Specs
             //     ! This line will also be rendered with 0 leading spaces.
             //
             // Should be rendered as:
-            //     <div class="alert-warning">
+            //     <div class="flexi-alert-warning">
             //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
-            //     <div class="alert-content">
+            //     <div class="flexi-alert-content">
             //     <p>This line will be rendered with 0 leading spaces.
             //     This line will also be rendered with 0 leading spaces.</p>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("! warning\n!This line will be rendered with 0 leading spaces.\n! This line will also be rendered with 0 leading spaces.", 
-                "<div class=\"alert-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"alert-content\">\n<p>This line will be rendered with 0 leading spaces.\nThis line will also be rendered with 0 leading spaces.</p>\n</div>\n</div>", 
+                "<div class=\"flexi-alert-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"flexi-alert-content\">\n<p>This line will be rendered with 0 leading spaces.\nThis line will also be rendered with 0 leading spaces.</p>\n</div>\n</div>", 
                 "all");
         }
 
         // Lazy continuation is allowed:
         [Fact]
-        public void Alerts_Spec5_flexialerts_flexioptions()
+        public void Flexialerts_Spec5_flexialerts_flexioptions()
         {
             // The following Markdown:
             //     ! info
@@ -13632,9 +13630,9 @@ namespace FlexiBlocks.Tests.Specs
             //     the info.
             //
             // Should be rendered as:
-            //     <div class="alert-info">
+            //     <div class="flexi-alert-info">
             //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
-            //     <div class="alert-content">
+            //     <div class="flexi-alert-content">
             //     <p>This is part of
             //     the info.
             //     This is also part of
@@ -13643,13 +13641,13 @@ namespace FlexiBlocks.Tests.Specs
             //     </div>
 
             SpecTestHelper.AssertCompliance("! info\n! This is part of\nthe info.\n! This is also part of\nthe info.", 
-                "<div class=\"alert-info\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z\"></path></svg>\n<div class=\"alert-content\">\n<p>This is part of\nthe info.\nThis is also part of\nthe info.</p>\n</div>\n</div>", 
+                "<div class=\"flexi-alert-info\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z\"></path></svg>\n<div class=\"flexi-alert-content\">\n<p>This is part of\nthe info.\nThis is also part of\nthe info.</p>\n</div>\n</div>", 
                 "flexialerts_flexioptions");
         }
 
         // Lazy continuation is allowed:
         [Fact]
-        public void Alerts_Spec5_all()
+        public void Flexialerts_Spec5_all()
         {
             // The following Markdown:
             //     ! info
@@ -13659,9 +13657,9 @@ namespace FlexiBlocks.Tests.Specs
             //     the info.
             //
             // Should be rendered as:
-            //     <div class="alert-info">
+            //     <div class="flexi-alert-info">
             //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
-            //     <div class="alert-content">
+            //     <div class="flexi-alert-content">
             //     <p>This is part of
             //     the info.
             //     This is also part of
@@ -13670,13 +13668,13 @@ namespace FlexiBlocks.Tests.Specs
             //     </div>
 
             SpecTestHelper.AssertCompliance("! info\n! This is part of\nthe info.\n! This is also part of\nthe info.", 
-                "<div class=\"alert-info\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z\"></path></svg>\n<div class=\"alert-content\">\n<p>This is part of\nthe info.\nThis is also part of\nthe info.</p>\n</div>\n</div>", 
+                "<div class=\"flexi-alert-info\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z\"></path></svg>\n<div class=\"flexi-alert-content\">\n<p>This is part of\nthe info.\nThis is also part of\nthe info.</p>\n</div>\n</div>", 
                 "all");
         }
 
-        // `AlertsExtensionOptions.IconMarkups` can be used to define icon element markup for custom alert types:
+        // `FlexiAlertsExtensionOptions.IconMarkups` can be used to specify icon markups for FlexiAlert types:
         [Fact]
-        public void Alerts_Spec6_flexialerts_flexioptions()
+        public void Flexialerts_Spec6_flexialerts_flexioptions()
         {
             // The following Markdown:
             //     ! closer-look
@@ -13692,22 +13690,22 @@ namespace FlexiBlocks.Tests.Specs
             //     }
             //
             // Should be rendered as:
-            //     <div class="alert-closer-look">
+            //     <div class="flexi-alert-closer-look">
             //     <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-            //     <div class="alert-content">
+            //     <div class="flexi-alert-content">
             //     <p>This is a closer look at some topic.</p>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("! closer-look\n! This is a closer look at some topic.", 
-                "<div class=\"alert-closer-look\">\n<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>\n<div class=\"alert-content\">\n<p>This is a closer look at some topic.</p>\n</div>\n</div>", 
+                "<div class=\"flexi-alert-closer-look\">\n<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>\n<div class=\"flexi-alert-content\">\n<p>This is a closer look at some topic.</p>\n</div>\n</div>", 
                 "flexialerts_flexioptions", 
                 "{\n    \"flexialerts\": {\n        \"iconMarkups\": {\n            \"closer-look\": \"<svg height=\\\"24\\\" viewBox=\\\"0 0 24 24\\\" width=\\\"24\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><path d=\\\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\\\"/></svg>\"\n        }\n    }\n}");
         }
 
-        // `AlertsExtensionOptions.IconMarkups` can be used to define icon element markup for custom alert types:
+        // `FlexiAlertsExtensionOptions.IconMarkups` can be used to specify icon markups for FlexiAlert types:
         [Fact]
-        public void Alerts_Spec6_all()
+        public void Flexialerts_Spec6_all()
         {
             // The following Markdown:
             //     ! closer-look
@@ -13723,22 +13721,22 @@ namespace FlexiBlocks.Tests.Specs
             //     }
             //
             // Should be rendered as:
-            //     <div class="alert-closer-look">
+            //     <div class="flexi-alert-closer-look">
             //     <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-            //     <div class="alert-content">
+            //     <div class="flexi-alert-content">
             //     <p>This is a closer look at some topic.</p>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("! closer-look\n! This is a closer look at some topic.", 
-                "<div class=\"alert-closer-look\">\n<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>\n<div class=\"alert-content\">\n<p>This is a closer look at some topic.</p>\n</div>\n</div>", 
+                "<div class=\"flexi-alert-closer-look\">\n<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>\n<div class=\"flexi-alert-content\">\n<p>This is a closer look at some topic.</p>\n</div>\n</div>", 
                 "all", 
                 "{\n    \"flexialerts\": {\n        \"iconMarkups\": {\n            \"closer-look\": \"<svg height=\\\"24\\\" viewBox=\\\"0 0 24 24\\\" width=\\\"24\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><path d=\\\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\\\"/></svg>\"\n        }\n    }\n}");
         }
 
-        // Per-alert-block options can be overriden if the JSON options extension is enabled:
+        // Per-FlexiAlert-block options can be specified if the FlexiOptions extension is enabled:
         [Fact]
-        public void Alerts_Spec7_flexialerts_flexioptions()
+        public void Flexialerts_Spec7_flexialerts_flexioptions()
         {
             // The following Markdown:
             //     ! warning
@@ -13747,30 +13745,30 @@ namespace FlexiBlocks.Tests.Specs
             //         "iconMarkup": "<svg><use xlink:href=\"#alternative-warning-icon\"></use></svg>"
             //     }
             //     ! warning
-            //     ! This is a special warning.
+            //     ! This is a warning with a custom icon.
             //
             // Should be rendered as:
-            //     <div class="alert-warning">
+            //     <div class="flexi-alert-warning">
             //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
-            //     <div class="alert-content">
+            //     <div class="flexi-alert-content">
             //     <p>This is a warning.</p>
             //     </div>
             //     </div>
-            //     <div class="alert-warning">
+            //     <div class="flexi-alert-warning">
             //     <svg><use xlink:href="#alternative-warning-icon"></use></svg>
-            //     <div class="alert-content">
-            //     <p>This is a special warning.</p>
+            //     <div class="flexi-alert-content">
+            //     <p>This is a warning with a custom icon.</p>
             //     </div>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n@{\n    \"iconMarkup\": \"<svg><use xlink:href=\\\"#alternative-warning-icon\\\"></use></svg>\"\n}\n! warning\n! This is a special warning.", 
-                "<div class=\"alert-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"alert-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"alert-warning\">\n<svg><use xlink:href=\"#alternative-warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a special warning.</p>\n</div>\n</div>", 
+            SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n@{\n    \"iconMarkup\": \"<svg><use xlink:href=\\\"#alternative-warning-icon\\\"></use></svg>\"\n}\n! warning\n! This is a warning with a custom icon.", 
+                "<div class=\"flexi-alert-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"flexi-alert-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"flexi-alert-warning\">\n<svg><use xlink:href=\"#alternative-warning-icon\"></use></svg>\n<div class=\"flexi-alert-content\">\n<p>This is a warning with a custom icon.</p>\n</div>\n</div>", 
                 "flexialerts_flexioptions");
         }
 
-        // Per-alert-block options can be overriden if the JSON options extension is enabled:
+        // Per-FlexiAlert-block options can be specified if the FlexiOptions extension is enabled:
         [Fact]
-        public void Alerts_Spec7_all()
+        public void Flexialerts_Spec7_all()
         {
             // The following Markdown:
             //     ! warning
@@ -13779,24 +13777,24 @@ namespace FlexiBlocks.Tests.Specs
             //         "iconMarkup": "<svg><use xlink:href=\"#alternative-warning-icon\"></use></svg>"
             //     }
             //     ! warning
-            //     ! This is a special warning.
+            //     ! This is a warning with a custom icon.
             //
             // Should be rendered as:
-            //     <div class="alert-warning">
+            //     <div class="flexi-alert-warning">
             //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
-            //     <div class="alert-content">
+            //     <div class="flexi-alert-content">
             //     <p>This is a warning.</p>
             //     </div>
             //     </div>
-            //     <div class="alert-warning">
+            //     <div class="flexi-alert-warning">
             //     <svg><use xlink:href="#alternative-warning-icon"></use></svg>
-            //     <div class="alert-content">
-            //     <p>This is a special warning.</p>
+            //     <div class="flexi-alert-content">
+            //     <p>This is a warning with a custom icon.</p>
             //     </div>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n@{\n    \"iconMarkup\": \"<svg><use xlink:href=\\\"#alternative-warning-icon\\\"></use></svg>\"\n}\n! warning\n! This is a special warning.", 
-                "<div class=\"alert-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"alert-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"alert-warning\">\n<svg><use xlink:href=\"#alternative-warning-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a special warning.</p>\n</div>\n</div>", 
+            SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n@{\n    \"iconMarkup\": \"<svg><use xlink:href=\\\"#alternative-warning-icon\\\"></use></svg>\"\n}\n! warning\n! This is a warning with a custom icon.", 
+                "<div class=\"flexi-alert-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"flexi-alert-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"flexi-alert-warning\">\n<svg><use xlink:href=\"#alternative-warning-icon\"></use></svg>\n<div class=\"flexi-alert-content\">\n<p>This is a warning with a custom icon.</p>\n</div>\n</div>", 
                 "all");
         }
     }

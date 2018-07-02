@@ -7,36 +7,34 @@ namespace FlexiBlocks.Alerts
     {
         protected override void Write(HtmlRenderer renderer, FlexiAlertBlock obj)
         {
-            FlexiAlertBlockOptions alertBlockOptions = obj.AlertBlockOptions;
+            FlexiAlertBlockOptions flexiAlertBlockOptions = obj.FlexiAlertBlockOptions;
 
             renderer.EnsureLine();
 
             if (renderer.EnableHtmlForBlock)
             {
-                renderer.Write("<div").WriteHtmlAttributeDictionary(alertBlockOptions.Attributes).WriteLine(">");
+                renderer.Write("<div").WriteHtmlAttributeDictionary(flexiAlertBlockOptions.Attributes).WriteLine(">");
 
-                if (alertBlockOptions.IconMarkup != null)
+                if (flexiAlertBlockOptions.IconMarkup != null)
                 {
-                    renderer.WriteLine(alertBlockOptions.IconMarkup);
-                    renderer.Write("<div");
-                    if (!string.IsNullOrWhiteSpace(alertBlockOptions.ContentClassName))
-                    {
-                        renderer.Write($" class=\"{alertBlockOptions.ContentClassName}\"");
-                    }
-                    renderer.WriteLine(">");
+                    renderer.WriteLine(flexiAlertBlockOptions.IconMarkup);
                 }
+
+                renderer.Write("<div");
+                if (!string.IsNullOrWhiteSpace(flexiAlertBlockOptions.ContentClassName))
+                {
+                    renderer.Write($" class=\"{flexiAlertBlockOptions.ContentClassName}\"");
+                }
+                renderer.WriteLine(">");
             }
 
             renderer.WriteChildren(obj, false);
 
             if (renderer.EnableHtmlForBlock)
             {
-                if (alertBlockOptions.IconMarkup != null)
-                {
-                    renderer.WriteLine("</div>");
-                }
-
-                renderer.WriteLine("</div>");
+                renderer.
+                    WriteLine("</div>").
+                    WriteLine("</div>");
             }
         }
     }

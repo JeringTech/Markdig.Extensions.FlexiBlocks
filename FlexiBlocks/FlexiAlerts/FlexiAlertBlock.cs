@@ -4,7 +4,7 @@ using Markdig.Syntax;
 namespace FlexiBlocks.Alerts
 {
     /// <summary>
-    /// A block for alerts.
+    /// A FlexiAlert block.
     /// </summary>
     public class FlexiAlertBlock : ContainerBlock
     {
@@ -15,6 +15,6 @@ namespace FlexiBlocks.Alerts
         /// <summary>
         /// The options for this block.
         /// </summary>
-        public FlexiAlertBlockOptions AlertBlockOptions { get; set; }
+        public FlexiAlertBlockOptions FlexiAlertBlockOptions { get; set; }
     }
 }

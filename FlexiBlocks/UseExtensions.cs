@@ -37,7 +37,7 @@ namespace FlexiBlocks
             return pipelineBuilder;
         }
 
-        public static MarkdownPipelineBuilder UseAlerts(this MarkdownPipelineBuilder pipelineBuilder, FlexiAlertsExtensionOptions options = null)
+        public static MarkdownPipelineBuilder UseFlexiAlerts(this MarkdownPipelineBuilder pipelineBuilder, FlexiAlertsExtensionOptions options = null)
         {
             if (!pipelineBuilder.Extensions.Contains<FlexiAlertsExtension>())
             {

@@ -20,7 +20,7 @@ namespace FlexiBlocks.Tests
                 { "flexioptions", (MarkdownPipelineBuilder builder, JObject _) => builder.UseJsonOptions() },
                 { "flexicode", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiCode(options?["flexicode"]?.ToObject<FlexiCodeExtensionOptions>()) },
                 { "flexisections", (MarkdownPipelineBuilder builder, JObject options) => builder.UseSections(options?["flexisections"]?.ToObject<FlexiSectionsExtensionOptions>()) },
-                { "flexialerts", (MarkdownPipelineBuilder builder, JObject options) => builder.UseAlerts(options?["flexialerts"]?.ToObject<FlexiAlertsExtensionOptions>()) },
+                { "flexialerts", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiAlerts(options?["flexialerts"]?.ToObject<FlexiAlertsExtensionOptions>()) },
                 { "flexitables", (MarkdownPipelineBuilder builder, JObject options) => builder.UseResponsiveTables(options?["flexitables"]?.ToObject<FlexiTablesExtensionOptions>()) },
                 { "pipetables", (MarkdownPipelineBuilder builder, JObject _) => builder.UsePipeTables() },
                 { "gridtables", (MarkdownPipelineBuilder builder, JObject _) => builder.UseGridTables() },
@@ -28,7 +28,7 @@ namespace FlexiBlocks.Tests
                     builder.
                         UseResponsiveTables(options?["flexitables"]?.ToObject<FlexiTablesExtensionOptions>()).
                         UseSections(options?["flexisections"]?.ToObject<FlexiSectionsExtensionOptions>()).
-                        UseAlerts(options?["flexialerts"]?.ToObject<FlexiAlertsExtensionOptions>()).
+                        UseFlexiAlerts(options?["flexialerts"]?.ToObject<FlexiAlertsExtensionOptions>()).
                         UseFlexiCode(options?["flexicode"]?.ToObject<FlexiCodeExtensionOptions>()).
                         UsePipeTables().
                         UseGridTables().

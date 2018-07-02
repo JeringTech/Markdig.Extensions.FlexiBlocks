@@ -20,17 +20,17 @@ namespace FlexiBlocks.Tests.Alerts
                 {dummyAttributeKey1, dummyAttributeValue1 },
                 {dummyAttributeKey2, dummyAttributeValue2 }
             };
-            var alertBlockOptions = new FlexiAlertBlockOptions()
+            var flexiAlertBlockOptions = new FlexiAlertBlockOptions()
             {
                 IconMarkup = dummyIconMarkup,
                 Attributes = dummyAttributes
             };
 
             // Act
-            FlexiAlertBlockOptions result = alertBlockOptions.Clone();
+            FlexiAlertBlockOptions result = flexiAlertBlockOptions.Clone();
 
             // Assert
-            Assert.NotSame(alertBlockOptions, result);
+            Assert.NotSame(flexiAlertBlockOptions, result);
             Assert.Equal(dummyIconMarkup, result.IconMarkup);
             HtmlAttributeDictionary resultAttributes = result.Attributes;
             Assert.Equal(2, resultAttributes.Count);

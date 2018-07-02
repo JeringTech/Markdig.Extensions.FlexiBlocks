@@ -6,7 +6,7 @@ namespace FlexiBlocks.Alerts
     public class FlexiAlertsExtensionOptions
     {
         /// <summary>
-        /// Map of alert type names to icon markup.
+        /// Map of alert type to icon markups.
         /// 
         /// The default SVGs are part of the excellent material design icon set - https://material.io/tools/icons/?style=baseline
         /// They are licensed under an Apache License Version 2 license - https://www.apache.org/licenses/LICENSE-2.0.html
@@ -21,6 +21,6 @@ namespace FlexiBlocks.Alerts
         /// <summary>
         /// Default <see cref="FlexiAlertBlockOptions"/>.
         /// </summary>
-        public FlexiAlertBlockOptions DefaultAlertBlockOptions { get; set; } = new FlexiAlertBlockOptions();
+        public FlexiAlertBlockOptions DefaultFlexiAlertBlockOptions { get; set; } = new FlexiAlertBlockOptions();
     }
 }

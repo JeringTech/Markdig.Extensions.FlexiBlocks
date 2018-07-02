@@ -19,17 +19,17 @@ namespace FlexiBlocks.Tests.Alerts
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Column = 4; // IsCodeIndent is an expression bodied member that derives its value from Column
-            FlexiAlertBlockParser alertBlockParser = CreateAlertBlockParser();
+            FlexiAlertBlockParser flexiAlertBlockParser = CreateFlexiAlertBlockParser();
 
             // Act
-            BlockState result = alertBlockParser.TryOpen(dummyBlockProcessor);
+            BlockState result = flexiAlertBlockParser.TryOpen(dummyBlockProcessor);
 
             // Assert
             Assert.Equal(BlockState.None, result);
         }
 
         [Fact]
-        public void TryOpen_ResetsCurrentLineAndReturnsBlockStateNoneIfCurrentLineDoesNotHaveAValidAlertTypeName()
+        public void TryOpen_ResetsCurrentLineAndReturnsBlockStateNoneIfCurrentLineDoesNotContainAValidAlertType()
         {
             // Arrange
             const int dummyLineStart = 1;
@@ -37,12 +37,12 @@ namespace FlexiBlocks.Tests.Alerts
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = dummyStringSlice;
             dummyBlockProcessor.Line.Start = dummyLineStart;
-            Mock<FlexiAlertBlockParser> mockAlertBlockParser = CreateMockAlertBlockParser();
-            mockAlertBlockParser.CallBase = true;
-            mockAlertBlockParser.Setup(a => a.TryGetAlertTypeName(It.IsAny<StringSlice>())).Returns((string)null);
+            Mock<FlexiAlertBlockParser> mockFlexiAlertBlockParser = CreateMockFlexiAlertBlockParser();
+            mockFlexiAlertBlockParser.CallBase = true;
+            mockFlexiAlertBlockParser.Setup(a => a.TryGetFlexiAlertType(It.IsAny<StringSlice>())).Returns((string)null);
 
             // Act
-            BlockState result = mockAlertBlockParser.Object.TryOpen(dummyBlockProcessor);
+            BlockState result = mockFlexiAlertBlockParser.Object.TryOpen(dummyBlockProcessor);
 
             // Assert
             _mockRepository.VerifyAll();
@@ -51,36 +51,36 @@ namespace FlexiBlocks.Tests.Alerts
         }
 
         [Fact]
-        public void TryOpen_IfSuccessfulCreatesNewAlertBlockAndReturnsBlockStateContinueDiscard()
+        public void TryOpen_IfSuccessfulCreatesNewFlexiAlertBlockAndReturnsBlockStateContinueDiscard()
         {
             // Arrange
             const int dummyInitialColumn = 2;
             const int dummyInitialStart = 1;
-            const string dummyAlertTypeName = "dummyAlertTypeName";
+            const string dummyAlertType = "dummyAlertType";
             var dummyStringSlice = new StringSlice("dummyString");
-            var dummyAlertBlockOptions = new FlexiAlertBlockOptions();
+            var dummyFlexiAlertBlockOptions = new FlexiAlertBlockOptions();
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = dummyStringSlice;
             dummyBlockProcessor.Column = dummyInitialColumn;
             dummyBlockProcessor.Line.Start = dummyInitialStart;
-            Mock<FlexiAlertBlockParser> mockAlertBlockParser = CreateMockAlertBlockParser();
-            mockAlertBlockParser.CallBase = true;
-            mockAlertBlockParser.Setup(a => a.TryGetAlertTypeName(It.IsAny<StringSlice>())).Returns(dummyAlertTypeName);
-            mockAlertBlockParser.Setup(a => a.CreateAlertBlockOptions(dummyBlockProcessor, dummyAlertTypeName)).Returns(dummyAlertBlockOptions);
+            Mock<FlexiAlertBlockParser> mockFlexiAlertBlockParser = CreateMockFlexiAlertBlockParser();
+            mockFlexiAlertBlockParser.CallBase = true;
+            mockFlexiAlertBlockParser.Setup(a => a.TryGetFlexiAlertType(It.IsAny<StringSlice>())).Returns(dummyAlertType);
+            mockFlexiAlertBlockParser.Setup(a => a.CreateFlexiAlertBlockOptions(dummyBlockProcessor, dummyAlertType)).Returns(dummyFlexiAlertBlockOptions);
 
             // Act
-            BlockState result = mockAlertBlockParser.Object.TryOpen(dummyBlockProcessor);
+            BlockState result = mockFlexiAlertBlockParser.Object.TryOpen(dummyBlockProcessor);
 
             // Assert
             _mockRepository.VerifyAll();
             Assert.Equal(BlockState.ContinueDiscard, result);
             Assert.Equal(dummyInitialStart + 1, dummyBlockProcessor.Line.Start); // Skips '!'
-            var resultAlertBlock = dummyBlockProcessor.NewBlocks.Peek() as FlexiAlertBlock;
-            Assert.NotNull(resultAlertBlock);
-            Assert.Same(dummyAlertBlockOptions, resultAlertBlock.AlertBlockOptions);
-            Assert.Equal(dummyInitialColumn, resultAlertBlock.Column);
-            Assert.Equal(dummyInitialStart, resultAlertBlock.Span.Start); // Span includes '!'
-            Assert.Equal(dummyStringSlice.End, resultAlertBlock.Span.End);
+            var resultFlexiAlertBlock = dummyBlockProcessor.NewBlocks.Peek() as FlexiAlertBlock;
+            Assert.NotNull(resultFlexiAlertBlock);
+            Assert.Same(dummyFlexiAlertBlockOptions, resultFlexiAlertBlock.FlexiAlertBlockOptions);
+            Assert.Equal(dummyInitialColumn, resultFlexiAlertBlock.Column);
+            Assert.Equal(dummyInitialStart, resultFlexiAlertBlock.Span.Start); // Span includes '!'
+            Assert.Equal(dummyStringSlice.End, resultFlexiAlertBlock.Span.End);
         }
 
         [Fact]
@@ -89,10 +89,10 @@ namespace FlexiBlocks.Tests.Alerts
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Column = 4; // IsCodeIndent is an expression bodied member that derives its value from Column
-            FlexiAlertBlockParser alertBlockParser = CreateAlertBlockParser();
+            FlexiAlertBlockParser flexiAlertBlockParser = CreateFlexiAlertBlockParser();
 
             // Act
-            BlockState result = alertBlockParser.TryContinue(dummyBlockProcessor, null);
+            BlockState result = flexiAlertBlockParser.TryContinue(dummyBlockProcessor, null);
 
             // Assert
             Assert.Equal(BlockState.None, result);
@@ -105,10 +105,10 @@ namespace FlexiBlocks.Tests.Alerts
             var dummyStringSlice = new StringSlice("dummyString");
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = dummyStringSlice;
-            FlexiAlertBlockParser alertBlockParser = CreateAlertBlockParser();
+            FlexiAlertBlockParser flexiAlertBlockParser = CreateFlexiAlertBlockParser();
 
             // Act
-            BlockState result = alertBlockParser.TryContinue(dummyBlockProcessor, null);
+            BlockState result = flexiAlertBlockParser.TryContinue(dummyBlockProcessor, null);
 
             // Assert
             Assert.Equal(BlockState.None, result);
@@ -121,127 +121,141 @@ namespace FlexiBlocks.Tests.Alerts
             var dummyStringSlice = new StringSlice("");
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = dummyStringSlice;
-            FlexiAlertBlockParser alertBlockParser = CreateAlertBlockParser();
+            FlexiAlertBlockParser flexiAlertBlockParser = CreateFlexiAlertBlockParser();
 
             // Act
-            BlockState result = alertBlockParser.TryContinue(dummyBlockProcessor, null);
+            BlockState result = flexiAlertBlockParser.TryContinue(dummyBlockProcessor, null);
 
             // Assert
             Assert.Equal(BlockState.BreakDiscard, result);
         }
 
         [Fact]
-        public void TryContinue_ReturnsBlockStateContinueIfSuccessful()
+        public void TryContinue_ReturnsBlockStateContinueIfBlockCanBeContinued()
         {
             // Arrange
             var dummyStringSlice = new StringSlice("!dummyString");
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = dummyStringSlice;
-            var dummyAlertBlock = new FlexiAlertBlock(null);
-            FlexiAlertBlockParser alertBlockParser = CreateAlertBlockParser();
+            var dummyFlexiAlertBlock = new FlexiAlertBlock(null);
+            FlexiAlertBlockParser flexiAlertBlockParser = CreateFlexiAlertBlockParser();
 
             // Act
-            BlockState result = alertBlockParser.TryContinue(dummyBlockProcessor, dummyAlertBlock);
+            BlockState result = flexiAlertBlockParser.TryContinue(dummyBlockProcessor, dummyFlexiAlertBlock);
 
             // Assert
             Assert.Equal(BlockState.Continue, result);
-            Assert.Equal(dummyStringSlice.End, dummyAlertBlock.Span.End);
+            Assert.Equal(dummyStringSlice.End, dummyFlexiAlertBlock.Span.End);
         }
 
         [Theory]
-        [MemberData(nameof(CreateAlertBlockOptions_CreatesAlertBlockOptions_Data))]
-        public void CreateAlertBlockOptions_CreatesAlertBlockOptions(
-            string dummyAlertTypeName,
-            FlexiAlertsExtensionOptions dummyAlertsExtensionOptions,
-            FlexiAlertBlockOptions dummyJsonAlertBlockOptions,
-            FlexiAlertBlockOptions expectedResult)
+        [MemberData(nameof(CreateFlexiAlertBlockOptions_CreatesFlexiAlertBlockOptions_Data))]
+        public void CreateFlexiAlertBlockOptions_CreatesFlexiAlertBlockOptions(
+            string dummyFlexiAlertType,
+            SerializableWrapper<FlexiAlertsExtensionOptions> dummyFlexiAlertsExtensionOptionsWrapper,
+            SerializableWrapper<FlexiAlertBlockOptions> dummyFlexiOptionsWrapper,
+            SerializableWrapper<FlexiAlertBlockOptions> expectedResultWrapper)
         {
             // Arrange
             const int dummyLineIndex = 1;
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.LineIndex = dummyLineIndex;
-            Mock<FlexiOptionsService> mockJsonOptionsService = _mockRepository.Create<FlexiOptionsService>();
-            mockJsonOptionsService.
+            Mock<FlexiOptionsService> mockFlexiOptionsService = _mockRepository.Create<FlexiOptionsService>();
+            mockFlexiOptionsService.
                 Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<FlexiAlertBlockOptions>(), dummyLineIndex)).
                 Callback<BlockProcessor, FlexiAlertBlockOptions, int>((_, a, __) =>
                 {
-                    if (dummyJsonAlertBlockOptions == null) { return; };
-                    a.IconMarkup = dummyJsonAlertBlockOptions.IconMarkup;
-                    dummyJsonAlertBlockOptions.Attributes.ToList().ForEach(x => a.Attributes[x.Key] = x.Value); // Overwrite default AlertBlockOptions with JSON AlertBlockOptions
+                    if (dummyFlexiOptionsWrapper == null) { return; }
+                    a.IconMarkup = dummyFlexiOptionsWrapper.Value.IconMarkup;
+                    dummyFlexiOptionsWrapper.Value.Attributes.ToList().ForEach(x => a.Attributes[x.Key] = x.Value); // Overwrite default FlexiAlertBlockOptions with FlexiOptions
                 });
-            FlexiAlertBlockParser alertBlockParser = CreateAlertBlockParser(dummyAlertsExtensionOptions, mockJsonOptionsService.Object);
+            FlexiAlertBlockParser flexiAlertBlockParser = CreateFlexiAlertBlockParser(dummyFlexiAlertsExtensionOptionsWrapper.Value, mockFlexiOptionsService.Object);
 
             // Act
-            FlexiAlertBlockOptions result = alertBlockParser.CreateAlertBlockOptions(dummyBlockProcessor, dummyAlertTypeName);
+            FlexiAlertBlockOptions result = flexiAlertBlockParser.CreateFlexiAlertBlockOptions(dummyBlockProcessor, dummyFlexiAlertType);
 
             // Assert
-            Assert.Equal(expectedResult.IconMarkup, result.IconMarkup);
-            Assert.Equal(expectedResult.Attributes, result.Attributes); // xunit checks KeyPairValues when determing equality of dictionaries - https://github.com/xunit/xunit/blob/master/test/test.xunit.assert/Asserts/CollectionAssertsTests.cs#L648
+            Assert.Equal(expectedResultWrapper.Value.IconMarkup, result.IconMarkup);
+            Assert.Equal(expectedResultWrapper.Value.Attributes, result.Attributes); // xunit checks KeyPairValues when determing equality of dictionaries - https://github.com/xunit/xunit/blob/master/test/test.xunit.assert/Asserts/CollectionAssertsTests.cs#L648
         }
 
-        public static IEnumerable<object[]> CreateAlertBlockOptions_CreatesAlertBlockOptions_Data()
+        public static IEnumerable<object[]> CreateFlexiAlertBlockOptions_CreatesFlexiAlertBlockOptions_Data()
         {
-            const string dummyAlertTypeName = "dummyAlertTypeName";
+            const string dummyFlexiAlertType = "dummyFlexiAlertType";
             const string dummyIconMarkup = "dummyIconMarkup";
             const string dummyClass = "dummyClass";
 
             return new object[][]
             {
-                // Using AlertsExtensionOptions.IconMarkups
+                // Using FlexiAlertsExtensionOptions.IconMarkups
                 new object[] {
-                    dummyAlertTypeName,
-                    new FlexiAlertsExtensionOptions() {
-                        IconMarkups = new Dictionary<string, string>() {
-                            { dummyAlertTypeName, dummyIconMarkup}
+                    dummyFlexiAlertType,
+                    new SerializableWrapper<FlexiAlertsExtensionOptions>(
+                        new FlexiAlertsExtensionOptions() {
+                            IconMarkups = new Dictionary<string, string>() {
+                                { dummyFlexiAlertType, dummyIconMarkup}
+                            }
                         }
-                    },
+                    ),
                     null,
-                    new FlexiAlertBlockOptions() {
-                        IconMarkup = dummyIconMarkup,
-                        Attributes = new HtmlAttributeDictionary(){
-                            { "class", $"alert-{dummyAlertTypeName.ToLowerInvariant()}" }
+                    new SerializableWrapper<FlexiAlertBlockOptions>(
+                        new FlexiAlertBlockOptions() {
+                            IconMarkup = dummyIconMarkup,
+                            Attributes = new HtmlAttributeDictionary(){
+                                { "class", $"flexi-alert-{dummyFlexiAlertType.ToLowerInvariant()}" }
+                            }
                         }
-                    }
+                    )
                 },
                 // Using JsonOptions
                 new object[] {
-                    dummyAlertTypeName,
-                    new FlexiAlertsExtensionOptions(),
-                    new FlexiAlertBlockOptions() {
-                        IconMarkup = dummyIconMarkup,
-                        Attributes = new HtmlAttributeDictionary(){ { "class", dummyClass } }
-                    },
-                    new FlexiAlertBlockOptions() {
-                        IconMarkup = dummyIconMarkup,
-                        Attributes = new HtmlAttributeDictionary(){
-                            { "class", $"{dummyClass} alert-{dummyAlertTypeName.ToLowerInvariant()}" }
+                    dummyFlexiAlertType,
+                    new SerializableWrapper<FlexiAlertsExtensionOptions>(
+                        new FlexiAlertsExtensionOptions()
+                    ),
+                    new SerializableWrapper<FlexiAlertBlockOptions>(
+                        new FlexiAlertBlockOptions() {
+                            IconMarkup = dummyIconMarkup,
+                            Attributes = new HtmlAttributeDictionary(){ { "class", dummyClass } }
                         }
-                    }
+                    ),
+                    new SerializableWrapper<FlexiAlertBlockOptions>(
+                        new FlexiAlertBlockOptions() {
+                            IconMarkup = dummyIconMarkup,
+                            Attributes = new HtmlAttributeDictionary(){
+                                { "class", $"{dummyClass} flexi-alert-{dummyFlexiAlertType.ToLowerInvariant()}" }
+                            }
+                        }
+                    )
                 },
                 // Using Default AlertBlockOptions
                 new object[] {
-                    dummyAlertTypeName,
-                    new FlexiAlertsExtensionOptions() {
-                        DefaultAlertBlockOptions = new FlexiAlertBlockOptions() {
-                            IconMarkup = dummyIconMarkup,
-                            Attributes = new HtmlAttributeDictionary(){ { "class", dummyClass } }
-                        },
-                    },
-                    null,
-                    new FlexiAlertBlockOptions() {
-                        IconMarkup = dummyIconMarkup,
-                        Attributes = new HtmlAttributeDictionary(){
-                            { "class", $"{dummyClass} alert-{dummyAlertTypeName.ToLowerInvariant()}" }
+                    dummyFlexiAlertType,
+                    new SerializableWrapper<FlexiAlertsExtensionOptions>(
+                        new FlexiAlertsExtensionOptions() {
+                            DefaultFlexiAlertBlockOptions = new FlexiAlertBlockOptions() {
+                                IconMarkup = dummyIconMarkup,
+                                Attributes = new HtmlAttributeDictionary(){ { "class", dummyClass } }
+                            },
                         }
-                    }
+                    ),
+                    null,
+                    new SerializableWrapper<FlexiAlertBlockOptions>(
+                        new FlexiAlertBlockOptions() {
+                            IconMarkup = dummyIconMarkup,
+                            Attributes = new HtmlAttributeDictionary(){
+                                { "class", $"{dummyClass} flexi-alert-{dummyFlexiAlertType.ToLowerInvariant()}" }
+                            }
+                        }
+                    )
                 },
             };
         }
 
         [Theory]
-        [MemberData(nameof(CreateAlertBlockOptions_GeneratesValueOfClassAttribute_Data))]
-        public void CreateAlertBlockOptions_GeneratesValueOfClassAttribute(
-            string dummyAlertTypeName,
+        [MemberData(nameof(CreateFlexiAlertBlockOptions_GeneratesValueOfClassAttribute_Data))]
+        public void CreateFlexiAlertBlockOptions_GeneratesValueOfClassAttribute(
+            string dummyFlexiAlertType,
             string dummyClassNameFormat,
             string expectedClassValue)
         {
@@ -249,51 +263,51 @@ namespace FlexiBlocks.Tests.Alerts
             const int dummyLineIndex = 1;
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.LineIndex = dummyLineIndex;
-            Mock<FlexiOptionsService> mockJsonOptionsService = _mockRepository.Create<FlexiOptionsService>();
-            mockJsonOptionsService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<FlexiAlertBlockOptions>(), dummyLineIndex));
-            var dummyAlertsExtensionOptions = new FlexiAlertsExtensionOptions()
+            Mock<FlexiOptionsService> mockFlexiOptionsService = _mockRepository.Create<FlexiOptionsService>();
+            mockFlexiOptionsService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<FlexiAlertBlockOptions>(), dummyLineIndex));
+            var dummyFlexiAlertsExtensionOptions = new FlexiAlertsExtensionOptions()
             {
-                DefaultAlertBlockOptions = new FlexiAlertBlockOptions() { ClassNameFormat = dummyClassNameFormat }
+                DefaultFlexiAlertBlockOptions = new FlexiAlertBlockOptions() { ClassNameFormat = dummyClassNameFormat }
             };
-            FlexiAlertBlockParser alertBlockParser = CreateAlertBlockParser(dummyAlertsExtensionOptions, mockJsonOptionsService.Object);
+            FlexiAlertBlockParser flexiAlertBlockParser = CreateFlexiAlertBlockParser(dummyFlexiAlertsExtensionOptions, mockFlexiOptionsService.Object);
 
             // Act
-            FlexiAlertBlockOptions result = alertBlockParser.CreateAlertBlockOptions(dummyBlockProcessor, dummyAlertTypeName);
+            FlexiAlertBlockOptions result = flexiAlertBlockParser.CreateFlexiAlertBlockOptions(dummyBlockProcessor, dummyFlexiAlertType);
 
             // Assert
             result.Attributes.TryGetValue("class", out string resultClassValue);
             Assert.Equal(expectedClassValue, resultClassValue);
         }
 
-        public static IEnumerable<object[]> CreateAlertBlockOptions_GeneratesValueOfClassAttribute_Data()
+        public static IEnumerable<object[]> CreateFlexiAlertBlockOptions_GeneratesValueOfClassAttribute_Data()
         {
-            const string dummyAlertTypeName = "dummyAlertTypeName";
+            const string dummyFlexiAlertType = "dummyFlexiAlertType";
 
             return new object[][]
             {
-                new object[]{ dummyAlertTypeName, string.Empty, null},
-                new object[]{ dummyAlertTypeName, " ", null},
-                new object[]{ dummyAlertTypeName, null, null},
-                new object[]{ dummyAlertTypeName, "dummy-format-{0}", $"dummy-format-{dummyAlertTypeName.ToLowerInvariant()}"}
+                new object[]{ dummyFlexiAlertType, string.Empty, null},
+                new object[]{ dummyFlexiAlertType, " ", null},
+                new object[]{ dummyFlexiAlertType, null, null},
+                new object[]{ dummyFlexiAlertType, "dummy-format-{0}", $"dummy-format-{dummyFlexiAlertType.ToLowerInvariant()}"}
             };
         }
 
         [Theory]
-        [MemberData(nameof(TryGetAlertTypeName_ReturnsNullIfLineContainsIllegalCharacters_Data))]
-        public void TryGetAlertTypeName_ReturnsNullIfLineContainsIllegalCharactersOrHasNoCharacters(string dummyString)
+        [MemberData(nameof(TryGetFlexiAlertType_ReturnsNullIfLineContainsIllegalCharacters_Data))]
+        public void TryGetFlexiAlertType_ReturnsNullIfLineContainsIllegalCharactersOrHasNoCharacters(string dummyString)
         {
             // Arrange
             var dummyStringSlice = new StringSlice(dummyString);
-            FlexiAlertBlockParser alertBlockParser = CreateAlertBlockParser();
+            FlexiAlertBlockParser flexiAlertBlockParser = CreateFlexiAlertBlockParser();
 
             // Act
-            string result = alertBlockParser.TryGetAlertTypeName(dummyStringSlice);
+            string result = flexiAlertBlockParser.TryGetFlexiAlertType(dummyStringSlice);
 
             // Assert
             Assert.Null(result);
         }
 
-        public static IEnumerable<object[]> TryGetAlertTypeName_ReturnsNullIfLineContainsIllegalCharacters_Data()
+        public static IEnumerable<object[]> TryGetFlexiAlertType_ReturnsNullIfLineContainsIllegalCharacters_Data()
         {
             return new object[][]
             {
@@ -304,21 +318,21 @@ namespace FlexiBlocks.Tests.Alerts
         }
 
         [Theory]
-        [MemberData(nameof(TryGetAlertTypeName_ReturnsAlertTypeNameIfSuccessful_Data))]
-        public void TryGetAlertTypeName_ReturnsAlertTypeNameIfSuccessful(string dummyString, string expectedAlertTypeName)
+        [MemberData(nameof(TryGetFlexiAlertType_ReturnsFlexiAlertTypeIfSuccessful_Data))]
+        public void TryGetFlexiAlertType_ReturnsFlexiAlertTypeIfSuccessful(string dummyString, string expectedFlexiAlertType)
         {
             // Arrange
             var dummyStringSlice = new StringSlice(dummyString);
-            FlexiAlertBlockParser alertBlockParser = CreateAlertBlockParser();
+            FlexiAlertBlockParser flexiAlertBlockParser = CreateFlexiAlertBlockParser();
 
             // Act
-            string result = alertBlockParser.TryGetAlertTypeName(dummyStringSlice);
+            string result = flexiAlertBlockParser.TryGetFlexiAlertType(dummyStringSlice);
 
             // Assert
-            Assert.Equal(expectedAlertTypeName, result);
+            Assert.Equal(expectedFlexiAlertType, result);
         }
 
-        public static IEnumerable<object[]> TryGetAlertTypeName_ReturnsAlertTypeNameIfSuccessful_Data()
+        public static IEnumerable<object[]> TryGetFlexiAlertType_ReturnsFlexiAlertTypeIfSuccessful_Data()
         {
             return new object[][]
             {
@@ -328,20 +342,20 @@ namespace FlexiBlocks.Tests.Alerts
             };
         }
 
-        private FlexiAlertBlockParser CreateAlertBlockParser(FlexiAlertsExtensionOptions alertsExtensionOptions = null,
-            FlexiOptionsService jsonOptionsService = null)
+        private FlexiAlertBlockParser CreateFlexiAlertBlockParser(FlexiAlertsExtensionOptions flexiAlertsExtensionOptions = null,
+            FlexiOptionsService flexiOptionsService = null)
         {
             return new FlexiAlertBlockParser(
-                alertsExtensionOptions ?? new FlexiAlertsExtensionOptions(),
-                jsonOptionsService ?? new FlexiOptionsService());
+                flexiAlertsExtensionOptions ?? new FlexiAlertsExtensionOptions(),
+                flexiOptionsService ?? new FlexiOptionsService());
         }
 
-        private Mock<FlexiAlertBlockParser> CreateMockAlertBlockParser(FlexiAlertsExtensionOptions alertsExtensionOptions = null,
-            FlexiOptionsService jsonOptionsService = null)
+        private Mock<FlexiAlertBlockParser> CreateMockFlexiAlertBlockParser(FlexiAlertsExtensionOptions flexiAlertsExtensionOptions = null,
+            FlexiOptionsService flexiOptionsService = null)
         {
             return _mockRepository.Create<FlexiAlertBlockParser>(
-                alertsExtensionOptions ?? new FlexiAlertsExtensionOptions(),
-                jsonOptionsService ?? new FlexiOptionsService());
+                flexiAlertsExtensionOptions ?? new FlexiAlertsExtensionOptions(),
+                flexiOptionsService ?? new FlexiOptionsService());
         }
     }
 }
