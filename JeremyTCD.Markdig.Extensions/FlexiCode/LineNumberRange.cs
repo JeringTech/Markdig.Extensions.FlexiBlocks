@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace JeremyTCD.Markdig.Extensions.FlexiCode
 {
@@ -15,26 +16,14 @@ namespace JeremyTCD.Markdig.Extensions.FlexiCode
         /// <paramref name="endLine"/> is not -1, it must be greater than or equal to <paramref name="startLine"/></param>
         /// <param name="startLineNumber">Starting line number for the lines specified by <paramref name="startLine"/> and <paramref name="endLine"/>. Must
         /// be greater than 0.</param>
-        public LineNumberRange(int startLine, int endLine, int startLineNumber) :
-            this(new LineRange(startLine, endLine), startLineNumber)
+        public LineNumberRange(int startLine, int endLine, int startLineNumber)
         {
-        }
-
-        /// <summary>
-        /// Creates an instance of type <see cref="LineNumberRange"/>.
-        /// </summary>
-        /// <param name="lineRange"><see cref="LineRange"/> specifying lines that this <see cref="LineNumberRange"/> applies to.</param>
-        /// <param name="startLineNumber">Starting line number for the lines specified by <paramref name="startLine"/> and <paramref name="endLine"/>. Must
-        /// be greater than 0.</param>
-        public LineNumberRange(LineRange lineRange, int startLineNumber)
-        {
-            LineRange = lineRange;
-
-            if(startLineNumber < 1)
+            if (startLineNumber < 1)
             {
                 throw new ArgumentException(string.Format(Strings.ArgumentException_InvalidStartLineNumber, startLineNumber));
             }
 
+            LineRange = new LineRange(startLine, endLine);
             StartLineNumber = startLineNumber;
         }
 
