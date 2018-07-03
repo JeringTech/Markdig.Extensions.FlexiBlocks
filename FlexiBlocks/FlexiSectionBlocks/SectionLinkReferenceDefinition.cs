@@ -1,6 +1,6 @@
 ﻿using Markdig.Syntax;
 
-namespace FlexiBlocks.FlexiSectionBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
 {
     public class SectionLinkReferenceDefinition : LinkReferenceDefinition
     {

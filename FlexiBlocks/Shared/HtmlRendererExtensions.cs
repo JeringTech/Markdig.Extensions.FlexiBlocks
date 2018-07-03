@@ -2,7 +2,7 @@
 using Markdig.Syntax;
 using System.Collections.Generic;
 
-namespace FlexiBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     public static class HtmlRendererExtensions
     {

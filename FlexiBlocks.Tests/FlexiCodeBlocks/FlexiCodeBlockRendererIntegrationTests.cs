@@ -1,4 +1,4 @@
-﻿using FlexiBlocks.FlexiCodeBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using JeremyTCD.WebUtils.SyntaxHighlighters.HighlightJS;
 using JeremyTCD.WebUtils.SyntaxHighlighters.Prism;
 using Markdig.Helpers;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
-namespace FlexiBlocks.Tests.FlexiCodeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 {
     public class FlexiCodeBlockRendererIntegrationTests : IDisposable
     {

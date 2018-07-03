@@ -1,9 +1,9 @@
-﻿using FlexiBlocks.FlexiOptionsBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
 
-namespace FlexiBlocks.FlexiAlertBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
     public class FlexiAlertBlockParser : BlockParser
     {

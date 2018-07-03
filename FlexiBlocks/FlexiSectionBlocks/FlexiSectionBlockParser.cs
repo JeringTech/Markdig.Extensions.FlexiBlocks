@@ -1,10 +1,10 @@
-﻿using FlexiBlocks.FlexiOptionsBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using System;
 using System.Linq;
 
-namespace FlexiBlocks.FlexiSectionBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
 {
     public class FlexiSectionBlockParser : BlockParser
     {

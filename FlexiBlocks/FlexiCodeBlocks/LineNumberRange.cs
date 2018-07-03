@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace FlexiBlocks.FlexiCodeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
     /// <summary>
     /// Represents a range of line numbers for a range of lines.

@@ -3,7 +3,7 @@ using Markdig.Parsers;
 using Markdig.Syntax;
 using System;
 
-namespace FlexiBlocks.FlexiOptionsBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
 {
     public class FlexiOptionsBlockParser : BlockParser
     {

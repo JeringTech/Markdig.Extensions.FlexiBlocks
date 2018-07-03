@@ -8,7 +8,7 @@
 
 using Xunit;
 
-namespace FlexiBlocks.Tests.Specs
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 {
 
     // Tabs in lines are not expanded to [spaces].  However,

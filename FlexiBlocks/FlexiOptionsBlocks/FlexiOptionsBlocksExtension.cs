@@ -1,7 +1,7 @@
 ﻿using Markdig;
 using Markdig.Renderers;
 
-namespace FlexiBlocks.FlexiOptionsBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
 {
     public class FlexiOptionsBlocksExtension : IMarkdownExtension
     {

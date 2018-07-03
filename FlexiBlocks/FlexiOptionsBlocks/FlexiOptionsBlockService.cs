@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System;
 
-namespace FlexiBlocks.FlexiOptionsBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
 {
     public class FlexiOptionsBlockService
     {

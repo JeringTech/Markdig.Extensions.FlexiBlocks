@@ -1,7 +1,7 @@
-﻿using FlexiBlocks.FlexiAlertBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Xunit;
 
-namespace FlexiBlocks.Tests.FlexiAlertBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
 {
     public class FlexiAlertBlockOptionsIntegrationTests
     {

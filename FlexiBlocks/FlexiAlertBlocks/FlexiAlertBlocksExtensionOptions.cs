@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FlexiBlocks.FlexiAlertBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
     public class FlexiAlertBlocksExtensionOptions
     {

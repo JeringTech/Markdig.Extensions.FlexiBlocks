@@ -1,5 +1,5 @@
-﻿using FlexiBlocks.FlexiOptionsBlocks;
-using FlexiBlocks.FlexiSectionBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace FlexiBlocks.Tests.FlexiSectionBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
 {
     public class FlexiSectionBlockParserIntegrationTests
     {

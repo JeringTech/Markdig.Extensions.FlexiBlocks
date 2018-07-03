@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
-namespace FlexiBlocks.Tests.Shared
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
 {
     public class HtmlRendererExtensionsIntegrationTests
     {

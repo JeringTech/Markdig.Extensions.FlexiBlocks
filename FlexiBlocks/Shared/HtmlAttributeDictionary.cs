@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace FlexiBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     public class HtmlAttributeDictionary : IDictionary<string, string>
     {

@@ -1,7 +1,7 @@
 ﻿using Markdig.Parsers;
 using Markdig.Syntax;
 
-namespace FlexiBlocks.FlexiSectionBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
 {
     /// <summary>
     /// A <see cref="ContainerBlock"/> that holds a logical section of a page.

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FlexiBlocks.FlexiCodeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
     public class FlexiCodeBlockOptions : IMarkdownObjectOptions<FlexiCodeBlockOptions>
     {

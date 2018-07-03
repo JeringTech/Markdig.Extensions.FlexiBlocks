@@ -1,4 +1,4 @@
-﻿namespace FlexiBlocks.FlexiCodeBlocks
+﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
     public enum SyntaxHighlighter
     {

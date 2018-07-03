@@ -1,4 +1,4 @@
-﻿namespace FlexiBlocks.FlexiAlertBlocks
+﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
     public class FlexiAlertBlockOptions : IMarkdownObjectOptions<FlexiAlertBlockOptions>
     {

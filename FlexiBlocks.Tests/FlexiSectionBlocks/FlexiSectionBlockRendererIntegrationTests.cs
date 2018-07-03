@@ -1,4 +1,4 @@
-﻿using FlexiBlocks.FlexiSectionBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Markdig.Renderers;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
-namespace FlexiBlocks.Tests.FlexiSectionBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
 {
     public class FlexiSectionBlockRendererIntegrationTests
     {

@@ -1,4 +1,4 @@
-﻿namespace FlexiBlocks.FlexiSectionBlocks
+﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
 {
     public class FlexiSectionBlocksExtensionOptions
     {

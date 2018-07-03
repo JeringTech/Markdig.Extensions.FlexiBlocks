@@ -1,4 +1,4 @@
-﻿using FlexiBlocks.FlexiOptionsBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Moq;
@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using System;
 using Xunit;
 
-namespace FlexiBlocks.Tests.FlexiOptionsBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
 {
     public class FlexiOptionsBlockServiceIntegrationTests
     {

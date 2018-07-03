@@ -1,4 +1,4 @@
-﻿namespace FlexiBlocks
+﻿namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     public interface IMarkdownObjectOptions<T>
     {

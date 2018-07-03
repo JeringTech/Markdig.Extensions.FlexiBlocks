@@ -1,8 +1,8 @@
-﻿using FlexiBlocks.FlexiOptionsBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig;
 using Markdig.Renderers;
 
-namespace FlexiBlocks.FlexiAlertBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
     public class FlexiAlertBlocksExtension : IMarkdownExtension
     {

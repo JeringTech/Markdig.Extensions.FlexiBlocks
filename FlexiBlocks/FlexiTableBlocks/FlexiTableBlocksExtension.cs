@@ -1,4 +1,4 @@
-﻿using FlexiBlocks.FlexiOptionsBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig;
 using Markdig.Extensions.Tables;
 using Markdig.Parsers;
@@ -6,7 +6,7 @@ using Markdig.Parsers.Inlines;
 using Markdig.Renderers;
 using Markdig.Syntax;
 
-namespace FlexiBlocks.FlexiTableBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
 {
     public class FlexiTableBlocksExtension : IMarkdownExtension
     {

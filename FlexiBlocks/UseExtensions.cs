@@ -1,14 +1,14 @@
-﻿using FlexiBlocks.FlexiAlertBlocks;
-using FlexiBlocks.FlexiCodeBlocks;
-using FlexiBlocks.FlexiOptionsBlocks;
-using FlexiBlocks.FlexiTableBlocks;
-using FlexiBlocks.FlexiSectionBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using JeremyTCD.WebUtils.SyntaxHighlighters.HighlightJS;
 using JeremyTCD.WebUtils.SyntaxHighlighters.Prism;
 using Markdig;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FlexiBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     public static class UseExtensions
     {

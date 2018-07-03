@@ -1,7 +1,7 @@
-﻿using FlexiBlocks.FlexiSectionBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Xunit;
 
-namespace FlexiBlocks.Tests.FlexiSectionBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
 {
     public class FlexiSectionBlockOptionsIntegrationTests
     {

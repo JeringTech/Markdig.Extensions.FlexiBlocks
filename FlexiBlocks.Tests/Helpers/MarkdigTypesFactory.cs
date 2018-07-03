@@ -2,7 +2,7 @@
 using Markdig.Parsers;
 using Markdig.Syntax;
 
-namespace FlexiBlocks.Tests
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 {
     public static class MarkdigTypesFactory
     {

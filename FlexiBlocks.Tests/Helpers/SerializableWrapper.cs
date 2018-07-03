@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Xunit.Abstractions;
 
-namespace FlexiBlocks.Tests
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 {
     public class SerializableWrapper<T> : IXunitSerializable
     {

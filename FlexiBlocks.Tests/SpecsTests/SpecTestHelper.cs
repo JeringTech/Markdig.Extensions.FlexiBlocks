@@ -1,7 +1,7 @@
-﻿using FlexiBlocks. FlexiAlertBlocks;
-using FlexiBlocks.FlexiCodeBlocks;
-using FlexiBlocks.FlexiTableBlocks;
-using FlexiBlocks.FlexiSectionBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks. FlexiAlertBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Markdig;
 using Newtonsoft.Json.Linq;
 using System;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Xunit;
 
-namespace FlexiBlocks.Tests
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 {
     public static class SpecTestHelper
     {
