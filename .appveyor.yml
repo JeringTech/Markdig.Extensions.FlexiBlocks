@@ -8,8 +8,8 @@ build_script:
     dotnet pack -c release /p:version=$env:APPVEYOR_REPO_TAG_NAME
 test_script:
 - ps: |
-    cd .\src Jering.Markdig.Extensions.FlexiBlocks.Tests
-    dotnet test -c release -l trx -r ./ --no-build .\Jering.Markdig.Extensions Jering.Markdig.Extensions.FlexiBlocks.Tests.csproj
+    cd .\src\FlexiBlocks.Tests
+    dotnet test -c release -l trx -r ./ --no-build .\Jering.Markdig.Extensions.FlexiBlocks.Tests.csproj
     $wc = New-Object 'System.Net.WebClient'
     $wc.UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\*.trx))
 artifacts:
