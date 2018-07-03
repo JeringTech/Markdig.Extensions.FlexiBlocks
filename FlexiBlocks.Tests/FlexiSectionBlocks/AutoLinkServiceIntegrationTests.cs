@@ -19,19 +19,19 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             {
                 Lines = new StringLineGroup(dummyHeadingText)
             };
-            var dummySectionBlock = new FlexiSectionBlock(null);
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var autoLinkService = new AutoLinkService();
 
             // Act
-            autoLinkService.SetupAutoLink(dummyBlockProcessor, dummySectionBlock, dummyHeadingBlock);
+            autoLinkService.SetupAutoLink(dummyBlockProcessor, dummyFlexiSectionBlock, dummyHeadingBlock);
 
             // Assert
             var resultSlrds = dummyBlockProcessor.Document.GetData(AutoLinkService.AUTO_LINKS_KEY) as Dictionary<string, SectionLinkReferenceDefinition>;
             Assert.NotNull(resultSlrds);
             resultSlrds.TryGetValue(dummyHeadingText, out SectionLinkReferenceDefinition resultSlrd);
             Assert.NotNull(resultSlrd);
-            Assert.Equal(dummySectionBlock, resultSlrd.SectionBlock);
+            Assert.Equal(dummyFlexiSectionBlock, resultSlrd.FlexiSectionBlock);
         }
 
         [Fact]
@@ -71,13 +71,13 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             // Arrange
             const string dummyID = "dummyID";
             const string dummyTitle = "dummyTitle";
-            var dummySectionBlock = new FlexiSectionBlock(null)
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
             {
-                SectionBlockOptions = new FlexiSectionBlockOptions() { Attributes = new HtmlAttributeDictionary { { "id", dummyID } } }
+                FlexiSectionBlockOptions = new FlexiSectionBlockOptions() { Attributes = new HtmlAttributeDictionary { { "id", dummyID } } }
             };
             var dummySlrd = new SectionLinkReferenceDefinition()
             {
-                SectionBlock = dummySectionBlock,
+                FlexiSectionBlock = dummyFlexiSectionBlock,
                 Title = dummyTitle
             };
             var autoLinkService = new AutoLinkService();

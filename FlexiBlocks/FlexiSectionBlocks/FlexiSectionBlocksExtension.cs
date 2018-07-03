@@ -36,8 +36,8 @@ namespace FlexiBlocks.FlexiSectionBlocks
                 var autoLinkService = new AutoLinkService();
                 var identifierService = new IdentifierService();
                 var flexiOptionsBlockService = new FlexiOptionsBlockService();
-                var sectionBlockParser = new FlexiSectionBlockParser(_options, headingBlockParser, autoLinkService, identifierService, flexiOptionsBlockService);
-                pipeline.BlockParsers.Insert(0, sectionBlockParser);
+                var flexiSectionBlockParser = new FlexiSectionBlockParser(_options, headingBlockParser, autoLinkService, identifierService, flexiOptionsBlockService);
+                pipeline.BlockParsers.Insert(0, flexiSectionBlockParser);
             }
         }
 

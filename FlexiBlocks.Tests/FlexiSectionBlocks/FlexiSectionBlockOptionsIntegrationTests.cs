@@ -1,5 +1,4 @@
 ﻿using FlexiBlocks.FlexiSectionBlocks;
-using System.Collections.Generic;
 using Xunit;
 
 namespace FlexiBlocks.Tests.FlexiSectionBlocks
@@ -22,7 +21,7 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
                 {dummyAttributeKey1, dummyAttributeValue1 },
                 {dummyAttributeKey2, dummyAttributeValue2 }
             };
-            var sectionBlockOptions = new FlexiSectionBlockOptions()
+            var flexiSectionBlockOptions = new FlexiSectionBlockOptions()
             {
                 GenerateIdentifier = dummyGenerateIdentifier,
                 AutoLinkable = dummyAutoLinkable,
@@ -31,10 +30,10 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             };
 
             // Act
-            FlexiSectionBlockOptions result = sectionBlockOptions.Clone();
+            FlexiSectionBlockOptions result = flexiSectionBlockOptions.Clone();
 
             // Assert
-            Assert.NotSame(sectionBlockOptions, result);
+            Assert.NotSame(flexiSectionBlockOptions, result);
             Assert.Equal(dummyGenerateIdentifier, result.GenerateIdentifier);
             Assert.Equal(dummyAutoLinkable, result.AutoLinkable);
             Assert.Equal(dummySectioningContentElement, result.WrapperElement);

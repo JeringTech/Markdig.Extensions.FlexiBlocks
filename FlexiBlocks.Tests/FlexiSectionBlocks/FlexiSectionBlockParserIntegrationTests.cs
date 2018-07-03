@@ -21,10 +21,10 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<HeadingBlockParser> mockHeadingBlockParser = _mockRepository.Create<HeadingBlockParser>();
             mockHeadingBlockParser.Setup(h => h.TryOpen(dummyBlockProcessor)).Returns(BlockState.None);
-            FlexiSectionBlockParser sectionBlockParser = CreateSectionBlockParser(headingBlockParser: mockHeadingBlockParser.Object);
+            FlexiSectionBlockParser flexiSectionBlockParser = CreateFlexiSectionBlockParser(headingBlockParser: mockHeadingBlockParser.Object);
 
             // Act
-            BlockState result = sectionBlockParser.TryOpen(dummyBlockProcessor);
+            BlockState result = flexiSectionBlockParser.TryOpen(dummyBlockProcessor);
 
             // Assert
             _mockRepository.VerifyAll();
@@ -33,7 +33,7 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
 
         [Theory]
         [MemberData(nameof(TryOpen_SetsHeaderDataAndReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined_Data))]
-        public void TryOpen_SetsHeaderDataAndReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined(FlexiSectionBlockOptions dummySectionBlockOptions)
+        public void TryOpen_SetsHeaderDataAndReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined(SerializableWrapper<FlexiSectionBlockOptions> dummyFlexiSectionBlockOptionsWrapper)
         {
             // Arrange
             const int dummyHeadingLevel = 1;
@@ -42,31 +42,39 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             mockHeadingBlockParser.Setup(h => h.TryOpen(dummyBlockProcessor)).Returns(BlockState.Break);
             var dummyHeadingBlock = new HeadingBlock(null) { Level = dummyHeadingLevel };
             dummyBlockProcessor.NewBlocks.Push(dummyHeadingBlock);
-            Mock<FlexiSectionBlockParser> mockSectionBlockParser = CreateMockSectionBlockParser(headingBlockParser: mockHeadingBlockParser.Object);
-            mockSectionBlockParser.CallBase = true;
-            mockSectionBlockParser.Setup(s => s.CreateSectionOptions(dummyBlockProcessor, dummyHeadingLevel)).Returns(dummySectionBlockOptions);
+            Mock<FlexiSectionBlockParser> mockFlexiSectionBlockParser = CreateMockFlexiSectionBlockParser(headingBlockParser: mockHeadingBlockParser.Object);
+            mockFlexiSectionBlockParser.CallBase = true;
+            mockFlexiSectionBlockParser.Setup(s => s.CreateFlexiSectionBlockOptions(dummyBlockProcessor, dummyHeadingLevel)).Returns(dummyFlexiSectionBlockOptionsWrapper.Value);
 
             // Act
-            BlockState result = mockSectionBlockParser.Object.TryOpen(dummyBlockProcessor);
+            BlockState result = mockFlexiSectionBlockParser.Object.TryOpen(dummyBlockProcessor);
 
             // Assert
             _mockRepository.VerifyAll();
             Assert.Equal(BlockState.Break, result);
-            Assert.Equal(dummySectionBlockOptions.HeaderIconMarkup, dummyHeadingBlock.GetData(FlexiSectionBlockParser.HEADER_ICON_MARKUP_KEY));
-            Assert.Equal(dummySectionBlockOptions.HeaderClassNameFormat, dummyHeadingBlock.GetData(FlexiSectionBlockParser.HEADER_CLASS_NAME_FORMAT_KEY));
+            Assert.Equal(dummyFlexiSectionBlockOptionsWrapper.Value.HeaderIconMarkup, dummyHeadingBlock.GetData(FlexiSectionBlockParser.HEADER_ICON_MARKUP_KEY));
+            Assert.Equal(dummyFlexiSectionBlockOptionsWrapper.Value.HeaderClassNameFormat, dummyHeadingBlock.GetData(FlexiSectionBlockParser.HEADER_CLASS_NAME_FORMAT_KEY));
         }
 
         public static IEnumerable<object[]> TryOpen_SetsHeaderDataAndReturnsBlockStateBreakIfSectioningContentElementIsNoneOrUndefined_Data()
         {
             return new object[][]
             {
-                new object[]{ new FlexiSectionBlockOptions() { WrapperElement = SectioningContentElement.None} },
-                new object[]{ new FlexiSectionBlockOptions() { WrapperElement = SectioningContentElement.Undefined } }
+                new object[]{
+                    new SerializableWrapper<FlexiSectionBlockOptions>(
+                        new FlexiSectionBlockOptions() { WrapperElement = SectioningContentElement.None}
+                    )
+                },
+                new object[]{
+                    new SerializableWrapper<FlexiSectionBlockOptions>(
+                        new FlexiSectionBlockOptions() { WrapperElement = SectioningContentElement.Undefined }
+                    )
+                }
             };
         }
 
         [Fact]
-        public void TryOpen_IfSuccessfulSetsHeaderDataCreatesNewSectionBlockAndReturnsBlockStateContinue()
+        public void TryOpen_IfSuccessfulSetsHeaderDataCreatesNewFlexiSectionBlockAndReturnsBlockStateContinue()
         {
             // Arrange
             const int dummyLevel = 2;
@@ -77,28 +85,28 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             var dummySourceSpan = new SourceSpan(3, 4);
             var dummyHeadingBlock = new HeadingBlock(null) { Level = dummyLevel, Column = dummyColumn, Span = dummySourceSpan };
             dummyBlockProcessor.NewBlocks.Push(dummyHeadingBlock);
-            var dummySectionBlockOptions = new FlexiSectionBlockOptions()
+            var dummyFlexiSectionBlockOptions = new FlexiSectionBlockOptions()
             {
                 WrapperElement = SectioningContentElement.Section // Anything other than undefined and none to avoid break
             };
-            Mock<FlexiSectionBlockParser> sectionBlockParser = CreateMockSectionBlockParser(headingBlockParser: mockHeadingBlockParser.Object);
-            sectionBlockParser.CallBase = true;
-            sectionBlockParser.Setup(s => s.CreateSectionOptions(dummyBlockProcessor, dummyLevel)).Returns(dummySectionBlockOptions);
+            Mock<FlexiSectionBlockParser> flexiSectionBlockParser = CreateMockFlexiSectionBlockParser(headingBlockParser: mockHeadingBlockParser.Object);
+            flexiSectionBlockParser.CallBase = true;
+            flexiSectionBlockParser.Setup(s => s.CreateFlexiSectionBlockOptions(dummyBlockProcessor, dummyLevel)).Returns(dummyFlexiSectionBlockOptions);
 
             // Act
-            BlockState result = sectionBlockParser.Object.TryOpen(dummyBlockProcessor);
+            BlockState result = flexiSectionBlockParser.Object.TryOpen(dummyBlockProcessor);
 
             // Assert
             _mockRepository.VerifyAll();
             Assert.Equal(BlockState.Continue, result);
-            var resultSectionBlock = dummyBlockProcessor.NewBlocks.Peek() as FlexiSectionBlock;
-            Assert.NotNull(resultSectionBlock);
-            Assert.Equal(dummyLevel, resultSectionBlock.Level);
-            Assert.Equal(dummyColumn, resultSectionBlock.Column);
-            Assert.Equal(dummySourceSpan, resultSectionBlock.Span); // SourceSpan is a struct, so object.Equals tests for value equality (not reference equality)
-            Assert.Same(dummySectionBlockOptions, resultSectionBlock.SectionBlockOptions);
-            Assert.Equal(dummySectionBlockOptions.HeaderIconMarkup, dummyHeadingBlock.GetData(FlexiSectionBlockParser.HEADER_ICON_MARKUP_KEY));
-            Assert.Equal(dummySectionBlockOptions.HeaderClassNameFormat, dummyHeadingBlock.GetData(FlexiSectionBlockParser.HEADER_CLASS_NAME_FORMAT_KEY));
+            var resultFlexiSectionBlock = dummyBlockProcessor.NewBlocks.Peek() as FlexiSectionBlock;
+            Assert.NotNull(resultFlexiSectionBlock);
+            Assert.Equal(dummyLevel, resultFlexiSectionBlock.Level);
+            Assert.Equal(dummyColumn, resultFlexiSectionBlock.Column);
+            Assert.Equal(dummySourceSpan, resultFlexiSectionBlock.Span); // SourceSpan is a struct, so object.Equals tests for value equality (not reference equality)
+            Assert.Same(dummyFlexiSectionBlockOptions, resultFlexiSectionBlock.FlexiSectionBlockOptions);
+            Assert.Equal(dummyFlexiSectionBlockOptions.HeaderIconMarkup, dummyHeadingBlock.GetData(FlexiSectionBlockParser.HEADER_ICON_MARKUP_KEY));
+            Assert.Equal(dummyFlexiSectionBlockOptions.HeaderClassNameFormat, dummyHeadingBlock.GetData(FlexiSectionBlockParser.HEADER_CLASS_NAME_FORMAT_KEY));
         }
 
         [Fact]
@@ -109,10 +117,10 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = dummyStringSlice;
             var dummyHeadingBlockParser = new HeadingBlockParser();
-            FlexiSectionBlockParser sectionBlockParser = CreateSectionBlockParser(headingBlockParser: dummyHeadingBlockParser);
+            FlexiSectionBlockParser flexiSectionBlockParser = CreateFlexiSectionBlockParser(headingBlockParser: dummyHeadingBlockParser);
 
             // Act
-            BlockState result = sectionBlockParser.TryContinue(dummyBlockProcessor, null);
+            BlockState result = flexiSectionBlockParser.TryContinue(dummyBlockProcessor, null);
 
             // Assert
             Assert.Equal(BlockState.Continue, result);
@@ -127,10 +135,10 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             dummyBlockProcessor.Line = dummyStringSlice;
             Mock<HeadingBlockParser> mockHeadingBlockParser = _mockRepository.Create<HeadingBlockParser>();
             mockHeadingBlockParser.Setup(h => h.TryOpen(dummyBlockProcessor)).Returns(BlockState.None);
-            FlexiSectionBlockParser sectionBlockParser = CreateSectionBlockParser(headingBlockParser: mockHeadingBlockParser.Object);
+            FlexiSectionBlockParser flexiSectionBlockParser = CreateFlexiSectionBlockParser(headingBlockParser: mockHeadingBlockParser.Object);
 
             // Act
-            BlockState result = sectionBlockParser.TryContinue(dummyBlockProcessor, null);
+            BlockState result = flexiSectionBlockParser.TryContinue(dummyBlockProcessor, null);
 
             // Assert
             _mockRepository.VerifyAll();
@@ -138,8 +146,8 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
         }
 
         [Theory]
-        [MemberData(nameof(TryContinue_ReturnsBlockStateNoneAndRemovesNewHeadingBlockIfNewSectionIsAChildOfTheCurrentSection_Data))]
-        public void TryContinue_ReturnsBlockStateNoneAndRemovesNewHeadingBlockIfNewSectionIsAChildOfTheCurrentSection(int dummyHeadingBlockLevel, int dummySectionBlockLevel)
+        [MemberData(nameof(TryContinue_ReturnsBlockStateNoneAndRemovesNewHeadingBlockIfNewSectionIsNotAChildOfTheCurrentSection_Data))]
+        public void TryContinue_ReturnsBlockStateNoneAndRemovesNewHeadingBlockIfNewSectionIsNotAChildOfTheCurrentSection(int dummyHeadingBlockLevel, int dummyFlexiSectionBlockLevel)
         {
             // Arrange
             var dummyStringSlice = new StringSlice("#");
@@ -152,14 +160,14 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             dummyBlockProcessor.NewBlocks.Push(dummyHeadingBlock);
             Mock<HeadingBlockParser> mockHeadingBlockParser = _mockRepository.Create<HeadingBlockParser>();
             mockHeadingBlockParser.Setup(h => h.TryOpen(dummyBlockProcessor)).Returns(BlockState.Break);
-            var dummySectionBlock = new FlexiSectionBlock(null)
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
             {
-                Level = dummySectionBlockLevel
+                Level = dummyFlexiSectionBlockLevel
             };
-            FlexiSectionBlockParser sectionBlockParser = CreateSectionBlockParser(headingBlockParser: mockHeadingBlockParser.Object);
+            FlexiSectionBlockParser flexiSectionBlockParser = CreateFlexiSectionBlockParser(headingBlockParser: mockHeadingBlockParser.Object);
 
             // Act
-            BlockState result = sectionBlockParser.TryContinue(dummyBlockProcessor, dummySectionBlock);
+            BlockState result = flexiSectionBlockParser.TryContinue(dummyBlockProcessor, dummyFlexiSectionBlock);
 
             // Assert
             _mockRepository.VerifyAll();
@@ -167,7 +175,7 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             Assert.Empty(dummyBlockProcessor.NewBlocks);
         }
 
-        public static IEnumerable<object[]> TryContinue_ReturnsBlockStateNoneAndRemovesNewHeadingBlockIfNewSectionIsAChildOfTheCurrentSection_Data()
+        public static IEnumerable<object[]> TryContinue_ReturnsBlockStateNoneAndRemovesNewHeadingBlockIfNewSectionIsNotAChildOfTheCurrentSection_Data()
         {
             return new object[][]
             {
@@ -181,7 +189,7 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
         {
             // Arrange
             const int dummyHeadingBlockLevel = 2;
-            const int dummySectionBlockLevel = 1;
+            const int dummyFlexiSectionBlockLevel = 1;
             var dummyStringSlice = new StringSlice("#");
             var dummyHeadingBlock = new HeadingBlock(null)
             {
@@ -192,14 +200,14 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             dummyBlockProcessor.NewBlocks.Push(dummyHeadingBlock);
             Mock<HeadingBlockParser> mockHeadingBlockParser = _mockRepository.Create<HeadingBlockParser>();
             mockHeadingBlockParser.Setup(h => h.TryOpen(dummyBlockProcessor)).Returns(BlockState.Break);
-            var dummySectionBlock = new FlexiSectionBlock(null)
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
             {
-                Level = dummySectionBlockLevel
+                Level = dummyFlexiSectionBlockLevel
             };
-            FlexiSectionBlockParser sectionBlockParser = CreateSectionBlockParser(headingBlockParser: mockHeadingBlockParser.Object);
+            FlexiSectionBlockParser flexiSectionBlockParser = CreateFlexiSectionBlockParser(headingBlockParser: mockHeadingBlockParser.Object);
 
             // Act
-            BlockState result = sectionBlockParser.TryContinue(dummyBlockProcessor, dummySectionBlock);
+            BlockState result = flexiSectionBlockParser.TryContinue(dummyBlockProcessor, dummyFlexiSectionBlock);
 
             // Assert
             _mockRepository.VerifyAll();
@@ -208,19 +216,19 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
         }
 
         [Theory]
-        [MemberData(nameof(CreateSectionOptions_CreatesSectionOptionsUsingSectionsExtensionOptionsWrapperElementsIfWrapperElementIsUndefined_Data))]
-        public void CreateSectionOptions_CreatesSectionOptionsUsingSectionsExtensionOptionsWrapperElementsIfSectionBlockOptionsWrapperElementIsUndefined(int dummyLevel, SectioningContentElement expectedWrapperElement)
+        [MemberData(nameof(CreateFlexiSectionBlockOptions_UsesFlexiSectionBlocksExtensionOptionsWrapperElementsIfNecessary_Data))]
+        public void CreateFlexiSectionBlockOptions_UsesFlexiSectionBlocksExtensionOptionsWrapperElementsIfNecessary(int dummyLevel, SectioningContentElement expectedWrapperElement)
         {
             // Arrange
             const int dummyLineIndex = 1;
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.LineIndex = dummyLineIndex;
             var mockFlexiOptionsBlockService = new Mock<FlexiOptionsBlockService>();
-            mockFlexiOptionsBlockService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<FlexiSectionBlockOptions>(), dummyLineIndex)); // SectionBlockOptions will be a fresh instance (cloned)
-            FlexiSectionBlockParser sectionBlockParser = CreateSectionBlockParser();
+            mockFlexiOptionsBlockService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<FlexiSectionBlockOptions>(), dummyLineIndex)); // FlexiSectionBlockOptions will be a fresh instance (cloned)
+            FlexiSectionBlockParser flexiSectionBlockParser = CreateFlexiSectionBlockParser();
 
             // Act
-            FlexiSectionBlockOptions result = sectionBlockParser.CreateSectionOptions(dummyBlockProcessor, dummyLevel);
+            FlexiSectionBlockOptions result = flexiSectionBlockParser.CreateFlexiSectionBlockOptions(dummyBlockProcessor, dummyLevel);
 
             // Assert
             _mockRepository.VerifyAll();
@@ -228,7 +236,7 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             Assert.Equal(result.WrapperElement, expectedWrapperElement);
         }
 
-        public static IEnumerable<object[]> CreateSectionOptions_CreatesSectionOptionsUsingSectionsExtensionOptionsWrapperElementsIfWrapperElementIsUndefined_Data()
+        public static IEnumerable<object[]> CreateFlexiSectionBlockOptions_UsesFlexiSectionBlocksExtensionOptionsWrapperElementsIfNecessary_Data()
         {
             return new object[][]
             {
@@ -238,62 +246,63 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
         }
 
         [Theory]
-        [MemberData(nameof(SectionBlockOnClosed_SetsUpIdentifierGenerationAndAutoLinkingAccordingToOptions_Data))]
-        public void SectionBlockOnClosed_SetsUpIdentifierGenerationAndAutoLinkingAccordingToOptions(bool dummyGenerateIdentifier,
+        [MemberData(nameof(FlexiSectionBlockOnClosed_SetsUpIdentifierGenerationAndAutoLinkingAccordingToOptions_Data))]
+        public void FlexiSectionBlockOnClosed_SetsUpIdentifierGenerationAndAutoLinkingAccordingToOptions(bool dummyGenerateIdentifier,
             bool dummyAutoLink,
-            Times expectedSetupIdentifierInvocations,
-            Times expectedSetupAutoLinkInvocations)
+            bool setupIdentifierGenerationInvoked,
+            bool setupAutoLinkInvoked)
         {
             // Arrange
             var dummyHeadingBlock = new HeadingBlock(null);
-            var dummySectionBlockOptions = new FlexiSectionBlockOptions() { GenerateIdentifier = dummyGenerateIdentifier, AutoLinkable = dummyAutoLink };
-            var dummySectionBlock = new FlexiSectionBlock(null)
+            var dummyFlexiSectionBlockOptions = new FlexiSectionBlockOptions() { GenerateIdentifier = dummyGenerateIdentifier, AutoLinkable = dummyAutoLink };
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
             {
-                SectionBlockOptions = dummySectionBlockOptions
+                FlexiSectionBlockOptions = dummyFlexiSectionBlockOptions
             };
-            dummySectionBlock.Add(dummyHeadingBlock);
+            dummyFlexiSectionBlock.Add(dummyHeadingBlock);
             Mock<IdentifierService> mockIdentifierService = _mockRepository.Create<IdentifierService>();
             Mock<AutoLinkService> mockAutoLinkService = _mockRepository.Create<AutoLinkService>();
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            FlexiSectionBlockParser sectionBlockParser = CreateSectionBlockParser(autoLinkService: mockAutoLinkService.Object, identifierService: mockIdentifierService.Object);
+            FlexiSectionBlockParser flexiSectionBlockParser = CreateFlexiSectionBlockParser(autoLinkService: mockAutoLinkService.Object, identifierService: mockIdentifierService.Object);
 
             // Act
-            sectionBlockParser.SectionBlockOnClosed(dummyBlockProcessor, dummySectionBlock);
+            flexiSectionBlockParser.FlexiSectionBlockOnClosed(dummyBlockProcessor, dummyFlexiSectionBlock);
 
             // Assert
-            mockIdentifierService.Verify(i => i.SetupIdentifierGeneration(dummyHeadingBlock), expectedSetupIdentifierInvocations);
-            mockAutoLinkService.Verify(a => a.SetupAutoLink(dummyBlockProcessor, dummySectionBlock, dummyHeadingBlock), expectedSetupAutoLinkInvocations);
+            mockIdentifierService.Verify(i => i.SetupIdentifierGeneration(dummyHeadingBlock), setupIdentifierGenerationInvoked ? Times.Once() : Times.Never());
+            mockAutoLinkService.Verify(a => a.SetupAutoLink(dummyBlockProcessor, dummyFlexiSectionBlock, dummyHeadingBlock), setupAutoLinkInvoked ? Times.Once() : Times.Never());
         }
 
-        public static IEnumerable<object[]> SectionBlockOnClosed_SetsUpIdentifierGenerationAndAutoLinkingAccordingToOptions_Data()
+        public static IEnumerable<object[]> FlexiSectionBlockOnClosed_SetsUpIdentifierGenerationAndAutoLinkingAccordingToOptions_Data()
         {
             return new object[][]
             {
-                new object[] {false, false, Times.Never(), Times.Never()},
-                new object[] {true, false, Times.Once(), Times.Never()},
-                new object[] {false, true, Times.Never(), Times.Never()},
-                new object[] {true, true, Times.Once(), Times.Once()}
+                new object[] {false, false, false, false},
+                new object[] {true, false, true, false},
+                // Can't do auto linking if identifier generation is disabled
+                new object[] {false, true, false, false},
+                new object[] {true, true, true, true}
             };
         }
 
         [Fact]
-        public void SectionBlockOnClosed_ThrowsExceptionIfGenerateIdentifierIsTrueButTheSectionBlockHasNoChildHeadingBlock()
+        public void FlexiSectionBlockOnClosed_ThrowsExceptionIfGenerateIdentifierIsTrueButTheFlexiSectionBlockHasNoChildHeadingBlock()
         {
             // Arrange
-            var dummySectionBlockOptions = new FlexiSectionBlockOptions() { GenerateIdentifier = true };
-            var dummySectionBlock = new FlexiSectionBlock(null)
+            var dummyFlexiSectionBlockOptions = new FlexiSectionBlockOptions() { GenerateIdentifier = true };
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
             {
-                SectionBlockOptions = dummySectionBlockOptions
+                FlexiSectionBlockOptions = dummyFlexiSectionBlockOptions
             };
             Mock<IdentifierService> mockIdentifierService = _mockRepository.Create<IdentifierService>();
             Mock<AutoLinkService> mockAutoLinkService = _mockRepository.Create<AutoLinkService>();
-            FlexiSectionBlockParser sectionBlockParser = CreateSectionBlockParser(autoLinkService: mockAutoLinkService.Object, identifierService: mockIdentifierService.Object);
+            FlexiSectionBlockParser flexiSectionBlockParser = CreateFlexiSectionBlockParser(autoLinkService: mockAutoLinkService.Object, identifierService: mockIdentifierService.Object);
 
             // Act and assert
-            Assert.Throws<InvalidOperationException>(() => sectionBlockParser.SectionBlockOnClosed(null, dummySectionBlock));
+            Assert.Throws<InvalidOperationException>(() => flexiSectionBlockParser.FlexiSectionBlockOnClosed(null, dummyFlexiSectionBlock));
         }
 
-        private FlexiSectionBlockParser CreateSectionBlockParser(FlexiSectionBlocksExtensionOptions sectionsExtensionOptions = null,
+        private FlexiSectionBlockParser CreateFlexiSectionBlockParser(FlexiSectionBlocksExtensionOptions sectionsExtensionOptions = null,
             HeadingBlockParser headingBlockParser = null,
             AutoLinkService autoLinkService = null,
             IdentifierService identifierService = null,
@@ -307,7 +316,7 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
                 flexiOptionsBlockService ?? new FlexiOptionsBlockService());
         }
 
-        private Mock<FlexiSectionBlockParser> CreateMockSectionBlockParser(FlexiSectionBlocksExtensionOptions sectionsExtensionOptions = null,
+        private Mock<FlexiSectionBlockParser> CreateMockFlexiSectionBlockParser(FlexiSectionBlocksExtensionOptions sectionsExtensionOptions = null,
             HeadingBlockParser headingBlockParser = null,
             AutoLinkService autoLinkService = null,
             IdentifierService identifierService = null,

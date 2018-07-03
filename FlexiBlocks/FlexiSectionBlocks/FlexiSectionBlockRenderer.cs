@@ -7,25 +7,25 @@ namespace FlexiBlocks.FlexiSectionBlocks
     {
         protected override void Write(HtmlRenderer renderer, FlexiSectionBlock obj)
         {
-            FlexiSectionBlockOptions sectionBlockOptions = obj.SectionBlockOptions;
+            FlexiSectionBlockOptions flexiSectionBlockOptions = obj.FlexiSectionBlockOptions;
 
             renderer.EnsureLine();
 
             // Undefined or None
-            if (sectionBlockOptions.WrapperElement.CompareTo(SectioningContentElement.None) <= 0)
+            if (flexiSectionBlockOptions.WrapperElement.CompareTo(SectioningContentElement.None) <= 0)
             {
                 renderer.WriteChildren(obj);
                 return;
             }
 
-            string elementName = sectionBlockOptions.WrapperElement.ToString().ToLower();
+            string elementName = flexiSectionBlockOptions.WrapperElement.ToString().ToLower();
 
             if (renderer.EnableHtmlForBlock)
             {
                 renderer.
                     Write("<").
                     Write(elementName).
-                    WriteHtmlAttributeDictionary(sectionBlockOptions.Attributes).
+                    WriteHtmlAttributeDictionary(flexiSectionBlockOptions.Attributes).
                     WriteLine(">");
             }
 

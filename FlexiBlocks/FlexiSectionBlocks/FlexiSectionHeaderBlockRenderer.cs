@@ -29,8 +29,7 @@ namespace FlexiBlocks.FlexiSectionBlocks
             {
                 renderer.WriteLine($"</h{obj.Level}>");
 
-                if (renderer.EnableHtmlForBlock &&
-                    obj.GetData(FlexiSectionBlockParser.HEADER_ICON_MARKUP_KEY) is string headerIconMarkup &&
+                if (obj.GetData(FlexiSectionBlockParser.HEADER_ICON_MARKUP_KEY) is string headerIconMarkup &&
                     !string.IsNullOrWhiteSpace(headerIconMarkup))
                 {
                     renderer.WriteLine(headerIconMarkup);

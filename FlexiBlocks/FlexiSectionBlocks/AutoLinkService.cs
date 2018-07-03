@@ -17,15 +17,15 @@ namespace FlexiBlocks.FlexiSectionBlocks
         /// Create a <see cref="SectionLinkReferenceDefinition"/> from a <see cref="FlexiSectionBlock"/> and store it in the MarkdownDocument.
         /// </summary>
         /// <param name="processor"></param>
-        /// <param name="sectionBlock"></param>
+        /// <param name="flexiSectionBlock"></param>
         /// <param name="headingBlock"></param>
-        public virtual void SetupAutoLink(BlockProcessor processor, FlexiSectionBlock sectionBlock, HeadingBlock headingBlock)
+        public virtual void SetupAutoLink(BlockProcessor processor, FlexiSectionBlock flexiSectionBlock, HeadingBlock headingBlock)
         {
             string headingBlockText = headingBlock.Lines.Lines[0].ToString();
 
             var sectionLinkReferenceDefinition = new SectionLinkReferenceDefinition()
             {
-                SectionBlock = sectionBlock,
+                FlexiSectionBlock = flexiSectionBlock,
                 CreateLinkInline = CreateLinkInline
             };
 
@@ -53,8 +53,7 @@ namespace FlexiBlocks.FlexiSectionBlocks
             document.ProcessInlinesBegin -= DocumentOnProcessInlinesBegin;
 
             // Get SectionLinkReferenceDefinition map
-            var sectionLinkReferenceDefinitions = (Dictionary<string, SectionLinkReferenceDefinition>)document.GetData(AUTO_LINKS_KEY);
-            foreach (var keyPair in sectionLinkReferenceDefinitions)
+            foreach (var keyPair in (Dictionary<string, SectionLinkReferenceDefinition>)document.GetData(AUTO_LINKS_KEY))
             {
                 // Avoid overriding existing LinkReferenceDefinitions
                 if (!document.TryGetLinkReferenceDefinition(keyPair.Key, out LinkReferenceDefinition linkReferenceDefinition))
@@ -80,7 +79,7 @@ namespace FlexiBlocks.FlexiSectionBlocks
             {
                 // Use GetDynamicUrl to allow late binding of the Url, since a link may occur before the heading is declared and
                 // the inlines of the heading are actually processed by HeadingBlockProcessInlinesEndCallback()
-                GetDynamicUrl = () => HtmlHelper.Unescape("#" + sectionLinkReferenceDefinition.SectionBlock.SectionBlockOptions.Attributes["id"]),
+                GetDynamicUrl = () => HtmlHelper.Unescape("#" + sectionLinkReferenceDefinition.FlexiSectionBlock.FlexiSectionBlockOptions.Attributes["id"]),
                 Title = HtmlHelper.Unescape(linkReferenceDefinition.Title)
             };
         }

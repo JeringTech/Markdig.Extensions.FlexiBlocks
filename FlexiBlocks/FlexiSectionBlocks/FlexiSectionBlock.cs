@@ -20,6 +20,6 @@ namespace FlexiBlocks.FlexiSectionBlocks
         /// <summary>
         /// The options for this block.
         /// </summary>
-        public FlexiSectionBlockOptions SectionBlockOptions { get; set; }
+        public FlexiSectionBlockOptions FlexiSectionBlockOptions { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
     public class FlexiSectionBlockRendererIntegrationTests
     {
         [Fact]
-        public void Write_WritesWrapperAttributesAndChildren()
+        public void Write_RendersFlexiSectionBlock()
         {
             // Arrange
             const string dummyChildText = "dummyChildText";
@@ -24,23 +24,23 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             {
                 Inline = dummyContainerInline
             };
-            var dummySectionBlock = new FlexiSectionBlock(null)
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
             {
-                SectionBlockOptions = new FlexiSectionBlockOptions()
+                FlexiSectionBlockOptions = new FlexiSectionBlockOptions()
                 {
                     WrapperElement = dummySectioningContentElement,
                     Attributes = new HtmlAttributeDictionary() { { dummyAttributeName, dummyAttributeValue } }
                 }
             };
-            dummySectionBlock.Add(dummyParagraphBlock);
+            dummyFlexiSectionBlock.Add(dummyParagraphBlock);
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                var sectionBlockRenderer = new FlexiSectionBlockRenderer();
+                var flexiSectionBlockRenderer = new FlexiSectionBlockRenderer();
 
                 // Act
-                sectionBlockRenderer.Write(dummyHtmlRenderer, dummySectionBlock);
+                flexiSectionBlockRenderer.Write(dummyHtmlRenderer, dummyFlexiSectionBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -61,22 +61,22 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             {
                 Inline = dummyContainerInline
             };
-            var dummySectionBlock = new FlexiSectionBlock(null)
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
             {
-                SectionBlockOptions = new FlexiSectionBlockOptions()
+                FlexiSectionBlockOptions = new FlexiSectionBlockOptions()
                 {
                     WrapperElement = sectioningContentElement
                 }
             };
-            dummySectionBlock.Add(dummyParagraphBlock);
+            dummyFlexiSectionBlock.Add(dummyParagraphBlock);
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                var sectionBlockRenderer = new FlexiSectionBlockRenderer();
+                var flexiSectionBlockRenderer = new FlexiSectionBlockRenderer();
 
                 // Act
-                sectionBlockRenderer.Write(dummyHtmlRenderer, dummySectionBlock);
+                flexiSectionBlockRenderer.Write(dummyHtmlRenderer, dummyFlexiSectionBlock);
                 result = dummyStringWriter.ToString();
             }
 

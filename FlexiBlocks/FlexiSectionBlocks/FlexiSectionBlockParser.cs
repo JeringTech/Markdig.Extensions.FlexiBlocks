@@ -11,7 +11,7 @@ namespace FlexiBlocks.FlexiSectionBlocks
         public const string HEADER_ICON_MARKUP_KEY = "headerIconMarkup";
         public const string HEADER_CLASS_NAME_FORMAT_KEY = "headerClassNameFormat";
         private readonly HeadingBlockParser _headingBlockParser;
-        private readonly FlexiSectionBlocksExtensionOptions _sectionsExtensionOptions;
+        private readonly FlexiSectionBlocksExtensionOptions _flexiSectionBlocksExtensionOptions;
         private readonly FlexiOptionsBlockService _flexiOptionsBlockService;
         private readonly AutoLinkService _autoLinkService;
         private readonly IdentifierService _identifierService;
@@ -19,21 +19,21 @@ namespace FlexiBlocks.FlexiSectionBlocks
         /// <summary>
         /// Initializes an instance of type <see cref="FlexiSectionBlockParser"/>.
         /// </summary>
-        /// <param name="sectionsExtensionOptions"></param>
+        /// <param name="flexiSectionBlocksExtensionOptions"></param>
         /// <param name="headingBlockParser"></param>
         /// <param name="autoLinkService"></param>
         /// <param name="identifierService"></param>
         /// <param name="flexiOptionsBlockService"></param>
-        public FlexiSectionBlockParser(FlexiSectionBlocksExtensionOptions sectionsExtensionOptions,
+        public FlexiSectionBlockParser(FlexiSectionBlocksExtensionOptions flexiSectionBlocksExtensionOptions,
             HeadingBlockParser headingBlockParser,
             AutoLinkService autoLinkService,
             IdentifierService identifierService,
             FlexiOptionsBlockService flexiOptionsBlockService)
         {
             OpeningCharacters = new[] { '#' };
-            Closed += SectionBlockOnClosed;
+            Closed += FlexiSectionBlockOnClosed;
 
-            _sectionsExtensionOptions = sectionsExtensionOptions;
+            _flexiSectionBlocksExtensionOptions = flexiSectionBlocksExtensionOptions;
             _headingBlockParser = headingBlockParser;
             _autoLinkService = autoLinkService;
             _identifierService = identifierService;
@@ -62,30 +62,31 @@ namespace FlexiBlocks.FlexiSectionBlocks
 
             var newHeadingBlock = (HeadingBlock)processor.NewBlocks.Peek();
 
-            FlexiSectionBlockOptions sectionBlockOptions = CreateSectionOptions(processor, newHeadingBlock.Level);
+            FlexiSectionBlockOptions flexiSectionBlockOptions = CreateFlexiSectionBlockOptions(processor, newHeadingBlock.Level);
 
+            // TODO just add a reference to the entire flexiSectionBlockOptions object?
             // Set heading block icon markup 
-            newHeadingBlock.SetData(HEADER_ICON_MARKUP_KEY, sectionBlockOptions.HeaderIconMarkup);
-            newHeadingBlock.SetData(HEADER_CLASS_NAME_FORMAT_KEY, sectionBlockOptions.HeaderClassNameFormat);
+            newHeadingBlock.SetData(HEADER_ICON_MARKUP_KEY, flexiSectionBlockOptions.HeaderIconMarkup);
+            newHeadingBlock.SetData(HEADER_CLASS_NAME_FORMAT_KEY, flexiSectionBlockOptions.HeaderClassNameFormat);
 
             // Optionally, don't open a section block (typically useful for an outermost, level 1 heading that will reside in an existing SectioningContentElement)
-            if (sectionBlockOptions.WrapperElement.CompareTo(SectioningContentElement.None) <= 0)
+            if (flexiSectionBlockOptions.WrapperElement.CompareTo(SectioningContentElement.None) <= 0)
             {
                 // Close heading block
                 return BlockState.Break;
             }
 
-            var sectionBlock = new FlexiSectionBlock(this)
+            var flexiSectionBlock = new FlexiSectionBlock(this)
             {
                 Level = newHeadingBlock.Level,
-                SectionBlockOptions = sectionBlockOptions,
+                FlexiSectionBlockOptions = flexiSectionBlockOptions,
                 Column = newHeadingBlock.Column,
                 Span = newHeadingBlock.Span
             };
 
-            processor.NewBlocks.Push(sectionBlock);
+            processor.NewBlocks.Push(flexiSectionBlock);
 
-            // Keep section block open (note that this keeps the heading block open unecessarily, TryContinue remedies this, but should keep an eye out for a cleaner solution)
+            // Keep FlexiSectionBlock open (note that this keeps the heading block open unecessarily, TryContinue remedies this, but should look for a cleaner solution)
             return BlockState.Continue;
         }
 
@@ -109,28 +110,28 @@ namespace FlexiBlocks.FlexiSectionBlocks
             int initialColumn = processor.Column;
             BlockState headingBlockState = _headingBlockParser.TryOpen(processor);
 
-            // Current line is not a heading block
+            // Current line is not a HeadingBlock
             if (headingBlockState == BlockState.None)
             {
                 return BlockState.Continue;
             }
 
-            // Creating then removing a new HeadingBlock instance isn't efficient, should extract logic for determining if a line is a heading.
+            // TODO creating then removing a new HeadingBlock instance isn't efficient, should extract logic for determining if a line is a heading.
             var newHeadingBlock = (HeadingBlock)processor.NewBlocks.Pop();
 
             // Return to initial column so that TryOpen can open the HeadingBlock
             processor.GoToColumn(initialColumn);
 
-            var sectionBlock = block as FlexiSectionBlock;
+            var flexiSectionBlock = block as FlexiSectionBlock;
 
-            // New section is a sibling or uncle of sectionBlock
-            if (newHeadingBlock.Level <= sectionBlock.Level)
+            // New section is a sibling or an uncle of flexiSectionBlock
+            if (newHeadingBlock.Level <= flexiSectionBlock.Level)
             {
-                // Close current section block and all of its children, but don't discard line so that a new section block is opened
+                // Close flexiSectionBlock and all of its children, but don't discard line so that a new FlexiSectionBlock is opened
                 return BlockState.None;
             }
 
-            // Keep section block open
+            // New section is a child of flexiSectionBlock, keep flexiSectionBlock open
             return BlockState.Continue;
         }
 
@@ -139,47 +140,47 @@ namespace FlexiBlocks.FlexiSectionBlocks
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="blockLevel"></param>
-        internal virtual FlexiSectionBlockOptions CreateSectionOptions(BlockProcessor processor, int blockLevel)
+        internal virtual FlexiSectionBlockOptions CreateFlexiSectionBlockOptions(BlockProcessor processor, int blockLevel)
         {
-            FlexiSectionBlockOptions result = _sectionsExtensionOptions.DefaultSectionBlockOptions.Clone();
+            FlexiSectionBlockOptions result = _flexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.Clone();
 
             // Apply FlexiOptionsBlock options if they exist
             _flexiOptionsBlockService.TryPopulateOptions(processor, result, processor.LineIndex);
 
             if (result.WrapperElement == SectioningContentElement.Undefined)
             {
-                result.WrapperElement = blockLevel == 1 ? _sectionsExtensionOptions.Level1WrapperElement : _sectionsExtensionOptions.Level2PlusWrapperElement;
+                result.WrapperElement = blockLevel == 1 ? _flexiSectionBlocksExtensionOptions.Level1WrapperElement : _flexiSectionBlocksExtensionOptions.Level2PlusWrapperElement;
             }
 
             return result;
         }
 
         /// <summary>
-        /// Called when a section block is closed. Sets up callbacks that handle section IDs and auto links.
+        /// Called when a <see cref="FlexiSectionBlock"/> is closed. Sets up callbacks that handle identifier generation and auto linking.
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="block"></param>
         /// <exception cref="InvalidOperationException">Thrown if <paramref name="block"/> does not contain a <see cref="HeadingBlock"/>.</exception>
-        internal virtual void SectionBlockOnClosed(BlockProcessor processor, Block block)
+        internal virtual void FlexiSectionBlockOnClosed(BlockProcessor processor, Block block)
         {
-            var sectionBlock = (FlexiSectionBlock)block;
-            FlexiSectionBlockOptions sectionBlockOptions = sectionBlock.SectionBlockOptions;
+            var flexiSectionBlock = (FlexiSectionBlock)block;
+            FlexiSectionBlockOptions flexiSectionBlockOptions = flexiSectionBlock.FlexiSectionBlockOptions;
 
             // Setup identifier generation and auto links
-            if (sectionBlockOptions.GenerateIdentifier)
+            if (flexiSectionBlockOptions.GenerateIdentifier)
             {
-                var headingBlock = (HeadingBlock)sectionBlock.FirstOrDefault(child => child is HeadingBlock);
+                var headingBlock = (HeadingBlock)flexiSectionBlock.FirstOrDefault(child => child is HeadingBlock);
 
                 if (headingBlock == null)
                 {
-                    throw new InvalidOperationException("A section block must contain a heading block.");
+                    throw new InvalidOperationException("A FlexiSectionBlock must contain a heading block.");
                 }
 
                 _identifierService.SetupIdentifierGeneration(headingBlock);
 
-                if (sectionBlockOptions.AutoLinkable)
+                if (flexiSectionBlockOptions.AutoLinkable)
                 {
-                    _autoLinkService.SetupAutoLink(processor, sectionBlock, headingBlock);
+                    _autoLinkService.SetupAutoLink(processor, flexiSectionBlock, headingBlock);
                 }
             }
         }

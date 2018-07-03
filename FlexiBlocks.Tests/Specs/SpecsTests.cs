@@ -12958,7 +12958,7 @@ namespace FlexiBlocks.Tests.Specs
                 "{\n    \"flexisectionblocks\": {\n        \"level2PlusWrapperElement\": \"nav\"\n    }\n}");
         }
 
-        // The icon used for headers can be customized by setting `SectionExtensionOptions.DefaultSectionBlockOptions.HeaderIconMarkup`. For example:
+        // The icon used for headers can be customized by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.HeaderIconMarkup`. For example:
         [Fact]
         public void Flexisectionblocks_Spec8_flexisectionblocks_flexioptionsblocks()
         {
@@ -12968,7 +12968,7 @@ namespace FlexiBlocks.Tests.Specs
             // With extension options:
             //     {
             //         "flexisectionblocks": {
-            //             "defaultSectionBlockOptions": {
+            //             "defaultFlexiSectionBlockOptions": {
             //                 "headerIconMarkup": "<svg><use xlink:href=\"#custom-link-icon\"></use></svg>"
             //             }
             //         }
@@ -12985,10 +12985,10 @@ namespace FlexiBlocks.Tests.Specs
             SpecTestHelper.AssertCompliance("## foo", 
                 "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#custom-link-icon\"></use></svg>\n</header>\n</section>", 
                 "flexisectionblocks_flexioptionsblocks", 
-                "{\n    \"flexisectionblocks\": {\n        \"defaultSectionBlockOptions\": {\n            \"headerIconMarkup\": \"<svg><use xlink:href=\\\"#custom-link-icon\\\"></use></svg>\"\n        }\n    }\n}");
+                "{\n    \"flexisectionblocks\": {\n        \"defaultFlexiSectionBlockOptions\": {\n            \"headerIconMarkup\": \"<svg><use xlink:href=\\\"#custom-link-icon\\\"></use></svg>\"\n        }\n    }\n}");
         }
 
-        // The icon used for headers can be customized by setting `SectionExtensionOptions.DefaultSectionBlockOptions.HeaderIconMarkup`. For example:
+        // The icon used for headers can be customized by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.HeaderIconMarkup`. For example:
         [Fact]
         public void Flexisectionblocks_Spec8_all()
         {
@@ -12998,7 +12998,7 @@ namespace FlexiBlocks.Tests.Specs
             // With extension options:
             //     {
             //         "flexisectionblocks": {
-            //             "defaultSectionBlockOptions": {
+            //             "defaultFlexiSectionBlockOptions": {
             //                 "headerIconMarkup": "<svg><use xlink:href=\"#custom-link-icon\"></use></svg>"
             //             }
             //         }
@@ -13015,10 +13015,10 @@ namespace FlexiBlocks.Tests.Specs
             SpecTestHelper.AssertCompliance("## foo", 
                 "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#custom-link-icon\"></use></svg>\n</header>\n</section>", 
                 "all", 
-                "{\n    \"flexisectionblocks\": {\n        \"defaultSectionBlockOptions\": {\n            \"headerIconMarkup\": \"<svg><use xlink:href=\\\"#custom-link-icon\\\"></use></svg>\"\n        }\n    }\n}");
+                "{\n    \"flexisectionblocks\": {\n        \"defaultFlexiSectionBlockOptions\": {\n            \"headerIconMarkup\": \"<svg><use xlink:href=\\\"#custom-link-icon\\\"></use></svg>\"\n        }\n    }\n}");
         }
 
-        // The format string for header classes can be customized by setting `SectionExtensionOptions.DefaultSectionBlockOptions.HeaderClassNameFormat`. For example:
+        // The format string for header classes can be customized by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.HeaderClassNameFormat`. For example:
         [Fact]
         public void Flexisectionblocks_Spec9_flexisectionblocks_flexioptionsblocks()
         {
@@ -13028,7 +13028,7 @@ namespace FlexiBlocks.Tests.Specs
             // With extension options:
             //     {
             //         "flexisectionblocks": {
-            //             "defaultSectionBlockOptions": {
+            //             "defaultFlexiSectionBlockOptions": {
             //                 "headerClassNameFormat": "custom-{0}"
             //             }
             //         }
@@ -13045,10 +13045,10 @@ namespace FlexiBlocks.Tests.Specs
             SpecTestHelper.AssertCompliance("## foo", 
                 "<section id=\"foo\">\n<header class=\"custom-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
                 "flexisectionblocks_flexioptionsblocks", 
-                "{\n    \"flexisectionblocks\": {\n        \"defaultSectionBlockOptions\": {\n            \"headerClassNameFormat\": \"custom-{0}\"\n        }\n    }\n}");
+                "{\n    \"flexisectionblocks\": {\n        \"defaultFlexiSectionBlockOptions\": {\n            \"headerClassNameFormat\": \"custom-{0}\"\n        }\n    }\n}");
         }
 
-        // The format string for header classes can be customized by setting `SectionExtensionOptions.DefaultSectionBlockOptions.HeaderClassNameFormat`. For example:
+        // The format string for header classes can be customized by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.HeaderClassNameFormat`. For example:
         [Fact]
         public void Flexisectionblocks_Spec9_all()
         {
@@ -13058,7 +13058,7 @@ namespace FlexiBlocks.Tests.Specs
             // With extension options:
             //     {
             //         "flexisectionblocks": {
-            //             "defaultSectionBlockOptions": {
+            //             "defaultFlexiSectionBlockOptions": {
             //                 "headerClassNameFormat": "custom-{0}"
             //             }
             //         }
@@ -13075,7 +13075,7 @@ namespace FlexiBlocks.Tests.Specs
             SpecTestHelper.AssertCompliance("## foo", 
                 "<section id=\"foo\">\n<header class=\"custom-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
                 "all", 
-                "{\n    \"flexisectionblocks\": {\n        \"defaultSectionBlockOptions\": {\n            \"headerClassNameFormat\": \"custom-{0}\"\n        }\n    }\n}");
+                "{\n    \"flexisectionblocks\": {\n        \"defaultFlexiSectionBlockOptions\": {\n            \"headerClassNameFormat\": \"custom-{0}\"\n        }\n    }\n}");
         }
 
         // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
@@ -13118,7 +13118,7 @@ namespace FlexiBlocks.Tests.Specs
                 "all");
         }
 
-        // Auto generation of IDs can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
+        // Auto generation of IDs can be disabled by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.GenerateIdentifier` to `false`:
         [Fact]
         public void Flexisectionblocks_Spec11_flexisectionblocks_flexioptionsblocks()
         {
@@ -13128,7 +13128,7 @@ namespace FlexiBlocks.Tests.Specs
             // With extension options:
             //     {
             //         "flexisectionblocks": {
-            //             "defaultSectionBlockOptions": {
+            //             "defaultFlexiSectionBlockOptions": {
             //                 "generateIdentifier": false
             //             }
             //         }
@@ -13145,10 +13145,10 @@ namespace FlexiBlocks.Tests.Specs
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
                 "<section>\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
                 "flexisectionblocks_flexioptionsblocks", 
-                "{\n    \"flexisectionblocks\": {\n        \"defaultSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
+                "{\n    \"flexisectionblocks\": {\n        \"defaultFlexiSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
         }
 
-        // Auto generation of IDs can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
+        // Auto generation of IDs can be disabled by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.GenerateIdentifier` to `false`:
         [Fact]
         public void Flexisectionblocks_Spec11_all()
         {
@@ -13158,7 +13158,7 @@ namespace FlexiBlocks.Tests.Specs
             // With extension options:
             //     {
             //         "flexisectionblocks": {
-            //             "defaultSectionBlockOptions": {
+            //             "defaultFlexiSectionBlockOptions": {
             //                 "generateIdentifier": false
             //             }
             //         }
@@ -13175,7 +13175,7 @@ namespace FlexiBlocks.Tests.Specs
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
                 "<section>\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
                 "all", 
-                "{\n    \"flexisectionblocks\": {\n        \"defaultSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
+                "{\n    \"flexisectionblocks\": {\n        \"defaultFlexiSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
         }
 
         // Sections can be linked to by the text content of their headings:
@@ -13262,8 +13262,8 @@ namespace FlexiBlocks.Tests.Specs
                 "all");
         }
 
-        // Linking to sections by the text content of their headings can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
-        // that linking to sections is also disabled if `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
+        // Linking to sections by the text content of their headings can be disabled by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.AutoLinkable` to `false` (note 
+        // that linking to sections is also disabled if `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.GenerateIdentifier` is set to `false`):
         [Fact]
         public void Flexisectionblocks_Spec13_flexisectionblocks_flexioptionsblocks()
         {
@@ -13280,7 +13280,7 @@ namespace FlexiBlocks.Tests.Specs
             // With extension options:
             //     {
             //         "flexisectionblocks": {
-            //             "defaultSectionBlockOptions": {
+            //             "defaultFlexiSectionBlockOptions": {
             //                 "autoLinkable": false
             //             }
             //         }
@@ -13312,11 +13312,11 @@ namespace FlexiBlocks.Tests.Specs
             SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
                 "<p>[foo]</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
                 "flexisectionblocks_flexioptionsblocks", 
-                "{\n    \"flexisectionblocks\": {\n        \"defaultSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
+                "{\n    \"flexisectionblocks\": {\n        \"defaultFlexiSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
         }
 
-        // Linking to sections by the text content of their headings can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
-        // that linking to sections is also disabled if `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
+        // Linking to sections by the text content of their headings can be disabled by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.AutoLinkable` to `false` (note 
+        // that linking to sections is also disabled if `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.GenerateIdentifier` is set to `false`):
         [Fact]
         public void Flexisectionblocks_Spec13_all()
         {
@@ -13333,7 +13333,7 @@ namespace FlexiBlocks.Tests.Specs
             // With extension options:
             //     {
             //         "flexisectionblocks": {
-            //             "defaultSectionBlockOptions": {
+            //             "defaultFlexiSectionBlockOptions": {
             //                 "autoLinkable": false
             //             }
             //         }
@@ -13365,10 +13365,10 @@ namespace FlexiBlocks.Tests.Specs
             SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
                 "<p>[foo]</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
                 "all", 
-                "{\n    \"flexisectionblocks\": {\n        \"defaultSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
+                "{\n    \"flexisectionblocks\": {\n        \"defaultFlexiSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
         }
 
-        // Per-section-block options can be overriden if the JSON options extension is enabled:
+        // Per-FlexiSectionBlock options can be specified if the FlexiOptionsBlocks extension is enabled:
         [Fact]
         public void Flexisectionblocks_Spec14_flexisectionblocks_flexioptionsblocks()
         {
@@ -13411,7 +13411,7 @@ namespace FlexiBlocks.Tests.Specs
                 "flexisectionblocks_flexioptionsblocks");
         }
 
-        // Per-section-block options can be overriden if the JSON options extension is enabled:
+        // Per-FlexiSectionBlock options can be specified if the FlexiOptionsBlocks extension is enabled:
         [Fact]
         public void Flexisectionblocks_Spec14_all()
         {

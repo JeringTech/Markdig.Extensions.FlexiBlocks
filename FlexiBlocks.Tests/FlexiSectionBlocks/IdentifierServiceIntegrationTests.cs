@@ -2,8 +2,6 @@
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
-using Markdig.Syntax.Inlines;
-using Moq;
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -13,7 +11,7 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
     public class IdentifierServiceIntegrationTests
     {
         [Fact]
-        public void HeadingBlockOnProcessInlinesEnd_ThrowsExceptionIfHeadingBlocksParentIsNotASectionBlock()
+        public void HeadingBlockOnProcessInlinesEnd_ThrowsExceptionIfHeadingBlocksParentIsNotAFlexiSectionBlock()
         {
             // Arrange
             var dummyHeadingBlock = new HeadingBlock(null);
@@ -26,15 +24,15 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
         }
 
         [Fact]
-        public void HeadingBlockOnProcessInlinesEnd_DoesNothingIfSectionBlockAlreadyHasAnID()
+        public void HeadingBlockOnProcessInlinesEnd_DoesNothingIfFlexiSectionBlockAlreadyHasAnID()
         {
             // Arrange
             const string dummyID = "dummyID";
-            var dummySectionBlockOptions = new FlexiSectionBlockOptions();
-            dummySectionBlockOptions.Attributes.Add("id", dummyID);
+            var dummyFlexiSectionBlockOptions = new FlexiSectionBlockOptions();
+            dummyFlexiSectionBlockOptions.Attributes.Add("id", dummyID);
             var dummyHeadingBlock = new HeadingBlock(null);
-            var dummySectionBlock = new FlexiSectionBlock(null) { SectionBlockOptions = dummySectionBlockOptions };
-            dummySectionBlock.Add(dummyHeadingBlock); // Sets dummyHeadingBlock.Parent to dummySectionBlock
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null) { FlexiSectionBlockOptions = dummyFlexiSectionBlockOptions };
+            dummyFlexiSectionBlock.Add(dummyHeadingBlock); // Sets dummyHeadingBlock.Parent to dummyFlexiSectionBlock
             InlineProcessor dummyInlineProcessor = MarkdigTypesFactory.CreateInlineProcessor();
             dummyInlineProcessor.ProcessInlineLeaf(dummyHeadingBlock); // Sets dummyInlineProcessor.Block
             var identifierService = new IdentifierService();
@@ -43,11 +41,11 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             identifierService.HeadingBlockOnProcessInlinesEnd(dummyInlineProcessor, null);
 
             // Assert
-            Assert.Equal(dummyID, dummySectionBlockOptions.Attributes["id"]); // id unchanged
+            Assert.Equal(dummyID, dummyFlexiSectionBlockOptions.Attributes["id"]); // id unchanged
         }
 
         [Fact]
-        public void HeadingBlockOnProcessInlinesEnd_IfSuccessfulAddsIDToDuplicateCheckingMapAndToSectionBlocksAttributes()
+        public void HeadingBlockOnProcessInlinesEnd_IfSuccessfulAddsIDToDuplicateCheckingMapAndToFlexiSectionBlocksAttributes()
         {
             // Arrange
             const string dummyID = "dummyID";
@@ -55,9 +53,9 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             {
                 Lines = new StringLineGroup(dummyID)
             };
-            var dummySectionBlockOptions = new FlexiSectionBlockOptions();
-            var dummySectionBlock = new FlexiSectionBlock(null) { SectionBlockOptions = dummySectionBlockOptions };
-            dummySectionBlock.Add(dummyHeadingBlock); // Sets dummyHeadingBlock.Parent to dummySectionBlock
+            var dummyFlexiSectionBlockOptions = new FlexiSectionBlockOptions();
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null) { FlexiSectionBlockOptions = dummyFlexiSectionBlockOptions };
+            dummyFlexiSectionBlock.Add(dummyHeadingBlock); // Sets dummyHeadingBlock.Parent to dummyFlexiSectionBlock
             InlineProcessor dummyInlineProcessor = MarkdigTypesFactory.CreateInlineProcessor();
             dummyInlineProcessor.ProcessInlineLeaf(dummyHeadingBlock); // Set dummyInlineProcessor.Block and creates InlineBlocks
             var identifierService = new IdentifierService();
@@ -70,7 +68,7 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             Assert.NotNull(resultIdentifiers);
             Assert.True(resultIdentifiers.TryGetValue(dummyID.ToLower(), out int numDuplicates)); // IDs are converted to kebab case (all lowercase, words seperated by dashes)
             Assert.Equal(0, numDuplicates);
-            dummySectionBlockOptions.Attributes.TryGetValue("id", out string resultID);
+            dummyFlexiSectionBlockOptions.Attributes.TryGetValue("id", out string resultID);
             Assert.Equal(dummyID.ToLower(), resultID);
         }
 
@@ -83,9 +81,9 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             {
                 Lines = new StringLineGroup(dummyID)
             };
-            var dummySectionBlockOptions = new FlexiSectionBlockOptions();
-            var dummySectionBlock = new FlexiSectionBlock(null) { SectionBlockOptions = dummySectionBlockOptions };
-            dummySectionBlock.Add(dummyHeadingBlock); // Sets dummyHeadingBlock.Parent to dummySectionBlock
+            var dummyFlexiSectionBlockOptions = new FlexiSectionBlockOptions();
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null) { FlexiSectionBlockOptions = dummyFlexiSectionBlockOptions };
+            dummyFlexiSectionBlock.Add(dummyHeadingBlock); // Sets dummyHeadingBlock.Parent to dummyFlexiSectionBlock
             InlineProcessor dummyInlineProcessor = MarkdigTypesFactory.CreateInlineProcessor();
             dummyInlineProcessor.ProcessInlineLeaf(dummyHeadingBlock); // Set dummyInlineProcessor.Block and creates InlineBlocks
             var identifierService = new IdentifierService();
@@ -94,7 +92,7 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             identifierService.HeadingBlockOnProcessInlinesEnd(dummyInlineProcessor, null);
 
             // Assert
-            dummySectionBlockOptions.Attributes.TryGetValue("id", out string resultID);
+            dummyFlexiSectionBlockOptions.Attributes.TryGetValue("id", out string resultID);
             Assert.Equal("section", resultID);
         }
 
@@ -107,21 +105,21 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             {
                 Lines = new StringLineGroup(dummyID)
             };
-            var dummySectionBlockOptions = new FlexiSectionBlockOptions();
-            var dummySectionBlock = new FlexiSectionBlock(null) { SectionBlockOptions = dummySectionBlockOptions };
-            dummySectionBlock.Add(dummyHeadingBlock); // Sets dummyHeadingBlock.Parent to dummySectionBlock
+            var dummyFlexiSectionBlockOptions = new FlexiSectionBlockOptions();
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null) { FlexiSectionBlockOptions = dummyFlexiSectionBlockOptions };
+            dummyFlexiSectionBlock.Add(dummyHeadingBlock); // Sets dummyHeadingBlock.Parent to dummyFlexiSectionBlock
             InlineProcessor dummyInlineProcessor = MarkdigTypesFactory.CreateInlineProcessor();
             dummyInlineProcessor.ProcessInlineLeaf(dummyHeadingBlock); // Set dummyInlineProcessor.Block and creates InlineBlocks
             var identifierService = new IdentifierService();
 
             // Act
             identifierService.HeadingBlockOnProcessInlinesEnd(dummyInlineProcessor, null);
-            dummySectionBlockOptions.Attributes.Clear(); // HeadingBlockOnProcessInlinesEnd does nothing if block already has an id attribute
+            dummyFlexiSectionBlockOptions.Attributes.Clear(); // HeadingBlockOnProcessInlinesEnd does nothing if block already has an id attribute
             identifierService.HeadingBlockOnProcessInlinesEnd(dummyInlineProcessor, null);
-            string resultSecondID = dummySectionBlockOptions.Attributes["id"];
-            dummySectionBlockOptions.Attributes.Clear();
+            string resultSecondID = dummyFlexiSectionBlockOptions.Attributes["id"];
+            dummyFlexiSectionBlockOptions.Attributes.Clear();
             identifierService.HeadingBlockOnProcessInlinesEnd(dummyInlineProcessor, null);
-            string resultThirdID = dummySectionBlockOptions.Attributes["id"];
+            string resultThirdID = dummyFlexiSectionBlockOptions.Attributes["id"];
 
             // Assert
             var resultIdentifiers = dummyInlineProcessor.Document.GetData(IdentifierService.SECTION_IDS_KEY) as Dictionary<string, int>;

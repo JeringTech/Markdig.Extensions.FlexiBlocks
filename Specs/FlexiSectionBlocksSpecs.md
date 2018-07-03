@@ -194,12 +194,12 @@ To change the element used to wrap level 2+ headers, set `SectionsExtensionOptio
 </nav>
 ````````````````````````````````
 
-The icon used for headers can be customized by setting `SectionExtensionOptions.DefaultSectionBlockOptions.HeaderIconMarkup`. For example:
+The icon used for headers can be customized by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.HeaderIconMarkup`. For example:
 
 ```````````````````````````````` options
 {
     "flexisectionblocks": {
-        "defaultSectionBlockOptions": {
+        "defaultFlexiSectionBlockOptions": {
             "headerIconMarkup": "<svg><use xlink:href=\"#custom-link-icon\"></use></svg>"
         }
     }
@@ -215,12 +215,12 @@ The icon used for headers can be customized by setting `SectionExtensionOptions.
 </section>
 ````````````````````````````````
 
-The format string for header classes can be customized by setting `SectionExtensionOptions.DefaultSectionBlockOptions.HeaderClassNameFormat`. For example:
+The format string for header classes can be customized by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.HeaderClassNameFormat`. For example:
 
 ```````````````````````````````` options
 {
     "flexisectionblocks": {
-        "defaultSectionBlockOptions": {
+        "defaultFlexiSectionBlockOptions": {
             "headerClassNameFormat": "custom-{0}"
         }
     }
@@ -249,12 +249,12 @@ Kebab-case (lowercase words joined by dashes) IDs are generated for each section
 </section>
 ````````````````````````````````
 
-Auto generation of IDs can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
+Auto generation of IDs can be disabled by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.GenerateIdentifier` to `false`:
 
 ```````````````````````````````` options
 {
     "flexisectionblocks": {
-        "defaultSectionBlockOptions": {
+        "defaultFlexiSectionBlockOptions": {
             "generateIdentifier": false
         }
     }
@@ -305,13 +305,13 @@ Sections can be linked to by the text content of their headings:
 </section>
 ````````````````````````````````
 
-Linking to sections by the text content of their headings can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
-that linking to sections is also disabled if `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
+Linking to sections by the text content of their headings can be disabled by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.AutoLinkable` to `false` (note 
+that linking to sections is also disabled if `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.GenerateIdentifier` is set to `false`):
 
 ```````````````````````````````` options
 {
     "flexisectionblocks": {
-        "defaultSectionBlockOptions": {
+        "defaultFlexiSectionBlockOptions": {
             "autoLinkable": false
         }
     }
@@ -349,7 +349,7 @@ that linking to sections is also disabled if `SectionsExtensionOptions.DefaultSe
 </section>
 ````````````````````````````````
 
-Per-section-block options can be overriden if the JSON options extension is enabled:
+Per-FlexiSectionBlock options can be specified if the FlexiOptionsBlocks extension is enabled:
 
 ```````````````````````````````` example
 @{

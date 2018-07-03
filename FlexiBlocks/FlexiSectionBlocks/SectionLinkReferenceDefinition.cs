@@ -4,6 +4,6 @@ namespace FlexiBlocks.FlexiSectionBlocks
 {
     public class SectionLinkReferenceDefinition : LinkReferenceDefinition
     {
-        public FlexiSectionBlock SectionBlock { get; set; }
+        public FlexiSectionBlock FlexiSectionBlock { get; set; }
     }
 }

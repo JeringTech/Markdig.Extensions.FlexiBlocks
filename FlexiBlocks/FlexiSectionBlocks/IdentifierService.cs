@@ -52,13 +52,13 @@ namespace FlexiBlocks.FlexiSectionBlocks
 
             var headingBlock = (HeadingBlock)processor.Block;
 
-            if (!(headingBlock.Parent is FlexiSectionBlock sectionBlock))
+            if (!(headingBlock.Parent is FlexiSectionBlock flexiSectionBlock))
             {
-                throw new InvalidOperationException("HeadingBlock's parent must be a SectionBlock.");
+                throw new InvalidOperationException("HeadingBlock's parent must be a FlexiSectionBlock.");
             }
 
-            // If section block already has an id, return
-            HtmlAttributeDictionary attributes = sectionBlock.SectionBlockOptions.Attributes;
+            // If FlexiSectionBlock already has an id, return
+            HtmlAttributeDictionary attributes = flexiSectionBlock.FlexiSectionBlockOptions.Attributes;
             if (attributes.ContainsKey("id"))
             {
                 return;
