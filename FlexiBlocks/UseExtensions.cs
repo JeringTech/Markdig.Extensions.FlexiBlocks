@@ -1,6 +1,6 @@
 ﻿using FlexiBlocks.FlexiAlertBlocks;
 using FlexiBlocks.FlexiCodeBlocks;
-using FlexiBlocks.FlexiOptionBlocks;
+using FlexiBlocks.FlexiOptionsBlocks;
 using FlexiBlocks.FlexiTableBlocks;
 using FlexiBlocks.FlexiSectionBlocks;
 using JeremyTCD.WebUtils.SyntaxHighlighters.HighlightJS;
@@ -47,11 +47,11 @@ namespace FlexiBlocks
             return pipelineBuilder;
         }
 
-        public static MarkdownPipelineBuilder UseFlexiOptionBlocks(this MarkdownPipelineBuilder pipelineBuilder)
+        public static MarkdownPipelineBuilder UseFlexiOptionsBlocks(this MarkdownPipelineBuilder pipelineBuilder)
         {
-            if (!pipelineBuilder.Extensions.Contains<FlexiOptionBlocksExtension>())
+            if (!pipelineBuilder.Extensions.Contains<FlexiOptionsBlocksExtension>())
             {
-                pipelineBuilder.Extensions.Add(new FlexiOptionBlocksExtension());
+                pipelineBuilder.Extensions.Add(new FlexiOptionsBlocksExtension());
             }
 
             return pipelineBuilder;

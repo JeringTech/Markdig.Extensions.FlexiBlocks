@@ -1,9 +1,9 @@
 ﻿using Markdig;
 using Markdig.Renderers;
 
-namespace FlexiBlocks.FlexiOptionBlocks
+namespace FlexiBlocks.FlexiOptionsBlocks
 {
-    public class FlexiOptionBlocksExtension : IMarkdownExtension
+    public class FlexiOptionsBlocksExtension : IMarkdownExtension
     {
         public void Setup(MarkdownPipelineBuilder pipeline)
         {
@@ -15,7 +15,7 @@ namespace FlexiBlocks.FlexiOptionBlocks
 
         public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
-            // JsonOptions are never rendered
+            // FlexiOptionsBlocks are never rendered
         }
     }
 }

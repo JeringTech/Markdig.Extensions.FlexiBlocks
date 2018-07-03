@@ -1,4 +1,4 @@
-﻿## FlexiOptionBlocks
+﻿## FlexiOptionsBlocks
 Per-block options are useful for many extensions. For example, per-block options would allow a code extension to add line-numbers to select code blocks. 
 Json options facilitates per-block options, using a simple and consistent syntax.
 

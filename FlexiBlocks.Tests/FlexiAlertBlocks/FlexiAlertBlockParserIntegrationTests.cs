@@ -1,5 +1,5 @@
 ﻿using FlexiBlocks.FlexiAlertBlocks;
-using FlexiBlocks.FlexiOptionBlocks;
+using FlexiBlocks.FlexiOptionsBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Moq;
@@ -160,8 +160,8 @@ namespace FlexiBlocks.Tests.FlexiAlertBlocks
             const int dummyLineIndex = 1;
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.LineIndex = dummyLineIndex;
-            Mock<FlexiOptionBlocksService> mockFlexiOptionsService = _mockRepository.Create<FlexiOptionBlocksService>();
-            mockFlexiOptionsService.
+            Mock<FlexiOptionsBlockService> mockFlexiOptionsBlockService = _mockRepository.Create<FlexiOptionsBlockService>();
+            mockFlexiOptionsBlockService.
                 Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<FlexiAlertBlockOptions>(), dummyLineIndex)).
                 Callback<BlockProcessor, FlexiAlertBlockOptions, int>((_, a, __) =>
                 {
@@ -169,7 +169,7 @@ namespace FlexiBlocks.Tests.FlexiAlertBlocks
                     a.IconMarkup = dummyFlexiOptionsWrapper.Value.IconMarkup;
                     dummyFlexiOptionsWrapper.Value.Attributes.ToList().ForEach(x => a.Attributes[x.Key] = x.Value); // Overwrite default FlexiAlertBlockOptions with FlexiOptions
                 });
-            FlexiAlertBlockParser flexiAlertBlockParser = CreateFlexiAlertBlockParser(dummyFlexiAlertBlocksExtensionOptionsWrapper.Value, mockFlexiOptionsService.Object);
+            FlexiAlertBlockParser flexiAlertBlockParser = CreateFlexiAlertBlockParser(dummyFlexiAlertBlocksExtensionOptionsWrapper.Value, mockFlexiOptionsBlockService.Object);
 
             // Act
             FlexiAlertBlockOptions result = flexiAlertBlockParser.CreateFlexiAlertBlockOptions(dummyBlockProcessor, dummyFlexiAlertType);
@@ -263,13 +263,13 @@ namespace FlexiBlocks.Tests.FlexiAlertBlocks
             const int dummyLineIndex = 1;
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.LineIndex = dummyLineIndex;
-            Mock<FlexiOptionBlocksService> mockFlexiOptionsService = _mockRepository.Create<FlexiOptionBlocksService>();
-            mockFlexiOptionsService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<FlexiAlertBlockOptions>(), dummyLineIndex));
+            Mock<FlexiOptionsBlockService> mockFlexiOptionsBlockService = _mockRepository.Create<FlexiOptionsBlockService>();
+            mockFlexiOptionsBlockService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<FlexiAlertBlockOptions>(), dummyLineIndex));
             var dummyFlexiAlertBlocksExtensionOptions = new FlexiAlertBlocksExtensionOptions()
             {
                 DefaultFlexiAlertBlockOptions = new FlexiAlertBlockOptions() { ClassNameFormat = dummyClassNameFormat }
             };
-            FlexiAlertBlockParser flexiAlertBlockParser = CreateFlexiAlertBlockParser(dummyFlexiAlertBlocksExtensionOptions, mockFlexiOptionsService.Object);
+            FlexiAlertBlockParser flexiAlertBlockParser = CreateFlexiAlertBlockParser(dummyFlexiAlertBlocksExtensionOptions, mockFlexiOptionsBlockService.Object);
 
             // Act
             FlexiAlertBlockOptions result = flexiAlertBlockParser.CreateFlexiAlertBlockOptions(dummyBlockProcessor, dummyFlexiAlertType);
@@ -343,19 +343,19 @@ namespace FlexiBlocks.Tests.FlexiAlertBlocks
         }
 
         private FlexiAlertBlockParser CreateFlexiAlertBlockParser(FlexiAlertBlocksExtensionOptions flexiAlertBlocksExtensionOptions = null,
-            FlexiOptionBlocksService flexiOptionsService = null)
+            FlexiOptionsBlockService flexiOptionsBlockService = null)
         {
             return new FlexiAlertBlockParser(
                 flexiAlertBlocksExtensionOptions ?? new FlexiAlertBlocksExtensionOptions(),
-                flexiOptionsService ?? new FlexiOptionBlocksService());
+                flexiOptionsBlockService ?? new FlexiOptionsBlockService());
         }
 
         private Mock<FlexiAlertBlockParser> CreateMockFlexiAlertBlockParser(FlexiAlertBlocksExtensionOptions flexiAlertBlocksExtensionOptions = null,
-            FlexiOptionBlocksService flexiOptionsService = null)
+            FlexiOptionsBlockService flexiOptionsBlockService = null)
         {
             return _mockRepository.Create<FlexiAlertBlockParser>(
                 flexiAlertBlocksExtensionOptions ?? new FlexiAlertBlocksExtensionOptions(),
-                flexiOptionsService ?? new FlexiOptionBlocksService());
+                flexiOptionsBlockService ?? new FlexiOptionsBlockService());
         }
     }
 }

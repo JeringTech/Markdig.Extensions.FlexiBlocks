@@ -1,4 +1,4 @@
-﻿using FlexiBlocks.FlexiOptionBlocks;
+﻿using FlexiBlocks.FlexiOptionsBlocks;
 using JeremyTCD.WebUtils.SyntaxHighlighters.HighlightJS;
 using JeremyTCD.WebUtils.SyntaxHighlighters.Prism;
 using Markdig;
@@ -12,7 +12,7 @@ namespace FlexiBlocks.FlexiCodeBlocks
     public class FlexiCodeBlocksExtension : IMarkdownExtension
     {
         private readonly FlexiCodeBlocksExtensionOptions _options;
-        private readonly FlexiOptionBlocksService _flexiOptionBlocksService;
+        private readonly FlexiOptionsBlockService _flexiOptionsBlockService;
         public const string FLEXI_CODE_BLOCK_OPTIONS_KEY = "flexiCodeBlockOptions";
         private readonly IPrismService _prismService;
         private readonly IHighlightJSService _highlightJSService;
@@ -22,7 +22,7 @@ namespace FlexiBlocks.FlexiCodeBlocks
             IHighlightJSService highlightJSService)
         {
             _options = options ?? new FlexiCodeBlocksExtensionOptions();
-            _flexiOptionBlocksService = new FlexiOptionBlocksService();
+            _flexiOptionsBlockService = new FlexiOptionsBlockService();
             _prismService = prismService;
             _highlightJSService = highlightJSService;
         }
@@ -69,8 +69,8 @@ namespace FlexiBlocks.FlexiCodeBlocks
         {
             FlexiCodeBlockOptions flexiCodeBlockOptions = _options.DefaultFlexiCodeBlockOptions.Clone();
 
-            // Apply FlexiOptionBlocks options if they exist
-            _flexiOptionBlocksService.TryPopulateOptions(processor, flexiCodeBlockOptions, block.Line);
+            // Apply FlexiOptionsBlock options if they exist
+            _flexiOptionsBlockService.TryPopulateOptions(processor, flexiCodeBlockOptions, block.Line);
 
             block.SetData(FLEXI_CODE_BLOCK_OPTIONS_KEY, flexiCodeBlockOptions);
         }

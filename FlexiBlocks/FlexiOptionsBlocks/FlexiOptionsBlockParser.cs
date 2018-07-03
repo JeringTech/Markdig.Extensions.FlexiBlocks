@@ -3,11 +3,11 @@ using Markdig.Parsers;
 using Markdig.Syntax;
 using System;
 
-namespace FlexiBlocks.FlexiOptionBlocks
+namespace FlexiBlocks.FlexiOptionsBlocks
 {
     public class FlexiOptionsBlockParser : BlockParser
     {
-        public const string FLEXI_OPTIONS = "flexiOptions";
+        public const string FLEXI_OPTIONS_BLOCK = "flexiOptionsBlock";
 
         public FlexiOptionsBlockParser()
         {
@@ -16,7 +16,7 @@ namespace FlexiBlocks.FlexiOptionBlocks
         }
 
         /// <summary>
-        /// Opens a JsonOptionsBlock if a line begins with @{
+        /// Opens a FlexiOptionsBlock if a line begins with "@{".
         /// </summary>
         /// <param name="processor"></param>
         /// <returns>
@@ -31,30 +31,30 @@ namespace FlexiBlocks.FlexiOptionBlocks
                 return BlockState.None;
             }
 
-            // First line of JSON options must begin with @{
+            // First line of a FlexiOptionsBlock must begin with @{
             if (processor.Line.PeekChar() != '{')
             {
                 return BlockState.None;
             }
 
-            // Dispose of @ (BlockProcessor appends processor.Line to the new JsonOptionsBlock, so it must start at the curly bracket)
+            // Dispose of @ (BlockProcessor appends processor.Line to the new FlexiOptionsBlock, so it must start at the curly bracket)
             processor.Line.Start++;
 
-            var jsonOptionsblock = new FlexiOptionsBlock(this)
+            var flexiOptionsBlock = new FlexiOptionsBlock(this)
             {
                 Column = processor.Column,
                 Span = { Start = processor.Line.Start }
             };
-            processor.NewBlocks.Push(jsonOptionsblock);
+            processor.NewBlocks.Push(flexiOptionsBlock);
 
-            return TryContinue(processor, jsonOptionsblock);
+            return TryContinue(processor, flexiOptionsBlock);
         }
 
         /// <summary>
         /// Determines whether or not the <see cref="FlexiOptionsBlock"/> is complete by checking whether all opening curly brackets have been closed. 
         /// The JSON spec allows for unescaped curly brackets within strings - https://www.json.org/, so this method ignores everything between unescaped quotes.
         /// 
-        /// This function can be improved on - it does not verify that the line is valid JSON.
+        /// TODO This function can be improved - it does not verify that what has been read is valid JSON. Use JsonTextReader?.
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="block"></param>
@@ -64,50 +64,50 @@ namespace FlexiBlocks.FlexiOptionBlocks
         /// </returns>
         public override BlockState TryContinue(BlockProcessor processor, Block block)
         {
-            var jsonOptionsBlock = (FlexiOptionsBlock)block;
+            var flexiOptionsBlock = (FlexiOptionsBlock)block;
             StringSlice line = processor.Line;
             char pc = line.PeekCharExtra(-1);
             char c = line.CurrentChar;
 
             while (c != '\0')
             {
-                if (!jsonOptionsBlock.EndsInString)
+                if (!flexiOptionsBlock.EndsInString)
                 {
                     if (c == '{')
                     {
-                        jsonOptionsBlock.NumOpenBrackets++;
+                        flexiOptionsBlock.NumOpenBrackets++;
                     }
                     else if (c == '}')
                     {
-                        if (--jsonOptionsBlock.NumOpenBrackets == 0)
+                        if (--flexiOptionsBlock.NumOpenBrackets == 0)
                         {
-                            jsonOptionsBlock.UpdateSpanEnd(line.End);
-                            jsonOptionsBlock.EndLine = processor.LineIndex;
+                            flexiOptionsBlock.UpdateSpanEnd(line.End);
+                            flexiOptionsBlock.EndLine = processor.LineIndex;
 
-                            // Unused JsonOptionsBlock
-                            if (processor.Document.GetData(FLEXI_OPTIONS) is FlexiOptionsBlock pendingJsonOptions)
+                            // Unused FlexiOptionsBlock
+                            if (processor.Document.GetData(FLEXI_OPTIONS_BLOCK) is FlexiOptionsBlock pendingFlexiOptionsBlock)
                             {
                                 throw new InvalidOperationException(string.Format(
-                                    Strings.InvalidOperationException_UnusedJsonOptions,
-                                    pendingJsonOptions.Lines.ToString(),
-                                    pendingJsonOptions.Line,
-                                    pendingJsonOptions.Column));
+                                    Strings.InvalidOperationException_UnusedFlexiOptionsBlock,
+                                    pendingFlexiOptionsBlock.Lines.ToString(),
+                                    pendingFlexiOptionsBlock.Line,
+                                    pendingFlexiOptionsBlock.Column));
                             }
 
                             // Save block to data, leave block in ast so that line gets assigned to block
-                            processor.Document.SetData(FLEXI_OPTIONS, jsonOptionsBlock);
+                            processor.Document.SetData(FLEXI_OPTIONS_BLOCK, flexiOptionsBlock);
 
                             return BlockState.Break;
                         }
                     }
                     else if (pc != '\\' && c == '"')
                     {
-                        jsonOptionsBlock.EndsInString = true;
+                        flexiOptionsBlock.EndsInString = true;
                     }
                 }
                 else if (pc != '\\' && c == '"')
                 {
-                    jsonOptionsBlock.EndsInString = false;
+                    flexiOptionsBlock.EndsInString = false;
                 }
 
                 pc = c;

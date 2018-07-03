@@ -1,4 +1,4 @@
-﻿using FlexiBlocks.FlexiOptionBlocks;
+﻿using FlexiBlocks.FlexiOptionsBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
@@ -8,20 +8,20 @@ namespace FlexiBlocks.FlexiAlertBlocks
     public class FlexiAlertBlockParser : BlockParser
     {
         private readonly FlexiAlertBlocksExtensionOptions _flexiAlertBlocksExtensionOptions;
-        private readonly FlexiOptionBlocksService _flexiOptionBlocksService;
+        private readonly FlexiOptionsBlockService _flexiOptionsBlockService;
 
         /// <summary>
         /// Initializes an instance of type <see cref="FlexiAlertBlockParser"/>.
         /// </summary>
         /// <param name="flexiAlertBlocksExtensionOptions"></param>
-        /// <param name="flexiOptionBlocksService"></param>
+        /// <param name="flexiOptionsBlockService"></param>
         public FlexiAlertBlockParser(FlexiAlertBlocksExtensionOptions flexiAlertBlocksExtensionOptions,
-            FlexiOptionBlocksService flexiOptionBlocksService)
+            FlexiOptionsBlockService flexiOptionsBlockService)
         {
             OpeningCharacters = new[] { '!' };
 
             _flexiAlertBlocksExtensionOptions = flexiAlertBlocksExtensionOptions;
-            _flexiOptionBlocksService = flexiOptionBlocksService;
+            _flexiOptionsBlockService = flexiOptionsBlockService;
         }
 
         /// <summary>
@@ -112,9 +112,9 @@ namespace FlexiBlocks.FlexiAlertBlocks
         {
             FlexiAlertBlockOptions result = _flexiAlertBlocksExtensionOptions.DefaultFlexiAlertBlockOptions.Clone();
 
-            _flexiOptionBlocksService.TryPopulateOptions(processor, result, processor.LineIndex);
+            _flexiOptionsBlockService.TryPopulateOptions(processor, result, processor.LineIndex);
 
-            // Set icon markup (precedence - FlexiOptionBlock > default FlexiAlertBlockOptions > FlexiAlertBlocksExtensionOptions.IconMarkups)
+            // Set icon markup (precedence - FlexiOptionsBlock > default FlexiAlertBlockOptions > FlexiAlertBlocksExtensionOptions.IconMarkups)
             if (result.IconMarkup == null && _flexiAlertBlocksExtensionOptions.IconMarkups.TryGetValue(alertType, out string iconMarkup))
             {
                 result.IconMarkup = iconMarkup;

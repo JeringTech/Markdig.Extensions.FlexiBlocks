@@ -17,7 +17,7 @@ namespace FlexiBlocks.Tests
         private static readonly Dictionary<string, Action<MarkdownPipelineBuilder, JObject>> _extensionAdders =
             new Dictionary<string, Action<MarkdownPipelineBuilder, JObject>>
             {
-                { "flexioptionblocks", (MarkdownPipelineBuilder builder, JObject _) => builder.UseFlexiOptionBlocks() },
+                { "flexioptionsblocks", (MarkdownPipelineBuilder builder, JObject _) => builder.UseFlexiOptionsBlocks() },
                 { "flexicodeblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiCodeBlocks(options?["flexicodeblocks"]?.ToObject<FlexiCodeBlocksExtensionOptions>()) },
                 { "flexisectionblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiSectionBlocks(options?["flexisectionblocks"]?.ToObject<FlexiSectionBlocksExtensionOptions>()) },
                 { "flexialertblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiAlertBlocks(options?["flexialertblocks"]?.ToObject<FlexiAlertBlocksExtensionOptions>()) },
@@ -32,7 +32,7 @@ namespace FlexiBlocks.Tests
                         UseFlexiCodeBlocks(options?["flexicodeblocks"]?.ToObject<FlexiCodeBlocksExtensionOptions>()).
                         UsePipeTables().
                         UseGridTables().
-                        UseFlexiOptionBlocks();
+                        UseFlexiOptionsBlocks();
                 } },
                 { "commonmark", (MarkdownPipelineBuilder _, JObject __) => { } }
             };

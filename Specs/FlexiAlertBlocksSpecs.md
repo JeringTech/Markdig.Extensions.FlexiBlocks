@@ -95,7 +95,7 @@ the info.</p>
 </div>
 ````````````````````````````````
 
-Per-FlexiAlertBlock options can be specified if the FlexiOptionBlocks extension is enabled:
+Per-FlexiAlertBlock options can be specified if the FlexiOptionsBlocks extension is enabled:
 ```````````````````````````````` example
 ! warning
 ! This is a warning.

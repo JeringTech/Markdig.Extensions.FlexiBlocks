@@ -12482,7 +12482,7 @@ namespace FlexiBlocks.Tests.Specs
     {
         // Sequential higher-level sections are nested:
         [Fact]
-        public void Flexisectionblocks_Spec1_flexisectionblocks_flexioptionblocks()
+        public void Flexisectionblocks_Spec1_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     # foo
@@ -12516,7 +12516,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n#### foo", 
                 "<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-2\">\n<header class=\"header-level-4\">\n<h4>foo</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</section>\n</section>", 
-                "flexisectionblocks_flexioptionblocks");
+                "flexisectionblocks_flexioptionsblocks");
         }
 
         // Sequential higher-level sections are nested:
@@ -12560,7 +12560,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // Sequential lower-level sections are not nested:
         [Fact]
-        public void Flexisectionblocks_Spec2_flexisectionblocks_flexioptionblocks()
+        public void Flexisectionblocks_Spec2_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ## foo
@@ -12580,7 +12580,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo\n# foo", 
                 "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>", 
-                "flexisectionblocks_flexioptionblocks");
+                "flexisectionblocks_flexioptionsblocks");
         }
 
         // Sequential lower-level sections are not nested:
@@ -12610,7 +12610,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // Sequential same-level sections are not nested:
         [Fact]
-        public void Flexisectionblocks_Spec3_flexisectionblocks_flexioptionblocks()
+        public void Flexisectionblocks_Spec3_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ## foo
@@ -12632,7 +12632,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo\n## foo", 
                 "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
-                "flexisectionblocks_flexioptionblocks");
+                "flexisectionblocks_flexioptionsblocks");
         }
 
         // Sequential same-level sections are not nested:
@@ -12664,7 +12664,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // Mixed sections:
         [Fact]
-        public void Flexisectionblocks_Spec4_flexisectionblocks_flexioptionblocks()
+        public void Flexisectionblocks_Spec4_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     # foo
@@ -12698,7 +12698,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n## foo", 
                 "<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</section>\n<section id=\"foo-2\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
-                "flexisectionblocks_flexioptionblocks");
+                "flexisectionblocks_flexioptionsblocks");
         }
 
         // Mixed sections:
@@ -12742,7 +12742,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // Sections wrap content:
         [Fact]
-        public void Flexisectionblocks_Spec5_flexisectionblocks_flexioptionblocks()
+        public void Flexisectionblocks_Spec5_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     # foo
@@ -12783,7 +12783,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", 
                 "<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", 
-                "flexisectionblocks_flexioptionblocks");
+                "flexisectionblocks_flexioptionsblocks");
         }
 
         // Sections wrap content:
@@ -12834,7 +12834,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // To enable wrapping of level 1 headers, set `SectionsExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
         [Fact]
-        public void Flexisectionblocks_Spec6_flexisectionblocks_flexioptionblocks()
+        public void Flexisectionblocks_Spec6_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     # foo
@@ -12863,7 +12863,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo\n## foo", 
                 "<article id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</article>", 
-                "flexisectionblocks_flexioptionblocks", 
+                "flexisectionblocks_flexioptionsblocks", 
                 "{\n    \"flexisectionblocks\": {\n        \"level1WrapperElement\": \"article\"\n    }\n}");
         }
 
@@ -12904,7 +12904,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // To change the element used to wrap level 2+ headers, set `SectionsExtensionOptions.Level2PlusWrapperElement". For example:
         [Fact]
-        public void Flexisectionblocks_Spec7_flexisectionblocks_flexioptionblocks()
+        public void Flexisectionblocks_Spec7_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ## foo
@@ -12926,7 +12926,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo", 
                 "<nav id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</nav>", 
-                "flexisectionblocks_flexioptionblocks", 
+                "flexisectionblocks_flexioptionsblocks", 
                 "{\n    \"flexisectionblocks\": {\n        \"level2PlusWrapperElement\": \"nav\"\n    }\n}");
         }
 
@@ -12960,7 +12960,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // The icon used for headers can be customized by setting `SectionExtensionOptions.DefaultSectionBlockOptions.HeaderIconMarkup`. For example:
         [Fact]
-        public void Flexisectionblocks_Spec8_flexisectionblocks_flexioptionblocks()
+        public void Flexisectionblocks_Spec8_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ## foo
@@ -12984,7 +12984,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo", 
                 "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#custom-link-icon\"></use></svg>\n</header>\n</section>", 
-                "flexisectionblocks_flexioptionblocks", 
+                "flexisectionblocks_flexioptionsblocks", 
                 "{\n    \"flexisectionblocks\": {\n        \"defaultSectionBlockOptions\": {\n            \"headerIconMarkup\": \"<svg><use xlink:href=\\\"#custom-link-icon\\\"></use></svg>\"\n        }\n    }\n}");
         }
 
@@ -13020,7 +13020,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // The format string for header classes can be customized by setting `SectionExtensionOptions.DefaultSectionBlockOptions.HeaderClassNameFormat`. For example:
         [Fact]
-        public void Flexisectionblocks_Spec9_flexisectionblocks_flexioptionblocks()
+        public void Flexisectionblocks_Spec9_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ## foo
@@ -13044,7 +13044,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo", 
                 "<section id=\"foo\">\n<header class=\"custom-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
-                "flexisectionblocks_flexioptionblocks", 
+                "flexisectionblocks_flexioptionsblocks", 
                 "{\n    \"flexisectionblocks\": {\n        \"defaultSectionBlockOptions\": {\n            \"headerClassNameFormat\": \"custom-{0}\"\n        }\n    }\n}");
         }
 
@@ -13080,7 +13080,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
         [Fact]
-        public void Flexisectionblocks_Spec10_flexisectionblocks_flexioptionblocks()
+        public void Flexisectionblocks_Spec10_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ## Foo Bar Baz
@@ -13095,7 +13095,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
                 "<section id=\"foo-bar-baz\">\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
-                "flexisectionblocks_flexioptionblocks");
+                "flexisectionblocks_flexioptionsblocks");
         }
 
         // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
@@ -13120,7 +13120,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // Auto generation of IDs can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` to `false`:
         [Fact]
-        public void Flexisectionblocks_Spec11_flexisectionblocks_flexioptionblocks()
+        public void Flexisectionblocks_Spec11_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ## Foo Bar Baz
@@ -13144,7 +13144,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
                 "<section>\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
-                "flexisectionblocks_flexioptionblocks", 
+                "flexisectionblocks_flexioptionsblocks", 
                 "{\n    \"flexisectionblocks\": {\n        \"defaultSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
         }
 
@@ -13180,7 +13180,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // Sections can be linked to by the text content of their headings:
         [Fact]
-        public void Flexisectionblocks_Spec12_flexisectionblocks_flexioptionblocks()
+        public void Flexisectionblocks_Spec12_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     [foo]
@@ -13217,7 +13217,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[Link Text][foo bar baz]", 
                 "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p><a href=\"#foo-bar-baz\">Link Text</a></p>\n</section>\n</section>\n</section>", 
-                "flexisectionblocks_flexioptionblocks");
+                "flexisectionblocks_flexioptionsblocks");
         }
 
         // Sections can be linked to by the text content of their headings:
@@ -13265,7 +13265,7 @@ namespace FlexiBlocks.Tests.Specs
         // Linking to sections by the text content of their headings can be disabled by setting `SectionsExtensionOptions.DefaultSectionBlockOptions.AutoLinkable` to `false` (note 
         // that linking to sections is also disabled if `SectionsExtensionOptions.DefaultSectionBlockOptions.GenerateIdentifier` is set to `false`):
         [Fact]
-        public void Flexisectionblocks_Spec13_flexisectionblocks_flexioptionblocks()
+        public void Flexisectionblocks_Spec13_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     [foo]
@@ -13311,7 +13311,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
                 "<p>[foo]</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
-                "flexisectionblocks_flexioptionblocks", 
+                "flexisectionblocks_flexioptionsblocks", 
                 "{\n    \"flexisectionblocks\": {\n        \"defaultSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
         }
 
@@ -13370,7 +13370,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // Per-section-block options can be overriden if the JSON options extension is enabled:
         [Fact]
-        public void Flexisectionblocks_Spec14_flexisectionblocks_flexioptionblocks()
+        public void Flexisectionblocks_Spec14_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     @{
@@ -13408,7 +13408,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"wrapperElement\": \"article\"\n}\n# foo\n@{\n    \"headerIconMarkup\": \"<svg><use xlink:href=\\\"#custom-link-icon\\\"></use></svg>\"\n}\n## foo\n@{\n    \"headerClassNameFormat\": \"custom-{0}\"\n}\n## foo", 
                 "<article id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#custom-link-icon\"></use></svg>\n</header>\n</section>\n<section id=\"foo-2\">\n<header class=\"custom-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</article>", 
-                "flexisectionblocks_flexioptionblocks");
+                "flexisectionblocks_flexioptionsblocks");
         }
 
         // Per-section-block options can be overriden if the JSON options extension is enabled:
@@ -13462,7 +13462,7 @@ namespace FlexiBlocks.Tests.Specs
         // is a string containing 1 or more characters from the regex character set `[A-Za-z0-9_-]`. The result of appending `fab-` to `<FlexiAlertBlock type>` is used as the
         // FlexiAlertBlock's class:
         [Fact]
-        public void Flexialertblocks_Spec1_flexialertblocks_flexioptionblocks()
+        public void Flexialertblocks_Spec1_flexialertblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ! critical-warning
@@ -13478,7 +13478,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! critical-warning\n! This is a critical warning.", 
                 "<div class=\"fab-critical-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"fab-content\">\n<p>This is a critical warning.</p>\n</div>\n</div>", 
-                "flexialertblocks_flexioptionblocks");
+                "flexialertblocks_flexioptionsblocks");
         }
 
         // Every line of a FlexiAlertBlock must start with an `!`. Its first line must be of the form `!<optional space><FlexiAlertBlock type>`, where `<FlexiAlertBlock type>`
@@ -13506,7 +13506,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // The following is not a FlexiAlertBlock since the first line does not contain a FlexiAlertBlock type:
         [Fact]
-        public void Flexialertblocks_Spec2_flexialertblocks_flexioptionblocks()
+        public void Flexialertblocks_Spec2_flexialertblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ! 
@@ -13518,7 +13518,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! \n! This is a warning.", 
                 "<p>!\n! This is a warning.</p>", 
-                "flexialertblocks_flexioptionblocks");
+                "flexialertblocks_flexioptionsblocks");
         }
 
         // The following is not a FlexiAlertBlock since the first line does not contain a FlexiAlertBlock type:
@@ -13540,7 +13540,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // The following is not a FlexiAlertBlock either, since the first line does not contain a valid FlexiAlertBlock type:
         [Fact]
-        public void Flexialertblocks_Spec3_flexialertblocks_flexioptionblocks()
+        public void Flexialertblocks_Spec3_flexialertblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ! illegal space
@@ -13552,7 +13552,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! illegal space\n! This is a warning.", 
                 "<p>! illegal space\n! This is a warning.</p>", 
-                "flexialertblocks_flexioptionblocks");
+                "flexialertblocks_flexioptionsblocks");
         }
 
         // The following is not a FlexiAlertBlock either, since the first line does not contain a valid FlexiAlertBlock type:
@@ -13574,7 +13574,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // The first space after each `!` in a FlexiAlertBlock is ignored. :
         [Fact]
-        public void Flexialertblocks_Spec4_flexialertblocks_flexioptionblocks()
+        public void Flexialertblocks_Spec4_flexialertblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ! warning
@@ -13592,7 +13592,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! warning\n!This line will be rendered with 0 leading spaces.\n! This line will also be rendered with 0 leading spaces.", 
                 "<div class=\"fab-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"fab-content\">\n<p>This line will be rendered with 0 leading spaces.\nThis line will also be rendered with 0 leading spaces.</p>\n</div>\n</div>", 
-                "flexialertblocks_flexioptionblocks");
+                "flexialertblocks_flexioptionsblocks");
         }
 
         // The first space after each `!` in a FlexiAlertBlock is ignored. :
@@ -13620,7 +13620,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // Lazy continuation is allowed within a FlexiAlertBlock:
         [Fact]
-        public void Flexialertblocks_Spec5_flexialertblocks_flexioptionblocks()
+        public void Flexialertblocks_Spec5_flexialertblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ! info
@@ -13642,7 +13642,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! info\n! This is part of\nthe info.\n! This is also part of\nthe info.", 
                 "<div class=\"fab-info\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z\"></path></svg>\n<div class=\"fab-content\">\n<p>This is part of\nthe info.\nThis is also part of\nthe info.</p>\n</div>\n</div>", 
-                "flexialertblocks_flexioptionblocks");
+                "flexialertblocks_flexioptionsblocks");
         }
 
         // Lazy continuation is allowed within a FlexiAlertBlock:
@@ -13674,7 +13674,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // `FlexiAlertBlocksExtensionOptions.IconMarkups` can be used to specify icon markups for FlexiAlertBlock types:
         [Fact]
-        public void Flexialertblocks_Spec6_flexialertblocks_flexioptionblocks()
+        public void Flexialertblocks_Spec6_flexialertblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ! closer-look
@@ -13699,7 +13699,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! closer-look\n! This is a closer look at some topic.", 
                 "<div class=\"fab-closer-look\">\n<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>\n<div class=\"fab-content\">\n<p>This is a closer look at some topic.</p>\n</div>\n</div>", 
-                "flexialertblocks_flexioptionblocks", 
+                "flexialertblocks_flexioptionsblocks", 
                 "{\n    \"flexialertblocks\": {\n        \"iconMarkups\": {\n            \"closer-look\": \"<svg height=\\\"24\\\" viewBox=\\\"0 0 24 24\\\" width=\\\"24\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><path d=\\\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\\\"/></svg>\"\n        }\n    }\n}");
         }
 
@@ -13734,9 +13734,9 @@ namespace FlexiBlocks.Tests.Specs
                 "{\n    \"flexialertblocks\": {\n        \"iconMarkups\": {\n            \"closer-look\": \"<svg height=\\\"24\\\" viewBox=\\\"0 0 24 24\\\" width=\\\"24\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><path d=\\\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\\\"/></svg>\"\n        }\n    }\n}");
         }
 
-        // Per-FlexiAlertBlock options can be specified if the FlexiOptionBlocks extension is enabled:
+        // Per-FlexiAlertBlock options can be specified if the FlexiOptionsBlocks extension is enabled:
         [Fact]
-        public void Flexialertblocks_Spec7_flexialertblocks_flexioptionblocks()
+        public void Flexialertblocks_Spec7_flexialertblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ! warning
@@ -13763,10 +13763,10 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n@{\n    \"iconMarkup\": \"<svg><use xlink:href=\\\"#alternative-warning-icon\\\"></use></svg>\"\n}\n! warning\n! This is a warning with a custom icon.", 
                 "<div class=\"fab-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"fab-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"fab-warning\">\n<svg><use xlink:href=\"#alternative-warning-icon\"></use></svg>\n<div class=\"fab-content\">\n<p>This is a warning with a custom icon.</p>\n</div>\n</div>", 
-                "flexialertblocks_flexioptionblocks");
+                "flexialertblocks_flexioptionsblocks");
         }
 
-        // Per-FlexiAlertBlock options can be specified if the FlexiOptionBlocks extension is enabled:
+        // Per-FlexiAlertBlock options can be specified if the FlexiOptionsBlocks extension is enabled:
         [Fact]
         public void Flexialertblocks_Spec7_all()
         {
@@ -13814,7 +13814,7 @@ namespace FlexiBlocks.Tests.Specs
         // FlexiCodeBlocks have the same syntax as CommonMark fenced and indented code blocks.
         // The following is an example of a fenced FlexiCodeBlock with the default options:
         [Fact]
-        public void Flexicodeblocks_Spec1_flexicodeblocks_flexioptionblocks()
+        public void Flexicodeblocks_Spec1_flexicodeblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ```
@@ -13839,7 +13839,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionblocks");
+                "flexicodeblocks_flexioptionsblocks");
         }
 
         // FlexiCodeBlocks have the same syntax as CommonMark fenced and indented code blocks.
@@ -13875,7 +13875,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // The following is an example of an indented FlexiCodeBlock with the default options:
         [Fact]
-        public void Flexicodeblocks_Spec2_flexicodeblocks_flexioptionblocks()
+        public void Flexicodeblocks_Spec2_flexicodeblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //         public string ExampleFunction(string arg)
@@ -13898,7 +13898,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    public string ExampleFunction(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionblocks");
+                "flexicodeblocks_flexioptionsblocks");
         }
 
         // The following is an example of an indented FlexiCodeBlock with the default options:
@@ -13931,7 +13931,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // `FlexiCodeBlockOptions.Title` can be used to define a title for a FlexiCodeBlock:
         [Fact]
-        public void Flexicodeblocks_Spec3_flexicodeblocks_flexioptionblocks()
+        public void Flexicodeblocks_Spec3_flexicodeblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     @{
@@ -13960,7 +13960,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"title\": \"ExampleDocument.cs\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<span>ExampleDocument.cs</span>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionblocks");
+                "flexicodeblocks_flexioptionsblocks");
         }
 
         // `FlexiCodeBlockOptions.Title` can be used to define a title for a FlexiCodeBlock:
@@ -13999,7 +13999,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // `FlexiCodeBlockOptions.CopyIconMarkup` can be used to customize the copy icon for a FlexiCodeBlock:
         [Fact]
-        public void Flexicodeblocks_Spec4_flexicodeblocks_flexioptionblocks()
+        public void Flexicodeblocks_Spec4_flexicodeblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     @{
@@ -14027,7 +14027,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"copyIconMarkup\": \"<svg><use xlink:href=\\\"#material-design-copy\\\"></use></svg>\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg><use xlink:href=\"#material-design-copy\"></use></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionblocks");
+                "flexicodeblocks_flexioptionsblocks");
         }
 
         // `FlexiCodeBlockOptions.CopyIconMarkup` can be used to customize the copy icon for a FlexiCodeBlock:
@@ -14066,7 +14066,7 @@ namespace FlexiBlocks.Tests.Specs
         // To enable syntax highlighting, assign a valid
         // [Prism language alias](https://prismjs.com/index.html#languages-list) to `FlexiCodeBlockOptions.Langauge`:
         [Fact]
-        public void Flexicodeblocks_Spec5_flexicodeblocks_flexioptionblocks()
+        public void Flexicodeblocks_Spec5_flexicodeblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     @{
@@ -14094,7 +14094,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"language\": \"csharp\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-csharp\"><span class=\"token keyword\">public</span> <span class=\"token keyword\">string</span> <span class=\"token function\">ExampleFunction</span><span class=\"token punctuation\">(</span><span class=\"token keyword\">string</span> arg<span class=\"token punctuation\">)</span>\n<span class=\"token punctuation\">{</span>\n    <span class=\"token comment\">// Example comment</span>\n    <span class=\"token keyword\">return</span> arg <span class=\"token operator\">+</span> <span class=\"token string\">\"dummyString\"</span><span class=\"token punctuation\">;</span>\n<span class=\"token punctuation\">}</span></code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionblocks");
+                "flexicodeblocks_flexioptionsblocks");
         }
 
         // To enable syntax highlighting, assign a valid
@@ -14135,7 +14135,7 @@ namespace FlexiBlocks.Tests.Specs
         // value of `FlexiCodeBlockOptions.SyntaxHighlighter` to `HighlightJS` and assign a valid [HighlightJS language alias](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases)
         // to `FlexiCodeBlockOptions.Language`:
         [Fact]
-        public void Flexicodeblocks_Spec6_flexicodeblocks_flexioptionblocks()
+        public void Flexicodeblocks_Spec6_flexicodeblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     @{
@@ -14164,7 +14164,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"language\": \"csharp\",\n    \"syntaxHighlighter\": \"highlightJS\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-csharp\"><span class=\"hljs-function\"><span class=\"hljs-keyword\">public</span> <span class=\"hljs-keyword\">string</span> <span class=\"hljs-title\">ExampleFunction</span>(<span class=\"hljs-params\"><span class=\"hljs-keyword\">string</span> arg</span>)\n</span>{\n    <span class=\"hljs-comment\">// Example comment</span>\n    <span class=\"hljs-keyword\">return</span> arg + <span class=\"hljs-string\">\"dummyString\"</span>;\n}</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionblocks");
+                "flexicodeblocks_flexioptionsblocks");
         }
 
         // If you prefer the syntax highlighter [HighlightJS](http://highlightjs.readthedocs.io/en/latest/index.html), set the 
@@ -14205,7 +14205,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // Assign a prefix to `FlexiCodeBlockOptions.HighlightJSClassPrefix` to customize the prefix for HighlightJS classes:
         [Fact]
-        public void Flexicodeblocks_Spec7_flexicodeblocks_flexioptionblocks()
+        public void Flexicodeblocks_Spec7_flexicodeblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     @{
@@ -14235,7 +14235,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"language\": \"csharp\",\n    \"syntaxHighlighter\": \"highlightJS\",\n    \"highlightJSClassPrefix\": \"my-prefix-\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-csharp\"><span class=\"my-prefix-function\"><span class=\"my-prefix-keyword\">public</span> <span class=\"my-prefix-keyword\">string</span> <span class=\"my-prefix-title\">ExampleFunction</span>(<span class=\"my-prefix-params\"><span class=\"my-prefix-keyword\">string</span> arg</span>)\n</span>{\n    <span class=\"my-prefix-comment\">// Example comment</span>\n    <span class=\"my-prefix-keyword\">return</span> arg + <span class=\"my-prefix-string\">\"dummyString\"</span>;\n}</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionblocks");
+                "flexicodeblocks_flexioptionsblocks");
         }
 
         // Assign a prefix to `FlexiCodeBlockOptions.HighlightJSClassPrefix` to customize the prefix for HighlightJS classes:
@@ -14276,7 +14276,7 @@ namespace FlexiBlocks.Tests.Specs
         // If you prefer to do highlighting client-side, set `highlightSyntax` to `false`. As long as `FlexiCodeBlockOptions.Langauge` is not
         // null, whitespace or an empty string, a language class will be assigned to the `code` element:
         [Fact]
-        public void Flexicodeblocks_Spec8_flexicodeblocks_flexioptionblocks()
+        public void Flexicodeblocks_Spec8_flexicodeblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     @{
@@ -14297,7 +14297,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\",\n    \"highlightSyntax\": false\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-html\">&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionblocks");
+                "flexicodeblocks_flexioptionsblocks");
         }
 
         // If you prefer to do highlighting client-side, set `highlightSyntax` to `false`. As long as `FlexiCodeBlockOptions.Langauge` is not
@@ -14329,7 +14329,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // Add line numbers by setting `FlexiCodeBlockOptions.RenderLineNumbers` to true:
         [Fact]
-        public void Flexicodeblocks_Spec9_flexicodeblocks_flexioptionblocks()
+        public void Flexicodeblocks_Spec9_flexicodeblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     @{
@@ -14357,7 +14357,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"renderLineNumbers\": true\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line\"><span class=\"line-number\">1</span><span class=\"line-text\">public string ExampleFunction(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line\"><span class=\"line-number\">3</span><span class=\"line-text\">    // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">4</span><span class=\"line-text\">    return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionblocks");
+                "flexicodeblocks_flexioptionsblocks");
         }
 
         // Add line numbers by setting `FlexiCodeBlockOptions.RenderLineNumbers` to true:
@@ -14396,7 +14396,7 @@ namespace FlexiBlocks.Tests.Specs
         // Customize which numbers line number sequences start from and the lines that line numbers are rendered for using
         // `FlexiCodeBlockOptions.LineNumberRanges`:
         [Fact]
-        public void Flexicodeblocks_Spec10_flexicodeblocks_flexioptionblocks()
+        public void Flexicodeblocks_Spec10_flexicodeblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     @{
@@ -14460,7 +14460,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"renderLineNumbers\": true,\n    \"lineNumberRanges\": [\n        {\n            \"startLine\": 1,\n            \"endLine\": 8,\n            \"startLineNumber\": 1\n        },\n        {\n            \"startLine\": 11,\n            \"endLine\": -1,\n            \"startLineNumber\": 32\n        }\n    ]\n}\n```\npublic class ExampleClass\n{\n    public string ExampleFunction1(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n\n    // Some functions omitted for brevity\n    ...\n\n    public string ExampleFunction3(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line\"><span class=\"line-number\">1</span><span class=\"line-text\">public class ExampleClass</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line\"><span class=\"line-number\">3</span><span class=\"line-text\">    public string ExampleFunction1(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">4</span><span class=\"line-text\">    {</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">        // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">6</span><span class=\"line-text\">        return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">7</span><span class=\"line-text\">    }</span></span>\n<span class=\"line\"><span class=\"line-number\">8</span><span class=\"line-text\"></span></span>\n<span class=\"line\"><span class=\"line-text\">    // Some functions omitted for brevity</span></span>\n<span class=\"line\"><span class=\"line-text\">    ...</span></span>\n<span class=\"line\"><span class=\"line-number\">32</span><span class=\"line-text\"></span></span>\n<span class=\"line\"><span class=\"line-number\">33</span><span class=\"line-text\">    public string ExampleFunction3(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">34</span><span class=\"line-text\">    {</span></span>\n<span class=\"line\"><span class=\"line-number\">35</span><span class=\"line-text\">        // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">36</span><span class=\"line-text\">        return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">37</span><span class=\"line-text\">    }</span></span>\n<span class=\"line\"><span class=\"line-number\">38</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionblocks");
+                "flexicodeblocks_flexioptionsblocks");
         }
 
         // Customize which numbers line number sequences start from and the lines that line numbers are rendered for using
@@ -14536,7 +14536,7 @@ namespace FlexiBlocks.Tests.Specs
         // Highlight lines using `FlexiCodeBlockOptions.HighlightLineRanges` (line highlighting should not be confused with syntax highlighting - a highlighted line is simply
         // a line with perhaps a different background color, syntax highlighting adds color to syntax tokens):
         [Fact]
-        public void Flexicodeblocks_Spec11_flexicodeblocks_flexioptionblocks()
+        public void Flexicodeblocks_Spec11_flexicodeblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     @{
@@ -14573,7 +14573,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"highlightLineRanges\": [\n        {\n            \"startLine\": 1,\n            \"endLine\": 1\n        },\n        {\n            \"startLine\": 3,\n            \"endLine\": 4\n        }\n    ]\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line highlight\"><span class=\"line-number\">1</span><span class=\"line-text\">public string ExampleFunction(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">3</span><span class=\"line-text\">    // Example comment</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">4</span><span class=\"line-text\">    return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionblocks");
+                "flexicodeblocks_flexioptionsblocks");
         }
 
         // Highlight lines using `FlexiCodeBlockOptions.HighlightLineRanges` (line highlighting should not be confused with syntax highlighting - a highlighted line is simply
@@ -14622,7 +14622,7 @@ namespace FlexiBlocks.Tests.Specs
         // Certain characters within code elements must be escaped. If syntax highlighting isn't enabled, the characters
         // `<`, `>` and `&` are escaped:
         [Fact]
-        public void Flexicodeblocks_Spec12_flexicodeblocks_flexioptionblocks()
+        public void Flexicodeblocks_Spec12_flexicodeblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     ```
@@ -14639,7 +14639,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionblocks");
+                "flexicodeblocks_flexioptionsblocks");
         }
 
         // Certain characters within code elements must be escaped. If syntax highlighting isn't enabled, the characters
@@ -14668,7 +14668,7 @@ namespace FlexiBlocks.Tests.Specs
         // Both Prism and HighlightJS cannot process escaped characters, so it isn't possible to escape code then pass it to the highlighters. Fortunately,
         // both of them can do escaping on their own. Prism, escapes `<` and `&` characters:
         [Fact]
-        public void Flexicodeblocks_Spec13_flexicodeblocks_flexioptionblocks()
+        public void Flexicodeblocks_Spec13_flexicodeblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     @{
@@ -14688,7 +14688,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\"\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-html\"><span class=\"token tag\"><span class=\"token tag\"><span class=\"token punctuation\">&lt;</span>div</span><span class=\"token punctuation\">></span></span>\"&lt;\" and \"&amp;\" are escaped<span class=\"token tag\"><span class=\"token tag\"><span class=\"token punctuation\">&lt;/</span>div</span><span class=\"token punctuation\">></span></span></code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionblocks");
+                "flexicodeblocks_flexioptionsblocks");
         }
 
         // Both Prism and HighlightJS cannot process escaped characters, so it isn't possible to escape code then pass it to the highlighters. Fortunately,
@@ -14719,7 +14719,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // HighlightJS, escapes `<`, `>` and `&` characters:
         [Fact]
-        public void Flexicodeblocks_Spec14_flexicodeblocks_flexioptionblocks()
+        public void Flexicodeblocks_Spec14_flexicodeblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     @{
@@ -14740,7 +14740,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\",\n    \"syntaxHighlighter\": \"highlightJS\"\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">div</span>&gt;</span>\"<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">\"</span> <span class=\"hljs-attr\">and</span> \"&amp;\" <span class=\"hljs-attr\">are</span> <span class=\"hljs-attr\">escaped</span>&lt;/<span class=\"hljs-attr\">div</span>&gt;</span></code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionblocks");
+                "flexicodeblocks_flexioptionsblocks");
         }
 
         // HighlightJS, escapes `<`, `>` and `&` characters:
@@ -15463,11 +15463,11 @@ namespace FlexiBlocks.Tests.Specs
 
     // Per-block options are useful for many extensions. For example, per-block options would allow a code extension to add line-numbers to select code blocks. 
     // Json options facilitates per-block options, using a simple and consistent syntax.
-    public class FlexioptionblocksTests
+    public class FlexioptionsblocksTests
     {
         // Json options are specified as a string above the block they apply to. The first line must begin with `@{`:
         [Fact]
-        public void Flexioptionblocks_Spec1_all()
+        public void Flexioptionsblocks_Spec1_all()
         {
             // The following Markdown:
             //     @{"wrapperElement": "Aside"}
@@ -15488,7 +15488,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // Options can be specified across several lines:
         [Fact]
-        public void Flexioptionblocks_Spec2_all()
+        public void Flexioptionsblocks_Spec2_all()
         {
             // The following Markdown:
             //     @{
@@ -15511,7 +15511,7 @@ namespace FlexiBlocks.Tests.Specs
 
         // If the first line does not begin with `@{`, the string becomes a paragraph:
         [Fact]
-        public void Flexioptionblocks_Spec3_all()
+        public void Flexioptionsblocks_Spec3_all()
         {
             // The following Markdown:
             //     @

@@ -88,6 +88,16 @@ namespace FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FlexiOptionsBlock &quot;{0}&quot; at line &quot;{1}&quot;, column &quot;{2}, does not immediately precede a block that consumes it..
+        /// </summary>
+        internal static string InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBlock {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBloc" +
+                        "k", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The highlight line range &quot;{0}&quot; is not a subset of the actual number of lines, &quot;{1}&quot;..
         /// </summary>
         internal static string InvalidOperationException_InvalidHighlightLineRange {
@@ -102,15 +112,6 @@ namespace FlexiBlocks {
         internal static string InvalidOperationException_InvalidLineNumberLineRange {
             get {
                 return ResourceManager.GetString("InvalidOperationException_InvalidLineNumberLineRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to JSON options &quot;{0}&quot; at line &quot;{1}&quot;, column &quot;{2}, does not immediately precede a block that consumes it..
-        /// </summary>
-        internal static string InvalidOperationException_JsonOptionsDoesNotImmediatelyPrecedeConsumingBlock {
-            get {
-                return ResourceManager.GetString("InvalidOperationException_JsonOptionsDoesNotImmediatelyPrecedeConsumingBlock", resourceCulture);
             }
         }
         
@@ -142,11 +143,11 @@ namespace FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unused JSON options &quot;{0}&quot; at line &quot;{1}&quot;, column &quot;{2}&quot;..
+        ///   Looks up a localized string similar to Unused FlexiOptionsBlock &quot;{0}&quot; at line &quot;{1}&quot;, column &quot;{2}&quot;..
         /// </summary>
-        internal static string InvalidOperationException_UnusedJsonOptions {
+        internal static string InvalidOperationException_UnusedFlexiOptionsBlock {
             get {
-                return ResourceManager.GetString("InvalidOperationException_UnusedJsonOptions", resourceCulture);
+                return ResourceManager.GetString("InvalidOperationException_UnusedFlexiOptionsBlock", resourceCulture);
             }
         }
     }

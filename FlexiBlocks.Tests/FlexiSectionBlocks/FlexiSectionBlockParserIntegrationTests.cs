@@ -1,4 +1,4 @@
-﻿using FlexiBlocks.FlexiOptionBlocks;
+﻿using FlexiBlocks.FlexiOptionsBlocks;
 using FlexiBlocks.FlexiSectionBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
@@ -215,8 +215,8 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             const int dummyLineIndex = 1;
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.LineIndex = dummyLineIndex;
-            var mockJsonOptionsService = new Mock<FlexiOptionBlocksService>();
-            mockJsonOptionsService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<FlexiSectionBlockOptions>(), dummyLineIndex)); // SectionBlockOptions will be a fresh instance (cloned)
+            var mockFlexiOptionsBlockService = new Mock<FlexiOptionsBlockService>();
+            mockFlexiOptionsBlockService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<FlexiSectionBlockOptions>(), dummyLineIndex)); // SectionBlockOptions will be a fresh instance (cloned)
             FlexiSectionBlockParser sectionBlockParser = CreateSectionBlockParser();
 
             // Act
@@ -297,28 +297,28 @@ namespace FlexiBlocks.Tests.FlexiSectionBlocks
             HeadingBlockParser headingBlockParser = null,
             AutoLinkService autoLinkService = null,
             IdentifierService identifierService = null,
-            FlexiOptionBlocksService jsonOptionsService = null)
+            FlexiOptionsBlockService flexiOptionsBlockService = null)
         {
             return new FlexiSectionBlockParser(
                 sectionsExtensionOptions ?? new FlexiSectionBlocksExtensionOptions(),
                 headingBlockParser ?? new HeadingBlockParser(),
                 autoLinkService ?? new AutoLinkService(),
                 identifierService ?? new IdentifierService(),
-                jsonOptionsService ?? new FlexiOptionBlocksService());
+                flexiOptionsBlockService ?? new FlexiOptionsBlockService());
         }
 
         private Mock<FlexiSectionBlockParser> CreateMockSectionBlockParser(FlexiSectionBlocksExtensionOptions sectionsExtensionOptions = null,
             HeadingBlockParser headingBlockParser = null,
             AutoLinkService autoLinkService = null,
             IdentifierService identifierService = null,
-            FlexiOptionBlocksService jsonOptionsService = null)
+            FlexiOptionsBlockService flexiOptionsBlockService = null)
         {
             return _mockRepository.Create<FlexiSectionBlockParser>(
                 sectionsExtensionOptions ?? new FlexiSectionBlocksExtensionOptions(),
                 headingBlockParser ?? new HeadingBlockParser(),
                 autoLinkService ?? new AutoLinkService(),
                 identifierService ?? new IdentifierService(),
-                jsonOptionsService ?? new FlexiOptionBlocksService());
+                flexiOptionsBlockService ?? new FlexiOptionsBlockService());
         }
     }
 }

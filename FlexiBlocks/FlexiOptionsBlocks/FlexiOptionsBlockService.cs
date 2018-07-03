@@ -2,21 +2,21 @@
 using Newtonsoft.Json;
 using System;
 
-namespace FlexiBlocks.FlexiOptionBlocks
+namespace FlexiBlocks.FlexiOptionsBlocks
 {
-    public class FlexiOptionBlocksService
+    public class FlexiOptionsBlockService
     {
         /// <summary>
-        /// Attempts to extract an object of type <typeparamref name="T"/> from <paramref name="processor"/>.
+        /// Attempts to extract an object of type <typeparamref name="T"/> from the <see cref="FlexiOptionsBlock"/> held by <paramref name="processor"/>.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="processor"></param>
         /// <param name="blockStartLine"></param>
         /// <returns>
-        /// Instance of type <typeparamref name="T"/> or null if no JSON options exists.
+        /// Instance of type <typeparamref name="T"/> or null if no <see cref="FlexiOptionsBlock"/> exists.
         /// </returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="processor"/> is null.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the JSON cannot be parsed.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the <see cref="FlexiOptionsBlock"/>'s JSON cannot be parsed.</exception>
         public virtual T TryExtractOptions<T>(BlockProcessor processor, int blockStartLine) where T : class
         {
             if (processor == null)
@@ -24,14 +24,14 @@ namespace FlexiBlocks.FlexiOptionBlocks
                 throw new ArgumentNullException(nameof(processor));
             }
 
-            FlexiOptionsBlock jsonOptionsBlock = TryGetJsonOptionsBlock(processor, blockStartLine);
+            FlexiOptionsBlock flexiOptionsBlock = TryGetFlexiOptionsBlock(processor, blockStartLine);
 
-            if (jsonOptionsBlock == null)
+            if (flexiOptionsBlock == null)
             {
                 return null;
             }
 
-            string json = jsonOptionsBlock.Lines.ToString();
+            string json = flexiOptionsBlock.Lines.ToString();
 
             try
             {
@@ -41,23 +41,25 @@ namespace FlexiBlocks.FlexiOptionBlocks
             {
                 throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_UnableToParseJson,
                     json,
-                    jsonOptionsBlock.Line,
-                    jsonOptionsBlock.Column),
+                    flexiOptionsBlock.Line,
+                    flexiOptionsBlock.Column),
                     jsonException);
             }
         }
 
         /// <summary>
-        /// Attempts to populate <paramref name="target"/> from <paramref name="processor"/>. Properties in <paramref name="target"/> retain their values
-        /// if the JSON does not contain replacement values.
+        /// Attempts to extract an object of type <typeparamref name="T"/> from  the <see cref="FlexiOptionsBlock"/> held by <paramref name="processor"/> 
+        /// and to populate <paramref name="target"/> with values from the extracted object. Properties in <paramref name="target"/> 
+        /// retain their values if the extracted object does not contain replacements.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="processor"></param>
         /// <param name="target"></param>
         /// <param name="blockStartLine"></param>
+        /// <returns>True if <paramref name="target"/> is successfully populated, false otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="processor"/> is null.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the JSON cannot be parsed.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the FlexiOptionsBlock's JSON cannot be parsed.</exception>
         public virtual bool TryPopulateOptions<T>(BlockProcessor processor, T target, int blockStartLine) where T : class
         {
             if (processor == null)
@@ -70,14 +72,14 @@ namespace FlexiBlocks.FlexiOptionBlocks
                 throw new ArgumentNullException(nameof(target));
             }
 
-            FlexiOptionsBlock jsonOptionsBlock = TryGetJsonOptionsBlock(processor, blockStartLine);
+            FlexiOptionsBlock flexiOptionsBlock = TryGetFlexiOptionsBlock(processor, blockStartLine);
 
-            if(jsonOptionsBlock == null)
+            if(flexiOptionsBlock == null)
             {
                 return false;
             }
 
-            string json = jsonOptionsBlock.Lines.ToString();
+            string json = flexiOptionsBlock.Lines.ToString();
 
             try
             {
@@ -87,12 +89,12 @@ namespace FlexiBlocks.FlexiOptionBlocks
             catch (JsonException jsonException)
             {
                 throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_UnableToParseJson,
-                    json, jsonOptionsBlock.Line, jsonOptionsBlock.Column), jsonException);
+                    json, flexiOptionsBlock.Line, flexiOptionsBlock.Column), jsonException);
             }
         }
 
         /// <summary>
-        /// Attempts to retrieve a <see cref="FlexiOptionsBlock"/> from <paramref name="processor"/>.
+        /// Attempts to retrieve the <see cref="FlexiOptionsBlock"/> held by <paramref name="processor"/>.
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="blockStartLine"></param>
@@ -102,21 +104,21 @@ namespace FlexiBlocks.FlexiOptionBlocks
         /// <exception cref="InvalidOperationException">
         /// Thrown if <see cref="FlexiOptionsBlock"/> does not immediately precede current line.
         /// </exception>
-        public virtual FlexiOptionsBlock TryGetJsonOptionsBlock(BlockProcessor processor, int blockStartLine)
+        public virtual FlexiOptionsBlock TryGetFlexiOptionsBlock(BlockProcessor processor, int blockStartLine)
         {
-            if (processor.Document.GetData(FlexiOptionsBlockParser.FLEXI_OPTIONS) is FlexiOptionsBlock jsonOptionsBlock)
+            if (processor.Document.GetData(FlexiOptionsBlockParser.FLEXI_OPTIONS_BLOCK) is FlexiOptionsBlock flexiOptionsBlock)
             {
-                if (jsonOptionsBlock.EndLine + 1 != blockStartLine)
+                if (flexiOptionsBlock.EndLine + 1 != blockStartLine)
                 {
-                    throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_JsonOptionsDoesNotImmediatelyPrecedeConsumingBlock,
-                        jsonOptionsBlock.Lines.ToString(),
-                        jsonOptionsBlock.Line,
-                        jsonOptionsBlock.Column));
+                    throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBlock,
+                        flexiOptionsBlock.Lines.ToString(),
+                        flexiOptionsBlock.Line,
+                        flexiOptionsBlock.Column));
                 }
 
-                processor.Document.RemoveData(FlexiOptionsBlockParser.FLEXI_OPTIONS);
+                processor.Document.RemoveData(FlexiOptionsBlockParser.FLEXI_OPTIONS_BLOCK);
 
-                return jsonOptionsBlock;
+                return flexiOptionsBlock;
             }
 
             return null;

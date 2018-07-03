@@ -1,4 +1,4 @@
-﻿using FlexiBlocks.FlexiOptionBlocks;
+﻿using FlexiBlocks.FlexiOptionsBlocks;
 using Markdig;
 using Markdig.Renderers;
 
@@ -17,8 +17,8 @@ namespace FlexiBlocks.FlexiAlertBlocks
         {
             if (!pipeline.BlockParsers.Contains<FlexiAlertBlockParser>())
             {
-                var flexiOptionBlocksService = new FlexiOptionBlocksService();
-                var flexiAlertBlockParser = new FlexiAlertBlockParser(_options, flexiOptionBlocksService);
+                var flexiOptionsBlockService = new FlexiOptionsBlockService();
+                var flexiAlertBlockParser = new FlexiAlertBlockParser(_options, flexiOptionsBlockService);
                 pipeline.BlockParsers.Insert(0, flexiAlertBlockParser);
             }
         }

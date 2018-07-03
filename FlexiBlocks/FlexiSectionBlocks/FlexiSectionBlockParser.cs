@@ -1,4 +1,4 @@
-﻿using FlexiBlocks.FlexiOptionBlocks;
+﻿using FlexiBlocks.FlexiOptionsBlocks;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using System;
@@ -12,7 +12,7 @@ namespace FlexiBlocks.FlexiSectionBlocks
         public const string HEADER_CLASS_NAME_FORMAT_KEY = "headerClassNameFormat";
         private readonly HeadingBlockParser _headingBlockParser;
         private readonly FlexiSectionBlocksExtensionOptions _sectionsExtensionOptions;
-        private readonly FlexiOptionBlocksService _jsonOptionsService;
+        private readonly FlexiOptionsBlockService _flexiOptionsBlockService;
         private readonly AutoLinkService _autoLinkService;
         private readonly IdentifierService _identifierService;
 
@@ -23,12 +23,12 @@ namespace FlexiBlocks.FlexiSectionBlocks
         /// <param name="headingBlockParser"></param>
         /// <param name="autoLinkService"></param>
         /// <param name="identifierService"></param>
-        /// <param name="jsonOptionsService"></param>
+        /// <param name="flexiOptionsBlockService"></param>
         public FlexiSectionBlockParser(FlexiSectionBlocksExtensionOptions sectionsExtensionOptions,
             HeadingBlockParser headingBlockParser,
             AutoLinkService autoLinkService,
             IdentifierService identifierService,
-            FlexiOptionBlocksService jsonOptionsService)
+            FlexiOptionsBlockService flexiOptionsBlockService)
         {
             OpeningCharacters = new[] { '#' };
             Closed += SectionBlockOnClosed;
@@ -37,7 +37,7 @@ namespace FlexiBlocks.FlexiSectionBlocks
             _headingBlockParser = headingBlockParser;
             _autoLinkService = autoLinkService;
             _identifierService = identifierService;
-            _jsonOptionsService = jsonOptionsService;
+            _flexiOptionsBlockService = flexiOptionsBlockService;
         }
 
         /// <summary>
@@ -143,8 +143,8 @@ namespace FlexiBlocks.FlexiSectionBlocks
         {
             FlexiSectionBlockOptions result = _sectionsExtensionOptions.DefaultSectionBlockOptions.Clone();
 
-            // Apply JSON options if they exist
-            _jsonOptionsService.TryPopulateOptions(processor, result, processor.LineIndex);
+            // Apply FlexiOptionsBlock options if they exist
+            _flexiOptionsBlockService.TryPopulateOptions(processor, result, processor.LineIndex);
 
             if (result.WrapperElement == SectioningContentElement.Undefined)
             {

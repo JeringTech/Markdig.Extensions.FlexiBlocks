@@ -126,14 +126,14 @@
   <data name="ArgumentException_InvalidStartLineNumber" xml:space="preserve">
     <value>Invalid start line number "{0}". Start line number must be greater than 0.</value>
   </data>
+  <data name="InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBlock" xml:space="preserve">
+    <value>FlexiOptionsBlock "{0}" at line "{1}", column "{2}, does not immediately precede a block that consumes it.</value>
+  </data>
   <data name="InvalidOperationException_InvalidHighlightLineRange" xml:space="preserve">
     <value>The highlight line range "{0}" is not a subset of the actual number of lines, "{1}".</value>
   </data>
   <data name="InvalidOperationException_InvalidLineNumberLineRange" xml:space="preserve">
     <value>The line number line range "{0}" is not a subset of the actual number of lines, "{1}".</value>
-  </data>
-  <data name="InvalidOperationException_JsonOptionsDoesNotImmediatelyPrecedeConsumingBlock" xml:space="preserve">
-    <value>JSON options "{0}" at line "{1}", column "{2}, does not immediately precede a block that consumes it.</value>
   </data>
   <data name="InvalidOperationException_LineNumbersCannotOverlap" xml:space="preserve">
     <value>Invalid line number ranges: the line number ranges "{0}" and "{1}" overlap.</value>
@@ -144,7 +144,7 @@
   <data name="InvalidOperationException_UnableToParseJson" xml:space="preserve">
     <value>Unable to parse JSON "{0}" at line "{1}", column "{2}".</value>
   </data>
-  <data name="InvalidOperationException_UnusedJsonOptions" xml:space="preserve">
-    <value>Unused JSON options "{0}" at line "{1}", column "{2}".</value>
+  <data name="InvalidOperationException_UnusedFlexiOptionsBlock" xml:space="preserve">
+    <value>Unused FlexiOptionsBlock "{0}" at line "{1}", column "{2}".</value>
   </data>
 </root>

@@ -1,4 +1,4 @@
-﻿using FlexiBlocks.FlexiOptionBlocks;
+﻿using FlexiBlocks.FlexiOptionsBlocks;
 using Markdig;
 using Markdig.Parsers;
 using Markdig.Renderers;
@@ -35,8 +35,8 @@ namespace FlexiBlocks.FlexiSectionBlocks
                 // TODO For testability - could improve IOC infrastructure, measure impact on performance
                 var autoLinkService = new AutoLinkService();
                 var identifierService = new IdentifierService();
-                var jsonOptionsService = new FlexiOptionBlocksService();
-                var sectionBlockParser = new FlexiSectionBlockParser(_options, headingBlockParser, autoLinkService, identifierService, jsonOptionsService);
+                var flexiOptionsBlockService = new FlexiOptionsBlockService();
+                var sectionBlockParser = new FlexiSectionBlockParser(_options, headingBlockParser, autoLinkService, identifierService, flexiOptionsBlockService);
                 pipeline.BlockParsers.Insert(0, sectionBlockParser);
             }
         }

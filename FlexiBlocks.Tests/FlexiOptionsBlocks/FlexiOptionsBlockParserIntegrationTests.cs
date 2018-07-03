@@ -1,4 +1,4 @@
-﻿using FlexiBlocks.FlexiOptionBlocks;
+﻿using FlexiBlocks.FlexiOptionsBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace FlexiBlocks.Tests.FlexiOptionBlocks
+namespace FlexiBlocks.Tests.FlexiOptionsBlocks
 {
     public class FlexiOptionsBlockParserIntegrationTests
     {
@@ -20,10 +20,10 @@ namespace FlexiBlocks.Tests.FlexiOptionBlocks
             dummyBlockProcessor.Column = 0;
             dummyBlockProcessor.RestartIndent();
             dummyBlockProcessor.Column = 4;
-            var jsonOptionsBlockParser = new FlexiOptionsBlockParser();
+            var flexiOptionsBlockParser = new FlexiOptionsBlockParser();
 
             // Act
-            BlockState result = jsonOptionsBlockParser.TryOpen(dummyBlockProcessor);
+            BlockState result = flexiOptionsBlockParser.TryOpen(dummyBlockProcessor);
 
             // Assert
             Assert.True(dummyBlockProcessor.IsCodeIndent);
@@ -37,10 +37,10 @@ namespace FlexiBlocks.Tests.FlexiOptionBlocks
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = new StringSlice(line);
-            var jsonOptionsBlockParser = new FlexiOptionsBlockParser();
+            var flexiOptionsBlockParser = new FlexiOptionsBlockParser();
 
             // Act
-            BlockState result = jsonOptionsBlockParser.TryOpen(dummyBlockProcessor);
+            BlockState result = flexiOptionsBlockParser.TryOpen(dummyBlockProcessor);
 
             // Assert
             Assert.Equal(BlockState.None, result);
@@ -65,14 +65,14 @@ namespace FlexiBlocks.Tests.FlexiOptionBlocks
             dummyBlockProcessor.Column = dummyColumn;
             dummyBlockProcessor.Line = new StringSlice("@{dummy");
             const BlockState dummyBlockState = BlockState.Continue;
-            var mockJsonOptionsBlockParser = new Mock<FlexiOptionsBlockParser>
+            var mockFlexiOptionsBlockParser = new Mock<FlexiOptionsBlockParser>
             {
                 CallBase = true
             };
-            mockJsonOptionsBlockParser.Setup(j => j.TryContinue(dummyBlockProcessor, It.IsAny<FlexiOptionsBlock>())).Returns(dummyBlockState);
+            mockFlexiOptionsBlockParser.Setup(j => j.TryContinue(dummyBlockProcessor, It.IsAny<FlexiOptionsBlock>())).Returns(dummyBlockState);
 
             // Act
-            BlockState result = mockJsonOptionsBlockParser.Object.TryOpen(dummyBlockProcessor);
+            BlockState result = mockFlexiOptionsBlockParser.Object.TryOpen(dummyBlockProcessor);
 
             // Assert
             Assert.Equal(dummyBlockState, result);
@@ -89,23 +89,23 @@ namespace FlexiBlocks.Tests.FlexiOptionBlocks
         {
             // Arrange
             const int dummyEndLine = 1;
-            var dummyJsonOptionsBlock = new FlexiOptionsBlock(null);
+            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = new StringSlice(dummyLine);
-            dummyBlockProcessor.Document.Add(dummyJsonOptionsBlock); // Sets document as parent of JsonOptionsBlock
+            dummyBlockProcessor.Document.Add(dummyFlexiOptionsBlock); // Sets document as parent of JsonOptionsBlock
             dummyBlockProcessor.LineIndex = dummyEndLine;
-            var jsonOptionsBlockParser = new FlexiOptionsBlockParser();
+            var flexiOptionsBlockParser = new FlexiOptionsBlockParser();
 
             // Act
-            BlockState result = jsonOptionsBlockParser.TryContinue(dummyBlockProcessor, dummyJsonOptionsBlock);
+            BlockState result = flexiOptionsBlockParser.TryContinue(dummyBlockProcessor, dummyFlexiOptionsBlock);
 
             // Assert
             Assert.Equal(BlockState.Break, result);
-            Assert.Equal(dummyLine.Length - 1, dummyJsonOptionsBlock.Span.End);
-            Assert.False(dummyJsonOptionsBlock.EndsInString);
-            Assert.Equal(0, dummyJsonOptionsBlock.NumOpenBrackets);
-            Assert.Equal(dummyJsonOptionsBlock, dummyBlockProcessor.Document.GetData(FlexiOptionsBlockParser.FLEXI_OPTIONS));
-            Assert.Equal(dummyEndLine, dummyJsonOptionsBlock.EndLine);
+            Assert.Equal(dummyLine.Length - 1, dummyFlexiOptionsBlock.Span.End);
+            Assert.False(dummyFlexiOptionsBlock.EndsInString);
+            Assert.Equal(0, dummyFlexiOptionsBlock.NumOpenBrackets);
+            Assert.Equal(dummyFlexiOptionsBlock, dummyBlockProcessor.Document.GetData(FlexiOptionsBlockParser.FLEXI_OPTIONS_BLOCK));
+            Assert.Equal(dummyEndLine, dummyFlexiOptionsBlock.EndLine);
         }
 
         public static IEnumerable<object[]> TryContinue_ReturnsBlockStateBreakSavesBlockToDocumentDataAndSetsBlockSpanEndAndEndLineIfLineIsACompleteJsonString_Data()
@@ -127,7 +127,7 @@ namespace FlexiBlocks.Tests.FlexiOptionBlocks
             const string dummyPendingJson = "dummyPendingJson";
             const int dummyPendingLine = 1;
             const int dummyPendingColumn = 2;
-            var dummyPendingJsonOptionsBlock = new FlexiOptionsBlock(null)
+            var dummyPendingFlexiOptionsBlock = new FlexiOptionsBlock(null)
             {
                 Lines = new StringLineGroup(dummyPendingJson),
                 Line = dummyPendingLine,
@@ -136,15 +136,15 @@ namespace FlexiBlocks.Tests.FlexiOptionBlocks
             const string dummyJson = "{\"option\": \"value\"}";
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = new StringSlice(dummyJson);
-            dummyBlockProcessor.Document.SetData(FlexiOptionsBlockParser.FLEXI_OPTIONS, dummyPendingJsonOptionsBlock);
-            var dummyJsonOptionsBlock = new FlexiOptionsBlock(null);
-            var jsonOptionsBlockParser = new FlexiOptionsBlockParser();
+            dummyBlockProcessor.Document.SetData(FlexiOptionsBlockParser.FLEXI_OPTIONS_BLOCK, dummyPendingFlexiOptionsBlock);
+            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null);
+            var flexiOptionsBlockParser = new FlexiOptionsBlockParser();
 
             // Act and assert
-            InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => jsonOptionsBlockParser.TryContinue(dummyBlockProcessor, dummyJsonOptionsBlock));
+            InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => flexiOptionsBlockParser.TryContinue(dummyBlockProcessor, dummyFlexiOptionsBlock));
 
             // Assert
-            Assert.Equal(string.Format(Strings.InvalidOperationException_UnusedJsonOptions, dummyPendingJson, dummyPendingLine, dummyPendingColumn), result.Message);
+            Assert.Equal(string.Format(Strings.InvalidOperationException_UnusedFlexiOptionsBlock, dummyPendingJson, dummyPendingLine, dummyPendingColumn), result.Message);
         }
 
         [Theory]
@@ -154,16 +154,16 @@ namespace FlexiBlocks.Tests.FlexiOptionBlocks
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = new StringSlice(dummyLine);
-            var dummyJsonOptionsBlock = new FlexiOptionsBlock(null);
-            var jsonOptionsBlockParser = new FlexiOptionsBlockParser();
+            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null);
+            var flexiOptionsBlockParser = new FlexiOptionsBlockParser();
 
             // Act
-            BlockState result = jsonOptionsBlockParser.TryContinue(dummyBlockProcessor, dummyJsonOptionsBlock);
+            BlockState result = flexiOptionsBlockParser.TryContinue(dummyBlockProcessor, dummyFlexiOptionsBlock);
 
             // Assert
             Assert.Equal(BlockState.Continue, result);
-            Assert.Equal(expectedEndsInString, dummyJsonOptionsBlock.EndsInString);
-            Assert.Equal(expectedNumOpenBrackets, dummyJsonOptionsBlock.NumOpenBrackets);
+            Assert.Equal(expectedEndsInString, dummyFlexiOptionsBlock.EndsInString);
+            Assert.Equal(expectedNumOpenBrackets, dummyFlexiOptionsBlock.NumOpenBrackets);
         }
 
         public static IEnumerable<object[]> TryContinue_ReturnsBlockStateContinueIfLineIsAPartialJsonString_Data()
