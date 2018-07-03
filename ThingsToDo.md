@@ -1,3 +1,5 @@
+# Things To Do
+
 1. 	**Finish FlexiDiagramBlocks extension**
     FlexiDiagramBlock replaces https://github.com/lunet-io/markdig/blob/master/src/Markdig.Tests/Specs/DiagramsSpecs.md 
 (built in diagram extension does not work with FlexiCodeBlocks since it was built into the basic code block renderer).

@@ -1,7 +1,7 @@
 # FlexiBlocks
 [![Build status](https://ci.appveyor.com/api/projects/status/dwq43rdwho37mesv?svg=true)](https://ci.appveyor.com/project/JeremyTCD/markdig-extensions-flexiblocks)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/blob/master/LICENSE.md)
-[![NuGet](https://img.shields.io/nuget/vpre/Jering.Markdig.Extensions Jering.Markdig.Extensions.FlexiBlocks.svg?label=nuget)](https://www.nuget.org/packages/Jering.Markdig.Extensions.FlexiBlocks/)
+[![NuGet](https://img.shields.io/nuget/vpre/Jering.Markdig.Extensions.FlexiBlocks.svg?label=nuget)](https://www.nuget.org/packages/Jering.Markdig.Extensions.FlexiBlocks/)
 <!-- TODO tests badge, this service should work - https://github.com/monkey3310/appveyor-shields-badges/blob/master/README.md -->
 
 ## Overview
