@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <CodeAnalysisRuleSet>../Jering.Markdig.Extensions.FlexiBlocks.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRuleSet>..\..\Jering.Markdig.Extensions.FlexiBlocks.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
     <ItemGroup>
