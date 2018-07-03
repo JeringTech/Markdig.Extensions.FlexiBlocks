@@ -2,6 +2,6 @@
 {
     public class FlexiCodeBlocksExtensionOptions
     {
-        public FlexiCodeBlockOptions DefaultFlexiCodeOptions { get; set; } = new FlexiCodeBlockOptions();
+        public FlexiCodeBlockOptions DefaultFlexiCodeBlockOptions { get; set; } = new FlexiCodeBlockOptions();
     }
 }

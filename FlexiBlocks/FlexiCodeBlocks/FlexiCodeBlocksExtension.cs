@@ -12,8 +12,8 @@ namespace FlexiBlocks.FlexiCodeBlocks
     public class FlexiCodeBlocksExtension : IMarkdownExtension
     {
         private readonly FlexiCodeBlocksExtensionOptions _options;
-        private readonly FlexiOptionBlocksService _flexiOptionsService;
-        public const string FLEXI_CODE_OPTIONS_KEY = "flexiCodeOptions";
+        private readonly FlexiOptionBlocksService _flexiOptionBlocksService;
+        public const string FLEXI_CODE_BLOCK_OPTIONS_KEY = "flexiCodeBlockOptions";
         private readonly IPrismService _prismService;
         private readonly IHighlightJSService _highlightJSService;
 
@@ -22,7 +22,7 @@ namespace FlexiBlocks.FlexiCodeBlocks
             IHighlightJSService highlightJSService)
         {
             _options = options ?? new FlexiCodeBlocksExtensionOptions();
-            _flexiOptionsService = new FlexiOptionBlocksService();
+            _flexiOptionBlocksService = new FlexiOptionBlocksService();
             _prismService = prismService;
             _highlightJSService = highlightJSService;
         }
@@ -61,18 +61,18 @@ namespace FlexiBlocks.FlexiCodeBlocks
         }
 
         /// <summary>
-        /// Called when a code block is closed. Creates the <see cref="FlexiCodeBlockOptions"/> for <paramref name="block"/>.
+        /// Called when a CodeBlock is closed. Creates the <see cref="FlexiCodeBlockOptions"/> for <paramref name="block"/>.
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="block"></param>
         internal virtual void CodeBlockOnClosed(BlockProcessor processor, Block block)
         {
-            FlexiCodeBlockOptions flexiCodeOptions = _options.DefaultFlexiCodeOptions.Clone();
+            FlexiCodeBlockOptions flexiCodeBlockOptions = _options.DefaultFlexiCodeBlockOptions.Clone();
 
-            // Apply FlexiOptions if they exist
-            _flexiOptionsService.TryPopulateOptions(processor, flexiCodeOptions, block.Line);
+            // Apply FlexiOptionBlocks options if they exist
+            _flexiOptionBlocksService.TryPopulateOptions(processor, flexiCodeBlockOptions, block.Line);
 
-            block.SetData(FLEXI_CODE_OPTIONS_KEY, flexiCodeOptions);
+            block.SetData(FLEXI_CODE_BLOCK_OPTIONS_KEY, flexiCodeBlockOptions);
         }
     }
 }

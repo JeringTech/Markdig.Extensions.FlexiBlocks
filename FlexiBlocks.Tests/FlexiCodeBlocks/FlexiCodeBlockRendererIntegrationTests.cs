@@ -23,20 +23,20 @@ namespace FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Arrange
             var dummyCodeBlock = new CodeBlock(null);
-            var dummyFlexiCodeOptions = new FlexiCodeBlockOptions()
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions()
             {
                 Attributes = dummyAttributesWrapper.Value,
                 CopyIconMarkup = null,
             };
-            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_OPTIONS_KEY, dummyFlexiCodeOptions);
-            FlexiCodeBlockRenderer dummyFlexiCodeRenderer = CreateFlexiCodeRenderer();
+            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
+            FlexiCodeBlockRenderer dummyFlexiCodeBlockRenderer = CreateFlexiCodeBlockRenderer();
 
             // Act
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter);
-                dummyFlexiCodeRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
+                dummyFlexiCodeBlockRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -85,21 +85,21 @@ namespace FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Arrange
             var dummyCodeBlock = new CodeBlock(null);
-            var dummyFlexiCodeOptions = new FlexiCodeBlockOptions()
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions()
             {
                 Title = title,
                 CopyIconMarkup = null,
                 Attributes = null
             };
-            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_OPTIONS_KEY, dummyFlexiCodeOptions);
-            FlexiCodeBlockRenderer dummyFlexiCodeRenderer = CreateFlexiCodeRenderer();
+            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
+            FlexiCodeBlockRenderer dummyFlexiCodeBlockRenderer = CreateFlexiCodeBlockRenderer();
 
             // Act
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter);
-                dummyFlexiCodeRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
+                dummyFlexiCodeBlockRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -145,20 +145,20 @@ namespace FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Arrange
             var dummyCodeBlock = new CodeBlock(null);
-            var dummyFlexiCodeOptions = new FlexiCodeBlockOptions()
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions()
             {
                 CopyIconMarkup = dummyCopyIconMarkup,
                 Attributes = null
             };
-            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_OPTIONS_KEY, dummyFlexiCodeOptions);
-            FlexiCodeBlockRenderer dummyFlexiCodeRenderer = CreateFlexiCodeRenderer();
+            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
+            FlexiCodeBlockRenderer dummyFlexiCodeBlockRenderer = CreateFlexiCodeBlockRenderer();
 
             // Act
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter);
-                dummyFlexiCodeRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
+                dummyFlexiCodeBlockRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -206,22 +206,22 @@ namespace FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Arrange
             var dummyCodeBlock = new CodeBlock(null);
-            var dummyFlexiCodeOptions = new FlexiCodeBlockOptions()
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions()
             {
                 Language = dummyLanguage,
                 CodeLanguageClassNameFormat = dummyCodeLanguageClassNameFormat,
                 CopyIconMarkup = null,
                 Attributes = null
             };
-            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_OPTIONS_KEY, dummyFlexiCodeOptions);
-            FlexiCodeBlockRenderer dummyFlexiCodeRenderer = CreateFlexiCodeRenderer();
+            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
+            FlexiCodeBlockRenderer dummyFlexiCodeBlockRenderer = CreateFlexiCodeBlockRenderer();
 
             // Act
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter);
-                dummyFlexiCodeRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
+                dummyFlexiCodeBlockRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -294,9 +294,9 @@ namespace FlexiBlocks.Tests.FlexiCodeBlocks
             string expectedCode)
         {
             // Arrange
-            var lines = new StringLineGroup(dummyCode);
-            var dummyCodeBlock = new CodeBlock(null) { Lines = lines };
-            var dummyFlexiCodeOptions = new FlexiCodeBlockOptions()
+            var dummyLines = new StringLineGroup(dummyCode);
+            var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions()
             {
                 SyntaxHighlighter = dummySyntaxHighlighter,
                 Language = dummyLanguage,
@@ -305,15 +305,15 @@ namespace FlexiBlocks.Tests.FlexiCodeBlocks
                 Attributes = null,
                 CodeLanguageClassNameFormat = null
             };
-            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_OPTIONS_KEY, dummyFlexiCodeOptions);
-            FlexiCodeBlockRenderer dummyFlexiCodeRenderer = CreateFlexiCodeRenderer();
+            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
+            FlexiCodeBlockRenderer dummyFlexiCodeBlockRenderer = CreateFlexiCodeBlockRenderer();
 
             // Act
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter);
-                dummyFlexiCodeRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
+                dummyFlexiCodeBlockRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -433,24 +433,24 @@ namespace FlexiBlocks.Tests.FlexiCodeBlocks
     // Example comment
     return arg + ""dummyString"";
 }";
-            var lines = new StringLineGroup(dummyCode);
-            var dummyCodeBlock = new CodeBlock(null) { Lines = lines };
-            var dummyFlexiCodeOptions = new FlexiCodeBlockOptions()
+            var dummyLines = new StringLineGroup(dummyCode);
+            var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions()
             {
                 LineNumberRanges = dummyLineNumberRangesWrapper.Value,
                 RenderLineNumbers = dummyRenderLineNumbers,
                 CopyIconMarkup = null,
                 Attributes = null,
             };
-            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_OPTIONS_KEY, dummyFlexiCodeOptions);
-            FlexiCodeBlockRenderer dummyFlexiCodeRenderer = CreateFlexiCodeRenderer();
+            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
+            FlexiCodeBlockRenderer dummyFlexiCodeBlockRenderer = CreateFlexiCodeBlockRenderer();
 
             // Act
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter);
-                dummyFlexiCodeRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
+                dummyFlexiCodeBlockRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -528,23 +528,23 @@ namespace FlexiBlocks.Tests.FlexiCodeBlocks
     // Example comment
     return arg + ""dummyString"";
 }";
-            var lines = new StringLineGroup(dummyCode);
-            var dummyCodeBlock = new CodeBlock(null) { Lines = lines };
-            var dummyFlexiCodeOptions = new FlexiCodeBlockOptions()
+            var dummyLines = new StringLineGroup(dummyCode);
+            var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions()
             {
                 HighlightLineRanges = dummyHighlightLineRangesWrapper.Value,
                 CopyIconMarkup = null,
                 Attributes = null,
             };
-            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_OPTIONS_KEY, dummyFlexiCodeOptions);
-            FlexiCodeBlockRenderer dummyFlexiCodeRenderer = CreateFlexiCodeRenderer();
+            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
+            FlexiCodeBlockRenderer dummyFlexiCodeBlockRenderer = CreateFlexiCodeBlockRenderer();
 
             // Act
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter);
-                dummyFlexiCodeRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
+                dummyFlexiCodeBlockRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -606,9 +606,9 @@ namespace FlexiBlocks.Tests.FlexiCodeBlocks
     // Example comment
     return arg + ""dummyString"";
 }";
-            var lines = new StringLineGroup(dummyCode);
-            var dummyCodeBlock = new CodeBlock(null) { Lines = lines };
-            var dummyFlexiCodeOptions = new FlexiCodeBlockOptions()
+            var dummyLines = new StringLineGroup(dummyCode);
+            var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions()
             {
                 LineEmbellishmentClassesPrefix = dummyLineEmbellishmentClassesPrefix,
                 RenderLineNumbers = true,
@@ -616,15 +616,15 @@ namespace FlexiBlocks.Tests.FlexiCodeBlocks
                 CopyIconMarkup = null,
                 Attributes = null,
             };
-            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_OPTIONS_KEY, dummyFlexiCodeOptions);
-            FlexiCodeBlockRenderer dummyFlexiCodeRenderer = CreateFlexiCodeRenderer();
+            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
+            FlexiCodeBlockRenderer dummyFlexiCodeBlockRenderer = CreateFlexiCodeBlockRenderer();
 
             // Act
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter);
-                dummyFlexiCodeRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
+                dummyFlexiCodeBlockRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -674,7 +674,7 @@ namespace FlexiBlocks.Tests.FlexiCodeBlocks
             };
         }
 
-        public FlexiCodeBlockRenderer CreateFlexiCodeRenderer()
+        public FlexiCodeBlockRenderer CreateFlexiCodeBlockRenderer()
         {
             var services = new ServiceCollection();
             services.AddPrism();

@@ -35,7 +35,7 @@ namespace FlexiBlocks.FlexiCodeBlocks
 
         protected override void Write(HtmlRenderer renderer, CodeBlock obj)
         {
-            var flexiCodeOptions = (FlexiCodeBlockOptions)obj.GetData(FlexiCodeBlocksExtension.FLEXI_CODE_OPTIONS_KEY);
+            var flexiCodeBlockOptions = (FlexiCodeBlockOptions)obj.GetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY);
 
             renderer.EnsureLine();
 
@@ -46,35 +46,35 @@ namespace FlexiBlocks.FlexiCodeBlocks
             }
 
             renderer.Write("<div").
-                WriteHtmlAttributeDictionary(flexiCodeOptions.Attributes).
+                WriteHtmlAttributeDictionary(flexiCodeBlockOptions.Attributes).
                 WriteLine(">");
 
             renderer.WriteLine("<header>");
-            if (!string.IsNullOrWhiteSpace(flexiCodeOptions.Title))
+            if (!string.IsNullOrWhiteSpace(flexiCodeBlockOptions.Title))
             {
                 // Title
-                renderer.WriteLine($"<span>{flexiCodeOptions.Title}</span>");
+                renderer.WriteLine($"<span>{flexiCodeBlockOptions.Title}</span>");
             }
-            if (!string.IsNullOrWhiteSpace(flexiCodeOptions.CopyIconMarkup))
+            if (!string.IsNullOrWhiteSpace(flexiCodeBlockOptions.CopyIconMarkup))
             {
                 // Copy icon
-                renderer.WriteLine(flexiCodeOptions.CopyIconMarkup);
+                renderer.WriteLine(flexiCodeBlockOptions.CopyIconMarkup);
             }
             renderer.WriteLine("</header>");
 
             renderer.Write("<pre><code");
 
             // Add language class to code element
-            bool languageIsDefined = !string.IsNullOrWhiteSpace(flexiCodeOptions.Language);
-            if (languageIsDefined && !string.IsNullOrWhiteSpace(flexiCodeOptions.CodeLanguageClassNameFormat))
+            bool languageIsDefined = !string.IsNullOrWhiteSpace(flexiCodeBlockOptions.Language);
+            if (languageIsDefined && !string.IsNullOrWhiteSpace(flexiCodeBlockOptions.CodeLanguageClassNameFormat))
             {
-                renderer.Write($" class=\"{string.Format(flexiCodeOptions.CodeLanguageClassNameFormat, flexiCodeOptions.Language)}\"");
+                renderer.Write($" class=\"{string.Format(flexiCodeBlockOptions.CodeLanguageClassNameFormat, flexiCodeBlockOptions.Language)}\"");
             }
             renderer.Write(">");
 
             // Highlight syntax
             string code = null;
-            if (languageIsDefined && flexiCodeOptions.HighlightSyntax)
+            if (languageIsDefined && flexiCodeBlockOptions.HighlightSyntax)
             {
                 _codeRenderer.WriteLeafRawLines(obj, false, false); // Don't escape, prism can't deal with escaped chars
 
@@ -82,14 +82,14 @@ namespace FlexiBlocks.FlexiCodeBlocks
                 _stringWriter.GetStringBuilder().Length = 0;
 
                 // Default to Prism
-                code = flexiCodeOptions.SyntaxHighlighter == SyntaxHighlighter.HighlightJS ?
-                    _highlightJSService.HighlightAsync(code, flexiCodeOptions.Language, flexiCodeOptions.HighlightJSClassPrefix).Result :
-                    _prismService.HighlightAsync(code, flexiCodeOptions.Language).Result;
+                code = flexiCodeBlockOptions.SyntaxHighlighter == SyntaxHighlighter.HighlightJS ?
+                    _highlightJSService.HighlightAsync(code, flexiCodeBlockOptions.Language, flexiCodeBlockOptions.HighlightJSClassPrefix).Result :
+                    _prismService.HighlightAsync(code, flexiCodeBlockOptions.Language).Result;
             }
 
             // Embellish code
-            if (flexiCodeOptions.RenderLineNumbers ||
-                flexiCodeOptions.HighlightLineRanges?.Count > 0)
+            if (flexiCodeBlockOptions.RenderLineNumbers ||
+                flexiCodeBlockOptions.HighlightLineRanges?.Count > 0)
             {
                 // TODO optimize - possible to pass obj.Lines directly to EmbellishLines?
                 // Code still null since syntax highlighting wasn't done
@@ -101,9 +101,9 @@ namespace FlexiBlocks.FlexiCodeBlocks
                 }
 
                 code = _lineEmbellishmentsService.EmbellishLines(code,
-                    flexiCodeOptions.LineNumberRanges == null || flexiCodeOptions.LineNumberRanges.Count == 0 ? _defaultLineNumberRanges : flexiCodeOptions.LineNumberRanges,
-                    flexiCodeOptions.HighlightLineRanges,
-                    flexiCodeOptions.LineEmbellishmentClassesPrefix);
+                    flexiCodeBlockOptions.LineNumberRanges == null || flexiCodeBlockOptions.LineNumberRanges.Count == 0 ? _defaultLineNumberRanges : flexiCodeBlockOptions.LineNumberRanges,
+                    flexiCodeBlockOptions.HighlightLineRanges,
+                    flexiCodeBlockOptions.LineEmbellishmentClassesPrefix);
             }
 
             if (code != null)
