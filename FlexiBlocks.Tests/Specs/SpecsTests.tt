@@ -11,7 +11,7 @@
 		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiSectionBlocksSpecs.md"), "flexisectionblocks_flexioptionsblocks|all"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiAlertBlocksSpecs.md"), "flexialertblocks_flexioptionsblocks|all"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiCodeBlocksSpecs.md"), "flexicodeblocks_flexioptionsblocks|all"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiTableBlocksSpecs.md"), "flexitableblocks_gridtables_pipetables|all"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiTableBlocksSpecs.md"), "flexitableblocks_flexioptionsblocks|all"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../Specs/FlexiOptionsBlocksSpecs.md"), "all")
 	};
 #>

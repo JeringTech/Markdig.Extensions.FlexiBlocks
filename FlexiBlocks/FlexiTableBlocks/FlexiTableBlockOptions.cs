@@ -1,22 +1,25 @@
 ﻿namespace FlexiBlocks.FlexiTableBlocks
 {
     /// <summary>
-    /// Options for a responsive table.
+    /// Options for a FlexiTableBlock.
     /// </summary>
     public class FlexiTableBlockOptions : IMarkdownObjectOptions<FlexiTableBlockOptions>
     {
         /// <summary>
-        /// Name of element used to wrap contents of td elements. Defaults to "span" for ARIA compatibility - https://www.w3.org/TR/2017/NOTE-wai-aria-practices-1.1-20171214/examples/table/table.html.
+        /// Gets or set the value used as the name of the element that will wrap td element contents. 
+        /// If the value is null, whitespace or an empty string, no wrapper is rendered.
+        /// Defaults to "span" for ARIA compatibility - https://www.w3.org/TR/2017/NOTE-wai-aria-practices-1.1-20171214/examples/table/table.html.
         /// </summary>
         public string WrapperElementName { get; set; } = "span";
 
         /// <summary>
-        /// Name of attribute used to store a td element's corresponding th's content.
+        /// Gets or sets the value used as the attribute name of the td element's attribute that stores its corresponding th's contents.
+        /// If the value is null, whitespace or an empty string, no attribute is rendered.
         /// </summary>
         public string LabelAttributeName { get; set; } = "data-label";
 
         /// <summary>
-        /// HTML attributes for the outermost element of the responsive table block.
+        /// HTML attributes for the outermost element of the FlexiTableBlock.
         /// </summary>
         public HtmlAttributeDictionary Attributes { get; set; } = new HtmlAttributeDictionary();
 

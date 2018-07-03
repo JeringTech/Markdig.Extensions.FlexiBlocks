@@ -17,9 +17,12 @@ namespace FlexiBlocks.FlexiTableBlocks
     {
         private readonly HtmlRenderer _stripRenderer;
         private readonly StringWriter _stringWriter;
+        private readonly FlexiTableBlockOptions _defaultFlexiTableBlockOptions;
 
-        public FlexiTableBlockRenderer()
+        public FlexiTableBlockRenderer(FlexiTableBlockOptions defaultFlexiTableBlockOptions)
         {
+            _defaultFlexiTableBlockOptions = defaultFlexiTableBlockOptions;
+
             _stringWriter = new StringWriter();
             _stripRenderer = new HtmlRenderer(_stringWriter)
             {
@@ -30,13 +33,18 @@ namespace FlexiBlocks.FlexiTableBlocks
 
         protected override void Write(HtmlRenderer renderer, Table obj)
         {
-            var flexiTableBlockOptions = (FlexiTableBlockOptions)obj.GetData(FlexiTableBlocksExtension.FLEXI_TABLE_BLOCK_OPTIONS_KEY);
+            // Table's created using the pipe table syntax do not have their own FlexiTableOptions. This is because PipeTableParser is an inline parser and so does not work 
+            // with FlexiOptionsBlocks.
+            FlexiTableBlockOptions flexiTableBlockOptions = (FlexiTableBlockOptions)obj.GetData(FlexiTableBlocksExtension.FLEXI_TABLE_BLOCK_OPTIONS_KEY) ?? _defaultFlexiTableBlockOptions;
             bool renderWrapper = !string.IsNullOrWhiteSpace(flexiTableBlockOptions.WrapperElementName);
             bool renderLabelAttribute = !string.IsNullOrWhiteSpace(flexiTableBlockOptions.LabelAttributeName);
 
             renderer.EnsureLine();
             // TODO merge attributes? - ideally, PipeTableParser should be converted to a BlockParser so that the GenericAttributes extension is not required
-            renderer.Write("<table").WriteHtmlAttributeDictionary(flexiTableBlockOptions.Attributes).WriteAttributes(obj).WriteLine(">");
+            renderer.Write("<table").
+                WriteHtmlAttributeDictionary(flexiTableBlockOptions.Attributes).
+                WriteAttributes(obj).
+                WriteLine(">");
 
             bool hasBody = false;
             bool hasAlreadyHeader = false;

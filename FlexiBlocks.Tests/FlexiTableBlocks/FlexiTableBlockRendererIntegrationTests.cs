@@ -9,30 +9,32 @@ using Xunit;
 
 namespace FlexiBlocks.Tests.FlexiTableBlocks
 {
-    /// <summary>
-    /// Refer to ResponsiveTablesSpecs.md for additional tests.
-    /// </summary>
     public class FlexiTableBlockRendererIntegrationTests
     {
         [Theory]
-        [MemberData(nameof(Write_DoesNotWrapTDElementsIfWrapperElementNameIsNullWhitespaceOrEmpty_Data))]
-        public void Write_DoesNotWrapTDElementsIfWrapperElementNameIsNullWhitespaceOrEmpty(FlexiTableBlockOptions dummyOptions)
+        [MemberData(nameof(Write_RendersWrapperElementsIfWrapperElementNameIsNotNullWhitespaceOrAnEmptyString_Data))]
+        public void Write_RendersWrapperElementsIfWrapperElementNameIsNotNullWhitespaceOrAnEmptyString(string dummyWrapperElementName, string expectedTDContentsFormat)
         {
             // Arrange
+            var dummyFlexiTableBlockOptions = new FlexiTableBlockOptions
+            {
+                WrapperElementName = dummyWrapperElementName
+            };
             Table dummyTable = CreateTable();
+            dummyTable.SetData(FlexiTableBlocksExtension.FLEXI_TABLE_BLOCK_OPTIONS_KEY, dummyFlexiTableBlockOptions);
             string result = null;
-            using(var stringWriter = new StringWriter())
+            using (var stringWriter = new StringWriter())
             {
                 var htmlRenderer = new HtmlRenderer(stringWriter);
-                var responsiveTableRenderer = new FlexiTableBlockRenderer(dummyOptions);
+                var flexiTableBlockRenderer = new FlexiTableBlockRenderer(null);
 
                 // Act
-                responsiveTableRenderer.Write(htmlRenderer, dummyTable);
+                flexiTableBlockRenderer.Write(htmlRenderer, dummyTable);
                 result = stringWriter.ToString();
             }
 
             // Assert
-            Assert.Equal(@"<table>
+            Assert.Equal($@"<table>
 <thead>
 <tr>
 <th>a</th>
@@ -41,49 +43,64 @@ namespace FlexiBlocks.Tests.FlexiTableBlocks
 </thead>
 <tbody>
 <tr>
-<td data-label=""a"">0</td>
-<td data-label=""b"">1</td>
+<td data-label=""a"">{string.Format(expectedTDContentsFormat, 0)}</td>
+<td data-label=""b"">{string.Format(expectedTDContentsFormat, 1)}</td>
 </tr>
 </tbody>
 </table>
 ", result, ignoreLineEndingDifferences: true);
         }
 
-        public static IEnumerable<object[]> Write_DoesNotWrapTDElementsIfWrapperElementNameIsNullWhitespaceOrEmpty_Data()
+        public static IEnumerable<object[]> Write_RendersWrapperElementsIfWrapperElementNameIsNotNullWhitespaceOrAnEmptyString_Data()
         {
+            const string dummyWrapperElementName = "dummyWrapperElementName";
+
             return new object[][]
             {
-                new object[]{
-                    new FlexiTableBlockOptions(){WrapperElementName = string.Empty}
+                new object[]
+                {
+                    dummyWrapperElementName,
+                    $"<{dummyWrapperElementName}>{{0}}</{dummyWrapperElementName}>"
                 },
                 new object[]{
-                    new FlexiTableBlockOptions(){WrapperElementName = null}
+                    string.Empty,
+                    "{0}"
                 },
                 new object[]{
-                    new FlexiTableBlockOptions(){WrapperElementName = " "}
+                    null,
+                    "{0}"
+                },
+                new object[]{
+                    " ",
+                    "{0}"
                 }
             };
         }
 
         [Theory]
-        [MemberData(nameof(Write_DoesNotRenderLabelAttributeIfLabelAttributeNameIsNullWhitespaceOrEmpty_Data))]
-        public void Write_DoesNotRenderLabelAttributeIfLabelAttributeNameIsNullWhitespaceOrEmpty(FlexiTableBlockOptions dummyOptions)
+        [MemberData(nameof(Write_RendersLabelAttributeIfLabelAttributeNameIsNotNullWhitespaceOrAnEmptyString_Data))]
+        public void Write_RendersLabelAttributeIfLabelAttributeNameIsNotNullWhitespaceOrAnEmptyString(string dummyLabelAttributeName, string expectedTDElementFormat)
         {
             // Arrange
+            var dummyFlexiTableBlockOptions = new FlexiTableBlockOptions
+            {
+                LabelAttributeName = dummyLabelAttributeName
+            };
             Table dummyTable = CreateTable();
+            dummyTable.SetData(FlexiTableBlocksExtension.FLEXI_TABLE_BLOCK_OPTIONS_KEY, dummyFlexiTableBlockOptions);
             string result = null;
             using (var stringWriter = new StringWriter())
             {
                 var htmlRenderer = new HtmlRenderer(stringWriter);
-                var responsiveTableRenderer = new FlexiTableBlockRenderer(dummyOptions);
+                var flexiTableBlockRenderer = new FlexiTableBlockRenderer(null);
 
                 // Act
-                responsiveTableRenderer.Write(htmlRenderer, dummyTable);
+                flexiTableBlockRenderer.Write(htmlRenderer, dummyTable);
                 result = stringWriter.ToString();
             }
 
             // Assert
-            Assert.Equal(@"<table>
+            Assert.Equal($@"<table>
 <thead>
 <tr>
 <th>a</th>
@@ -92,26 +109,36 @@ namespace FlexiBlocks.Tests.FlexiTableBlocks
 </thead>
 <tbody>
 <tr>
-<td><span>0</span></td>
-<td><span>1</span></td>
+{string.Format(expectedTDElementFormat, "a", "<span>0</span>")}
+{string.Format(expectedTDElementFormat, "b", "<span>1</span>")}
 </tr>
 </tbody>
 </table>
 ", result, ignoreLineEndingDifferences: true);
         }
 
-        public static IEnumerable<object[]> Write_DoesNotRenderLabelAttributeIfLabelAttributeNameIsNullWhitespaceOrEmpty_Data()
+        public static IEnumerable<object[]> Write_RendersLabelAttributeIfLabelAttributeNameIsNotNullWhitespaceOrAnEmptyString_Data()
         {
+            const string dummyLabelAttributeName = "dummyLabelAttributeName";
+
             return new object[][]
             {
-                new object[]{
-                    new FlexiTableBlockOptions(){LabelAttributeName = string.Empty}
+                new object[]
+                {
+                    dummyLabelAttributeName,
+                    $"<td {dummyLabelAttributeName}=\"{{0}}\">{{1}}</td>"
                 },
                 new object[]{
-                    new FlexiTableBlockOptions(){LabelAttributeName = null}
+                    string.Empty,
+                    "<td>{1}</td>"
                 },
                 new object[]{
-                    new FlexiTableBlockOptions(){LabelAttributeName = " "}
+                    null,
+                    "<td>{1}</td>"
+                },
+                new object[]{
+                    " ",
+                    "<td>{1}</td>"
                 }
             };
         }

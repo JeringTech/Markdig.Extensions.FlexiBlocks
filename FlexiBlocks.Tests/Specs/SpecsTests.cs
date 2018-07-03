@@ -14770,19 +14770,20 @@ namespace FlexiBlocks.Tests.Specs
         }
     }
 
-    // This extension changes the markup produced for tables to be compatible with [this](https://www.jeremytcd.com/articles/css-only-responsive-tables)
+    // This extension enables grid tables and pipe tables. It
+    // adds configurable features such as making tables be compatible with [this](https://www.jeremytcd.com/articles/css-only-responsive-tables)
     // method for creating responsive tables.
     public class FlexitableblocksTests
     {
-        // In particular, the contents of `<td>` elements are wrapped and `<td>` elements are assigned `data-label` attributes. For example using a pipe table:
+        // Using the default options with a pipe table:
         [Fact]
-        public void Flexitableblocks_Spec1_flexitableblocks_gridtables_pipetables()
+        public void Flexitableblocks_Spec1_flexitableblocks_flexioptionsblocks()
         {
             // The following Markdown:
-            //      a | b | c 
-            //      - | - | -
-            //      0 | 1 | 2
-            //      3 | 4 | 5
+            //     a | b | c 
+            //     - | - | -
+            //     0 | 1 | 2
+            //     3 | 4 | 5
             //
             // Should be rendered as:
             //     <table>
@@ -14807,20 +14808,20 @@ namespace FlexiBlocks.Tests.Specs
             //     </tbody>
             //     </table>
 
-            SpecTestHelper.AssertCompliance(" a | b | c \n - | - | -\n 0 | 1 | 2\n 3 | 4 | 5", 
+            SpecTestHelper.AssertCompliance("a | b | c \n- | - | -\n0 | 1 | 2\n3 | 4 | 5", 
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n<th>c</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n<td data-label=\"c\"><span>2</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>3</span></td>\n<td data-label=\"b\"><span>4</span></td>\n<td data-label=\"c\"><span>5</span></td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_gridtables_pipetables");
+                "flexitableblocks_flexioptionsblocks");
         }
 
-        // In particular, the contents of `<td>` elements are wrapped and `<td>` elements are assigned `data-label` attributes. For example using a pipe table:
+        // Using the default options with a pipe table:
         [Fact]
         public void Flexitableblocks_Spec1_all()
         {
             // The following Markdown:
-            //      a | b | c 
-            //      - | - | -
-            //      0 | 1 | 2
-            //      3 | 4 | 5
+            //     a | b | c 
+            //     - | - | -
+            //     0 | 1 | 2
+            //     3 | 4 | 5
             //
             // Should be rendered as:
             //     <table>
@@ -14845,14 +14846,14 @@ namespace FlexiBlocks.Tests.Specs
             //     </tbody>
             //     </table>
 
-            SpecTestHelper.AssertCompliance(" a | b | c \n - | - | -\n 0 | 1 | 2\n 3 | 4 | 5", 
+            SpecTestHelper.AssertCompliance("a | b | c \n- | - | -\n0 | 1 | 2\n3 | 4 | 5", 
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n<th>c</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n<td data-label=\"c\"><span>2</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>3</span></td>\n<td data-label=\"b\"><span>4</span></td>\n<td data-label=\"c\"><span>5</span></td>\n</tr>\n</tbody>\n</table>", 
                 "all");
         }
 
         // Similarly, using a grid table:
         [Fact]
-        public void Flexitableblocks_Spec2_flexitableblocks_gridtables_pipetables()
+        public void Flexitableblocks_Spec2_flexitableblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     +---+---+---+
@@ -14890,7 +14891,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("+---+---+---+\n| a | b | c |\n+===+===+===+\n| 0 | 1 | 2 |\n+---+---+---+\n| 3 | 4 | 5 |", 
                 "<table>\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n<th>c</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n<td data-label=\"c\"><span>2</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>3</span></td>\n<td data-label=\"b\"><span>4</span></td>\n<td data-label=\"c\"><span>5</span></td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_gridtables_pipetables");
+                "flexitableblocks_flexioptionsblocks");
         }
 
         // Similarly, using a grid table:
@@ -14938,13 +14939,13 @@ namespace FlexiBlocks.Tests.Specs
 
         // The contents of `<th>` elements are HTML escaped when used as values of `data-label` attributes:
         [Fact]
-        public void Flexitableblocks_Spec3_flexitableblocks_gridtables_pipetables()
+        public void Flexitableblocks_Spec3_flexitableblocks_flexioptionsblocks()
         {
             // The following Markdown:
-            //      "a" | &b&
-            //      - | - 
-            //      0 | 1 
-            //      2 | 3 
+            //     "a" | &b&
+            //     - | - 
+            //     0 | 1 
+            //     2 | 3 
             //
             // Should be rendered as:
             //     <table>
@@ -14966,9 +14967,9 @@ namespace FlexiBlocks.Tests.Specs
             //     </tbody>
             //     </table>
 
-            SpecTestHelper.AssertCompliance(" \"a\" | &b&\n - | - \n 0 | 1 \n 2 | 3 ", 
+            SpecTestHelper.AssertCompliance("\"a\" | &b&\n- | - \n0 | 1 \n2 | 3 ", 
                 "<table>\n<thead>\n<tr>\n<th>&quot;a&quot;</th>\n<th>&amp;b&amp;</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"&quot;a&quot;\"><span>0</span></td>\n<td data-label=\"&amp;b&amp;\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"&quot;a&quot;\"><span>2</span></td>\n<td data-label=\"&amp;b&amp;\"><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_gridtables_pipetables");
+                "flexitableblocks_flexioptionsblocks");
         }
 
         // The contents of `<th>` elements are HTML escaped when used as values of `data-label` attributes:
@@ -14976,10 +14977,10 @@ namespace FlexiBlocks.Tests.Specs
         public void Flexitableblocks_Spec3_all()
         {
             // The following Markdown:
-            //      "a" | &b&
-            //      - | - 
-            //      0 | 1 
-            //      2 | 3 
+            //     "a" | &b&
+            //     - | - 
+            //     0 | 1 
+            //     2 | 3 
             //
             // Should be rendered as:
             //     <table>
@@ -15001,14 +15002,14 @@ namespace FlexiBlocks.Tests.Specs
             //     </tbody>
             //     </table>
 
-            SpecTestHelper.AssertCompliance(" \"a\" | &b&\n - | - \n 0 | 1 \n 2 | 3 ", 
+            SpecTestHelper.AssertCompliance("\"a\" | &b&\n- | - \n0 | 1 \n2 | 3 ", 
                 "<table>\n<thead>\n<tr>\n<th>&quot;a&quot;</th>\n<th>&amp;b&amp;</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"&quot;a&quot;\"><span>0</span></td>\n<td data-label=\"&amp;b&amp;\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"&quot;a&quot;\"><span>2</span></td>\n<td data-label=\"&amp;b&amp;\"><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
                 "all");
         }
 
         // HTML tags are removed from the contents of `<th>` elements when such contents are used as values of `data-label` attributes:
         [Fact]
-        public void Flexitableblocks_Spec4_flexitableblocks_gridtables_pipetables()
+        public void Flexitableblocks_Spec4_flexitableblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     +---+---+---+
@@ -15050,7 +15051,7 @@ namespace FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("+---+---+---+\n| a | b | c |\n|   |   |   |\n| a |   |   |\n+===+===+===+\n| 0 | 1 | 2 |\n+---+---+---+\n| 3 | 4 | 5 |", 
                 "<table>\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<thead>\n<tr>\n<th><p>a</p>\n<p>a</p>\n</th>\n<th>b</th>\n<th>c</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"aa\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n<td data-label=\"c\"><span>2</span></td>\n</tr>\n<tr>\n<td data-label=\"aa\"><span>3</span></td>\n<td data-label=\"b\"><span>4</span></td>\n<td data-label=\"c\"><span>5</span></td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_gridtables_pipetables");
+                "flexitableblocks_flexioptionsblocks");
         }
 
         // HTML tags are removed from the contents of `<th>` elements when such contents are used as values of `data-label` attributes:
@@ -15100,20 +15101,20 @@ namespace FlexiBlocks.Tests.Specs
                 "all");
         }
 
-        // The label attribute's name can be customized using `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.LabelAttributeName`:
+        // The label attribute's name can be customized using `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.LabelAttributeName`:
         [Fact]
-        public void Flexitableblocks_Spec5_flexitableblocks_gridtables_pipetables()
+        public void Flexitableblocks_Spec5_flexitableblocks_flexioptionsblocks()
         {
             // The following Markdown:
-            //      a | b
-            //      - | - 
-            //      0 | 1 
-            //      2 | 3 
+            //     a | b
+            //     - | - 
+            //     0 | 1 
+            //     2 | 3 
             //
             // With extension options:
             //     {
             //         "flexitableblocks": {
-            //             "defaultResponsiveTableOptions": {
+            //             "defaultFlexiTableBlockOptions": {
             //                 "labelAttributeName": "custom-name"
             //             }
             //         }
@@ -15139,26 +15140,26 @@ namespace FlexiBlocks.Tests.Specs
             //     </tbody>
             //     </table>
 
-            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+            SpecTestHelper.AssertCompliance("a | b\n- | - \n0 | 1 \n2 | 3 ", 
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td custom-name=\"a\"><span>0</span></td>\n<td custom-name=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td custom-name=\"a\"><span>2</span></td>\n<td custom-name=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_gridtables_pipetables", 
-                "{\n    \"flexitableblocks\": {\n        \"defaultResponsiveTableOptions\": {\n            \"labelAttributeName\": \"custom-name\"\n        }\n    }\n}");
+                "flexitableblocks_flexioptionsblocks", 
+                "{\n    \"flexitableblocks\": {\n        \"defaultFlexiTableBlockOptions\": {\n            \"labelAttributeName\": \"custom-name\"\n        }\n    }\n}");
         }
 
-        // The label attribute's name can be customized using `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.LabelAttributeName`:
+        // The label attribute's name can be customized using `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.LabelAttributeName`:
         [Fact]
         public void Flexitableblocks_Spec5_all()
         {
             // The following Markdown:
-            //      a | b
-            //      - | - 
-            //      0 | 1 
-            //      2 | 3 
+            //     a | b
+            //     - | - 
+            //     0 | 1 
+            //     2 | 3 
             //
             // With extension options:
             //     {
             //         "flexitableblocks": {
-            //             "defaultResponsiveTableOptions": {
+            //             "defaultFlexiTableBlockOptions": {
             //                 "labelAttributeName": "custom-name"
             //             }
             //         }
@@ -15184,26 +15185,26 @@ namespace FlexiBlocks.Tests.Specs
             //     </tbody>
             //     </table>
 
-            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+            SpecTestHelper.AssertCompliance("a | b\n- | - \n0 | 1 \n2 | 3 ", 
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td custom-name=\"a\"><span>0</span></td>\n<td custom-name=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td custom-name=\"a\"><span>2</span></td>\n<td custom-name=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
                 "all", 
-                "{\n    \"flexitableblocks\": {\n        \"defaultResponsiveTableOptions\": {\n            \"labelAttributeName\": \"custom-name\"\n        }\n    }\n}");
+                "{\n    \"flexitableblocks\": {\n        \"defaultFlexiTableBlockOptions\": {\n            \"labelAttributeName\": \"custom-name\"\n        }\n    }\n}");
         }
 
-        // To avoid rendering the label attribute, set `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.LabelAttributeName` to an empty string:
+        // To avoid rendering the label attribute, set `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.LabelAttributeName` to an empty string:
         [Fact]
-        public void Flexitableblocks_Spec6_flexitableblocks_gridtables_pipetables()
+        public void Flexitableblocks_Spec6_flexitableblocks_flexioptionsblocks()
         {
             // The following Markdown:
-            //      a | b
-            //      - | - 
-            //      0 | 1 
-            //      2 | 3 
+            //     a | b
+            //     - | - 
+            //     0 | 1 
+            //     2 | 3 
             //
             // With extension options:
             //     {
             //         "flexitableblocks": {
-            //             "defaultResponsiveTableOptions": {
+            //             "defaultFlexiTableBlockOptions": {
             //                 "labelAttributeName": ""
             //             }
             //         }
@@ -15229,26 +15230,26 @@ namespace FlexiBlocks.Tests.Specs
             //     </tbody>
             //     </table>
 
-            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+            SpecTestHelper.AssertCompliance("a | b\n- | - \n0 | 1 \n2 | 3 ", 
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><span>0</span></td>\n<td><span>1</span></td>\n</tr>\n<tr>\n<td><span>2</span></td>\n<td><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_gridtables_pipetables", 
-                "{\n    \"flexitableblocks\": {\n        \"defaultResponsiveTableOptions\": {\n            \"labelAttributeName\": \"\"\n        }\n    }\n}");
+                "flexitableblocks_flexioptionsblocks", 
+                "{\n    \"flexitableblocks\": {\n        \"defaultFlexiTableBlockOptions\": {\n            \"labelAttributeName\": \"\"\n        }\n    }\n}");
         }
 
-        // To avoid rendering the label attribute, set `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.LabelAttributeName` to an empty string:
+        // To avoid rendering the label attribute, set `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.LabelAttributeName` to an empty string:
         [Fact]
         public void Flexitableblocks_Spec6_all()
         {
             // The following Markdown:
-            //      a | b
-            //      - | - 
-            //      0 | 1 
-            //      2 | 3 
+            //     a | b
+            //     - | - 
+            //     0 | 1 
+            //     2 | 3 
             //
             // With extension options:
             //     {
             //         "flexitableblocks": {
-            //             "defaultResponsiveTableOptions": {
+            //             "defaultFlexiTableBlockOptions": {
             //                 "labelAttributeName": ""
             //             }
             //         }
@@ -15274,26 +15275,26 @@ namespace FlexiBlocks.Tests.Specs
             //     </tbody>
             //     </table>
 
-            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+            SpecTestHelper.AssertCompliance("a | b\n- | - \n0 | 1 \n2 | 3 ", 
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><span>0</span></td>\n<td><span>1</span></td>\n</tr>\n<tr>\n<td><span>2</span></td>\n<td><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
                 "all", 
-                "{\n    \"flexitableblocks\": {\n        \"defaultResponsiveTableOptions\": {\n            \"labelAttributeName\": \"\"\n        }\n    }\n}");
+                "{\n    \"flexitableblocks\": {\n        \"defaultFlexiTableBlockOptions\": {\n            \"labelAttributeName\": \"\"\n        }\n    }\n}");
         }
 
-        // The `<td>` content wrapper element can be customized using `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.WrapperElementName`:
+        // The `<td>` content wrapper element can be customized using `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.WrapperElementName`:
         [Fact]
-        public void Flexitableblocks_Spec7_flexitableblocks_gridtables_pipetables()
+        public void Flexitableblocks_Spec7_flexitableblocks_flexioptionsblocks()
         {
             // The following Markdown:
-            //      a | b
-            //      - | - 
-            //      0 | 1 
-            //      2 | 3 
+            //     a | b
+            //     - | - 
+            //     0 | 1 
+            //     2 | 3 
             //
             // With extension options:
             //     {
             //         "flexitableblocks": {
-            //             "defaultResponsiveTableOptions": {
+            //             "defaultFlexiTableBlockOptions": {
             //                 "wrapperElementName": "div"
             //             }
             //         }
@@ -15319,26 +15320,26 @@ namespace FlexiBlocks.Tests.Specs
             //     </tbody>
             //     </table>
 
-            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+            SpecTestHelper.AssertCompliance("a | b\n- | - \n0 | 1 \n2 | 3 ", 
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><div>0</div></td>\n<td data-label=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-label=\"a\"><div>2</div></td>\n<td data-label=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_gridtables_pipetables", 
-                "{\n    \"flexitableblocks\": {\n        \"defaultResponsiveTableOptions\": {\n            \"wrapperElementName\": \"div\"\n        }\n    }\n}");
+                "flexitableblocks_flexioptionsblocks", 
+                "{\n    \"flexitableblocks\": {\n        \"defaultFlexiTableBlockOptions\": {\n            \"wrapperElementName\": \"div\"\n        }\n    }\n}");
         }
 
-        // The `<td>` content wrapper element can be customized using `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.WrapperElementName`:
+        // The `<td>` content wrapper element can be customized using `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.WrapperElementName`:
         [Fact]
         public void Flexitableblocks_Spec7_all()
         {
             // The following Markdown:
-            //      a | b
-            //      - | - 
-            //      0 | 1 
-            //      2 | 3 
+            //     a | b
+            //     - | - 
+            //     0 | 1 
+            //     2 | 3 
             //
             // With extension options:
             //     {
             //         "flexitableblocks": {
-            //             "defaultResponsiveTableOptions": {
+            //             "defaultFlexiTableBlockOptions": {
             //                 "wrapperElementName": "div"
             //             }
             //         }
@@ -15364,26 +15365,26 @@ namespace FlexiBlocks.Tests.Specs
             //     </tbody>
             //     </table>
 
-            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+            SpecTestHelper.AssertCompliance("a | b\n- | - \n0 | 1 \n2 | 3 ", 
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><div>0</div></td>\n<td data-label=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-label=\"a\"><div>2</div></td>\n<td data-label=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>", 
                 "all", 
-                "{\n    \"flexitableblocks\": {\n        \"defaultResponsiveTableOptions\": {\n            \"wrapperElementName\": \"div\"\n        }\n    }\n}");
+                "{\n    \"flexitableblocks\": {\n        \"defaultFlexiTableBlockOptions\": {\n            \"wrapperElementName\": \"div\"\n        }\n    }\n}");
         }
 
-        // To avoid rendering wrapper elements, set `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.WrapperElementName` to an empty string:
+        // To avoid rendering wrapper elements, set `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.WrapperElementName` to an empty string:
         [Fact]
-        public void Flexitableblocks_Spec8_flexitableblocks_gridtables_pipetables()
+        public void Flexitableblocks_Spec8_flexitableblocks_flexioptionsblocks()
         {
             // The following Markdown:
-            //      a | b
-            //      - | - 
-            //      0 | 1 
-            //      2 | 3 
+            //     a | b
+            //     - | - 
+            //     0 | 1 
+            //     2 | 3 
             //
             // With extension options:
             //     {
             //         "flexitableblocks": {
-            //             "defaultResponsiveTableOptions": {
+            //             "defaultFlexiTableBlockOptions": {
             //                 "wrapperElementName": ""
             //             }
             //         }
@@ -15409,26 +15410,26 @@ namespace FlexiBlocks.Tests.Specs
             //     </tbody>
             //     </table>
 
-            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+            SpecTestHelper.AssertCompliance("a | b\n- | - \n0 | 1 \n2 | 3 ", 
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\">0</td>\n<td data-label=\"b\">1</td>\n</tr>\n<tr>\n<td data-label=\"a\">2</td>\n<td data-label=\"b\">3</td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_gridtables_pipetables", 
-                "{\n    \"flexitableblocks\": {\n        \"defaultResponsiveTableOptions\": {\n            \"wrapperElementName\": \"\"\n        }\n    }\n}");
+                "flexitableblocks_flexioptionsblocks", 
+                "{\n    \"flexitableblocks\": {\n        \"defaultFlexiTableBlockOptions\": {\n            \"wrapperElementName\": \"\"\n        }\n    }\n}");
         }
 
-        // To avoid rendering wrapper elements, set `ResponsiveTablesExtensionOptions.DefaultResponsiveTableOptions.WrapperElementName` to an empty string:
+        // To avoid rendering wrapper elements, set `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.WrapperElementName` to an empty string:
         [Fact]
         public void Flexitableblocks_Spec8_all()
         {
             // The following Markdown:
-            //      a | b
-            //      - | - 
-            //      0 | 1 
-            //      2 | 3 
+            //     a | b
+            //     - | - 
+            //     0 | 1 
+            //     2 | 3 
             //
             // With extension options:
             //     {
             //         "flexitableblocks": {
-            //             "defaultResponsiveTableOptions": {
+            //             "defaultFlexiTableBlockOptions": {
             //                 "wrapperElementName": ""
             //             }
             //         }
@@ -15454,10 +15455,216 @@ namespace FlexiBlocks.Tests.Specs
             //     </tbody>
             //     </table>
 
-            SpecTestHelper.AssertCompliance(" a | b\n - | - \n 0 | 1 \n 2 | 3 ", 
+            SpecTestHelper.AssertCompliance("a | b\n- | - \n0 | 1 \n2 | 3 ", 
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\">0</td>\n<td data-label=\"b\">1</td>\n</tr>\n<tr>\n<td data-label=\"a\">2</td>\n<td data-label=\"b\">3</td>\n</tr>\n</tbody>\n</table>", 
                 "all", 
-                "{\n    \"flexitableblocks\": {\n        \"defaultResponsiveTableOptions\": {\n            \"wrapperElementName\": \"\"\n        }\n    }\n}");
+                "{\n    \"flexitableblocks\": {\n        \"defaultFlexiTableBlockOptions\": {\n            \"wrapperElementName\": \"\"\n        }\n    }\n}");
+        }
+
+        // Per-FlexiTableBlock options can be specified for grid tables if the FlexiOptionsBlocks extension is enabled (per-FlexiTableBlock options do not
+        // work for pipe tables):
+        [Fact]
+        public void Flexitableblocks_Spec9_flexitableblocks_flexioptionsblocks()
+        {
+            // The following Markdown:
+            //     @{
+            //         "wrapperElementName": "div"
+            //     }
+            //     +---+---+
+            //     | a | b |
+            //     +===+===+
+            //     | 0 | 1 |
+            //     +---+---+
+            //     | 2 | 3 |  
+            //     @{
+            //         "labelAttributeName": "data-title"
+            //     }
+            //     +---+---+
+            //     | a | b |
+            //     +===+===+
+            //     | 0 | 1 |
+            //     +---+---+
+            //     | 2 | 3 |
+            //     @{
+            //         "attributes": {
+            //             "class": "ftb"
+            //         }
+            //     }
+            //     +---+---+
+            //     | a | b |
+            //     +===+===+
+            //     | 0 | 1 |
+            //     +---+---+
+            //     | 2 | 3 |
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <col style="width:50%">
+            //     <col style="width:50%">
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="a"><div>0</div></td>
+            //     <td data-label="b"><div>1</div></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="a"><div>2</div></td>
+            //     <td data-label="b"><div>3</div></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+            //     <table>
+            //     <col style="width:50%">
+            //     <col style="width:50%">
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-title="a"><span>0</span></td>
+            //     <td data-title="b"><span>1</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-title="a"><span>2</span></td>
+            //     <td data-title="b"><span>3</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+            //     <table class="ftb">
+            //     <col style="width:50%">
+            //     <col style="width:50%">
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="a"><span>0</span></td>
+            //     <td data-label="b"><span>1</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="a"><span>2</span></td>
+            //     <td data-label="b"><span>3</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"wrapperElementName\": \"div\"\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |  \n@{\n    \"labelAttributeName\": \"data-title\"\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |\n@{\n    \"attributes\": {\n        \"class\": \"ftb\"\n    }\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |", 
+                "<table>\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><div>0</div></td>\n<td data-label=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-label=\"a\"><div>2</div></td>\n<td data-label=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>\n<table>\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-title=\"a\"><span>0</span></td>\n<td data-title=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-title=\"a\"><span>2</span></td>\n<td data-title=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>\n<table class=\"ftb\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
+                "flexitableblocks_flexioptionsblocks");
+        }
+
+        // Per-FlexiTableBlock options can be specified for grid tables if the FlexiOptionsBlocks extension is enabled (per-FlexiTableBlock options do not
+        // work for pipe tables):
+        [Fact]
+        public void Flexitableblocks_Spec9_all()
+        {
+            // The following Markdown:
+            //     @{
+            //         "wrapperElementName": "div"
+            //     }
+            //     +---+---+
+            //     | a | b |
+            //     +===+===+
+            //     | 0 | 1 |
+            //     +---+---+
+            //     | 2 | 3 |  
+            //     @{
+            //         "labelAttributeName": "data-title"
+            //     }
+            //     +---+---+
+            //     | a | b |
+            //     +===+===+
+            //     | 0 | 1 |
+            //     +---+---+
+            //     | 2 | 3 |
+            //     @{
+            //         "attributes": {
+            //             "class": "ftb"
+            //         }
+            //     }
+            //     +---+---+
+            //     | a | b |
+            //     +===+===+
+            //     | 0 | 1 |
+            //     +---+---+
+            //     | 2 | 3 |
+            //
+            // Should be rendered as:
+            //     <table>
+            //     <col style="width:50%">
+            //     <col style="width:50%">
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="a"><div>0</div></td>
+            //     <td data-label="b"><div>1</div></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="a"><div>2</div></td>
+            //     <td data-label="b"><div>3</div></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+            //     <table>
+            //     <col style="width:50%">
+            //     <col style="width:50%">
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-title="a"><span>0</span></td>
+            //     <td data-title="b"><span>1</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-title="a"><span>2</span></td>
+            //     <td data-title="b"><span>3</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+            //     <table class="ftb">
+            //     <col style="width:50%">
+            //     <col style="width:50%">
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="a"><span>0</span></td>
+            //     <td data-label="b"><span>1</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="a"><span>2</span></td>
+            //     <td data-label="b"><span>3</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"wrapperElementName\": \"div\"\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |  \n@{\n    \"labelAttributeName\": \"data-title\"\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |\n@{\n    \"attributes\": {\n        \"class\": \"ftb\"\n    }\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |", 
+                "<table>\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><div>0</div></td>\n<td data-label=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-label=\"a\"><div>2</div></td>\n<td data-label=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>\n<table>\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-title=\"a\"><span>0</span></td>\n<td data-title=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-title=\"a\"><span>2</span></td>\n<td data-title=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>\n<table class=\"ftb\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
+                "all");
         }
     }
 

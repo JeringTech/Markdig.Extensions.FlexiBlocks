@@ -30,8 +30,6 @@ namespace FlexiBlocks.Tests
                         UseFlexiSectionBlocks(options?["flexisectionblocks"]?.ToObject<FlexiSectionBlocksExtensionOptions>()).
                         UseFlexiAlertBlocks(options?["flexialertblocks"]?.ToObject<FlexiAlertBlocksExtensionOptions>()).
                         UseFlexiCodeBlocks(options?["flexicodeblocks"]?.ToObject<FlexiCodeBlocksExtensionOptions>()).
-                        UsePipeTables().
-                        UseGridTables().
                         UseFlexiOptionsBlocks();
                 } },
                 { "commonmark", (MarkdownPipelineBuilder _, JObject __) => { } }
