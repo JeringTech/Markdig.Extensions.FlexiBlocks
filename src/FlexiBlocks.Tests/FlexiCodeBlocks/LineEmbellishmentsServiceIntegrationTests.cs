@@ -31,7 +31,7 @@ line 10";
             string result = lineEmbellishmentService.EmbellishLines(dummyText, dummyLineNumberRanges?.Value, dummyHighlightLineRanges?.Value, dummyPrefixForClasses);
 
             // Assert
-            Assert.Equal(expectedResult, result);
+            Assert.Equal(expectedResult, result, ignoreLineEndingDifferences: true);
         }
 
         public static IEnumerable<object[]> EmbellishLines_EmbellishesLines_Data()
