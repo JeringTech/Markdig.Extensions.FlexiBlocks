@@ -16,17 +16,10 @@ namespace FlexiBlocks.FlexiTableBlocks
     public class FlexiTableBlockRenderer : HtmlObjectRenderer<Table>
     {
         private readonly HtmlRenderer _stripRenderer;
-        private readonly FlexiTableBlockOptions _options;
         private readonly StringWriter _stringWriter;
-        private readonly bool _renderWrapper;
-        private readonly bool _renderLabelAttribute;
 
-        public FlexiTableBlockRenderer(FlexiTableBlockOptions options)
+        public FlexiTableBlockRenderer()
         {
-            _options = options;
-            _renderWrapper = !string.IsNullOrWhiteSpace(_options.WrapperElementName);
-            _renderLabelAttribute = !string.IsNullOrWhiteSpace(_options.LabelAttributeName);
-
             _stringWriter = new StringWriter();
             _stripRenderer = new HtmlRenderer(_stringWriter)
             {
@@ -37,9 +30,13 @@ namespace FlexiBlocks.FlexiTableBlocks
 
         protected override void Write(HtmlRenderer renderer, Table obj)
         {
+            var flexiTableBlockOptions = (FlexiTableBlockOptions)obj.GetData(FlexiTableBlocksExtension.FLEXI_TABLE_BLOCK_OPTIONS_KEY);
+            bool renderWrapper = !string.IsNullOrWhiteSpace(flexiTableBlockOptions.WrapperElementName);
+            bool renderLabelAttribute = !string.IsNullOrWhiteSpace(flexiTableBlockOptions.LabelAttributeName);
+
             renderer.EnsureLine();
             // TODO merge attributes? - ideally, PipeTableParser should be converted to a BlockParser so that the GenericAttributes extension is not required
-            renderer.Write("<table").WriteHtmlAttributeDictionary(_options.Attributes).WriteAttributes(obj).WriteLine(">");
+            renderer.Write("<table").WriteHtmlAttributeDictionary(flexiTableBlockOptions.Attributes).WriteAttributes(obj).WriteLine(">");
 
             bool hasBody = false;
             bool hasAlreadyHeader = false;
@@ -76,7 +73,7 @@ namespace FlexiBlocks.FlexiTableBlocks
                     // Don't allow more than 1 thead
                     if (!hasAlreadyHeader)
                     {
-                        if (_renderLabelAttribute)
+                        if (renderLabelAttribute)
                         {
                             labels = new List<string>(row.Count);
                         }
@@ -103,7 +100,7 @@ namespace FlexiBlocks.FlexiTableBlocks
                     Block cellObj = row[i];
                     var cell = (TableCell)cellObj;
 
-                    if (row.IsHeader && _renderLabelAttribute)
+                    if (row.IsHeader && renderLabelAttribute)
                     {
                         _stripRenderer.Write(cell);
                         labels.Add(_stringWriter.ToString());
@@ -112,9 +109,9 @@ namespace FlexiBlocks.FlexiTableBlocks
 
                     renderer.EnsureLine();
                     renderer.Write(row.IsHeader ? "<th" : "<td");
-                    if (!row.IsHeader && _renderLabelAttribute && i < labels.Count)
+                    if (!row.IsHeader && renderLabelAttribute && i < labels.Count)
                     {
-                        renderer.Write($" {_options.LabelAttributeName}=\"{labels[i]}\"");
+                        renderer.Write($" {flexiTableBlockOptions.LabelAttributeName}=\"{labels[i]}\"");
                     }
                     if (cell.ColumnSpan != 1)
                     {
@@ -150,9 +147,9 @@ namespace FlexiBlocks.FlexiTableBlocks
                     renderer.WriteAttributes(cell);
                     renderer.Write(">");
 
-                    if (!row.IsHeader && _renderWrapper)
+                    if (!row.IsHeader && renderWrapper)
                     {
-                        renderer.Write($"<{_options.WrapperElementName}>");
+                        renderer.Write($"<{flexiTableBlockOptions.WrapperElementName}>");
                     }
 
                     bool previousImplicitParagraph = renderer.ImplicitParagraph;
@@ -164,9 +161,9 @@ namespace FlexiBlocks.FlexiTableBlocks
                     renderer.Write(cell);
                     renderer.ImplicitParagraph = previousImplicitParagraph;
 
-                    if (!row.IsHeader && _renderWrapper)
+                    if (!row.IsHeader && renderWrapper)
                     {
-                        renderer.Write($"</{_options.WrapperElementName}>");
+                        renderer.Write($"</{flexiTableBlockOptions.WrapperElementName}>");
                     }
                     renderer.WriteLine(row.IsHeader ? "</th>" : "</td>");
                 }
