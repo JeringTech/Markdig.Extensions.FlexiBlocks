@@ -9,7 +9,7 @@ build_script:
 test_script:
 - ps: |
     cd .\src\FlexiBlocks.Tests
-    dotnet test -c release -l trx -r ./ --no-build .\Jering.Markdig.Extensions.FlexiBlocks.Tests.csproj
+    dotnet test -v n -c release -l trx -r ./ --no-build .\Jering.Markdig.Extensions.FlexiBlocks.Tests.csproj
     $wc = New-Object 'System.Net.WebClient'
     $wc.UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\*.trx))
 artifacts:
