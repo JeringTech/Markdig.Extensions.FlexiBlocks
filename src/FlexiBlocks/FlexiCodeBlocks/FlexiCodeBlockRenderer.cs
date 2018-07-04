@@ -5,6 +5,7 @@ using Markdig.Renderers.Html;
 using Markdig.Syntax;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
@@ -81,10 +82,24 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 code = _stringWriter.ToString();
                 _stringWriter.GetStringBuilder().Length = 0;
 
-                // Default to Prism
-                code = flexiCodeBlockOptions.SyntaxHighlighter == SyntaxHighlighter.HighlightJS ?
-                    _highlightJSService.HighlightAsync(code, flexiCodeBlockOptions.Language, flexiCodeBlockOptions.HighlightJSClassPrefix).Result :
-                    _prismService.HighlightAsync(code, flexiCodeBlockOptions.Language).Result;
+
+
+                // TODO markdig should allow for async writing
+                // Run in the threadpool to avoid deadlocks (the underlying class used for invoking JS, INodeServices does not call ConfigureAwait)
+                code = Task.Run(() =>
+                {
+                    if (flexiCodeBlockOptions.SyntaxHighlighter == SyntaxHighlighter.HighlightJS)
+                    {
+                        return _highlightJSService.HighlightAsync(code, flexiCodeBlockOptions.Language, flexiCodeBlockOptions.HighlightJSClassPrefix);
+                    }
+                    else
+                    {
+                        // Default to Prism
+                        return _prismService.HighlightAsync(code, flexiCodeBlockOptions.Language);
+                    }
+                }).Result;
+
+
             }
 
             // Embellish code
