@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\FlexiBlocks\Jering.Markdig.Extensions.FlexiBlocks.csproj" />
+      <ProjectReference Include="..\..\src\FlexiBlocks\Jering.Markdig.Extensions.FlexiBlocks.csproj" />
     </ItemGroup>
 
     <ItemGroup>

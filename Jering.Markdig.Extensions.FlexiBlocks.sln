@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jering.Markdig.Extensions.FlexiBlocks", "src\FlexiBlocks\Jering.Markdig.Extensions.FlexiBlocks.csproj", "{69901773-069B-45D2-8501-CF27BE603C30}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jering.Markdig.Extensions.FlexiBlocks.Tests", "src\FlexiBlocks.Tests\Jering.Markdig.Extensions.FlexiBlocks.Tests.csproj", "{CDD17EBA-6B59-4675-8437-30BA15CA3647}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jering.Markdig.Extensions.FlexiBlocks.Tests", "test\FlexiBlocks.Tests\Jering.Markdig.Extensions.FlexiBlocks.Tests.csproj", "{CDD17EBA-6B59-4675-8437-30BA15CA3647}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{F41F9DD0-C122-4F19-9C90-1E5DC00D59F4}"
 	ProjectSection(SolutionItems) = preProject
