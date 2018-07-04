@@ -45,7 +45,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             result = Compact(result);
             string expectedResult = Compact(expectedHtml);
 
-            Assert.Equal(expectedResult, result);
+            Assert.Equal(expectedResult, result, ignoreLineEndingDifferences: true);
         }
 
         private static MarkdownPipeline CreatePipeline(string pipelineOptions, string extensionOptionsJson)
