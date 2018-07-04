@@ -1,6 +1,8 @@
 version: '{build}'
 skip_non_tags: true
 image: Visual Studio 2017
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 # TODO if dotnet build isn't called, error MSB4044 is thrown by dotnet pack
 build_script:
 - ps: |
