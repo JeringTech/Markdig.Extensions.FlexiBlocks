@@ -1,5 +1,4 @@
 ﻿using Markdig.Renderers;
-using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
