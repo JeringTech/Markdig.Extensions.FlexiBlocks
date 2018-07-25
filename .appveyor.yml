@@ -12,7 +12,7 @@ build_script:
 test_script:
 - ps: |
     cd .\test\FlexiBlocks.Tests
-    dotnet test -v n -c release -l trx -r ./ --no-build .\Jering.Markdig.Extensions.FlexiBlocks.Tests.csproj
+    dotnet test -c release -l trx -r ./ --no-build .\Jering.Markdig.Extensions.FlexiBlocks.Tests.csproj
     if($LastExitCode -ne 0){
         throw "Tests failed."
     }
