@@ -5,5 +5,9 @@ for an overview of semantic versioning.
 
 ## [Unreleased](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.1.0...HEAD)
 
+## 0.2.0 - Jul 25, 2018
+### Changes
+- Bumped syntax highlighter versions.
+
 ## 0.1.0 - Jul 3, 2018
 Initial release.
