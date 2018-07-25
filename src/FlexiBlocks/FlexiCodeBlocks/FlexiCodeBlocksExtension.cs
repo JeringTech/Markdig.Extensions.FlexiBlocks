@@ -1,11 +1,11 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
-using JeremyTCD.WebUtils.SyntaxHighlighters.HighlightJS;
-using JeremyTCD.WebUtils.SyntaxHighlighters.Prism;
 using Markdig;
 using Markdig.Parsers;
 using Markdig.Renderers;
 using Markdig.Renderers.Html;
 using Markdig.Syntax;
+using Jering.WebUtils.SyntaxHighlighters.Prism;
+using Jering.WebUtils.SyntaxHighlighters.HighlightJS;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {

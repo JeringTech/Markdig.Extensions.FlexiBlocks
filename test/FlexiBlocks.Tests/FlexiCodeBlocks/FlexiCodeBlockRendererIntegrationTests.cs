@@ -1,6 +1,6 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
-using JeremyTCD.WebUtils.SyntaxHighlighters.HighlightJS;
-using JeremyTCD.WebUtils.SyntaxHighlighters.Prism;
+using Jering.WebUtils.SyntaxHighlighters.HighlightJS;
+using Jering.WebUtils.SyntaxHighlighters.Prism;
 using Markdig.Helpers;
 using Markdig.Renderers;
 using Markdig.Syntax;

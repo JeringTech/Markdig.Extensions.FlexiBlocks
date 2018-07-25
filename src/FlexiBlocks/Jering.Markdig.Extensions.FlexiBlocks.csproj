@@ -6,22 +6,23 @@
         <Authors>JeremyTCD</Authors>
         <Description>A collection of flexible Markdig extensions.</Description>
         <Copyright>© JeremyTCD. All rights reserved.</Copyright>
-        <PackageLicenseUrl>https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/License.txt</PackageLicenseUrl>
         <PackageProjectUrl>https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks</PackageProjectUrl>
-        <PackageReleaseNotes>https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/Changelog.md</PackageReleaseNotes>
+        <PackageLicenseUrl>$(PackageProjectUrl)/blob/master/License.txt</PackageLicenseUrl>
+        <PackageReleaseNotes>$(PackageProjectUrl)/blob/master/Changelog.md</PackageReleaseNotes>
+        <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
         <PackageTags>markdown markdig extension</PackageTags>
-        <RepositoryUrl>https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <IncludeSymbols>true</IncludeSymbols>
     </PropertyGroup>
 
     <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <CodeAnalysisRuleSet>..\..\Jering.Markdig.Extensions.FlexiBlocks.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="JeremyTCD.WebUtils.SyntaxHighlighters.HighlightJS" Version="1.0.1" />
-        <PackageReference Include="JeremyTCD.WebUtils.SyntaxHighlighters.Prism" Version="2.0.3" />
+        <PackageReference Include="Jering.WebUtils.SyntaxHighlighters.HighlightJS" Version="1.1.0" />
+        <PackageReference Include="Jering.WebUtils.SyntaxHighlighters.Prism" Version="2.1.0" />
         <PackageReference Include="Markdig" Version="0.15.0" />
         <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
         <PackageReference Include="Roslynator.Analyzers" Version="1.8.0" PrivateAssets="All" ExcludeAssets="Runtime" />

@@ -1,10 +1,10 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
-using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
-using JeremyTCD.WebUtils.SyntaxHighlighters.HighlightJS;
-using JeremyTCD.WebUtils.SyntaxHighlighters.Prism;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
+using Jering.WebUtils.SyntaxHighlighters.HighlightJS;
+using Jering.WebUtils.SyntaxHighlighters.Prism;
 using Markdig;
 using Microsoft.Extensions.DependencyInjection;
 

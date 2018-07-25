@@ -1,5 +1,5 @@
-﻿using JeremyTCD.WebUtils.SyntaxHighlighters.HighlightJS;
-using JeremyTCD.WebUtils.SyntaxHighlighters.Prism;
+﻿using Jering.WebUtils.SyntaxHighlighters.HighlightJS;
+using Jering.WebUtils.SyntaxHighlighters.Prism;
 using Markdig.Renderers;
 using Markdig.Renderers.Html;
 using Markdig.Syntax;
