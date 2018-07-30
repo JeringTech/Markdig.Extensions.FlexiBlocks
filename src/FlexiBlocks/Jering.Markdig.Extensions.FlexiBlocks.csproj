@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>Jering.Markdig.Extensions.FlexiBlocks</PackageId>
         <Authors>JeremyTCD</Authors>
-        <Description>A collection of flexible Markdig extensions.</Description>
+        <Description>A Collection of Flexible Markdig Extensions.</Description>
         <Copyright>© JeremyTCD. All rights reserved.</Copyright>
         <PackageProjectUrl>https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks</PackageProjectUrl>
         <PackageLicenseUrl>$(PackageProjectUrl)/blob/master/License.txt</PackageLicenseUrl>
