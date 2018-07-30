@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using Xunit;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 {
@@ -18,6 +19,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             new Dictionary<string, Action<MarkdownPipelineBuilder, JObject>>
             {
                 { "flexioptionsblocks", (MarkdownPipelineBuilder builder, JObject _) => builder.UseFlexiOptionsBlocks() },
+                { "flexiincludeblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiIncludeBlocks(options?["flexiincludeblocks"]?.ToObject<FlexiIncludeBlocksExtensionOptions>()) },
                 { "flexicodeblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiCodeBlocks(options?["flexicodeblocks"]?.ToObject<FlexiCodeBlocksExtensionOptions>()) },
                 { "flexisectionblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiSectionBlocks(options?["flexisectionblocks"]?.ToObject<FlexiSectionBlocksExtensionOptions>()) },
                 { "flexialertblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiAlertBlocks(options?["flexialertblocks"]?.ToObject<FlexiAlertBlocksExtensionOptions>()) },

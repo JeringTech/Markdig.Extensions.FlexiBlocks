@@ -19,9 +19,18 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\FlexiBlocks\Jering.Markdig.Extensions.FlexiBlocks.csproj" />
+        <ProjectReference Include="..\..\src\FlexiBlocks\Jering.Markdig.Extensions.FlexiBlocks.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <Content Include="exampleArticleSectionWithNestedInclude.md">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="exampleArticleSection.md">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+    
     <ItemGroup>
         <None Update="SpecsTests\SpecsTests.tt">
             <Generator>TextTemplatingFileGenerator</Generator>

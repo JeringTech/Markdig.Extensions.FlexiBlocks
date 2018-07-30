@@ -1,5 +1,6 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
@@ -74,6 +75,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 pipelineBuilder.Extensions.Add(new FlexiCodeBlocksExtension(options,
                     _serviceProvider.GetRequiredService<IPrismService>(),
                     _serviceProvider.GetRequiredService<IHighlightJSService>()));
+            }
+
+            return pipelineBuilder;
+        }
+
+        public static MarkdownPipelineBuilder UseFlexiIncludeBlocks(this MarkdownPipelineBuilder pipelineBuilder, FlexiIncludeBlocksExtensionOptions options = null)
+        {
+            if (!pipelineBuilder.Extensions.Contains<FlexiIncludeBlocksExtension>())
+            {
+                pipelineBuilder.Extensions.Add(new FlexiIncludeBlocksExtension(options));
             }
 
             return pipelineBuilder;

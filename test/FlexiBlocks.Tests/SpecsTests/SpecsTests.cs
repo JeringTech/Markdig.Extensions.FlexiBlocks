@@ -15668,6 +15668,106 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         }
     }
 
+    // This is an example article section with a nested include.
+    // 
+    // +{
+    //     "contentType": "Markdown",
+    //     "source": "./exampleArticleSection.md"    
+    // }
+    // ```
+    public class ExampleArticleSectionWithNestedIncludeTests
+    {
+        // A FlexiIncludeBlock is an `IncludeOptions` instance in JSON form with `+` prepended immediately before the opening `{`:
+        [Fact]
+        public void ExampleArticleSectionWithNestedInclude_Spec1_flexiincludeblocks_flexioptionsblocks()
+        {
+            // The following Markdown:
+            //     # Example Article
+            //     This is an example article.
+            //     
+            //     +{
+            //         "contentType": "Markdown",
+            //         "source": "./exampleArticleSection.md"
+            //     }
+            //
+            // Should be rendered as:
+            //     <h1>Example Article</h1>
+            //     <p>This is an example article.</p>
+            //     <h2>Example Article Section</h2>
+            //     <p>This is an example article section.</p>
+
+            SpecTestHelper.AssertCompliance("# Example Article\nThis is an example article.\n\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleArticleSection.md\"\n}", 
+                "<h1>Example Article</h1>\n<p>This is an example article.</p>\n<h2>Example Article Section</h2>\n<p>This is an example article section.</p>", 
+                "flexiincludeblocks_flexioptionsblocks");
+        }
+
+        // A FlexiIncludeBlock is an `IncludeOptions` instance in JSON form with `+` prepended immediately before the opening `{`:
+        [Fact]
+        public void ExampleArticleSectionWithNestedInclude_Spec1_all()
+        {
+            // The following Markdown:
+            //     # Example Article
+            //     This is an example article.
+            //     
+            //     +{
+            //         "contentType": "Markdown",
+            //         "source": "./exampleArticleSection.md"
+            //     }
+            //
+            // Should be rendered as:
+            //     <h1>Example Article</h1>
+            //     <p>This is an example article.</p>
+            //     <h2>Example Article Section</h2>
+            //     <p>This is an example article section.</p>
+
+            SpecTestHelper.AssertCompliance("# Example Article\nThis is an example article.\n\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleArticleSection.md\"\n}", 
+                "<h1>Example Article</h1>\n<p>This is an example article.</p>\n<h2>Example Article Section</h2>\n<p>This is an example article section.</p>", 
+                "all");
+        }
+
+        // Includes can be nested:
+        [Fact]
+        public void ExampleArticleSectionWithNestedInclude_Spec2_flexiincludeblocks_flexioptionsblocks()
+        {
+            // The following Markdown:
+            //     # Example Article
+            //     This is an example article.
+            //     
+            //     +{
+            //         "contentType": "Markdown",
+            //         "source": "./exampleArticleSectionWithNestedInclude.md"
+            //     }
+            //
+            // Should be rendered as:
+
+
+            SpecTestHelper.AssertCompliance("# Example Article\nThis is an example article.\n\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleArticleSectionWithNestedInclude.md\"\n}", 
+                "", 
+                "flexiincludeblocks_flexioptionsblocks");
+        }
+
+        // Includes can be nested:
+        [Fact]
+        public void ExampleArticleSectionWithNestedInclude_Spec2_all()
+        {
+            // The following Markdown:
+            //     # Example Article
+            //     This is an example article.
+            //     
+            //     +{
+            //         "contentType": "Markdown",
+            //         "source": "./exampleArticleSectionWithNestedInclude.md"
+            //     }
+            //
+            // Should be rendered as:
+
+
+            SpecTestHelper.AssertCompliance("# Example Article\nThis is an example article.\n\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleArticleSectionWithNestedInclude.md\"\n}", 
+                "", 
+                "all");
+        }
+    }
+
     // Per-block options are useful for many extensions. For example, per-block options would allow a code extension to add line-numbers to select code blocks. 
     // Json options facilitates per-block options, using a simple and consistent syntax.
     public class FlexioptionsblocksTests
