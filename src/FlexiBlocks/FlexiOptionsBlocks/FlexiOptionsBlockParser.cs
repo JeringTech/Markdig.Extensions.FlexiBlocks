@@ -54,7 +54,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
         /// Determines whether or not the <see cref="FlexiOptionsBlock"/> is complete by checking whether all opening curly brackets have been closed. 
         /// The JSON spec allows for unescaped curly brackets within strings - https://www.json.org/, so this method ignores everything between unescaped quotes.
         /// 
-        /// TODO This function can be improved - it does not verify that what has been read is valid JSON. Use JsonTextReader?.
+        /// TODO This function can be improved - it does not verify that what has been read is valid JSON. Use JsonTextReader?
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="block"></param>
@@ -94,7 +94,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
                                     pendingFlexiOptionsBlock.Column));
                             }
 
-                            // Save block to data, leave block in ast so that line gets assigned to block
+                            // Save the options block to document data. There are two reasons for this. Firstly, it makes it easy to detect if an options block goes unused.
+                            // Secondly, it means that the options block does not need to be a sibling of the block that consumes it. This can occur in
+                            // when extensions like FlexiSectionBlocks is used - when a container block only ends when a new container block
+                            // is encountered, the options block ends up being a child of the container block that precedes the container block that the options apply to. Leave 
+                            // the options block in the AST so that the current line gets assigned to it.
                             processor.Document.SetData(FLEXI_OPTIONS_BLOCK, flexiOptionsBlock);
 
                             return BlockState.Break;
@@ -115,6 +119,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
             }
 
             return BlockState.Continue;
+        }
+
+        public override bool Close(BlockProcessor processor, Block block)
+        {
+            // If true is returned, the block is kept as a child of its parent for rendering later on. If false is returned,
+            // the block is discarded. We don't need the block any more.
+            return false;
         }
     }
 }
