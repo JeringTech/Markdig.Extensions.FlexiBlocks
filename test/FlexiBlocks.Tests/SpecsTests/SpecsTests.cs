@@ -15668,6 +15668,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         }
     }
 
+    // The FlexiIncludeBlocks extension provides ways to include content from both local and remote documents.
+    // 
+    // In the following
+    // example, `exampleArticleSection.md` has the following contents:
+    // ```
+    // #### Example Article Section
+    // This is an example article section.
+    // ```
+    // `exampleArticleSectionWithNestedInclude.md` has the following contents:
+    // ```
+    // ### Example Article Section with Nested Include
     // This is an example article section with a nested include.
     // 
     // +{
@@ -15675,11 +15686,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     //     "source": "./exampleArticleSection.md"    
     // }
     // ```
-    public class ExampleArticleSectionWithNestedIncludeTests
+    public class FlexiincludeblocksTests
     {
-        // A FlexiIncludeBlock is an `IncludeOptions` instance in JSON form with `+` prepended immediately before the opening `{`:
+        // A FlexiIncludeBlock is an `IncludeOptions` instance in JSON form with `+` prepended immediately before the opening `{`. This first line
+        // must begin with `+{`:
         [Fact]
-        public void ExampleArticleSectionWithNestedInclude_Spec1_flexiincludeblocks_flexioptionsblocks()
+        public void Flexiincludeblocks_Spec1_flexiincludeblocks_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     # Example Article
@@ -15691,19 +15703,28 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }
             //
             // Should be rendered as:
+            //     <header class="header-level-1">
             //     <h1>Example Article</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
             //     <p>This is an example article.</p>
-            //     <h2>Example Article Section</h2>
+            //     <section id="example-article-section">
+            //     <header class="header-level-4">
+            //     <h4>Example Article Section</h4>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
             //     <p>This is an example article section.</p>
+            //     </section>
 
             SpecTestHelper.AssertCompliance("# Example Article\nThis is an example article.\n\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleArticleSection.md\"\n}", 
-                "<h1>Example Article</h1>\n<p>This is an example article.</p>\n<h2>Example Article Section</h2>\n<p>This is an example article section.</p>", 
-                "flexiincludeblocks_flexioptionsblocks");
+                "<header class=\"header-level-1\">\n<h1>Example Article</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article.</p>\n<section id=\"example-article-section\">\n<header class=\"header-level-4\">\n<h4>Example Article Section</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section.</p>\n</section>", 
+                "flexiincludeblocks_flexisectionblocks_flexioptionsblocks");
         }
 
-        // A FlexiIncludeBlock is an `IncludeOptions` instance in JSON form with `+` prepended immediately before the opening `{`:
+        // A FlexiIncludeBlock is an `IncludeOptions` instance in JSON form with `+` prepended immediately before the opening `{`. This first line
+        // must begin with `+{`:
         [Fact]
-        public void ExampleArticleSectionWithNestedInclude_Spec1_all()
+        public void Flexiincludeblocks_Spec1_all()
         {
             // The following Markdown:
             //     # Example Article
@@ -15715,19 +15736,27 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }
             //
             // Should be rendered as:
+            //     <header class="header-level-1">
             //     <h1>Example Article</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
             //     <p>This is an example article.</p>
-            //     <h2>Example Article Section</h2>
+            //     <section id="example-article-section">
+            //     <header class="header-level-4">
+            //     <h4>Example Article Section</h4>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
             //     <p>This is an example article section.</p>
+            //     </section>
 
             SpecTestHelper.AssertCompliance("# Example Article\nThis is an example article.\n\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleArticleSection.md\"\n}", 
-                "<h1>Example Article</h1>\n<p>This is an example article.</p>\n<h2>Example Article Section</h2>\n<p>This is an example article section.</p>", 
+                "<header class=\"header-level-1\">\n<h1>Example Article</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article.</p>\n<section id=\"example-article-section\">\n<header class=\"header-level-4\">\n<h4>Example Article Section</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section.</p>\n</section>", 
                 "all");
         }
 
         // Includes can be nested:
         [Fact]
-        public void ExampleArticleSectionWithNestedInclude_Spec2_flexiincludeblocks_flexioptionsblocks()
+        public void Flexiincludeblocks_Spec2_flexiincludeblocks_flexisectionblocks_flexioptionsblocks()
         {
             // The following Markdown:
             //     # Example Article
@@ -15739,16 +15768,34 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }
             //
             // Should be rendered as:
-
+            //     <header class="header-level-1">
+            //     <h1>Example Article</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     <p>This is an example article.</p>
+            //     <section id="example-article-section-with-nested-include">
+            //     <header class="header-level-3">
+            //     <h3>Example Article Section with Nested Include</h3>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     <p>This is an example article section with a nested include.</p>
+            //     <section id="example-article-section">
+            //     <header class="header-level-4">
+            //     <h4>Example Article Section</h4>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     <p>This is an example article section.</p>
+            //     </section>
+            //     </section>
 
             SpecTestHelper.AssertCompliance("# Example Article\nThis is an example article.\n\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleArticleSectionWithNestedInclude.md\"\n}", 
-                "", 
-                "flexiincludeblocks_flexioptionsblocks");
+                "<header class=\"header-level-1\">\n<h1>Example Article</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article.</p>\n<section id=\"example-article-section-with-nested-include\">\n<header class=\"header-level-3\">\n<h3>Example Article Section with Nested Include</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section with a nested include.</p>\n<section id=\"example-article-section\">\n<header class=\"header-level-4\">\n<h4>Example Article Section</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section.</p>\n</section>\n</section>", 
+                "flexiincludeblocks_flexisectionblocks_flexioptionsblocks");
         }
 
         // Includes can be nested:
         [Fact]
-        public void ExampleArticleSectionWithNestedInclude_Spec2_all()
+        public void Flexiincludeblocks_Spec2_all()
         {
             // The following Markdown:
             //     # Example Article
@@ -15760,10 +15807,92 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }
             //
             // Should be rendered as:
-
+            //     <header class="header-level-1">
+            //     <h1>Example Article</h1>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     <p>This is an example article.</p>
+            //     <section id="example-article-section-with-nested-include">
+            //     <header class="header-level-3">
+            //     <h3>Example Article Section with Nested Include</h3>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     <p>This is an example article section with a nested include.</p>
+            //     <section id="example-article-section">
+            //     <header class="header-level-4">
+            //     <h4>Example Article Section</h4>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     <p>This is an example article section.</p>
+            //     </section>
+            //     </section>
 
             SpecTestHelper.AssertCompliance("# Example Article\nThis is an example article.\n\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleArticleSectionWithNestedInclude.md\"\n}", 
-                "", 
+                "<header class=\"header-level-1\">\n<h1>Example Article</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article.</p>\n<section id=\"example-article-section-with-nested-include\">\n<header class=\"header-level-3\">\n<h3>Example Article Section with Nested Include</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section with a nested include.</p>\n<section id=\"example-article-section\">\n<header class=\"header-level-4\">\n<h4>Example Article Section</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section.</p>\n</section>\n</section>", 
+                "all");
+        }
+
+        // Includes can be used within any kind of container block, such as a list item:
+        [Fact]
+        public void Flexiincludeblocks_Spec3_flexiincludeblocks_flexisectionblocks_flexioptionsblocks()
+        {
+            // The following Markdown:
+            //     - First item.
+            //     - Second item
+            //       +{
+            //           "contentType": "Markdown",
+            //           "source": "./exampleArticleSection.md"
+            //       }
+            //     - Third item
+            //
+            // Should be rendered as:
+            //     <ul>
+            //     <li>First item.</li>
+            //     <li>Second item
+            //     <section id="example-article-section">
+            //     <header class="header-level-4">
+            //     <h4>Example Article Section</h4>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     <p>This is an example article section.</p>
+            //     </section></li>
+            //     <li>Third item</li>
+            //     </ul>
+
+            SpecTestHelper.AssertCompliance("- First item.\n- Second item\n  +{\n      \"contentType\": \"Markdown\",\n      \"source\": \"./exampleArticleSection.md\"\n  }\n- Third item", 
+                "<ul>\n<li>First item.</li>\n<li>Second item\n<section id=\"example-article-section\">\n<header class=\"header-level-4\">\n<h4>Example Article Section</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section.</p>\n</section></li>\n<li>Third item</li>\n</ul>", 
+                "flexiincludeblocks_flexisectionblocks_flexioptionsblocks");
+        }
+
+        // Includes can be used within any kind of container block, such as a list item:
+        [Fact]
+        public void Flexiincludeblocks_Spec3_all()
+        {
+            // The following Markdown:
+            //     - First item.
+            //     - Second item
+            //       +{
+            //           "contentType": "Markdown",
+            //           "source": "./exampleArticleSection.md"
+            //       }
+            //     - Third item
+            //
+            // Should be rendered as:
+            //     <ul>
+            //     <li>First item.</li>
+            //     <li>Second item
+            //     <section id="example-article-section">
+            //     <header class="header-level-4">
+            //     <h4>Example Article Section</h4>
+            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+            //     </header>
+            //     <p>This is an example article section.</p>
+            //     </section></li>
+            //     <li>Third item</li>
+            //     </ul>
+
+            SpecTestHelper.AssertCompliance("- First item.\n- Second item\n  +{\n      \"contentType\": \"Markdown\",\n      \"source\": \"./exampleArticleSection.md\"\n  }\n- Third item", 
+                "<ul>\n<li>First item.</li>\n<li>Second item\n<section id=\"example-article-section\">\n<header class=\"header-level-4\">\n<h4>Example Article Section</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section.</p>\n</section></li>\n<li>Third item</li>\n</ul>", 
                 "all");
         }
     }

@@ -95,17 +95,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                         {
                             flexiIncludeBlock.UpdateSpanEnd(line.End);
 
-                            // This is usually done by BlockProcessor, but we need the complete text content of the block here
-                            flexiIncludeBlock.AppendLine(ref line, processor.Column, processor.LineIndex, processor.CurrentLineStartPosition);
-
-                            // Force close flexiIncludeBlock so that it is removed from processor.OpenBlocks and so doesn't interfere
-                            // with the addition of its replacement blocks.
-                            processor.Close(flexiIncludeBlock);
-
-                            ParseIncludedContent(processor, flexiIncludeBlock);
-
-                            // TODO stop processing for the line completely
-                            return BlockState.BreakDiscard;
+                            // End block
+                            return BlockState.Break;
                         }
                     }
                     else if (pc != '\\' && c == '"')
@@ -125,21 +116,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             return BlockState.Continue;
         }
 
-        // TODO check how docfx's include works
         // TODO, create more specs, step through, make sure this works for all situations
-        private void ParseIncludedContent(BlockProcessor processor, FlexiIncludeBlock flexiIncludeBlock)
+        public override bool Close(BlockProcessor processor, Block block)
         {
+            var flexiIncludeBlock = (FlexiIncludeBlock)block;
             string json = flexiIncludeBlock.Lines.ToString();
             IncludeOptions includeOptions = JsonConvert.DeserializeObject<IncludeOptions>(json);
 
             // TODO is file a local path or a url? (copy FileRetrievalService)
+            // TODO path should be relative to path of current document? how does docfx handle this
+            string fullPath = Path.Combine(_flexiIncludeBlocksExtensionOptions.RootPath, includeOptions.Source);
 
-            // TODO Retrieve unclipped content
-            string fullPath = Path.Combine(_flexiIncludeBlocksExtensionOptions.ProjectPath, includeOptions.Source);
-            string unclippedContent = File.ReadAllText(fullPath);
-
-            // TODO clip content (copy DedentingService and FileClippingService)
-
+            // TODO Retrieve unclipped content (read as lines since we will most probably only be using a subset of all the lines)
+            string[] unclippedContent = File.ReadAllLines(fullPath);
 
             // Default to ContentType.Code
             if (includeOptions.ContentType != ContentType.Markdown)
@@ -147,30 +136,36 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 // TODO wrap clipped content in a code block (just append and prepend ```)
             }
 
-            // TODO Save processor state ( look through all block processor variables, what needs to be saved?)
-            int cachedLineIndex = processor.LineIndex;
-            processor.LineIndex = 0;
+            // GridTable uses this pattern. Essentially, it creates a fresh context with the same root document. Not having a bunch of 
+            // open blocks makes it possible to create the replacement blocks for flexiIncludeBlock.
+            BlockProcessor childProcessor = processor.CreateChild();
+            var tempContainerBlock = new TempContainerBlock(null);
+            childProcessor.Open(tempContainerBlock);
 
-            // Process clipped content as though it is part of the original document
-            var lineReader = new LineReader(unclippedContent);
-            while (true)
+            // Process included content
+            foreach(string line in unclippedContent)
             {
-                StringSlice? lineText = lineReader.ReadLine();
-
-                // If this is the end of file and the last line is empty
-                if (lineText == null)
-                {
-                    break;
-                }
-                processor.ProcessLine(lineText.Value);
+                childProcessor.ProcessLine(new StringSlice(line));
             }
 
-            // Reset processor state
-            processor.LineIndex = cachedLineIndex;
-        }
+            // Close temp container block
+            childProcessor.Close(tempContainerBlock);
 
-        public override bool Close(BlockProcessor processor, Block block)
-        {
+            // A Block with a parent cannot be added to another block. So before we add the replacement blocks to flexiIncludeBlock's parent, 
+            // we have to copy the blocks to an array, clear tempContainerBlock (this sets Parent to null for all of its child blocks).
+            // TODO use ArrayPool?
+            var replacementBlocks = new Block[tempContainerBlock.Count];
+            tempContainerBlock.CopyTo(replacementBlocks, 0);
+            tempContainerBlock.Clear();
+            foreach(Block replacementBlock in replacementBlocks)
+            {
+                flexiIncludeBlock.Parent.Add(replacementBlock);
+            }
+
+            // BlockProcessors are pooled. Once we're done with innerProcessor, we must release it. This also removes all references to
+            // tempContainerBlock, which should allow it to be collected quickly.
+            childProcessor.ReleaseChild();
+
             // If true is returned, the block is kept as a child of its parent for rendering later on. If false is returned,
             // the block is discarded. We don't need the block any more.
             return false;

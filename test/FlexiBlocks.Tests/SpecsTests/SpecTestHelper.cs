@@ -32,6 +32,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                         UseFlexiSectionBlocks(options?["flexisectionblocks"]?.ToObject<FlexiSectionBlocksExtensionOptions>()).
                         UseFlexiAlertBlocks(options?["flexialertblocks"]?.ToObject<FlexiAlertBlocksExtensionOptions>()).
                         UseFlexiCodeBlocks(options?["flexicodeblocks"]?.ToObject<FlexiCodeBlocksExtensionOptions>()).
+                        UseFlexiIncludeBlocks(options?["flexiincludeblocks"]?.ToObject<FlexiIncludeBlocksExtensionOptions>()).
                         UseFlexiOptionsBlocks();
                 } },
                 { "commonmark", (MarkdownPipelineBuilder _, JObject __) => { } }

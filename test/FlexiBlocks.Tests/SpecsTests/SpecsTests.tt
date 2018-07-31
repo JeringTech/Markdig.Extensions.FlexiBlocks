@@ -12,7 +12,7 @@
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiAlertBlocksSpecs.md"), "flexialertblocks_flexioptionsblocks|all"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiCodeBlocksSpecs.md"), "flexicodeblocks_flexioptionsblocks|all"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiTableBlocksSpecs.md"), "flexitableblocks_flexioptionsblocks|all"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiIncludeBlocksSpecs.md"), "flexiincludeblocks_flexioptionsblocks|all"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiIncludeBlocksSpecs.md"), "flexiincludeblocks_flexisectionblocks_flexioptionsblocks|all"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiOptionsBlocksSpecs.md"), "all")
 	};
 #>
@@ -224,7 +224,7 @@ public class Parser
             return;
         }
 
-        Match match = Regex.Match(line, @"## ([ \w]+)");
+        Match match = Regex.Match(line, @"^## ([ \w]+)");
         if (match.Success)
         {
             closestHeading = match.Groups[1].Value;
