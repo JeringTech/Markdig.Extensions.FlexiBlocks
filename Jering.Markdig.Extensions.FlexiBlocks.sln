@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{F41F9DD0
 		Specs\CommonMarkSpecs.md = Specs\CommonMarkSpecs.md
 		Specs\FlexiAlertBlocksSpecs.md = Specs\FlexiAlertBlocksSpecs.md
 		Specs\FlexiCodeBlocksSpecs.md = Specs\FlexiCodeBlocksSpecs.md
+		specs\FlexiIncludeBlocksSpecs.md = specs\FlexiIncludeBlocksSpecs.md
 		Specs\FlexiOptionsBlocksSpecs.md = Specs\FlexiOptionsBlocksSpecs.md
 		Specs\FlexiSectionBlocksSpecs.md = Specs\FlexiSectionBlocksSpecs.md
 		Specs\FlexiTableBlocksSpecs.md = Specs\FlexiTableBlocksSpecs.md

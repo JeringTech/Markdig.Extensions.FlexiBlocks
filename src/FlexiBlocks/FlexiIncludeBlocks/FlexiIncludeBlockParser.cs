@@ -2,6 +2,7 @@
 using Markdig.Parsers;
 using Markdig.Syntax;
 using Newtonsoft.Json;
+using System.Buffers;
 using System.IO;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
@@ -130,11 +131,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             // TODO Retrieve unclipped content (read as lines since we will most probably only be using a subset of all the lines)
             string[] unclippedContent = File.ReadAllLines(fullPath);
 
-            // Default to ContentType.Code
-            if (includeOptions.ContentType != ContentType.Markdown)
-            {
-                // TODO wrap clipped content in a code block (just append and prepend ```)
-            }
+            // TODO clip content
 
             // GridTable uses this pattern. Essentially, it creates a fresh context with the same root document. Not having a bunch of 
             // open blocks makes it possible to create the replacement blocks for flexiIncludeBlock.
@@ -143,9 +140,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             childProcessor.Open(tempContainerBlock);
 
             // Process included content
-            foreach(string line in unclippedContent)
+            for (int i = 0; i < unclippedContent.Length; i++)
             {
-                childProcessor.ProcessLine(new StringSlice(line));
+                if (i == 0 && includeOptions.ContentType != ContentType.Markdown)
+                {
+                    childProcessor.ProcessLine(new StringSlice("```"));
+                }
+
+                childProcessor.ProcessLine(new StringSlice(unclippedContent[i]));
+
+                if (i == unclippedContent.Length - 1 && includeOptions.ContentType != ContentType.Markdown)
+                {
+                    childProcessor.ProcessLine(new StringSlice("```"));
+                }
             }
 
             // Close temp container block
@@ -153,13 +160,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
             // A Block with a parent cannot be added to another block. So before we add the replacement blocks to flexiIncludeBlock's parent, 
             // we have to copy the blocks to an array, clear tempContainerBlock (this sets Parent to null for all of its child blocks).
-            // TODO use ArrayPool?
-            var replacementBlocks = new Block[tempContainerBlock.Count];
-            tempContainerBlock.CopyTo(replacementBlocks, 0);
-            tempContainerBlock.Clear();
-            foreach(Block replacementBlock in replacementBlocks)
+            Block[] replacementBlocks = ArrayPool<Block>.Shared.Rent(tempContainerBlock.Count);
+            try
             {
-                flexiIncludeBlock.Parent.Add(replacementBlock);
+                int numReplacementBlocks = tempContainerBlock.Count;
+                tempContainerBlock.CopyTo(replacementBlocks, 0);
+                tempContainerBlock.Clear();
+                for(int i = 0; i < numReplacementBlocks; i++)
+                {
+                    flexiIncludeBlock.Parent.Add(replacementBlocks[i]);
+                }
+            }
+            finally
+            {
+                ArrayPool<Block>.Shared.Return(replacementBlocks);
             }
 
             // BlockProcessors are pooled. Once we're done with innerProcessor, we must release it. This also removes all references to

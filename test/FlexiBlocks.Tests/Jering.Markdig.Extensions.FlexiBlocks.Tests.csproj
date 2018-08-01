@@ -23,10 +23,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="exampleArticleSectionWithNestedInclude.md">
+        <Content Include="exampleIncludeWithNestedInclude.md">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
-        <Content Include="exampleArticleSection.md">
+        <Content Include="exampleInclude.md">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
