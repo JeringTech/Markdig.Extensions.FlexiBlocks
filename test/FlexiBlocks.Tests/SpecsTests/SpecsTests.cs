@@ -22,7 +22,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // tabs are passed through as literal tabs, not expanded to
         // spaces.)
         [Fact]
-        public void Tabs_Spec1_commonmark()
+        public void Tabs_Spec1_CommonMark()
         {
             // The following Markdown:
             //     →foo→baz→→bim
@@ -33,11 +33,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("\tfoo\tbaz\t\tbim", 
                 "<pre><code>foo\tbaz\t\tbim\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Tabs_Spec2_commonmark()
+        public void Tabs_Spec2_CommonMark()
         {
             // The following Markdown:
             //       →foo→baz→→bim
@@ -48,11 +48,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("  \tfoo\tbaz\t\tbim", 
                 "<pre><code>foo\tbaz\t\tbim\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Tabs_Spec3_commonmark()
+        public void Tabs_Spec3_CommonMark()
         {
             // The following Markdown:
             //         a→a
@@ -65,14 +65,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    a\ta\n    ὐ\ta", 
                 "<pre><code>a\ta\nὐ\ta\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // In the following example, a continuation paragraph of a list
         // item is indented with a tab; this has exactly the same effect
         // as indentation with four spaces would:
         [Fact]
-        public void Tabs_Spec4_commonmark()
+        public void Tabs_Spec4_CommonMark()
         {
             // The following Markdown:
             //       - foo
@@ -89,11 +89,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("  - foo\n\n\tbar", 
                 "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Tabs_Spec5_commonmark()
+        public void Tabs_Spec5_CommonMark()
         {
             // The following Markdown:
             //     - foo
@@ -111,7 +111,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- foo\n\n\t\tbar", 
                 "<ul>\n<li>\n<p>foo</p>\n<pre><code>  bar\n</code></pre>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Normally the `>` that begins a block quote may be followed
@@ -123,7 +123,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // inside the block quote context, so we get an indented
         // code block starting with two spaces.
         [Fact]
-        public void Tabs_Spec6_commonmark()
+        public void Tabs_Spec6_CommonMark()
         {
             // The following Markdown:
             //     >→→foo
@@ -136,11 +136,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(">\t\tfoo", 
                 "<blockquote>\n<pre><code>  foo\n</code></pre>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Tabs_Spec7_commonmark()
+        public void Tabs_Spec7_CommonMark()
         {
             // The following Markdown:
             //     -→→foo
@@ -155,11 +155,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("-\t\tfoo", 
                 "<ul>\n<li>\n<pre><code>  foo\n</code></pre>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Tabs_Spec8_commonmark()
+        public void Tabs_Spec8_CommonMark()
         {
             // The following Markdown:
             //         foo
@@ -172,11 +172,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    foo\n\tbar", 
                 "<pre><code>foo\nbar\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Tabs_Spec9_commonmark()
+        public void Tabs_Spec9_CommonMark()
         {
             // The following Markdown:
             //      - foo
@@ -198,11 +198,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(" - foo\n   - bar\n\t - baz", 
                 "<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>baz</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Tabs_Spec10_commonmark()
+        public void Tabs_Spec10_CommonMark()
         {
             // The following Markdown:
             //     #→Foo
@@ -212,11 +212,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("#\tFoo", 
                 "<h1>Foo</h1>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Tabs_Spec11_commonmark()
+        public void Tabs_Spec11_CommonMark()
         {
             // The following Markdown:
             //     *→*→*→
@@ -226,7 +226,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*\t*\t*\t", 
                 "<hr />", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -237,7 +237,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
 
         [Fact]
-        public void Precedence_Spec12_commonmark()
+        public void Precedence_Spec12_CommonMark()
         {
             // The following Markdown:
             //     - `one
@@ -251,7 +251,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- `one\n- two`", 
                 "<ul>\n<li>`one</li>\n<li>two`</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -263,7 +263,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
 
         [Fact]
-        public void ThematicBreaks_Spec13_commonmark()
+        public void ThematicBreaks_Spec13_CommonMark()
         {
             // The following Markdown:
             //     ***
@@ -277,12 +277,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("***\n---\n___", 
                 "<hr />\n<hr />\n<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Wrong characters:
         [Fact]
-        public void ThematicBreaks_Spec14_commonmark()
+        public void ThematicBreaks_Spec14_CommonMark()
         {
             // The following Markdown:
             //     +++
@@ -292,11 +292,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("+++", 
                 "<p>+++</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void ThematicBreaks_Spec15_commonmark()
+        public void ThematicBreaks_Spec15_CommonMark()
         {
             // The following Markdown:
             //     ===
@@ -306,12 +306,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("===", 
                 "<p>===</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Not enough characters:
         [Fact]
-        public void ThematicBreaks_Spec16_commonmark()
+        public void ThematicBreaks_Spec16_CommonMark()
         {
             // The following Markdown:
             //     --
@@ -325,12 +325,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("--\n**\n__", 
                 "<p>--\n**\n__</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // One to three spaces indent are allowed:
         [Fact]
-        public void ThematicBreaks_Spec17_commonmark()
+        public void ThematicBreaks_Spec17_CommonMark()
         {
             // The following Markdown:
             //      ***
@@ -344,12 +344,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(" ***\n  ***\n   ***", 
                 "<hr />\n<hr />\n<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Four spaces is too many:
         [Fact]
-        public void ThematicBreaks_Spec18_commonmark()
+        public void ThematicBreaks_Spec18_CommonMark()
         {
             // The following Markdown:
             //         ***
@@ -360,11 +360,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    ***", 
                 "<pre><code>***\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void ThematicBreaks_Spec19_commonmark()
+        public void ThematicBreaks_Spec19_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -376,12 +376,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\n    ***", 
                 "<p>Foo\n***</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // More than three characters may be used:
         [Fact]
-        public void ThematicBreaks_Spec20_commonmark()
+        public void ThematicBreaks_Spec20_CommonMark()
         {
             // The following Markdown:
             //     _____________________________________
@@ -391,12 +391,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_____________________________________", 
                 "<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Spaces are allowed between the characters:
         [Fact]
-        public void ThematicBreaks_Spec21_commonmark()
+        public void ThematicBreaks_Spec21_CommonMark()
         {
             // The following Markdown:
             //      - - -
@@ -406,11 +406,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(" - - -", 
                 "<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void ThematicBreaks_Spec22_commonmark()
+        public void ThematicBreaks_Spec22_CommonMark()
         {
             // The following Markdown:
             //      **  * ** * ** * **
@@ -420,11 +420,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(" **  * ** * ** * **", 
                 "<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void ThematicBreaks_Spec23_commonmark()
+        public void ThematicBreaks_Spec23_CommonMark()
         {
             // The following Markdown:
             //     -     -      -      -
@@ -434,12 +434,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("-     -      -      -", 
                 "<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Spaces are allowed at the end:
         [Fact]
-        public void ThematicBreaks_Spec24_commonmark()
+        public void ThematicBreaks_Spec24_CommonMark()
         {
             // The following Markdown:
             //     - - - -    
@@ -449,12 +449,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- - - -    ", 
                 "<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         // However, no other characters may occur in the line:
         [Fact]
-        public void ThematicBreaks_Spec25_commonmark()
+        public void ThematicBreaks_Spec25_CommonMark()
         {
             // The following Markdown:
             //     _ _ _ _ a
@@ -470,13 +470,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_ _ _ _ a\n\na------\n\n---a---", 
                 "<p>_ _ _ _ a</p>\n<p>a------</p>\n<p>---a---</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // It is required that all of the [non-whitespace characters] be the same.
         // So, this is not a thematic break:
         [Fact]
-        public void ThematicBreaks_Spec26_commonmark()
+        public void ThematicBreaks_Spec26_CommonMark()
         {
             // The following Markdown:
             //      *-*
@@ -486,12 +486,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(" *-*", 
                 "<p><em>-</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Thematic breaks do not need blank lines before or after:
         [Fact]
-        public void ThematicBreaks_Spec27_commonmark()
+        public void ThematicBreaks_Spec27_CommonMark()
         {
             // The following Markdown:
             //     - foo
@@ -509,12 +509,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- foo\n***\n- bar", 
                 "<ul>\n<li>foo</li>\n</ul>\n<hr />\n<ul>\n<li>bar</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Thematic breaks can interrupt a paragraph:
         [Fact]
-        public void ThematicBreaks_Spec28_commonmark()
+        public void ThematicBreaks_Spec28_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -528,7 +528,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\n***\nbar", 
                 "<p>Foo</p>\n<hr />\n<p>bar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // If a line of dashes that meets the above conditions for being a
@@ -537,7 +537,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // [setext heading] takes precedence. Thus, for example,
         // this is a setext heading, not a paragraph followed by a thematic break:
         [Fact]
-        public void ThematicBreaks_Spec29_commonmark()
+        public void ThematicBreaks_Spec29_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -550,13 +550,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\n---\nbar", 
                 "<h2>Foo</h2>\n<p>bar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // When both a thematic break and a list item are possible
         // interpretations of a line, the thematic break takes precedence:
         [Fact]
-        public void ThematicBreaks_Spec30_commonmark()
+        public void ThematicBreaks_Spec30_CommonMark()
         {
             // The following Markdown:
             //     * Foo
@@ -574,12 +574,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("* Foo\n* * *\n* Bar", 
                 "<ul>\n<li>Foo</li>\n</ul>\n<hr />\n<ul>\n<li>Bar</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // If you want a thematic break in a list item, use a different bullet:
         [Fact]
-        public void ThematicBreaks_Spec31_commonmark()
+        public void ThematicBreaks_Spec31_CommonMark()
         {
             // The following Markdown:
             //     - Foo
@@ -595,7 +595,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- Foo\n- * * *", 
                 "<ul>\n<li>Foo</li>\n<li>\n<hr />\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -614,7 +614,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
         // Simple headings:
         [Fact]
-        public void ATXHeadings_Spec32_commonmark()
+        public void ATXHeadings_Spec32_CommonMark()
         {
             // The following Markdown:
             //     # foo
@@ -634,12 +634,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n#### foo\n##### foo\n###### foo", 
                 "<h1>foo</h1>\n<h2>foo</h2>\n<h3>foo</h3>\n<h4>foo</h4>\n<h5>foo</h5>\n<h6>foo</h6>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // More than six `#` characters is not a heading:
         [Fact]
-        public void ATXHeadings_Spec33_commonmark()
+        public void ATXHeadings_Spec33_CommonMark()
         {
             // The following Markdown:
             //     ####### foo
@@ -649,7 +649,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("####### foo", 
                 "<p>####### foo</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // At least one space is required between the `#` characters and the
@@ -660,7 +660,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // and it helps prevent things like the following from being parsed as
         // headings:
         [Fact]
-        public void ATXHeadings_Spec34_commonmark()
+        public void ATXHeadings_Spec34_CommonMark()
         {
             // The following Markdown:
             //     #5 bolt
@@ -673,12 +673,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("#5 bolt\n\n#hashtag", 
                 "<p>#5 bolt</p>\n<p>#hashtag</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not a heading, because the first `#` is escaped:
         [Fact]
-        public void ATXHeadings_Spec35_commonmark()
+        public void ATXHeadings_Spec35_CommonMark()
         {
             // The following Markdown:
             //     \## foo
@@ -688,12 +688,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("\\## foo", 
                 "<p>## foo</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Contents are parsed as inlines:
         [Fact]
-        public void ATXHeadings_Spec36_commonmark()
+        public void ATXHeadings_Spec36_CommonMark()
         {
             // The following Markdown:
             //     # foo *bar* \*baz\*
@@ -703,12 +703,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo *bar* \\*baz\\*", 
                 "<h1>foo <em>bar</em> *baz*</h1>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Leading and trailing blanks are ignored in parsing inline content:
         [Fact]
-        public void ATXHeadings_Spec37_commonmark()
+        public void ATXHeadings_Spec37_CommonMark()
         {
             // The following Markdown:
             //     #                  foo                     
@@ -718,12 +718,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("#                  foo                     ", 
                 "<h1>foo</h1>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // One to three spaces indentation are allowed:
         [Fact]
-        public void ATXHeadings_Spec38_commonmark()
+        public void ATXHeadings_Spec38_CommonMark()
         {
             // The following Markdown:
             //      ### foo
@@ -737,12 +737,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(" ### foo\n  ## foo\n   # foo", 
                 "<h3>foo</h3>\n<h2>foo</h2>\n<h1>foo</h1>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Four spaces are too much:
         [Fact]
-        public void ATXHeadings_Spec39_commonmark()
+        public void ATXHeadings_Spec39_CommonMark()
         {
             // The following Markdown:
             //         # foo
@@ -753,11 +753,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    # foo", 
                 "<pre><code># foo\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void ATXHeadings_Spec40_commonmark()
+        public void ATXHeadings_Spec40_CommonMark()
         {
             // The following Markdown:
             //     foo
@@ -769,12 +769,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo\n    # bar", 
                 "<p>foo\n# bar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A closing sequence of `#` characters is optional:
         [Fact]
-        public void ATXHeadings_Spec41_commonmark()
+        public void ATXHeadings_Spec41_CommonMark()
         {
             // The following Markdown:
             //     ## foo ##
@@ -786,12 +786,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo ##\n  ###   bar    ###", 
                 "<h2>foo</h2>\n<h3>bar</h3>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // It need not be the same length as the opening sequence:
         [Fact]
-        public void ATXHeadings_Spec42_commonmark()
+        public void ATXHeadings_Spec42_CommonMark()
         {
             // The following Markdown:
             //     # foo ##################################
@@ -803,12 +803,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo ##################################\n##### foo ##", 
                 "<h1>foo</h1>\n<h5>foo</h5>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Spaces are allowed after the closing sequence:
         [Fact]
-        public void ATXHeadings_Spec43_commonmark()
+        public void ATXHeadings_Spec43_CommonMark()
         {
             // The following Markdown:
             //     ### foo ###     
@@ -818,14 +818,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("### foo ###     ", 
                 "<h3>foo</h3>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A sequence of `#` characters with anything but [spaces] following it
         // is not a closing sequence, but counts as part of the contents of the
         // heading:
         [Fact]
-        public void ATXHeadings_Spec44_commonmark()
+        public void ATXHeadings_Spec44_CommonMark()
         {
             // The following Markdown:
             //     ### foo ### b
@@ -835,12 +835,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("### foo ### b", 
                 "<h3>foo ### b</h3>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The closing sequence must be preceded by a space:
         [Fact]
-        public void ATXHeadings_Spec45_commonmark()
+        public void ATXHeadings_Spec45_CommonMark()
         {
             // The following Markdown:
             //     # foo#
@@ -850,13 +850,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo#", 
                 "<h1>foo#</h1>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Backslash-escaped `#` characters do not count as part
         // of the closing sequence:
         [Fact]
-        public void ATXHeadings_Spec46_commonmark()
+        public void ATXHeadings_Spec46_CommonMark()
         {
             // The following Markdown:
             //     ### foo \###
@@ -870,13 +870,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("### foo \\###\n## foo #\\##\n# foo \\#", 
                 "<h3>foo ###</h3>\n<h2>foo ###</h2>\n<h1>foo #</h1>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // ATX headings need not be separated from surrounding content by blank
         // lines, and they can interrupt paragraphs:
         [Fact]
-        public void ATXHeadings_Spec47_commonmark()
+        public void ATXHeadings_Spec47_CommonMark()
         {
             // The following Markdown:
             //     ****
@@ -890,11 +890,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("****\n## foo\n****", 
                 "<hr />\n<h2>foo</h2>\n<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void ATXHeadings_Spec48_commonmark()
+        public void ATXHeadings_Spec48_CommonMark()
         {
             // The following Markdown:
             //     Foo bar
@@ -908,12 +908,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo bar\n# baz\nBar foo", 
                 "<p>Foo bar</p>\n<h1>baz</h1>\n<p>Bar foo</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // ATX headings can be empty:
         [Fact]
-        public void ATXHeadings_Spec49_commonmark()
+        public void ATXHeadings_Spec49_CommonMark()
         {
             // The following Markdown:
             //     ## 
@@ -927,7 +927,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## \n#\n### ###", 
                 "<h2></h2>\n<h1></h1>\n<h3></h3>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -962,7 +962,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
         // Simple examples:
         [Fact]
-        public void SetextHeadings_Spec50_commonmark()
+        public void SetextHeadings_Spec50_CommonMark()
         {
             // The following Markdown:
             //     Foo *bar*
@@ -977,12 +977,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo *bar*\n=========\n\nFoo *bar*\n---------", 
                 "<h1>Foo <em>bar</em></h1>\n<h2>Foo <em>bar</em></h2>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The content of the header may span more than one line:
         [Fact]
-        public void SetextHeadings_Spec51_commonmark()
+        public void SetextHeadings_Spec51_CommonMark()
         {
             // The following Markdown:
             //     Foo *bar
@@ -995,12 +995,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo *bar\nbaz*\n====", 
                 "<h1>Foo <em>bar\nbaz</em></h1>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The underlining can be any length:
         [Fact]
-        public void SetextHeadings_Spec52_commonmark()
+        public void SetextHeadings_Spec52_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -1015,13 +1015,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\n-------------------------\n\nFoo\n=", 
                 "<h2>Foo</h2>\n<h1>Foo</h1>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The heading content can be indented up to three spaces, and need
         // not line up with the underlining:
         [Fact]
-        public void SetextHeadings_Spec53_commonmark()
+        public void SetextHeadings_Spec53_CommonMark()
         {
             // The following Markdown:
             //        Foo
@@ -1040,12 +1040,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("   Foo\n---\n\n  Foo\n-----\n\n  Foo\n  ===", 
                 "<h2>Foo</h2>\n<h2>Foo</h2>\n<h1>Foo</h1>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Four spaces indent is too much:
         [Fact]
-        public void SetextHeadings_Spec54_commonmark()
+        public void SetextHeadings_Spec54_CommonMark()
         {
             // The following Markdown:
             //         Foo
@@ -1064,13 +1064,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    Foo\n    ---\n\n    Foo\n---", 
                 "<pre><code>Foo\n---\n\nFoo\n</code></pre>\n<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The setext heading underline can be indented up to three spaces, and
         // may have trailing spaces:
         [Fact]
-        public void SetextHeadings_Spec55_commonmark()
+        public void SetextHeadings_Spec55_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -1081,12 +1081,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\n   ----      ", 
                 "<h2>Foo</h2>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Four spaces is too much:
         [Fact]
-        public void SetextHeadings_Spec56_commonmark()
+        public void SetextHeadings_Spec56_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -1098,12 +1098,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\n    ---", 
                 "<p>Foo\n---</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The setext heading underline cannot contain internal spaces:
         [Fact]
-        public void SetextHeadings_Spec57_commonmark()
+        public void SetextHeadings_Spec57_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -1120,12 +1120,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\n= =\n\nFoo\n--- -", 
                 "<p>Foo\n= =</p>\n<p>Foo</p>\n<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Trailing spaces in the content line do not cause a line break:
         [Fact]
-        public void SetextHeadings_Spec58_commonmark()
+        public void SetextHeadings_Spec58_CommonMark()
         {
             // The following Markdown:
             //     Foo  
@@ -1136,12 +1136,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo  \n-----", 
                 "<h2>Foo</h2>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Nor does a backslash at the end:
         [Fact]
-        public void SetextHeadings_Spec59_commonmark()
+        public void SetextHeadings_Spec59_CommonMark()
         {
             // The following Markdown:
             //     Foo\
@@ -1152,13 +1152,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\\\n----", 
                 "<h2>Foo\\</h2>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Since indicators of block structure take precedence over
         // indicators of inline structure, the following are setext headings:
         [Fact]
-        public void SetextHeadings_Spec60_commonmark()
+        public void SetextHeadings_Spec60_CommonMark()
         {
             // The following Markdown:
             //     `Foo
@@ -1177,13 +1177,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`Foo\n----\n`\n\n<a title=\"a lot\n---\nof dashes\"/>", 
                 "<h2>`Foo</h2>\n<p>`</p>\n<h2>&lt;a title=&quot;a lot</h2>\n<p>of dashes&quot;/&gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The setext heading underline cannot be a [lazy continuation
         // line] in a list item or block quote:
         [Fact]
-        public void SetextHeadings_Spec61_commonmark()
+        public void SetextHeadings_Spec61_CommonMark()
         {
             // The following Markdown:
             //     > Foo
@@ -1197,11 +1197,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> Foo\n---", 
                 "<blockquote>\n<p>Foo</p>\n</blockquote>\n<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void SetextHeadings_Spec62_commonmark()
+        public void SetextHeadings_Spec62_CommonMark()
         {
             // The following Markdown:
             //     > foo
@@ -1217,11 +1217,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> foo\nbar\n===", 
                 "<blockquote>\n<p>foo\nbar\n===</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void SetextHeadings_Spec63_commonmark()
+        public void SetextHeadings_Spec63_CommonMark()
         {
             // The following Markdown:
             //     - Foo
@@ -1235,14 +1235,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- Foo\n---", 
                 "<ul>\n<li>Foo</li>\n</ul>\n<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A blank line is needed between a paragraph and a following
         // setext heading, since otherwise the paragraph becomes part
         // of the heading's content:
         [Fact]
-        public void SetextHeadings_Spec64_commonmark()
+        public void SetextHeadings_Spec64_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -1255,13 +1255,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\nBar\n---", 
                 "<h2>Foo\nBar</h2>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // But in general a blank line is not required before or after
         // setext headings:
         [Fact]
-        public void SetextHeadings_Spec65_commonmark()
+        public void SetextHeadings_Spec65_CommonMark()
         {
             // The following Markdown:
             //     ---
@@ -1279,12 +1279,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("---\nFoo\n---\nBar\n---\nBaz", 
                 "<hr />\n<h2>Foo</h2>\n<h2>Bar</h2>\n<p>Baz</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Setext headings cannot be empty:
         [Fact]
-        public void SetextHeadings_Spec66_commonmark()
+        public void SetextHeadings_Spec66_CommonMark()
         {
             // The following Markdown:
             //     
@@ -1295,14 +1295,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("\n====", 
                 "<p>====</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Setext heading text lines must not be interpretable as block
         // constructs other than paragraphs.  So, the line of dashes
         // in these examples gets interpreted as a thematic break:
         [Fact]
-        public void SetextHeadings_Spec67_commonmark()
+        public void SetextHeadings_Spec67_CommonMark()
         {
             // The following Markdown:
             //     ---
@@ -1314,11 +1314,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("---\n---", 
                 "<hr />\n<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void SetextHeadings_Spec68_commonmark()
+        public void SetextHeadings_Spec68_CommonMark()
         {
             // The following Markdown:
             //     - foo
@@ -1332,11 +1332,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- foo\n-----", 
                 "<ul>\n<li>foo</li>\n</ul>\n<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void SetextHeadings_Spec69_commonmark()
+        public void SetextHeadings_Spec69_CommonMark()
         {
             // The following Markdown:
             //         foo
@@ -1349,11 +1349,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    foo\n---", 
                 "<pre><code>foo\n</code></pre>\n<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void SetextHeadings_Spec70_commonmark()
+        public void SetextHeadings_Spec70_CommonMark()
         {
             // The following Markdown:
             //     > foo
@@ -1367,13 +1367,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> foo\n-----", 
                 "<blockquote>\n<p>foo</p>\n</blockquote>\n<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         // If you want a heading with `> foo` as its literal text, you can
         // use backslash escapes:
         [Fact]
-        public void SetextHeadings_Spec71_commonmark()
+        public void SetextHeadings_Spec71_CommonMark()
         {
             // The following Markdown:
             //     \> foo
@@ -1384,7 +1384,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("\\> foo\n------", 
                 "<h2>&gt; foo</h2>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // **Compatibility note:**  Most existing Markdown implementations
@@ -1410,7 +1410,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // multiline headings.  Authors who want interpretation 1 can
         // put a blank line after the first paragraph:
         [Fact]
-        public void SetextHeadings_Spec72_commonmark()
+        public void SetextHeadings_Spec72_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -1426,13 +1426,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\n\nbar\n---\nbaz", 
                 "<p>Foo</p>\n<h2>bar</h2>\n<p>baz</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Authors who want interpretation 2 can put blank lines around
         // the thematic break,
         [Fact]
-        public void SetextHeadings_Spec73_commonmark()
+        public void SetextHeadings_Spec73_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -1450,13 +1450,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\nbar\n\n---\n\nbaz", 
                 "<p>Foo\nbar</p>\n<hr />\n<p>baz</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // or use a thematic break that cannot count as a [setext heading
         // underline], such as
         [Fact]
-        public void SetextHeadings_Spec74_commonmark()
+        public void SetextHeadings_Spec74_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -1472,12 +1472,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\nbar\n* * *\nbaz", 
                 "<p>Foo\nbar</p>\n<hr />\n<p>baz</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Authors who want interpretation 3 can use backslash escapes:
         [Fact]
-        public void SetextHeadings_Spec75_commonmark()
+        public void SetextHeadings_Spec75_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -1493,7 +1493,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\nbar\n\\---\nbaz", 
                 "<p>Foo\nbar\n---\nbaz</p>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -1511,7 +1511,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // (A blank line is not needed, however, between a code block and a following
         // paragraph.)
         [Fact]
-        public void IndentedCodeBlocks_Spec76_commonmark()
+        public void IndentedCodeBlocks_Spec76_CommonMark()
         {
             // The following Markdown:
             //         a simple
@@ -1524,14 +1524,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    a simple\n      indented code block", 
                 "<pre><code>a simple\n  indented code block\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // If there is any ambiguity between an interpretation of indentation
         // as a code block and as indicating that material belongs to a [list
         // item][list items], the list item interpretation takes precedence:
         [Fact]
-        public void IndentedCodeBlocks_Spec77_commonmark()
+        public void IndentedCodeBlocks_Spec77_CommonMark()
         {
             // The following Markdown:
             //       - foo
@@ -1548,11 +1548,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("  - foo\n\n    bar", 
                 "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void IndentedCodeBlocks_Spec78_commonmark()
+        public void IndentedCodeBlocks_Spec78_CommonMark()
         {
             // The following Markdown:
             //     1.  foo
@@ -1571,13 +1571,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("1.  foo\n\n    - bar", 
                 "<ol>\n<li>\n<p>foo</p>\n<ul>\n<li>bar</li>\n</ul>\n</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The contents of a code block are literal text, and do not get parsed
         // as Markdown:
         [Fact]
-        public void IndentedCodeBlocks_Spec79_commonmark()
+        public void IndentedCodeBlocks_Spec79_CommonMark()
         {
             // The following Markdown:
             //         <a/>
@@ -1594,12 +1594,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    <a/>\n    *hi*\n\n    - one", 
                 "<pre><code>&lt;a/&gt;\n*hi*\n\n- one\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Here we have three chunks separated by blank lines:
         [Fact]
-        public void IndentedCodeBlocks_Spec80_commonmark()
+        public void IndentedCodeBlocks_Spec80_CommonMark()
         {
             // The following Markdown:
             //         chunk1
@@ -1622,13 +1622,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    chunk1\n\n    chunk2\n  \n \n \n    chunk3", 
                 "<pre><code>chunk1\n\nchunk2\n\n\n\nchunk3\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Any initial spaces beyond four will be included in the content, even
         // in interior blank lines:
         [Fact]
-        public void IndentedCodeBlocks_Spec81_commonmark()
+        public void IndentedCodeBlocks_Spec81_CommonMark()
         {
             // The following Markdown:
             //         chunk1
@@ -1643,13 +1643,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    chunk1\n      \n      chunk2", 
                 "<pre><code>chunk1\n  \n  chunk2\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // An indented code block cannot interrupt a paragraph.  (This
         // allows hanging indents and the like.)
         [Fact]
-        public void IndentedCodeBlocks_Spec82_commonmark()
+        public void IndentedCodeBlocks_Spec82_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -1662,14 +1662,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\n    bar\n", 
                 "<p>Foo\nbar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // However, any non-blank line with fewer than four leading spaces ends
         // the code block immediately.  So a paragraph may occur immediately
         // after indented code:
         [Fact]
-        public void IndentedCodeBlocks_Spec83_commonmark()
+        public void IndentedCodeBlocks_Spec83_CommonMark()
         {
             // The following Markdown:
             //         foo
@@ -1682,13 +1682,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    foo\nbar", 
                 "<pre><code>foo\n</code></pre>\n<p>bar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // And indented code can occur immediately before and after other kinds of
         // blocks:
         [Fact]
-        public void IndentedCodeBlocks_Spec84_commonmark()
+        public void IndentedCodeBlocks_Spec84_CommonMark()
         {
             // The following Markdown:
             //     # Heading
@@ -1709,12 +1709,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# Heading\n    foo\nHeading\n------\n    foo\n----", 
                 "<h1>Heading</h1>\n<pre><code>foo\n</code></pre>\n<h2>Heading</h2>\n<pre><code>foo\n</code></pre>\n<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The first line can be indented more than four spaces:
         [Fact]
-        public void IndentedCodeBlocks_Spec85_commonmark()
+        public void IndentedCodeBlocks_Spec85_CommonMark()
         {
             // The following Markdown:
             //             foo
@@ -1727,13 +1727,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("        foo\n    bar", 
                 "<pre><code>    foo\nbar\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Blank lines preceding or following an indented code block
         // are not included in it:
         [Fact]
-        public void IndentedCodeBlocks_Spec86_commonmark()
+        public void IndentedCodeBlocks_Spec86_CommonMark()
         {
             // The following Markdown:
             //     
@@ -1748,12 +1748,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("\n    \n    foo\n    \n", 
                 "<pre><code>foo\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Trailing spaces are included in the code block's content:
         [Fact]
-        public void IndentedCodeBlocks_Spec87_commonmark()
+        public void IndentedCodeBlocks_Spec87_CommonMark()
         {
             // The following Markdown:
             //         foo  
@@ -1764,7 +1764,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    foo  ", 
                 "<pre><code>foo  \n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -1813,7 +1813,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
         // Here is a simple example with backticks:
         [Fact]
-        public void FencedCodeBlocks_Spec88_commonmark()
+        public void FencedCodeBlocks_Spec88_CommonMark()
         {
             // The following Markdown:
             //     ```
@@ -1828,12 +1828,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```\n<\n >\n```", 
                 "<pre><code>&lt;\n &gt;\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // With tildes:
         [Fact]
-        public void FencedCodeBlocks_Spec89_commonmark()
+        public void FencedCodeBlocks_Spec89_CommonMark()
         {
             // The following Markdown:
             //     ~~~
@@ -1848,12 +1848,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("~~~\n<\n >\n~~~", 
                 "<pre><code>&lt;\n &gt;\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Fewer than three backticks is not enough:
         [Fact]
-        public void FencedCodeBlocks_Spec90_commonmark()
+        public void FencedCodeBlocks_Spec90_CommonMark()
         {
             // The following Markdown:
             //     ``
@@ -1865,13 +1865,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("``\nfoo\n``", 
                 "<p><code>foo</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The closing code fence must use the same character as the opening
         // fence:
         [Fact]
-        public void FencedCodeBlocks_Spec91_commonmark()
+        public void FencedCodeBlocks_Spec91_CommonMark()
         {
             // The following Markdown:
             //     ```
@@ -1886,11 +1886,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```\naaa\n~~~\n```", 
                 "<pre><code>aaa\n~~~\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void FencedCodeBlocks_Spec92_commonmark()
+        public void FencedCodeBlocks_Spec92_CommonMark()
         {
             // The following Markdown:
             //     ~~~
@@ -1905,12 +1905,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("~~~\naaa\n```\n~~~", 
                 "<pre><code>aaa\n```\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The closing code fence must be at least as long as the opening fence:
         [Fact]
-        public void FencedCodeBlocks_Spec93_commonmark()
+        public void FencedCodeBlocks_Spec93_CommonMark()
         {
             // The following Markdown:
             //     ````
@@ -1925,11 +1925,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("````\naaa\n```\n``````", 
                 "<pre><code>aaa\n```\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void FencedCodeBlocks_Spec94_commonmark()
+        public void FencedCodeBlocks_Spec94_CommonMark()
         {
             // The following Markdown:
             //     ~~~~
@@ -1944,13 +1944,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("~~~~\naaa\n~~~\n~~~~", 
                 "<pre><code>aaa\n~~~\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Unclosed code blocks are closed by the end of the document
         // (or the enclosing [block quote][block quotes] or [list item][list items]):
         [Fact]
-        public void FencedCodeBlocks_Spec95_commonmark()
+        public void FencedCodeBlocks_Spec95_CommonMark()
         {
             // The following Markdown:
             //     ```
@@ -1960,11 +1960,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```", 
                 "<pre><code></code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void FencedCodeBlocks_Spec96_commonmark()
+        public void FencedCodeBlocks_Spec96_CommonMark()
         {
             // The following Markdown:
             //     `````
@@ -1980,11 +1980,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`````\n\n```\naaa", 
                 "<pre><code>\n```\naaa\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void FencedCodeBlocks_Spec97_commonmark()
+        public void FencedCodeBlocks_Spec97_CommonMark()
         {
             // The following Markdown:
             //     > ```
@@ -2001,12 +2001,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> ```\n> aaa\n\nbbb", 
                 "<blockquote>\n<pre><code>aaa\n</code></pre>\n</blockquote>\n<p>bbb</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A code block can have all empty lines as its content:
         [Fact]
-        public void FencedCodeBlocks_Spec98_commonmark()
+        public void FencedCodeBlocks_Spec98_CommonMark()
         {
             // The following Markdown:
             //     ```
@@ -2021,12 +2021,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```\n\n  \n```", 
                 "<pre><code>\n  \n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A code block can be empty:
         [Fact]
-        public void FencedCodeBlocks_Spec99_commonmark()
+        public void FencedCodeBlocks_Spec99_CommonMark()
         {
             // The following Markdown:
             //     ```
@@ -2037,14 +2037,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```\n```", 
                 "<pre><code></code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Fences can be indented.  If the opening fence is indented,
         // content lines will have equivalent opening indentation removed,
         // if present:
         [Fact]
-        public void FencedCodeBlocks_Spec100_commonmark()
+        public void FencedCodeBlocks_Spec100_CommonMark()
         {
             // The following Markdown:
             //      ```
@@ -2059,11 +2059,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(" ```\n aaa\naaa\n```", 
                 "<pre><code>aaa\naaa\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void FencedCodeBlocks_Spec101_commonmark()
+        public void FencedCodeBlocks_Spec101_CommonMark()
         {
             // The following Markdown:
             //       ```
@@ -2080,11 +2080,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("  ```\naaa\n  aaa\naaa\n  ```", 
                 "<pre><code>aaa\naaa\naaa\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void FencedCodeBlocks_Spec102_commonmark()
+        public void FencedCodeBlocks_Spec102_CommonMark()
         {
             // The following Markdown:
             //        ```
@@ -2101,12 +2101,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("   ```\n   aaa\n    aaa\n  aaa\n   ```", 
                 "<pre><code>aaa\n aaa\naaa\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Four spaces indentation produces an indented code block:
         [Fact]
-        public void FencedCodeBlocks_Spec103_commonmark()
+        public void FencedCodeBlocks_Spec103_CommonMark()
         {
             // The following Markdown:
             //         ```
@@ -2121,13 +2121,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    ```\n    aaa\n    ```", 
                 "<pre><code>```\naaa\n```\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Closing fences may be indented by 0-3 spaces, and their indentation
         // need not match that of the opening fence:
         [Fact]
-        public void FencedCodeBlocks_Spec104_commonmark()
+        public void FencedCodeBlocks_Spec104_CommonMark()
         {
             // The following Markdown:
             //     ```
@@ -2140,11 +2140,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```\naaa\n  ```", 
                 "<pre><code>aaa\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void FencedCodeBlocks_Spec105_commonmark()
+        public void FencedCodeBlocks_Spec105_CommonMark()
         {
             // The following Markdown:
             //        ```
@@ -2157,12 +2157,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("   ```\naaa\n  ```", 
                 "<pre><code>aaa\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not a closing fence, because it is indented 4 spaces:
         [Fact]
-        public void FencedCodeBlocks_Spec106_commonmark()
+        public void FencedCodeBlocks_Spec106_CommonMark()
         {
             // The following Markdown:
             //     ```
@@ -2176,12 +2176,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```\naaa\n    ```", 
                 "<pre><code>aaa\n    ```\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Code fences (opening and closing) cannot contain internal spaces:
         [Fact]
-        public void FencedCodeBlocks_Spec107_commonmark()
+        public void FencedCodeBlocks_Spec107_CommonMark()
         {
             // The following Markdown:
             //     ``` ```
@@ -2193,11 +2193,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("``` ```\naaa", 
                 "<p><code></code>\naaa</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void FencedCodeBlocks_Spec108_commonmark()
+        public void FencedCodeBlocks_Spec108_CommonMark()
         {
             // The following Markdown:
             //     ~~~~~~
@@ -2211,13 +2211,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("~~~~~~\naaa\n~~~ ~~", 
                 "<pre><code>aaa\n~~~ ~~\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Fenced code blocks can interrupt paragraphs, and can be followed
         // directly by paragraphs, without a blank line between:
         [Fact]
-        public void FencedCodeBlocks_Spec109_commonmark()
+        public void FencedCodeBlocks_Spec109_CommonMark()
         {
             // The following Markdown:
             //     foo
@@ -2234,13 +2234,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo\n```\nbar\n```\nbaz", 
                 "<p>foo</p>\n<pre><code>bar\n</code></pre>\n<p>baz</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Other blocks can also occur before and after fenced code blocks
         // without an intervening blank line:
         [Fact]
-        public void FencedCodeBlocks_Spec110_commonmark()
+        public void FencedCodeBlocks_Spec110_CommonMark()
         {
             // The following Markdown:
             //     foo
@@ -2258,7 +2258,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo\n---\n~~~\nbar\n~~~\n# baz", 
                 "<h2>foo</h2>\n<pre><code>bar\n</code></pre>\n<h1>baz</h1>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // An [info string] can be provided after the opening code fence.
@@ -2266,7 +2266,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // with `language-`, is used as the value for the `class` attribute of the
         // `code` element within the enclosing `pre` element.
         [Fact]
-        public void FencedCodeBlocks_Spec111_commonmark()
+        public void FencedCodeBlocks_Spec111_CommonMark()
         {
             // The following Markdown:
             //     ```ruby
@@ -2283,11 +2283,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```ruby\ndef foo(x)\n  return 3\nend\n```", 
                 "<pre><code class=\"language-ruby\">def foo(x)\n  return 3\nend\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void FencedCodeBlocks_Spec112_commonmark()
+        public void FencedCodeBlocks_Spec112_CommonMark()
         {
             // The following Markdown:
             //     ~~~~    ruby startline=3 $%@#$
@@ -2304,11 +2304,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("~~~~    ruby startline=3 $%@#$\ndef foo(x)\n  return 3\nend\n~~~~~~~", 
                 "<pre><code class=\"language-ruby\">def foo(x)\n  return 3\nend\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void FencedCodeBlocks_Spec113_commonmark()
+        public void FencedCodeBlocks_Spec113_CommonMark()
         {
             // The following Markdown:
             //     ````;
@@ -2319,12 +2319,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("````;\n````", 
                 "<pre><code class=\"language-;\"></code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // [Info strings] for backtick code blocks cannot contain backticks:
         [Fact]
-        public void FencedCodeBlocks_Spec114_commonmark()
+        public void FencedCodeBlocks_Spec114_CommonMark()
         {
             // The following Markdown:
             //     ``` aa ```
@@ -2336,12 +2336,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("``` aa ```\nfoo", 
                 "<p><code>aa</code>\nfoo</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Closing code fences cannot have [info strings]:
         [Fact]
-        public void FencedCodeBlocks_Spec115_commonmark()
+        public void FencedCodeBlocks_Spec115_CommonMark()
         {
             // The following Markdown:
             //     ```
@@ -2354,7 +2354,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```\n``` aaa\n```", 
                 "<pre><code>``` aaa\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -2423,7 +2423,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // the parser state; as the HTML block was started in by start condition 6, it
         // will end at any blank line. This can be surprising:
         [Fact]
-        public void HTMLBlocks_Spec116_commonmark()
+        public void HTMLBlocks_Spec116_CommonMark()
         {
             // The following Markdown:
             //     <table><tr><td>
@@ -2444,7 +2444,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<table><tr><td>\n<pre>\n**Hello**,\n\n_world_.\n</pre>\n</td></tr></table>", 
                 "<table><tr><td>\n<pre>\n**Hello**,\n<p><em>world</em>.\n</pre></p>\n</td></tr></table>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // In this case, the HTML block is terminated by the newline — the `**hello**`
@@ -2459,7 +2459,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // Some simple examples follow.  Here are some basic HTML blocks
         // of type 6:
         [Fact]
-        public void HTMLBlocks_Spec117_commonmark()
+        public void HTMLBlocks_Spec117_CommonMark()
         {
             // The following Markdown:
             //     <table>
@@ -2484,11 +2484,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<table>\n  <tr>\n    <td>\n           hi\n    </td>\n  </tr>\n</table>\n\nokay.", 
                 "<table>\n  <tr>\n    <td>\n           hi\n    </td>\n  </tr>\n</table>\n<p>okay.</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HTMLBlocks_Spec118_commonmark()
+        public void HTMLBlocks_Spec118_CommonMark()
         {
             // The following Markdown:
             //      <div>
@@ -2502,12 +2502,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(" <div>\n  *hello*\n         <foo><a>", 
                 " <div>\n  *hello*\n         <foo><a>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A block can also start with a closing tag:
         [Fact]
-        public void HTMLBlocks_Spec119_commonmark()
+        public void HTMLBlocks_Spec119_CommonMark()
         {
             // The following Markdown:
             //     </div>
@@ -2519,12 +2519,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("</div>\n*foo*", 
                 "</div>\n*foo*", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Here we have two HTML blocks with a Markdown paragraph between them:
         [Fact]
-        public void HTMLBlocks_Spec120_commonmark()
+        public void HTMLBlocks_Spec120_CommonMark()
         {
             // The following Markdown:
             //     <DIV CLASS="foo">
@@ -2540,13 +2540,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<DIV CLASS=\"foo\">\n\n*Markdown*\n\n</DIV>", 
                 "<DIV CLASS=\"foo\">\n<p><em>Markdown</em></p>\n</DIV>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The tag on the first line can be partial, as long
         // as it is split where there would be whitespace:
         [Fact]
-        public void HTMLBlocks_Spec121_commonmark()
+        public void HTMLBlocks_Spec121_CommonMark()
         {
             // The following Markdown:
             //     <div id="foo"
@@ -2560,11 +2560,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<div id=\"foo\"\n  class=\"bar\">\n</div>", 
                 "<div id=\"foo\"\n  class=\"bar\">\n</div>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HTMLBlocks_Spec122_commonmark()
+        public void HTMLBlocks_Spec122_CommonMark()
         {
             // The following Markdown:
             //     <div id="foo" class="bar
@@ -2578,12 +2578,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<div id=\"foo\" class=\"bar\n  baz\">\n</div>", 
                 "<div id=\"foo\" class=\"bar\n  baz\">\n</div>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // An open tag need not be closed:
         [Fact]
-        public void HTMLBlocks_Spec123_commonmark()
+        public void HTMLBlocks_Spec123_CommonMark()
         {
             // The following Markdown:
             //     <div>
@@ -2598,13 +2598,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<div>\n*foo*\n\n*bar*", 
                 "<div>\n*foo*\n<p><em>bar</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A partial tag need not even be completed (garbage
         // in, garbage out):
         [Fact]
-        public void HTMLBlocks_Spec124_commonmark()
+        public void HTMLBlocks_Spec124_CommonMark()
         {
             // The following Markdown:
             //     <div id="foo"
@@ -2616,11 +2616,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<div id=\"foo\"\n*hi*", 
                 "<div id=\"foo\"\n*hi*", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HTMLBlocks_Spec125_commonmark()
+        public void HTMLBlocks_Spec125_CommonMark()
         {
             // The following Markdown:
             //     <div class
@@ -2632,13 +2632,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<div class\nfoo", 
                 "<div class\nfoo", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The initial tag doesn't even need to be a valid
         // tag, as long as it starts like one:
         [Fact]
-        public void HTMLBlocks_Spec126_commonmark()
+        public void HTMLBlocks_Spec126_CommonMark()
         {
             // The following Markdown:
             //     <div *???-&&&-<---
@@ -2650,13 +2650,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<div *???-&&&-<---\n*foo*", 
                 "<div *???-&&&-<---\n*foo*", 
-                "commonmark");
+                "CommonMark");
         }
 
         // In type 6 blocks, the initial tag need not be on a line by
         // itself:
         [Fact]
-        public void HTMLBlocks_Spec127_commonmark()
+        public void HTMLBlocks_Spec127_CommonMark()
         {
             // The following Markdown:
             //     <div><a href="bar">*foo*</a></div>
@@ -2666,11 +2666,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<div><a href=\"bar\">*foo*</a></div>", 
                 "<div><a href=\"bar\">*foo*</a></div>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HTMLBlocks_Spec128_commonmark()
+        public void HTMLBlocks_Spec128_CommonMark()
         {
             // The following Markdown:
             //     <table><tr><td>
@@ -2684,7 +2684,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<table><tr><td>\nfoo\n</td></tr></table>", 
                 "<table><tr><td>\nfoo\n</td></tr></table>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Everything until the next blank line or end of document
@@ -2693,7 +2693,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // is actually part of the HTML block, which continues until a blank
         // line or the end of the document is reached:
         [Fact]
-        public void HTMLBlocks_Spec129_commonmark()
+        public void HTMLBlocks_Spec129_CommonMark()
         {
             // The following Markdown:
             //     <div></div>
@@ -2709,14 +2709,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<div></div>\n``` c\nint x = 33;\n```", 
                 "<div></div>\n``` c\nint x = 33;\n```", 
-                "commonmark");
+                "CommonMark");
         }
 
         // To start an [HTML block] with a tag that is *not* in the
         // list of block-level tags in (6), you must put the tag by
         // itself on the first line (and it must be complete):
         [Fact]
-        public void HTMLBlocks_Spec130_commonmark()
+        public void HTMLBlocks_Spec130_CommonMark()
         {
             // The following Markdown:
             //     <a href="foo">
@@ -2730,12 +2730,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<a href=\"foo\">\n*bar*\n</a>", 
                 "<a href=\"foo\">\n*bar*\n</a>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // In type 7 blocks, the [tag name] can be anything:
         [Fact]
-        public void HTMLBlocks_Spec131_commonmark()
+        public void HTMLBlocks_Spec131_CommonMark()
         {
             // The following Markdown:
             //     <Warning>
@@ -2749,11 +2749,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<Warning>\n*bar*\n</Warning>", 
                 "<Warning>\n*bar*\n</Warning>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HTMLBlocks_Spec132_commonmark()
+        public void HTMLBlocks_Spec132_CommonMark()
         {
             // The following Markdown:
             //     <i class="foo">
@@ -2767,11 +2767,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<i class=\"foo\">\n*bar*\n</i>", 
                 "<i class=\"foo\">\n*bar*\n</i>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HTMLBlocks_Spec133_commonmark()
+        public void HTMLBlocks_Spec133_CommonMark()
         {
             // The following Markdown:
             //     </ins>
@@ -2783,7 +2783,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("</ins>\n*bar*", 
                 "</ins>\n*bar*", 
-                "commonmark");
+                "CommonMark");
         }
 
         // These rules are designed to allow us to work with tags that
@@ -2792,7 +2792,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // `<del>` tags in three different ways.  In this case, we get a raw
         // HTML block, because the `<del>` tag is on a line by itself:
         [Fact]
-        public void HTMLBlocks_Spec134_commonmark()
+        public void HTMLBlocks_Spec134_CommonMark()
         {
             // The following Markdown:
             //     <del>
@@ -2806,14 +2806,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<del>\n*foo*\n</del>", 
                 "<del>\n*foo*\n</del>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // In this case, we get a raw HTML block that just includes
         // the `<del>` tag (because it ends with the following blank
         // line).  So the contents get interpreted as CommonMark:
         [Fact]
-        public void HTMLBlocks_Spec135_commonmark()
+        public void HTMLBlocks_Spec135_CommonMark()
         {
             // The following Markdown:
             //     <del>
@@ -2829,7 +2829,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<del>\n\n*foo*\n\n</del>", 
                 "<del>\n<p><em>foo</em></p>\n</del>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Finally, in this case, the `<del>` tags are interpreted
@@ -2837,7 +2837,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // the tag is not on a line by itself, we get inline HTML
         // rather than an [HTML block].)
         [Fact]
-        public void HTMLBlocks_Spec136_commonmark()
+        public void HTMLBlocks_Spec136_CommonMark()
         {
             // The following Markdown:
             //     <del>*foo*</del>
@@ -2847,7 +2847,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<del>*foo*</del>", 
                 "<p><del><em>foo</em></del></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // HTML tags designed to contain literal content
@@ -2859,7 +2859,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // 
         // A pre tag (type 1):
         [Fact]
-        public void HTMLBlocks_Spec137_commonmark()
+        public void HTMLBlocks_Spec137_CommonMark()
         {
             // The following Markdown:
             //     <pre language="haskell"><code>
@@ -2881,12 +2881,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<pre language=\"haskell\"><code>\nimport Text.HTML.TagSoup\n\nmain :: IO ()\nmain = print $ parseTags tags\n</code></pre>\nokay", 
                 "<pre language=\"haskell\"><code>\nimport Text.HTML.TagSoup\n\nmain :: IO ()\nmain = print $ parseTags tags\n</code></pre>\n<p>okay</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A script tag (type 1):
         [Fact]
-        public void HTMLBlocks_Spec138_commonmark()
+        public void HTMLBlocks_Spec138_CommonMark()
         {
             // The following Markdown:
             //     <script type="text/javascript">
@@ -2906,12 +2906,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<script type=\"text/javascript\">\n// JavaScript example\n\ndocument.getElementById(\"demo\").innerHTML = \"Hello JavaScript!\";\n</script>\nokay", 
                 "<script type=\"text/javascript\">\n// JavaScript example\n\ndocument.getElementById(\"demo\").innerHTML = \"Hello JavaScript!\";\n</script>\n<p>okay</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A style tag (type 1):
         [Fact]
-        public void HTMLBlocks_Spec139_commonmark()
+        public void HTMLBlocks_Spec139_CommonMark()
         {
             // The following Markdown:
             //     <style
@@ -2933,14 +2933,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<style\n  type=\"text/css\">\nh1 {color:red;}\n\np {color:blue;}\n</style>\nokay", 
                 "<style\n  type=\"text/css\">\nh1 {color:red;}\n\np {color:blue;}\n</style>\n<p>okay</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // If there is no matching end tag, the block will end at the
         // end of the document (or the enclosing [block quote][block quotes]
         // or [list item][list items]):
         [Fact]
-        public void HTMLBlocks_Spec140_commonmark()
+        public void HTMLBlocks_Spec140_CommonMark()
         {
             // The following Markdown:
             //     <style
@@ -2956,11 +2956,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<style\n  type=\"text/css\">\n\nfoo", 
                 "<style\n  type=\"text/css\">\n\nfoo", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HTMLBlocks_Spec141_commonmark()
+        public void HTMLBlocks_Spec141_CommonMark()
         {
             // The following Markdown:
             //     > <div>
@@ -2977,11 +2977,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> <div>\n> foo\n\nbar", 
                 "<blockquote>\n<div>\nfoo\n</blockquote>\n<p>bar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HTMLBlocks_Spec142_commonmark()
+        public void HTMLBlocks_Spec142_CommonMark()
         {
             // The following Markdown:
             //     - <div>
@@ -2997,12 +2997,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- <div>\n- foo", 
                 "<ul>\n<li>\n<div>\n</li>\n<li>foo</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The end tag can occur on the same line as the start tag:
         [Fact]
-        public void HTMLBlocks_Spec143_commonmark()
+        public void HTMLBlocks_Spec143_CommonMark()
         {
             // The following Markdown:
             //     <style>p{color:red;}</style>
@@ -3014,11 +3014,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<style>p{color:red;}</style>\n*foo*", 
                 "<style>p{color:red;}</style>\n<p><em>foo</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HTMLBlocks_Spec144_commonmark()
+        public void HTMLBlocks_Spec144_CommonMark()
         {
             // The following Markdown:
             //     <!-- foo -->*bar*
@@ -3030,13 +3030,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<!-- foo -->*bar*\n*baz*", 
                 "<!-- foo -->*bar*\n<p><em>baz</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that anything on the last line after the
         // end tag will be included in the [HTML block]:
         [Fact]
-        public void HTMLBlocks_Spec145_commonmark()
+        public void HTMLBlocks_Spec145_CommonMark()
         {
             // The following Markdown:
             //     <script>
@@ -3050,12 +3050,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<script>\nfoo\n</script>1. *bar*", 
                 "<script>\nfoo\n</script>1. *bar*", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A comment (type 2):
         [Fact]
-        public void HTMLBlocks_Spec146_commonmark()
+        public void HTMLBlocks_Spec146_CommonMark()
         {
             // The following Markdown:
             //     <!-- Foo
@@ -3073,12 +3073,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<!-- Foo\n\nbar\n   baz -->\nokay", 
                 "<!-- Foo\n\nbar\n   baz -->\n<p>okay</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A processing instruction (type 3):
         [Fact]
-        public void HTMLBlocks_Spec147_commonmark()
+        public void HTMLBlocks_Spec147_CommonMark()
         {
             // The following Markdown:
             //     <?php
@@ -3098,12 +3098,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<?php\n\n  echo '>';\n\n?>\nokay", 
                 "<?php\n\n  echo '>';\n\n?>\n<p>okay</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A declaration (type 4):
         [Fact]
-        public void HTMLBlocks_Spec148_commonmark()
+        public void HTMLBlocks_Spec148_CommonMark()
         {
             // The following Markdown:
             //     <!DOCTYPE html>
@@ -3113,12 +3113,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<!DOCTYPE html>", 
                 "<!DOCTYPE html>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // CDATA (type 5):
         [Fact]
-        public void HTMLBlocks_Spec149_commonmark()
+        public void HTMLBlocks_Spec149_CommonMark()
         {
             // The following Markdown:
             //     <![CDATA[
@@ -3152,12 +3152,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<![CDATA[\nfunction matchwo(a,b)\n{\n  if (a < b && a < 0) then {\n    return 1;\n\n  } else {\n\n    return 0;\n  }\n}\n]]>\nokay", 
                 "<![CDATA[\nfunction matchwo(a,b)\n{\n  if (a < b && a < 0) then {\n    return 1;\n\n  } else {\n\n    return 0;\n  }\n}\n]]>\n<p>okay</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The opening tag can be indented 1-3 spaces, but not 4:
         [Fact]
-        public void HTMLBlocks_Spec150_commonmark()
+        public void HTMLBlocks_Spec150_CommonMark()
         {
             // The following Markdown:
             //       <!-- foo -->
@@ -3171,11 +3171,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("  <!-- foo -->\n\n    <!-- foo -->", 
                 "  <!-- foo -->\n<pre><code>&lt;!-- foo --&gt;\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HTMLBlocks_Spec151_commonmark()
+        public void HTMLBlocks_Spec151_CommonMark()
         {
             // The following Markdown:
             //       <div>
@@ -3189,13 +3189,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("  <div>\n\n    <div>", 
                 "  <div>\n<pre><code>&lt;div&gt;\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // An HTML block of types 1--6 can interrupt a paragraph, and need not be
         // preceded by a blank line.
         [Fact]
-        public void HTMLBlocks_Spec152_commonmark()
+        public void HTMLBlocks_Spec152_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -3211,13 +3211,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\n<div>\nbar\n</div>", 
                 "<p>Foo</p>\n<div>\nbar\n</div>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // However, a following blank line is needed, except at the end of
         // a document, and except for blocks of types 1--5, above:
         [Fact]
-        public void HTMLBlocks_Spec153_commonmark()
+        public void HTMLBlocks_Spec153_CommonMark()
         {
             // The following Markdown:
             //     <div>
@@ -3233,12 +3233,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<div>\nbar\n</div>\n*foo*", 
                 "<div>\nbar\n</div>\n*foo*", 
-                "commonmark");
+                "CommonMark");
         }
 
         // HTML blocks of type 7 cannot interrupt a paragraph:
         [Fact]
-        public void HTMLBlocks_Spec154_commonmark()
+        public void HTMLBlocks_Spec154_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -3252,7 +3252,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\n<a href=\"bar\">\nbaz", 
                 "<p>Foo\n<a href=\"bar\">\nbaz</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This rule differs from John Gruber's original Markdown syntax
@@ -3285,7 +3285,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // 
         // Compare:
         [Fact]
-        public void HTMLBlocks_Spec155_commonmark()
+        public void HTMLBlocks_Spec155_CommonMark()
         {
             // The following Markdown:
             //     <div>
@@ -3301,11 +3301,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<div>\n\n*Emphasized* text.\n\n</div>", 
                 "<div>\n<p><em>Emphasized</em> text.</p>\n</div>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HTMLBlocks_Spec156_commonmark()
+        public void HTMLBlocks_Spec156_CommonMark()
         {
             // The following Markdown:
             //     <div>
@@ -3319,7 +3319,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<div>\n*Emphasized* text.\n</div>", 
                 "<div>\n*Emphasized* text.\n</div>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Some Markdown implementations have adopted a convention of
@@ -3333,7 +3333,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // *in most cases* this will work fine, because the blank lines in
         // HTML are usually followed by HTML block tags.  For example:
         [Fact]
-        public void HTMLBlocks_Spec157_commonmark()
+        public void HTMLBlocks_Spec157_CommonMark()
         {
             // The following Markdown:
             //     <table>
@@ -3359,14 +3359,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<table>\n\n<tr>\n\n<td>\nHi\n</td>\n\n</tr>\n\n</table>", 
                 "<table>\n<tr>\n<td>\nHi\n</td>\n</tr>\n</table>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // There are problems, however, if the inner tags are indented
         // *and* separated by spaces, as then they will be interpreted as
         // an indented code block:
         [Fact]
-        public void HTMLBlocks_Spec158_commonmark()
+        public void HTMLBlocks_Spec158_CommonMark()
         {
             // The following Markdown:
             //     <table>
@@ -3393,7 +3393,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<table>\n\n  <tr>\n\n    <td>\n      Hi\n    </td>\n\n  </tr>\n\n</table>", 
                 "<table>\n  <tr>\n<pre><code>&lt;td&gt;\n  Hi\n&lt;/td&gt;\n</code></pre>\n  </tr>\n</table>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -3415,7 +3415,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // reference definitions] can come either before or after the links that use
         // them.
         [Fact]
-        public void LinkReferenceDefinitions_Spec159_commonmark()
+        public void LinkReferenceDefinitions_Spec159_CommonMark()
         {
             // The following Markdown:
             //     [foo]: /url "title"
@@ -3427,11 +3427,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]: /url \"title\"\n\n[foo]", 
                 "<p><a href=\"/url\" title=\"title\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void LinkReferenceDefinitions_Spec160_commonmark()
+        public void LinkReferenceDefinitions_Spec160_CommonMark()
         {
             // The following Markdown:
             //        [foo]: 
@@ -3445,11 +3445,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("   [foo]: \n      /url  \n           'the title'  \n\n[foo]", 
                 "<p><a href=\"/url\" title=\"the title\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void LinkReferenceDefinitions_Spec161_commonmark()
+        public void LinkReferenceDefinitions_Spec161_CommonMark()
         {
             // The following Markdown:
             //     [Foo*bar\]]:my_(url) 'title (with parens)'
@@ -3461,11 +3461,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[Foo*bar\\]]:my_(url) 'title (with parens)'\n\n[Foo*bar\\]]", 
                 "<p><a href=\"my_(url)\" title=\"title (with parens)\">Foo*bar]</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void LinkReferenceDefinitions_Spec162_commonmark()
+        public void LinkReferenceDefinitions_Spec162_CommonMark()
         {
             // The following Markdown:
             //     [Foo bar]:
@@ -3479,12 +3479,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[Foo bar]:\n<my%20url>\n'title'\n\n[Foo bar]", 
                 "<p><a href=\"my%20url\" title=\"title\">Foo bar</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The title may extend over multiple lines:
         [Fact]
-        public void LinkReferenceDefinitions_Spec163_commonmark()
+        public void LinkReferenceDefinitions_Spec163_CommonMark()
         {
             // The following Markdown:
             //     [foo]: /url '
@@ -3504,12 +3504,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]: /url '\ntitle\nline1\nline2\n'\n\n[foo]", 
                 "<p><a href=\"/url\" title=\"\ntitle\nline1\nline2\n\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // However, it may not contain a [blank line]:
         [Fact]
-        public void LinkReferenceDefinitions_Spec164_commonmark()
+        public void LinkReferenceDefinitions_Spec164_CommonMark()
         {
             // The following Markdown:
             //     [foo]: /url 'title
@@ -3525,12 +3525,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]: /url 'title\n\nwith blank line'\n\n[foo]", 
                 "<p>[foo]: /url 'title</p>\n<p>with blank line'</p>\n<p>[foo]</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The title may be omitted:
         [Fact]
-        public void LinkReferenceDefinitions_Spec165_commonmark()
+        public void LinkReferenceDefinitions_Spec165_CommonMark()
         {
             // The following Markdown:
             //     [foo]:
@@ -3543,12 +3543,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]:\n/url\n\n[foo]", 
                 "<p><a href=\"/url\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The link destination may not be omitted:
         [Fact]
-        public void LinkReferenceDefinitions_Spec166_commonmark()
+        public void LinkReferenceDefinitions_Spec166_CommonMark()
         {
             // The following Markdown:
             //     [foo]:
@@ -3561,13 +3561,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]:\n\n[foo]", 
                 "<p>[foo]:</p>\n<p>[foo]</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Both title and destination can contain backslash escapes
         // and literal backslashes:
         [Fact]
-        public void LinkReferenceDefinitions_Spec167_commonmark()
+        public void LinkReferenceDefinitions_Spec167_CommonMark()
         {
             // The following Markdown:
             //     [foo]: /url\bar\*baz "foo\"bar\baz"
@@ -3579,12 +3579,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]: /url\\bar\\*baz \"foo\\\"bar\\baz\"\n\n[foo]", 
                 "<p><a href=\"/url%5Cbar*baz\" title=\"foo&quot;bar\\baz\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A link can come before its corresponding definition:
         [Fact]
-        public void LinkReferenceDefinitions_Spec168_commonmark()
+        public void LinkReferenceDefinitions_Spec168_CommonMark()
         {
             // The following Markdown:
             //     [foo]
@@ -3596,13 +3596,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: url", 
                 "<p><a href=\"url\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // If there are several matching definitions, the first one takes
         // precedence:
         [Fact]
-        public void LinkReferenceDefinitions_Spec169_commonmark()
+        public void LinkReferenceDefinitions_Spec169_CommonMark()
         {
             // The following Markdown:
             //     [foo]
@@ -3615,13 +3615,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: first\n[foo]: second", 
                 "<p><a href=\"first\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // As noted in the section on [Links], matching of labels is
         // case-insensitive (see [matches]).
         [Fact]
-        public void LinkReferenceDefinitions_Spec170_commonmark()
+        public void LinkReferenceDefinitions_Spec170_CommonMark()
         {
             // The following Markdown:
             //     [FOO]: /url
@@ -3633,11 +3633,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[FOO]: /url\n\n[Foo]", 
                 "<p><a href=\"/url\">Foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void LinkReferenceDefinitions_Spec171_commonmark()
+        public void LinkReferenceDefinitions_Spec171_CommonMark()
         {
             // The following Markdown:
             //     [ΑΓΩ]: /φου
@@ -3649,13 +3649,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[ΑΓΩ]: /φου\n\n[αγω]", 
                 "<p><a href=\"/%CF%86%CE%BF%CF%85\">αγω</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Here is a link reference definition with no corresponding link.
         // It contributes nothing to the document.
         [Fact]
-        public void LinkReferenceDefinitions_Spec172_commonmark()
+        public void LinkReferenceDefinitions_Spec172_CommonMark()
         {
             // The following Markdown:
             //     [foo]: /url
@@ -3665,12 +3665,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]: /url", 
                 "", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Here is another one:
         [Fact]
-        public void LinkReferenceDefinitions_Spec173_commonmark()
+        public void LinkReferenceDefinitions_Spec173_CommonMark()
         {
             // The following Markdown:
             //     [
@@ -3683,13 +3683,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[\nfoo\n]: /url\nbar", 
                 "<p>bar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not a link reference definition, because there are
         // [non-whitespace characters] after the title:
         [Fact]
-        public void LinkReferenceDefinitions_Spec174_commonmark()
+        public void LinkReferenceDefinitions_Spec174_CommonMark()
         {
             // The following Markdown:
             //     [foo]: /url "title" ok
@@ -3699,12 +3699,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]: /url \"title\" ok", 
                 "<p>[foo]: /url &quot;title&quot; ok</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is a link reference definition, but it has no title:
         [Fact]
-        public void LinkReferenceDefinitions_Spec175_commonmark()
+        public void LinkReferenceDefinitions_Spec175_CommonMark()
         {
             // The following Markdown:
             //     [foo]: /url
@@ -3715,13 +3715,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]: /url\n\"title\" ok", 
                 "<p>&quot;title&quot; ok</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not a link reference definition, because it is indented
         // four spaces:
         [Fact]
-        public void LinkReferenceDefinitions_Spec176_commonmark()
+        public void LinkReferenceDefinitions_Spec176_CommonMark()
         {
             // The following Markdown:
             //         [foo]: /url "title"
@@ -3735,13 +3735,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    [foo]: /url \"title\"\n\n[foo]", 
                 "<pre><code>[foo]: /url &quot;title&quot;\n</code></pre>\n<p>[foo]</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not a link reference definition, because it occurs inside
         // a code block:
         [Fact]
-        public void LinkReferenceDefinitions_Spec177_commonmark()
+        public void LinkReferenceDefinitions_Spec177_CommonMark()
         {
             // The following Markdown:
             //     ```
@@ -3757,12 +3757,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```\n[foo]: /url\n```\n\n[foo]", 
                 "<pre><code>[foo]: /url\n</code></pre>\n<p>[foo]</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A [link reference definition] cannot interrupt a paragraph.
         [Fact]
-        public void LinkReferenceDefinitions_Spec178_commonmark()
+        public void LinkReferenceDefinitions_Spec178_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -3777,13 +3777,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\n[bar]: /baz\n\n[bar]", 
                 "<p>Foo\n[bar]: /baz</p>\n<p>[bar]</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // However, it can directly follow other block elements, such as headings
         // and thematic breaks, and it need not be followed by a blank line.
         [Fact]
-        public void LinkReferenceDefinitions_Spec179_commonmark()
+        public void LinkReferenceDefinitions_Spec179_CommonMark()
         {
             // The following Markdown:
             //     # [Foo]
@@ -3798,13 +3798,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# [Foo]\n[foo]: /url\n> bar", 
                 "<h1><a href=\"/url\">Foo</a></h1>\n<blockquote>\n<p>bar</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Several [link reference definitions]
         // can occur one after another, without intervening blank lines.
         [Fact]
-        public void LinkReferenceDefinitions_Spec180_commonmark()
+        public void LinkReferenceDefinitions_Spec180_CommonMark()
         {
             // The following Markdown:
             //     [foo]: /foo-url "foo"
@@ -3823,7 +3823,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]: /foo-url \"foo\"\n[bar]: /bar-url\n  \"bar\"\n[baz]: /baz-url\n\n[foo],\n[bar],\n[baz]", 
                 "<p><a href=\"/foo-url\" title=\"foo\">foo</a>,\n<a href=\"/bar-url\" title=\"bar\">bar</a>,\n<a href=\"/baz-url\">baz</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // [Link reference definitions] can occur
@@ -3831,7 +3831,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // affect the entire document, not just the container in which they
         // are defined:
         [Fact]
-        public void LinkReferenceDefinitions_Spec181_commonmark()
+        public void LinkReferenceDefinitions_Spec181_CommonMark()
         {
             // The following Markdown:
             //     [foo]
@@ -3845,7 +3845,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]\n\n> [foo]: /url", 
                 "<p><a href=\"/url\">foo</a></p>\n<blockquote>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -3859,7 +3859,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
         // A simple example with two paragraphs:
         [Fact]
-        public void Paragraphs_Spec182_commonmark()
+        public void Paragraphs_Spec182_CommonMark()
         {
             // The following Markdown:
             //     aaa
@@ -3872,12 +3872,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("aaa\n\nbbb", 
                 "<p>aaa</p>\n<p>bbb</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Paragraphs can contain multiple lines, but no blank lines:
         [Fact]
-        public void Paragraphs_Spec183_commonmark()
+        public void Paragraphs_Spec183_CommonMark()
         {
             // The following Markdown:
             //     aaa
@@ -3894,12 +3894,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("aaa\nbbb\n\nccc\nddd", 
                 "<p>aaa\nbbb</p>\n<p>ccc\nddd</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Multiple blank lines between paragraph have no effect:
         [Fact]
-        public void Paragraphs_Spec184_commonmark()
+        public void Paragraphs_Spec184_CommonMark()
         {
             // The following Markdown:
             //     aaa
@@ -3913,12 +3913,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("aaa\n\n\nbbb", 
                 "<p>aaa</p>\n<p>bbb</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Leading spaces are skipped:
         [Fact]
-        public void Paragraphs_Spec185_commonmark()
+        public void Paragraphs_Spec185_CommonMark()
         {
             // The following Markdown:
             //       aaa
@@ -3930,13 +3930,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("  aaa\n bbb", 
                 "<p>aaa\nbbb</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Lines after the first may be indented any amount, since indented
         // code blocks cannot interrupt paragraphs.
         [Fact]
-        public void Paragraphs_Spec186_commonmark()
+        public void Paragraphs_Spec186_CommonMark()
         {
             // The following Markdown:
             //     aaa
@@ -3950,13 +3950,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("aaa\n             bbb\n                                       ccc", 
                 "<p>aaa\nbbb\nccc</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // However, the first line may be indented at most three spaces,
         // or an indented code block will be triggered:
         [Fact]
-        public void Paragraphs_Spec187_commonmark()
+        public void Paragraphs_Spec187_CommonMark()
         {
             // The following Markdown:
             //        aaa
@@ -3968,11 +3968,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("   aaa\nbbb", 
                 "<p>aaa\nbbb</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Paragraphs_Spec188_commonmark()
+        public void Paragraphs_Spec188_CommonMark()
         {
             // The following Markdown:
             //         aaa
@@ -3985,14 +3985,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    aaa\nbbb", 
                 "<pre><code>aaa\n</code></pre>\n<p>bbb</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Final spaces are stripped before inline parsing, so a paragraph
         // that ends with two or more spaces will not end with a [hard line
         // break]:
         [Fact]
-        public void Paragraphs_Spec189_commonmark()
+        public void Paragraphs_Spec189_CommonMark()
         {
             // The following Markdown:
             //     aaa     
@@ -4004,7 +4004,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("aaa     \nbbb     ", 
                 "<p>aaa<br />\nbbb</p>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -4015,7 +4015,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
         // Blank lines at the beginning and end of the document are also ignored.
         [Fact]
-        public void BlankLines_Spec190_commonmark()
+        public void BlankLines_Spec190_CommonMark()
         {
             // The following Markdown:
             //       
@@ -4033,7 +4033,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("  \n\naaa\n  \n\n# aaa\n\n  ", 
                 "<p>aaa</p>\n<h1>aaa</h1>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -4066,7 +4066,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
         // Here is a simple example:
         [Fact]
-        public void BlockQuotes_Spec191_commonmark()
+        public void BlockQuotes_Spec191_CommonMark()
         {
             // The following Markdown:
             //     > # Foo
@@ -4082,12 +4082,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> # Foo\n> bar\n> baz", 
                 "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The spaces after the `>` characters can be omitted:
         [Fact]
-        public void BlockQuotes_Spec192_commonmark()
+        public void BlockQuotes_Spec192_CommonMark()
         {
             // The following Markdown:
             //     ># Foo
@@ -4103,12 +4103,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("># Foo\n>bar\n> baz", 
                 "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The `>` characters can be indented 1-3 spaces:
         [Fact]
-        public void BlockQuotes_Spec193_commonmark()
+        public void BlockQuotes_Spec193_CommonMark()
         {
             // The following Markdown:
             //        > # Foo
@@ -4124,12 +4124,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("   > # Foo\n   > bar\n > baz", 
                 "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Four spaces gives us a code block:
         [Fact]
-        public void BlockQuotes_Spec194_commonmark()
+        public void BlockQuotes_Spec194_CommonMark()
         {
             // The following Markdown:
             //         > # Foo
@@ -4144,13 +4144,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    > # Foo\n    > bar\n    > baz", 
                 "<pre><code>&gt; # Foo\n&gt; bar\n&gt; baz\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The Laziness clause allows us to omit the `>` before
         // [paragraph continuation text]:
         [Fact]
-        public void BlockQuotes_Spec195_commonmark()
+        public void BlockQuotes_Spec195_CommonMark()
         {
             // The following Markdown:
             //     > # Foo
@@ -4166,13 +4166,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> # Foo\n> bar\nbaz", 
                 "<blockquote>\n<h1>Foo</h1>\n<p>bar\nbaz</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A block quote can contain some lazy and some non-lazy
         // continuation lines:
         [Fact]
-        public void BlockQuotes_Spec196_commonmark()
+        public void BlockQuotes_Spec196_CommonMark()
         {
             // The following Markdown:
             //     > bar
@@ -4188,7 +4188,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> bar\nbaz\n> foo", 
                 "<blockquote>\n<p>bar\nbaz\nfoo</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Laziness only applies to lines that would have been continuations of
@@ -4202,7 +4202,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // 
         // without changing the meaning:
         [Fact]
-        public void BlockQuotes_Spec197_commonmark()
+        public void BlockQuotes_Spec197_CommonMark()
         {
             // The following Markdown:
             //     > foo
@@ -4216,7 +4216,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> foo\n---", 
                 "<blockquote>\n<p>foo</p>\n</blockquote>\n<hr />", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Similarly, if we omit the `> ` in the second line of
@@ -4228,7 +4228,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // 
         // then the block quote ends after the first line:
         [Fact]
-        public void BlockQuotes_Spec198_commonmark()
+        public void BlockQuotes_Spec198_CommonMark()
         {
             // The following Markdown:
             //     > - foo
@@ -4246,13 +4246,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> - foo\n- bar", 
                 "<blockquote>\n<ul>\n<li>foo</li>\n</ul>\n</blockquote>\n<ul>\n<li>bar</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // For the same reason, we can't omit the `> ` in front of
         // subsequent lines of an indented or fenced code block:
         [Fact]
-        public void BlockQuotes_Spec199_commonmark()
+        public void BlockQuotes_Spec199_CommonMark()
         {
             // The following Markdown:
             //     >     foo
@@ -4268,11 +4268,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(">     foo\n    bar", 
                 "<blockquote>\n<pre><code>foo\n</code></pre>\n</blockquote>\n<pre><code>bar\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void BlockQuotes_Spec200_commonmark()
+        public void BlockQuotes_Spec200_CommonMark()
         {
             // The following Markdown:
             //     > ```
@@ -4288,13 +4288,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> ```\nfoo\n```", 
                 "<blockquote>\n<pre><code></code></pre>\n</blockquote>\n<p>foo</p>\n<pre><code></code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that in the following case, we have a [lazy
         // continuation line]:
         [Fact]
-        public void BlockQuotes_Spec201_commonmark()
+        public void BlockQuotes_Spec201_CommonMark()
         {
             // The following Markdown:
             //     > foo
@@ -4308,7 +4308,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> foo\n    - bar", 
                 "<blockquote>\n<p>foo\n- bar</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // To see why, note that in
@@ -4324,7 +4324,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // 
         // A block quote can be empty:
         [Fact]
-        public void BlockQuotes_Spec202_commonmark()
+        public void BlockQuotes_Spec202_CommonMark()
         {
             // The following Markdown:
             //     >
@@ -4335,11 +4335,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(">", 
                 "<blockquote>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void BlockQuotes_Spec203_commonmark()
+        public void BlockQuotes_Spec203_CommonMark()
         {
             // The following Markdown:
             //     >
@@ -4352,12 +4352,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(">\n>  \n> ", 
                 "<blockquote>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A block quote can have initial or final blank lines:
         [Fact]
-        public void BlockQuotes_Spec204_commonmark()
+        public void BlockQuotes_Spec204_CommonMark()
         {
             // The following Markdown:
             //     >
@@ -4371,12 +4371,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(">\n> foo\n>  ", 
                 "<blockquote>\n<p>foo</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A blank line always separates block quotes:
         [Fact]
-        public void BlockQuotes_Spec205_commonmark()
+        public void BlockQuotes_Spec205_CommonMark()
         {
             // The following Markdown:
             //     > foo
@@ -4393,7 +4393,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> foo\n\n> bar", 
                 "<blockquote>\n<p>foo</p>\n</blockquote>\n<blockquote>\n<p>bar</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // (Most current Markdown implementations, including John Gruber's
@@ -4404,7 +4404,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // Consecutiveness means that if we put these block quotes together,
         // we get a single block quote:
         [Fact]
-        public void BlockQuotes_Spec206_commonmark()
+        public void BlockQuotes_Spec206_CommonMark()
         {
             // The following Markdown:
             //     > foo
@@ -4418,12 +4418,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> foo\n> bar", 
                 "<blockquote>\n<p>foo\nbar</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // To get a block quote with two paragraphs, use:
         [Fact]
-        public void BlockQuotes_Spec207_commonmark()
+        public void BlockQuotes_Spec207_CommonMark()
         {
             // The following Markdown:
             //     > foo
@@ -4438,12 +4438,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> foo\n>\n> bar", 
                 "<blockquote>\n<p>foo</p>\n<p>bar</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Block quotes can interrupt paragraphs:
         [Fact]
-        public void BlockQuotes_Spec208_commonmark()
+        public void BlockQuotes_Spec208_CommonMark()
         {
             // The following Markdown:
             //     foo
@@ -4457,13 +4457,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo\n> bar", 
                 "<p>foo</p>\n<blockquote>\n<p>bar</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // In general, blank lines are not needed before or after block
         // quotes:
         [Fact]
-        public void BlockQuotes_Spec209_commonmark()
+        public void BlockQuotes_Spec209_CommonMark()
         {
             // The following Markdown:
             //     > aaa
@@ -4481,13 +4481,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> aaa\n***\n> bbb", 
                 "<blockquote>\n<p>aaa</p>\n</blockquote>\n<hr />\n<blockquote>\n<p>bbb</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // However, because of laziness, a blank line is needed between
         // a block quote and a following paragraph:
         [Fact]
-        public void BlockQuotes_Spec210_commonmark()
+        public void BlockQuotes_Spec210_CommonMark()
         {
             // The following Markdown:
             //     > bar
@@ -4501,11 +4501,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> bar\nbaz", 
                 "<blockquote>\n<p>bar\nbaz</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void BlockQuotes_Spec211_commonmark()
+        public void BlockQuotes_Spec211_CommonMark()
         {
             // The following Markdown:
             //     > bar
@@ -4520,11 +4520,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> bar\n\nbaz", 
                 "<blockquote>\n<p>bar</p>\n</blockquote>\n<p>baz</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void BlockQuotes_Spec212_commonmark()
+        public void BlockQuotes_Spec212_CommonMark()
         {
             // The following Markdown:
             //     > bar
@@ -4539,14 +4539,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> bar\n>\nbaz", 
                 "<blockquote>\n<p>bar</p>\n</blockquote>\n<p>baz</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // It is a consequence of the Laziness rule that any number
         // of initial `>`s may be omitted on a continuation line of a
         // nested block quote:
         [Fact]
-        public void BlockQuotes_Spec213_commonmark()
+        public void BlockQuotes_Spec213_CommonMark()
         {
             // The following Markdown:
             //     > > > foo
@@ -4564,11 +4564,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> > > foo\nbar", 
                 "<blockquote>\n<blockquote>\n<blockquote>\n<p>foo\nbar</p>\n</blockquote>\n</blockquote>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void BlockQuotes_Spec214_commonmark()
+        public void BlockQuotes_Spec214_CommonMark()
         {
             // The following Markdown:
             //     >>> foo
@@ -4588,7 +4588,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(">>> foo\n> bar\n>>baz", 
                 "<blockquote>\n<blockquote>\n<blockquote>\n<p>foo\nbar\nbaz</p>\n</blockquote>\n</blockquote>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // When including an indented code block in a block quote,
@@ -4596,7 +4596,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // both the `>` and a following space.  So *five spaces* are needed after
         // the `>`:
         [Fact]
-        public void BlockQuotes_Spec215_commonmark()
+        public void BlockQuotes_Spec215_CommonMark()
         {
             // The following Markdown:
             //     >     code
@@ -4614,7 +4614,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(">     code\n\n>    not code", 
                 "<blockquote>\n<pre><code>code\n</code></pre>\n</blockquote>\n<blockquote>\n<p>not code</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -4656,7 +4656,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
         // For example, let *Ls* be the lines
         [Fact]
-        public void ListItems_Spec216_commonmark()
+        public void ListItems_Spec216_CommonMark()
         {
             // The following Markdown:
             //     A paragraph
@@ -4677,14 +4677,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("A paragraph\nwith two lines.\n\n    indented code\n\n> A block quote.", 
                 "<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // And let *M* be the marker `1.`, and *N* = 2.  Then rule #1 says
         // that the following is an ordered list item with start number 1,
         // and the same contents as *Ls*:
         [Fact]
-        public void ListItems_Spec217_commonmark()
+        public void ListItems_Spec217_CommonMark()
         {
             // The following Markdown:
             //     1.  A paragraph
@@ -4709,7 +4709,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("1.  A paragraph\n    with two lines.\n\n        indented code\n\n    > A block quote.", 
                 "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The most important thing to notice is that the position of
@@ -4723,7 +4723,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // Here are some examples showing how far content must be indented to be
         // put under the list item:
         [Fact]
-        public void ListItems_Spec218_commonmark()
+        public void ListItems_Spec218_CommonMark()
         {
             // The following Markdown:
             //     - one
@@ -4738,11 +4738,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- one\n\n two", 
                 "<ul>\n<li>one</li>\n</ul>\n<p>two</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void ListItems_Spec219_commonmark()
+        public void ListItems_Spec219_CommonMark()
         {
             // The following Markdown:
             //     - one
@@ -4759,11 +4759,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- one\n\n  two", 
                 "<ul>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void ListItems_Spec220_commonmark()
+        public void ListItems_Spec220_CommonMark()
         {
             // The following Markdown:
             //      -    one
@@ -4779,11 +4779,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(" -    one\n\n     two", 
                 "<ul>\n<li>one</li>\n</ul>\n<pre><code> two\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void ListItems_Spec221_commonmark()
+        public void ListItems_Spec221_CommonMark()
         {
             // The following Markdown:
             //      -    one
@@ -4800,7 +4800,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(" -    one\n\n      two", 
                 "<ul>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // It is tempting to think of this in terms of columns:  the continuation
@@ -4811,7 +4811,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // how the list item is embedded in other constructions, as shown by
         // this example:
         [Fact]
-        public void ListItems_Spec222_commonmark()
+        public void ListItems_Spec222_CommonMark()
         {
             // The following Markdown:
             //        > > 1.  one
@@ -4832,7 +4832,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("   > > 1.  one\n>>\n>>     two", 
                 "<blockquote>\n<blockquote>\n<ol>\n<li>\n<p>one</p>\n<p>two</p>\n</li>\n</ol>\n</blockquote>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Here `two` occurs in the same column as the list marker `1.`,
@@ -4844,7 +4844,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // it is not considered part of the list item, because it is not indented
         // far enough past the blockquote marker:
         [Fact]
-        public void ListItems_Spec223_commonmark()
+        public void ListItems_Spec223_CommonMark()
         {
             // The following Markdown:
             //     >>- one
@@ -4863,13 +4863,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(">>- one\n>>\n  >  > two", 
                 "<blockquote>\n<blockquote>\n<ul>\n<li>one</li>\n</ul>\n<p>two</p>\n</blockquote>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that at least one space is needed between the list marker and
         // any following content, so these are not list items:
         [Fact]
-        public void ListItems_Spec224_commonmark()
+        public void ListItems_Spec224_CommonMark()
         {
             // The following Markdown:
             //     -one
@@ -4882,13 +4882,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("-one\n\n2.two", 
                 "<p>-one</p>\n<p>2.two</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A list item may contain blocks that are separated by more than
         // one blank line.
         [Fact]
-        public void ListItems_Spec225_commonmark()
+        public void ListItems_Spec225_CommonMark()
         {
             // The following Markdown:
             //     - foo
@@ -4906,12 +4906,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- foo\n\n\n  bar", 
                 "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A list item may contain any kind of block:
         [Fact]
-        public void ListItems_Spec226_commonmark()
+        public void ListItems_Spec226_CommonMark()
         {
             // The following Markdown:
             //     1.  foo
@@ -4939,13 +4939,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("1.  foo\n\n    ```\n    bar\n    ```\n\n    baz\n\n    > bam", 
                 "<ol>\n<li>\n<p>foo</p>\n<pre><code>bar\n</code></pre>\n<p>baz</p>\n<blockquote>\n<p>bam</p>\n</blockquote>\n</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A list item that contains an indented code block will preserve
         // empty lines within the code block verbatim.
         [Fact]
-        public void ListItems_Spec227_commonmark()
+        public void ListItems_Spec227_CommonMark()
         {
             // The following Markdown:
             //     - Foo
@@ -4969,12 +4969,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- Foo\n\n      bar\n\n\n      baz", 
                 "<ul>\n<li>\n<p>Foo</p>\n<pre><code>bar\n\n\nbaz\n</code></pre>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that ordered list start numbers must be nine digits or less:
         [Fact]
-        public void ListItems_Spec228_commonmark()
+        public void ListItems_Spec228_CommonMark()
         {
             // The following Markdown:
             //     123456789. ok
@@ -4986,11 +4986,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("123456789. ok", 
                 "<ol start=\"123456789\">\n<li>ok</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void ListItems_Spec229_commonmark()
+        public void ListItems_Spec229_CommonMark()
         {
             // The following Markdown:
             //     1234567890. not ok
@@ -5000,12 +5000,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("1234567890. not ok", 
                 "<p>1234567890. not ok</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A start number may begin with 0s:
         [Fact]
-        public void ListItems_Spec230_commonmark()
+        public void ListItems_Spec230_CommonMark()
         {
             // The following Markdown:
             //     0. ok
@@ -5017,11 +5017,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("0. ok", 
                 "<ol start=\"0\">\n<li>ok</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void ListItems_Spec231_commonmark()
+        public void ListItems_Spec231_CommonMark()
         {
             // The following Markdown:
             //     003. ok
@@ -5033,12 +5033,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("003. ok", 
                 "<ol start=\"3\">\n<li>ok</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A start number may not be negative:
         [Fact]
-        public void ListItems_Spec232_commonmark()
+        public void ListItems_Spec232_CommonMark()
         {
             // The following Markdown:
             //     -1. not ok
@@ -5048,7 +5048,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("-1. not ok", 
                 "<p>-1. not ok</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // 2.  **Item starting with indented code.**  If a sequence of lines *Ls*
@@ -5067,7 +5067,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // the edge of the region where text will be included in the list item.
         // In the following case that is 6 spaces:
         [Fact]
-        public void ListItems_Spec233_commonmark()
+        public void ListItems_Spec233_CommonMark()
         {
             // The following Markdown:
             //     - foo
@@ -5085,12 +5085,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- foo\n\n      bar", 
                 "<ul>\n<li>\n<p>foo</p>\n<pre><code>bar\n</code></pre>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // And in this case it is 11 spaces:
         [Fact]
-        public void ListItems_Spec234_commonmark()
+        public void ListItems_Spec234_CommonMark()
         {
             // The following Markdown:
             //       10.  foo
@@ -5108,14 +5108,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("  10.  foo\n\n           bar", 
                 "<ol start=\"10\">\n<li>\n<p>foo</p>\n<pre><code>bar\n</code></pre>\n</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // If the *first* block in the list item is an indented code block,
         // then by rule #2, the contents must be indented *one* space after the
         // list marker:
         [Fact]
-        public void ListItems_Spec235_commonmark()
+        public void ListItems_Spec235_CommonMark()
         {
             // The following Markdown:
             //         indented code
@@ -5133,11 +5133,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    indented code\n\nparagraph\n\n    more code", 
                 "<pre><code>indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void ListItems_Spec236_commonmark()
+        public void ListItems_Spec236_CommonMark()
         {
             // The following Markdown:
             //     1.     indented code
@@ -5159,13 +5159,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("1.     indented code\n\n   paragraph\n\n       more code", 
                 "<ol>\n<li>\n<pre><code>indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>\n</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that an additional space indent is interpreted as space
         // inside the code block:
         [Fact]
-        public void ListItems_Spec237_commonmark()
+        public void ListItems_Spec237_CommonMark()
         {
             // The following Markdown:
             //     1.      indented code
@@ -5187,7 +5187,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("1.      indented code\n\n   paragraph\n\n       more code", 
                 "<ol>\n<li>\n<pre><code> indented code\n</code></pre>\n<p>paragraph</p>\n<pre><code>more code\n</code></pre>\n</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that rules #1 and #2 only apply to two cases:  (a) cases
@@ -5198,7 +5198,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // a three-space indent, the rules do not allow us to form a list item by
         // indenting the whole thing and prepending a list marker:
         [Fact]
-        public void ListItems_Spec238_commonmark()
+        public void ListItems_Spec238_CommonMark()
         {
             // The following Markdown:
             //        foo
@@ -5211,11 +5211,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("   foo\n\nbar", 
                 "<p>foo</p>\n<p>bar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void ListItems_Spec239_commonmark()
+        public void ListItems_Spec239_CommonMark()
         {
             // The following Markdown:
             //     -    foo
@@ -5230,7 +5230,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("-    foo\n\n  bar", 
                 "<ul>\n<li>foo</li>\n</ul>\n<p>bar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not a significant restriction, because when a block begins
@@ -5238,7 +5238,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // a change in interpretation, allowing rule #1 to be applied.  So, in
         // the above case:
         [Fact]
-        public void ListItems_Spec240_commonmark()
+        public void ListItems_Spec240_CommonMark()
         {
             // The following Markdown:
             //     -  foo
@@ -5255,7 +5255,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("-  foo\n\n   bar", 
                 "<ul>\n<li>\n<p>foo</p>\n<p>bar</p>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // 3.  **Item starting with a blank line.**  If a sequence of lines *Ls*
@@ -5272,7 +5272,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // 
         // Here are some list items that start with a blank line but are not empty:
         [Fact]
-        public void ListItems_Spec241_commonmark()
+        public void ListItems_Spec241_CommonMark()
         {
             // The following Markdown:
             //     -
@@ -5299,13 +5299,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("-\n  foo\n-\n  ```\n  bar\n  ```\n-\n      baz", 
                 "<ul>\n<li>foo</li>\n<li>\n<pre><code>bar\n</code></pre>\n</li>\n<li>\n<pre><code>baz\n</code></pre>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // When the list item starts with a blank line, the number of spaces
         // following the list marker doesn't change the required indentation:
         [Fact]
-        public void ListItems_Spec242_commonmark()
+        public void ListItems_Spec242_CommonMark()
         {
             // The following Markdown:
             //     -   
@@ -5318,14 +5318,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("-   \n  foo", 
                 "<ul>\n<li>foo</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A list item can begin with at most one blank line.
         // In the following example, `foo` is not part of the list
         // item:
         [Fact]
-        public void ListItems_Spec243_commonmark()
+        public void ListItems_Spec243_CommonMark()
         {
             // The following Markdown:
             //     -
@@ -5340,12 +5340,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("-\n\n  foo", 
                 "<ul>\n<li></li>\n</ul>\n<p>foo</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Here is an empty bullet list item:
         [Fact]
-        public void ListItems_Spec244_commonmark()
+        public void ListItems_Spec244_CommonMark()
         {
             // The following Markdown:
             //     - foo
@@ -5361,12 +5361,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- foo\n-\n- bar", 
                 "<ul>\n<li>foo</li>\n<li></li>\n<li>bar</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // It does not matter whether there are spaces following the [list marker]:
         [Fact]
-        public void ListItems_Spec245_commonmark()
+        public void ListItems_Spec245_CommonMark()
         {
             // The following Markdown:
             //     - foo
@@ -5382,12 +5382,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- foo\n-   \n- bar", 
                 "<ul>\n<li>foo</li>\n<li></li>\n<li>bar</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Here is an empty ordered list item:
         [Fact]
-        public void ListItems_Spec246_commonmark()
+        public void ListItems_Spec246_CommonMark()
         {
             // The following Markdown:
             //     1. foo
@@ -5403,12 +5403,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("1. foo\n2.\n3. bar", 
                 "<ol>\n<li>foo</li>\n<li></li>\n<li>bar</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A list may start or end with an empty list item:
         [Fact]
-        public void ListItems_Spec247_commonmark()
+        public void ListItems_Spec247_CommonMark()
         {
             // The following Markdown:
             //     *
@@ -5420,12 +5420,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*", 
                 "<ul>\n<li></li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // However, an empty list item cannot interrupt a paragraph:
         [Fact]
-        public void ListItems_Spec248_commonmark()
+        public void ListItems_Spec248_CommonMark()
         {
             // The following Markdown:
             //     foo
@@ -5442,7 +5442,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo\n*\n\nfoo\n1.", 
                 "<p>foo\n*</p>\n<p>foo\n1.</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // 4.  **Indentation.**  If a sequence of lines *Ls* constitutes a list item
@@ -5453,7 +5453,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // 
         // Indented one space:
         [Fact]
-        public void ListItems_Spec249_commonmark()
+        public void ListItems_Spec249_CommonMark()
         {
             // The following Markdown:
             //      1.  A paragraph
@@ -5478,12 +5478,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance(" 1.  A paragraph\n     with two lines.\n\n         indented code\n\n     > A block quote.", 
                 "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Indented two spaces:
         [Fact]
-        public void ListItems_Spec250_commonmark()
+        public void ListItems_Spec250_CommonMark()
         {
             // The following Markdown:
             //       1.  A paragraph
@@ -5508,12 +5508,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("  1.  A paragraph\n      with two lines.\n\n          indented code\n\n      > A block quote.", 
                 "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Indented three spaces:
         [Fact]
-        public void ListItems_Spec251_commonmark()
+        public void ListItems_Spec251_CommonMark()
         {
             // The following Markdown:
             //        1.  A paragraph
@@ -5538,12 +5538,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("   1.  A paragraph\n       with two lines.\n\n           indented code\n\n       > A block quote.", 
                 "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Four spaces indent gives a code block:
         [Fact]
-        public void ListItems_Spec252_commonmark()
+        public void ListItems_Spec252_CommonMark()
         {
             // The following Markdown:
             //         1.  A paragraph
@@ -5564,7 +5564,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    1.  A paragraph\n        with two lines.\n\n            indented code\n\n        > A block quote.", 
                 "<pre><code>1.  A paragraph\n    with two lines.\n\n        indented code\n\n    &gt; A block quote.\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // 5.  **Laziness.**  If a string of lines *Ls* constitute a [list
@@ -5578,7 +5578,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // 
         // Here is an example with [lazy continuation lines]:
         [Fact]
-        public void ListItems_Spec253_commonmark()
+        public void ListItems_Spec253_CommonMark()
         {
             // The following Markdown:
             //       1.  A paragraph
@@ -5603,12 +5603,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("  1.  A paragraph\nwith two lines.\n\n          indented code\n\n      > A block quote.", 
                 "<ol>\n<li>\n<p>A paragraph\nwith two lines.</p>\n<pre><code>indented code\n</code></pre>\n<blockquote>\n<p>A block quote.</p>\n</blockquote>\n</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Indentation can be partially deleted:
         [Fact]
-        public void ListItems_Spec254_commonmark()
+        public void ListItems_Spec254_CommonMark()
         {
             // The following Markdown:
             //       1.  A paragraph
@@ -5622,12 +5622,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("  1.  A paragraph\n    with two lines.", 
                 "<ol>\n<li>A paragraph\nwith two lines.</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // These examples show how laziness can work in nested structures:
         [Fact]
-        public void ListItems_Spec255_commonmark()
+        public void ListItems_Spec255_CommonMark()
         {
             // The following Markdown:
             //     > 1. > Blockquote
@@ -5647,11 +5647,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> 1. > Blockquote\ncontinued here.", 
                 "<blockquote>\n<ol>\n<li>\n<blockquote>\n<p>Blockquote\ncontinued here.</p>\n</blockquote>\n</li>\n</ol>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void ListItems_Spec256_commonmark()
+        public void ListItems_Spec256_CommonMark()
         {
             // The following Markdown:
             //     > 1. > Blockquote
@@ -5671,7 +5671,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("> 1. > Blockquote\n> continued here.", 
                 "<blockquote>\n<ol>\n<li>\n<blockquote>\n<p>Blockquote\ncontinued here.</p>\n</blockquote>\n</li>\n</ol>\n</blockquote>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // 6.  **That's all.** Nothing that is not counted as a list item by rules
@@ -5683,7 +5683,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // 
         // So, in this case we need two spaces indent:
         [Fact]
-        public void ListItems_Spec257_commonmark()
+        public void ListItems_Spec257_CommonMark()
         {
             // The following Markdown:
             //     - foo
@@ -5710,12 +5710,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- foo\n  - bar\n    - baz\n      - boo", 
                 "<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>baz\n<ul>\n<li>boo</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // One is not enough:
         [Fact]
-        public void ListItems_Spec258_commonmark()
+        public void ListItems_Spec258_CommonMark()
         {
             // The following Markdown:
             //     - foo
@@ -5733,12 +5733,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- foo\n - bar\n  - baz\n   - boo", 
                 "<ul>\n<li>foo</li>\n<li>bar</li>\n<li>baz</li>\n<li>boo</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Here we need four, because the list marker is wider:
         [Fact]
-        public void ListItems_Spec259_commonmark()
+        public void ListItems_Spec259_CommonMark()
         {
             // The following Markdown:
             //     10) foo
@@ -5755,12 +5755,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("10) foo\n    - bar", 
                 "<ol start=\"10\">\n<li>foo\n<ul>\n<li>bar</li>\n</ul>\n</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Three is not enough:
         [Fact]
-        public void ListItems_Spec260_commonmark()
+        public void ListItems_Spec260_CommonMark()
         {
             // The following Markdown:
             //     10) foo
@@ -5776,12 +5776,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("10) foo\n   - bar", 
                 "<ol start=\"10\">\n<li>foo</li>\n</ol>\n<ul>\n<li>bar</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A list may be the first block in a list item:
         [Fact]
-        public void ListItems_Spec261_commonmark()
+        public void ListItems_Spec261_CommonMark()
         {
             // The following Markdown:
             //     - - foo
@@ -5797,11 +5797,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- - foo", 
                 "<ul>\n<li>\n<ul>\n<li>foo</li>\n</ul>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void ListItems_Spec262_commonmark()
+        public void ListItems_Spec262_CommonMark()
         {
             // The following Markdown:
             //     1. - 2. foo
@@ -5821,12 +5821,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("1. - 2. foo", 
                 "<ol>\n<li>\n<ul>\n<li>\n<ol start=\"2\">\n<li>foo</li>\n</ol>\n</li>\n</ul>\n</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A list item can contain a heading:
         [Fact]
-        public void ListItems_Spec263_commonmark()
+        public void ListItems_Spec263_CommonMark()
         {
             // The following Markdown:
             //     - # Foo
@@ -5846,7 +5846,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- # Foo\n- Bar\n  ---\n  baz", 
                 "<ul>\n<li>\n<h1>Foo</h1>\n</li>\n<li>\n<h2>Bar</h2>\nbaz</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -5882,7 +5882,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
         // Changing the bullet or ordered list delimiter starts a new list:
         [Fact]
-        public void Lists_Spec264_commonmark()
+        public void Lists_Spec264_CommonMark()
         {
             // The following Markdown:
             //     - foo
@@ -5900,11 +5900,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- foo\n- bar\n+ baz", 
                 "<ul>\n<li>foo</li>\n<li>bar</li>\n</ul>\n<ul>\n<li>baz</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Lists_Spec265_commonmark()
+        public void Lists_Spec265_CommonMark()
         {
             // The following Markdown:
             //     1. foo
@@ -5922,14 +5922,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("1. foo\n2. bar\n3) baz", 
                 "<ol>\n<li>foo</li>\n<li>bar</li>\n</ol>\n<ol start=\"3\">\n<li>baz</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // In CommonMark, a list can interrupt a paragraph. That is,
         // no blank line is needed to separate a paragraph from a following
         // list:
         [Fact]
-        public void Lists_Spec266_commonmark()
+        public void Lists_Spec266_CommonMark()
         {
             // The following Markdown:
             //     Foo
@@ -5945,7 +5945,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo\n- bar\n- baz", 
                 "<p>Foo</p>\n<ul>\n<li>bar</li>\n<li>baz</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // `Markdown.pl` does not allow this, through fear of triggering a list
@@ -6013,7 +6013,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // hard-wrapped numerals, we allow only lists starting with `1` to
         // interrupt paragraphs.  Thus,
         [Fact]
-        public void Lists_Spec267_commonmark()
+        public void Lists_Spec267_CommonMark()
         {
             // The following Markdown:
             //     The number of windows in my house is
@@ -6025,12 +6025,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("The number of windows in my house is\n14.  The number of doors is 6.", 
                 "<p>The number of windows in my house is\n14.  The number of doors is 6.</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // We may still get an unintended result in cases like
         [Fact]
-        public void Lists_Spec268_commonmark()
+        public void Lists_Spec268_CommonMark()
         {
             // The following Markdown:
             //     The number of windows in my house is
@@ -6044,14 +6044,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("The number of windows in my house is\n1.  The number of doors is 6.", 
                 "<p>The number of windows in my house is</p>\n<ol>\n<li>The number of doors is 6.</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // but this rule should prevent most spurious list captures.
         // 
         // There can be any number of blank lines between items:
         [Fact]
-        public void Lists_Spec269_commonmark()
+        public void Lists_Spec269_CommonMark()
         {
             // The following Markdown:
             //     - foo
@@ -6076,11 +6076,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- foo\n\n- bar\n\n\n- baz", 
                 "<ul>\n<li>\n<p>foo</p>\n</li>\n<li>\n<p>bar</p>\n</li>\n<li>\n<p>baz</p>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Lists_Spec270_commonmark()
+        public void Lists_Spec270_CommonMark()
         {
             // The following Markdown:
             //     - foo
@@ -6108,7 +6108,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- foo\n  - bar\n    - baz\n\n\n      bim", 
                 "<ul>\n<li>foo\n<ul>\n<li>bar\n<ul>\n<li>\n<p>baz</p>\n<p>bim</p>\n</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // To separate consecutive lists of the same type, or to separate a
@@ -6116,7 +6116,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // as a subparagraph of the final list item, you can insert a blank HTML
         // comment:
         [Fact]
-        public void Lists_Spec271_commonmark()
+        public void Lists_Spec271_CommonMark()
         {
             // The following Markdown:
             //     - foo
@@ -6140,11 +6140,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- foo\n- bar\n\n<!-- -->\n\n- baz\n- bim", 
                 "<ul>\n<li>foo</li>\n<li>bar</li>\n</ul>\n<!-- -->\n<ul>\n<li>baz</li>\n<li>bim</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Lists_Spec272_commonmark()
+        public void Lists_Spec272_CommonMark()
         {
             // The following Markdown:
             //     -   foo
@@ -6173,7 +6173,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("-   foo\n\n    notcode\n\n-   foo\n\n<!-- -->\n\n    code", 
                 "<ul>\n<li>\n<p>foo</p>\n<p>notcode</p>\n</li>\n<li>\n<p>foo</p>\n</li>\n</ul>\n<!-- -->\n<pre><code>code\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // List items need not be indented to the same level.  The following
@@ -6181,7 +6181,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // since none is indented enough to belong to the previous list
         // item:
         [Fact]
-        public void Lists_Spec273_commonmark()
+        public void Lists_Spec273_CommonMark()
         {
             // The following Markdown:
             //     - a
@@ -6209,11 +6209,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- a\n - b\n  - c\n   - d\n    - e\n   - f\n  - g\n - h\n- i", 
                 "<ul>\n<li>a</li>\n<li>b</li>\n<li>c</li>\n<li>d</li>\n<li>e</li>\n<li>f</li>\n<li>g</li>\n<li>h</li>\n<li>i</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Lists_Spec274_commonmark()
+        public void Lists_Spec274_CommonMark()
         {
             // The following Markdown:
             //     1. a
@@ -6237,13 +6237,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("1. a\n\n  2. b\n\n    3. c", 
                 "<ol>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n</li>\n<li>\n<p>c</p>\n</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is a loose list, because there is a blank line between
         // two of the list items:
         [Fact]
-        public void Lists_Spec275_commonmark()
+        public void Lists_Spec275_CommonMark()
         {
             // The following Markdown:
             //     - a
@@ -6266,12 +6266,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- a\n- b\n\n- c", 
                 "<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n</li>\n<li>\n<p>c</p>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // So is this, with a empty second item:
         [Fact]
-        public void Lists_Spec276_commonmark()
+        public void Lists_Spec276_CommonMark()
         {
             // The following Markdown:
             //     * a
@@ -6292,14 +6292,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("* a\n*\n\n* c", 
                 "<ul>\n<li>\n<p>a</p>\n</li>\n<li></li>\n<li>\n<p>c</p>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // These are loose lists, even though there is no space between the items,
         // because one of the items directly contains two block-level elements
         // with a blank line between them:
         [Fact]
-        public void Lists_Spec277_commonmark()
+        public void Lists_Spec277_CommonMark()
         {
             // The following Markdown:
             //     - a
@@ -6324,11 +6324,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- a\n- b\n\n  c\n- d", 
                 "<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n<p>c</p>\n</li>\n<li>\n<p>d</p>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Lists_Spec278_commonmark()
+        public void Lists_Spec278_CommonMark()
         {
             // The following Markdown:
             //     - a
@@ -6352,12 +6352,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- a\n- b\n\n  [ref]: /url\n- d", 
                 "<ul>\n<li>\n<p>a</p>\n</li>\n<li>\n<p>b</p>\n</li>\n<li>\n<p>d</p>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is a tight list, because the blank lines are in a code block:
         [Fact]
-        public void Lists_Spec279_commonmark()
+        public void Lists_Spec279_CommonMark()
         {
             // The following Markdown:
             //     - a
@@ -6382,14 +6382,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- a\n- ```\n  b\n\n\n  ```\n- c", 
                 "<ul>\n<li>a</li>\n<li>\n<pre><code>b\n\n\n</code></pre>\n</li>\n<li>c</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is a tight list, because the blank line is between two
         // paragraphs of a sublist.  So the sublist is loose while
         // the outer list is tight:
         [Fact]
-        public void Lists_Spec280_commonmark()
+        public void Lists_Spec280_CommonMark()
         {
             // The following Markdown:
             //     - a
@@ -6413,13 +6413,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- a\n  - b\n\n    c\n- d", 
                 "<ul>\n<li>a\n<ul>\n<li>\n<p>b</p>\n<p>c</p>\n</li>\n</ul>\n</li>\n<li>d</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is a tight list, because the blank line is inside the
         // block quote:
         [Fact]
-        public void Lists_Spec281_commonmark()
+        public void Lists_Spec281_CommonMark()
         {
             // The following Markdown:
             //     * a
@@ -6439,13 +6439,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("* a\n  > b\n  >\n* c", 
                 "<ul>\n<li>a\n<blockquote>\n<p>b</p>\n</blockquote>\n</li>\n<li>c</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This list is tight, because the consecutive block elements
         // are not separated by blank lines:
         [Fact]
-        public void Lists_Spec282_commonmark()
+        public void Lists_Spec282_CommonMark()
         {
             // The following Markdown:
             //     - a
@@ -6469,12 +6469,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- a\n  > b\n  ```\n  c\n  ```\n- d", 
                 "<ul>\n<li>a\n<blockquote>\n<p>b</p>\n</blockquote>\n<pre><code>c\n</code></pre>\n</li>\n<li>d</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A single-paragraph list is tight:
         [Fact]
-        public void Lists_Spec283_commonmark()
+        public void Lists_Spec283_CommonMark()
         {
             // The following Markdown:
             //     - a
@@ -6486,11 +6486,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- a", 
                 "<ul>\n<li>a</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Lists_Spec284_commonmark()
+        public void Lists_Spec284_CommonMark()
         {
             // The following Markdown:
             //     - a
@@ -6507,13 +6507,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- a\n  - b", 
                 "<ul>\n<li>a\n<ul>\n<li>b</li>\n</ul>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This list is loose, because of the blank line between the
         // two block elements in the list item:
         [Fact]
-        public void Lists_Spec285_commonmark()
+        public void Lists_Spec285_CommonMark()
         {
             // The following Markdown:
             //     1. ```
@@ -6533,12 +6533,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("1. ```\n   foo\n   ```\n\n   bar", 
                 "<ol>\n<li>\n<pre><code>foo\n</code></pre>\n<p>bar</p>\n</li>\n</ol>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Here the outer list is loose, the inner list tight:
         [Fact]
-        public void Lists_Spec286_commonmark()
+        public void Lists_Spec286_CommonMark()
         {
             // The following Markdown:
             //     * foo
@@ -6559,11 +6559,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("* foo\n  * bar\n\n  baz", 
                 "<ul>\n<li>\n<p>foo</p>\n<ul>\n<li>bar</li>\n</ul>\n<p>baz</p>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Lists_Spec287_commonmark()
+        public void Lists_Spec287_CommonMark()
         {
             // The following Markdown:
             //     - a
@@ -6594,7 +6594,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("- a\n  - b\n  - c\n\n- d\n  - e\n  - f", 
                 "<ul>\n<li>\n<p>a</p>\n<ul>\n<li>b</li>\n<li>c</li>\n</ul>\n</li>\n<li>\n<p>d</p>\n<ul>\n<li>e</li>\n<li>f</li>\n</ul>\n</li>\n</ul>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // # Inlines
@@ -6603,7 +6603,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // stream to the end (left to right, in left-to-right languages).
         // Thus, for example, in
         [Fact]
-        public void Lists_Spec288_commonmark()
+        public void Lists_Spec288_CommonMark()
         {
             // The following Markdown:
             //     `hi`lo`
@@ -6613,7 +6613,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`hi`lo`", 
                 "<p><code>hi</code>lo`</p>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -6622,7 +6622,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
 
         [Fact]
-        public void BackslashEscapes_Spec289_commonmark()
+        public void BackslashEscapes_Spec289_CommonMark()
         {
             // The following Markdown:
             //     \!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\_\`\{\|\}\~
@@ -6632,13 +6632,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("\\!\\\"\\#\\$\\%\\&\\'\\(\\)\\*\\+\\,\\-\\.\\/\\:\\;\\<\\=\\>\\?\\@\\[\\\\\\]\\^\\_\\`\\{\\|\\}\\~", 
                 "<p>!&quot;#$%&amp;'()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Backslashes before other characters are treated as literal
         // backslashes:
         [Fact]
-        public void BackslashEscapes_Spec290_commonmark()
+        public void BackslashEscapes_Spec290_CommonMark()
         {
             // The following Markdown:
             //     \→\A\a\ \3\φ\«
@@ -6648,13 +6648,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("\\\t\\A\\a\\ \\3\\φ\\«", 
                 "<p>\\\t\\A\\a\\ \\3\\φ\\«</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Escaped characters are treated as regular characters and do
         // not have their usual Markdown meanings:
         [Fact]
-        public void BackslashEscapes_Spec291_commonmark()
+        public void BackslashEscapes_Spec291_CommonMark()
         {
             // The following Markdown:
             //     \*not emphasized*
@@ -6678,12 +6678,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("\\*not emphasized*\n\\<br/> not a tag\n\\[not a link](/foo)\n\\`not code`\n1\\. not a list\n\\* not a list\n\\# not a heading\n\\[foo]: /url \"not a reference\"", 
                 "<p>*not emphasized*\n&lt;br/&gt; not a tag\n[not a link](/foo)\n`not code`\n1. not a list\n* not a list\n# not a heading\n[foo]: /url &quot;not a reference&quot;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // If a backslash is itself escaped, the following character is not:
         [Fact]
-        public void BackslashEscapes_Spec292_commonmark()
+        public void BackslashEscapes_Spec292_CommonMark()
         {
             // The following Markdown:
             //     \\*emphasis*
@@ -6693,12 +6693,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("\\\\*emphasis*", 
                 "<p>\\<em>emphasis</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A backslash at the end of the line is a [hard line break]:
         [Fact]
-        public void BackslashEscapes_Spec293_commonmark()
+        public void BackslashEscapes_Spec293_CommonMark()
         {
             // The following Markdown:
             //     foo\
@@ -6710,13 +6710,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo\\\nbar", 
                 "<p>foo<br />\nbar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Backslash escapes do not work in code blocks, code spans, autolinks, or
         // raw HTML:
         [Fact]
-        public void BackslashEscapes_Spec294_commonmark()
+        public void BackslashEscapes_Spec294_CommonMark()
         {
             // The following Markdown:
             //     `` \[\` ``
@@ -6726,11 +6726,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`` \\[\\` ``", 
                 "<p><code>\\[\\`</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void BackslashEscapes_Spec295_commonmark()
+        public void BackslashEscapes_Spec295_CommonMark()
         {
             // The following Markdown:
             //         \[\]
@@ -6741,11 +6741,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    \\[\\]", 
                 "<pre><code>\\[\\]\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void BackslashEscapes_Spec296_commonmark()
+        public void BackslashEscapes_Spec296_CommonMark()
         {
             // The following Markdown:
             //     ~~~
@@ -6758,11 +6758,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("~~~\n\\[\\]\n~~~", 
                 "<pre><code>\\[\\]\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void BackslashEscapes_Spec297_commonmark()
+        public void BackslashEscapes_Spec297_CommonMark()
         {
             // The following Markdown:
             //     <http://example.com?find=\*>
@@ -6772,11 +6772,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<http://example.com?find=\\*>", 
                 "<p><a href=\"http://example.com?find=%5C*\">http://example.com?find=\\*</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void BackslashEscapes_Spec298_commonmark()
+        public void BackslashEscapes_Spec298_CommonMark()
         {
             // The following Markdown:
             //     <a href="/bar\/)">
@@ -6786,13 +6786,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<a href=\"/bar\\/)\">", 
                 "<a href=\"/bar\\/)\">", 
-                "commonmark");
+                "CommonMark");
         }
 
         // But they work in all other contexts, including URLs and link titles,
         // link references, and [info strings] in [fenced code blocks]:
         [Fact]
-        public void BackslashEscapes_Spec299_commonmark()
+        public void BackslashEscapes_Spec299_CommonMark()
         {
             // The following Markdown:
             //     [foo](/bar\* "ti\*tle")
@@ -6802,11 +6802,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo](/bar\\* \"ti\\*tle\")", 
                 "<p><a href=\"/bar*\" title=\"ti*tle\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void BackslashEscapes_Spec300_commonmark()
+        public void BackslashEscapes_Spec300_CommonMark()
         {
             // The following Markdown:
             //     [foo]
@@ -6818,11 +6818,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: /bar\\* \"ti\\*tle\"", 
                 "<p><a href=\"/bar*\" title=\"ti*tle\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void BackslashEscapes_Spec301_commonmark()
+        public void BackslashEscapes_Spec301_CommonMark()
         {
             // The following Markdown:
             //     ``` foo\+bar
@@ -6835,7 +6835,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("``` foo\\+bar\nfoo\n```", 
                 "<pre><code class=\"language-foo+bar\">foo\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -6854,7 +6854,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // is used as an authoritative source for the valid entity
         // references and their corresponding code points.
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec302_commonmark()
+        public void EntityAndNumericCharacterReferences_Spec302_CommonMark()
         {
             // The following Markdown:
             //     &nbsp; &amp; &copy; &AElig; &Dcaron;
@@ -6868,7 +6868,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("&nbsp; &amp; &copy; &AElig; &Dcaron;\n&frac34; &HilbertSpace; &DifferentialD;\n&ClockwiseContourIntegral; &ngE;", 
                 "<p>  &amp; © Æ Ď\n¾ ℋ ⅆ\n∲ ≧̸</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // [Decimal numeric character
@@ -6879,7 +6879,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // the REPLACEMENT CHARACTER (`U+FFFD`).  For security reasons,
         // the code point `U+0000` will also be replaced by `U+FFFD`.
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec303_commonmark()
+        public void EntityAndNumericCharacterReferences_Spec303_CommonMark()
         {
             // The following Markdown:
             //     &#35; &#1234; &#992; &#98765432; &#0;
@@ -6889,7 +6889,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("&#35; &#1234; &#992; &#98765432; &#0;", 
                 "<p># Ӓ Ϡ � �</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // [Hexadecimal numeric character
@@ -6898,7 +6898,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // They too are parsed as the corresponding Unicode character (this
         // time specified with a hexadecimal numeral instead of decimal).
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec304_commonmark()
+        public void EntityAndNumericCharacterReferences_Spec304_CommonMark()
         {
             // The following Markdown:
             //     &#X22; &#XD06; &#xcab;
@@ -6908,12 +6908,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("&#X22; &#XD06; &#xcab;", 
                 "<p>&quot; ആ ಫ</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Here are some nonentities:
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec305_commonmark()
+        public void EntityAndNumericCharacterReferences_Spec305_CommonMark()
         {
             // The following Markdown:
             //     &nbsp &x; &#; &#x;
@@ -6925,14 +6925,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("&nbsp &x; &#; &#x;\n&ThisIsNotDefined; &hi?;", 
                 "<p>&amp;nbsp &amp;x; &amp;#; &amp;#x;\n&amp;ThisIsNotDefined; &amp;hi?;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Although HTML5 does accept some entity references
         // without a trailing semicolon (such as `&copy`), these are not
         // recognized here, because it makes the grammar too ambiguous:
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec306_commonmark()
+        public void EntityAndNumericCharacterReferences_Spec306_CommonMark()
         {
             // The following Markdown:
             //     &copy
@@ -6942,13 +6942,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("&copy", 
                 "<p>&amp;copy</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Strings that are not on the list of HTML5 named entities are not
         // recognized as entity references either:
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec307_commonmark()
+        public void EntityAndNumericCharacterReferences_Spec307_CommonMark()
         {
             // The following Markdown:
             //     &MadeUpEntity;
@@ -6958,14 +6958,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("&MadeUpEntity;", 
                 "<p>&amp;MadeUpEntity;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Entity and numeric character references are recognized in any
         // context besides code spans or code blocks, including
         // URLs, [link titles], and [fenced code block][] [info strings]:
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec308_commonmark()
+        public void EntityAndNumericCharacterReferences_Spec308_CommonMark()
         {
             // The following Markdown:
             //     <a href="&ouml;&ouml;.html">
@@ -6975,11 +6975,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<a href=\"&ouml;&ouml;.html\">", 
                 "<a href=\"&ouml;&ouml;.html\">", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec309_commonmark()
+        public void EntityAndNumericCharacterReferences_Spec309_CommonMark()
         {
             // The following Markdown:
             //     [foo](/f&ouml;&ouml; "f&ouml;&ouml;")
@@ -6989,11 +6989,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo](/f&ouml;&ouml; \"f&ouml;&ouml;\")", 
                 "<p><a href=\"/f%C3%B6%C3%B6\" title=\"föö\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec310_commonmark()
+        public void EntityAndNumericCharacterReferences_Spec310_CommonMark()
         {
             // The following Markdown:
             //     [foo]
@@ -7005,11 +7005,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: /f&ouml;&ouml; \"f&ouml;&ouml;\"", 
                 "<p><a href=\"/f%C3%B6%C3%B6\" title=\"föö\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec311_commonmark()
+        public void EntityAndNumericCharacterReferences_Spec311_CommonMark()
         {
             // The following Markdown:
             //     ``` f&ouml;&ouml;
@@ -7022,13 +7022,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("``` f&ouml;&ouml;\nfoo\n```", 
                 "<pre><code class=\"language-föö\">foo\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Entity and numeric character references are treated as literal
         // text in code spans and code blocks:
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec312_commonmark()
+        public void EntityAndNumericCharacterReferences_Spec312_CommonMark()
         {
             // The following Markdown:
             //     `f&ouml;&ouml;`
@@ -7038,11 +7038,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`f&ouml;&ouml;`", 
                 "<p><code>f&amp;ouml;&amp;ouml;</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EntityAndNumericCharacterReferences_Spec313_commonmark()
+        public void EntityAndNumericCharacterReferences_Spec313_CommonMark()
         {
             // The following Markdown:
             //         f&ouml;f&ouml;
@@ -7053,7 +7053,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    f&ouml;f&ouml;", 
                 "<pre><code>f&amp;ouml;f&amp;ouml;\n</code></pre>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -7070,7 +7070,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
         // This is a simple code span:
         [Fact]
-        public void CodeSpans_Spec314_commonmark()
+        public void CodeSpans_Spec314_CommonMark()
         {
             // The following Markdown:
             //     `foo`
@@ -7080,13 +7080,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`foo`", 
                 "<p><code>foo</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Here two backticks are used, because the code contains a backtick.
         // This example also illustrates stripping of leading and trailing spaces:
         [Fact]
-        public void CodeSpans_Spec315_commonmark()
+        public void CodeSpans_Spec315_CommonMark()
         {
             // The following Markdown:
             //     `` foo ` bar  ``
@@ -7096,13 +7096,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`` foo ` bar  ``", 
                 "<p><code>foo ` bar</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This example shows the motivation for stripping leading and trailing
         // spaces:
         [Fact]
-        public void CodeSpans_Spec316_commonmark()
+        public void CodeSpans_Spec316_CommonMark()
         {
             // The following Markdown:
             //     ` `` `
@@ -7112,12 +7112,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("` `` `", 
                 "<p><code>``</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // [Line endings] are treated like spaces:
         [Fact]
-        public void CodeSpans_Spec317_commonmark()
+        public void CodeSpans_Spec317_CommonMark()
         {
             // The following Markdown:
             //     ``
@@ -7129,13 +7129,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("``\nfoo\n``", 
                 "<p><code>foo</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Interior spaces and [line endings] are collapsed into
         // single spaces, just as they would be by a browser:
         [Fact]
-        public void CodeSpans_Spec318_commonmark()
+        public void CodeSpans_Spec318_CommonMark()
         {
             // The following Markdown:
             //     `foo   bar
@@ -7146,13 +7146,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`foo   bar\n  baz`", 
                 "<p><code>foo bar baz</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Not all [Unicode whitespace] (for instance, non-breaking space) is
         // collapsed, however:
         [Fact]
-        public void CodeSpans_Spec319_commonmark()
+        public void CodeSpans_Spec319_CommonMark()
         {
             // The following Markdown:
             //     `a  b`
@@ -7162,7 +7162,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`a  b`", 
                 "<p><code>a  b</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Q: Why not just leave the spaces, since browsers will collapse them
@@ -7178,7 +7178,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // leave internal spaces as they are, which is fine if only HTML is being
         // targeted.)
         [Fact]
-        public void CodeSpans_Spec320_commonmark()
+        public void CodeSpans_Spec320_CommonMark()
         {
             // The following Markdown:
             //     `foo `` bar`
@@ -7188,13 +7188,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`foo `` bar`", 
                 "<p><code>foo `` bar</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that backslash escapes do not work in code spans. All backslashes
         // are treated literally:
         [Fact]
-        public void CodeSpans_Spec321_commonmark()
+        public void CodeSpans_Spec321_CommonMark()
         {
             // The following Markdown:
             //     `foo\`bar`
@@ -7204,7 +7204,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`foo\\`bar`", 
                 "<p><code>foo\\</code>bar`</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Backslash escapes are never needed, because one can always choose a
@@ -7216,7 +7216,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // not parsed as emphasized text, since the second `*` is part of a code
         // span:
         [Fact]
-        public void CodeSpans_Spec322_commonmark()
+        public void CodeSpans_Spec322_CommonMark()
         {
             // The following Markdown:
             //     *foo`*`
@@ -7226,12 +7226,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo`*`", 
                 "<p>*foo<code>*</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // And this is not parsed as a link:
         [Fact]
-        public void CodeSpans_Spec323_commonmark()
+        public void CodeSpans_Spec323_CommonMark()
         {
             // The following Markdown:
             //     [not a `link](/foo`)
@@ -7241,13 +7241,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[not a `link](/foo`)", 
                 "<p>[not a <code>link](/foo</code>)</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Code spans, HTML tags, and autolinks have the same precedence.
         // Thus, this is code:
         [Fact]
-        public void CodeSpans_Spec324_commonmark()
+        public void CodeSpans_Spec324_CommonMark()
         {
             // The following Markdown:
             //     `<a href="`">`
@@ -7257,12 +7257,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`<a href=\"`\">`", 
                 "<p><code>&lt;a href=&quot;</code>&quot;&gt;`</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // But this is an HTML tag:
         [Fact]
-        public void CodeSpans_Spec325_commonmark()
+        public void CodeSpans_Spec325_CommonMark()
         {
             // The following Markdown:
             //     <a href="`">`
@@ -7272,12 +7272,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<a href=\"`\">`", 
                 "<p><a href=\"`\">`</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // And this is code:
         [Fact]
-        public void CodeSpans_Spec326_commonmark()
+        public void CodeSpans_Spec326_CommonMark()
         {
             // The following Markdown:
             //     `<http://foo.bar.`baz>`
@@ -7287,12 +7287,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`<http://foo.bar.`baz>`", 
                 "<p><code>&lt;http://foo.bar.</code>baz&gt;`</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // But this is an autolink:
         [Fact]
-        public void CodeSpans_Spec327_commonmark()
+        public void CodeSpans_Spec327_CommonMark()
         {
             // The following Markdown:
             //     <http://foo.bar.`baz>`
@@ -7302,13 +7302,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<http://foo.bar.`baz>`", 
                 "<p><a href=\"http://foo.bar.%60baz\">http://foo.bar.`baz</a>`</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // When a backtick string is not closed by a matching backtick string,
         // we just have literal backticks:
         [Fact]
-        public void CodeSpans_Spec328_commonmark()
+        public void CodeSpans_Spec328_CommonMark()
         {
             // The following Markdown:
             //     ```foo``
@@ -7318,11 +7318,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```foo``", 
                 "<p>```foo``</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void CodeSpans_Spec329_commonmark()
+        public void CodeSpans_Spec329_CommonMark()
         {
             // The following Markdown:
             //     `foo
@@ -7332,13 +7332,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`foo", 
                 "<p>`foo</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The following case also illustrates the need for opening and
         // closing backtick strings to be equal in length:
         [Fact]
-        public void CodeSpans_Spec330_commonmark()
+        public void CodeSpans_Spec330_CommonMark()
         {
             // The following Markdown:
             //     `foo``bar``
@@ -7348,7 +7348,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`foo``bar``", 
                 "<p>`foo<code>bar</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -7557,7 +7557,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
         // Rule 1:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec331_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec331_CommonMark()
         {
             // The following Markdown:
             //     *foo bar*
@@ -7567,13 +7567,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo bar*", 
                 "<p><em>foo bar</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not emphasis, because the opening `*` is followed by
         // whitespace, and hence not part of a [left-flanking delimiter run]:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec332_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec332_CommonMark()
         {
             // The following Markdown:
             //     a * foo bar*
@@ -7583,14 +7583,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("a * foo bar*", 
                 "<p>a * foo bar*</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not emphasis, because the opening `*` is preceded
         // by an alphanumeric and followed by punctuation, and hence
         // not part of a [left-flanking delimiter run]:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec333_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec333_CommonMark()
         {
             // The following Markdown:
             //     a*"foo"*
@@ -7600,12 +7600,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("a*\"foo\"*", 
                 "<p>a*&quot;foo&quot;*</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Unicode nonbreaking spaces count as whitespace, too:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec334_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec334_CommonMark()
         {
             // The following Markdown:
             //     * a *
@@ -7615,12 +7615,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("* a *", 
                 "<p>* a *</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Intraword emphasis with `*` is permitted:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec335_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec335_CommonMark()
         {
             // The following Markdown:
             //     foo*bar*
@@ -7630,11 +7630,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo*bar*", 
                 "<p>foo<em>bar</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec336_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec336_CommonMark()
         {
             // The following Markdown:
             //     5*6*78
@@ -7644,12 +7644,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("5*6*78", 
                 "<p>5<em>6</em>78</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 2:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec337_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec337_CommonMark()
         {
             // The following Markdown:
             //     _foo bar_
@@ -7659,13 +7659,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_foo bar_", 
                 "<p><em>foo bar</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not emphasis, because the opening `_` is followed by
         // whitespace:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec338_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec338_CommonMark()
         {
             // The following Markdown:
             //     _ foo bar_
@@ -7675,13 +7675,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_ foo bar_", 
                 "<p>_ foo bar_</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not emphasis, because the opening `_` is preceded
         // by an alphanumeric and followed by punctuation:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec339_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec339_CommonMark()
         {
             // The following Markdown:
             //     a_"foo"_
@@ -7691,12 +7691,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("a_\"foo\"_", 
                 "<p>a_&quot;foo&quot;_</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Emphasis with `_` is not allowed inside words:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec340_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec340_CommonMark()
         {
             // The following Markdown:
             //     foo_bar_
@@ -7706,11 +7706,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo_bar_", 
                 "<p>foo_bar_</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec341_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec341_CommonMark()
         {
             // The following Markdown:
             //     5_6_78
@@ -7720,11 +7720,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("5_6_78", 
                 "<p>5_6_78</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec342_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec342_CommonMark()
         {
             // The following Markdown:
             //     пристаням_стремятся_
@@ -7734,13 +7734,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("пристаням_стремятся_", 
                 "<p>пристаням_стремятся_</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Here `_` does not generate emphasis, because the first delimiter run
         // is right-flanking and the second left-flanking:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec343_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec343_CommonMark()
         {
             // The following Markdown:
             //     aa_"bb"_cc
@@ -7750,14 +7750,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("aa_\"bb\"_cc", 
                 "<p>aa_&quot;bb&quot;_cc</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is emphasis, even though the opening delimiter is
         // both left- and right-flanking, because it is preceded by
         // punctuation:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec344_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec344_CommonMark()
         {
             // The following Markdown:
             //     foo-_(bar)_
@@ -7767,7 +7767,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo-_(bar)_", 
                 "<p>foo-<em>(bar)</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 3:
@@ -7775,7 +7775,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // This is not emphasis, because the closing delimiter does
         // not match the opening delimiter:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec345_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec345_CommonMark()
         {
             // The following Markdown:
             //     _foo*
@@ -7785,13 +7785,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_foo*", 
                 "<p>_foo*</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not emphasis, because the closing `*` is preceded by
         // whitespace:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec346_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec346_CommonMark()
         {
             // The following Markdown:
             //     *foo bar *
@@ -7801,12 +7801,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo bar *", 
                 "<p>*foo bar *</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A newline also counts as whitespace:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec347_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec347_CommonMark()
         {
             // The following Markdown:
             //     *foo bar
@@ -7818,14 +7818,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo bar\n*", 
                 "<p>*foo bar\n*</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not emphasis, because the second `*` is
         // preceded by punctuation and followed by an alphanumeric
         // (hence it is not part of a [right-flanking delimiter run]:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec348_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec348_CommonMark()
         {
             // The following Markdown:
             //     *(*foo)
@@ -7835,13 +7835,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*(*foo)", 
                 "<p>*(*foo)</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The point of this restriction is more easily appreciated
         // with this example:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec349_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec349_CommonMark()
         {
             // The following Markdown:
             //     *(*foo*)*
@@ -7851,12 +7851,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*(*foo*)*", 
                 "<p><em>(<em>foo</em>)</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Intraword emphasis with `*` is allowed:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec350_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec350_CommonMark()
         {
             // The following Markdown:
             //     *foo*bar
@@ -7866,7 +7866,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo*bar", 
                 "<p><em>foo</em>bar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 4:
@@ -7874,7 +7874,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // This is not emphasis, because the closing `_` is preceded by
         // whitespace:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec351_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec351_CommonMark()
         {
             // The following Markdown:
             //     _foo bar _
@@ -7884,13 +7884,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_foo bar _", 
                 "<p>_foo bar _</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not emphasis, because the second `_` is
         // preceded by punctuation and followed by an alphanumeric:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec352_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec352_CommonMark()
         {
             // The following Markdown:
             //     _(_foo)
@@ -7900,12 +7900,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_(_foo)", 
                 "<p>_(_foo)</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is emphasis within emphasis:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec353_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec353_CommonMark()
         {
             // The following Markdown:
             //     _(_foo_)_
@@ -7915,12 +7915,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_(_foo_)_", 
                 "<p><em>(<em>foo</em>)</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Intraword emphasis is disallowed for `_`:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec354_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec354_CommonMark()
         {
             // The following Markdown:
             //     _foo_bar
@@ -7930,11 +7930,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_foo_bar", 
                 "<p>_foo_bar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec355_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec355_CommonMark()
         {
             // The following Markdown:
             //     _пристаням_стремятся
@@ -7944,11 +7944,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_пристаням_стремятся", 
                 "<p>_пристаням_стремятся</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec356_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec356_CommonMark()
         {
             // The following Markdown:
             //     _foo_bar_baz_
@@ -7958,14 +7958,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_foo_bar_baz_", 
                 "<p><em>foo_bar_baz</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is emphasis, even though the closing delimiter is
         // both left- and right-flanking, because it is followed by
         // punctuation:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec357_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec357_CommonMark()
         {
             // The following Markdown:
             //     _(bar)_.
@@ -7975,12 +7975,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_(bar)_.", 
                 "<p><em>(bar)</em>.</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 5:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec358_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec358_CommonMark()
         {
             // The following Markdown:
             //     **foo bar**
@@ -7990,13 +7990,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo bar**", 
                 "<p><strong>foo bar</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not strong emphasis, because the opening delimiter is
         // followed by whitespace:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec359_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec359_CommonMark()
         {
             // The following Markdown:
             //     ** foo bar**
@@ -8006,14 +8006,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("** foo bar**", 
                 "<p>** foo bar**</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not strong emphasis, because the opening `**` is preceded
         // by an alphanumeric and followed by punctuation, and hence
         // not part of a [left-flanking delimiter run]:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec360_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec360_CommonMark()
         {
             // The following Markdown:
             //     a**"foo"**
@@ -8023,12 +8023,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("a**\"foo\"**", 
                 "<p>a**&quot;foo&quot;**</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Intraword strong emphasis with `**` is permitted:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec361_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec361_CommonMark()
         {
             // The following Markdown:
             //     foo**bar**
@@ -8038,12 +8038,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo**bar**", 
                 "<p>foo<strong>bar</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 6:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec362_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec362_CommonMark()
         {
             // The following Markdown:
             //     __foo bar__
@@ -8053,13 +8053,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__foo bar__", 
                 "<p><strong>foo bar</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not strong emphasis, because the opening delimiter is
         // followed by whitespace:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec363_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec363_CommonMark()
         {
             // The following Markdown:
             //     __ foo bar__
@@ -8069,12 +8069,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__ foo bar__", 
                 "<p>__ foo bar__</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A newline counts as whitespace:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec364_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec364_CommonMark()
         {
             // The following Markdown:
             //     __
@@ -8086,13 +8086,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__\nfoo bar__", 
                 "<p>__\nfoo bar__</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not strong emphasis, because the opening `__` is preceded
         // by an alphanumeric and followed by punctuation:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec365_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec365_CommonMark()
         {
             // The following Markdown:
             //     a__"foo"__
@@ -8102,12 +8102,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("a__\"foo\"__", 
                 "<p>a__&quot;foo&quot;__</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Intraword strong emphasis is forbidden with `__`:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec366_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec366_CommonMark()
         {
             // The following Markdown:
             //     foo__bar__
@@ -8117,11 +8117,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo__bar__", 
                 "<p>foo__bar__</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec367_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec367_CommonMark()
         {
             // The following Markdown:
             //     5__6__78
@@ -8131,11 +8131,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("5__6__78", 
                 "<p>5__6__78</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec368_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec368_CommonMark()
         {
             // The following Markdown:
             //     пристаням__стремятся__
@@ -8145,11 +8145,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("пристаням__стремятся__", 
                 "<p>пристаням__стремятся__</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec369_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec369_CommonMark()
         {
             // The following Markdown:
             //     __foo, __bar__, baz__
@@ -8159,14 +8159,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__foo, __bar__, baz__", 
                 "<p><strong>foo, <strong>bar</strong>, baz</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is strong emphasis, even though the opening delimiter is
         // both left- and right-flanking, because it is preceded by
         // punctuation:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec370_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec370_CommonMark()
         {
             // The following Markdown:
             //     foo-__(bar)__
@@ -8176,7 +8176,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo-__(bar)__", 
                 "<p>foo-<strong>(bar)</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 7:
@@ -8184,7 +8184,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // This is not strong emphasis, because the closing delimiter is preceded
         // by whitespace:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec371_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec371_CommonMark()
         {
             // The following Markdown:
             //     **foo bar **
@@ -8194,7 +8194,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo bar **", 
                 "<p>**foo bar **</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // (Nor can it be interpreted as an emphasized `*foo bar *`, because of
@@ -8203,7 +8203,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // This is not strong emphasis, because the second `**` is
         // preceded by punctuation and followed by an alphanumeric:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec372_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec372_CommonMark()
         {
             // The following Markdown:
             //     **(**foo)
@@ -8213,13 +8213,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**(**foo)", 
                 "<p>**(**foo)</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The point of this restriction is more easily appreciated
         // with these examples:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec373_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec373_CommonMark()
         {
             // The following Markdown:
             //     *(**foo**)*
@@ -8229,11 +8229,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*(**foo**)*", 
                 "<p><em>(<strong>foo</strong>)</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec374_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec374_CommonMark()
         {
             // The following Markdown:
             //     **Gomphocarpus (*Gomphocarpus physocarpus*, syn.
@@ -8245,11 +8245,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**Gomphocarpus (*Gomphocarpus physocarpus*, syn.\n*Asclepias physocarpa*)**", 
                 "<p><strong>Gomphocarpus (<em>Gomphocarpus physocarpus</em>, syn.\n<em>Asclepias physocarpa</em>)</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec375_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec375_CommonMark()
         {
             // The following Markdown:
             //     **foo "*bar*" foo**
@@ -8259,12 +8259,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo \"*bar*\" foo**", 
                 "<p><strong>foo &quot;<em>bar</em>&quot; foo</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Intraword emphasis:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec376_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec376_CommonMark()
         {
             // The following Markdown:
             //     **foo**bar
@@ -8274,7 +8274,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo**bar", 
                 "<p><strong>foo</strong>bar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 8:
@@ -8282,7 +8282,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // This is not strong emphasis, because the closing delimiter is
         // preceded by whitespace:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec377_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec377_CommonMark()
         {
             // The following Markdown:
             //     __foo bar __
@@ -8292,13 +8292,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__foo bar __", 
                 "<p>__foo bar __</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is not strong emphasis, because the second `__` is
         // preceded by punctuation and followed by an alphanumeric:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec378_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec378_CommonMark()
         {
             // The following Markdown:
             //     __(__foo)
@@ -8308,13 +8308,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__(__foo)", 
                 "<p>__(__foo)</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The point of this restriction is more easily appreciated
         // with this example:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec379_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec379_CommonMark()
         {
             // The following Markdown:
             //     _(__foo__)_
@@ -8324,12 +8324,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_(__foo__)_", 
                 "<p><em>(<strong>foo</strong>)</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Intraword strong emphasis is forbidden with `__`:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec380_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec380_CommonMark()
         {
             // The following Markdown:
             //     __foo__bar
@@ -8339,11 +8339,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__foo__bar", 
                 "<p>__foo__bar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec381_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec381_CommonMark()
         {
             // The following Markdown:
             //     __пристаням__стремятся
@@ -8353,11 +8353,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__пристаням__стремятся", 
                 "<p>__пристаням__стремятся</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec382_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec382_CommonMark()
         {
             // The following Markdown:
             //     __foo__bar__baz__
@@ -8367,14 +8367,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__foo__bar__baz__", 
                 "<p><strong>foo__bar__baz</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is strong emphasis, even though the closing delimiter is
         // both left- and right-flanking, because it is followed by
         // punctuation:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec383_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec383_CommonMark()
         {
             // The following Markdown:
             //     __(bar)__.
@@ -8384,7 +8384,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__(bar)__.", 
                 "<p><strong>(bar)</strong>.</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 9:
@@ -8392,7 +8392,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // Any nonempty sequence of inline elements can be the contents of an
         // emphasized span.
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec384_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec384_CommonMark()
         {
             // The following Markdown:
             //     *foo [bar](/url)*
@@ -8402,11 +8402,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo [bar](/url)*", 
                 "<p><em>foo <a href=\"/url\">bar</a></em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec385_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec385_CommonMark()
         {
             // The following Markdown:
             //     *foo
@@ -8418,13 +8418,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo\nbar*", 
                 "<p><em>foo\nbar</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // In particular, emphasis and strong emphasis can be nested
         // inside emphasis:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec386_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec386_CommonMark()
         {
             // The following Markdown:
             //     _foo __bar__ baz_
@@ -8434,11 +8434,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_foo __bar__ baz_", 
                 "<p><em>foo <strong>bar</strong> baz</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec387_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec387_CommonMark()
         {
             // The following Markdown:
             //     _foo _bar_ baz_
@@ -8448,11 +8448,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_foo _bar_ baz_", 
                 "<p><em>foo <em>bar</em> baz</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec388_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec388_CommonMark()
         {
             // The following Markdown:
             //     __foo_ bar_
@@ -8462,11 +8462,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__foo_ bar_", 
                 "<p><em><em>foo</em> bar</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec389_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec389_CommonMark()
         {
             // The following Markdown:
             //     *foo *bar**
@@ -8476,11 +8476,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo *bar**", 
                 "<p><em>foo <em>bar</em></em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec390_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec390_CommonMark()
         {
             // The following Markdown:
             //     *foo **bar** baz*
@@ -8490,11 +8490,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo **bar** baz*", 
                 "<p><em>foo <strong>bar</strong> baz</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec391_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec391_CommonMark()
         {
             // The following Markdown:
             //     *foo**bar**baz*
@@ -8504,7 +8504,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo**bar**baz*", 
                 "<p><em>foo<strong>bar</strong>baz</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that in the preceding case, the interpretation
@@ -8525,7 +8525,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // emphasis, even when the interior spaces are
         // omitted:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec392_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec392_CommonMark()
         {
             // The following Markdown:
             //     ***foo** bar*
@@ -8535,11 +8535,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("***foo** bar*", 
                 "<p><em><strong>foo</strong> bar</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec393_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec393_CommonMark()
         {
             // The following Markdown:
             //     *foo **bar***
@@ -8549,11 +8549,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo **bar***", 
                 "<p><em>foo <strong>bar</strong></em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec394_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec394_CommonMark()
         {
             // The following Markdown:
             //     *foo**bar***
@@ -8563,12 +8563,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo**bar***", 
                 "<p><em>foo<strong>bar</strong></em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Indefinite levels of nesting are possible:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec395_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec395_CommonMark()
         {
             // The following Markdown:
             //     *foo **bar *baz* bim** bop*
@@ -8578,11 +8578,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo **bar *baz* bim** bop*", 
                 "<p><em>foo <strong>bar <em>baz</em> bim</strong> bop</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec396_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec396_CommonMark()
         {
             // The following Markdown:
             //     *foo [*bar*](/url)*
@@ -8592,12 +8592,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo [*bar*](/url)*", 
                 "<p><em>foo <a href=\"/url\"><em>bar</em></a></em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // There can be no empty emphasis or strong emphasis:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec397_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec397_CommonMark()
         {
             // The following Markdown:
             //     ** is not an empty emphasis
@@ -8607,11 +8607,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("** is not an empty emphasis", 
                 "<p>** is not an empty emphasis</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec398_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec398_CommonMark()
         {
             // The following Markdown:
             //     **** is not an empty strong emphasis
@@ -8621,7 +8621,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**** is not an empty strong emphasis", 
                 "<p>**** is not an empty strong emphasis</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 10:
@@ -8629,7 +8629,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // Any nonempty sequence of inline elements can be the contents of an
         // strongly emphasized span.
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec399_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec399_CommonMark()
         {
             // The following Markdown:
             //     **foo [bar](/url)**
@@ -8639,11 +8639,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo [bar](/url)**", 
                 "<p><strong>foo <a href=\"/url\">bar</a></strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec400_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec400_CommonMark()
         {
             // The following Markdown:
             //     **foo
@@ -8655,13 +8655,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo\nbar**", 
                 "<p><strong>foo\nbar</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // In particular, emphasis and strong emphasis can be nested
         // inside strong emphasis:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec401_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec401_CommonMark()
         {
             // The following Markdown:
             //     __foo _bar_ baz__
@@ -8671,11 +8671,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__foo _bar_ baz__", 
                 "<p><strong>foo <em>bar</em> baz</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec402_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec402_CommonMark()
         {
             // The following Markdown:
             //     __foo __bar__ baz__
@@ -8685,11 +8685,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__foo __bar__ baz__", 
                 "<p><strong>foo <strong>bar</strong> baz</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec403_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec403_CommonMark()
         {
             // The following Markdown:
             //     ____foo__ bar__
@@ -8699,11 +8699,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("____foo__ bar__", 
                 "<p><strong><strong>foo</strong> bar</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec404_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec404_CommonMark()
         {
             // The following Markdown:
             //     **foo **bar****
@@ -8713,11 +8713,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo **bar****", 
                 "<p><strong>foo <strong>bar</strong></strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec405_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec405_CommonMark()
         {
             // The following Markdown:
             //     **foo *bar* baz**
@@ -8727,11 +8727,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo *bar* baz**", 
                 "<p><strong>foo <em>bar</em> baz</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec406_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec406_CommonMark()
         {
             // The following Markdown:
             //     **foo*bar*baz**
@@ -8741,11 +8741,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo*bar*baz**", 
                 "<p><strong>foo<em>bar</em>baz</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec407_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec407_CommonMark()
         {
             // The following Markdown:
             //     ***foo* bar**
@@ -8755,11 +8755,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("***foo* bar**", 
                 "<p><strong><em>foo</em> bar</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec408_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec408_CommonMark()
         {
             // The following Markdown:
             //     **foo *bar***
@@ -8769,12 +8769,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo *bar***", 
                 "<p><strong>foo <em>bar</em></strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Indefinite levels of nesting are possible:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec409_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec409_CommonMark()
         {
             // The following Markdown:
             //     **foo *bar **baz**
@@ -8786,11 +8786,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo *bar **baz**\nbim* bop**", 
                 "<p><strong>foo <em>bar <strong>baz</strong>\nbim</em> bop</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec410_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec410_CommonMark()
         {
             // The following Markdown:
             //     **foo [*bar*](/url)**
@@ -8800,12 +8800,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo [*bar*](/url)**", 
                 "<p><strong>foo <a href=\"/url\"><em>bar</em></a></strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // There can be no empty emphasis or strong emphasis:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec411_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec411_CommonMark()
         {
             // The following Markdown:
             //     __ is not an empty emphasis
@@ -8815,11 +8815,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__ is not an empty emphasis", 
                 "<p>__ is not an empty emphasis</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec412_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec412_CommonMark()
         {
             // The following Markdown:
             //     ____ is not an empty strong emphasis
@@ -8829,12 +8829,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("____ is not an empty strong emphasis", 
                 "<p>____ is not an empty strong emphasis</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 11:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec413_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec413_CommonMark()
         {
             // The following Markdown:
             //     foo ***
@@ -8844,11 +8844,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo ***", 
                 "<p>foo ***</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec414_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec414_CommonMark()
         {
             // The following Markdown:
             //     foo *\**
@@ -8858,11 +8858,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo *\\**", 
                 "<p>foo <em>*</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec415_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec415_CommonMark()
         {
             // The following Markdown:
             //     foo *_*
@@ -8872,11 +8872,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo *_*", 
                 "<p>foo <em>_</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec416_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec416_CommonMark()
         {
             // The following Markdown:
             //     foo *****
@@ -8886,11 +8886,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo *****", 
                 "<p>foo *****</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec417_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec417_CommonMark()
         {
             // The following Markdown:
             //     foo **\***
@@ -8900,11 +8900,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo **\\***", 
                 "<p>foo <strong>*</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec418_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec418_CommonMark()
         {
             // The following Markdown:
             //     foo **_**
@@ -8914,14 +8914,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo **_**", 
                 "<p>foo <strong>_</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that when delimiters do not match evenly, Rule 11 determines
         // that the excess literal `*` characters will appear outside of the
         // emphasis, rather than inside it:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec419_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec419_CommonMark()
         {
             // The following Markdown:
             //     **foo*
@@ -8931,11 +8931,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo*", 
                 "<p>*<em>foo</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec420_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec420_CommonMark()
         {
             // The following Markdown:
             //     *foo**
@@ -8945,11 +8945,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo**", 
                 "<p><em>foo</em>*</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec421_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec421_CommonMark()
         {
             // The following Markdown:
             //     ***foo**
@@ -8959,11 +8959,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("***foo**", 
                 "<p>*<strong>foo</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec422_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec422_CommonMark()
         {
             // The following Markdown:
             //     ****foo*
@@ -8973,11 +8973,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("****foo*", 
                 "<p>***<em>foo</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec423_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec423_CommonMark()
         {
             // The following Markdown:
             //     **foo***
@@ -8987,11 +8987,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo***", 
                 "<p><strong>foo</strong>*</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec424_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec424_CommonMark()
         {
             // The following Markdown:
             //     *foo****
@@ -9001,12 +9001,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo****", 
                 "<p><em>foo</em>***</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 12:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec425_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec425_CommonMark()
         {
             // The following Markdown:
             //     foo ___
@@ -9016,11 +9016,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo ___", 
                 "<p>foo ___</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec426_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec426_CommonMark()
         {
             // The following Markdown:
             //     foo _\__
@@ -9030,11 +9030,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo _\\__", 
                 "<p>foo <em>_</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec427_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec427_CommonMark()
         {
             // The following Markdown:
             //     foo _*_
@@ -9044,11 +9044,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo _*_", 
                 "<p>foo <em>*</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec428_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec428_CommonMark()
         {
             // The following Markdown:
             //     foo _____
@@ -9058,11 +9058,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo _____", 
                 "<p>foo _____</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec429_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec429_CommonMark()
         {
             // The following Markdown:
             //     foo __\___
@@ -9072,11 +9072,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo __\\___", 
                 "<p>foo <strong>_</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec430_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec430_CommonMark()
         {
             // The following Markdown:
             //     foo __*__
@@ -9086,11 +9086,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo __*__", 
                 "<p>foo <strong>*</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec431_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec431_CommonMark()
         {
             // The following Markdown:
             //     __foo_
@@ -9100,14 +9100,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__foo_", 
                 "<p>_<em>foo</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that when delimiters do not match evenly, Rule 12 determines
         // that the excess literal `_` characters will appear outside of the
         // emphasis, rather than inside it:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec432_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec432_CommonMark()
         {
             // The following Markdown:
             //     _foo__
@@ -9117,11 +9117,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_foo__", 
                 "<p><em>foo</em>_</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec433_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec433_CommonMark()
         {
             // The following Markdown:
             //     ___foo__
@@ -9131,11 +9131,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("___foo__", 
                 "<p>_<strong>foo</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec434_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec434_CommonMark()
         {
             // The following Markdown:
             //     ____foo_
@@ -9145,11 +9145,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("____foo_", 
                 "<p>___<em>foo</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec435_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec435_CommonMark()
         {
             // The following Markdown:
             //     __foo___
@@ -9159,11 +9159,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__foo___", 
                 "<p><strong>foo</strong>_</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec436_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec436_CommonMark()
         {
             // The following Markdown:
             //     _foo____
@@ -9173,13 +9173,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_foo____", 
                 "<p><em>foo</em>___</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 13 implies that if you want emphasis nested directly inside
         // emphasis, you must use different delimiters:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec437_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec437_CommonMark()
         {
             // The following Markdown:
             //     **foo**
@@ -9189,11 +9189,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo**", 
                 "<p><strong>foo</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec438_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec438_CommonMark()
         {
             // The following Markdown:
             //     *_foo_*
@@ -9203,11 +9203,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*_foo_*", 
                 "<p><em><em>foo</em></em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec439_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec439_CommonMark()
         {
             // The following Markdown:
             //     __foo__
@@ -9217,11 +9217,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__foo__", 
                 "<p><strong>foo</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec440_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec440_CommonMark()
         {
             // The following Markdown:
             //     _*foo*_
@@ -9231,13 +9231,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_*foo*_", 
                 "<p><em><em>foo</em></em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // However, strong emphasis within strong emphasis is possible without
         // switching delimiters:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec441_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec441_CommonMark()
         {
             // The following Markdown:
             //     ****foo****
@@ -9247,11 +9247,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("****foo****", 
                 "<p><strong><strong>foo</strong></strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec442_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec442_CommonMark()
         {
             // The following Markdown:
             //     ____foo____
@@ -9261,13 +9261,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("____foo____", 
                 "<p><strong><strong>foo</strong></strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 13 can be applied to arbitrarily long sequences of
         // delimiters:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec443_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec443_CommonMark()
         {
             // The following Markdown:
             //     ******foo******
@@ -9277,12 +9277,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("******foo******", 
                 "<p><strong><strong><strong>foo</strong></strong></strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 14:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec444_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec444_CommonMark()
         {
             // The following Markdown:
             //     ***foo***
@@ -9292,11 +9292,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("***foo***", 
                 "<p><em><strong>foo</strong></em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec445_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec445_CommonMark()
         {
             // The following Markdown:
             //     _____foo_____
@@ -9306,12 +9306,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_____foo_____", 
                 "<p><em><strong><strong>foo</strong></strong></em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 15:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec446_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec446_CommonMark()
         {
             // The following Markdown:
             //     *foo _bar* baz_
@@ -9321,11 +9321,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo _bar* baz_", 
                 "<p><em>foo _bar</em> baz_</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec447_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec447_CommonMark()
         {
             // The following Markdown:
             //     *foo __bar *baz bim__ bam*
@@ -9335,12 +9335,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo __bar *baz bim__ bam*", 
                 "<p><em>foo <strong>bar *baz bim</strong> bam</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 16:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec448_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec448_CommonMark()
         {
             // The following Markdown:
             //     **foo **bar baz**
@@ -9350,11 +9350,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**foo **bar baz**", 
                 "<p>**foo <strong>bar baz</strong></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec449_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec449_CommonMark()
         {
             // The following Markdown:
             //     *foo *bar baz*
@@ -9364,12 +9364,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo *bar baz*", 
                 "<p>*foo <em>bar baz</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Rule 17:
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec450_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec450_CommonMark()
         {
             // The following Markdown:
             //     *[bar*](/url)
@@ -9379,11 +9379,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*[bar*](/url)", 
                 "<p>*<a href=\"/url\">bar*</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec451_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec451_CommonMark()
         {
             // The following Markdown:
             //     _foo [bar_](/url)
@@ -9393,11 +9393,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_foo [bar_](/url)", 
                 "<p>_foo <a href=\"/url\">bar_</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec452_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec452_CommonMark()
         {
             // The following Markdown:
             //     *<img src="foo" title="*"/>
@@ -9407,11 +9407,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*<img src=\"foo\" title=\"*\"/>", 
                 "<p>*<img src=\"foo\" title=\"*\"/></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec453_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec453_CommonMark()
         {
             // The following Markdown:
             //     **<a href="**">
@@ -9421,11 +9421,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**<a href=\"**\">", 
                 "<p>**<a href=\"**\"></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec454_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec454_CommonMark()
         {
             // The following Markdown:
             //     __<a href="__">
@@ -9435,11 +9435,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__<a href=\"__\">", 
                 "<p>__<a href=\"__\"></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec455_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec455_CommonMark()
         {
             // The following Markdown:
             //     *a `*`*
@@ -9449,11 +9449,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*a `*`*", 
                 "<p><em>a <code>*</code></em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec456_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec456_CommonMark()
         {
             // The following Markdown:
             //     _a `_`_
@@ -9463,11 +9463,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("_a `_`_", 
                 "<p><em>a <code>_</code></em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec457_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec457_CommonMark()
         {
             // The following Markdown:
             //     **a<http://foo.bar/?q=**>
@@ -9477,11 +9477,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("**a<http://foo.bar/?q=**>", 
                 "<p>**a<a href=\"http://foo.bar/?q=**\">http://foo.bar/?q=**</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void EmphasisAndStrongEmphasis_Spec458_commonmark()
+        public void EmphasisAndStrongEmphasis_Spec458_CommonMark()
         {
             // The following Markdown:
             //     __a<http://foo.bar/?q=__>
@@ -9491,7 +9491,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("__a<http://foo.bar/?q=__>", 
                 "<p>__a<a href=\"http://foo.bar/?q=__\">http://foo.bar/?q=__</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -9567,7 +9567,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
         // Here is a simple inline link:
         [Fact]
-        public void Links_Spec459_commonmark()
+        public void Links_Spec459_CommonMark()
         {
             // The following Markdown:
             //     [link](/uri "title")
@@ -9577,12 +9577,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](/uri \"title\")", 
                 "<p><a href=\"/uri\" title=\"title\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The title may be omitted:
         [Fact]
-        public void Links_Spec460_commonmark()
+        public void Links_Spec460_CommonMark()
         {
             // The following Markdown:
             //     [link](/uri)
@@ -9592,12 +9592,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](/uri)", 
                 "<p><a href=\"/uri\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Both the title and the destination may be omitted:
         [Fact]
-        public void Links_Spec461_commonmark()
+        public void Links_Spec461_CommonMark()
         {
             // The following Markdown:
             //     [link]()
@@ -9607,11 +9607,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link]()", 
                 "<p><a href=\"\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec462_commonmark()
+        public void Links_Spec462_CommonMark()
         {
             // The following Markdown:
             //     [link](<>)
@@ -9621,13 +9621,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](<>)", 
                 "<p><a href=\"\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The destination cannot contain spaces or line breaks,
         // even if enclosed in pointy brackets:
         [Fact]
-        public void Links_Spec463_commonmark()
+        public void Links_Spec463_CommonMark()
         {
             // The following Markdown:
             //     [link](/my uri)
@@ -9637,11 +9637,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](/my uri)", 
                 "<p>[link](/my uri)</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec464_commonmark()
+        public void Links_Spec464_CommonMark()
         {
             // The following Markdown:
             //     [link](</my uri>)
@@ -9651,11 +9651,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](</my uri>)", 
                 "<p>[link](&lt;/my uri&gt;)</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec465_commonmark()
+        public void Links_Spec465_CommonMark()
         {
             // The following Markdown:
             //     [link](foo
@@ -9667,11 +9667,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](foo\nbar)", 
                 "<p>[link](foo\nbar)</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec466_commonmark()
+        public void Links_Spec466_CommonMark()
         {
             // The following Markdown:
             //     [link](<foo
@@ -9683,12 +9683,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](<foo\nbar>)", 
                 "<p>[link](<foo\nbar>)</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Parentheses inside the link destination may be escaped:
         [Fact]
-        public void Links_Spec467_commonmark()
+        public void Links_Spec467_CommonMark()
         {
             // The following Markdown:
             //     [link](\(foo\))
@@ -9698,13 +9698,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](\\(foo\\))", 
                 "<p><a href=\"(foo)\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Any number of parentheses are allowed without escaping, as long as they are
         // balanced:
         [Fact]
-        public void Links_Spec468_commonmark()
+        public void Links_Spec468_CommonMark()
         {
             // The following Markdown:
             //     [link](foo(and(bar)))
@@ -9714,13 +9714,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](foo(and(bar)))", 
                 "<p><a href=\"foo(and(bar))\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // However, if you have unbalanced parentheses, you need to escape or use the
         // `<...>` form:
         [Fact]
-        public void Links_Spec469_commonmark()
+        public void Links_Spec469_CommonMark()
         {
             // The following Markdown:
             //     [link](foo\(and\(bar\))
@@ -9730,11 +9730,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](foo\\(and\\(bar\\))", 
                 "<p><a href=\"foo(and(bar)\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec470_commonmark()
+        public void Links_Spec470_CommonMark()
         {
             // The following Markdown:
             //     [link](<foo(and(bar)>)
@@ -9744,13 +9744,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](<foo(and(bar)>)", 
                 "<p><a href=\"foo(and(bar)\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Parentheses and other symbols can also be escaped, as usual
         // in Markdown:
         [Fact]
-        public void Links_Spec471_commonmark()
+        public void Links_Spec471_CommonMark()
         {
             // The following Markdown:
             //     [link](foo\)\:)
@@ -9760,12 +9760,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](foo\\)\\:)", 
                 "<p><a href=\"foo):\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A link can contain fragment identifiers and queries:
         [Fact]
-        public void Links_Spec472_commonmark()
+        public void Links_Spec472_CommonMark()
         {
             // The following Markdown:
             //     [link](#fragment)
@@ -9781,13 +9781,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](#fragment)\n\n[link](http://example.com#fragment)\n\n[link](http://example.com?foo=3#frag)", 
                 "<p><a href=\"#fragment\">link</a></p>\n<p><a href=\"http://example.com#fragment\">link</a></p>\n<p><a href=\"http://example.com?foo=3#frag\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that a backslash before a non-escapable character is
         // just a backslash:
         [Fact]
-        public void Links_Spec473_commonmark()
+        public void Links_Spec473_CommonMark()
         {
             // The following Markdown:
             //     [link](foo\bar)
@@ -9797,7 +9797,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](foo\\bar)", 
                 "<p><a href=\"foo%5Cbar\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // URL-escaping should be left alone inside the destination, as all
@@ -9809,7 +9809,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // HTML or other formats.  Renderers may make different decisions
         // about how to escape or normalize URLs in the output.
         [Fact]
-        public void Links_Spec474_commonmark()
+        public void Links_Spec474_CommonMark()
         {
             // The following Markdown:
             //     [link](foo%20b&auml;)
@@ -9819,14 +9819,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](foo%20b&auml;)", 
                 "<p><a href=\"foo%20b%C3%A4\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that, because titles can often be parsed as destinations,
         // if you try to omit the destination and keep the title, you'll
         // get unexpected results:
         [Fact]
-        public void Links_Spec475_commonmark()
+        public void Links_Spec475_CommonMark()
         {
             // The following Markdown:
             //     [link]("title")
@@ -9836,12 +9836,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](\"title\")", 
                 "<p><a href=\"%22title%22\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Titles may be in single quotes, double quotes, or parentheses:
         [Fact]
-        public void Links_Spec476_commonmark()
+        public void Links_Spec476_CommonMark()
         {
             // The following Markdown:
             //     [link](/url "title")
@@ -9855,13 +9855,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](/url \"title\")\n[link](/url 'title')\n[link](/url (title))", 
                 "<p><a href=\"/url\" title=\"title\">link</a>\n<a href=\"/url\" title=\"title\">link</a>\n<a href=\"/url\" title=\"title\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Backslash escapes and entity and numeric character references
         // may be used in titles:
         [Fact]
-        public void Links_Spec477_commonmark()
+        public void Links_Spec477_CommonMark()
         {
             // The following Markdown:
             //     [link](/url "title \"&quot;")
@@ -9871,13 +9871,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](/url \"title \\\"&quot;\")", 
                 "<p><a href=\"/url\" title=\"title &quot;&quot;\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Titles must be separated from the link using a [whitespace].
         // Other [Unicode whitespace] like non-breaking space doesn't work.
         [Fact]
-        public void Links_Spec478_commonmark()
+        public void Links_Spec478_CommonMark()
         {
             // The following Markdown:
             //     [link](/url "title")
@@ -9887,12 +9887,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](/url \"title\")", 
                 "<p><a href=\"/url%C2%A0%22title%22\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Nested balanced quotes are not allowed without escaping:
         [Fact]
-        public void Links_Spec479_commonmark()
+        public void Links_Spec479_CommonMark()
         {
             // The following Markdown:
             //     [link](/url "title "and" title")
@@ -9902,12 +9902,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](/url \"title \"and\" title\")", 
                 "<p>[link](/url &quot;title &quot;and&quot; title&quot;)</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // But it is easy to work around this by using a different quote type:
         [Fact]
-        public void Links_Spec480_commonmark()
+        public void Links_Spec480_CommonMark()
         {
             // The following Markdown:
             //     [link](/url 'title "and" title')
@@ -9917,7 +9917,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](/url 'title \"and\" title')", 
                 "<p><a href=\"/url\" title=\"title &quot;and&quot; title\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // (Note:  `Markdown.pl` did allow double quotes inside a double-quoted
@@ -9937,7 +9937,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // 
         // [Whitespace] is allowed around the destination and title:
         [Fact]
-        public void Links_Spec481_commonmark()
+        public void Links_Spec481_CommonMark()
         {
             // The following Markdown:
             //     [link](   /uri
@@ -9948,13 +9948,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link](   /uri\n  \"title\"  )", 
                 "<p><a href=\"/uri\" title=\"title\">link</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // But it is not allowed between the link text and the
         // following parenthesis:
         [Fact]
-        public void Links_Spec482_commonmark()
+        public void Links_Spec482_CommonMark()
         {
             // The following Markdown:
             //     [link] (/uri)
@@ -9964,13 +9964,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link] (/uri)", 
                 "<p>[link] (/uri)</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The link text may contain balanced brackets, but not unbalanced ones,
         // unless they are escaped:
         [Fact]
-        public void Links_Spec483_commonmark()
+        public void Links_Spec483_CommonMark()
         {
             // The following Markdown:
             //     [link [foo [bar]]](/uri)
@@ -9980,11 +9980,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link [foo [bar]]](/uri)", 
                 "<p><a href=\"/uri\">link [foo [bar]]</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec484_commonmark()
+        public void Links_Spec484_CommonMark()
         {
             // The following Markdown:
             //     [link] bar](/uri)
@@ -9994,11 +9994,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link] bar](/uri)", 
                 "<p>[link] bar](/uri)</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec485_commonmark()
+        public void Links_Spec485_CommonMark()
         {
             // The following Markdown:
             //     [link [bar](/uri)
@@ -10008,11 +10008,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link [bar](/uri)", 
                 "<p>[link <a href=\"/uri\">bar</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec486_commonmark()
+        public void Links_Spec486_CommonMark()
         {
             // The following Markdown:
             //     [link \[bar](/uri)
@@ -10022,12 +10022,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link \\[bar](/uri)", 
                 "<p><a href=\"/uri\">link [bar</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The link text may contain inline content:
         [Fact]
-        public void Links_Spec487_commonmark()
+        public void Links_Spec487_CommonMark()
         {
             // The following Markdown:
             //     [link *foo **bar** `#`*](/uri)
@@ -10037,11 +10037,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link *foo **bar** `#`*](/uri)", 
                 "<p><a href=\"/uri\">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec488_commonmark()
+        public void Links_Spec488_CommonMark()
         {
             // The following Markdown:
             //     [![moon](moon.jpg)](/uri)
@@ -10051,12 +10051,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[![moon](moon.jpg)](/uri)", 
                 "<p><a href=\"/uri\"><img src=\"moon.jpg\" alt=\"moon\" /></a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // However, links may not contain other links, at any level of nesting.
         [Fact]
-        public void Links_Spec489_commonmark()
+        public void Links_Spec489_CommonMark()
         {
             // The following Markdown:
             //     [foo [bar](/uri)](/uri)
@@ -10066,11 +10066,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo [bar](/uri)](/uri)", 
                 "<p>[foo <a href=\"/uri\">bar</a>](/uri)</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec490_commonmark()
+        public void Links_Spec490_CommonMark()
         {
             // The following Markdown:
             //     [foo *[bar [baz](/uri)](/uri)*](/uri)
@@ -10080,11 +10080,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo *[bar [baz](/uri)](/uri)*](/uri)", 
                 "<p>[foo <em>[bar <a href=\"/uri\">baz</a>](/uri)</em>](/uri)</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec491_commonmark()
+        public void Links_Spec491_CommonMark()
         {
             // The following Markdown:
             //     ![[[foo](uri1)](uri2)](uri3)
@@ -10094,13 +10094,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![[[foo](uri1)](uri2)](uri3)", 
                 "<p><img src=\"uri3\" alt=\"[foo](uri2)\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // These cases illustrate the precedence of link text grouping over
         // emphasis grouping:
         [Fact]
-        public void Links_Spec492_commonmark()
+        public void Links_Spec492_CommonMark()
         {
             // The following Markdown:
             //     *[foo*](/uri)
@@ -10110,11 +10110,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*[foo*](/uri)", 
                 "<p>*<a href=\"/uri\">foo*</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec493_commonmark()
+        public void Links_Spec493_CommonMark()
         {
             // The following Markdown:
             //     [foo *bar](baz*)
@@ -10124,13 +10124,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo *bar](baz*)", 
                 "<p><a href=\"baz*\">foo *bar</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that brackets that *aren't* part of links do not take
         // precedence:
         [Fact]
-        public void Links_Spec494_commonmark()
+        public void Links_Spec494_CommonMark()
         {
             // The following Markdown:
             //     *foo [bar* baz]
@@ -10140,13 +10140,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo [bar* baz]", 
                 "<p><em>foo [bar</em> baz]</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // These cases illustrate the precedence of HTML tags, code spans,
         // and autolinks over link grouping:
         [Fact]
-        public void Links_Spec495_commonmark()
+        public void Links_Spec495_CommonMark()
         {
             // The following Markdown:
             //     [foo <bar attr="](baz)">
@@ -10156,11 +10156,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo <bar attr=\"](baz)\">", 
                 "<p>[foo <bar attr=\"](baz)\"></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec496_commonmark()
+        public void Links_Spec496_CommonMark()
         {
             // The following Markdown:
             //     [foo`](/uri)`
@@ -10170,11 +10170,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo`](/uri)`", 
                 "<p>[foo<code>](/uri)</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec497_commonmark()
+        public void Links_Spec497_CommonMark()
         {
             // The following Markdown:
             //     [foo<http://example.com/?search=](uri)>
@@ -10184,7 +10184,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo<http://example.com/?search=](uri)>", 
                 "<p>[foo<a href=\"http://example.com/?search=%5D(uri)\">http://example.com/?search=](uri)</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // There are three kinds of [reference link](@)s:
@@ -10218,7 +10218,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // 
         // Here is a simple example:
         [Fact]
-        public void Links_Spec498_commonmark()
+        public void Links_Spec498_CommonMark()
         {
             // The following Markdown:
             //     [foo][bar]
@@ -10230,7 +10230,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo][bar]\n\n[bar]: /url \"title\"", 
                 "<p><a href=\"/url\" title=\"title\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The rules for the [link text] are the same as with
@@ -10239,7 +10239,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // The link text may contain balanced brackets, but not unbalanced ones,
         // unless they are escaped:
         [Fact]
-        public void Links_Spec499_commonmark()
+        public void Links_Spec499_CommonMark()
         {
             // The following Markdown:
             //     [link [foo [bar]]][ref]
@@ -10251,11 +10251,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link [foo [bar]]][ref]\n\n[ref]: /uri", 
                 "<p><a href=\"/uri\">link [foo [bar]]</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec500_commonmark()
+        public void Links_Spec500_CommonMark()
         {
             // The following Markdown:
             //     [link \[bar][ref]
@@ -10267,12 +10267,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link \\[bar][ref]\n\n[ref]: /uri", 
                 "<p><a href=\"/uri\">link [bar</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The link text may contain inline content:
         [Fact]
-        public void Links_Spec501_commonmark()
+        public void Links_Spec501_CommonMark()
         {
             // The following Markdown:
             //     [link *foo **bar** `#`*][ref]
@@ -10284,11 +10284,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[link *foo **bar** `#`*][ref]\n\n[ref]: /uri", 
                 "<p><a href=\"/uri\">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec502_commonmark()
+        public void Links_Spec502_CommonMark()
         {
             // The following Markdown:
             //     [![moon](moon.jpg)][ref]
@@ -10300,12 +10300,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[![moon](moon.jpg)][ref]\n\n[ref]: /uri", 
                 "<p><a href=\"/uri\"><img src=\"moon.jpg\" alt=\"moon\" /></a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // However, links may not contain other links, at any level of nesting.
         [Fact]
-        public void Links_Spec503_commonmark()
+        public void Links_Spec503_CommonMark()
         {
             // The following Markdown:
             //     [foo [bar](/uri)][ref]
@@ -10317,11 +10317,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo [bar](/uri)][ref]\n\n[ref]: /uri", 
                 "<p>[foo <a href=\"/uri\">bar</a>]<a href=\"/uri\">ref</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec504_commonmark()
+        public void Links_Spec504_CommonMark()
         {
             // The following Markdown:
             //     [foo *bar [baz][ref]*][ref]
@@ -10333,7 +10333,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo *bar [baz][ref]*][ref]\n\n[ref]: /uri", 
                 "<p>[foo <em>bar <a href=\"/uri\">baz</a></em>]<a href=\"/uri\">ref</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // (In the examples above, we have two [shortcut reference links]
@@ -10342,7 +10342,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // The following cases illustrate the precedence of link text grouping over
         // emphasis grouping:
         [Fact]
-        public void Links_Spec505_commonmark()
+        public void Links_Spec505_CommonMark()
         {
             // The following Markdown:
             //     *[foo*][ref]
@@ -10354,11 +10354,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*[foo*][ref]\n\n[ref]: /uri", 
                 "<p>*<a href=\"/uri\">foo*</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec506_commonmark()
+        public void Links_Spec506_CommonMark()
         {
             // The following Markdown:
             //     [foo *bar][ref]
@@ -10370,13 +10370,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo *bar][ref]\n\n[ref]: /uri", 
                 "<p><a href=\"/uri\">foo *bar</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // These cases illustrate the precedence of HTML tags, code spans,
         // and autolinks over link grouping:
         [Fact]
-        public void Links_Spec507_commonmark()
+        public void Links_Spec507_CommonMark()
         {
             // The following Markdown:
             //     [foo <bar attr="][ref]">
@@ -10388,11 +10388,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo <bar attr=\"][ref]\">\n\n[ref]: /uri", 
                 "<p>[foo <bar attr=\"][ref]\"></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec508_commonmark()
+        public void Links_Spec508_CommonMark()
         {
             // The following Markdown:
             //     [foo`][ref]`
@@ -10404,11 +10404,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo`][ref]`\n\n[ref]: /uri", 
                 "<p>[foo<code>][ref]</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec509_commonmark()
+        public void Links_Spec509_CommonMark()
         {
             // The following Markdown:
             //     [foo<http://example.com/?search=][ref]>
@@ -10420,12 +10420,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo<http://example.com/?search=][ref]>\n\n[ref]: /uri", 
                 "<p>[foo<a href=\"http://example.com/?search=%5D%5Bref%5D\">http://example.com/?search=][ref]</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Matching is case-insensitive:
         [Fact]
-        public void Links_Spec510_commonmark()
+        public void Links_Spec510_CommonMark()
         {
             // The following Markdown:
             //     [foo][BaR]
@@ -10437,12 +10437,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo][BaR]\n\n[bar]: /url \"title\"", 
                 "<p><a href=\"/url\" title=\"title\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Unicode case fold is used:
         [Fact]
-        public void Links_Spec511_commonmark()
+        public void Links_Spec511_CommonMark()
         {
             // The following Markdown:
             //     [Толпой][Толпой] is a Russian word.
@@ -10454,13 +10454,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[Толпой][Толпой] is a Russian word.\n\n[ТОЛПОЙ]: /url", 
                 "<p><a href=\"/url\">Толпой</a> is a Russian word.</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Consecutive internal [whitespace] is treated as one space for
         // purposes of determining matching:
         [Fact]
-        public void Links_Spec512_commonmark()
+        public void Links_Spec512_CommonMark()
         {
             // The following Markdown:
             //     [Foo
@@ -10473,13 +10473,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[Foo\n  bar]: /url\n\n[Baz][Foo bar]", 
                 "<p><a href=\"/url\">Baz</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // No [whitespace] is allowed between the [link text] and the
         // [link label]:
         [Fact]
-        public void Links_Spec513_commonmark()
+        public void Links_Spec513_CommonMark()
         {
             // The following Markdown:
             //     [foo] [bar]
@@ -10491,11 +10491,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo] [bar]\n\n[bar]: /url \"title\"", 
                 "<p>[foo] <a href=\"/url\" title=\"title\">bar</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec514_commonmark()
+        public void Links_Spec514_CommonMark()
         {
             // The following Markdown:
             //     [foo]
@@ -10509,7 +10509,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]\n[bar]\n\n[bar]: /url \"title\"", 
                 "<p>[foo]\n<a href=\"/url\" title=\"title\">bar</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // This is a departure from John Gruber's original Markdown syntax
@@ -10542,7 +10542,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // When there are multiple matching [link reference definitions],
         // the first is used:
         [Fact]
-        public void Links_Spec515_commonmark()
+        public void Links_Spec515_CommonMark()
         {
             // The following Markdown:
             //     [foo]: /url1
@@ -10556,14 +10556,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]: /url1\n\n[foo]: /url2\n\n[bar][foo]", 
                 "<p><a href=\"/url1\">bar</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that matching is performed on normalized strings, not parsed
         // inline content.  So the following does not match, even though the
         // labels define equivalent inline content:
         [Fact]
-        public void Links_Spec516_commonmark()
+        public void Links_Spec516_CommonMark()
         {
             // The following Markdown:
             //     [bar][foo\!]
@@ -10575,13 +10575,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[bar][foo\\!]\n\n[foo!]: /url", 
                 "<p>[bar][foo!]</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // [Link labels] cannot contain brackets, unless they are
         // backslash-escaped:
         [Fact]
-        public void Links_Spec517_commonmark()
+        public void Links_Spec517_CommonMark()
         {
             // The following Markdown:
             //     [foo][ref[]
@@ -10594,11 +10594,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo][ref[]\n\n[ref[]: /uri", 
                 "<p>[foo][ref[]</p>\n<p>[ref[]: /uri</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec518_commonmark()
+        public void Links_Spec518_CommonMark()
         {
             // The following Markdown:
             //     [foo][ref[bar]]
@@ -10611,11 +10611,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo][ref[bar]]\n\n[ref[bar]]: /uri", 
                 "<p>[foo][ref[bar]]</p>\n<p>[ref[bar]]: /uri</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec519_commonmark()
+        public void Links_Spec519_CommonMark()
         {
             // The following Markdown:
             //     [[[foo]]]
@@ -10628,11 +10628,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[[[foo]]]\n\n[[[foo]]]: /url", 
                 "<p>[[[foo]]]</p>\n<p>[[[foo]]]: /url</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec520_commonmark()
+        public void Links_Spec520_CommonMark()
         {
             // The following Markdown:
             //     [foo][ref\[]
@@ -10644,12 +10644,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo][ref\\[]\n\n[ref\\[]: /uri", 
                 "<p><a href=\"/uri\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that in this example `]` is not backslash-escaped:
         [Fact]
-        public void Links_Spec521_commonmark()
+        public void Links_Spec521_CommonMark()
         {
             // The following Markdown:
             //     [bar\\]: /uri
@@ -10661,12 +10661,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[bar\\\\]: /uri\n\n[bar\\\\]", 
                 "<p><a href=\"/uri\">bar\\</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A [link label] must contain at least one [non-whitespace character]:
         [Fact]
-        public void Links_Spec522_commonmark()
+        public void Links_Spec522_CommonMark()
         {
             // The following Markdown:
             //     []
@@ -10679,11 +10679,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[]\n\n[]: /uri", 
                 "<p>[]</p>\n<p>[]: /uri</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec523_commonmark()
+        public void Links_Spec523_CommonMark()
         {
             // The following Markdown:
             //     [
@@ -10700,7 +10700,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[\n ]\n\n[\n ]: /uri", 
                 "<p>[\n]</p>\n<p>[\n]: /uri</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A [collapsed reference link](@)
@@ -10712,7 +10712,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // provided by the matching reference link definition.  Thus,
         // `[foo][]` is equivalent to `[foo][foo]`.
         [Fact]
-        public void Links_Spec524_commonmark()
+        public void Links_Spec524_CommonMark()
         {
             // The following Markdown:
             //     [foo][]
@@ -10724,11 +10724,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo][]\n\n[foo]: /url \"title\"", 
                 "<p><a href=\"/url\" title=\"title\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec525_commonmark()
+        public void Links_Spec525_CommonMark()
         {
             // The following Markdown:
             //     [*foo* bar][]
@@ -10740,12 +10740,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[*foo* bar][]\n\n[*foo* bar]: /url \"title\"", 
                 "<p><a href=\"/url\" title=\"title\"><em>foo</em> bar</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The link labels are case-insensitive:
         [Fact]
-        public void Links_Spec526_commonmark()
+        public void Links_Spec526_CommonMark()
         {
             // The following Markdown:
             //     [Foo][]
@@ -10757,13 +10757,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[Foo][]\n\n[foo]: /url \"title\"", 
                 "<p><a href=\"/url\" title=\"title\">Foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // As with full reference links, [whitespace] is not
         // allowed between the two sets of brackets:
         [Fact]
-        public void Links_Spec527_commonmark()
+        public void Links_Spec527_CommonMark()
         {
             // The following Markdown:
             //     [foo] 
@@ -10777,7 +10777,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo] \n[]\n\n[foo]: /url \"title\"", 
                 "<p><a href=\"/url\" title=\"title\">foo</a>\n[]</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A [shortcut reference link](@)
@@ -10789,7 +10789,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // are provided by the matching link reference definition.
         // Thus, `[foo]` is equivalent to `[foo][]`.
         [Fact]
-        public void Links_Spec528_commonmark()
+        public void Links_Spec528_CommonMark()
         {
             // The following Markdown:
             //     [foo]
@@ -10801,11 +10801,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]\n\n[foo]: /url \"title\"", 
                 "<p><a href=\"/url\" title=\"title\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec529_commonmark()
+        public void Links_Spec529_CommonMark()
         {
             // The following Markdown:
             //     [*foo* bar]
@@ -10817,11 +10817,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[*foo* bar]\n\n[*foo* bar]: /url \"title\"", 
                 "<p><a href=\"/url\" title=\"title\"><em>foo</em> bar</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec530_commonmark()
+        public void Links_Spec530_CommonMark()
         {
             // The following Markdown:
             //     [[*foo* bar]]
@@ -10833,11 +10833,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[[*foo* bar]]\n\n[*foo* bar]: /url \"title\"", 
                 "<p>[<a href=\"/url\" title=\"title\"><em>foo</em> bar</a>]</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec531_commonmark()
+        public void Links_Spec531_CommonMark()
         {
             // The following Markdown:
             //     [[bar [foo]
@@ -10849,12 +10849,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[[bar [foo]\n\n[foo]: /url", 
                 "<p>[[bar <a href=\"/url\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The link labels are case-insensitive:
         [Fact]
-        public void Links_Spec532_commonmark()
+        public void Links_Spec532_CommonMark()
         {
             // The following Markdown:
             //     [Foo]
@@ -10866,12 +10866,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[Foo]\n\n[foo]: /url \"title\"", 
                 "<p><a href=\"/url\" title=\"title\">Foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // A space after the link text should be preserved:
         [Fact]
-        public void Links_Spec533_commonmark()
+        public void Links_Spec533_CommonMark()
         {
             // The following Markdown:
             //     [foo] bar
@@ -10883,13 +10883,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo] bar\n\n[foo]: /url", 
                 "<p><a href=\"/url\">foo</a> bar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // If you just want bracketed text, you can backslash-escape the
         // opening bracket to avoid links:
         [Fact]
-        public void Links_Spec534_commonmark()
+        public void Links_Spec534_CommonMark()
         {
             // The following Markdown:
             //     \[foo]
@@ -10901,13 +10901,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("\\[foo]\n\n[foo]: /url \"title\"", 
                 "<p>[foo]</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that this is a link, because a link label ends with the first
         // following closing bracket:
         [Fact]
-        public void Links_Spec535_commonmark()
+        public void Links_Spec535_CommonMark()
         {
             // The following Markdown:
             //     [foo*]: /url
@@ -10919,13 +10919,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo*]: /url\n\n*[foo*]", 
                 "<p>*<a href=\"/url\">foo*</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Full and compact references take precedence over shortcut
         // references:
         [Fact]
-        public void Links_Spec536_commonmark()
+        public void Links_Spec536_CommonMark()
         {
             // The following Markdown:
             //     [foo][bar]
@@ -10938,11 +10938,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo][bar]\n\n[foo]: /url1\n[bar]: /url2", 
                 "<p><a href=\"/url2\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec537_commonmark()
+        public void Links_Spec537_CommonMark()
         {
             // The following Markdown:
             //     [foo][]
@@ -10954,12 +10954,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo][]\n\n[foo]: /url1", 
                 "<p><a href=\"/url1\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Inline links also take precedence:
         [Fact]
-        public void Links_Spec538_commonmark()
+        public void Links_Spec538_CommonMark()
         {
             // The following Markdown:
             //     [foo]()
@@ -10971,11 +10971,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]()\n\n[foo]: /url1", 
                 "<p><a href=\"\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Links_Spec539_commonmark()
+        public void Links_Spec539_CommonMark()
         {
             // The following Markdown:
             //     [foo](not a link)
@@ -10987,13 +10987,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo](not a link)\n\n[foo]: /url1", 
                 "<p><a href=\"/url1\">foo</a>(not a link)</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // In the following case `[bar][baz]` is parsed as a reference,
         // `[foo]` as normal text:
         [Fact]
-        public void Links_Spec540_commonmark()
+        public void Links_Spec540_CommonMark()
         {
             // The following Markdown:
             //     [foo][bar][baz]
@@ -11005,13 +11005,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo][bar][baz]\n\n[baz]: /url", 
                 "<p>[foo]<a href=\"/url\">bar</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Here, though, `[foo][bar]` is parsed as a reference, since
         // `[bar]` is defined:
         [Fact]
-        public void Links_Spec541_commonmark()
+        public void Links_Spec541_CommonMark()
         {
             // The following Markdown:
             //     [foo][bar][baz]
@@ -11024,13 +11024,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo][bar][baz]\n\n[baz]: /url1\n[bar]: /url2", 
                 "<p><a href=\"/url2\">foo</a><a href=\"/url1\">baz</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Here `[foo]` is not parsed as a shortcut reference, because it
         // is followed by a link label (even though `[bar]` is not defined):
         [Fact]
-        public void Links_Spec542_commonmark()
+        public void Links_Spec542_CommonMark()
         {
             // The following Markdown:
             //     [foo][bar][baz]
@@ -11043,7 +11043,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo][bar][baz]\n\n[baz]: /url1\n[foo]: /url2", 
                 "<p>[foo]<a href=\"/url1\">bar</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -11060,7 +11060,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
 
         [Fact]
-        public void Images_Spec543_commonmark()
+        public void Images_Spec543_CommonMark()
         {
             // The following Markdown:
             //     ![foo](/url "title")
@@ -11070,11 +11070,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![foo](/url \"title\")", 
                 "<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Images_Spec544_commonmark()
+        public void Images_Spec544_CommonMark()
         {
             // The following Markdown:
             //     ![foo *bar*]
@@ -11086,11 +11086,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![foo *bar*]\n\n[foo *bar*]: train.jpg \"train & tracks\"", 
                 "<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Images_Spec545_commonmark()
+        public void Images_Spec545_CommonMark()
         {
             // The following Markdown:
             //     ![foo ![bar](/url)](/url2)
@@ -11100,11 +11100,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![foo ![bar](/url)](/url2)", 
                 "<p><img src=\"/url2\" alt=\"foo bar\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Images_Spec546_commonmark()
+        public void Images_Spec546_CommonMark()
         {
             // The following Markdown:
             //     ![foo [bar](/url)](/url2)
@@ -11114,7 +11114,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![foo [bar](/url)](/url2)", 
                 "<p><img src=\"/url2\" alt=\"foo bar\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Though this spec is concerned with parsing, not rendering, it is
@@ -11124,7 +11124,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // [bar](/url)` or `foo <a href="/url">bar</a>`.  Only the plain string
         // content is rendered, without formatting.
         [Fact]
-        public void Images_Spec547_commonmark()
+        public void Images_Spec547_CommonMark()
         {
             // The following Markdown:
             //     ![foo *bar*][]
@@ -11136,11 +11136,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![foo *bar*][]\n\n[foo *bar*]: train.jpg \"train & tracks\"", 
                 "<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Images_Spec548_commonmark()
+        public void Images_Spec548_CommonMark()
         {
             // The following Markdown:
             //     ![foo *bar*][foobar]
@@ -11152,11 +11152,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![foo *bar*][foobar]\n\n[FOOBAR]: train.jpg \"train & tracks\"", 
                 "<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Images_Spec549_commonmark()
+        public void Images_Spec549_CommonMark()
         {
             // The following Markdown:
             //     ![foo](train.jpg)
@@ -11166,11 +11166,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![foo](train.jpg)", 
                 "<p><img src=\"train.jpg\" alt=\"foo\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Images_Spec550_commonmark()
+        public void Images_Spec550_CommonMark()
         {
             // The following Markdown:
             //     My ![foo bar](/path/to/train.jpg  "title"   )
@@ -11180,11 +11180,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("My ![foo bar](/path/to/train.jpg  \"title\"   )", 
                 "<p>My <img src=\"/path/to/train.jpg\" alt=\"foo bar\" title=\"title\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Images_Spec551_commonmark()
+        public void Images_Spec551_CommonMark()
         {
             // The following Markdown:
             //     ![foo](<url>)
@@ -11194,11 +11194,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![foo](<url>)", 
                 "<p><img src=\"url\" alt=\"foo\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Images_Spec552_commonmark()
+        public void Images_Spec552_CommonMark()
         {
             // The following Markdown:
             //     ![](/url)
@@ -11208,12 +11208,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![](/url)", 
                 "<p><img src=\"/url\" alt=\"\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Reference-style:
         [Fact]
-        public void Images_Spec553_commonmark()
+        public void Images_Spec553_CommonMark()
         {
             // The following Markdown:
             //     ![foo][bar]
@@ -11225,11 +11225,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![foo][bar]\n\n[bar]: /url", 
                 "<p><img src=\"/url\" alt=\"foo\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Images_Spec554_commonmark()
+        public void Images_Spec554_CommonMark()
         {
             // The following Markdown:
             //     ![foo][bar]
@@ -11241,12 +11241,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![foo][bar]\n\n[BAR]: /url", 
                 "<p><img src=\"/url\" alt=\"foo\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Collapsed:
         [Fact]
-        public void Images_Spec555_commonmark()
+        public void Images_Spec555_CommonMark()
         {
             // The following Markdown:
             //     ![foo][]
@@ -11258,11 +11258,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![foo][]\n\n[foo]: /url \"title\"", 
                 "<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Images_Spec556_commonmark()
+        public void Images_Spec556_CommonMark()
         {
             // The following Markdown:
             //     ![*foo* bar][]
@@ -11274,12 +11274,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![*foo* bar][]\n\n[*foo* bar]: /url \"title\"", 
                 "<p><img src=\"/url\" alt=\"foo bar\" title=\"title\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The labels are case-insensitive:
         [Fact]
-        public void Images_Spec557_commonmark()
+        public void Images_Spec557_CommonMark()
         {
             // The following Markdown:
             //     ![Foo][]
@@ -11291,13 +11291,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![Foo][]\n\n[foo]: /url \"title\"", 
                 "<p><img src=\"/url\" alt=\"Foo\" title=\"title\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // As with reference links, [whitespace] is not allowed
         // between the two sets of brackets:
         [Fact]
-        public void Images_Spec558_commonmark()
+        public void Images_Spec558_CommonMark()
         {
             // The following Markdown:
             //     ![foo] 
@@ -11311,12 +11311,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![foo] \n[]\n\n[foo]: /url \"title\"", 
                 "<p><img src=\"/url\" alt=\"foo\" title=\"title\" />\n[]</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Shortcut:
         [Fact]
-        public void Images_Spec559_commonmark()
+        public void Images_Spec559_CommonMark()
         {
             // The following Markdown:
             //     ![foo]
@@ -11328,11 +11328,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![foo]\n\n[foo]: /url \"title\"", 
                 "<p><img src=\"/url\" alt=\"foo\" title=\"title\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Images_Spec560_commonmark()
+        public void Images_Spec560_CommonMark()
         {
             // The following Markdown:
             //     ![*foo* bar]
@@ -11344,12 +11344,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![*foo* bar]\n\n[*foo* bar]: /url \"title\"", 
                 "<p><img src=\"/url\" alt=\"foo bar\" title=\"title\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that link labels cannot contain unescaped brackets:
         [Fact]
-        public void Images_Spec561_commonmark()
+        public void Images_Spec561_CommonMark()
         {
             // The following Markdown:
             //     ![[foo]]
@@ -11362,12 +11362,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![[foo]]\n\n[[foo]]: /url \"title\"", 
                 "<p>![[foo]]</p>\n<p>[[foo]]: /url &quot;title&quot;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // The link labels are case-insensitive:
         [Fact]
-        public void Images_Spec562_commonmark()
+        public void Images_Spec562_CommonMark()
         {
             // The following Markdown:
             //     ![Foo]
@@ -11379,13 +11379,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("![Foo]\n\n[foo]: /url \"title\"", 
                 "<p><img src=\"/url\" alt=\"Foo\" title=\"title\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // If you just want a literal `!` followed by bracketed text, you can
         // backslash-escape the opening `[`:
         [Fact]
-        public void Images_Spec563_commonmark()
+        public void Images_Spec563_CommonMark()
         {
             // The following Markdown:
             //     !\[foo]
@@ -11397,13 +11397,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("!\\[foo]\n\n[foo]: /url \"title\"", 
                 "<p>![foo]</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // If you want a link after a literal `!`, backslash-escape the
         // `!`:
         [Fact]
-        public void Images_Spec564_commonmark()
+        public void Images_Spec564_CommonMark()
         {
             // The following Markdown:
             //     \![foo]
@@ -11415,7 +11415,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("\\![foo]\n\n[foo]: /url \"title\"", 
                 "<p>!<a href=\"/url\" title=\"title\">foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -11442,7 +11442,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
         // Here are some valid autolinks:
         [Fact]
-        public void Autolinks_Spec565_commonmark()
+        public void Autolinks_Spec565_CommonMark()
         {
             // The following Markdown:
             //     <http://foo.bar.baz>
@@ -11452,11 +11452,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<http://foo.bar.baz>", 
                 "<p><a href=\"http://foo.bar.baz\">http://foo.bar.baz</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Autolinks_Spec566_commonmark()
+        public void Autolinks_Spec566_CommonMark()
         {
             // The following Markdown:
             //     <http://foo.bar.baz/test?q=hello&id=22&boolean>
@@ -11466,11 +11466,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<http://foo.bar.baz/test?q=hello&id=22&boolean>", 
                 "<p><a href=\"http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean\">http://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Autolinks_Spec567_commonmark()
+        public void Autolinks_Spec567_CommonMark()
         {
             // The following Markdown:
             //     <irc://foo.bar:2233/baz>
@@ -11480,12 +11480,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<irc://foo.bar:2233/baz>", 
                 "<p><a href=\"irc://foo.bar:2233/baz\">irc://foo.bar:2233/baz</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Uppercase is also fine:
         [Fact]
-        public void Autolinks_Spec568_commonmark()
+        public void Autolinks_Spec568_CommonMark()
         {
             // The following Markdown:
             //     <MAILTO:FOO@BAR.BAZ>
@@ -11495,7 +11495,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<MAILTO:FOO@BAR.BAZ>", 
                 "<p><a href=\"MAILTO:FOO@BAR.BAZ\">MAILTO:FOO@BAR.BAZ</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Note that many strings that count as [absolute URIs] for
@@ -11503,7 +11503,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // schemes are not registered or because of other problems
         // with their syntax:
         [Fact]
-        public void Autolinks_Spec569_commonmark()
+        public void Autolinks_Spec569_CommonMark()
         {
             // The following Markdown:
             //     <a+b+c:d>
@@ -11513,11 +11513,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<a+b+c:d>", 
                 "<p><a href=\"a+b+c:d\">a+b+c:d</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Autolinks_Spec570_commonmark()
+        public void Autolinks_Spec570_CommonMark()
         {
             // The following Markdown:
             //     <made-up-scheme://foo,bar>
@@ -11527,11 +11527,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<made-up-scheme://foo,bar>", 
                 "<p><a href=\"made-up-scheme://foo,bar\">made-up-scheme://foo,bar</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Autolinks_Spec571_commonmark()
+        public void Autolinks_Spec571_CommonMark()
         {
             // The following Markdown:
             //     <http://../>
@@ -11541,11 +11541,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<http://../>", 
                 "<p><a href=\"http://../\">http://../</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Autolinks_Spec572_commonmark()
+        public void Autolinks_Spec572_CommonMark()
         {
             // The following Markdown:
             //     <localhost:5001/foo>
@@ -11555,12 +11555,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<localhost:5001/foo>", 
                 "<p><a href=\"localhost:5001/foo\">localhost:5001/foo</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Spaces are not allowed in autolinks:
         [Fact]
-        public void Autolinks_Spec573_commonmark()
+        public void Autolinks_Spec573_CommonMark()
         {
             // The following Markdown:
             //     <http://foo.bar/baz bim>
@@ -11570,12 +11570,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<http://foo.bar/baz bim>", 
                 "<p>&lt;http://foo.bar/baz bim&gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Backslash-escapes do not work inside autolinks:
         [Fact]
-        public void Autolinks_Spec574_commonmark()
+        public void Autolinks_Spec574_CommonMark()
         {
             // The following Markdown:
             //     <http://example.com/\[\>
@@ -11585,7 +11585,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<http://example.com/\\[\\>", 
                 "<p><a href=\"http://example.com/%5C%5B%5C\">http://example.com/\\[\\</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // An [email autolink](@)
@@ -11603,7 +11603,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // 
         // Examples of email autolinks:
         [Fact]
-        public void Autolinks_Spec575_commonmark()
+        public void Autolinks_Spec575_CommonMark()
         {
             // The following Markdown:
             //     <foo@bar.example.com>
@@ -11613,11 +11613,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<foo@bar.example.com>", 
                 "<p><a href=\"mailto:foo@bar.example.com\">foo@bar.example.com</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Autolinks_Spec576_commonmark()
+        public void Autolinks_Spec576_CommonMark()
         {
             // The following Markdown:
             //     <foo+special@Bar.baz-bar0.com>
@@ -11627,12 +11627,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<foo+special@Bar.baz-bar0.com>", 
                 "<p><a href=\"mailto:foo+special@Bar.baz-bar0.com\">foo+special@Bar.baz-bar0.com</a></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Backslash-escapes do not work inside email autolinks:
         [Fact]
-        public void Autolinks_Spec577_commonmark()
+        public void Autolinks_Spec577_CommonMark()
         {
             // The following Markdown:
             //     <foo\+@bar.example.com>
@@ -11642,12 +11642,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<foo\\+@bar.example.com>", 
                 "<p>&lt;foo+@bar.example.com&gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // These are not autolinks:
         [Fact]
-        public void Autolinks_Spec578_commonmark()
+        public void Autolinks_Spec578_CommonMark()
         {
             // The following Markdown:
             //     <>
@@ -11657,11 +11657,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<>", 
                 "<p>&lt;&gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Autolinks_Spec579_commonmark()
+        public void Autolinks_Spec579_CommonMark()
         {
             // The following Markdown:
             //     < http://foo.bar >
@@ -11671,11 +11671,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("< http://foo.bar >", 
                 "<p>&lt; http://foo.bar &gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Autolinks_Spec580_commonmark()
+        public void Autolinks_Spec580_CommonMark()
         {
             // The following Markdown:
             //     <m:abc>
@@ -11685,11 +11685,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<m:abc>", 
                 "<p>&lt;m:abc&gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Autolinks_Spec581_commonmark()
+        public void Autolinks_Spec581_CommonMark()
         {
             // The following Markdown:
             //     <foo.bar.baz>
@@ -11699,11 +11699,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<foo.bar.baz>", 
                 "<p>&lt;foo.bar.baz&gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Autolinks_Spec582_commonmark()
+        public void Autolinks_Spec582_CommonMark()
         {
             // The following Markdown:
             //     http://example.com
@@ -11713,11 +11713,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("http://example.com", 
                 "<p>http://example.com</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void Autolinks_Spec583_commonmark()
+        public void Autolinks_Spec583_CommonMark()
         {
             // The following Markdown:
             //     foo@bar.example.com
@@ -11727,7 +11727,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo@bar.example.com", 
                 "<p>foo@bar.example.com</p>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -11805,7 +11805,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
         // Here are some simple open tags:
         [Fact]
-        public void RawHTML_Spec584_commonmark()
+        public void RawHTML_Spec584_CommonMark()
         {
             // The following Markdown:
             //     <a><bab><c2c>
@@ -11815,12 +11815,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<a><bab><c2c>", 
                 "<p><a><bab><c2c></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Empty elements:
         [Fact]
-        public void RawHTML_Spec585_commonmark()
+        public void RawHTML_Spec585_CommonMark()
         {
             // The following Markdown:
             //     <a/><b2/>
@@ -11830,12 +11830,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<a/><b2/>", 
                 "<p><a/><b2/></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // [Whitespace] is allowed:
         [Fact]
-        public void RawHTML_Spec586_commonmark()
+        public void RawHTML_Spec586_CommonMark()
         {
             // The following Markdown:
             //     <a  /><b2
@@ -11847,12 +11847,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<a  /><b2\ndata=\"foo\" >", 
                 "<p><a  /><b2\ndata=\"foo\" ></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // With attributes:
         [Fact]
-        public void RawHTML_Spec587_commonmark()
+        public void RawHTML_Spec587_CommonMark()
         {
             // The following Markdown:
             //     <a foo="bar" bam = 'baz <em>"</em>'
@@ -11864,12 +11864,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<a foo=\"bar\" bam = 'baz <em>\"</em>'\n_boolean zoop:33=zoop:33 />", 
                 "<p><a foo=\"bar\" bam = 'baz <em>\"</em>'\n_boolean zoop:33=zoop:33 /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Custom tag names can be used:
         [Fact]
-        public void RawHTML_Spec588_commonmark()
+        public void RawHTML_Spec588_CommonMark()
         {
             // The following Markdown:
             //     Foo <responsive-image src="foo.jpg" />
@@ -11879,12 +11879,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo <responsive-image src=\"foo.jpg\" />", 
                 "<p>Foo <responsive-image src=\"foo.jpg\" /></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Illegal tag names, not parsed as HTML:
         [Fact]
-        public void RawHTML_Spec589_commonmark()
+        public void RawHTML_Spec589_CommonMark()
         {
             // The following Markdown:
             //     <33> <__>
@@ -11894,12 +11894,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<33> <__>", 
                 "<p>&lt;33&gt; &lt;__&gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Illegal attribute names:
         [Fact]
-        public void RawHTML_Spec590_commonmark()
+        public void RawHTML_Spec590_CommonMark()
         {
             // The following Markdown:
             //     <a h*#ref="hi">
@@ -11909,12 +11909,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<a h*#ref=\"hi\">", 
                 "<p>&lt;a h*#ref=&quot;hi&quot;&gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Illegal attribute values:
         [Fact]
-        public void RawHTML_Spec591_commonmark()
+        public void RawHTML_Spec591_CommonMark()
         {
             // The following Markdown:
             //     <a href="hi'> <a href=hi'>
@@ -11924,12 +11924,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<a href=\"hi'> <a href=hi'>", 
                 "<p>&lt;a href=&quot;hi'&gt; &lt;a href=hi'&gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Illegal [whitespace]:
         [Fact]
-        public void RawHTML_Spec592_commonmark()
+        public void RawHTML_Spec592_CommonMark()
         {
             // The following Markdown:
             //     < a><
@@ -11941,12 +11941,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("< a><\nfoo><bar/ >", 
                 "<p>&lt; a&gt;&lt;\nfoo&gt;&lt;bar/ &gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Missing [whitespace]:
         [Fact]
-        public void RawHTML_Spec593_commonmark()
+        public void RawHTML_Spec593_CommonMark()
         {
             // The following Markdown:
             //     <a href='bar'title=title>
@@ -11956,12 +11956,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<a href='bar'title=title>", 
                 "<p>&lt;a href='bar'title=title&gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Closing tags:
         [Fact]
-        public void RawHTML_Spec594_commonmark()
+        public void RawHTML_Spec594_CommonMark()
         {
             // The following Markdown:
             //     </a></foo >
@@ -11971,12 +11971,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("</a></foo >", 
                 "<p></a></foo ></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Illegal attributes in closing tag:
         [Fact]
-        public void RawHTML_Spec595_commonmark()
+        public void RawHTML_Spec595_CommonMark()
         {
             // The following Markdown:
             //     </a href="foo">
@@ -11986,12 +11986,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("</a href=\"foo\">", 
                 "<p>&lt;/a href=&quot;foo&quot;&gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Comments:
         [Fact]
-        public void RawHTML_Spec596_commonmark()
+        public void RawHTML_Spec596_CommonMark()
         {
             // The following Markdown:
             //     foo <!-- this is a
@@ -12003,11 +12003,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo <!-- this is a\ncomment - with hyphen -->", 
                 "<p>foo <!-- this is a\ncomment - with hyphen --></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void RawHTML_Spec597_commonmark()
+        public void RawHTML_Spec597_CommonMark()
         {
             // The following Markdown:
             //     foo <!-- not a comment -- two hyphens -->
@@ -12017,12 +12017,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo <!-- not a comment -- two hyphens -->", 
                 "<p>foo &lt;!-- not a comment -- two hyphens --&gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Not comments:
         [Fact]
-        public void RawHTML_Spec598_commonmark()
+        public void RawHTML_Spec598_CommonMark()
         {
             // The following Markdown:
             //     foo <!--> foo -->
@@ -12035,12 +12035,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo <!--> foo -->\n\nfoo <!-- foo--->", 
                 "<p>foo &lt;!--&gt; foo --&gt;</p>\n<p>foo &lt;!-- foo---&gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Processing instructions:
         [Fact]
-        public void RawHTML_Spec599_commonmark()
+        public void RawHTML_Spec599_CommonMark()
         {
             // The following Markdown:
             //     foo <?php echo $a; ?>
@@ -12050,12 +12050,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo <?php echo $a; ?>", 
                 "<p>foo <?php echo $a; ?></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Declarations:
         [Fact]
-        public void RawHTML_Spec600_commonmark()
+        public void RawHTML_Spec600_CommonMark()
         {
             // The following Markdown:
             //     foo <!ELEMENT br EMPTY>
@@ -12065,12 +12065,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo <!ELEMENT br EMPTY>", 
                 "<p>foo <!ELEMENT br EMPTY></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // CDATA sections:
         [Fact]
-        public void RawHTML_Spec601_commonmark()
+        public void RawHTML_Spec601_CommonMark()
         {
             // The following Markdown:
             //     foo <![CDATA[>&<]]>
@@ -12080,13 +12080,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo <![CDATA[>&<]]>", 
                 "<p>foo <![CDATA[>&<]]></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Entity and numeric character references are preserved in HTML
         // attributes:
         [Fact]
-        public void RawHTML_Spec602_commonmark()
+        public void RawHTML_Spec602_CommonMark()
         {
             // The following Markdown:
             //     foo <a href="&ouml;">
@@ -12096,12 +12096,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo <a href=\"&ouml;\">", 
                 "<p>foo <a href=\"&ouml;\"></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Backslash escapes do not work in HTML attributes:
         [Fact]
-        public void RawHTML_Spec603_commonmark()
+        public void RawHTML_Spec603_CommonMark()
         {
             // The following Markdown:
             //     foo <a href="\*">
@@ -12111,11 +12111,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo <a href=\"\\*\">", 
                 "<p>foo <a href=\"\\*\"></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void RawHTML_Spec604_commonmark()
+        public void RawHTML_Spec604_CommonMark()
         {
             // The following Markdown:
             //     <a href="\"">
@@ -12125,7 +12125,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<a href=\"\\\"\">", 
                 "<p>&lt;a href=&quot;&quot;&quot;&gt;</p>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -12137,7 +12137,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
 
         [Fact]
-        public void HardLineBreaks_Spec605_commonmark()
+        public void HardLineBreaks_Spec605_CommonMark()
         {
             // The following Markdown:
             //     foo  
@@ -12149,13 +12149,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo  \nbaz", 
                 "<p>foo<br />\nbaz</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // For a more visible alternative, a backslash before the
         // [line ending] may be used instead of two spaces:
         [Fact]
-        public void HardLineBreaks_Spec606_commonmark()
+        public void HardLineBreaks_Spec606_CommonMark()
         {
             // The following Markdown:
             //     foo\
@@ -12167,12 +12167,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo\\\nbaz", 
                 "<p>foo<br />\nbaz</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // More than two spaces can be used:
         [Fact]
-        public void HardLineBreaks_Spec607_commonmark()
+        public void HardLineBreaks_Spec607_CommonMark()
         {
             // The following Markdown:
             //     foo       
@@ -12184,12 +12184,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo       \nbaz", 
                 "<p>foo<br />\nbaz</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Leading spaces at the beginning of the next line are ignored:
         [Fact]
-        public void HardLineBreaks_Spec608_commonmark()
+        public void HardLineBreaks_Spec608_CommonMark()
         {
             // The following Markdown:
             //     foo  
@@ -12201,11 +12201,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo  \n     bar", 
                 "<p>foo<br />\nbar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HardLineBreaks_Spec609_commonmark()
+        public void HardLineBreaks_Spec609_CommonMark()
         {
             // The following Markdown:
             //     foo\
@@ -12217,13 +12217,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo\\\n     bar", 
                 "<p>foo<br />\nbar</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Line breaks can occur inside emphasis, links, and other constructs
         // that allow inline content:
         [Fact]
-        public void HardLineBreaks_Spec610_commonmark()
+        public void HardLineBreaks_Spec610_CommonMark()
         {
             // The following Markdown:
             //     *foo  
@@ -12235,11 +12235,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo  \nbar*", 
                 "<p><em>foo<br />\nbar</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HardLineBreaks_Spec611_commonmark()
+        public void HardLineBreaks_Spec611_CommonMark()
         {
             // The following Markdown:
             //     *foo\
@@ -12251,12 +12251,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("*foo\\\nbar*", 
                 "<p><em>foo<br />\nbar</em></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Line breaks do not occur inside code spans
         [Fact]
-        public void HardLineBreaks_Spec612_commonmark()
+        public void HardLineBreaks_Spec612_CommonMark()
         {
             // The following Markdown:
             //     `code  
@@ -12267,11 +12267,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`code  \nspan`", 
                 "<p><code>code span</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HardLineBreaks_Spec613_commonmark()
+        public void HardLineBreaks_Spec613_CommonMark()
         {
             // The following Markdown:
             //     `code\
@@ -12282,12 +12282,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("`code\\\nspan`", 
                 "<p><code>code\\ span</code></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // or HTML tags:
         [Fact]
-        public void HardLineBreaks_Spec614_commonmark()
+        public void HardLineBreaks_Spec614_CommonMark()
         {
             // The following Markdown:
             //     <a href="foo  
@@ -12299,11 +12299,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<a href=\"foo  \nbar\">", 
                 "<p><a href=\"foo  \nbar\"></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HardLineBreaks_Spec615_commonmark()
+        public void HardLineBreaks_Spec615_CommonMark()
         {
             // The following Markdown:
             //     <a href="foo\
@@ -12315,14 +12315,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("<a href=\"foo\\\nbar\">", 
                 "<p><a href=\"foo\\\nbar\"></p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Hard line breaks are for separating inline content within a block.
         // Neither syntax for hard line breaks works at the end of a paragraph or
         // other block element:
         [Fact]
-        public void HardLineBreaks_Spec616_commonmark()
+        public void HardLineBreaks_Spec616_CommonMark()
         {
             // The following Markdown:
             //     foo\
@@ -12332,11 +12332,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo\\", 
                 "<p>foo\\</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HardLineBreaks_Spec617_commonmark()
+        public void HardLineBreaks_Spec617_CommonMark()
         {
             // The following Markdown:
             //     foo  
@@ -12346,11 +12346,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo  ", 
                 "<p>foo</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HardLineBreaks_Spec618_commonmark()
+        public void HardLineBreaks_Spec618_CommonMark()
         {
             // The following Markdown:
             //     ### foo\
@@ -12360,11 +12360,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("### foo\\", 
                 "<h3>foo\\</h3>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void HardLineBreaks_Spec619_commonmark()
+        public void HardLineBreaks_Spec619_CommonMark()
         {
             // The following Markdown:
             //     ### foo  
@@ -12374,7 +12374,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("### foo  ", 
                 "<h3>foo</h3>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -12387,7 +12387,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
 
         [Fact]
-        public void SoftLineBreaks_Spec620_commonmark()
+        public void SoftLineBreaks_Spec620_CommonMark()
         {
             // The following Markdown:
             //     foo
@@ -12399,13 +12399,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo\nbaz", 
                 "<p>foo\nbaz</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Spaces at the end of the line and beginning of the next line are
         // removed:
         [Fact]
-        public void SoftLineBreaks_Spec621_commonmark()
+        public void SoftLineBreaks_Spec621_CommonMark()
         {
             // The following Markdown:
             //     foo 
@@ -12417,7 +12417,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("foo \n baz", 
                 "<p>foo\nbaz</p>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -12427,7 +12427,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     {
 
         [Fact]
-        public void TextualContent_Spec622_commonmark()
+        public void TextualContent_Spec622_CommonMark()
         {
             // The following Markdown:
             //     hello $.;'there
@@ -12437,11 +12437,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("hello $.;'there", 
                 "<p>hello $.;'there</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         [Fact]
-        public void TextualContent_Spec623_commonmark()
+        public void TextualContent_Spec623_CommonMark()
         {
             // The following Markdown:
             //     Foo χρῆν
@@ -12451,12 +12451,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Foo χρῆν", 
                 "<p>Foo χρῆν</p>", 
-                "commonmark");
+                "CommonMark");
         }
 
         // Internal spaces are preserved verbatim:
         [Fact]
-        public void TextualContent_Spec624_commonmark()
+        public void TextualContent_Spec624_CommonMark()
         {
             // The following Markdown:
             //     Multiple     spaces
@@ -12466,7 +12466,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("Multiple     spaces", 
                 "<p>Multiple     spaces</p>", 
-                "commonmark");
+                "CommonMark");
         }
     }
 
@@ -12478,11 +12478,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     // 
     // Additionally, this extension wraps heading elements (`<h1>, <h2> etc`) in `<header>` elements and renders icon markup. Wrapping heading elements
     // in header elements is standard usage of the `<header>` element, as per MDN's [documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header).
-    public class FlexisectionblocksTests
+    public class FlexiSectionBlocksTests
     {
         // Sequential higher-level sections are nested:
         [Fact]
-        public void Flexisectionblocks_Spec1_flexisectionblocks_flexioptionsblocks()
+        public void FlexiSectionBlocks_Spec1_FlexiSectionBlocks()
         {
             // The following Markdown:
             //     # foo
@@ -12516,12 +12516,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n#### foo", 
                 "<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-2\">\n<header class=\"header-level-4\">\n<h4>foo</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</section>\n</section>", 
-                "flexisectionblocks_flexioptionsblocks");
+                "FlexiSectionBlocks");
         }
 
         // Sequential higher-level sections are nested:
         [Fact]
-        public void Flexisectionblocks_Spec1_all()
+        public void FlexiSectionBlocks_Spec1_all()
         {
             // The following Markdown:
             //     # foo
@@ -12560,7 +12560,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Sequential lower-level sections are not nested:
         [Fact]
-        public void Flexisectionblocks_Spec2_flexisectionblocks_flexioptionsblocks()
+        public void FlexiSectionBlocks_Spec2_FlexiSectionBlocks()
         {
             // The following Markdown:
             //     ## foo
@@ -12580,12 +12580,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo\n# foo", 
                 "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>", 
-                "flexisectionblocks_flexioptionsblocks");
+                "FlexiSectionBlocks");
         }
 
         // Sequential lower-level sections are not nested:
         [Fact]
-        public void Flexisectionblocks_Spec2_all()
+        public void FlexiSectionBlocks_Spec2_all()
         {
             // The following Markdown:
             //     ## foo
@@ -12610,7 +12610,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Sequential same-level sections are not nested:
         [Fact]
-        public void Flexisectionblocks_Spec3_flexisectionblocks_flexioptionsblocks()
+        public void FlexiSectionBlocks_Spec3_FlexiSectionBlocks()
         {
             // The following Markdown:
             //     ## foo
@@ -12632,12 +12632,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo\n## foo", 
                 "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
-                "flexisectionblocks_flexioptionsblocks");
+                "FlexiSectionBlocks");
         }
 
         // Sequential same-level sections are not nested:
         [Fact]
-        public void Flexisectionblocks_Spec3_all()
+        public void FlexiSectionBlocks_Spec3_all()
         {
             // The following Markdown:
             //     ## foo
@@ -12664,7 +12664,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Mixed sections:
         [Fact]
-        public void Flexisectionblocks_Spec4_flexisectionblocks_flexioptionsblocks()
+        public void FlexiSectionBlocks_Spec4_FlexiSectionBlocks()
         {
             // The following Markdown:
             //     # foo
@@ -12698,12 +12698,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo\n## foo\n### foo\n## foo", 
                 "<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</section>\n<section id=\"foo-2\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
-                "flexisectionblocks_flexioptionsblocks");
+                "FlexiSectionBlocks");
         }
 
         // Mixed sections:
         [Fact]
-        public void Flexisectionblocks_Spec4_all()
+        public void FlexiSectionBlocks_Spec4_all()
         {
             // The following Markdown:
             //     # foo
@@ -12742,7 +12742,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Sections wrap content:
         [Fact]
-        public void Flexisectionblocks_Spec5_flexisectionblocks_flexioptionsblocks()
+        public void FlexiSectionBlocks_Spec5_FlexiSectionBlocks()
         {
             // The following Markdown:
             //     # foo
@@ -12783,12 +12783,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo\nLevel 1 content.\n## foo\n- Level 2 content line 1.\n- Level 2 content line 2.\n### foo\n> Level 3 content line 1.\n> Level 3 content line 2.", 
                 "<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>Level 1 content.</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<ul>\n<li>Level 2 content line 1.</li>\n<li>Level 2 content line 2.</li>\n</ul>\n<section id=\"foo-1\">\n<header class=\"header-level-3\">\n<h3>foo</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<blockquote>\n<p>Level 3 content line 1.\nLevel 3 content line 2.</p>\n</blockquote>\n</section>\n</section>", 
-                "flexisectionblocks_flexioptionsblocks");
+                "FlexiSectionBlocks");
         }
 
         // Sections wrap content:
         [Fact]
-        public void Flexisectionblocks_Spec5_all()
+        public void FlexiSectionBlocks_Spec5_all()
         {
             // The following Markdown:
             //     # foo
@@ -12834,7 +12834,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // To enable wrapping of level 1 headers, set `SectionsExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
         [Fact]
-        public void Flexisectionblocks_Spec6_flexisectionblocks_flexioptionsblocks()
+        public void FlexiSectionBlocks_Spec6_FlexiSectionBlocks()
         {
             // The following Markdown:
             //     # foo
@@ -12863,13 +12863,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("# foo\n## foo", 
                 "<article id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</article>", 
-                "flexisectionblocks_flexioptionsblocks", 
+                "FlexiSectionBlocks", 
                 "{\n    \"flexisectionblocks\": {\n        \"level1WrapperElement\": \"article\"\n    }\n}");
         }
 
         // To enable wrapping of level 1 headers, set `SectionsExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
         [Fact]
-        public void Flexisectionblocks_Spec6_all()
+        public void FlexiSectionBlocks_Spec6_all()
         {
             // The following Markdown:
             //     # foo
@@ -12904,7 +12904,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // To change the element used to wrap level 2+ headers, set `SectionsExtensionOptions.Level2PlusWrapperElement". For example:
         [Fact]
-        public void Flexisectionblocks_Spec7_flexisectionblocks_flexioptionsblocks()
+        public void FlexiSectionBlocks_Spec7_FlexiSectionBlocks()
         {
             // The following Markdown:
             //     ## foo
@@ -12926,13 +12926,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo", 
                 "<nav id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</nav>", 
-                "flexisectionblocks_flexioptionsblocks", 
+                "FlexiSectionBlocks", 
                 "{\n    \"flexisectionblocks\": {\n        \"level2PlusWrapperElement\": \"nav\"\n    }\n}");
         }
 
         // To change the element used to wrap level 2+ headers, set `SectionsExtensionOptions.Level2PlusWrapperElement". For example:
         [Fact]
-        public void Flexisectionblocks_Spec7_all()
+        public void FlexiSectionBlocks_Spec7_all()
         {
             // The following Markdown:
             //     ## foo
@@ -12960,7 +12960,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // The icon used for headers can be customized by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.HeaderIconMarkup`. For example:
         [Fact]
-        public void Flexisectionblocks_Spec8_flexisectionblocks_flexioptionsblocks()
+        public void FlexiSectionBlocks_Spec8_FlexiSectionBlocks()
         {
             // The following Markdown:
             //     ## foo
@@ -12984,13 +12984,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo", 
                 "<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#custom-link-icon\"></use></svg>\n</header>\n</section>", 
-                "flexisectionblocks_flexioptionsblocks", 
+                "FlexiSectionBlocks", 
                 "{\n    \"flexisectionblocks\": {\n        \"defaultFlexiSectionBlockOptions\": {\n            \"headerIconMarkup\": \"<svg><use xlink:href=\\\"#custom-link-icon\\\"></use></svg>\"\n        }\n    }\n}");
         }
 
         // The icon used for headers can be customized by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.HeaderIconMarkup`. For example:
         [Fact]
-        public void Flexisectionblocks_Spec8_all()
+        public void FlexiSectionBlocks_Spec8_all()
         {
             // The following Markdown:
             //     ## foo
@@ -13020,7 +13020,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // The format string for header classes can be customized by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.HeaderClassNameFormat`. For example:
         [Fact]
-        public void Flexisectionblocks_Spec9_flexisectionblocks_flexioptionsblocks()
+        public void FlexiSectionBlocks_Spec9_FlexiSectionBlocks()
         {
             // The following Markdown:
             //     ## foo
@@ -13044,13 +13044,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## foo", 
                 "<section id=\"foo\">\n<header class=\"custom-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
-                "flexisectionblocks_flexioptionsblocks", 
+                "FlexiSectionBlocks", 
                 "{\n    \"flexisectionblocks\": {\n        \"defaultFlexiSectionBlockOptions\": {\n            \"headerClassNameFormat\": \"custom-{0}\"\n        }\n    }\n}");
         }
 
         // The format string for header classes can be customized by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.HeaderClassNameFormat`. For example:
         [Fact]
-        public void Flexisectionblocks_Spec9_all()
+        public void FlexiSectionBlocks_Spec9_all()
         {
             // The following Markdown:
             //     ## foo
@@ -13080,7 +13080,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
         [Fact]
-        public void Flexisectionblocks_Spec10_flexisectionblocks_flexioptionsblocks()
+        public void FlexiSectionBlocks_Spec10_FlexiSectionBlocks()
         {
             // The following Markdown:
             //     ## Foo Bar Baz
@@ -13095,12 +13095,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
                 "<section id=\"foo-bar-baz\">\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
-                "flexisectionblocks_flexioptionsblocks");
+                "FlexiSectionBlocks");
         }
 
         // Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
         [Fact]
-        public void Flexisectionblocks_Spec10_all()
+        public void FlexiSectionBlocks_Spec10_all()
         {
             // The following Markdown:
             //     ## Foo Bar Baz
@@ -13120,7 +13120,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Auto generation of IDs can be disabled by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.GenerateIdentifier` to `false`:
         [Fact]
-        public void Flexisectionblocks_Spec11_flexisectionblocks_flexioptionsblocks()
+        public void FlexiSectionBlocks_Spec11_FlexiSectionBlocks()
         {
             // The following Markdown:
             //     ## Foo Bar Baz
@@ -13144,13 +13144,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("## Foo Bar Baz", 
                 "<section>\n<header class=\"header-level-2\">\n<h2>Foo Bar Baz</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>", 
-                "flexisectionblocks_flexioptionsblocks", 
+                "FlexiSectionBlocks", 
                 "{\n    \"flexisectionblocks\": {\n        \"defaultFlexiSectionBlockOptions\": {\n            \"generateIdentifier\": false\n        }\n    }\n}");
         }
 
         // Auto generation of IDs can be disabled by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.GenerateIdentifier` to `false`:
         [Fact]
-        public void Flexisectionblocks_Spec11_all()
+        public void FlexiSectionBlocks_Spec11_all()
         {
             // The following Markdown:
             //     ## Foo Bar Baz
@@ -13180,7 +13180,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Sections can be linked to by the text content of their headings:
         [Fact]
-        public void Flexisectionblocks_Spec12_flexisectionblocks_flexioptionsblocks()
+        public void FlexiSectionBlocks_Spec12_FlexiSectionBlocks()
         {
             // The following Markdown:
             //     [foo]
@@ -13217,12 +13217,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[Link Text][foo bar baz]", 
                 "<p><a href=\"#foo\">foo</a></p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p><a href=\"#foo-bar\">foo bar</a></p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p><a href=\"#foo-bar-baz\">Link Text</a></p>\n</section>\n</section>\n</section>", 
-                "flexisectionblocks_flexioptionsblocks");
+                "FlexiSectionBlocks");
         }
 
         // Sections can be linked to by the text content of their headings:
         [Fact]
-        public void Flexisectionblocks_Spec12_all()
+        public void FlexiSectionBlocks_Spec12_all()
         {
             // The following Markdown:
             //     [foo]
@@ -13265,7 +13265,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // Linking to sections by the text content of their headings can be disabled by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.AutoLinkable` to `false` (note 
         // that linking to sections is also disabled if `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.GenerateIdentifier` is set to `false`):
         [Fact]
-        public void Flexisectionblocks_Spec13_flexisectionblocks_flexioptionsblocks()
+        public void FlexiSectionBlocks_Spec13_FlexiSectionBlocks()
         {
             // The following Markdown:
             //     [foo]
@@ -13311,14 +13311,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("[foo]\n\n## foo\n### foo bar\n[foo bar]\n#### foo bar baz\n\n[foo bar baz]", 
                 "<p>[foo]</p>\n<section id=\"foo\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-bar\">\n<header class=\"header-level-3\">\n<h3>foo bar</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>[foo bar]</p>\n<section id=\"foo-bar-baz\">\n<header class=\"header-level-4\">\n<h4>foo bar baz</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>[foo bar baz]</p>\n</section>\n</section>\n</section>", 
-                "flexisectionblocks_flexioptionsblocks", 
+                "FlexiSectionBlocks", 
                 "{\n    \"flexisectionblocks\": {\n        \"defaultFlexiSectionBlockOptions\": {\n            \"autoLinkable\": false\n        }\n    }\n}");
         }
 
         // Linking to sections by the text content of their headings can be disabled by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.AutoLinkable` to `false` (note 
         // that linking to sections is also disabled if `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.GenerateIdentifier` is set to `false`):
         [Fact]
-        public void Flexisectionblocks_Spec13_all()
+        public void FlexiSectionBlocks_Spec13_all()
         {
             // The following Markdown:
             //     [foo]
@@ -13370,7 +13370,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Per-FlexiSectionBlock options can be specified if the FlexiOptionsBlocks extension is enabled:
         [Fact]
-        public void Flexisectionblocks_Spec14_flexisectionblocks_flexioptionsblocks()
+        public void FlexiSectionBlocks_Spec14_FlexiSectionBlocks_FlexiOptionsBlocks()
         {
             // The following Markdown:
             //     @{
@@ -13408,12 +13408,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"wrapperElement\": \"article\"\n}\n# foo\n@{\n    \"headerIconMarkup\": \"<svg><use xlink:href=\\\"#custom-link-icon\\\"></use></svg>\"\n}\n## foo\n@{\n    \"headerClassNameFormat\": \"custom-{0}\"\n}\n## foo", 
                 "<article id=\"foo\">\n<header class=\"header-level-1\">\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<section id=\"foo-1\">\n<header class=\"header-level-2\">\n<h2>foo</h2>\n<svg><use xlink:href=\"#custom-link-icon\"></use></svg>\n</header>\n</section>\n<section id=\"foo-2\">\n<header class=\"custom-2\">\n<h2>foo</h2>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n</section>\n</article>", 
-                "flexisectionblocks_flexioptionsblocks");
+                "FlexiSectionBlocks_FlexiOptionsBlocks");
         }
 
         // Per-FlexiSectionBlock options can be specified if the FlexiOptionsBlocks extension is enabled:
         [Fact]
-        public void Flexisectionblocks_Spec14_all()
+        public void FlexiSectionBlocks_Spec14_all()
         {
             // The following Markdown:
             //     @{
@@ -13456,13 +13456,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     }
 
     // FlexiAlertBlocks contain content that is tangential to their containing articles, such as extra information and warnings.
-    public class FlexialertblocksTests
+    public class FlexiAlertBlocksTests
     {
         // Every line of a FlexiAlertBlock must start with an `!`. Its first line must be of the form `!<optional space><FlexiAlertBlock type>`, where `<FlexiAlertBlock type>`
         // is a string containing 1 or more characters from the regex character set `[A-Za-z0-9_-]`. The result of appending `fab-` to `<FlexiAlertBlock type>` is used as the
         // FlexiAlertBlock's class:
         [Fact]
-        public void Flexialertblocks_Spec1_flexialertblocks_flexioptionsblocks()
+        public void FlexiAlertBlocks_Spec1_FlexiAlertBlocks()
         {
             // The following Markdown:
             //     ! critical-warning
@@ -13478,14 +13478,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! critical-warning\n! This is a critical warning.", 
                 "<div class=\"fab-critical-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"fab-content\">\n<p>This is a critical warning.</p>\n</div>\n</div>", 
-                "flexialertblocks_flexioptionsblocks");
+                "FlexiAlertBlocks");
         }
 
         // Every line of a FlexiAlertBlock must start with an `!`. Its first line must be of the form `!<optional space><FlexiAlertBlock type>`, where `<FlexiAlertBlock type>`
         // is a string containing 1 or more characters from the regex character set `[A-Za-z0-9_-]`. The result of appending `fab-` to `<FlexiAlertBlock type>` is used as the
         // FlexiAlertBlock's class:
         [Fact]
-        public void Flexialertblocks_Spec1_all()
+        public void FlexiAlertBlocks_Spec1_all()
         {
             // The following Markdown:
             //     ! critical-warning
@@ -13506,7 +13506,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // The following is not a FlexiAlertBlock since the first line does not contain a FlexiAlertBlock type:
         [Fact]
-        public void Flexialertblocks_Spec2_flexialertblocks_flexioptionsblocks()
+        public void FlexiAlertBlocks_Spec2_FlexiAlertBlocks()
         {
             // The following Markdown:
             //     ! 
@@ -13518,12 +13518,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! \n! This is a warning.", 
                 "<p>!\n! This is a warning.</p>", 
-                "flexialertblocks_flexioptionsblocks");
+                "FlexiAlertBlocks");
         }
 
         // The following is not a FlexiAlertBlock since the first line does not contain a FlexiAlertBlock type:
         [Fact]
-        public void Flexialertblocks_Spec2_all()
+        public void FlexiAlertBlocks_Spec2_all()
         {
             // The following Markdown:
             //     ! 
@@ -13540,7 +13540,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // The following is not a FlexiAlertBlock either, since the first line does not contain a valid FlexiAlertBlock type:
         [Fact]
-        public void Flexialertblocks_Spec3_flexialertblocks_flexioptionsblocks()
+        public void FlexiAlertBlocks_Spec3_FlexiAlertBlocks()
         {
             // The following Markdown:
             //     ! illegal space
@@ -13552,12 +13552,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! illegal space\n! This is a warning.", 
                 "<p>! illegal space\n! This is a warning.</p>", 
-                "flexialertblocks_flexioptionsblocks");
+                "FlexiAlertBlocks");
         }
 
         // The following is not a FlexiAlertBlock either, since the first line does not contain a valid FlexiAlertBlock type:
         [Fact]
-        public void Flexialertblocks_Spec3_all()
+        public void FlexiAlertBlocks_Spec3_all()
         {
             // The following Markdown:
             //     ! illegal space
@@ -13574,7 +13574,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // The first space after each `!` in a FlexiAlertBlock is ignored. :
         [Fact]
-        public void Flexialertblocks_Spec4_flexialertblocks_flexioptionsblocks()
+        public void FlexiAlertBlocks_Spec4_FlexiAlertBlocks()
         {
             // The following Markdown:
             //     ! warning
@@ -13592,12 +13592,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! warning\n!This line will be rendered with 0 leading spaces.\n! This line will also be rendered with 0 leading spaces.", 
                 "<div class=\"fab-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"fab-content\">\n<p>This line will be rendered with 0 leading spaces.\nThis line will also be rendered with 0 leading spaces.</p>\n</div>\n</div>", 
-                "flexialertblocks_flexioptionsblocks");
+                "FlexiAlertBlocks");
         }
 
         // The first space after each `!` in a FlexiAlertBlock is ignored. :
         [Fact]
-        public void Flexialertblocks_Spec4_all()
+        public void FlexiAlertBlocks_Spec4_all()
         {
             // The following Markdown:
             //     ! warning
@@ -13620,7 +13620,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Lazy continuation is allowed within a FlexiAlertBlock:
         [Fact]
-        public void Flexialertblocks_Spec5_flexialertblocks_flexioptionsblocks()
+        public void FlexiAlertBlocks_Spec5_FlexiAlertBlocks()
         {
             // The following Markdown:
             //     ! info
@@ -13642,12 +13642,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! info\n! This is part of\nthe info.\n! This is also part of\nthe info.", 
                 "<div class=\"fab-info\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z\"></path></svg>\n<div class=\"fab-content\">\n<p>This is part of\nthe info.\nThis is also part of\nthe info.</p>\n</div>\n</div>", 
-                "flexialertblocks_flexioptionsblocks");
+                "FlexiAlertBlocks");
         }
 
         // Lazy continuation is allowed within a FlexiAlertBlock:
         [Fact]
-        public void Flexialertblocks_Spec5_all()
+        public void FlexiAlertBlocks_Spec5_all()
         {
             // The following Markdown:
             //     ! info
@@ -13674,7 +13674,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // `FlexiAlertBlocksExtensionOptions.IconMarkups` can be used to specify icon markups for FlexiAlertBlock types:
         [Fact]
-        public void Flexialertblocks_Spec6_flexialertblocks_flexioptionsblocks()
+        public void FlexiAlertBlocks_Spec6_FlexiAlertBlocks()
         {
             // The following Markdown:
             //     ! closer-look
@@ -13682,7 +13682,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //
             // With extension options:
             //     {
-            //         "flexialertblocks": {
+            //         "flexiAlertBlocks": {
             //             "iconMarkups": {
             //                 "closer-look": "<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>"
             //             }
@@ -13699,13 +13699,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! closer-look\n! This is a closer look at some topic.", 
                 "<div class=\"fab-closer-look\">\n<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>\n<div class=\"fab-content\">\n<p>This is a closer look at some topic.</p>\n</div>\n</div>", 
-                "flexialertblocks_flexioptionsblocks", 
-                "{\n    \"flexialertblocks\": {\n        \"iconMarkups\": {\n            \"closer-look\": \"<svg height=\\\"24\\\" viewBox=\\\"0 0 24 24\\\" width=\\\"24\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><path d=\\\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\\\"/></svg>\"\n        }\n    }\n}");
+                "FlexiAlertBlocks", 
+                "{\n    \"flexiAlertBlocks\": {\n        \"iconMarkups\": {\n            \"closer-look\": \"<svg height=\\\"24\\\" viewBox=\\\"0 0 24 24\\\" width=\\\"24\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><path d=\\\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\\\"/></svg>\"\n        }\n    }\n}");
         }
 
         // `FlexiAlertBlocksExtensionOptions.IconMarkups` can be used to specify icon markups for FlexiAlertBlock types:
         [Fact]
-        public void Flexialertblocks_Spec6_all()
+        public void FlexiAlertBlocks_Spec6_all()
         {
             // The following Markdown:
             //     ! closer-look
@@ -13713,7 +13713,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //
             // With extension options:
             //     {
-            //         "flexialertblocks": {
+            //         "flexiAlertBlocks": {
             //             "iconMarkups": {
             //                 "closer-look": "<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>"
             //             }
@@ -13731,12 +13731,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             SpecTestHelper.AssertCompliance("! closer-look\n! This is a closer look at some topic.", 
                 "<div class=\"fab-closer-look\">\n<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>\n<div class=\"fab-content\">\n<p>This is a closer look at some topic.</p>\n</div>\n</div>", 
                 "all", 
-                "{\n    \"flexialertblocks\": {\n        \"iconMarkups\": {\n            \"closer-look\": \"<svg height=\\\"24\\\" viewBox=\\\"0 0 24 24\\\" width=\\\"24\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><path d=\\\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\\\"/></svg>\"\n        }\n    }\n}");
+                "{\n    \"flexiAlertBlocks\": {\n        \"iconMarkups\": {\n            \"closer-look\": \"<svg height=\\\"24\\\" viewBox=\\\"0 0 24 24\\\" width=\\\"24\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><path d=\\\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\\\"/></svg>\"\n        }\n    }\n}");
         }
 
         // Per-FlexiAlertBlock options can be specified if the FlexiOptionsBlocks extension is enabled:
         [Fact]
-        public void Flexialertblocks_Spec7_flexialertblocks_flexioptionsblocks()
+        public void FlexiAlertBlocks_Spec7_FlexiAlertBlocks_FlexiOptionsBlocks()
         {
             // The following Markdown:
             //     ! warning
@@ -13763,12 +13763,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! warning\n! This is a warning.\n@{\n    \"iconMarkup\": \"<svg><use xlink:href=\\\"#alternative-warning-icon\\\"></use></svg>\"\n}\n! warning\n! This is a warning with a custom icon.", 
                 "<div class=\"fab-warning\">\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>\n<div class=\"fab-content\">\n<p>This is a warning.</p>\n</div>\n</div>\n<div class=\"fab-warning\">\n<svg><use xlink:href=\"#alternative-warning-icon\"></use></svg>\n<div class=\"fab-content\">\n<p>This is a warning with a custom icon.</p>\n</div>\n</div>", 
-                "flexialertblocks_flexioptionsblocks");
+                "FlexiAlertBlocks_FlexiOptionsBlocks");
         }
 
         // Per-FlexiAlertBlock options can be specified if the FlexiOptionsBlocks extension is enabled:
         [Fact]
-        public void Flexialertblocks_Spec7_all()
+        public void FlexiAlertBlocks_Spec7_all()
         {
             // The following Markdown:
             //     ! warning
@@ -13809,12 +13809,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     // 
     // These features can be configured at the extension level using `FlexiCodeBlocksExtensionOptions` and can also be configured at the 
     // block level using FlexiBlockOptions.
-    public class FlexicodeblocksTests
+    public class FlexiCodeBlocksTests
     {
         // FlexiCodeBlocks have the same syntax as CommonMark fenced and indented code blocks.
         // The following is an example of a fenced FlexiCodeBlock with the default options:
         [Fact]
-        public void Flexicodeblocks_Spec1_flexicodeblocks_flexioptionsblocks()
+        public void FlexiCodeBlocks_Spec1_FlexiCodeBlocks()
         {
             // The following Markdown:
             //     ```
@@ -13839,13 +13839,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionsblocks");
+                "FlexiCodeBlocks");
         }
 
         // FlexiCodeBlocks have the same syntax as CommonMark fenced and indented code blocks.
         // The following is an example of a fenced FlexiCodeBlock with the default options:
         [Fact]
-        public void Flexicodeblocks_Spec1_all()
+        public void FlexiCodeBlocks_Spec1_all()
         {
             // The following Markdown:
             //     ```
@@ -13875,7 +13875,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // The following is an example of an indented FlexiCodeBlock with the default options:
         [Fact]
-        public void Flexicodeblocks_Spec2_flexicodeblocks_flexioptionsblocks()
+        public void FlexiCodeBlocks_Spec2_FlexiCodeBlocks()
         {
             // The following Markdown:
             //         public string ExampleFunction(string arg)
@@ -13898,12 +13898,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("    public string ExampleFunction(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionsblocks");
+                "FlexiCodeBlocks");
         }
 
         // The following is an example of an indented FlexiCodeBlock with the default options:
         [Fact]
-        public void Flexicodeblocks_Spec2_all()
+        public void FlexiCodeBlocks_Spec2_all()
         {
             // The following Markdown:
             //         public string ExampleFunction(string arg)
@@ -13931,7 +13931,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // `FlexiCodeBlockOptions.Title` can be used to define a title for a FlexiCodeBlock:
         [Fact]
-        public void Flexicodeblocks_Spec3_flexicodeblocks_flexioptionsblocks()
+        public void FlexiCodeBlocks_Spec3_FlexiCodeBlocks_FlexiOptionsBlocks()
         {
             // The following Markdown:
             //     @{
@@ -13960,12 +13960,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"title\": \"ExampleDocument.cs\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<span>ExampleDocument.cs</span>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionsblocks");
+                "FlexiCodeBlocks_FlexiOptionsBlocks");
         }
 
         // `FlexiCodeBlockOptions.Title` can be used to define a title for a FlexiCodeBlock:
         [Fact]
-        public void Flexicodeblocks_Spec3_all()
+        public void FlexiCodeBlocks_Spec3_all()
         {
             // The following Markdown:
             //     @{
@@ -13999,7 +13999,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // `FlexiCodeBlockOptions.CopyIconMarkup` can be used to customize the copy icon for a FlexiCodeBlock:
         [Fact]
-        public void Flexicodeblocks_Spec4_flexicodeblocks_flexioptionsblocks()
+        public void FlexiCodeBlocks_Spec4_FlexiCodeBlocks_FlexiOptionsBlocks()
         {
             // The following Markdown:
             //     @{
@@ -14027,12 +14027,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"copyIconMarkup\": \"<svg><use xlink:href=\\\"#material-design-copy\\\"></use></svg>\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg><use xlink:href=\"#material-design-copy\"></use></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionsblocks");
+                "FlexiCodeBlocks_FlexiOptionsBlocks");
         }
 
         // `FlexiCodeBlockOptions.CopyIconMarkup` can be used to customize the copy icon for a FlexiCodeBlock:
         [Fact]
-        public void Flexicodeblocks_Spec4_all()
+        public void FlexiCodeBlocks_Spec4_all()
         {
             // The following Markdown:
             //     @{
@@ -14066,7 +14066,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // To enable syntax highlighting, assign a valid
         // [Prism language alias](https://prismjs.com/index.html#languages-list) to `FlexiCodeBlockOptions.Langauge`:
         [Fact]
-        public void Flexicodeblocks_Spec5_flexicodeblocks_flexioptionsblocks()
+        public void FlexiCodeBlocks_Spec5_FlexiCodeBlocks_FlexiOptionsBlocks()
         {
             // The following Markdown:
             //     @{
@@ -14094,13 +14094,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"language\": \"csharp\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-csharp\"><span class=\"token keyword\">public</span> <span class=\"token keyword\">string</span> <span class=\"token function\">ExampleFunction</span><span class=\"token punctuation\">(</span><span class=\"token keyword\">string</span> arg<span class=\"token punctuation\">)</span>\n<span class=\"token punctuation\">{</span>\n    <span class=\"token comment\">// Example comment</span>\n    <span class=\"token keyword\">return</span> arg <span class=\"token operator\">+</span> <span class=\"token string\">\"dummyString\"</span><span class=\"token punctuation\">;</span>\n<span class=\"token punctuation\">}</span></code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionsblocks");
+                "FlexiCodeBlocks_FlexiOptionsBlocks");
         }
 
         // To enable syntax highlighting, assign a valid
         // [Prism language alias](https://prismjs.com/index.html#languages-list) to `FlexiCodeBlockOptions.Langauge`:
         [Fact]
-        public void Flexicodeblocks_Spec5_all()
+        public void FlexiCodeBlocks_Spec5_all()
         {
             // The following Markdown:
             //     @{
@@ -14135,7 +14135,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // value of `FlexiCodeBlockOptions.SyntaxHighlighter` to `HighlightJS` and assign a valid [HighlightJS language alias](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases)
         // to `FlexiCodeBlockOptions.Language`:
         [Fact]
-        public void Flexicodeblocks_Spec6_flexicodeblocks_flexioptionsblocks()
+        public void FlexiCodeBlocks_Spec6_FlexiCodeBlocks_FlexiOptionsBlocks()
         {
             // The following Markdown:
             //     @{
@@ -14164,14 +14164,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"language\": \"csharp\",\n    \"syntaxHighlighter\": \"highlightJS\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-csharp\"><span class=\"hljs-function\"><span class=\"hljs-keyword\">public</span> <span class=\"hljs-keyword\">string</span> <span class=\"hljs-title\">ExampleFunction</span>(<span class=\"hljs-params\"><span class=\"hljs-keyword\">string</span> arg</span>)\n</span>{\n    <span class=\"hljs-comment\">// Example comment</span>\n    <span class=\"hljs-keyword\">return</span> arg + <span class=\"hljs-string\">\"dummyString\"</span>;\n}</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionsblocks");
+                "FlexiCodeBlocks_FlexiOptionsBlocks");
         }
 
         // If you prefer the syntax highlighter [HighlightJS](http://highlightjs.readthedocs.io/en/latest/index.html), set the 
         // value of `FlexiCodeBlockOptions.SyntaxHighlighter` to `HighlightJS` and assign a valid [HighlightJS language alias](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases)
         // to `FlexiCodeBlockOptions.Language`:
         [Fact]
-        public void Flexicodeblocks_Spec6_all()
+        public void FlexiCodeBlocks_Spec6_all()
         {
             // The following Markdown:
             //     @{
@@ -14205,7 +14205,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Assign a prefix to `FlexiCodeBlockOptions.HighlightJSClassPrefix` to customize the prefix for HighlightJS classes:
         [Fact]
-        public void Flexicodeblocks_Spec7_flexicodeblocks_flexioptionsblocks()
+        public void FlexiCodeBlocks_Spec7_FlexiCodeBlocks_FlexiOptionsBlocks()
         {
             // The following Markdown:
             //     @{
@@ -14235,12 +14235,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"language\": \"csharp\",\n    \"syntaxHighlighter\": \"highlightJS\",\n    \"highlightJSClassPrefix\": \"my-prefix-\"\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-csharp\"><span class=\"my-prefix-function\"><span class=\"my-prefix-keyword\">public</span> <span class=\"my-prefix-keyword\">string</span> <span class=\"my-prefix-title\">ExampleFunction</span>(<span class=\"my-prefix-params\"><span class=\"my-prefix-keyword\">string</span> arg</span>)\n</span>{\n    <span class=\"my-prefix-comment\">// Example comment</span>\n    <span class=\"my-prefix-keyword\">return</span> arg + <span class=\"my-prefix-string\">\"dummyString\"</span>;\n}</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionsblocks");
+                "FlexiCodeBlocks_FlexiOptionsBlocks");
         }
 
         // Assign a prefix to `FlexiCodeBlockOptions.HighlightJSClassPrefix` to customize the prefix for HighlightJS classes:
         [Fact]
-        public void Flexicodeblocks_Spec7_all()
+        public void FlexiCodeBlocks_Spec7_all()
         {
             // The following Markdown:
             //     @{
@@ -14276,7 +14276,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // If you prefer to do highlighting client-side, set `highlightSyntax` to `false`. As long as `FlexiCodeBlockOptions.Langauge` is not
         // null, whitespace or an empty string, a language class will be assigned to the `code` element:
         [Fact]
-        public void Flexicodeblocks_Spec8_flexicodeblocks_flexioptionsblocks()
+        public void FlexiCodeBlocks_Spec8_FlexiCodeBlocks_FlexiOptionsBlocks()
         {
             // The following Markdown:
             //     @{
@@ -14297,13 +14297,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\",\n    \"highlightSyntax\": false\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-html\">&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionsblocks");
+                "FlexiCodeBlocks_FlexiOptionsBlocks");
         }
 
         // If you prefer to do highlighting client-side, set `highlightSyntax` to `false`. As long as `FlexiCodeBlockOptions.Langauge` is not
         // null, whitespace or an empty string, a language class will be assigned to the `code` element:
         [Fact]
-        public void Flexicodeblocks_Spec8_all()
+        public void FlexiCodeBlocks_Spec8_all()
         {
             // The following Markdown:
             //     @{
@@ -14329,7 +14329,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Add line numbers by setting `FlexiCodeBlockOptions.RenderLineNumbers` to true:
         [Fact]
-        public void Flexicodeblocks_Spec9_flexicodeblocks_flexioptionsblocks()
+        public void FlexiCodeBlocks_Spec9_FlexiCodeBlocks_FlexiOptionsBlocks()
         {
             // The following Markdown:
             //     @{
@@ -14357,12 +14357,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"renderLineNumbers\": true\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line\"><span class=\"line-number\">1</span><span class=\"line-text\">public string ExampleFunction(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line\"><span class=\"line-number\">3</span><span class=\"line-text\">    // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">4</span><span class=\"line-text\">    return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionsblocks");
+                "FlexiCodeBlocks_FlexiOptionsBlocks");
         }
 
         // Add line numbers by setting `FlexiCodeBlockOptions.RenderLineNumbers` to true:
         [Fact]
-        public void Flexicodeblocks_Spec9_all()
+        public void FlexiCodeBlocks_Spec9_all()
         {
             // The following Markdown:
             //     @{
@@ -14396,7 +14396,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // Customize which numbers line number sequences start from and the lines that line numbers are rendered for using
         // `FlexiCodeBlockOptions.LineNumberRanges`:
         [Fact]
-        public void Flexicodeblocks_Spec10_flexicodeblocks_flexioptionsblocks()
+        public void FlexiCodeBlocks_Spec10_FlexiCodeBlocks_FlexiOptionsBlocks()
         {
             // The following Markdown:
             //     @{
@@ -14460,13 +14460,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"renderLineNumbers\": true,\n    \"lineNumberRanges\": [\n        {\n            \"startLine\": 1,\n            \"endLine\": 8,\n            \"startLineNumber\": 1\n        },\n        {\n            \"startLine\": 11,\n            \"endLine\": -1,\n            \"startLineNumber\": 32\n        }\n    ]\n}\n```\npublic class ExampleClass\n{\n    public string ExampleFunction1(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n\n    // Some functions omitted for brevity\n    ...\n\n    public string ExampleFunction3(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line\"><span class=\"line-number\">1</span><span class=\"line-text\">public class ExampleClass</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line\"><span class=\"line-number\">3</span><span class=\"line-text\">    public string ExampleFunction1(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">4</span><span class=\"line-text\">    {</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">        // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">6</span><span class=\"line-text\">        return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">7</span><span class=\"line-text\">    }</span></span>\n<span class=\"line\"><span class=\"line-number\">8</span><span class=\"line-text\"></span></span>\n<span class=\"line\"><span class=\"line-text\">    // Some functions omitted for brevity</span></span>\n<span class=\"line\"><span class=\"line-text\">    ...</span></span>\n<span class=\"line\"><span class=\"line-number\">32</span><span class=\"line-text\"></span></span>\n<span class=\"line\"><span class=\"line-number\">33</span><span class=\"line-text\">    public string ExampleFunction3(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">34</span><span class=\"line-text\">    {</span></span>\n<span class=\"line\"><span class=\"line-number\">35</span><span class=\"line-text\">        // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">36</span><span class=\"line-text\">        return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">37</span><span class=\"line-text\">    }</span></span>\n<span class=\"line\"><span class=\"line-number\">38</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionsblocks");
+                "FlexiCodeBlocks_FlexiOptionsBlocks");
         }
 
         // Customize which numbers line number sequences start from and the lines that line numbers are rendered for using
         // `FlexiCodeBlockOptions.LineNumberRanges`:
         [Fact]
-        public void Flexicodeblocks_Spec10_all()
+        public void FlexiCodeBlocks_Spec10_all()
         {
             // The following Markdown:
             //     @{
@@ -14536,7 +14536,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // Highlight lines using `FlexiCodeBlockOptions.HighlightLineRanges` (line highlighting should not be confused with syntax highlighting - a highlighted line is simply
         // a line with perhaps a different background color, syntax highlighting adds color to syntax tokens):
         [Fact]
-        public void Flexicodeblocks_Spec11_flexicodeblocks_flexioptionsblocks()
+        public void FlexiCodeBlocks_Spec11_FlexiCodeBlocks_FlexiOptionsBlocks()
         {
             // The following Markdown:
             //     @{
@@ -14573,13 +14573,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"highlightLineRanges\": [\n        {\n            \"startLine\": 1,\n            \"endLine\": 1\n        },\n        {\n            \"startLine\": 3,\n            \"endLine\": 4\n        }\n    ]\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line highlight\"><span class=\"line-number\">1</span><span class=\"line-text\">public string ExampleFunction(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">3</span><span class=\"line-text\">    // Example comment</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">4</span><span class=\"line-text\">    return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionsblocks");
+                "FlexiCodeBlocks_FlexiOptionsBlocks");
         }
 
         // Highlight lines using `FlexiCodeBlockOptions.HighlightLineRanges` (line highlighting should not be confused with syntax highlighting - a highlighted line is simply
         // a line with perhaps a different background color, syntax highlighting adds color to syntax tokens):
         [Fact]
-        public void Flexicodeblocks_Spec11_all()
+        public void FlexiCodeBlocks_Spec11_all()
         {
             // The following Markdown:
             //     @{
@@ -14622,7 +14622,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // Certain characters within code elements must be escaped. If syntax highlighting isn't enabled, the characters
         // `<`, `>` and `&` are escaped:
         [Fact]
-        public void Flexicodeblocks_Spec12_flexicodeblocks_flexioptionsblocks()
+        public void FlexiCodeBlocks_Spec12_FlexiCodeBlocks_FlexiOptionsBlocks()
         {
             // The following Markdown:
             //     ```
@@ -14639,13 +14639,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>&lt;div&gt;&quot;&lt;&quot; and &quot;&amp;&quot; are escaped&lt;/div&gt;</code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionsblocks");
+                "FlexiCodeBlocks_FlexiOptionsBlocks");
         }
 
         // Certain characters within code elements must be escaped. If syntax highlighting isn't enabled, the characters
         // `<`, `>` and `&` are escaped:
         [Fact]
-        public void Flexicodeblocks_Spec12_all()
+        public void FlexiCodeBlocks_Spec12_all()
         {
             // The following Markdown:
             //     ```
@@ -14668,7 +14668,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // Both Prism and HighlightJS cannot process escaped characters, so it isn't possible to escape code then pass it to the highlighters. Fortunately,
         // both of them can do escaping on their own. Prism, escapes `<` and `&` characters:
         [Fact]
-        public void Flexicodeblocks_Spec13_flexicodeblocks_flexioptionsblocks()
+        public void FlexiCodeBlocks_Spec13_FlexiCodeBlocks_FlexiOptionsBlocks()
         {
             // The following Markdown:
             //     @{
@@ -14688,13 +14688,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\"\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-html\"><span class=\"token tag\"><span class=\"token tag\"><span class=\"token punctuation\">&lt;</span>div</span><span class=\"token punctuation\">></span></span>\"&lt;\" and \"&amp;\" are escaped<span class=\"token tag\"><span class=\"token tag\"><span class=\"token punctuation\">&lt;/</span>div</span><span class=\"token punctuation\">></span></span></code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionsblocks");
+                "FlexiCodeBlocks_FlexiOptionsBlocks");
         }
 
         // Both Prism and HighlightJS cannot process escaped characters, so it isn't possible to escape code then pass it to the highlighters. Fortunately,
         // both of them can do escaping on their own. Prism, escapes `<` and `&` characters:
         [Fact]
-        public void Flexicodeblocks_Spec13_all()
+        public void FlexiCodeBlocks_Spec13_all()
         {
             // The following Markdown:
             //     @{
@@ -14719,7 +14719,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // HighlightJS, escapes `<`, `>` and `&` characters:
         [Fact]
-        public void Flexicodeblocks_Spec14_flexicodeblocks_flexioptionsblocks()
+        public void FlexiCodeBlocks_Spec14_FlexiCodeBlocks_FlexiOptionsBlocks()
         {
             // The following Markdown:
             //     @{
@@ -14740,12 +14740,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"language\": \"html\",\n    \"syntaxHighlighter\": \"highlightJS\"\n}\n```\n<div>\"<\" and \"&\" are escaped</div>\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">div</span>&gt;</span>\"<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">\"</span> <span class=\"hljs-attr\">and</span> \"&amp;\" <span class=\"hljs-attr\">are</span> <span class=\"hljs-attr\">escaped</span>&lt;/<span class=\"hljs-attr\">div</span>&gt;</span></code></pre>\n</div>", 
-                "flexicodeblocks_flexioptionsblocks");
+                "FlexiCodeBlocks_FlexiOptionsBlocks");
         }
 
         // HighlightJS, escapes `<`, `>` and `&` characters:
         [Fact]
-        public void Flexicodeblocks_Spec14_all()
+        public void FlexiCodeBlocks_Spec14_all()
         {
             // The following Markdown:
             //     @{
@@ -14773,11 +14773,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     // This extension enables grid tables and pipe tables. It
     // adds configurable features such as making tables be compatible with [this](https://www.jeremytcd.com/articles/css-only-responsive-tables)
     // method for creating responsive tables.
-    public class FlexitableblocksTests
+    public class FlexiTableBlocksTests
     {
         // Using the default options with a pipe table:
         [Fact]
-        public void Flexitableblocks_Spec1_flexitableblocks_flexioptionsblocks()
+        public void FlexiTableBlocks_Spec1_FlexiTableBlocks()
         {
             // The following Markdown:
             //     a | b | c 
@@ -14810,12 +14810,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("a | b | c \n- | - | -\n0 | 1 | 2\n3 | 4 | 5", 
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n<th>c</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n<td data-label=\"c\"><span>2</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>3</span></td>\n<td data-label=\"b\"><span>4</span></td>\n<td data-label=\"c\"><span>5</span></td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_flexioptionsblocks");
+                "FlexiTableBlocks");
         }
 
         // Using the default options with a pipe table:
         [Fact]
-        public void Flexitableblocks_Spec1_all()
+        public void FlexiTableBlocks_Spec1_all()
         {
             // The following Markdown:
             //     a | b | c 
@@ -14853,7 +14853,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Similarly, using a grid table:
         [Fact]
-        public void Flexitableblocks_Spec2_flexitableblocks_flexioptionsblocks()
+        public void FlexiTableBlocks_Spec2_FlexiTableBlocks()
         {
             // The following Markdown:
             //     +---+---+---+
@@ -14891,12 +14891,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("+---+---+---+\n| a | b | c |\n+===+===+===+\n| 0 | 1 | 2 |\n+---+---+---+\n| 3 | 4 | 5 |", 
                 "<table>\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n<th>c</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n<td data-label=\"c\"><span>2</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>3</span></td>\n<td data-label=\"b\"><span>4</span></td>\n<td data-label=\"c\"><span>5</span></td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_flexioptionsblocks");
+                "FlexiTableBlocks");
         }
 
         // Similarly, using a grid table:
         [Fact]
-        public void Flexitableblocks_Spec2_all()
+        public void FlexiTableBlocks_Spec2_all()
         {
             // The following Markdown:
             //     +---+---+---+
@@ -14939,7 +14939,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // The contents of `<th>` elements are HTML escaped when used as values of `data-label` attributes:
         [Fact]
-        public void Flexitableblocks_Spec3_flexitableblocks_flexioptionsblocks()
+        public void FlexiTableBlocks_Spec3_FlexiTableBlocks()
         {
             // The following Markdown:
             //     "a" | &b&
@@ -14969,12 +14969,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("\"a\" | &b&\n- | - \n0 | 1 \n2 | 3 ", 
                 "<table>\n<thead>\n<tr>\n<th>&quot;a&quot;</th>\n<th>&amp;b&amp;</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"&quot;a&quot;\"><span>0</span></td>\n<td data-label=\"&amp;b&amp;\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"&quot;a&quot;\"><span>2</span></td>\n<td data-label=\"&amp;b&amp;\"><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_flexioptionsblocks");
+                "FlexiTableBlocks");
         }
 
         // The contents of `<th>` elements are HTML escaped when used as values of `data-label` attributes:
         [Fact]
-        public void Flexitableblocks_Spec3_all()
+        public void FlexiTableBlocks_Spec3_all()
         {
             // The following Markdown:
             //     "a" | &b&
@@ -15009,7 +15009,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // HTML tags are removed from the contents of `<th>` elements when such contents are used as values of `data-label` attributes:
         [Fact]
-        public void Flexitableblocks_Spec4_flexitableblocks_flexioptionsblocks()
+        public void FlexiTableBlocks_Spec4_FlexiTableBlocks()
         {
             // The following Markdown:
             //     +---+---+---+
@@ -15051,12 +15051,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("+---+---+---+\n| a | b | c |\n|   |   |   |\n| a |   |   |\n+===+===+===+\n| 0 | 1 | 2 |\n+---+---+---+\n| 3 | 4 | 5 |", 
                 "<table>\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<col style=\"width:33.33%\">\n<thead>\n<tr>\n<th><p>a</p>\n<p>a</p>\n</th>\n<th>b</th>\n<th>c</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"aa\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n<td data-label=\"c\"><span>2</span></td>\n</tr>\n<tr>\n<td data-label=\"aa\"><span>3</span></td>\n<td data-label=\"b\"><span>4</span></td>\n<td data-label=\"c\"><span>5</span></td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_flexioptionsblocks");
+                "FlexiTableBlocks");
         }
 
         // HTML tags are removed from the contents of `<th>` elements when such contents are used as values of `data-label` attributes:
         [Fact]
-        public void Flexitableblocks_Spec4_all()
+        public void FlexiTableBlocks_Spec4_all()
         {
             // The following Markdown:
             //     +---+---+---+
@@ -15103,7 +15103,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // The label attribute's name can be customized using `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.LabelAttributeName`:
         [Fact]
-        public void Flexitableblocks_Spec5_flexitableblocks_flexioptionsblocks()
+        public void FlexiTableBlocks_Spec5_FlexiTableBlocks()
         {
             // The following Markdown:
             //     a | b
@@ -15142,13 +15142,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("a | b\n- | - \n0 | 1 \n2 | 3 ", 
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td custom-name=\"a\"><span>0</span></td>\n<td custom-name=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td custom-name=\"a\"><span>2</span></td>\n<td custom-name=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_flexioptionsblocks", 
+                "FlexiTableBlocks", 
                 "{\n    \"flexitableblocks\": {\n        \"defaultFlexiTableBlockOptions\": {\n            \"labelAttributeName\": \"custom-name\"\n        }\n    }\n}");
         }
 
         // The label attribute's name can be customized using `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.LabelAttributeName`:
         [Fact]
-        public void Flexitableblocks_Spec5_all()
+        public void FlexiTableBlocks_Spec5_all()
         {
             // The following Markdown:
             //     a | b
@@ -15193,7 +15193,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // To avoid rendering the label attribute, set `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.LabelAttributeName` to an empty string:
         [Fact]
-        public void Flexitableblocks_Spec6_flexitableblocks_flexioptionsblocks()
+        public void FlexiTableBlocks_Spec6_FlexiTableBlocks()
         {
             // The following Markdown:
             //     a | b
@@ -15232,13 +15232,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("a | b\n- | - \n0 | 1 \n2 | 3 ", 
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><span>0</span></td>\n<td><span>1</span></td>\n</tr>\n<tr>\n<td><span>2</span></td>\n<td><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_flexioptionsblocks", 
+                "FlexiTableBlocks", 
                 "{\n    \"flexitableblocks\": {\n        \"defaultFlexiTableBlockOptions\": {\n            \"labelAttributeName\": \"\"\n        }\n    }\n}");
         }
 
         // To avoid rendering the label attribute, set `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.LabelAttributeName` to an empty string:
         [Fact]
-        public void Flexitableblocks_Spec6_all()
+        public void FlexiTableBlocks_Spec6_all()
         {
             // The following Markdown:
             //     a | b
@@ -15283,7 +15283,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // The `<td>` content wrapper element can be customized using `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.WrapperElementName`:
         [Fact]
-        public void Flexitableblocks_Spec7_flexitableblocks_flexioptionsblocks()
+        public void FlexiTableBlocks_Spec7_FlexiTableBlocks()
         {
             // The following Markdown:
             //     a | b
@@ -15322,13 +15322,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("a | b\n- | - \n0 | 1 \n2 | 3 ", 
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><div>0</div></td>\n<td data-label=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-label=\"a\"><div>2</div></td>\n<td data-label=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_flexioptionsblocks", 
+                "FlexiTableBlocks", 
                 "{\n    \"flexitableblocks\": {\n        \"defaultFlexiTableBlockOptions\": {\n            \"wrapperElementName\": \"div\"\n        }\n    }\n}");
         }
 
         // The `<td>` content wrapper element can be customized using `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.WrapperElementName`:
         [Fact]
-        public void Flexitableblocks_Spec7_all()
+        public void FlexiTableBlocks_Spec7_all()
         {
             // The following Markdown:
             //     a | b
@@ -15373,7 +15373,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // To avoid rendering wrapper elements, set `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.WrapperElementName` to an empty string:
         [Fact]
-        public void Flexitableblocks_Spec8_flexitableblocks_flexioptionsblocks()
+        public void FlexiTableBlocks_Spec8_FlexiTableBlocks()
         {
             // The following Markdown:
             //     a | b
@@ -15412,13 +15412,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("a | b\n- | - \n0 | 1 \n2 | 3 ", 
                 "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\">0</td>\n<td data-label=\"b\">1</td>\n</tr>\n<tr>\n<td data-label=\"a\">2</td>\n<td data-label=\"b\">3</td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_flexioptionsblocks", 
+                "FlexiTableBlocks", 
                 "{\n    \"flexitableblocks\": {\n        \"defaultFlexiTableBlockOptions\": {\n            \"wrapperElementName\": \"\"\n        }\n    }\n}");
         }
 
         // To avoid rendering wrapper elements, set `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.WrapperElementName` to an empty string:
         [Fact]
-        public void Flexitableblocks_Spec8_all()
+        public void FlexiTableBlocks_Spec8_all()
         {
             // The following Markdown:
             //     a | b
@@ -15464,7 +15464,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // Per-FlexiTableBlock options can be specified for grid tables if the FlexiOptionsBlocks extension is enabled (per-FlexiTableBlock options do not
         // work for pipe tables):
         [Fact]
-        public void Flexitableblocks_Spec9_flexitableblocks_flexioptionsblocks()
+        public void FlexiTableBlocks_Spec9_FlexiTableBlocks_FlexiOptionsBlocks()
         {
             // The following Markdown:
             //     @{
@@ -15561,13 +15561,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{\n    \"wrapperElementName\": \"div\"\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |  \n@{\n    \"labelAttributeName\": \"data-title\"\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |\n@{\n    \"attributes\": {\n        \"class\": \"ftb\"\n    }\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |", 
                 "<table>\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><div>0</div></td>\n<td data-label=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-label=\"a\"><div>2</div></td>\n<td data-label=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>\n<table>\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-title=\"a\"><span>0</span></td>\n<td data-title=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-title=\"a\"><span>2</span></td>\n<td data-title=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>\n<table class=\"ftb\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>", 
-                "flexitableblocks_flexioptionsblocks");
+                "FlexiTableBlocks_FlexiOptionsBlocks");
         }
 
         // Per-FlexiTableBlock options can be specified for grid tables if the FlexiOptionsBlocks extension is enabled (per-FlexiTableBlock options do not
         // work for pipe tables):
         [Fact]
-        public void Flexitableblocks_Spec9_all()
+        public void FlexiTableBlocks_Spec9_all()
         {
             // The following Markdown:
             //     @{
@@ -15671,239 +15671,267 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     // The FlexiIncludeBlocks extension provides ways to include content from both local and remote documents.
     // 
     // In the following
-    // example, `exampleArticleSection.md` has the following contents:
+    // example, `exampleInclude.md` has the following contents:
     // ```
-    // #### Example Article Section
-    // This is an example article section.
+    // This is example markdown.
     // ```
-    // `exampleArticleSectionWithNestedInclude.md` has the following contents:
+    // `exampleIncludeWithNestedInclude.md` has the following contents:
     // ```
-    // ### Example Article Section with Nested Include
-    // This is an example article section with a nested include.
+    // This is example markdown with an include.
     // 
     // +{
     //     "contentType": "Markdown",
-    //     "source": "./exampleArticleSection.md"    
+    //     "source": "./exampleInclude.md"    
     // }
     // ```
-    public class FlexiincludeblocksTests
+    public class FlexiIncludeBlocksTests
     {
         // A FlexiIncludeBlock is an `IncludeOptions` instance in JSON form with `+` prepended immediately before the opening `{`. This first line
         // must begin with `+{`:
         [Fact]
-        public void Flexiincludeblocks_Spec1_flexiincludeblocks_flexisectionblocks_flexioptionsblocks()
+        public void FlexiIncludeBlocks_Spec1_FlexiIncludeBlocks()
         {
             // The following Markdown:
-            //     # Example Article
             //     This is an example article.
-            //     
             //     +{
             //         "contentType": "Markdown",
-            //         "source": "./exampleArticleSection.md"
+            //         "source": "./exampleInclude.md"
             //     }
             //
             // Should be rendered as:
-            //     <header class="header-level-1">
-            //     <h1>Example Article</h1>
-            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-            //     </header>
             //     <p>This is an example article.</p>
-            //     <section id="example-article-section">
-            //     <header class="header-level-4">
-            //     <h4>Example Article Section</h4>
-            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-            //     </header>
-            //     <p>This is an example article section.</p>
-            //     </section>
+            //     <p>This is example markdown.</p>
 
-            SpecTestHelper.AssertCompliance("# Example Article\nThis is an example article.\n\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleArticleSection.md\"\n}", 
-                "<header class=\"header-level-1\">\n<h1>Example Article</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article.</p>\n<section id=\"example-article-section\">\n<header class=\"header-level-4\">\n<h4>Example Article Section</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section.</p>\n</section>", 
-                "flexiincludeblocks_flexisectionblocks_flexioptionsblocks");
+            SpecTestHelper.AssertCompliance("This is an example article.\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleInclude.md\"\n}", 
+                "<p>This is an example article.</p>\n<p>This is example markdown.</p>", 
+                "FlexiIncludeBlocks");
         }
 
         // A FlexiIncludeBlock is an `IncludeOptions` instance in JSON form with `+` prepended immediately before the opening `{`. This first line
         // must begin with `+{`:
         [Fact]
-        public void Flexiincludeblocks_Spec1_all()
+        public void FlexiIncludeBlocks_Spec1_all()
         {
             // The following Markdown:
-            //     # Example Article
             //     This is an example article.
-            //     
             //     +{
             //         "contentType": "Markdown",
-            //         "source": "./exampleArticleSection.md"
+            //         "source": "./exampleInclude.md"
             //     }
             //
             // Should be rendered as:
-            //     <header class="header-level-1">
-            //     <h1>Example Article</h1>
-            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-            //     </header>
             //     <p>This is an example article.</p>
-            //     <section id="example-article-section">
-            //     <header class="header-level-4">
-            //     <h4>Example Article Section</h4>
-            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-            //     </header>
-            //     <p>This is an example article section.</p>
-            //     </section>
+            //     <p>This is example markdown.</p>
 
-            SpecTestHelper.AssertCompliance("# Example Article\nThis is an example article.\n\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleArticleSection.md\"\n}", 
-                "<header class=\"header-level-1\">\n<h1>Example Article</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article.</p>\n<section id=\"example-article-section\">\n<header class=\"header-level-4\">\n<h4>Example Article Section</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section.</p>\n</section>", 
+            SpecTestHelper.AssertCompliance("This is an example article.\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleInclude.md\"\n}", 
+                "<p>This is an example article.</p>\n<p>This is example markdown.</p>", 
                 "all");
         }
 
         // Includes can be nested:
         [Fact]
-        public void Flexiincludeblocks_Spec2_flexiincludeblocks_flexisectionblocks_flexioptionsblocks()
+        public void FlexiIncludeBlocks_Spec2_FlexiIncludeBlocks()
         {
             // The following Markdown:
-            //     # Example Article
             //     This is an example article.
             //     
             //     +{
             //         "contentType": "Markdown",
-            //         "source": "./exampleArticleSectionWithNestedInclude.md"
+            //         "source": "./exampleIncludeWithNestedInclude.md"
             //     }
             //
             // Should be rendered as:
-            //     <header class="header-level-1">
-            //     <h1>Example Article</h1>
-            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-            //     </header>
             //     <p>This is an example article.</p>
-            //     <section id="example-article-section-with-nested-include">
-            //     <header class="header-level-3">
-            //     <h3>Example Article Section with Nested Include</h3>
-            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-            //     </header>
-            //     <p>This is an example article section with a nested include.</p>
-            //     <section id="example-article-section">
-            //     <header class="header-level-4">
-            //     <h4>Example Article Section</h4>
-            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-            //     </header>
-            //     <p>This is an example article section.</p>
-            //     </section>
-            //     </section>
+            //     <p>This is example markdown with an include.</p>
+            //     <p>This is example markdown.</p>
 
-            SpecTestHelper.AssertCompliance("# Example Article\nThis is an example article.\n\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleArticleSectionWithNestedInclude.md\"\n}", 
-                "<header class=\"header-level-1\">\n<h1>Example Article</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article.</p>\n<section id=\"example-article-section-with-nested-include\">\n<header class=\"header-level-3\">\n<h3>Example Article Section with Nested Include</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section with a nested include.</p>\n<section id=\"example-article-section\">\n<header class=\"header-level-4\">\n<h4>Example Article Section</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section.</p>\n</section>\n</section>", 
-                "flexiincludeblocks_flexisectionblocks_flexioptionsblocks");
+            SpecTestHelper.AssertCompliance("This is an example article.\n\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleIncludeWithNestedInclude.md\"\n}", 
+                "<p>This is an example article.</p>\n<p>This is example markdown with an include.</p>\n<p>This is example markdown.</p>", 
+                "FlexiIncludeBlocks");
         }
 
         // Includes can be nested:
         [Fact]
-        public void Flexiincludeblocks_Spec2_all()
+        public void FlexiIncludeBlocks_Spec2_all()
         {
             // The following Markdown:
-            //     # Example Article
             //     This is an example article.
             //     
             //     +{
             //         "contentType": "Markdown",
-            //         "source": "./exampleArticleSectionWithNestedInclude.md"
+            //         "source": "./exampleIncludeWithNestedInclude.md"
             //     }
             //
             // Should be rendered as:
-            //     <header class="header-level-1">
-            //     <h1>Example Article</h1>
-            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-            //     </header>
             //     <p>This is an example article.</p>
-            //     <section id="example-article-section-with-nested-include">
-            //     <header class="header-level-3">
-            //     <h3>Example Article Section with Nested Include</h3>
-            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-            //     </header>
-            //     <p>This is an example article section with a nested include.</p>
-            //     <section id="example-article-section">
-            //     <header class="header-level-4">
-            //     <h4>Example Article Section</h4>
-            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-            //     </header>
-            //     <p>This is an example article section.</p>
-            //     </section>
-            //     </section>
+            //     <p>This is example markdown with an include.</p>
+            //     <p>This is example markdown.</p>
 
-            SpecTestHelper.AssertCompliance("# Example Article\nThis is an example article.\n\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleArticleSectionWithNestedInclude.md\"\n}", 
-                "<header class=\"header-level-1\">\n<h1>Example Article</h1>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article.</p>\n<section id=\"example-article-section-with-nested-include\">\n<header class=\"header-level-3\">\n<h3>Example Article Section with Nested Include</h3>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section with a nested include.</p>\n<section id=\"example-article-section\">\n<header class=\"header-level-4\">\n<h4>Example Article Section</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section.</p>\n</section>\n</section>", 
+            SpecTestHelper.AssertCompliance("This is an example article.\n\n+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleIncludeWithNestedInclude.md\"\n}", 
+                "<p>This is an example article.</p>\n<p>This is example markdown with an include.</p>\n<p>This is example markdown.</p>", 
                 "all");
         }
 
         // Includes can be used within any kind of container block, such as a list item:
         [Fact]
-        public void Flexiincludeblocks_Spec3_flexiincludeblocks_flexisectionblocks_flexioptionsblocks()
+        public void FlexiIncludeBlocks_Spec3_FlexiIncludeBlocks()
         {
             // The following Markdown:
             //     - First item.
             //     - Second item
+            //     
             //       +{
             //           "contentType": "Markdown",
-            //           "source": "./exampleArticleSection.md"
+            //           "source": "./exampleInclude.md"
             //       }
             //     - Third item
             //
             // Should be rendered as:
             //     <ul>
-            //     <li>First item.</li>
-            //     <li>Second item
-            //     <section id="example-article-section">
-            //     <header class="header-level-4">
-            //     <h4>Example Article Section</h4>
-            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-            //     </header>
-            //     <p>This is an example article section.</p>
-            //     </section></li>
-            //     <li>Third item</li>
+            //     <li><p>First item.</p></li>
+            //     <li><p>Second item</p>
+            //     <p>This is example markdown.</p></li>
+            //     <li><p>Third item</p></li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- First item.\n- Second item\n  +{\n      \"contentType\": \"Markdown\",\n      \"source\": \"./exampleArticleSection.md\"\n  }\n- Third item", 
-                "<ul>\n<li>First item.</li>\n<li>Second item\n<section id=\"example-article-section\">\n<header class=\"header-level-4\">\n<h4>Example Article Section</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section.</p>\n</section></li>\n<li>Third item</li>\n</ul>", 
-                "flexiincludeblocks_flexisectionblocks_flexioptionsblocks");
+            SpecTestHelper.AssertCompliance("- First item.\n- Second item\n\n  +{\n      \"contentType\": \"Markdown\",\n      \"source\": \"./exampleInclude.md\"\n  }\n- Third item", 
+                "<ul>\n<li><p>First item.</p></li>\n<li><p>Second item</p>\n<p>This is example markdown.</p></li>\n<li><p>Third item</p></li>\n</ul>", 
+                "FlexiIncludeBlocks");
         }
 
         // Includes can be used within any kind of container block, such as a list item:
         [Fact]
-        public void Flexiincludeblocks_Spec3_all()
+        public void FlexiIncludeBlocks_Spec3_all()
         {
             // The following Markdown:
             //     - First item.
             //     - Second item
+            //     
             //       +{
             //           "contentType": "Markdown",
-            //           "source": "./exampleArticleSection.md"
+            //           "source": "./exampleInclude.md"
             //       }
             //     - Third item
             //
             // Should be rendered as:
             //     <ul>
-            //     <li>First item.</li>
-            //     <li>Second item
-            //     <section id="example-article-section">
-            //     <header class="header-level-4">
-            //     <h4>Example Article Section</h4>
-            //     <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-            //     </header>
-            //     <p>This is an example article section.</p>
-            //     </section></li>
-            //     <li>Third item</li>
+            //     <li><p>First item.</p></li>
+            //     <li><p>Second item</p>
+            //     <p>This is example markdown.</p></li>
+            //     <li><p>Third item</p></li>
             //     </ul>
 
-            SpecTestHelper.AssertCompliance("- First item.\n- Second item\n  +{\n      \"contentType\": \"Markdown\",\n      \"source\": \"./exampleArticleSection.md\"\n  }\n- Third item", 
-                "<ul>\n<li>First item.</li>\n<li>Second item\n<section id=\"example-article-section\">\n<header class=\"header-level-4\">\n<h4>Example Article Section</h4>\n<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z\"></path></svg>\n</header>\n<p>This is an example article section.</p>\n</section></li>\n<li>Third item</li>\n</ul>", 
+            SpecTestHelper.AssertCompliance("- First item.\n- Second item\n\n  +{\n      \"contentType\": \"Markdown\",\n      \"source\": \"./exampleInclude.md\"\n  }\n- Third item", 
+                "<ul>\n<li><p>First item.</p></li>\n<li><p>Second item</p>\n<p>This is example markdown.</p></li>\n<li><p>Third item</p></li>\n</ul>", 
+                "all");
+        }
+
+        // Or a blockquote:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec4_FlexiIncludeBlocks()
+        {
+            // The following Markdown:
+            //     > First line.
+            //     > +{
+            //     >     "contentType": "Markdown",
+            //     >     "source": "./exampleInclude.md"
+            //     > }
+            //     > Third line
+            //
+            // Should be rendered as:
+            //     <blockquote>
+            //     <p>First line.</p>
+            //     <p>This is example markdown.</p>
+            //     <p>Third line</p>
+            //     </blockquote>
+
+            SpecTestHelper.AssertCompliance("> First line.\n> +{\n>     \"contentType\": \"Markdown\",\n>     \"source\": \"./exampleInclude.md\"\n> }\n> Third line", 
+                "<blockquote>\n<p>First line.</p>\n<p>This is example markdown.</p>\n<p>Third line</p>\n</blockquote>", 
+                "FlexiIncludeBlocks");
+        }
+
+        // Or a blockquote:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec4_all()
+        {
+            // The following Markdown:
+            //     > First line.
+            //     > +{
+            //     >     "contentType": "Markdown",
+            //     >     "source": "./exampleInclude.md"
+            //     > }
+            //     > Third line
+            //
+            // Should be rendered as:
+            //     <blockquote>
+            //     <p>First line.</p>
+            //     <p>This is example markdown.</p>
+            //     <p>Third line</p>
+            //     </blockquote>
+
+            SpecTestHelper.AssertCompliance("> First line.\n> +{\n>     \"contentType\": \"Markdown\",\n>     \"source\": \"./exampleInclude.md\"\n> }\n> Third line", 
+                "<blockquote>\n<p>First line.</p>\n<p>This is example markdown.</p>\n<p>Third line</p>\n</blockquote>", 
+                "all");
+        }
+
+        // Content can be included as a code block. Using the FlexiCodeBlocks extension:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec5_FlexiIncludeBlocks_FlexiCodeBlocks()
+        {
+            // The following Markdown:
+            //     This is an example article.
+            //     +{
+            //         "contentType": "Code",
+            //         "source": "./exampleInclude.md"
+            //     }
+            //
+            // Should be rendered as:
+            //     <p>This is an example article.</p>
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>This is example markdown.</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("This is an example article.\n+{\n    \"contentType\": \"Code\",\n    \"source\": \"./exampleInclude.md\"\n}", 
+                "<p>This is an example article.</p>\n<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>This is example markdown.</code></pre>\n</div>", 
+                "FlexiIncludeBlocks_FlexiCodeBlocks");
+        }
+
+        // Content can be included as a code block. Using the FlexiCodeBlocks extension:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec5_all()
+        {
+            // The following Markdown:
+            //     This is an example article.
+            //     +{
+            //         "contentType": "Code",
+            //         "source": "./exampleInclude.md"
+            //     }
+            //
+            // Should be rendered as:
+            //     <p>This is an example article.</p>
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>This is example markdown.</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("This is an example article.\n+{\n    \"contentType\": \"Code\",\n    \"source\": \"./exampleInclude.md\"\n}", 
+                "<p>This is an example article.</p>\n<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>This is example markdown.</code></pre>\n</div>", 
                 "all");
         }
     }
 
     // Per-block options are useful for many extensions. For example, per-block options would allow a code extension to add line-numbers to select code blocks. 
     // Json options facilitates per-block options, using a simple and consistent syntax.
-    public class FlexioptionsblocksTests
+    public class FlexiOptionsBlocksTests
     {
         // Json options are specified as a string above the block they apply to. The first line must begin with `@{`:
         [Fact]
-        public void Flexioptionsblocks_Spec1_all()
+        public void FlexiOptionsBlocks_Spec1_all()
         {
             // The following Markdown:
             //     @{"wrapperElement": "Aside"}
@@ -15924,7 +15952,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Options can be specified across several lines:
         [Fact]
-        public void Flexioptionsblocks_Spec2_all()
+        public void FlexiOptionsBlocks_Spec2_all()
         {
             // The following Markdown:
             //     @{
@@ -15947,7 +15975,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // If the first line does not begin with `@{`, the string becomes a paragraph:
         [Fact]
-        public void Flexioptionsblocks_Spec3_all()
+        public void FlexiOptionsBlocks_Spec3_all()
         {
             // The following Markdown:
             //     @

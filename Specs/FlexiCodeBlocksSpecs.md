@@ -57,6 +57,8 @@ The following is an example of an indented FlexiCodeBlock with the default optio
 
 `FlexiCodeBlockOptions.Title` can be used to define a title for a FlexiCodeBlock:
 
+```````````````````````````````` extraExtensions
+FlexiOptionsBlocks
 ```````````````````````````````` example
 @{
     "title": "ExampleDocument.cs"

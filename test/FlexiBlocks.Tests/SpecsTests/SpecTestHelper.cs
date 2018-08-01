@@ -1,42 +1,39 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks. FlexiAlertBlocks;
-using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
-using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
-using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
-using Markdig;
+﻿using Markdig;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using Xunit;
-using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 {
     public static class SpecTestHelper
     {
-        private static readonly Dictionary<string, Action<MarkdownPipelineBuilder, JObject>> _extensionAdders =
-            new Dictionary<string, Action<MarkdownPipelineBuilder, JObject>>
+        private static readonly Dictionary<string, MethodInfo> UseExtensionMethods = new Dictionary<string, MethodInfo>(StringComparer.OrdinalIgnoreCase);
+        private static readonly Dictionary<string, Type> ExtensionOptionsTypes = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
+        private static readonly string[] ExtensionNames;
+
+        static SpecTestHelper()
+        {
+            // Populate UseExtensionMethods and ExtensionOptionsTypes for constructing pipelines
+            Type flexiBlocksUseExtensions = typeof(UseExtensions);
+            foreach (MethodInfo methodInfo in flexiBlocksUseExtensions.GetMethods(BindingFlags.Public | BindingFlags.Static))
             {
-                { "flexioptionsblocks", (MarkdownPipelineBuilder builder, JObject _) => builder.UseFlexiOptionsBlocks() },
-                { "flexiincludeblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiIncludeBlocks(options?["flexiincludeblocks"]?.ToObject<FlexiIncludeBlocksExtensionOptions>()) },
-                { "flexicodeblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiCodeBlocks(options?["flexicodeblocks"]?.ToObject<FlexiCodeBlocksExtensionOptions>()) },
-                { "flexisectionblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiSectionBlocks(options?["flexisectionblocks"]?.ToObject<FlexiSectionBlocksExtensionOptions>()) },
-                { "flexialertblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiAlertBlocks(options?["flexialertblocks"]?.ToObject<FlexiAlertBlocksExtensionOptions>()) },
-                { "flexitableblocks", (MarkdownPipelineBuilder builder, JObject options) => builder.UseFlexiTableBlocks(options?["flexitableblocks"]?.ToObject<FlexiTableBlocksExtensionOptions>()) },
-                { "pipetables", (MarkdownPipelineBuilder builder, JObject _) => builder.UsePipeTables() },
-                { "gridtables", (MarkdownPipelineBuilder builder, JObject _) => builder.UseGridTables() },
-                { "all", (MarkdownPipelineBuilder builder, JObject options) => {
-                    builder.
-                        UseFlexiTableBlocks(options?["flexitableblocks"]?.ToObject<FlexiTableBlocksExtensionOptions>()).
-                        UseFlexiSectionBlocks(options?["flexisectionblocks"]?.ToObject<FlexiSectionBlocksExtensionOptions>()).
-                        UseFlexiAlertBlocks(options?["flexialertblocks"]?.ToObject<FlexiAlertBlocksExtensionOptions>()).
-                        UseFlexiCodeBlocks(options?["flexicodeblocks"]?.ToObject<FlexiCodeBlocksExtensionOptions>()).
-                        UseFlexiIncludeBlocks(options?["flexiincludeblocks"]?.ToObject<FlexiIncludeBlocksExtensionOptions>()).
-                        UseFlexiOptionsBlocks();
-                } },
-                { "commonmark", (MarkdownPipelineBuilder _, JObject __) => { } }
-            };
+                string extensionName = methodInfo.Name.Replace("Use", "");
+                ParameterInfo[] parameters = methodInfo.GetParameters();
+                if (parameters.Length > 1)
+                {
+                    // Assume that use methods only take extension options as arguments
+                    ExtensionOptionsTypes.Add(extensionName, parameters[1].ParameterType);
+                }
+                UseExtensionMethods.Add(extensionName, methodInfo);
+            }
+
+            ExtensionNames = UseExtensionMethods.Keys.ToArray();
+        }
 
         public static void AssertCompliance(string markdown,
             string expectedHtml,
@@ -60,13 +57,35 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                 extensionOptions = JObject.Parse(extensionOptionsJson);
             }
 
-            string[] extensions = pipelineOptions.Split('_');
-
             var builder = new MarkdownPipelineBuilder();
+
+            // Vanilla extensions only
+            if (pipelineOptions.Equals("CommonMark", StringComparison.OrdinalIgnoreCase))
+            {
+                return builder.Build();
+            }
+
+            // TODO could be sped up
+            string[] extensions = pipelineOptions.Equals("all", StringComparison.OrdinalIgnoreCase) ? ExtensionNames : pipelineOptions.Split('_');
 
             foreach (string extension in extensions)
             {
-                _extensionAdders[extension.ToLower()](builder, extensionOptions);
+                if (!UseExtensionMethods.TryGetValue(extension, out MethodInfo useExtensionMethod))
+                {
+                    throw new InvalidOperationException($"The extension {extension} does not exist.");
+                }
+
+                object[] args;
+                if (ExtensionOptionsTypes.TryGetValue(extension, out Type extensionOptionsType))
+                {
+                    args = new object[] { builder, extensionOptions?.GetValue(extension, StringComparison.OrdinalIgnoreCase)?.ToObject(extensionOptionsType) };
+                }
+                else
+                {
+                    args = new object[] { builder };
+                }
+
+                useExtensionMethod.Invoke(null, args);
             }
 
             return builder.Build();

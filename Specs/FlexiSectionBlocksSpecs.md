@@ -151,7 +151,7 @@ Level 3 content line 2.</p>
 
 To enable wrapping of level 1 headers, set `SectionsExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
 
-```````````````````````````````` options
+```````````````````````````````` extensionOptions
 {
     "flexisectionblocks": {
         "level1WrapperElement": "article"
@@ -177,7 +177,7 @@ To enable wrapping of level 1 headers, set `SectionsExtensionOptions.Level1Wrapp
 
 To change the element used to wrap level 2+ headers, set `SectionsExtensionOptions.Level2PlusWrapperElement". For example:
 
-```````````````````````````````` options
+```````````````````````````````` extensionOptions
 {
     "flexisectionblocks": {
         "level2PlusWrapperElement": "nav"
@@ -196,7 +196,7 @@ To change the element used to wrap level 2+ headers, set `SectionsExtensionOptio
 
 The icon used for headers can be customized by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.HeaderIconMarkup`. For example:
 
-```````````````````````````````` options
+```````````````````````````````` extensionOptions
 {
     "flexisectionblocks": {
         "defaultFlexiSectionBlockOptions": {
@@ -217,7 +217,7 @@ The icon used for headers can be customized by setting `FlexiSectionBlocksExtens
 
 The format string for header classes can be customized by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.HeaderClassNameFormat`. For example:
 
-```````````````````````````````` options
+```````````````````````````````` extensionOptions
 {
     "flexisectionblocks": {
         "defaultFlexiSectionBlockOptions": {
@@ -251,7 +251,7 @@ Kebab-case (lowercase words joined by dashes) IDs are generated for each section
 
 Auto generation of IDs can be disabled by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.GenerateIdentifier` to `false`:
 
-```````````````````````````````` options
+```````````````````````````````` extensionOptions
 {
     "flexisectionblocks": {
         "defaultFlexiSectionBlockOptions": {
@@ -308,7 +308,7 @@ Sections can be linked to by the text content of their headings:
 Linking to sections by the text content of their headings can be disabled by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.AutoLinkable` to `false` (note 
 that linking to sections is also disabled if `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.GenerateIdentifier` is set to `false`):
 
-```````````````````````````````` options
+```````````````````````````````` extensionOptions
 {
     "flexisectionblocks": {
         "defaultFlexiSectionBlockOptions": {
@@ -351,6 +351,8 @@ that linking to sections is also disabled if `FlexiSectionBlocksExtensionOptions
 
 Per-FlexiSectionBlock options can be specified if the FlexiOptionsBlocks extension is enabled:
 
+```````````````````````````````` extraExtensions
+FlexiOptionsBlocks
 ```````````````````````````````` example
 @{
     "wrapperElement": "article"

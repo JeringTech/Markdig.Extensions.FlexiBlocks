@@ -140,7 +140,7 @@ HTML tags are removed from the contents of `<th>` elements when such contents ar
 
 The label attribute's name can be customized using `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.LabelAttributeName`:
 
-```````````````````````````````` options
+```````````````````````````````` extensionOptions
 {
     "flexitableblocks": {
         "defaultFlexiTableBlockOptions": {
@@ -176,7 +176,7 @@ a | b
 
 To avoid rendering the label attribute, set `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.LabelAttributeName` to an empty string:
 
-```````````````````````````````` options
+```````````````````````````````` extensionOptions
 {
     "flexitableblocks": {
         "defaultFlexiTableBlockOptions": {
@@ -212,7 +212,7 @@ a | b
 
 The `<td>` content wrapper element can be customized using `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.WrapperElementName`:
 
-```````````````````````````````` options
+```````````````````````````````` extensionOptions
 {
     "flexitableblocks": {
         "defaultFlexiTableBlockOptions": {
@@ -248,7 +248,7 @@ a | b
 
 To avoid rendering wrapper elements, set `ResponsiveTablesExtensionOptions.defaultFlexiTableBlockOptions.WrapperElementName` to an empty string:
 
-```````````````````````````````` options
+```````````````````````````````` extensionOptions
 {
     "flexitableblocks": {
         "defaultFlexiTableBlockOptions": {
@@ -284,6 +284,8 @@ a | b
 
 Per-FlexiTableBlock options can be specified for grid tables if the FlexiOptionsBlocks extension is enabled (per-FlexiTableBlock options do not
 work for pipe tables):
+```````````````````````````````` extraExtensions
+FlexiOptionsBlocks
 ```````````````````````````````` example
 @{
     "wrapperElementName": "div"
