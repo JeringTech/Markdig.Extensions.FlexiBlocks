@@ -86,6 +86,8 @@ public string ExampleFunction(string arg)
 
 `FlexiCodeBlockOptions.CopyIconMarkup` can be used to customize the copy icon for a FlexiCodeBlock:
 
+```````````````````````````````` extraExtensions
+FlexiOptionsBlocks
 ```````````````````````````````` example
 @{
     "copyIconMarkup": "<svg><use xlink:href=\"#material-design-copy\"></use></svg>"
@@ -112,6 +114,9 @@ public string ExampleFunction(string arg)
 
 To enable syntax highlighting, assign a valid
 [Prism language alias](https://prismjs.com/index.html#languages-list) to `FlexiCodeBlockOptions.Langauge`:
+
+```````````````````````````````` extraExtensions
+FlexiOptionsBlocks
 ```````````````````````````````` example
 @{
     "language": "csharp"
@@ -139,6 +144,9 @@ public string ExampleFunction(string arg)
 If you prefer the syntax highlighter [HighlightJS](http://highlightjs.readthedocs.io/en/latest/index.html), set the 
 value of `FlexiCodeBlockOptions.SyntaxHighlighter` to `HighlightJS` and assign a valid [HighlightJS language alias](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases)
 to `FlexiCodeBlockOptions.Language`:
+
+```````````````````````````````` extraExtensions
+FlexiOptionsBlocks
 ```````````````````````````````` example
 @{
     "language": "csharp",
@@ -165,6 +173,9 @@ public string ExampleFunction(string arg)
 ````````````````````````````````
 
 Assign a prefix to `FlexiCodeBlockOptions.HighlightJSClassPrefix` to customize the prefix for HighlightJS classes:
+
+```````````````````````````````` extraExtensions
+FlexiOptionsBlocks
 ```````````````````````````````` example
 @{
     "language": "csharp",
@@ -193,6 +204,9 @@ public string ExampleFunction(string arg)
 
 If you prefer to do highlighting client-side, set `highlightSyntax` to `false`. As long as `FlexiCodeBlockOptions.Langauge` is not
 null, whitespace or an empty string, a language class will be assigned to the `code` element:
+
+```````````````````````````````` extraExtensions
+FlexiOptionsBlocks
 ```````````````````````````````` example
 @{
     "language": "html",
@@ -211,6 +225,9 @@ null, whitespace or an empty string, a language class will be assigned to the `c
 ````````````````````````````````
 
 Add line numbers by setting `FlexiCodeBlockOptions.RenderLineNumbers` to true:
+
+```````````````````````````````` extraExtensions
+FlexiOptionsBlocks
 ```````````````````````````````` example
 @{
     "renderLineNumbers": true
@@ -237,6 +254,9 @@ public string ExampleFunction(string arg)
 
 Customize which numbers line number sequences start from and the lines that line numbers are rendered for using
 `FlexiCodeBlockOptions.LineNumberRanges`:
+
+```````````````````````````````` extraExtensions
+FlexiOptionsBlocks
 ```````````````````````````````` example
 @{
     "renderLineNumbers": true,
@@ -299,6 +319,9 @@ public class ExampleClass
 
 Highlight lines using `FlexiCodeBlockOptions.HighlightLineRanges` (line highlighting should not be confused with syntax highlighting - a highlighted line is simply
 a line with perhaps a different background color, syntax highlighting adds color to syntax tokens):
+
+```````````````````````````````` extraExtensions
+FlexiOptionsBlocks
 ```````````````````````````````` example
 @{
     "highlightLineRanges": [
@@ -349,6 +372,9 @@ Certain characters within code elements must be escaped. If syntax highlighting 
 
 Both Prism and HighlightJS cannot process escaped characters, so it isn't possible to escape code then pass it to the highlighters. Fortunately,
 both of them can do escaping on their own. Prism, escapes `<` and `&` characters:
+
+```````````````````````````````` extraExtensions
+FlexiOptionsBlocks
 ```````````````````````````````` example
 @{
     "language": "html"
@@ -366,6 +392,9 @@ both of them can do escaping on their own. Prism, escapes `<` and `&` characters
 ````````````````````````````````
 
 HighlightJS, escapes `<`, `>` and `&` characters:
+
+```````````````````````````````` extraExtensions
+FlexiOptionsBlocks
 ```````````````````````````````` example
 @{
     "language": "html",

@@ -314,6 +314,7 @@ public class Parser
 
             htmlLines.Clear();
             markdownLines.Clear();
+            extraExtensions.Clear();
             extensionOptionsLines.Clear();
             currentDescription = "";
             currentSpecNumber++;
