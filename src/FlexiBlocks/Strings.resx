@@ -126,6 +126,15 @@
   <data name="ArgumentException_InvalidStartLineNumber" xml:space="preserve">
     <value>Invalid start line number "{0}". Start line number must be greater than 0.</value>
   </data>
+  <data name="ArgumentException_UriMustBeAbsolute" xml:space="preserve">
+    <value>"{0}" is not an absolute Uri.</value>
+  </data>
+  <data name="ArgumentException_UriSchemeUnsupported" xml:space="preserve">
+    <value>Uri "{0}" has unsupported scheme "{1}".</value>
+  </data>
+  <data name="HttpRequestException_UnsuccessfulRequest" xml:space="preserve">
+    <value>Request to "{0}" failed with status code "{1}" and message "{2}".</value>
+  </data>
   <data name="InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBlock" xml:space="preserve">
     <value>FlexiOptionsBlock "{0}" at line "{1}", column "{2}, does not immediately precede a block that consumes it.</value>
   </data>

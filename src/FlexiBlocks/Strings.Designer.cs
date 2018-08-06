@@ -89,6 +89,33 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; is not an absolute Uri..
+        /// </summary>
+        internal static string ArgumentException_UriMustBeAbsolute {
+            get {
+                return ResourceManager.GetString("ArgumentException_UriMustBeAbsolute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uri &quot;{0}&quot; has unsupported scheme &quot;{1}&quot;..
+        /// </summary>
+        internal static string ArgumentException_UriSchemeUnsupported {
+            get {
+                return ResourceManager.GetString("ArgumentException_UriSchemeUnsupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to &quot;{0}&quot; failed with status code &quot;{1}&quot; and message &quot;{2}&quot;..
+        /// </summary>
+        internal static string HttpRequestException_UnsuccessfulRequest {
+            get {
+                return ResourceManager.GetString("HttpRequestException_UnsuccessfulRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FlexiOptionsBlock &quot;{0}&quot; at line &quot;{1}&quot;, column &quot;{2}, does not immediately precede a block that consumes it..
         /// </summary>
         internal static string InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBlock {
