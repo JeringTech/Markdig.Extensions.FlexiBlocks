@@ -4,8 +4,8 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
-using Jering.WebUtils.SyntaxHighlighters.HighlightJS;
-using Jering.WebUtils.SyntaxHighlighters.Prism;
+using Jering.Web.SyntaxHighlighters.HighlightJS;
+using Jering.Web.SyntaxHighlighters.Prism;
 using Markdig;
 using Microsoft.Extensions.DependencyInjection;
 

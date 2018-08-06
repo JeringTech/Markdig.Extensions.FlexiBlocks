@@ -4,8 +4,8 @@ using Markdig.Parsers;
 using Markdig.Renderers;
 using Markdig.Renderers.Html;
 using Markdig.Syntax;
-using Jering.WebUtils.SyntaxHighlighters.Prism;
-using Jering.WebUtils.SyntaxHighlighters.HighlightJS;
+using Jering.Web.SyntaxHighlighters.Prism;
+using Jering.Web.SyntaxHighlighters.HighlightJS;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
