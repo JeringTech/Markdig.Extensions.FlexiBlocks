@@ -14,7 +14,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 {
     public class FlexiCodeBlockRendererIntegrationTests : IDisposable
     {
-        private ServiceProvider _serviceProvider;
+        private IServiceProvider _serviceProvider;
 
         [Theory]
         [MemberData(nameof(Write_RendersAttributesIfAnyAreSpecified_Data))]
@@ -688,7 +688,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 
         public void Dispose()
         {
-            _serviceProvider.Dispose();
+            ((IDisposable)_serviceProvider).Dispose();
         }
     }
 }

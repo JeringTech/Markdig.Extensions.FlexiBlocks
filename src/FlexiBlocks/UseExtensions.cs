@@ -8,12 +8,13 @@ using Jering.Web.SyntaxHighlighters.HighlightJS;
 using Jering.Web.SyntaxHighlighters.Prism;
 using Markdig;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     public static class UseExtensions
     {
-        private static readonly ServiceProvider _serviceProvider;
+        private static readonly IServiceProvider _serviceProvider;
 
         static UseExtensions()
         {

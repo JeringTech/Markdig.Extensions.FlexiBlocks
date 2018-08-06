@@ -10,6 +10,7 @@
 
 namespace Jering.Markdig.Extensions.FlexiBlocks {
     using System;
+    using System.Reflection;
     
     
     /// <summary>
@@ -39,7 +40,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Jering.Markdig.Extensions.FlexiBlocks.Strings", typeof(Strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Jering.Markdig.Extensions.FlexiBlocks.Strings", typeof(Strings).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
