@@ -41,6 +41,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             lineNumberRanges?.Sort(CompareLineNumberRanges);
             highlightLineRanges?.Sort(CompareHighlightLineRanges);
 
+            // TODO use Span
             // Get lines, we need to know the number of lines in the text to verify that the provided ranges are valid
             string[] lines = text.Split(_newLineStrings, StringSplitOptions.None);
             int numLines = lines.Length;
