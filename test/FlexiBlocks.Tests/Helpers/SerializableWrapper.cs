@@ -3,7 +3,7 @@ using Xunit.Abstractions;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 {
-    public class SerializableWrapper<T> : IXunitSerializable
+    public class SerializableWrapper<T> : ISerializableWrapper<T>
     {
         private const string VALUE_KEY = "VALUE_KEY";
         public T Value { get; private set; }
