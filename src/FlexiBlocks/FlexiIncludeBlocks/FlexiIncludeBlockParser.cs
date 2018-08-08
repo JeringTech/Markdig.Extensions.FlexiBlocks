@@ -126,8 +126,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
             // TODO block circular includes
 
-            // TODO is file a local path or a url? (copy FileRetrievalService)
-            // TODO path should be relative to path of current document? how does docfx handle this
             string fullPath = Path.Combine(_flexiIncludeBlocksExtensionOptions.RootPath, includeOptions.Source);
 
             // TODO Retrieve unclipped content (read as lines since we will most probably only be using a subset of all the lines)
@@ -141,7 +139,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             var tempContainerBlock = new TempContainerBlock(null);
             childProcessor.Open(tempContainerBlock);
 
-            // TODO what else is line index used for?
+            // TODO what else is line index used for? 
+            // TODO printing of errors when in a child processor, line numbers etc
             // MarkdownObject.Line is the line that the block starts at, it is set by BlockProcessor.ProcessNewBlocks. We need to set 
             // LineIndex to the line that the include block starts at for FlexiOptionsBlocks to work.
             childProcessor.LineIndex = flexiIncludeBlock.Line;
