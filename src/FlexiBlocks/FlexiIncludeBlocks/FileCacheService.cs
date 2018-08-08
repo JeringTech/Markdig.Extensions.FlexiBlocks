@@ -9,8 +9,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     /// <summary>
     /// <para>The default implementation of <see cref="IFileCacheService"/>.</para>
-    /// <para>This is an extremely simple caching service, without policies, size limits etc. Additional features 
-    /// may be added if the need for them arises.</para>
+    /// <para>This is an extremely simple caching service, it lacks policies (expiration etc), size limits and other bells and whistles. Additional features 
+    /// will be added as the need for them arises.</para>
     /// </summary>
     public class FileCacheService : IFileCacheService
     {
@@ -57,41 +57,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 return false;
             }
 
-            int remainingTries = 3;
-
-            while(true)
+            try
             {
-                remainingTries--;
-
-                try
-                {
-                    readOnlyFileStream = _fileService.Open(filePath,
+                readOnlyFileStream = GetStream(filePath,
                         FileMode.Open, // Throw if file was removed between _fileService.Exists and this call
                         FileAccess.Read, // Read only access
-                        FileShare.Read); // Allow other threads to read the file but prevent writing until we are done reading
-
-                    return true;
-                }
-                catch (Exception exception) when (exception is DirectoryNotFoundException || exception is FileNotFoundException)
-                {
-                    // File does not exist (something happened to it between the _fileService.Exists call and the _fileService.Open call)
-                    readOnlyFileStream = null;
-                    return false;
-                }
-                catch (IOException)
-                {
-                    _logger?.LogDebug($"The file \"{filePath}\" is in use. {remainingTries} tries remaining.");
-
-                    if(remainingTries == 0)
-                    {
-                        throw;
-                    }
-
-                    Thread.Sleep(50);
-                }
-
-                // Other exceptions (PathTooLongException, UnauthorizedAccessException and ArgumentException) can't be recovered from, so we don't bother 
-                // catching them.
+                        FileShare.Read); // Don't allow other threads to write to the file while we read from it
+                return true;
+            }
+            catch (Exception exception) when (exception is DirectoryNotFoundException || exception is FileNotFoundException)
+            {
+                // File does not exist (something happened to it between the _fileService.Exists call and the _fileService.Open call in GetStream)
+                readOnlyFileStream = null;
+                return false;
             }
         }
 
@@ -114,6 +92,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
             string filePath = CreatePath(identifier);
 
+            return GetStream(filePath,
+                FileMode.OpenOrCreate, // Create file if it doesn't already exist
+                FileAccess.Write, // Write only access
+                FileShare.None); // Don't allow other threads to access the file while we write to it
+        }
+
+        /// <summary>
+        /// Open a file stream, retrying up to 3 times if the file is in use.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="fileMode"></param>
+        /// <param name="fileAccess"></param>
+        /// <param name="fileShare"></param>
+        internal virtual FileStream GetStream(string path, FileMode fileMode, FileAccess fileAccess, FileShare fileShare)
+        {
             int remainingTries = 3;
 
             while (true)
@@ -122,14 +115,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
                 try
                 {
-                    return _fileService.Open(filePath,
-                        FileMode.OpenOrCreate, // Create file if it doesn't already exist
-                        FileAccess.Write, // Write only access
-                        FileShare.None); // Don't allow other threads to access the file while we write to it
+                    return _fileService.Open(path, fileMode, fileAccess, fileShare);
                 }
                 catch (IOException)
                 {
-                    _logger?.LogDebug($"The file \"{filePath}\" is in use. {remainingTries} tries remaining.");
+                    _logger?.LogDebug($"The file \"{path}\" is in use. {remainingTries} tries remaining.");
 
                     if (remainingTries == 0)
                     {
@@ -139,8 +129,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                     Thread.Sleep(50);
                 }
 
-                // Other exceptions (PathTooLongException, UnauthorizedAccessException and ArgumentException) can't be recovered from, so we don't bother 
-                // catching them.
+                // Other exceptions (FileNotFoundException, DirectoryNotFoundException, PathTooLongException, UnauthorizedAccessException and ArgumentException) 
+                // will almost certainly continue to be thrown however many times we retry, so just let them propagate.
             }
         }
 
