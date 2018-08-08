@@ -82,24 +82,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 code = _stringWriter.ToString();
                 _stringWriter.GetStringBuilder().Length = 0;
 
-
-
-                // TODO markdig should allow for async writing
-                // Run in the threadpool to avoid deadlocks (the underlying class used for invoking JS, INodeServices does not call ConfigureAwait)
-                code = Task.Run(() =>
+                // All code up the stack from HighlightAsync calls ConfigureAwait(false), so there is no need to run this calls in the thread pool.
+                // Use GetAwaiter and GetResult to avoid an AggregateException - https://blog.stephencleary.com/2014/12/a-tour-of-task-part-6-results.html
+                if (flexiCodeBlockOptions.SyntaxHighlighter == SyntaxHighlighter.HighlightJS)
                 {
-                    if (flexiCodeBlockOptions.SyntaxHighlighter == SyntaxHighlighter.HighlightJS)
-                    {
-                        return _highlightJSService.HighlightAsync(code, flexiCodeBlockOptions.Language, flexiCodeBlockOptions.HighlightJSClassPrefix);
-                    }
-                    else
-                    {
-                        // Default to Prism
-                        return _prismService.HighlightAsync(code, flexiCodeBlockOptions.Language);
-                    }
-                }).Result;
-
-
+                    code = _highlightJSService.
+                        HighlightAsync(code, flexiCodeBlockOptions.Language, flexiCodeBlockOptions.HighlightJSClassPrefix).GetAwaiter().GetResult();
+                }
+                else
+                {
+                    // Default to Prism
+                    code = _prismService.HighlightAsync(code, flexiCodeBlockOptions.Language).GetAwaiter().GetResult();
+                }
             }
 
             // Embellish code
