@@ -1,12 +1,17 @@
 ﻿using Jering.IocServices.System.IO;
 using Jering.IocServices.System.Net.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
+using System.Buffers;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
@@ -16,78 +21,112 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <summary>
         /// Thread safe, in-memory content cache - https://andrewlock.net/making-getoradd-on-concurrentdictionary-thread-safe-using-lazy/
         /// </summary>
-        private readonly ConcurrentDictionary<string, Lazy<string[]>> _cache = new ConcurrentDictionary<string, Lazy<string[]>>();
-
+        private readonly ConcurrentDictionary<string, Lazy<ReadOnlyCollection<string>>> _cache = new ConcurrentDictionary<string, Lazy<ReadOnlyCollection<string>>>();
+        private readonly MD5 _mD5 = MD5.Create();
         private readonly IHttpClientService _httpClientService;
-        private readonly IFileService _fileService;
+        private readonly IFileCacheService _fileCacheService;
         private readonly ILogger<ContentRetrievalService> _logger;
+        private readonly IFileService _fileService;
+        private readonly ContentRetrievalServiceOptions _options;
+        private readonly Uri _baseUri;
 
-        public ContentRetrievalService(IHttpClientService httpClientService, IFileService fileService, ILoggerFactory loggerFactory)
+        public ContentRetrievalService(IHttpClientService httpClientService,
+            IFileService fileService,
+            IFileCacheService fileCacheService,
+            ILoggerFactory loggerFactory,
+            IOptions<ContentRetrievalServiceOptions> optionsAccessor)
         {
-            _httpClientService = httpClientService;
             _fileService = fileService;
+            _httpClientService = httpClientService;
+            _fileCacheService = fileCacheService;
             _logger = loggerFactory?.CreateLogger<ContentRetrievalService>();
+            _options = optionsAccessor?.Value ?? new ContentRetrievalServiceOptions();
+
+            if (!Uri.TryCreate(_options.RootPath, UriKind.Absolute, out _baseUri))
+            {
+                throw new ArgumentException(string.Format(Strings.ArgumentException_UriMustBeAbsolute, _options.RootPath));
+            }
         }
 
-        public string[] GetContent(string absoluteUri, CancellationToken cancellationToken = default(CancellationToken))
+        /// <summary>
+        /// Return type is read only for thread safety
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public ReadOnlyCollection<string> GetContent(string source, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return _cache.GetOrAdd(absoluteUri, new Lazy<string[]>(() => GetContentCore(absoluteUri, cancellationToken))).Value;
+            return _cache.GetOrAdd(source, _ => new Lazy<ReadOnlyCollection<string>>(() => GetContentCore(source, cancellationToken))).Value;
         }
 
-        // TODO would be great if this could be async, but methods down the stack are not async
-        private string[] GetContentCore(string absoluteUri, CancellationToken cancellationToken)
+        // Full list of schemes: https://docs.microsoft.com/en-sg/dotnet/api/system.uri.scheme?view=netstandard-2.0#System_Uri_Scheme
+        private ReadOnlyCollection<string> GetContentCore(string source, CancellationToken cancellationToken)
         {
-            // absoluteUri must be an absolute url or the absolute path of a file on disk. Full list of schemes: https://docs.microsoft.com/en-sg/dotnet/api/system.uri.scheme?view=netstandard-2.0#System_Uri_Scheme
-            if (!Uri.TryCreate(absoluteUri, UriKind.Absolute, out Uri uri))
+            if (!Uri.TryCreate(_baseUri, source, out Uri uri) // source is not a relative uri
+                && !Uri.TryCreate(source, UriKind.Absolute, out uri)) // source is not an absolute uri
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_UriMustBeAbsolute, absoluteUri));
+                throw new ArgumentException(string.Format(Strings.ArgumentException_NotAUri, source));
             }
 
-            if(uri.Scheme != "http" && uri.Scheme != "https" && uri.Scheme != "file")
-            {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_UriSchemeUnsupported, absoluteUri, uri.Scheme));
-            }
-
-            // Local source
             if (uri.Scheme == "file")
             {
-                // TODO what is the diff between LocalPath and AbsolutePath
-                return _fileService.ReadAllLines(uri.LocalPath);
+                // Local source
+                return new ReadOnlyCollection<string>(_fileService.ReadAllLines(uri.AbsolutePath));
+            }
+
+            if(uri.Scheme != "http" && uri.Scheme != "https")
+            {
+                throw new ArgumentException(string.Format(Strings.ArgumentException_UriSchemeUnsupported, uri.AbsolutePath, uri.Scheme));
             }
 
             // Remote source
+            return GetRemoteContent(uri, cancellationToken);
+        }
 
-            // TODO try to retrieve from on disk cache
-            // Try FileCache
+        internal virtual ReadOnlyCollection<string> GetRemoteContent(Uri uri, CancellationToken cancellationToken)
+        {
+            string cacheIdentifier = GetCacheIdentifier(uri.AbsolutePath);
+            FileStream readOnlyFileStream = null;
+            try
+            {
+                // Try to retrieve file from cache
+                if (_fileCacheService.TryGetReadOnlyFileStream(cacheIdentifier, out readOnlyFileStream))
+                {
+                    return ReadAllLines(readOnlyFileStream);
+                }
+            }
+            catch (Exception exception)
+            {
+                readOnlyFileStream?.Dispose();
+
+                throw new ContentRetrievalException($"Failed to retrieve content from \"{uri.AbsolutePath}\". Refer to the inner exception for details.", exception);
+            }
+            finally
+            {
+                readOnlyFileStream?.Dispose();
+            }
 
             int remainingTries = 3;
-
             do
             {
                 remainingTries--;
 
                 try
                 {
-                    // TODO does this throw an aggregate exception? can it be avoided?
-                    HttpResponseMessage response = _httpClientService.GetAsync(uri, cancellationToken).Result;
+                    HttpResponseMessage response = _httpClientService.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, cancellationToken).GetAwaiter().GetResult();
 
                     if (response.IsSuccessStatusCode)
                     {
+                        // TODO how does HttpCompletionOption.ResponseHeadersRead affect ReadAsStream? should there be a using around response?
                         Stream contentStream = response.Content.ReadAsStreamAsync().Result;
+                        FileStream writeOnlyFileStream = _fileCacheService.GetWriteOnlyFileStream(cacheIdentifier);
+                        // TODO copy to writeOnlyFileStream and get lines in 1 pass
+                        contentStream.CopyTo(writeOnlyFileStream);
 
-                        // This is exactly what File.ReadAllLines does - https://github.com/dotnet/corefx/blob/e267ad25d58459b90be7cea74ea11b9689daf191/src/System.IO.FileSystem/src/System/IO/File.cs#L449
-                        string line;
-                        var lines = new List<string>();
+                        // TODO Move to start of stream again? might not work since a httpcontentstream does not keep all the data in the buffer
+                        contentStream.Position = 0;
 
-                        using (var streamReader = new StreamReader(contentStream))
-                        {
-                            while ((line = streamReader.ReadLine()) != null)
-                            {
-                                lines.Add(line);
-                            }
-                        }
-
-                        return lines.ToArray();
+                        return new ReadOnlyCollection<string>(ReadAllLines(contentStream));
                     }
                     else if (response.StatusCode == HttpStatusCode.NotFound)
                     {
@@ -99,30 +138,87 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                     }
                     else
                     {
+                        // TODO might be a service unavailable or random 500 error, retry if retries remain
                         // TODO print content
-                        _logger?.LogDebug(string.Format(Strings.HttpRequestException_UnsuccessfulRequest, absoluteUri, response.StatusCode));
+                        _logger?.LogDebug(string.Format(Strings.HttpRequestException_UnsuccessfulRequest, uri.AbsolutePath, response.StatusCode));
                     }
                 }
                 catch (OperationCanceledException)
                 {
-                    _logger?.LogDebug($"Attempt to retrieve content from \"{absoluteUri}\" timed out, {remainingTries} tries remaining.");
+                    _logger?.LogDebug($"Attempt to retrieve content from \"{uri.AbsolutePath}\" timed out, {remainingTries} tries remaining.");
                 }
                 catch (HttpRequestException exception)
                 {
-                    _logger?.LogDebug($"A {nameof(HttpRequestException)} with message \"{exception.Message}\" occurred when attempting to retrieve content from \"{absoluteUri}\", {remainingTries} tries remaining.");
+                    // TODO When does this get thrown? when status code is fail? Read through source to figure this out
+                    _logger?.LogDebug($"A {nameof(HttpRequestException)} with message \"{exception.Message}\" occurred when attempting to retrieve content from \"{uri.AbsolutePath}\", {remainingTries} tries remaining.");
                 }
                 catch (Exception exception)
                 {
-                    // Unexpected exception
-                    throw new ContentRetrievalException("Content retrieval failed with an unexpected exception. Refer to the inner exception for details.", exception);
+                    // TODO exception list, No use retrying
+                    throw new ContentRetrievalException($"Failed to retrieve content from \"{uri.AbsolutePath}\". Refer to the inner exception for details.", exception);
                 }
 
-                // TODO sleep
+                Thread.Sleep(1000);
             }
             while (remainingTries > 0);
 
             // remainingTries == 0
-            throw new ContentRetrievalException($"Multiple attempts retrieve content from \"{absoluteUri}\" have failed. Please ensure that the Url is valid and that your network connection is stable.");
+            throw new ContentRetrievalException($"Multiple attempts retrieve content from \"{uri.AbsolutePath}\" have failed. Please ensure that the Url is valid and that your network connection is stable.");
+        }
+
+        /// <summary>
+        /// Hashes a path to create a unique cache identifier that does not contain illegal characters and has a fixed length.
+        /// </summary>
+        /// <param name="absolutePath"></param>
+        internal virtual string GetCacheIdentifier(string absolutePath)
+        {
+            int byteCount = Encoding.UTF8.GetByteCount(absolutePath);
+            byte[] bytes = null;
+            byte[] hashBytes = null;
+            try
+            {
+                bytes = ArrayPool<byte>.Shared.Rent(byteCount);
+                Encoding.UTF8.GetBytes(absolutePath, 0, absolutePath.Length, bytes, 0);
+#if NETSTANDARD1_3
+                hashBytes = _mD5.ComputeHash(bytes);
+#elif NETSTANDARD2_0
+                hashBytes = ArrayPool<byte>.Shared.Rent(16);
+                _mD5.TransformBlock(bytes, 0, bytes.Length, hashBytes, 0);
+#endif
+
+                return BitConverter.ToString(hashBytes);
+            }
+            finally
+            {
+                if (bytes != null)
+                {
+                    ArrayPool<byte>.Shared.Return(bytes);
+                }
+
+#if NETSTANDARD2_0
+                if (hashBytes != null)
+                {
+                    ArrayPool<byte>.Shared.Return(hashBytes);
+                }
+#endif
+            }
+        }
+
+        private ReadOnlyCollection<string> ReadAllLines(Stream stream)
+        {
+            // This is exactly what File.ReadAllLines does - https://github.com/dotnet/corefx/blob/e267ad25d58459b90be7cea74ea11b9689daf191/src/System.IO.FileSystem/src/System/IO/File.cs#L449
+            string line;
+            var lines = new List<string>();
+
+            using (var streamReader = new StreamReader(stream))
+            {
+                while ((line = streamReader.ReadLine()) != null)
+                {
+                    lines.Add(line);
+                }
+            }
+
+            return lines.AsReadOnly();
         }
     }
 }
