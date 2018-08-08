@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString" xml:space="preserve">
+    <value>The parameter "{0}" cannot be null, white space or an empty string.</value>
+  </data>
   <data name="ArgumentException_InvalidEndLine" xml:space="preserve">
     <value>Invalid end line "{0}". If end line isn't -1, it must be greater than or equal to start line, "{1}".</value>
   </data>
@@ -126,8 +129,11 @@
   <data name="ArgumentException_InvalidStartLineNumber" xml:space="preserve">
     <value>Invalid start line number "{0}". Start line number must be greater than 0.</value>
   </data>
+  <data name="ArgumentException_NotAUri" xml:space="preserve">
+    <value>A Uri was expected, received "{0}".</value>
+  </data>
   <data name="ArgumentException_UriMustBeAbsolute" xml:space="preserve">
-    <value>"{0}" is not an absolute Uri.</value>
+    <value>An absolute Uri was expected, received "{0}".</value>
   </data>
   <data name="ArgumentException_UriSchemeUnsupported" xml:space="preserve">
     <value>Uri "{0}" has unsupported scheme "{1}".</value>

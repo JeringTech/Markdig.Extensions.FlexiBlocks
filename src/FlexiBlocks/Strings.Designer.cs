@@ -62,6 +62,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The parameter &quot;{0}&quot; cannot be null, white space or an empty string..
+        /// </summary>
+        internal static string ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString {
+            get {
+                return ResourceManager.GetString("ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid end line &quot;{0}&quot;. If end line isn&apos;t -1, it must be greater than or equal to start line, &quot;{1}&quot;..
         /// </summary>
         internal static string ArgumentException_InvalidEndLine {
@@ -89,7 +98,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; is not an absolute Uri..
+        ///   Looks up a localized string similar to A Uri was expected, received &quot;{0}&quot;..
+        /// </summary>
+        internal static string ArgumentException_NotAUri {
+            get {
+                return ResourceManager.GetString("ArgumentException_NotAUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An absolute Uri was expected, received &quot;{0}&quot;..
         /// </summary>
         internal static string ArgumentException_UriMustBeAbsolute {
             get {
