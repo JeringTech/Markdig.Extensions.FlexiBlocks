@@ -3,7 +3,7 @@ using Markdig.Parsers;
 using Markdig.Syntax;
 using Newtonsoft.Json;
 using System.Buffers;
-using System.IO;
+using System.Collections.ObjectModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
@@ -15,14 +15,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
     /// </summary>
     public class FlexiIncludeBlockParser : BlockParser
     {
-        private FlexiIncludeBlocksExtensionOptions _flexiIncludeBlocksExtensionOptions;
+        private readonly FlexiIncludeBlocksExtensionOptions _flexiIncludeBlocksExtensionOptions;
+        private readonly IContentRetrievalService _contentRetrievalService;
 
         /// <summary>
         /// Creates a <see cref="FlexiIncludeBlockParser"/> instance.
         /// </summary>
-        public FlexiIncludeBlockParser(FlexiIncludeBlocksExtensionOptions flexiIncludeBlocksExtensionOptions)
+        public FlexiIncludeBlockParser(FlexiIncludeBlocksExtensionOptions flexiIncludeBlocksExtensionOptions,
+            IContentRetrievalService contentRetrievalService)
         {
             _flexiIncludeBlocksExtensionOptions = flexiIncludeBlocksExtensionOptions;
+            _contentRetrievalService = contentRetrievalService;
 
             OpeningCharacters = new[] { '+' };
         }
@@ -126,12 +129,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
             // TODO block circular includes
 
-            string fullPath = Path.Combine(_flexiIncludeBlocksExtensionOptions.RootPath, includeOptions.Source);
+            // Retrieve content (read as lines since we will most probably only be using a subset of all the lines)
+            ReadOnlyCollection<string> unclippedContent = _contentRetrievalService.GetContent(includeOptions.Source);
 
-            // TODO Retrieve unclipped content (read as lines since we will most probably only be using a subset of all the lines)
-            string[] unclippedContent = File.ReadAllLines(fullPath);
-
-            // TODO clip content
 
             // GridTable uses this pattern. Essentially, it creates a fresh context with the same root document. Not having a bunch of 
             // open blocks makes it possible to create the replacement blocks for flexiIncludeBlock.
@@ -146,16 +146,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             childProcessor.LineIndex = flexiIncludeBlock.Line;
 
             // Process included content
-            for (int i = 0; i < unclippedContent.Length; i++)
+            // TODO clip content
+            for (int i = 0; i < unclippedContent.Count; i++)
             {
                 if (i == 0 && includeOptions.ContentType != ContentType.Markdown)
                 {
                     childProcessor.ProcessLine(new StringSlice("```"));
                 }
 
+
                 childProcessor.ProcessLine(new StringSlice(unclippedContent[i]));
 
-                if (i == unclippedContent.Length - 1 && includeOptions.ContentType != ContentType.Markdown)
+                if (i == unclippedContent.Count - 1 && includeOptions.ContentType != ContentType.Markdown)
                 {
                     childProcessor.ProcessLine(new StringSlice("```"));
                 }
@@ -172,7 +174,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 int numReplacementBlocks = tempContainerBlock.Count;
                 tempContainerBlock.CopyTo(replacementBlocks, 0);
                 tempContainerBlock.Clear();
-                for(int i = 0; i < numReplacementBlocks; i++)
+                for (int i = 0; i < numReplacementBlocks; i++)
                 {
                     flexiIncludeBlock.Parent.Add(replacementBlocks[i]);
                 }
