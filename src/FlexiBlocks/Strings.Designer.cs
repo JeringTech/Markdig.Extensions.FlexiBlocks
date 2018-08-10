@@ -62,6 +62,24 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Base URI must be an absolute  URI , received &quot;{0}&quot;..
+        /// </summary>
+        internal static string ArgumentException_BaseUriMustBeAbsolute {
+            get {
+                return ResourceManager.GetString("ArgumentException_BaseUriMustBeAbsolute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Base URI &quot;{0}&quot; has unsupported scheme &quot;{1}&quot;..
+        /// </summary>
+        internal static string ArgumentException_BaseUriSchemeUnsupported {
+            get {
+                return ResourceManager.GetString("ArgumentException_BaseUriSchemeUnsupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The parameter &quot;{0}&quot; cannot be null, white space or an empty string..
         /// </summary>
         internal static string ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString {
@@ -98,29 +116,47 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A Uri was expected, received &quot;{0}&quot;..
+        ///   Looks up a localized string similar to &quot;{0}&quot; is not a valid  URI ..
         /// </summary>
-        internal static string ArgumentException_NotAUri {
+        internal static string ArgumentException_NotAValidUri {
             get {
-                return ResourceManager.GetString("ArgumentException_NotAUri", resourceCulture);
+                return ResourceManager.GetString("ArgumentException_NotAValidUri", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An absolute Uri was expected, received &quot;{0}&quot;..
-        /// </summary>
-        internal static string ArgumentException_UriMustBeAbsolute {
-            get {
-                return ResourceManager.GetString("ArgumentException_UriMustBeAbsolute", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Uri &quot;{0}&quot; has unsupported scheme &quot;{1}&quot;..
+        ///   Looks up a localized string similar to  URI  &quot;{0}&quot; has unsupported scheme &quot;{1}&quot;..
         /// </summary>
         internal static string ArgumentException_UriSchemeUnsupported {
             get {
                 return ResourceManager.GetString("ArgumentException_UriSchemeUnsupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiple attempts retrieve content from &quot;{0}&quot; have failed. Please ensure that the Url is valid and that your network connection is stable. Enable debug level logging and try again for more information on why requests are failing..
+        /// </summary>
+        internal static string ContentRetrievalException_FailedAfterMultipleAttempts {
+            get {
+                return ResourceManager.GetString("ContentRetrievalException_FailedAfterMultipleAttempts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access to the remote Url &quot;{0}&quot; is forbidden..
+        /// </summary>
+        internal static string ContentRetrievalException_RemoteUriAccessForbidden {
+            get {
+                return ResourceManager.GetString("ContentRetrievalException_RemoteUriAccessForbidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The remote Url &quot;{0}&quot; does not exist..
+        /// </summary>
+        internal static string ContentRetrievalException_RemoteUriDoesNotExist {
+            get {
+                return ResourceManager.GetString("ContentRetrievalException_RemoteUriDoesNotExist", resourceCulture);
             }
         }
         

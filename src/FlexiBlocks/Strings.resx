@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ArgumentException_BaseUriMustBeAbsolute" xml:space="preserve">
+    <value>Base URI must be an absolute  URI , received "{0}".</value>
+  </data>
+  <data name="ArgumentException_BaseUriSchemeUnsupported" xml:space="preserve">
+    <value>Base URI "{0}" has unsupported scheme "{1}".</value>
+  </data>
   <data name="ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString" xml:space="preserve">
     <value>The parameter "{0}" cannot be null, white space or an empty string.</value>
   </data>
@@ -129,14 +135,20 @@
   <data name="ArgumentException_InvalidStartLineNumber" xml:space="preserve">
     <value>Invalid start line number "{0}". Start line number must be greater than 0.</value>
   </data>
-  <data name="ArgumentException_NotAUri" xml:space="preserve">
-    <value>A Uri was expected, received "{0}".</value>
-  </data>
-  <data name="ArgumentException_UriMustBeAbsolute" xml:space="preserve">
-    <value>An absolute Uri was expected, received "{0}".</value>
+  <data name="ArgumentException_NotAValidUri" xml:space="preserve">
+    <value>"{0}" is not a valid  URI .</value>
   </data>
   <data name="ArgumentException_UriSchemeUnsupported" xml:space="preserve">
-    <value>Uri "{0}" has unsupported scheme "{1}".</value>
+    <value> URI  "{0}" has unsupported scheme "{1}".</value>
+  </data>
+  <data name="ContentRetrievalException_FailedAfterMultipleAttempts" xml:space="preserve">
+    <value>Multiple attempts retrieve content from "{0}" have failed. Please ensure that the Url is valid and that your network connection is stable. Enable debug level logging and try again for more information on why requests are failing.</value>
+  </data>
+  <data name="ContentRetrievalException_RemoteUriAccessForbidden" xml:space="preserve">
+    <value>Access to the remote Url "{0}" is forbidden.</value>
+  </data>
+  <data name="ContentRetrievalException_RemoteUriDoesNotExist" xml:space="preserve">
+    <value>The remote Url "{0}" does not exist.</value>
   </data>
   <data name="HttpRequestException_UnsuccessfulRequest" xml:space="preserve">
     <value>Request to "{0}" failed with status code "{1}" and message "{2}".</value>

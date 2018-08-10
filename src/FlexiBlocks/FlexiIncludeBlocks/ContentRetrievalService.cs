@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
@@ -16,8 +17,15 @@ using System.Threading;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
-    public class ContentRetrievalService
+    /// <summary>
+    /// <para>The default implementation of <see cref="IContentRetrievalService"/>.</para>
+    /// <para>This service caches all retrieved content in memory. Additionally, it caches content retrieved from remote sources on disk.</para>
+    /// </summary>
+    public class ContentRetrievalService : IContentRetrievalService
     {
+        // We only support a subset of schemes. For the full list of schemes, see https://docs.microsoft.com/en-sg/dotnet/api/system.uri.scheme?view=netstandard-2.0#System_Uri_Scheme
+        private static readonly string[] _supportedSchemes = new string[] { "file", "http", "https" };
+
         /// <summary>
         /// Thread safe, in-memory content cache - https://andrewlock.net/making-getoradd-on-concurrentdictionary-thread-safe-using-lazy/
         /// </summary>
@@ -25,11 +33,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         private readonly MD5 _mD5 = MD5.Create();
         private readonly IHttpClientService _httpClientService;
         private readonly IFileCacheService _fileCacheService;
-        private readonly ILogger<ContentRetrievalService> _logger;
         private readonly IFileService _fileService;
+        private readonly ILogger<ContentRetrievalService> _logger;
         private readonly ContentRetrievalServiceOptions _options;
         private readonly Uri _baseUri;
 
+        /// <summary>
+        /// Creates a <see cref="ContentRetrievalService"/> instance.
+        /// </summary>
+        /// <param name="httpClientService"></param>
+        /// <param name="fileService"></param>
+        /// <param name="fileCacheService"></param>
+        /// <param name="loggerFactory"></param>
+        /// <param name="optionsAccessor"></param>
         public ContentRetrievalService(IHttpClientService httpClientService,
             IFileService fileService,
             IFileCacheService fileCacheService,
@@ -42,30 +58,41 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             _logger = loggerFactory?.CreateLogger<ContentRetrievalService>();
             _options = optionsAccessor?.Value ?? new ContentRetrievalServiceOptions();
 
-            if (!Uri.TryCreate(_options.RootPath, UriKind.Absolute, out _baseUri))
+            // A base URI must be absolute, see http://www.ietf.org/rfc/rfc3986.txt, section 5.1
+            if (!Uri.TryCreate(_options.BaseUri, UriKind.Absolute, out _baseUri))
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_UriMustBeAbsolute, _options.RootPath));
+                throw new ArgumentException(string.Format(Strings.ArgumentException_BaseUriMustBeAbsolute, _options.BaseUri));
+            }
+
+            if (!_supportedSchemes.Contains(_baseUri.Scheme))
+            {
+                throw new ArgumentException(string.Format(Strings.ArgumentException_BaseUriSchemeUnsupported, _options.BaseUri, _baseUri.Scheme));
             }
         }
 
-        /// <summary>
-        /// Return type is read only for thread safety
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public ReadOnlyCollection<string> GetContent(string source, CancellationToken cancellationToken = default(CancellationToken))
+        /// <inheritdoc />
+        public virtual ReadOnlyCollection<string> GetContent(string source, CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (string.IsNullOrWhiteSpace(source))
+            {
+                throw new ArgumentException(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, nameof(source)));
+            }
+
             return _cache.GetOrAdd(source, _ => new Lazy<ReadOnlyCollection<string>>(() => GetContentCore(source, cancellationToken))).Value;
         }
 
-        // Full list of schemes: https://docs.microsoft.com/en-sg/dotnet/api/system.uri.scheme?view=netstandard-2.0#System_Uri_Scheme
-        private ReadOnlyCollection<string> GetContentCore(string source, CancellationToken cancellationToken)
+        internal virtual ReadOnlyCollection<string> GetContentCore(string source, CancellationToken cancellationToken)
         {
             if (!Uri.TryCreate(_baseUri, source, out Uri uri) // source is not a relative uri
                 && !Uri.TryCreate(source, UriKind.Absolute, out uri)) // source is not an absolute uri
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_NotAUri, source));
+                // This almost never gets thrown since Uri escapes characters that would otherwise be illegal in URIs
+                throw new ArgumentException(string.Format(Strings.ArgumentException_NotAValidUri, source));
+            }
+
+            if (!_supportedSchemes.Contains(uri.Scheme))
+            {
+                throw new ArgumentException(string.Format(Strings.ArgumentException_UriSchemeUnsupported, uri.AbsoluteUri, uri.Scheme));
             }
 
             if (uri.Scheme == "file")
@@ -74,32 +101,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 return new ReadOnlyCollection<string>(_fileService.ReadAllLines(uri.AbsolutePath));
             }
 
-            if(uri.Scheme != "http" && uri.Scheme != "https")
-            {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_UriSchemeUnsupported, uri.AbsolutePath, uri.Scheme));
-            }
-
             // Remote source
             return GetRemoteContent(uri, cancellationToken);
         }
 
         internal virtual ReadOnlyCollection<string> GetRemoteContent(Uri uri, CancellationToken cancellationToken)
         {
-            string cacheIdentifier = GetCacheIdentifier(uri.AbsolutePath);
+            string cacheIdentifier = GetCacheIdentifier(uri.AbsoluteUri);
             FileStream readOnlyFileStream = null;
             try
             {
                 // Try to retrieve file from cache
-                if (_fileCacheService.TryGetReadOnlyFileStream(cacheIdentifier, out readOnlyFileStream))
+                if (_fileCacheService.TryGetCacheFile(cacheIdentifier, out readOnlyFileStream))
                 {
                     return ReadAllLines(readOnlyFileStream);
                 }
-            }
-            catch (Exception exception)
-            {
-                readOnlyFileStream?.Dispose();
-
-                throw new ContentRetrievalException($"Failed to retrieve content from \"{uri.AbsolutePath}\". Refer to the inner exception for details.", exception);
             }
             finally
             {
@@ -111,51 +127,57 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             {
                 remainingTries--;
 
+                HttpResponseMessage response = null;
                 try
                 {
-                    HttpResponseMessage response = _httpClientService.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, cancellationToken).GetAwaiter().GetResult();
+                    response = _httpClientService.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, cancellationToken).GetAwaiter().GetResult();
 
                     if (response.IsSuccessStatusCode)
                     {
-                        // TODO how does HttpCompletionOption.ResponseHeadersRead affect ReadAsStream? should there be a using around response?
-                        Stream contentStream = response.Content.ReadAsStreamAsync().Result;
-                        FileStream writeOnlyFileStream = _fileCacheService.GetWriteOnlyFileStream(cacheIdentifier);
-                        // TODO copy to writeOnlyFileStream and get lines in 1 pass
-                        contentStream.CopyTo(writeOnlyFileStream);
+                        FileStream readWriteFileStream = _fileCacheService.CreateOrGetCacheFile(cacheIdentifier);
 
-                        // TODO Move to start of stream again? might not work since a httpcontentstream does not keep all the data in the buffer
-                        contentStream.Position = 0;
+                        // File was created between TryGetCacheFile and GetOrCreateCacheFile calls
+                        if(readWriteFileStream.Length > 0)
+                        {
+                            return ReadAllLines(readWriteFileStream);
+                        }
 
-                        return new ReadOnlyCollection<string>(ReadAllLines(contentStream));
+                        // TODO try copying to file stream and generating lines in 1 pass
+                        response.Content.CopyToAsync(readWriteFileStream).GetAwaiter().GetResult();
+
+                        // Rewind file stream
+                        readWriteFileStream.Position = 0;
+
+                        return ReadAllLines(readWriteFileStream);
                     }
                     else if (response.StatusCode == HttpStatusCode.NotFound)
                     {
-                        // TODO no point retrying if server is up but content does not exist or user is forbidden
+                        // No point retrying if server is responsive but content does not exist
+                        throw new ContentRetrievalException(string.Format(Strings.ContentRetrievalException_RemoteUriDoesNotExist, uri.AbsoluteUri));
                     }
                     else if (response.StatusCode == HttpStatusCode.Forbidden)
                     {
-                        // TODO no point retrying if server is up but content does not exist or user is forbidden
+                        // No point retrying if server is responsive but access to the content is forbidden
+                        throw new ContentRetrievalException(string.Format(Strings.ContentRetrievalException_RemoteUriAccessForbidden, uri.AbsoluteUri));
                     }
                     else
                     {
-                        // TODO might be a service unavailable or random 500 error, retry if retries remain
-                        // TODO print content
-                        _logger?.LogDebug(string.Format(Strings.HttpRequestException_UnsuccessfulRequest, uri.AbsolutePath, response.StatusCode));
+                        // Might be a random internal server error or some intermittent network issue
+                        _logger?.LogDebug($"Http request to \"{uri.AbsoluteUri} failed with status code \"{response.StatusCode}\".");
                     }
                 }
-                catch (OperationCanceledException)
+                catch (OperationCanceledException) // HttpClient.GetAsync throws OperationCanceledException on timeout - https://github.com/dotnet/corefx/blob/25d0f5c20edddbf872d17fa699b4279c0827c320/src/System.Net.Http/src/System/Net/Http/HttpClient.cs#L536
                 {
-                    _logger?.LogDebug($"Attempt to retrieve content from \"{uri.AbsolutePath}\" timed out, {remainingTries} tries remaining.");
+                    _logger?.LogDebug($"Attempt to retrieve content from \"{uri.AbsoluteUri}\" timed out, {remainingTries} tries remaining.");
                 }
                 catch (HttpRequestException exception)
                 {
-                    // TODO When does this get thrown? when status code is fail? Read through source to figure this out
+                    // HttpRequestException is the general exception used for several situations, some of which may be intermittent.
                     _logger?.LogDebug($"A {nameof(HttpRequestException)} with message \"{exception.Message}\" occurred when attempting to retrieve content from \"{uri.AbsolutePath}\", {remainingTries} tries remaining.");
                 }
-                catch (Exception exception)
+                finally
                 {
-                    // TODO exception list, No use retrying
-                    throw new ContentRetrievalException($"Failed to retrieve content from \"{uri.AbsolutePath}\". Refer to the inner exception for details.", exception);
+                    response?.Dispose();
                 }
 
                 Thread.Sleep(1000);
@@ -163,7 +185,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             while (remainingTries > 0);
 
             // remainingTries == 0
-            throw new ContentRetrievalException($"Multiple attempts retrieve content from \"{uri.AbsolutePath}\" have failed. Please ensure that the Url is valid and that your network connection is stable.");
+            throw new ContentRetrievalException(string.Format(Strings.ContentRetrievalException_FailedAfterMultipleAttempts, uri.AbsolutePath));
         }
 
         /// <summary>
@@ -204,7 +226,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
         }
 
-        private ReadOnlyCollection<string> ReadAllLines(Stream stream)
+        internal virtual ReadOnlyCollection<string> ReadAllLines(Stream stream)
         {
             // This is exactly what File.ReadAllLines does - https://github.com/dotnet/corefx/blob/e267ad25d58459b90be7cea74ea11b9689daf191/src/System.IO.FileSystem/src/System/IO/File.cs#L449
             string line;
