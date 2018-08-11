@@ -25,6 +25,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
     {
         // We only support a subset of schemes. For the full list of schemes, see https://docs.microsoft.com/en-sg/dotnet/api/system.uri.scheme?view=netstandard-2.0#System_Uri_Scheme
         private static readonly string[] _supportedSchemes = new string[] { "file", "http", "https" };
+        private static readonly Dictionary<int, char> _decimalToHex = new Dictionary<int, char>
+        {
+            {0, '0' }, {1, '1' }, {2, '2' }, {3, '3' }, {4, '4' }, {5, '5' }, {6, '6' }, {7, '7' },
+            {8, '8' }, {9, '9' }, { 10, 'A' }, {11, 'B'}, {12, 'C'}, {13, 'D'}, {14, 'E'}, {15, 'F'}
+        };
 
         /// <summary>
         /// Thread safe, in-memory content cache - https://andrewlock.net/making-getoradd-on-concurrentdictionary-thread-safe-using-lazy/
@@ -137,7 +142,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                         FileStream readWriteFileStream = _fileCacheService.CreateOrGetCacheFile(cacheIdentifier);
 
                         // File was created between TryGetCacheFile and GetOrCreateCacheFile calls
-                        if(readWriteFileStream.Length > 0)
+                        if (readWriteFileStream.Length > 0)
                         {
                             return ReadAllLines(readWriteFileStream);
                         }
@@ -173,7 +178,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 catch (HttpRequestException exception)
                 {
                     // HttpRequestException is the general exception used for several situations, some of which may be intermittent.
-                    _logger?.LogDebug($"A {nameof(HttpRequestException)} with message \"{exception.Message}\" occurred when attempting to retrieve content from \"{uri.AbsolutePath}\", {remainingTries} tries remaining.");
+                    _logger?.LogDebug($"A {nameof(HttpRequestException)} with message \"{exception.Message}\" occurred when attempting to retrieve content from \"{uri.AbsoluteUri}\", {remainingTries} tries remaining.");
                 }
                 finally
                 {
@@ -185,22 +190,22 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             while (remainingTries > 0);
 
             // remainingTries == 0
-            throw new ContentRetrievalException(string.Format(Strings.ContentRetrievalException_FailedAfterMultipleAttempts, uri.AbsolutePath));
+            throw new ContentRetrievalException(string.Format(Strings.ContentRetrievalException_FailedAfterMultipleAttempts, uri.AbsoluteUri));
         }
 
         /// <summary>
-        /// Hashes a path to create a unique cache identifier that does not contain illegal characters and has a fixed length.
+        /// Hashes a URI to create a unique cache identifier that does not contain illegal characters and has a fixed length.
         /// </summary>
-        /// <param name="absolutePath"></param>
-        internal virtual string GetCacheIdentifier(string absolutePath)
+        /// <param name="absoluteUri"></param>
+        internal virtual string GetCacheIdentifier(string absoluteUri)
         {
-            int byteCount = Encoding.UTF8.GetByteCount(absolutePath);
+            int byteCount = Encoding.UTF8.GetByteCount(absoluteUri);
             byte[] bytes = null;
             byte[] hashBytes = null;
             try
             {
                 bytes = ArrayPool<byte>.Shared.Rent(byteCount);
-                Encoding.UTF8.GetBytes(absolutePath, 0, absolutePath.Length, bytes, 0);
+                Encoding.UTF8.GetBytes(absoluteUri, 0, absoluteUri.Length, bytes, 0);
 #if NETSTANDARD1_3
                 hashBytes = _mD5.ComputeHash(bytes);
 #elif NETSTANDARD2_0
@@ -208,7 +213,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 _mD5.TransformBlock(bytes, 0, bytes.Length, hashBytes, 0);
 #endif
 
-                return BitConverter.ToString(hashBytes);
+                var hex = new StringBuilder();
+                foreach (byte hashByte in hashBytes)
+                {
+                    hex.Append(_decimalToHex[(hashByte / 16) % 16]);
+                    hex.Append(_decimalToHex[hashByte % 16]);
+                }
+
+                return hex.ToString();
             }
             finally
             {

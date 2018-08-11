@@ -1,24 +1,25 @@
-﻿using Jering.IocServices.System.Net.Http;
-using Jering.IocServices.System.IO;
+﻿using Jering.IocServices.System.IO;
+using Jering.IocServices.System.Net.Http;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
-using System.Collections.Generic;
-using Xunit;
 using Microsoft.Extensions.Logging;
-using System;
-using Moq;
 using Microsoft.Extensions.Options;
-using System.Threading;
-using System.Collections.ObjectModel;
+using Moq;
+using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
-using System.Net.Http;
 using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Threading;
+using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
     public class ContentRetrievalServiceUnitTests
     {
+        private static readonly string _dummyFile = Path.Combine(Path.GetTempPath(), nameof(ContentRetrievalServiceUnitTests)); // Dummy file for creating dummy file streams
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default);
 
         [Theory]
@@ -105,18 +106,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Arrange
             const string dummySource = "dummySource";
             var dummyContent = new ReadOnlyCollection<string>(new string[0]);
-            Mock<ContentRetrievalService> testSubject = CreateMockContentRetrievalService();
-            testSubject.CallBase = true;
-            testSubject.Setup(t => t.GetContentCore(dummySource, default(CancellationToken))).
+            Mock<ContentRetrievalService> mockTestSubject = CreateMockContentRetrievalService();
+            mockTestSubject.CallBase = true;
+            mockTestSubject.Setup(t => t.GetContentCore(dummySource, default(CancellationToken))).
                 Callback(() => Thread.Sleep(100)).
                 Returns(dummyContent);
+            // Mock<T>.Object isn't thread safe, if multiple threads call it at the same time, multiple instances are instantiated - https://github.com/moq/moq4/blob/9ca16446b9bbfbe12a78b5f8cad8afaa755c13dc/src/Moq/Mock.Generic.cs#L316
+            // If multiple instances are instantiated, multiple _cache instances are created and GetContentCore gets called multiple times.
+            ContentRetrievalService testSubject = mockTestSubject.Object;
 
             // Act
             var threads = new List<Thread>();
             var results = new ConcurrentBag<ReadOnlyCollection<string>>();
             for (int i = 0; i < 3; i++)
             {
-                var thread = new Thread(() => results.Add(testSubject.Object.GetContent(dummySource)));
+                var thread = new Thread(() => results.Add(testSubject.GetContent(dummySource)));
                 thread.Start();
                 threads.Add(thread);
             }
@@ -126,8 +130,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             }
 
             // Assert
-            testSubject.Verify(t => t.GetContent(dummySource, default(CancellationToken)), Times.Exactly(3));
-            testSubject.Verify(t => t.GetContentCore(dummySource, default(CancellationToken)), Times.Once); // Lazy should prevent GetContentCore from being called multiple times
+            mockTestSubject.Verify(t => t.GetContent(dummySource, default(CancellationToken)), Times.Exactly(3));
+            mockTestSubject.Verify(t => t.GetContentCore(dummySource, default(CancellationToken)), Times.Once); // Lazy should prevent GetContentCore from being called multiple times
             ReadOnlyCollection<string>[] resultsArr = results.ToArray();
             Assert.Equal(3, resultsArr.Length);
             Assert.Same(resultsArr[0], resultsArr[1]); // Result should get cached after first call
@@ -236,7 +240,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             FileStream dummyFileStream = null;
             try
             {
-                dummyFileStream = File.Open(Directory.GetCurrentDirectory() + "/dummy.txt", FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite);
+                dummyFileStream = File.Open(_dummyFile, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite);
                 Mock<IFileCacheService> mockFileCacheService = _mockRepository.Create<IFileCacheService>();
                 mockFileCacheService.Setup(f => f.TryGetCacheFile(dummyCacheIdentifier, out dummyFileStream)).Returns(true);
                 Mock<ContentRetrievalService> testSubject = CreateMockContentRetrievalService(fileCacheService: mockFileCacheService.Object);
@@ -277,7 +281,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             FileStream dummyReadWriteFileStream = null;
             try
             {
-                dummyReadWriteFileStream = File.Open(Directory.GetCurrentDirectory() + "/dummyWrite.txt", FileMode.Create, FileAccess.ReadWrite, FileShare.None); // FileMode.Create so stream is empty
+                dummyReadWriteFileStream = File.Open(_dummyFile, FileMode.Create, FileAccess.ReadWrite, FileShare.None); // FileMode.Create so stream is empty
                 mockFileCacheService.Setup(f => f.CreateOrGetCacheFile(dummyCacheIdentifier)).Returns(dummyReadWriteFileStream);
                 Mock<ContentRetrievalService> testSubject = CreateMockContentRetrievalService(mockHttpClientService.Object, fileCacheService: mockFileCacheService.Object);
                 testSubject.CallBase = true;
@@ -290,7 +294,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                 // Assert
                 _mockRepository.VerifyAll();
                 Assert.Equal(dummyContent, result);
-                using(var streamReader = new StreamReader(dummyReadWriteFileStream))
+                using (var streamReader = new StreamReader(dummyReadWriteFileStream))
                 {
                     Assert.Equal(dummyContentString, streamReader.ReadToEnd());
                 }
@@ -301,23 +305,104 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             }
         }
 
+        [Fact]
         public void GetRemoteContent_ThrowsContentRetrievalExceptionIfRemoteSourceDoesNotExist()
         {
+            // Arrange
+            const string dummyCacheIdentifier = "dummyCacheIdentifier";
+            var dummyUri = new Uri("C:/dummy/uri");
+            FileStream dummyNullFileStream = null; // Moq requires a variable to set up out parameter result values
+            Mock<IFileCacheService> mockFileCacheService = _mockRepository.Create<IFileCacheService>();
+            mockFileCacheService.Setup(f => f.TryGetCacheFile(dummyCacheIdentifier, out dummyNullFileStream)).Returns(false);
+            var dummyHttpResponseMessage = new HttpResponseMessage(HttpStatusCode.NotFound);
+            Mock<IHttpClientService> mockHttpClientService = _mockRepository.Create<IHttpClientService>();
+            mockHttpClientService.Setup(h => h.GetAsync(dummyUri, HttpCompletionOption.ResponseHeadersRead, default(CancellationToken))).ReturnsAsync(dummyHttpResponseMessage);
+            Mock<ContentRetrievalService> testSubject = CreateMockContentRetrievalService(mockHttpClientService.Object, fileCacheService: mockFileCacheService.Object);
+            testSubject.CallBase = true;
+            testSubject.Setup(c => c.GetCacheIdentifier(dummyUri.AbsoluteUri)).Returns(dummyCacheIdentifier);
 
+            // Act and assert
+            ContentRetrievalException result = Assert.Throws<ContentRetrievalException>(() => testSubject.Object.GetRemoteContent(dummyUri, default(CancellationToken)));
+            _mockRepository.VerifyAll();
+            Assert.Equal(string.Format(Strings.ContentRetrievalException_RemoteUriDoesNotExist, dummyUri.AbsoluteUri), result.Message);
         }
 
+        [Fact]
         public void GetRemoteContent_ThrowsContentRetrievalExceptionIfAccessToRemoteContentIsForbidden()
         {
+            // Arrange
+            const string dummyCacheIdentifier = "dummyCacheIdentifier";
+            var dummyUri = new Uri("C:/dummy/uri");
+            FileStream dummyNullFileStream = null; // Moq requires a variable to set up out parameter result values
+            Mock<IFileCacheService> mockFileCacheService = _mockRepository.Create<IFileCacheService>();
+            mockFileCacheService.Setup(f => f.TryGetCacheFile(dummyCacheIdentifier, out dummyNullFileStream)).Returns(false);
+            var dummyHttpResponseMessage = new HttpResponseMessage(HttpStatusCode.Forbidden);
+            Mock<IHttpClientService> mockHttpClientService = _mockRepository.Create<IHttpClientService>();
+            mockHttpClientService.Setup(h => h.GetAsync(dummyUri, HttpCompletionOption.ResponseHeadersRead, default(CancellationToken))).ReturnsAsync(dummyHttpResponseMessage);
+            Mock<ContentRetrievalService> testSubject = CreateMockContentRetrievalService(mockHttpClientService.Object, fileCacheService: mockFileCacheService.Object);
+            testSubject.CallBase = true;
+            testSubject.Setup(c => c.GetCacheIdentifier(dummyUri.AbsoluteUri)).Returns(dummyCacheIdentifier);
 
+            // Act and assert
+            ContentRetrievalException result = Assert.Throws<ContentRetrievalException>(() => testSubject.Object.GetRemoteContent(dummyUri, default(CancellationToken)));
+            _mockRepository.VerifyAll();
+            Assert.Equal(string.Format(Strings.ContentRetrievalException_RemoteUriAccessForbidden, dummyUri.AbsoluteUri), result.Message);
         }
 
+        [Fact]
         public void GetRemoteContent_ThrowsContentRetrievalExceptionIfARemoteSourceCannotBeRetrievedFromAfterThreeAttempts()
         {
-            // Use SetupSequence to return different types of exceptions/status codes, test logging
+            // Arrange
+            const string dummyCacheIdentifier = "dummyCacheIdentifier";
+            var dummyUri = new Uri("C:/dummy/uri");
+            FileStream dummyNullFileStream = null; // Moq requires a variable to set up out parameter result values
+            Mock<IFileCacheService> mockFileCacheService = _mockRepository.Create<IFileCacheService>();
+            mockFileCacheService.Setup(f => f.TryGetCacheFile(dummyCacheIdentifier, out dummyNullFileStream)).Returns(false);
+            var dummyHttpResponseMessage = new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            Mock<IHttpClientService> mockHttpClientService = _mockRepository.Create<IHttpClientService>();
+            mockHttpClientService.
+                SetupSequence(h => h.GetAsync(dummyUri, HttpCompletionOption.ResponseHeadersRead, default(CancellationToken))).
+                ReturnsAsync(dummyHttpResponseMessage).
+                ThrowsAsync(new OperationCanceledException()).
+                ThrowsAsync(new HttpRequestException());
+            Mock<ContentRetrievalService> testSubject = CreateMockContentRetrievalService(mockHttpClientService.Object, fileCacheService: mockFileCacheService.Object);
+            testSubject.CallBase = true;
+            testSubject.Setup(c => c.GetCacheIdentifier(dummyUri.AbsoluteUri)).Returns(dummyCacheIdentifier);
+
+            // Act and assert
+            ContentRetrievalException result = Assert.Throws<ContentRetrievalException>(() => testSubject.Object.GetRemoteContent(dummyUri, default(CancellationToken)));
+            _mockRepository.VerifyAll();
+            Assert.Equal(string.Format(Strings.ContentRetrievalException_FailedAfterMultipleAttempts, dummyUri.AbsoluteUri), result.Message);
         }
 
-        // TODO get cache identifier
-        // TODO read all lines
+        [Fact]
+        public void GetCacheIdentifier_GetsIdentifier()
+        {
+            // Arrange
+            const string dummyAbsoluteUri = "file://C:/dummy/absolute/path";
+            ContentRetrievalService testSubject = CreateContentRetrievalService();
+
+            // Act
+            string result = testSubject.GetCacheIdentifier(dummyAbsoluteUri);
+
+            // Assert
+            Assert.Equal("C7F3343EE4F3EF09C312A28153198EB5", result);
+        }
+
+        [Fact]
+        public void ReadAllLines_ReadsAllLines()
+        {
+            // Arrange
+            const string dummyLines = "these\nare\ndummy\nlines";
+            var dummyMemoryStream = new MemoryStream(Encoding.UTF8.GetBytes(dummyLines));
+            ContentRetrievalService testSubject = CreateContentRetrievalService();
+
+            // Act
+            ReadOnlyCollection<string> result = testSubject.ReadAllLines(dummyMemoryStream);
+
+            // Assert
+            Assert.Equal(dummyLines.Split('\n'), result);
+        }
 
         private ContentRetrievalService CreateContentRetrievalService(IHttpClientService httpClientService = null,
             IFileService fileService = null,
