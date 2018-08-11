@@ -10,23 +10,25 @@ using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
-    public class FileCacheServiceUnitTests
+    public class FileCacheServiceUnitTests : IDisposable
     {
+        private static readonly string _dummyFile = Path.Combine(Path.GetTempPath(), nameof(FileCacheServiceUnitTests)); // Dummy file for creating dummy file streams
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default);
 
+
         [Theory]
-        [MemberData(nameof(TryGetReadOnlyFileStream_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data))]
-        public void TryGetReadOnlyFileStream_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString(string dummyIdentifier)
+        [MemberData(nameof(TryGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data))]
+        public void TryGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString(string dummyIdentifier)
         {
             // Arrange
             FileCacheService fileCacheService = CreateFileCacheService();
 
             // Act and assert
-            ArgumentException result = Assert.Throws<ArgumentException>(() => fileCacheService.TryGetReadOnlyFileStream(dummyIdentifier, out FileStream fileStream));
+            ArgumentException result = Assert.Throws<ArgumentException>(() => fileCacheService.TryGetCacheFile(dummyIdentifier, out FileStream fileStream));
             Assert.Equal(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, "identifier"), result.Message);
         }
 
-        public static IEnumerable<object[]> TryGetReadOnlyFileStream_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data()
+        public static IEnumerable<object[]> TryGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data()
         {
             return new object[][]
             {
@@ -37,7 +39,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         }
 
         [Fact]
-        public void TryGetReadOnlyFileStream_ReturnsFalseIfCacheFileDoesNotExist()
+        public void TryGetCacheFile_ReturnsFalseIfCacheFileDoesNotExist()
         {
             // Arrange
             const string dummyIdentifier = "dummyIdentifier";
@@ -49,7 +51,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             testSubject.Setup(t => t.CreatePath(dummyIdentifier)).Returns(dummyFilePath);
 
             // Act
-            bool result = testSubject.Object.TryGetReadOnlyFileStream(dummyIdentifier, out FileStream resultFileStream);
+            bool result = testSubject.Object.TryGetCacheFile(dummyIdentifier, out FileStream resultFileStream);
 
             // Assert
             _mockRepository.VerifyAll();
@@ -58,13 +60,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         }
 
         [Fact]
-        public void TryGetReadOnlyFileStream_ReturnsTrueAndAssignsFileStreamIfCacheFileExistsAndCanBeOpened()
+        public void TryGetCacheFile_ReturnsTrueAndAssignsFileStreamIfCacheFileExistsAndCanBeOpened()
         {
             // Arrange
             const string dummyIdentifier = "dummyIdentifier";
             const string dummyFilePath = "dummyFilePath";
             // Place dummy file in bin and use same name on every test so that it gets deleted eventually when project is cleaned and rebuilt
-            using (FileStream dummyFileStream = File.Open(Directory.GetCurrentDirectory() + "/dummy.txt", FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
+            using (FileStream dummyFileStream = File.Open(_dummyFile, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
             {
                 Mock<IFileService> mockFileService = _mockRepository.Create<IFileService>();
                 mockFileService.Setup(f => f.Exists(dummyFilePath)).Returns(true);
@@ -74,7 +76,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                 testSubject.Setup(t => t.GetStream(dummyFilePath, FileMode.Open, FileAccess.Read, FileShare.Read)).Returns(dummyFileStream);
 
                 // Act
-                bool result = testSubject.Object.TryGetReadOnlyFileStream(dummyIdentifier, out FileStream resultFileStream);
+                bool result = testSubject.Object.TryGetCacheFile(dummyIdentifier, out FileStream resultFileStream);
 
                 // Assert
                 _mockRepository.VerifyAll();
@@ -84,8 +86,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         }
 
         [Theory]
-        [MemberData(nameof(TryGetReadOnlyFileStream_ReturnsFalseIfCacheFileIsDeletedBetweenFileExistsAndFileOpen_Data))]
-        public void TryGetReadOnlyFileStream_ReturnsFalseIfCacheFileIsDeletedBetweenFileExistsAndFileOpen(ISerializableWrapper<Exception> dummyExceptionWrapper)
+        [MemberData(nameof(TryGetCacheFile_ReturnsFalseIfCacheFileIsDeletedBetweenFileExistsAndFileOpen_Data))]
+        public void TryGetCacheFile_ReturnsFalseIfCacheFileIsDeletedBetweenFileExistsAndFileOpen(ISerializableWrapper<Exception> dummyExceptionWrapper)
         {
             // Arrange
             const string dummyIdentifier = "dummyIdentifier";
@@ -98,7 +100,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             testSubject.Setup(t => t.GetStream(dummyFilePath, FileMode.Open, FileAccess.Read, FileShare.Read)).Throws(dummyExceptionWrapper.Value);
 
             // Act
-            bool result = testSubject.Object.TryGetReadOnlyFileStream(dummyIdentifier, out FileStream resultFileStream);
+            bool result = testSubject.Object.TryGetCacheFile(dummyIdentifier, out FileStream resultFileStream);
 
             // Assert
             _mockRepository.VerifyAll();
@@ -106,7 +108,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             Assert.Null(resultFileStream);
         }
 
-        public static IEnumerable<object[]> TryGetReadOnlyFileStream_ReturnsFalseIfCacheFileIsDeletedBetweenFileExistsAndFileOpen_Data()
+        public static IEnumerable<object[]> TryGetCacheFile_ReturnsFalseIfCacheFileIsDeletedBetweenFileExistsAndFileOpen_Data()
         {
             return new object[][]
             {
@@ -116,18 +118,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         }
 
         [Theory]
-        [MemberData(nameof(GetWriteOnlyFileStream_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data))]
-        public void GetWriteOnlyFileStream_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString(string dummyIdentifier)
+        [MemberData(nameof(CreateOrGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data))]
+        public void CreateOrGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString(string dummyIdentifier)
         {
             // Arrange
             FileCacheService fileCacheService = CreateFileCacheService();
 
             // Act and assert
-            ArgumentException result = Assert.Throws<ArgumentException>(() => fileCacheService.GetWriteOnlyFileStream(dummyIdentifier));
+            ArgumentException result = Assert.Throws<ArgumentException>(() => fileCacheService.CreateOrGetCacheFile(dummyIdentifier));
             Assert.Equal(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, "identifier"), result.Message);
         }
 
-        public static IEnumerable<object[]> GetWriteOnlyFileStream_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data()
+        public static IEnumerable<object[]> CreateOrGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data()
         {
             return new object[][]
             {
@@ -138,21 +140,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         }
 
         [Fact]
-        public void GetWriteOnlyFileStream_ReturnsFileStreamIfCacheFileCanBeOpenedOrCreated()
+        public void CreateOrGetCacheFile_ReturnsFileStreamIfCacheFileCanBeOpenedOrCreated()
         {
             // Arrange
             const string dummyIdentifier = "dummyIdentifier";
             const string dummyFilePath = "dummyFilePath";
             // Place dummy file in bin and use same name on every test so that it gets deleted eventually when project is cleaned and rebuilt
-            using (FileStream dummyFileStream = File.Open(Directory.GetCurrentDirectory() + "/dummy.txt", FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
+            using (FileStream dummyFileStream = File.Open(_dummyFile, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
             {
                 Mock<FileCacheService> testSubject = CreateMockFileCacheService();
                 testSubject.CallBase = true;
                 testSubject.Setup(t => t.CreatePath(dummyIdentifier)).Returns(dummyFilePath);
-                testSubject.Setup(t => t.GetStream(dummyFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None)).Returns(dummyFileStream);
+                testSubject.Setup(t => t.GetStream(dummyFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None)).Returns(dummyFileStream);
 
                 // Act
-                FileStream result = testSubject.Object.GetWriteOnlyFileStream(dummyIdentifier);
+                FileStream result = testSubject.Object.CreateOrGetCacheFile(dummyIdentifier);
 
                 // Assert
                 _mockRepository.VerifyAll();
@@ -204,6 +206,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         private FileCacheService CreateFileCacheService(IOptions<FileCacheServiceOptions> optionsAccessor = null, IFileService fileService = null, ILoggerFactory loggerFactory = null)
         {
             return new FileCacheService(optionsAccessor, fileService, loggerFactory);
+        }
+
+        public void Dispose()
+        {
+            try
+            {
+                File.Delete(_dummyFile);
+            }
+            catch
+            {
+                // Do nothing
+            }
         }
     }
 }

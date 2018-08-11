@@ -31,18 +31,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             _fileService = fileService;
         }
 
-        /// <summary>
-        /// Attempts to get a read only file stream for the cache file with the specified identifier.
-        /// </summary>
-        /// <param name="identifier">The identifier of the file to get a read only file stream for.</param>
-        /// <param name="readOnlyFileStream">The read only file stream for the file.</param>
-        /// <returns>true if a cache file with the specified identifier exists, false otherwise.</returns>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="identifier"/> is null, white space, an empty string.</exception>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="identifier"/> contains invalid path characters.</exception>
-        /// <exception cref="PathTooLongException">Thrown if the file path for the specified identifier is too long.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if the caller does not have the required permission.</exception>
-        /// <exception cref="IOException">Thrown if the cache file is in use and remains in use on the third try to open it.</exception>
-        public bool TryGetReadOnlyFileStream(string identifier, out FileStream readOnlyFileStream)
+        /// <inheritdoc />
+        public bool TryGetCacheFile(string identifier, out FileStream readOnlyFileStream)
         {
             if (string.IsNullOrWhiteSpace(identifier))
             {
@@ -73,17 +63,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
         }
 
-        /// <summary>
-        /// Gets a write only file stream for the cache file with the specified identifier. If the file doesn't already exist, creates the file.
-        /// </summary>
-        /// <param name="identifier">The identifier of the file to get a write only file stream for.</param>
-        /// <returns>A write only file stream for the cache file with the specified identifier.</returns>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="identifier"/> is null, white space, an empty string.</exception>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="identifier"/> contains invalid path characters.</exception>
-        /// <exception cref="PathTooLongException">Thrown if the file path for the specified identifier is too long.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if the caller does not have the required permission.</exception>
-        /// <exception cref="IOException">Thrown if the cache file is in use and remains in use on the third try to open it.</exception>
-        public FileStream GetWriteOnlyFileStream(string identifier)
+        /// <inheritdoc />
+        public FileStream CreateOrGetCacheFile(string identifier)
         {
             if (string.IsNullOrWhiteSpace(identifier))
             {
@@ -94,7 +75,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
             return GetStream(filePath,
                 FileMode.OpenOrCreate, // Create file if it doesn't already exist
-                FileAccess.Write, // Write only access
+                FileAccess.ReadWrite, // Read and write access
                 FileShare.None); // Don't allow other threads to access the file while we write to it
         }
 
