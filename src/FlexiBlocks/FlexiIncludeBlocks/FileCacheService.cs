@@ -71,6 +71,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 throw new ArgumentException(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, nameof(identifier)));
             }
 
+            try
+            {
+                Directory.CreateDirectory(_fileCacheOptions.RootDirectory);
+            }
+            catch
+            {
+                // TODO throw argument exception with inner exception, invalid file cache directory
+            }
+
             string filePath = CreatePath(identifier);
 
             return GetStream(filePath,
@@ -117,7 +126,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
         internal virtual string CreatePath(string identifier)
         {
-            return Path.Combine(_fileCacheOptions.RootDirectory, identifier, ".txt");
+            return Path.Combine(_fileCacheOptions.RootDirectory, $"{identifier}.txt");
         }
     }
 }
