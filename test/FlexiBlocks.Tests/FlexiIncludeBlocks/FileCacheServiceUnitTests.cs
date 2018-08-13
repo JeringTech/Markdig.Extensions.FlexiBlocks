@@ -10,11 +10,15 @@ using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
-    public class FileCacheServiceUnitTests : IDisposable
+    public class FileCacheServiceUnitTests : IClassFixture<FileCacheServiceUnitTestsFixture>
     {
-        private static readonly string _dummyFile = Path.Combine(Path.GetTempPath(), nameof(FileCacheServiceUnitTests)); // Dummy file for creating dummy file streams
+        private readonly string _dummyFile;
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default);
 
+        public FileCacheServiceUnitTests(FileCacheServiceUnitTestsFixture fixture)
+        {
+            _dummyFile = Path.Combine(fixture.TempDirectory, "dummyFile");
+        }
 
         [Theory]
         [MemberData(nameof(TryGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data))]
@@ -206,18 +210,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         private FileCacheService CreateFileCacheService(IOptions<FileCacheServiceOptions> optionsAccessor = null, IFileService fileService = null, ILoggerFactory loggerFactory = null)
         {
             return new FileCacheService(optionsAccessor, fileService, loggerFactory);
-        }
-
-        public void Dispose()
-        {
-            try
-            {
-                File.Delete(_dummyFile);
-            }
-            catch
-            {
-                // Do nothing
-            }
         }
     }
 }

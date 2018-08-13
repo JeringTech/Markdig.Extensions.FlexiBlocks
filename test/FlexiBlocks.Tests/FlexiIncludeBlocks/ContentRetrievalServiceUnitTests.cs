@@ -17,10 +17,15 @@ using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
-    public class ContentRetrievalServiceUnitTests
+    public class ContentRetrievalServiceUnitTests : IClassFixture<ContentRetrievalServiceUnitTestsFixture>
     {
-        private static readonly string _dummyFile = Path.Combine(Path.GetTempPath(), nameof(ContentRetrievalServiceUnitTests)); // Dummy file for creating dummy file streams
+        private readonly string _dummyFile;
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default);
+
+        public ContentRetrievalServiceUnitTests(ContentRetrievalServiceUnitTestsFixture fixture)
+        {
+            _dummyFile = Path.Combine(fixture.TempDirectory, "dummyFile");
+        }
 
         [Theory]
         [MemberData(nameof(Constructor_ThrowsArgumentExceptionIfBaseUriIsNotAbsolute_Data))]
