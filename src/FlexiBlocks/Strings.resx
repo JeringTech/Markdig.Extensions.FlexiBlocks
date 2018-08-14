@@ -118,13 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ArgumentException_BaseUriMustBeAbsolute" xml:space="preserve">
-    <value>Base URI must be an absolute  URI , received "{0}".</value>
+    <value>Base URI must be absolute , received "{0}".</value>
   </data>
-  <data name="ArgumentException_BaseUriSchemeUnsupported" xml:space="preserve">
-    <value>Base URI "{0}" has unsupported scheme "{1}".</value>
+  <data name="ArgumentException_BaseUriMustBeDefinedIfSourceIsNotAnAbsoluteUri" xml:space="preserve">
+    <value>Since source "{0}" is not an absolute URI, base URI cannot be null, white space or an empty string.</value>
   </data>
   <data name="ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString" xml:space="preserve">
     <value>The parameter "{0}" cannot be null, white space or an empty string.</value>
+  </data>
+  <data name="ArgumentException_InvalidCacheDirectory" xml:space="preserve">
+    <value>The directory to be used for file caching, "{0}" is invalid. Refer to the inner exception for details. </value>
   </data>
   <data name="ArgumentException_InvalidEndLine" xml:space="preserve">
     <value>Invalid end line "{0}". If end line isn't -1, it must be greater than or equal to start line, "{1}".</value>

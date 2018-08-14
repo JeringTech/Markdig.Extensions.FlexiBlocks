@@ -15,7 +15,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
     /// </summary>
     public class FlexiIncludeBlockParser : BlockParser
     {
-        private readonly FlexiIncludeBlocksExtensionOptions _flexiIncludeBlocksExtensionOptions;
+        private readonly FlexiIncludeBlocksExtensionOptions _extensionOptions;
         private readonly IContentRetrievalService _contentRetrievalService;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         public FlexiIncludeBlockParser(FlexiIncludeBlocksExtensionOptions flexiIncludeBlocksExtensionOptions,
             IContentRetrievalService contentRetrievalService)
         {
-            _flexiIncludeBlocksExtensionOptions = flexiIncludeBlocksExtensionOptions;
+            _extensionOptions = flexiIncludeBlocksExtensionOptions;
             _contentRetrievalService = contentRetrievalService;
 
             OpeningCharacters = new[] { '+' };
@@ -130,7 +130,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             // TODO block circular includes
 
             // Retrieve content (read as lines since we will most probably only be using a subset of all the lines)
-            ReadOnlyCollection<string> unclippedContent = _contentRetrievalService.GetContent(includeOptions.Source);
+            ReadOnlyCollection<string> unclippedContent = _contentRetrievalService.GetContent(includeOptions.Source,
+                includeOptions.CacheRemoteSource ? _extensionOptions.FileCacheDirectory : null,
+                _extensionOptions.SourceBaseUri);
 
 
             // GridTable uses this pattern. Essentially, it creates a fresh context with the same root document. Not having a bunch of 

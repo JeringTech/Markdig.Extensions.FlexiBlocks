@@ -71,13 +71,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         [Fact]
         public void GetContent_CachesRemoteContentInFiles()
         {
-            // TODO add cache dir parameter to GetContent
-
             // Arrange
             // Arbitrary permalink
             const string url = "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/197d9c30f19945e6629a124760b5aada60cd094e/src/FlexiBlocks/AssemblyInfo.cs";
             IContentRetrievalService testSubject = _serviceProvider.GetRequiredService<IContentRetrievalService>();
-            ReadOnlyCollection<string> expectedResult = testSubject.GetContent(url);
+            ReadOnlyCollection<string> expectedResult = testSubject.GetContent(url, _fixture.TempDirectory);
             ((IDisposable)_serviceProvider).Dispose(); // Avoid retrieving from in-memory cache
 
             Mock<IHttpClientService> mockHttpClientService = _mockRepository.Create<IHttpClientService>();
@@ -88,7 +86,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act
             testSubject = _serviceProvider.GetRequiredService<IContentRetrievalService>();
-            ReadOnlyCollection<string> result = testSubject.GetContent(url);
+            ReadOnlyCollection<string> result = testSubject.GetContent(url, _fixture.TempDirectory);
 
             // Assert
             Assert.Equal(expectedResult, result);

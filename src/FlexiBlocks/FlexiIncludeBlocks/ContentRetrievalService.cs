@@ -40,8 +40,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         private readonly IFileCacheService _fileCacheService;
         private readonly IFileService _fileService;
         private readonly ILogger<ContentRetrievalService> _logger;
-        private readonly ContentRetrievalServiceOptions _options;
-        private readonly Uri _baseUri;
 
         /// <summary>
         /// Creates a <see cref="ContentRetrievalService"/> instance.
@@ -50,49 +48,43 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <param name="fileService"></param>
         /// <param name="fileCacheService"></param>
         /// <param name="loggerFactory"></param>
-        /// <param name="optionsAccessor"></param>
         public ContentRetrievalService(IHttpClientService httpClientService,
             IFileService fileService,
             IFileCacheService fileCacheService,
-            ILoggerFactory loggerFactory,
-            IOptions<ContentRetrievalServiceOptions> optionsAccessor)
+            ILoggerFactory loggerFactory)
         {
             _fileService = fileService;
             _httpClientService = httpClientService;
             _fileCacheService = fileCacheService;
             _logger = loggerFactory?.CreateLogger<ContentRetrievalService>();
-            _options = optionsAccessor?.Value ?? new ContentRetrievalServiceOptions();
-
-            // A base URI must be absolute, see http://www.ietf.org/rfc/rfc3986.txt, section 5.1
-            if (!Uri.TryCreate(_options.BaseUri, UriKind.Absolute, out _baseUri))
-            {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_BaseUriMustBeAbsolute, _options.BaseUri));
-            }
-
-            if (!_supportedSchemes.Contains(_baseUri.Scheme))
-            {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_BaseUriSchemeUnsupported, _options.BaseUri, _baseUri.Scheme));
-            }
         }
 
         /// <inheritdoc />
-        public virtual ReadOnlyCollection<string> GetContent(string source, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual ReadOnlyCollection<string> GetContent(string source, string cacheDirectory = null, string sourceBaseUri = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (string.IsNullOrWhiteSpace(source))
             {
                 throw new ArgumentException(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, nameof(source)));
             }
 
-            return _cache.GetOrAdd(source, _ => new Lazy<ReadOnlyCollection<string>>(() => GetContentCore(source, cancellationToken))).Value;
-        }
-
-        internal virtual ReadOnlyCollection<string> GetContentCore(string source, CancellationToken cancellationToken)
-        {
-            if (!Uri.TryCreate(_baseUri, source, out Uri uri) // source is not a relative uri
-                && !Uri.TryCreate(source, UriKind.Absolute, out uri)) // source is not an absolute uri
+            if (!Uri.TryCreate(source, UriKind.Absolute, out Uri uri)) // source is not an absolute URI
             {
-                // This almost never gets thrown since Uri escapes characters that would otherwise be illegal in URIs
-                throw new ArgumentException(string.Format(Strings.ArgumentException_NotAValidUri, source));
+                if (string.IsNullOrWhiteSpace(sourceBaseUri))
+                {
+                    throw new ArgumentException(string.Format(Strings.ArgumentException_BaseUriMustBeDefinedIfSourceIsNotAnAbsoluteUri, nameof(sourceBaseUri)));
+                }
+
+                // Create base URI. A base URI must be absolute, see http://www.ietf.org/rfc/rfc3986.txt, section 5.1
+                if (!Uri.TryCreate(sourceBaseUri, UriKind.Absolute, out Uri baseUri))
+                {
+                    throw new ArgumentException(string.Format(Strings.ArgumentException_BaseUriMustBeAbsolute, sourceBaseUri));
+                }
+
+                if (!Uri.TryCreate(baseUri, source, out uri)) // source is not a relative uri
+                {
+                    // Source is neither a valid relative URI nor a valid absolute URI
+                    throw new ArgumentException(string.Format(Strings.ArgumentException_NotAValidUri, source));
+                }
             }
 
             if (!_supportedSchemes.Contains(uri.Scheme))
@@ -100,6 +92,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 throw new ArgumentException(string.Format(Strings.ArgumentException_UriSchemeUnsupported, uri.AbsoluteUri, uri.Scheme));
             }
 
+            return _cache.GetOrAdd(uri.AbsoluteUri, _ => new Lazy<ReadOnlyCollection<string>>(() => GetContentCore(uri, cacheDirectory, cancellationToken))).Value;
+        }
+
+        internal virtual ReadOnlyCollection<string> GetContentCore(Uri uri, string cacheDirectory, CancellationToken cancellationToken)
+        {
             if (uri.Scheme == "file")
             {
                 // Local source
@@ -107,24 +104,24 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
 
             // Remote source
-            return GetRemoteContent(uri, cancellationToken);
+            return GetRemoteContent(uri, cacheDirectory, cancellationToken);
         }
 
-        internal virtual ReadOnlyCollection<string> GetRemoteContent(Uri uri, CancellationToken cancellationToken)
+        internal virtual ReadOnlyCollection<string> GetRemoteContent(Uri uri, string cacheDirectory, CancellationToken cancellationToken)
         {
-            string cacheIdentifier = GetCacheIdentifier(uri.AbsoluteUri);
-            FileStream readOnlyFileStream = null;
-            try
+            string cacheIdentifier = null;
+            if (!string.IsNullOrWhiteSpace(cacheDirectory)) // Don't try to retrieve from file cache if no cache directoy is specified
             {
-                // Try to retrieve file from cache
-                if (_fileCacheService.TryGetCacheFile(cacheIdentifier, out readOnlyFileStream))
+                cacheIdentifier = GetCacheIdentifier(uri.AbsoluteUri);
+
+                (bool success, FileStream readOnlyFileStream) = _fileCacheService.TryGetCacheFile(cacheIdentifier, cacheDirectory);
+                if (success)
                 {
-                    return ReadAllLines(readOnlyFileStream);
+                    using (readOnlyFileStream)
+                    {
+                        return ReadAllLines(readOnlyFileStream);
+                    }
                 }
-            }
-            finally
-            {
-                readOnlyFileStream?.Dispose();
             }
 
             int remainingTries = 3;
@@ -139,21 +136,27 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
                     if (response.IsSuccessStatusCode)
                     {
-                        FileStream readWriteFileStream = _fileCacheService.CreateOrGetCacheFile(cacheIdentifier);
-
-                        // File was created between TryGetCacheFile and GetOrCreateCacheFile calls
-                        if (readWriteFileStream.Length > 0)
+                        Stream contentStream = null;
+                        if (cacheIdentifier != null) // If file caching is requested
                         {
-                            return ReadAllLines(readWriteFileStream);
+                            contentStream = _fileCacheService.CreateOrGetCacheFile(cacheIdentifier, cacheDirectory);
+
+                            // If contentStream.Length > 0, file was created between TryGetCacheFile and GetOrCreateCacheFile calls, no need to write to it
+                            if (contentStream.Length == 0)
+                            {
+                                // TODO try copying to file stream and generating lines in 1 pass
+                                response.Content.CopyToAsync(contentStream).GetAwaiter().GetResult();
+
+                                // Rewind file stream (use file stream as content stream since NetworkStream can't be rewound).
+                                contentStream.Position = 0;
+                            }
+                        }
+                        else
+                        {
+                            contentStream = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
                         }
 
-                        // TODO try copying to file stream and generating lines in 1 pass
-                        response.Content.CopyToAsync(readWriteFileStream).GetAwaiter().GetResult();
-
-                        // Rewind file stream
-                        readWriteFileStream.Position = 0;
-
-                        return ReadAllLines(readWriteFileStream);
+                        return ReadAllLines(contentStream);
                     }
                     else if (response.StatusCode == HttpStatusCode.NotFound)
                     {

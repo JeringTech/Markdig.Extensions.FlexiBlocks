@@ -62,7 +62,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Base URI must be an absolute  URI , received &quot;{0}&quot;..
+        ///   Looks up a localized string similar to Base URI must be absolute , received &quot;{0}&quot;..
         /// </summary>
         internal static string ArgumentException_BaseUriMustBeAbsolute {
             get {
@@ -71,11 +71,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Base URI &quot;{0}&quot; has unsupported scheme &quot;{1}&quot;..
+        ///   Looks up a localized string similar to Since source &quot;{0}&quot; is not an absolute URI, base URI cannot be null, white space or an empty string..
         /// </summary>
-        internal static string ArgumentException_BaseUriSchemeUnsupported {
+        internal static string ArgumentException_BaseUriMustBeDefinedIfSourceIsNotAnAbsoluteUri {
             get {
-                return ResourceManager.GetString("ArgumentException_BaseUriSchemeUnsupported", resourceCulture);
+                return ResourceManager.GetString("ArgumentException_BaseUriMustBeDefinedIfSourceIsNotAnAbsoluteUri", resourceCulture);
             }
         }
         
@@ -85,6 +85,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         internal static string ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString {
             get {
                 return ResourceManager.GetString("ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The directory to be used for file caching, &quot;{0}&quot; is invalid. Refer to the inner exception for details. .
+        /// </summary>
+        internal static string ArgumentException_InvalidCacheDirectory {
+            get {
+                return ResourceManager.GetString("ArgumentException_InvalidCacheDirectory", resourceCulture);
             }
         }
         

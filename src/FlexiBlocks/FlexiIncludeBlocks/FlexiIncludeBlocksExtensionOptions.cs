@@ -4,6 +4,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     public class FlexiIncludeBlocksExtensionOptions
     {
-        public string RootPath { get; set; } = Directory.GetCurrentDirectory();
+        public string SourceBaseUri { get; set; }
+        public string FileCacheDirectory { get; set; }
     }
 }
