@@ -28,11 +28,34 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             FileCacheService fileCacheService = CreateFileCacheService();
 
             // Act and assert
-            ArgumentException result = Assert.Throws<ArgumentException>(() => fileCacheService.TryGetCacheFile(dummyIdentifier, out FileStream fileStream));
+            ArgumentException result = Assert.Throws<ArgumentException>(() => fileCacheService.TryGetCacheFile(dummyIdentifier, null));
             Assert.Equal(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, "identifier"), result.Message);
         }
 
         public static IEnumerable<object[]> TryGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data()
+        {
+            return new object[][]
+            {
+                new object[]{null},
+                new object[]{""},
+                new object[]{" "}
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(TryGetCacheFile_ThrowsArgumentExceptionIfCacheDirectoryIsNullWhiteSpaceOrAnEmptyString_Data))]
+        public void TryGetCacheFile_ThrowsArgumentExceptionIfCacheDirectoryIsNullWhiteSpaceOrAnEmptyString(string dummyCacheDirectory)
+        {
+            // Arrange
+            const string dummyIdentifier = "dummyIdentifier";
+            FileCacheService fileCacheService = CreateFileCacheService();
+
+            // Act and assert
+            ArgumentException result = Assert.Throws<ArgumentException>(() => fileCacheService.TryGetCacheFile(dummyIdentifier, dummyCacheDirectory));
+            Assert.Equal(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, "cacheDirectory"), result.Message);
+        }
+
+        public static IEnumerable<object[]> TryGetCacheFile_ThrowsArgumentExceptionIfCacheDirectoryIsNullWhiteSpaceOrAnEmptyString_Data()
         {
             return new object[][]
             {
@@ -47,44 +70,45 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         {
             // Arrange
             const string dummyIdentifier = "dummyIdentifier";
+            const string dummyCacheDirectory = "dummyCacheDirectory";
             const string dummyFilePath = "dummyFilePath";
             Mock<IFileService> mockFileService = _mockRepository.Create<IFileService>();
             mockFileService.Setup(f => f.Exists(dummyFilePath)).Returns(false);
-            Mock<FileCacheService> testSubject = CreateMockFileCacheService(fileService: mockFileService.Object);
-            testSubject.CallBase = true;
-            testSubject.Setup(t => t.CreatePath(dummyIdentifier)).Returns(dummyFilePath);
+            Mock<FileCacheService> mockTestSubject = CreateMockFileCacheService(fileService: mockFileService.Object);
+            mockTestSubject.CallBase = true;
+            mockTestSubject.Setup(t => t.CreatePath(dummyIdentifier, dummyCacheDirectory)).Returns(dummyFilePath);
 
             // Act
-            bool result = testSubject.Object.TryGetCacheFile(dummyIdentifier, out FileStream resultFileStream);
+            (bool resultBool, FileStream resultFileStream) = mockTestSubject.Object.TryGetCacheFile(dummyIdentifier, dummyCacheDirectory);
 
             // Assert
             _mockRepository.VerifyAll();
-            Assert.False(result);
+            Assert.False(resultBool);
             Assert.Null(resultFileStream);
         }
 
         [Fact]
-        public void TryGetCacheFile_ReturnsTrueAndAssignsFileStreamIfCacheFileExistsAndCanBeOpened()
+        public void TryGetCacheFile_ReturnsTrueAndAFileStreamIfCacheFileExistsAndCanBeOpened()
         {
             // Arrange
             const string dummyIdentifier = "dummyIdentifier";
+            const string dummyCacheDirectory = "dummyCacheDirectory";
             const string dummyFilePath = "dummyFilePath";
-            // Place dummy file in bin and use same name on every test so that it gets deleted eventually when project is cleaned and rebuilt
             using (FileStream dummyFileStream = File.Open(_dummyFile, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
             {
                 Mock<IFileService> mockFileService = _mockRepository.Create<IFileService>();
                 mockFileService.Setup(f => f.Exists(dummyFilePath)).Returns(true);
-                Mock<FileCacheService> testSubject = CreateMockFileCacheService(fileService: mockFileService.Object);
-                testSubject.CallBase = true;
-                testSubject.Setup(t => t.CreatePath(dummyIdentifier)).Returns(dummyFilePath);
-                testSubject.Setup(t => t.GetStream(dummyFilePath, FileMode.Open, FileAccess.Read, FileShare.Read)).Returns(dummyFileStream);
+                Mock<FileCacheService> mockTestSubject = CreateMockFileCacheService(fileService: mockFileService.Object);
+                mockTestSubject.CallBase = true;
+                mockTestSubject.Setup(t => t.CreatePath(dummyIdentifier, dummyCacheDirectory)).Returns(dummyFilePath);
+                mockTestSubject.Setup(t => t.GetStream(dummyFilePath, FileMode.Open, FileAccess.Read, FileShare.Read)).Returns(dummyFileStream);
 
                 // Act
-                bool result = testSubject.Object.TryGetCacheFile(dummyIdentifier, out FileStream resultFileStream);
+                (bool resultBool, FileStream resultFileStream) = mockTestSubject.Object.TryGetCacheFile(dummyIdentifier, dummyCacheDirectory);
 
                 // Assert
                 _mockRepository.VerifyAll();
-                Assert.True(result);
+                Assert.True(resultBool);
                 Assert.Same(dummyFileStream, resultFileStream);
             }
         }
@@ -94,21 +118,22 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         public void TryGetCacheFile_ReturnsFalseIfCacheFileIsDeletedBetweenFileExistsAndFileOpen(ISerializableWrapper<Exception> dummyExceptionWrapper)
         {
             // Arrange
+            const string dummyCacheDirectory = "dummyCacheDirectory";
             const string dummyIdentifier = "dummyIdentifier";
             const string dummyFilePath = "dummyFilePath";
             Mock<IFileService> mockFileService = _mockRepository.Create<IFileService>();
             mockFileService.Setup(f => f.Exists(dummyFilePath)).Returns(true);
-            Mock<FileCacheService> testSubject = CreateMockFileCacheService(fileService: mockFileService.Object);
-            testSubject.CallBase = true;
-            testSubject.Setup(t => t.CreatePath(dummyIdentifier)).Returns(dummyFilePath);
-            testSubject.Setup(t => t.GetStream(dummyFilePath, FileMode.Open, FileAccess.Read, FileShare.Read)).Throws(dummyExceptionWrapper.Value);
+            Mock<FileCacheService> mockTestSubject = CreateMockFileCacheService(fileService: mockFileService.Object);
+            mockTestSubject.CallBase = true;
+            mockTestSubject.Setup(t => t.CreatePath(dummyIdentifier, dummyCacheDirectory)).Returns(dummyFilePath);
+            mockTestSubject.Setup(t => t.GetStream(dummyFilePath, FileMode.Open, FileAccess.Read, FileShare.Read)).Throws(dummyExceptionWrapper.Value);
 
             // Act
-            bool result = testSubject.Object.TryGetCacheFile(dummyIdentifier, out FileStream resultFileStream);
+            (bool resultBool, FileStream resultFileStream) = mockTestSubject.Object.TryGetCacheFile(dummyIdentifier, dummyCacheDirectory);
 
             // Assert
             _mockRepository.VerifyAll();
-            Assert.False(result);
+            Assert.False(resultBool);
             Assert.Null(resultFileStream);
         }
 
@@ -129,7 +154,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             FileCacheService fileCacheService = CreateFileCacheService();
 
             // Act and assert
-            ArgumentException result = Assert.Throws<ArgumentException>(() => fileCacheService.CreateOrGetCacheFile(dummyIdentifier));
+            ArgumentException result = Assert.Throws<ArgumentException>(() => fileCacheService.CreateOrGetCacheFile(dummyIdentifier, null));
             Assert.Equal(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, "identifier"), result.Message);
         }
 
@@ -143,22 +168,67 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             };
         }
 
-        [Fact]
-        public void CreateOrGetCacheFile_ReturnsFileStreamIfCacheFileCanBeOpenedOrCreated()
+        [Theory]
+        [MemberData(nameof(CreateOrGetCacheFile_ThrowsArgumentExceptionIfCacheDirectoryIsNullWhiteSpaceOrAnEmptyString_Data))]
+        public void CreateOrGetCacheFile_ThrowsArgumentExceptionIfCacheDirectoryIsNullWhiteSpaceOrAnEmptyString(string dummyCacheDirectory)
         {
             // Arrange
             const string dummyIdentifier = "dummyIdentifier";
+            FileCacheService fileCacheService = CreateFileCacheService();
+
+            // Act and assert
+            ArgumentException result = Assert.Throws<ArgumentException>(() => fileCacheService.CreateOrGetCacheFile(dummyIdentifier, dummyCacheDirectory));
+            Assert.Equal(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, "cacheDirectory"), result.Message);
+        }
+
+        public static IEnumerable<object[]> CreateOrGetCacheFile_ThrowsArgumentExceptionIfCacheDirectoryIsNullWhiteSpaceOrAnEmptyString_Data()
+        {
+            return new object[][]
+            {
+                new object[]{null},
+                new object[]{""},
+                new object[]{" "}
+            };
+        }
+
+        [Fact]
+        public void CreateOrGetCacheFile_ThrowsArgumentExceptionIfCacheDirectoryIsInvalid()
+        {
+            // Arrange
+            const string dummyIdentifier = "dummyIdentifier";
+            const string dummyCacheDirectory = "dummyCacheDirectory";
+            var dummyException = new IOException();
+            Mock<IDirectoryService> mockDirectoryService = _mockRepository.Create<IDirectoryService>();
+            mockDirectoryService.Setup(d => d.CreateDirectory(dummyCacheDirectory)).Throws(dummyException);
+            FileCacheService testSubject = CreateFileCacheService(directoryService: mockDirectoryService.Object);
+
+            // Act and assert
+            ArgumentException result = Assert.Throws<ArgumentException>(() => testSubject.CreateOrGetCacheFile(dummyIdentifier, dummyCacheDirectory));
+
+            // Assert
+            _mockRepository.VerifyAll();
+            Assert.Equal(string.Format(Strings.ArgumentException_InvalidCacheDirectory, dummyCacheDirectory), result.Message);
+            Assert.Same(dummyException, result.InnerException);
+        }
+
+        [Fact]
+        public void CreateOrGetCacheFile_ReturnsFileStreamIfSuccessful()
+        {
+            // Arrange
             const string dummyFilePath = "dummyFilePath";
-            // Place dummy file in bin and use same name on every test so that it gets deleted eventually when project is cleaned and rebuilt
+            const string dummyIdentifier = "dummyIdentifier";
+            const string dummyCacheDirectory = "dummyCacheDirectory";
+            Mock<IDirectoryService> mockDirectoryService = _mockRepository.Create<IDirectoryService>();
+            mockDirectoryService.Setup(d => d.CreateDirectory(dummyCacheDirectory)); // Do nothing
             using (FileStream dummyFileStream = File.Open(_dummyFile, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
             {
-                Mock<FileCacheService> testSubject = CreateMockFileCacheService();
-                testSubject.CallBase = true;
-                testSubject.Setup(t => t.CreatePath(dummyIdentifier)).Returns(dummyFilePath);
-                testSubject.Setup(t => t.GetStream(dummyFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None)).Returns(dummyFileStream);
+                Mock<FileCacheService> mockTestSubject = CreateMockFileCacheService(directoryService: mockDirectoryService.Object);
+                mockTestSubject.CallBase = true;
+                mockTestSubject.Setup(t => t.CreatePath(dummyIdentifier, dummyCacheDirectory)).Returns(dummyFilePath);
+                mockTestSubject.Setup(t => t.GetStream(dummyFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None)).Returns(dummyFileStream);
 
                 // Act
-                FileStream result = testSubject.Object.CreateOrGetCacheFile(dummyIdentifier);
+                FileStream result = mockTestSubject.Object.CreateOrGetCacheFile(dummyIdentifier, dummyCacheDirectory);
 
                 // Assert
                 _mockRepository.VerifyAll();
@@ -190,26 +260,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         public void CreatePath_CreatesPath()
         {
             // Arrange 
-            const string dummyRootDirectory = "dummyRootDirectory";
+            const string dummyCacheDirectory = "dummyCacheDirectory";
             const string dummyIdentifier = "dummyIdentifier";
-            var dummyOptions = new FileCacheServiceOptions { RootDirectory = dummyRootDirectory };
-            Mock<IOptions<FileCacheServiceOptions>> mockOptions = _mockRepository.Create<IOptions<FileCacheServiceOptions>>();
-            mockOptions.Setup(o => o.Value).Returns(dummyOptions);
-            FileCacheService testSubject = CreateFileCacheService(mockOptions.Object);
+            FileCacheService testSubject = CreateFileCacheService();
 
             // Act
-            string result = testSubject.CreatePath(dummyIdentifier);
-            Assert.Equal($"{dummyRootDirectory}{Path.DirectorySeparatorChar}{dummyIdentifier}{Path.DirectorySeparatorChar}.txt", result);
+            string result = testSubject.CreatePath(dummyIdentifier, dummyCacheDirectory);
+            Assert.Equal($"{dummyCacheDirectory}{Path.DirectorySeparatorChar}{dummyIdentifier}.txt", result);
         }
 
-        private Mock<FileCacheService> CreateMockFileCacheService(IOptions<FileCacheServiceOptions> optionsAccessor = null, IFileService fileService = null, ILoggerFactory loggerFactory = null)
+        private Mock<FileCacheService> CreateMockFileCacheService(IFileService fileService = null, IDirectoryService directoryService = null, ILoggerFactory loggerFactory = null)
         {
-            return _mockRepository.Create<FileCacheService>(optionsAccessor, fileService, loggerFactory);
+            return _mockRepository.Create<FileCacheService>(fileService, directoryService, loggerFactory);
         }
 
-        private FileCacheService CreateFileCacheService(IOptions<FileCacheServiceOptions> optionsAccessor = null, IFileService fileService = null, ILoggerFactory loggerFactory = null)
+        private FileCacheService CreateFileCacheService(IFileService fileService = null, IDirectoryService directoryService = null, ILoggerFactory loggerFactory = null)
         {
-            return new FileCacheService(optionsAccessor, fileService, loggerFactory);
+            return new FileCacheService(fileService, directoryService, loggerFactory);
         }
     }
 }

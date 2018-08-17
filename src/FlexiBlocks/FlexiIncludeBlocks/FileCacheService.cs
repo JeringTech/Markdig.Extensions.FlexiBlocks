@@ -14,73 +14,82 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
     /// </summary>
     public class FileCacheService : IFileCacheService
     {
-        private readonly FileCacheServiceOptions _fileCacheOptions;
         private readonly ILogger<FileCacheService> _logger;
         private readonly IFileService _fileService;
+        private readonly IDirectoryService _directoryService;
 
         /// <summary>
         /// Creates an <see cref="IFileCacheService"/> instance.
         /// </summary>
-        /// <param name="optionsAccessor"></param>
         /// <param name="fileService"></param>
         /// <param name="loggerFactory"></param>
-        public FileCacheService(IOptions<FileCacheServiceOptions> optionsAccessor, IFileService fileService, ILoggerFactory loggerFactory)
+        public FileCacheService(IFileService fileService, IDirectoryService directoryService, ILoggerFactory loggerFactory)
         {
-            _fileCacheOptions = optionsAccessor?.Value ?? new FileCacheServiceOptions();
             _logger = loggerFactory?.CreateLogger<FileCacheService>();
             _fileService = fileService;
+            _directoryService = directoryService;
         }
 
         /// <inheritdoc />
-        public bool TryGetCacheFile(string identifier, out FileStream readOnlyFileStream)
+        public (bool, FileStream) TryGetCacheFile(string identifier, string cacheDirectory)
         {
             if (string.IsNullOrWhiteSpace(identifier))
             {
                 throw new ArgumentException(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, nameof(identifier)));
             }
 
-            string filePath = CreatePath(identifier);
+            if (string.IsNullOrWhiteSpace(cacheDirectory))
+            {
+                throw new ArgumentException(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, nameof(cacheDirectory)));
+            }
+
+            string filePath = CreatePath(identifier, cacheDirectory);
 
             if (!_fileService.Exists(filePath))
             {
-                readOnlyFileStream = null;
-                return false;
+                return (false, null);
             }
 
             try
             {
-                readOnlyFileStream = GetStream(filePath,
+                FileStream result = GetStream(filePath,
                         FileMode.Open, // Throw if file was removed between _fileService.Exists and this call
                         FileAccess.Read, // Read only access
                         FileShare.Read); // Don't allow other threads to write to the file while we read from it
-                return true;
+
+                return (true, result);
             }
             catch (Exception exception) when (exception is DirectoryNotFoundException || exception is FileNotFoundException)
             {
                 // File does not exist (something happened to it between the _fileService.Exists call and the _fileService.Open call in GetStream)
-                readOnlyFileStream = null;
-                return false;
+                return (false, null);
             }
         }
 
         /// <inheritdoc />
-        public FileStream CreateOrGetCacheFile(string identifier)
+        public FileStream CreateOrGetCacheFile(string identifier, string cacheDirectory)
         {
             if (string.IsNullOrWhiteSpace(identifier))
             {
                 throw new ArgumentException(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, nameof(identifier)));
             }
 
-            try
+            if (string.IsNullOrWhiteSpace(cacheDirectory))
             {
-                Directory.CreateDirectory(_fileCacheOptions.RootDirectory);
-            }
-            catch
-            {
-                // TODO throw argument exception with inner exception, invalid file cache directory
+                throw new ArgumentException(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, nameof(cacheDirectory)));
             }
 
-            string filePath = CreatePath(identifier);
+            // Ensure that cache directory string is valid and that the directory exists
+            try
+            {
+                _directoryService.CreateDirectory(cacheDirectory);
+            }
+            catch(Exception exception)
+            {
+                throw new ArgumentException(string.Format(Strings.ArgumentException_InvalidCacheDirectory, cacheDirectory), exception);
+            }
+
+            string filePath = CreatePath(identifier, cacheDirectory);
 
             return GetStream(filePath,
                 FileMode.OpenOrCreate, // Create file if it doesn't already exist
@@ -124,9 +133,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
         }
 
-        internal virtual string CreatePath(string identifier)
+        internal virtual string CreatePath(string identifier, string cacheDirectory)
         {
-            return Path.Combine(_fileCacheOptions.RootDirectory, $"{identifier}.txt");
+            return Path.Combine(cacheDirectory, $"{identifier}.txt");
         }
     }
 }
