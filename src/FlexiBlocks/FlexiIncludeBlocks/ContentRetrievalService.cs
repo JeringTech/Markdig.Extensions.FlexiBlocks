@@ -1,7 +1,6 @@
 ﻿using Jering.IocServices.System.IO;
 using Jering.IocServices.System.Net.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System;
 using System.Buffers;
 using System.Collections.Concurrent;
@@ -210,7 +209,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 bytes = ArrayPool<byte>.Shared.Rent(byteCount);
                 Encoding.UTF8.GetBytes(absoluteUri, 0, absoluteUri.Length, bytes, 0);
 #if NETSTANDARD1_3
-                hashBytes = _mD5.ComputeHash(bytes);
+                hashBytes = _mD5.ComputeHash(bytes, 0, byteCount);
 #elif NETSTANDARD2_0
                 hashBytes = ArrayPool<byte>.Shared.Rent(16);
                 _mD5.TransformBlock(bytes, 0, bytes.Length, hashBytes, 0);
