@@ -9,10 +9,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
         public FileCacheServiceUnitTestsFixture()
         {
+            TryDeleteDirectory();
             Directory.CreateDirectory(TempDirectory);
         }
 
-        public void Dispose()
+        private void TryDeleteDirectory()
         {
             try
             {
@@ -22,6 +23,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             {
                 // Do nothing
             }
+        }
+
+        public void Dispose()
+        {
+            TryDeleteDirectory();
         }
     }
 }
