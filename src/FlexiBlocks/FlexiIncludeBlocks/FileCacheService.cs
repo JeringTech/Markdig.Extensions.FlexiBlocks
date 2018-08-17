@@ -22,6 +22,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// Creates an <see cref="IFileCacheService"/> instance.
         /// </summary>
         /// <param name="fileService"></param>
+        /// <param name="directoryService"></param>
         /// <param name="loggerFactory"></param>
         public FileCacheService(IFileService fileService, IDirectoryService directoryService, ILoggerFactory loggerFactory)
         {
