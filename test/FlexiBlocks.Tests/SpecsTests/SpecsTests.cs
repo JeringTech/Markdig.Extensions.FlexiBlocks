@@ -15734,9 +15734,91 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
                 "all");
         }
 
+        // A FlexiIncludeBlock can retrieve remote content over HTTP or HTTPS:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec2_FlexiIncludeBlocks_FlexiCodeBlocks()
+        {
+            // The following Markdown:
+            //     This is an example article.
+            //     +{
+            //         "source": "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/42e2be4e8adb15b0fb28193fc615f520243420f0/src/FlexiBlocks/FlexiIncludeBlocks/ContentType.cs"
+            //     }
+            //
+            // Should be rendered as:
+            //     <p>This is an example article.</p>
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
+            //     {
+            //         /// &lt;summary&gt;
+            //         /// Include content types.
+            //         /// &lt;/summary&gt;
+            //         public enum ContentType
+            //         {
+            //             /// &lt;summary&gt;
+            //             /// Code include content.
+            //             /// &lt;/summary&gt;
+            //             Code,
+            //     
+            //             /// &lt;summary&gt;
+            //             /// Markdown include content.
+            //             /// &lt;/summary&gt;
+            //             Markdown
+            //         }
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("This is an example article.\n+{\n    \"source\": \"https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/42e2be4e8adb15b0fb28193fc615f520243420f0/src/FlexiBlocks/FlexiIncludeBlocks/ContentType.cs\"\n}", 
+                "<p>This is an example article.</p>\n<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks\n{\n    /// &lt;summary&gt;\n    /// Include content types.\n    /// &lt;/summary&gt;\n    public enum ContentType\n    {\n        /// &lt;summary&gt;\n        /// Code include content.\n        /// &lt;/summary&gt;\n        Code,\n\n        /// &lt;summary&gt;\n        /// Markdown include content.\n        /// &lt;/summary&gt;\n        Markdown\n    }\n}</code></pre>\n</div>", 
+                "FlexiIncludeBlocks_FlexiCodeBlocks");
+        }
+
+        // A FlexiIncludeBlock can retrieve remote content over HTTP or HTTPS:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec2_all()
+        {
+            // The following Markdown:
+            //     This is an example article.
+            //     +{
+            //         "source": "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/42e2be4e8adb15b0fb28193fc615f520243420f0/src/FlexiBlocks/FlexiIncludeBlocks/ContentType.cs"
+            //     }
+            //
+            // Should be rendered as:
+            //     <p>This is an example article.</p>
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
+            //     {
+            //         /// &lt;summary&gt;
+            //         /// Include content types.
+            //         /// &lt;/summary&gt;
+            //         public enum ContentType
+            //         {
+            //             /// &lt;summary&gt;
+            //             /// Code include content.
+            //             /// &lt;/summary&gt;
+            //             Code,
+            //     
+            //             /// &lt;summary&gt;
+            //             /// Markdown include content.
+            //             /// &lt;/summary&gt;
+            //             Markdown
+            //         }
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("This is an example article.\n+{\n    \"source\": \"https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/42e2be4e8adb15b0fb28193fc615f520243420f0/src/FlexiBlocks/FlexiIncludeBlocks/ContentType.cs\"\n}", 
+                "<p>This is an example article.</p>\n<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks\n{\n    /// &lt;summary&gt;\n    /// Include content types.\n    /// &lt;/summary&gt;\n    public enum ContentType\n    {\n        /// &lt;summary&gt;\n        /// Code include content.\n        /// &lt;/summary&gt;\n        Code,\n\n        /// &lt;summary&gt;\n        /// Markdown include content.\n        /// &lt;/summary&gt;\n        Markdown\n    }\n}</code></pre>\n</div>", 
+                "all");
+        }
+
         // Includes can be nested:
         [Fact]
-        public void FlexiIncludeBlocks_Spec2_FlexiIncludeBlocks()
+        public void FlexiIncludeBlocks_Spec3_FlexiIncludeBlocks()
         {
             // The following Markdown:
             //     This is an example article.
@@ -15758,7 +15840,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Includes can be nested:
         [Fact]
-        public void FlexiIncludeBlocks_Spec2_all()
+        public void FlexiIncludeBlocks_Spec3_all()
         {
             // The following Markdown:
             //     This is an example article.
@@ -15780,7 +15862,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Includes can be used within any kind of container block, such as a list item:
         [Fact]
-        public void FlexiIncludeBlocks_Spec3_FlexiIncludeBlocks()
+        public void FlexiIncludeBlocks_Spec4_FlexiIncludeBlocks()
         {
             // The following Markdown:
             //     - First item.
@@ -15807,7 +15889,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Includes can be used within any kind of container block, such as a list item:
         [Fact]
-        public void FlexiIncludeBlocks_Spec3_all()
+        public void FlexiIncludeBlocks_Spec4_all()
         {
             // The following Markdown:
             //     - First item.
@@ -15834,7 +15916,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Or a blockquote:
         [Fact]
-        public void FlexiIncludeBlocks_Spec4_FlexiIncludeBlocks()
+        public void FlexiIncludeBlocks_Spec5_FlexiIncludeBlocks()
         {
             // The following Markdown:
             //     > First line.
@@ -15858,7 +15940,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Or a blockquote:
         [Fact]
-        public void FlexiIncludeBlocks_Spec4_all()
+        public void FlexiIncludeBlocks_Spec5_all()
         {
             // The following Markdown:
             //     > First line.
@@ -15882,7 +15964,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Content can be included as a code block, using the FlexiCodeBlocks extension:
         [Fact]
-        public void FlexiIncludeBlocks_Spec5_FlexiIncludeBlocks_FlexiCodeBlocks()
+        public void FlexiIncludeBlocks_Spec6_FlexiIncludeBlocks_FlexiCodeBlocks()
         {
             // The following Markdown:
             //     This is an example article.
@@ -15907,7 +15989,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Content can be included as a code block, using the FlexiCodeBlocks extension:
         [Fact]
-        public void FlexiIncludeBlocks_Spec5_all()
+        public void FlexiIncludeBlocks_Spec6_all()
         {
             // The following Markdown:
             //     This is an example article.
@@ -15932,7 +16014,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Code is the default content type, `IncludeOptions.ContentType` can be omitted when including a code block:
         [Fact]
-        public void FlexiIncludeBlocks_Spec6_FlexiIncludeBlocks_FlexiCodeBlocks()
+        public void FlexiIncludeBlocks_Spec7_FlexiIncludeBlocks_FlexiCodeBlocks()
         {
             // The following Markdown:
             //     This is an example article.
@@ -15956,7 +16038,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Code is the default content type, `IncludeOptions.ContentType` can be omitted when including a code block:
         [Fact]
-        public void FlexiIncludeBlocks_Spec6_all()
+        public void FlexiIncludeBlocks_Spec7_all()
         {
             // The following Markdown:
             //     This is an example article.
@@ -15981,7 +16063,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // TODO prob have to set inner processor line number so that options block works    
         // FlexiCodeOptions can be applied to included FlexiCodeBlocks:
         [Fact]
-        public void FlexiIncludeBlocks_Spec7_FlexiIncludeBlocks_FlexiOptionsBlocks_FlexiCodeBlocks()
+        public void FlexiIncludeBlocks_Spec8_FlexiIncludeBlocks_FlexiOptionsBlocks_FlexiCodeBlocks()
         {
             // The following Markdown:
             //     This is an example article.
@@ -16012,7 +16094,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         // TODO prob have to set inner processor line number so that options block works    
         // FlexiCodeOptions can be applied to included FlexiCodeBlocks:
         [Fact]
-        public void FlexiIncludeBlocks_Spec7_all()
+        public void FlexiIncludeBlocks_Spec8_all()
         {
             // The following Markdown:
             //     This is an example article.

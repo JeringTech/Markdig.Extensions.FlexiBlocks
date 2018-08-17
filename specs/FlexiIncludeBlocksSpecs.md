@@ -35,6 +35,41 @@ This is an example article.
 <p>This is example markdown.</p>
 ````````````````````````````````
 
+A FlexiIncludeBlock can retrieve remote content over HTTP or HTTPS:
+```````````````````````````````` extraExtensions
+FlexiCodeBlocks
+```````````````````````````````` example
+This is an example article.
++{
+    "source": "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/42e2be4e8adb15b0fb28193fc615f520243420f0/src/FlexiBlocks/FlexiIncludeBlocks/ContentType.cs"
+}
+.
+<p>This is an example article.</p>
+<div class="fcb">
+<header>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+</header>
+<pre><code>namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
+{
+    /// &lt;summary&gt;
+    /// Include content types.
+    /// &lt;/summary&gt;
+    public enum ContentType
+    {
+        /// &lt;summary&gt;
+        /// Code include content.
+        /// &lt;/summary&gt;
+        Code,
+
+        /// &lt;summary&gt;
+        /// Markdown include content.
+        /// &lt;/summary&gt;
+        Markdown
+    }
+}</code></pre>
+</div>
+````````````````````````````````
+
 Includes can be nested:
 ```````````````````````````````` example
 This is an example article.
