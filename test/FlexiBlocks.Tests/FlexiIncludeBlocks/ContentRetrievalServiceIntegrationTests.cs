@@ -83,9 +83,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             services.AddFlexiBlocks();
             services.AddSingleton(mockHttpClientService.Object);
             _serviceProvider = services.BuildServiceProvider();
-
-            // Act
             testSubject = _serviceProvider.GetRequiredService<IContentRetrievalService>();
+            
+            // Act
             ReadOnlyCollection<string> result = testSubject.GetContent(url, _fixture.TempDirectory);
 
             // Assert
