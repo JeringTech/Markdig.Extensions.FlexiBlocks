@@ -7,6 +7,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         public ContentType ContentType { get; set; }
         public List<ClippingArea> ClippingAreas { get; set; }
         public string Source { get; set; }
-        public bool CacheRemoteSource { get; set; }
+        public bool CacheRemoteSource { get; set; } = true;
     }
 }
