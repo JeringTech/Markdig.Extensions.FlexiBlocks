@@ -8,6 +8,7 @@ using Jering.Web.SyntaxHighlighters.HighlightJS;
 using Jering.Web.SyntaxHighlighters.Prism;
 using Markdig;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks
@@ -25,7 +26,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             var services = new ServiceCollection();
             services.
                 AddPrism().
-                AddHighlightJS();
+                AddHighlightJS().
+                AddFlexiBlocks();
             _serviceProvider = services.BuildServiceProvider();
         }
 
@@ -85,7 +87,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         {
             if (!pipelineBuilder.Extensions.Contains<FlexiIncludeBlocksExtension>())
             {
-                pipelineBuilder.Extensions.Add(new FlexiIncludeBlocksExtension(options));
+                // TODO verify that this works, is there any better way? Can we just assign options to the options manager for this type?
+                if(options != null)
+                {
+                    // This singleton instance is returned everytime the options object is injected
+                    FlexiIncludeBlocksExtensionOptions injectedOptions = _serviceProvider.GetRequiredService<IOptions<FlexiIncludeBlocksExtensionOptions>>().Value;
+                    options.CopyTo(injectedOptions);
+                }
+
+                pipelineBuilder.Extensions.Add(_serviceProvider.GetRequiredService<FlexiIncludeBlocksExtension>());
             }
 
             return pipelineBuilder;

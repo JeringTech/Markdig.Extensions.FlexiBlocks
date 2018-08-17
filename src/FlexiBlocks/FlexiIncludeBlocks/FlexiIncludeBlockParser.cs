@@ -1,6 +1,7 @@
 ﻿using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Buffers;
 using System.Collections.ObjectModel;
@@ -21,10 +22,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <summary>
         /// Creates a <see cref="FlexiIncludeBlockParser"/> instance.
         /// </summary>
-        public FlexiIncludeBlockParser(FlexiIncludeBlocksExtensionOptions flexiIncludeBlocksExtensionOptions,
+        /// <param name="extensionOptionsAccessor"></param>
+        /// <param name="contentRetrievalService"></param>
+        public FlexiIncludeBlockParser(IOptions<FlexiIncludeBlocksExtensionOptions> extensionOptionsAccessor,
             IContentRetrievalService contentRetrievalService)
         {
-            _extensionOptions = flexiIncludeBlocksExtensionOptions;
+            _extensionOptions = extensionOptionsAccessor.Value;
             _contentRetrievalService = contentRetrievalService;
 
             OpeningCharacters = new[] { '+' };

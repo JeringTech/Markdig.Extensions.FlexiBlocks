@@ -5,18 +5,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     public class FlexiIncludeBlocksExtension : IMarkdownExtension
     {
-        private readonly FlexiIncludeBlocksExtensionOptions _options;
+        private readonly FlexiIncludeBlockParser _flexiIncludeBlockParser;
 
-        public FlexiIncludeBlocksExtension(FlexiIncludeBlocksExtensionOptions options)
+        public FlexiIncludeBlocksExtension(FlexiIncludeBlockParser flexiIncludeBlockParser)
         {
-            _options = options ?? new FlexiIncludeBlocksExtensionOptions();
+            _flexiIncludeBlockParser = flexiIncludeBlockParser;
         }
 
         public void Setup(MarkdownPipelineBuilder pipeline)
         {
             if (!pipeline.BlockParsers.Contains<FlexiIncludeBlockParser>())
             {
-                pipeline.BlockParsers.Insert(0, new FlexiIncludeBlockParser(_options));
+                pipeline.BlockParsers.Insert(0, _flexiIncludeBlockParser);
             }
         }
 
