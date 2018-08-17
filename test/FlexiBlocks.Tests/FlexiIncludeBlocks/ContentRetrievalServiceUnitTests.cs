@@ -385,7 +385,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             string result = testSubject.GetCacheIdentifier(dummyAbsoluteUri);
 
             // Assert
-            Assert.Equal("C7F3343EE4F3EF09C312A28153198EB5", result);
+            Assert.Equal("B09E67B0F1899D8BB5C8D1F087DDC9CF", result);
         }
 
         [Fact]
