@@ -3,21 +3,19 @@ using Markdig.Parsers;
 using Markdig.Syntax;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System;
 using System.Buffers;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
-    /// <summary>
-    /// TODO creates block, parses json. 
-    /// - if include content is markdown, inserts it and parses it from the top.
-    /// - if include content is code, creates a code block with the content as the code.
-    /// TODO try to use newtonsoft.json to parse json line by line
-    /// </summary>
     public class FlexiIncludeBlockParser : BlockParser
     {
         private readonly FlexiIncludeBlocksExtensionOptions _extensionOptions;
         private readonly IContentRetrievalService _contentRetrievalService;
+        private readonly List<ClippingArea> _defaultClippingAreas = new List<ClippingArea> { new ClippingArea() };
+        private readonly StringSlice _codeBlockFence = new StringSlice("```");
 
         /// <summary>
         /// Creates a <see cref="FlexiIncludeBlockParser"/> instance.
@@ -123,7 +121,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             return BlockState.Continue;
         }
 
-        // TODO, create more specs, step through, make sure this works for all situations
         public override bool Close(BlockProcessor processor, Block block)
         {
             var flexiIncludeBlock = (FlexiIncludeBlock)block;
@@ -133,11 +130,46 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             // TODO block circular includes
 
             // Retrieve content (read as lines since we will most probably only be using a subset of all the lines)
-            ReadOnlyCollection<string> unclippedContent = _contentRetrievalService.GetContent(includeOptions.Source,
-                includeOptions.CacheRemoteSource ? _extensionOptions.FileCacheDirectory : null,
+            ReadOnlyCollection<string> content = _contentRetrievalService.GetContent(includeOptions.Source,
+                includeOptions.CacheOnDisk ? _extensionOptions.FileCacheDirectory : null,
                 _extensionOptions.SourceBaseUri);
 
+            // Convert content into blocks and replace flexiIncludeBlock with the newly created blocks
+            ReplaceFlexiIncludeBlock(processor, flexiIncludeBlock, content, includeOptions);
 
+            // If true is returned, the block is kept as a child of its parent for rendering later on. If false is returned,
+            // the block is discarded. We don't need the block any more.
+            return false;
+        }
+
+        internal virtual void ProcessText(BlockProcessor processor, string text)
+        {
+            var lineReader = new LineReader(text);
+            while (true)
+            {
+                // Get the precise position of the begining of the line
+                StringSlice? lineText = lineReader.ReadLine();
+
+                // If this is the end of file and the last line is empty
+                if (lineText == null)
+                {
+                    break;
+                }
+                processor.ProcessLine(lineText.Value);
+            }
+        }
+
+        // TODO Tests
+        // - integration tests
+        //      - ContentType.Code produces a code block
+        //      - before text gets processed
+        //      - exception thrown if no line contains start sub string
+        //      - exception thrown if no line contains end substring
+        //      - correct lines get clipped when using line numbers indicate start and end lines
+        //      - correct lines get clipped when using substrings to indicate start and end lines
+        // TODO dedenting, collapsing
+        internal virtual void ReplaceFlexiIncludeBlock(BlockProcessor processor, FlexiIncludeBlock flexiIncludeBlock, ReadOnlyCollection<string> content, IncludeOptions includeOptions)
+        {
             // GridTable uses this pattern. Essentially, it creates a fresh context with the same root document. Not having a bunch of 
             // open blocks makes it possible to create the replacement blocks for flexiIncludeBlock.
             BlockProcessor childProcessor = processor.CreateChild();
@@ -150,22 +182,79 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             // LineIndex to the line that the include block starts at for FlexiOptionsBlocks to work.
             childProcessor.LineIndex = flexiIncludeBlock.Line;
 
-            // Process included content
-            // TODO clip content
-            for (int i = 0; i < unclippedContent.Count; i++)
+            // Clip content
+            List<ClippingArea> clippingAreas = includeOptions.ClippingAreas ?? _defaultClippingAreas;
+
+            // If content is code, start with ```
+            if (includeOptions.ContentType != ContentType.Markdown) // Code by default
             {
-                if (i == 0 && includeOptions.ContentType != ContentType.Markdown)
+                childProcessor.ProcessLine(_codeBlockFence);
+            }
+
+            // Clipping areas need not be sequential, they can also overlap
+            foreach(ClippingArea clippingArea in clippingAreas)
+            {
+                if(clippingArea.BeforeText != null)
                 {
-                    childProcessor.ProcessLine(new StringSlice("```"));
+                    ProcessText(childProcessor, clippingArea.BeforeText);
                 }
 
-
-                childProcessor.ProcessLine(new StringSlice(unclippedContent[i]));
-
-                if (i == unclippedContent.Count - 1 && includeOptions.ContentType != ContentType.Markdown)
+                int startLineNumber = -1;
+                if(clippingArea.StartLineSubString != null)
                 {
-                    childProcessor.ProcessLine(new StringSlice("```"));
+                    for (int i = 0; i < content.Count; i++)
+                    {
+                        if (content[i].Contains(clippingArea.StartLineSubString))
+                        {
+                            startLineNumber = i + 1;
+                            break;
+                        }
+                    }
+
+                    if (startLineNumber == -1)
+                    {
+                        throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_InvalidClippingAreaNoLineContainsStartLineSubstring, clippingArea.StartLineSubString));
+                    }
                 }
+                else
+                {
+                    startLineNumber = clippingArea.StartLineNumber;
+                }
+
+                for(int lineNumber = startLineNumber; lineNumber <= content.Count; lineNumber++)
+                {
+                    string line = content[lineNumber - 1];
+
+                    childProcessor.ProcessLine(new StringSlice(line));
+
+                    // Check whether we've reached the end of the clipping area
+                    if(clippingArea.EndLineSubString != null)
+                    {
+                        if(lineNumber == content.Count)
+                        {
+                            throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_InvalidClippingAreaNoLineContainsEndLineSubstring, clippingArea.EndLineSubString));
+                        }
+
+                        // Check if next line contains the end line substring
+                        if (content[lineNumber].Contains(clippingArea.EndLineSubString)){
+                            break;
+                        }
+                    }
+                    else if(clippingArea.EndLineNumber == clippingArea.EndLineNumber)
+                    {
+                        break;
+                    }
+                }
+
+                if (clippingArea.AfterText != null)
+                {
+                    ProcessText(childProcessor, clippingArea.AfterText);
+                }
+            }
+
+            if (includeOptions.ContentType != ContentType.Markdown) // TODO last line number isn't necessarily count
+            {
+                childProcessor.ProcessLine(_codeBlockFence);
             }
 
             // Close temp container block
@@ -192,10 +281,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             // BlockProcessors are pooled. Once we're done with innerProcessor, we must release it. This also removes all references to
             // tempContainerBlock, which should allow it to be collected quickly.
             childProcessor.ReleaseChild();
-
-            // If true is returned, the block is kept as a child of its parent for rendering later on. If false is returned,
-            // the block is discarded. We don't need the block any more.
-            return false;
         }
     }
 }

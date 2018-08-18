@@ -179,12 +179,39 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InvalidOperationException_ClippingAreasMustBeSequentialAndMustNotOverlap {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_ClippingAreasMustBeSequentialAndMustNotOverlap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FlexiOptionsBlock &quot;{0}&quot; at line &quot;{1}&quot;, column &quot;{2}, does not immediately precede a block that consumes it..
         /// </summary>
         internal static string InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBlock {
             get {
                 return ResourceManager.GetString("InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBloc" +
                         "k", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid clipping area, no line contains end line substring &quot;{0}&quot;..
+        /// </summary>
+        internal static string InvalidOperationException_InvalidClippingAreaNoLineContainsEndLineSubstring {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_InvalidClippingAreaNoLineContainsEndLineSubstring", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid clipping area, no line contains start line substring &quot;{0}&quot;..
+        /// </summary>
+        internal static string InvalidOperationException_InvalidClippingAreaNoLineContainsStartLineSubstring {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_InvalidClippingAreaNoLineContainsStartLineSubstring", resourceCulture);
             }
         }
         
