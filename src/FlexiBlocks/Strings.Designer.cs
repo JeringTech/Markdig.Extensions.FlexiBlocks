@@ -62,6 +62,24 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; must be larger than 0..
+        /// </summary>
+        internal static string ArgumentException_ArgumentMustBeLargerThan0 {
+            get {
+                return ResourceManager.GetString("ArgumentException_ArgumentMustBeLargerThan0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; cannot be negative..
+        /// </summary>
+        internal static string ArgumentException_ArgumentMustNotBeNegative {
+            get {
+                return ResourceManager.GetString("ArgumentException_ArgumentMustNotBeNegative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Base URI must be absolute , received &quot;{0}&quot;..
         /// </summary>
         internal static string ArgumentException_BaseUriMustBeAbsolute {
@@ -89,6 +107,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If endLineNumber is not -1, it must be larger than or equal to startLineNumber..
+        /// </summary>
+        internal static string ArgumentException_EndLineNumberMustNotBeLessThanStartLineNumber {
+            get {
+                return ResourceManager.GetString("ArgumentException_EndLineNumberMustNotBeLessThanStartLineNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The directory to be used for file caching, &quot;{0}&quot; is invalid. Refer to the inner exception for details. .
         /// </summary>
         internal static string ArgumentException_InvalidCacheDirectory {
@@ -103,6 +130,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         internal static string ArgumentException_InvalidEndLine {
             get {
                 return ResourceManager.GetString("ArgumentException_InvalidEndLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; has the value &quot;{1}&quot;, which is not a valid value for the enum &quot;{2}&quot;..
+        /// </summary>
+        internal static string ArgumentException_InvalidEnumArgument {
+            get {
+                return ResourceManager.GetString("ArgumentException_InvalidEnumArgument", resourceCulture);
             }
         }
         
@@ -125,11 +161,29 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; must be defined..
+        /// </summary>
+        internal static string ArgumentException_MustBeDefined {
+            get {
+                return ResourceManager.GetString("ArgumentException_MustBeDefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;{0}&quot; is not a valid  URI ..
         /// </summary>
         internal static string ArgumentException_NotAValidUri {
             get {
                 return ResourceManager.GetString("ArgumentException_NotAValidUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One and only one of &quot;{0}&quot; of &quot;{1}&quot; must be defined..
+        /// </summary>
+        internal static string ArgumentException_OneAndOnlyOneArgumentMustBeDefined {
+            get {
+                return ResourceManager.GetString("ArgumentException_OneAndOnlyOneArgumentMustBeDefined", resourceCulture);
             }
         }
         

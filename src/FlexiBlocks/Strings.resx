@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ArgumentException_ArgumentMustBeLargerThan0" xml:space="preserve">
+    <value>"{0}" must be larger than 0.</value>
+  </data>
+  <data name="ArgumentException_ArgumentMustNotBeNegative" xml:space="preserve">
+    <value>"{0}" cannot be negative.</value>
+  </data>
   <data name="ArgumentException_BaseUriMustBeAbsolute" xml:space="preserve">
     <value>Base URI must be absolute , received "{0}".</value>
   </data>
@@ -126,11 +132,17 @@
   <data name="ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString" xml:space="preserve">
     <value>The parameter "{0}" cannot be null, white space or an empty string.</value>
   </data>
+  <data name="ArgumentException_EndLineNumberMustNotBeLessThanStartLineNumber" xml:space="preserve">
+    <value>If endLineNumber is not -1, it must be larger than or equal to startLineNumber.</value>
+  </data>
   <data name="ArgumentException_InvalidCacheDirectory" xml:space="preserve">
     <value>The directory to be used for file caching, "{0}" is invalid. Refer to the inner exception for details. </value>
   </data>
   <data name="ArgumentException_InvalidEndLine" xml:space="preserve">
     <value>Invalid end line "{0}". If end line isn't -1, it must be greater than or equal to start line, "{1}".</value>
+  </data>
+  <data name="ArgumentException_InvalidEnumArgument" xml:space="preserve">
+    <value>"{0}" has the value "{1}", which is not a valid value for the enum "{2}".</value>
   </data>
   <data name="ArgumentException_InvalidStartLine" xml:space="preserve">
     <value>Invalid start line "{0}". Start line must be greater than 0.</value>
@@ -138,8 +150,14 @@
   <data name="ArgumentException_InvalidStartLineNumber" xml:space="preserve">
     <value>Invalid start line number "{0}". Start line number must be greater than 0.</value>
   </data>
+  <data name="ArgumentException_MustBeDefined" xml:space="preserve">
+    <value>"{0}" must be defined.</value>
+  </data>
   <data name="ArgumentException_NotAValidUri" xml:space="preserve">
     <value>"{0}" is not a valid  URI .</value>
+  </data>
+  <data name="ArgumentException_OneAndOnlyOneArgumentMustBeDefined" xml:space="preserve">
+    <value>One and only one of "{0}" of "{1}" must be defined.</value>
   </data>
   <data name="ArgumentException_UriSchemeUnsupported" xml:space="preserve">
     <value> URI  "{0}" has unsupported scheme "{1}".</value>
