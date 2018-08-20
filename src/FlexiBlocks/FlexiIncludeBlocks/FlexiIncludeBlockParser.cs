@@ -14,7 +14,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
     {
         private readonly FlexiIncludeBlocksExtensionOptions _extensionOptions;
         private readonly IContentRetrievalService _contentRetrievalService;
-        private readonly List<ClippingArea> _defaultClippingAreas = new List<ClippingArea> { new ClippingArea() };
+        private readonly List<ClippingArea> _defaultClippingAreas = new List<ClippingArea> { new ClippingArea(1, -1) };
         private readonly StringSlice _codeBlockFence = new StringSlice("```");
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         public FlexiIncludeBlockParser(IOptions<FlexiIncludeBlocksExtensionOptions> extensionOptionsAccessor,
             IContentRetrievalService contentRetrievalService)
         {
-            _extensionOptions = extensionOptionsAccessor.Value;
+            _extensionOptions = extensionOptionsAccessor?.Value ?? new FlexiIncludeBlocksExtensionOptions();
             _contentRetrievalService = contentRetrievalService;
 
             OpeningCharacters = new[] { '+' };
@@ -159,16 +159,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
         }
 
-        // TODO Tests
-        // - integration tests
-        //      - ContentType.Code produces a code block
-        //      - before text gets processed
-        //      - exception thrown if no line contains start sub string
-        //      - exception thrown if no line contains end substring
-        //      - correct lines get clipped when using line numbers indicate start and end lines
-        //      - correct lines get clipped when using substrings to indicate start and end lines
-        // TODO dedenting, collapsing
-        internal virtual void ReplaceFlexiIncludeBlock(BlockProcessor processor, FlexiIncludeBlock flexiIncludeBlock, ReadOnlyCollection<string> content, IncludeOptions includeOptions)
+        // TODO
+        internal virtual void DedentAndCollapseLeadingWhiteSpace(ref StringSlice line, int dedentLength, int collapseRatio)
+        {
+        }
+
+        internal virtual void ReplaceFlexiIncludeBlock(BlockProcessor processor,
+            FlexiIncludeBlock flexiIncludeBlock,
+            ReadOnlyCollection<string> content,
+            IncludeOptions includeOptions)
         {
             // GridTable uses this pattern. Essentially, it creates a fresh context with the same root document. Not having a bunch of 
             // open blocks makes it possible to create the replacement blocks for flexiIncludeBlock.
@@ -200,11 +199,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 }
 
                 int startLineNumber = -1;
-                if(clippingArea.StartLineSubString != null)
+                if(clippingArea.StartLineSubstring != null)
                 {
                     for (int i = 0; i < content.Count; i++)
                     {
-                        if (content[i].Contains(clippingArea.StartLineSubString))
+                        if (content[i].Contains(clippingArea.StartLineSubstring))
                         {
                             startLineNumber = i + 1;
                             break;
@@ -213,7 +212,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
                     if (startLineNumber == -1)
                     {
-                        throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_InvalidClippingAreaNoLineContainsStartLineSubstring, clippingArea.StartLineSubString));
+                        throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_InvalidClippingAreaNoLineContainsStartLineSubstring, clippingArea.StartLineSubstring));
                     }
                 }
                 else
@@ -224,23 +223,26 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 for(int lineNumber = startLineNumber; lineNumber <= content.Count; lineNumber++)
                 {
                     string line = content[lineNumber - 1];
+                    var stringSlice = new StringSlice(line);
 
-                    childProcessor.ProcessLine(new StringSlice(line));
+                    DedentAndCollapseLeadingWhiteSpace(ref stringSlice, clippingArea.DedentLength, clippingArea.CollapseRatio);
+
+                    childProcessor.ProcessLine(stringSlice);
 
                     // Check whether we've reached the end of the clipping area
-                    if(clippingArea.EndLineSubString != null)
+                    if(clippingArea.EndLineSubstring != null)
                     {
                         if(lineNumber == content.Count)
                         {
-                            throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_InvalidClippingAreaNoLineContainsEndLineSubstring, clippingArea.EndLineSubString));
+                            throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_InvalidClippingAreaNoLineContainsEndLineSubstring, clippingArea.EndLineSubstring));
                         }
 
                         // Check if next line contains the end line substring
-                        if (content[lineNumber].Contains(clippingArea.EndLineSubString)){
+                        if (content[lineNumber].Contains(clippingArea.EndLineSubstring)){
                             break;
                         }
                     }
-                    else if(clippingArea.EndLineNumber == clippingArea.EndLineNumber)
+                    else if(lineNumber == clippingArea.EndLineNumber)
                     {
                         break;
                     }
@@ -277,6 +279,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             {
                 ArrayPool<Block>.Shared.Return(replacementBlocks);
             }
+
+            // Remove the flexi include block
+            flexiIncludeBlock.Parent.Remove(flexiIncludeBlock);
 
             // BlockProcessors are pooled. Once we're done with innerProcessor, we must release it. This also removes all references to
             // tempContainerBlock, which should allow it to be collected quickly.
