@@ -13,7 +13,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         {
             // Act and assert
             ArgumentException result = Assert.Throws<ArgumentException>(() => new ClippingArea(dummyStartLineNumber, -1, dummyStartLineSubstring));
-            Assert.Equal(string.Format(Strings.ArgumentException_OneAndOnlyOneArgumentMustBeDefined, "startLineSubstring", "startLineNumber"), result.Message);
+            Assert.Equal(string.Format(Strings.ArgumentException_OneAndOnlyOneArgumentMustBeDefined, "startDemarcationLineSubstring", "startLineNumber"), result.Message);
         }
 
         public static IEnumerable<object[]> Constructor_ThrowsArgumentExceptionIfBothOrNeitherOfStartLineSubstringAndNumberAreDefined_Data()
@@ -28,23 +28,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         }
 
         [Theory]
-        [MemberData(nameof(Constructor_ThrowsArgumentExceptionIfBothOrNeitherOfEndLineSubstringAndNumberAreDefined_Data))]
-        public void Constructor_ThrowsArgumentExceptionIfBothOrNeitherOfEndLineSubstringAndNumberAreDefined(int dummyEndLineNumber, string dummyEndLineSubstring)
+        [MemberData(nameof(Constructor_ThrowsArgumentExceptionIfBothOrNeitherOfEndDemarcationLineSubstringAndNumberAreDefined_Data))]
+        public void Constructor_ThrowsArgumentExceptionIfBothOrNeitherOfEndDemarcationLineSubstringAndNumberAreDefined(int dummyEndLineNumber, string dummyEndDemarcationLineSubstring)
         {
             // Act and assert
-            ArgumentException result = Assert.Throws<ArgumentException>(() => new ClippingArea(1, dummyEndLineNumber, endLineSubstring: dummyEndLineSubstring));
-            Assert.Equal(string.Format(Strings.ArgumentException_OneAndOnlyOneArgumentMustBeDefined, "endLineSubstring", "endLineNumber"), result.Message);
+            ArgumentException result = Assert.Throws<ArgumentException>(() => new ClippingArea(1, dummyEndLineNumber, endDemarcationLineSubstring: dummyEndDemarcationLineSubstring));
+            Assert.Equal(string.Format(Strings.ArgumentException_OneAndOnlyOneArgumentMustBeDefined, "endDemarcationLineSubstring", "endLineNumber"), result.Message);
         }
 
-        public static IEnumerable<object[]> Constructor_ThrowsArgumentExceptionIfBothOrNeitherOfEndLineSubstringAndNumberAreDefined_Data()
+        public static IEnumerable<object[]> Constructor_ThrowsArgumentExceptionIfBothOrNeitherOfEndDemarcationLineSubstringAndNumberAreDefined_Data()
         {
             return new object[][]
             {
                 new object[]{0 , null},
                 new object[]{0 , ""},
                 new object[]{0 , " "},
-                new object[]{1, "dummyEndLineSubstring"}, // end line number is defined if it is != 0
-                new object[]{-1, "dummyEndLineSubstring"}
+                new object[]{1, "dummyEndDemarcationLineSubstring"}, // end line number is defined if it is != 0
+                new object[]{-1, "dummyEndDemarcationLineSubstring"}
             };
         }
 

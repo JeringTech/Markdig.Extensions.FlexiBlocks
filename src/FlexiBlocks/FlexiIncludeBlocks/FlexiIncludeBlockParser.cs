@@ -199,11 +199,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 }
 
                 int startLineNumber = -1;
-                if(clippingArea.StartLineSubstring != null)
+                if(clippingArea.StartDemarcationLineSubstring != null)
                 {
                     for (int i = 0; i < content.Count - 1; i++) // Since demarcation lines are not included in the clipping, the last line cannot be a start demarcation line.
                     {
-                        if (content[i].Contains(clippingArea.StartLineSubstring))
+                        if (content[i].Contains(clippingArea.StartDemarcationLineSubstring))
                         {
                             startLineNumber = i + 2;
                             break;
@@ -212,7 +212,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
                     if (startLineNumber == -1)
                     {
-                        throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_InvalidClippingAreaNoLineContainsStartLineSubstring, clippingArea.StartLineSubstring));
+                        throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_InvalidClippingAreaNoLineContainsStartLineSubstring, clippingArea.StartDemarcationLineSubstring));
                     }
                 }
                 else
@@ -230,15 +230,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                     childProcessor.ProcessLine(stringSlice);
 
                     // Check whether we've reached the end of the clipping area
-                    if(clippingArea.EndLineSubstring != null)
+                    if(clippingArea.EndDemarcationLineSubstring != null)
                     {
                         if(lineNumber == content.Count)
                         {
-                            throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_InvalidClippingAreaNoLineContainsEndLineSubstring, clippingArea.EndLineSubstring));
+                            throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_InvalidClippingAreaNoLineContainsEndLineSubstring, clippingArea.EndDemarcationLineSubstring));
                         }
 
                         // Check if next line contains the end line substring
-                        if (content[lineNumber].Contains(clippingArea.EndLineSubstring)){
+                        if (content[lineNumber].Contains(clippingArea.EndDemarcationLineSubstring)){
                             break;
                         }
                     }
