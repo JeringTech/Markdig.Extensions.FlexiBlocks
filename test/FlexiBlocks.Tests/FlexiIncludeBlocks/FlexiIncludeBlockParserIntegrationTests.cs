@@ -12,6 +12,36 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
     public class FlexiIncludeBlockParserIntegrationTests
     {
+        [Theory]
+        [MemberData(nameof(DedentAndCollapseLeadingWhiteSpace_DedentsAndCollapsesLeadingWhiteSpace_Data))]
+        public void DedentAndCollapseLeadingWhiteSpace_DedentsAndCollapsesLeadingWhiteSpace(string dummyLine, int dummyDedentLength, int dummyCollapseRatio, string expectedResult)
+        {
+            // Arrange
+            var dummyStringSlice = new StringSlice(dummyLine);
+            FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
+
+            // Act
+            testSubject.DedentAndCollapseLeadingWhiteSpace(ref dummyStringSlice, dummyDedentLength, dummyCollapseRatio);
+
+            // Assert
+            Assert.Equal(expectedResult, dummyStringSlice.ToString());
+        }
+
+        public static IEnumerable<object[]> DedentAndCollapseLeadingWhiteSpace_DedentsAndCollapsesLeadingWhiteSpace_Data()
+        {
+            return new object[][]
+            {
+                new object[]{"    dummyLine", 2, 1, "  dummyLine"}, // Dedent
+                new object[]{"  dummyLine", 2, 2, "dummyLine" }, // Dedent till there is no leading white space
+                new object[]{"  ", 3, 0, "" }, // Dedent till string is empty
+                new object[]{"    dummyLine", 0, 2, "  dummyLine"}, // Collapse
+                new object[]{"     dummyLine", 0, 2, "  dummyLine"}, // Collapse with number of leading white spaces indivisible by collapse ratio
+                new object[]{" dummyLine", 0, 3, "dummyLine"}, // Collapse till there is no leading white space
+                new object[]{"     dummyLine", 3, 2, " dummyLine"}, // Dedent and collapse
+                new object[]{"dummyLine", 2, 2, "dummyLine" }, // Do nothing to line with no leading white space
+            };
+        }
+
         [Fact]
         public void ReplaceFlexIncludeBlock_WrapsContentInACodeBlockIfIncludeOptionsContentTypeIsCode()
         {

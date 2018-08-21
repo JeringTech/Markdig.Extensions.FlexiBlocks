@@ -144,6 +144,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
         internal virtual void ProcessText(BlockProcessor processor, string text)
         {
+            if (text?.Length == 0) // If text is an empty string, LineReader.ReadLine immediately returns null
+            {
+                processor.ProcessLine(new StringSlice(text));
+
+                return;
+            }
+
             var lineReader = new LineReader(text);
             while (true)
             {
@@ -159,9 +166,53 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
         }
 
-        // TODO
         internal virtual void DedentAndCollapseLeadingWhiteSpace(ref StringSlice line, int dedentLength, int collapseRatio)
         {
+            if (line.Text.Length == 0)
+            {
+                return;
+            }
+
+            line.Start = 0;
+
+            // Dedent
+            if (dedentLength > 0)
+            {
+                for (int start = 0; start < dedentLength; start++)
+                {
+                    if (!line.PeekChar(start).IsWhitespace())
+                    {
+                        line.Start = start;
+                        return; // No more white space to dedent or collapse
+                    }
+                }
+
+                line.Start = dedentLength;
+            }
+
+            // Collapse
+            if (collapseRatio > 1)
+            {
+                int leadingWhiteSpaceCount = 0;
+                while (line.PeekChar(leadingWhiteSpaceCount).IsWhitespace())
+                {
+                    leadingWhiteSpaceCount++;
+                }
+
+                if (leadingWhiteSpaceCount == 0)
+                {
+                    return;
+                }
+
+                // collapseRatio is defined as initialLeadingWhiteSpaceCount/finalLeadingWhiteSpaceCount,
+                // so collapseLength = initialLeadingWhiteSpaceCount - finalLeadingWhiteSpaceCount = initialLeadingWhiteSpaceCount - initialLeadingWhiteSpaceCount/collapseRatio
+                int collapseLength = leadingWhiteSpaceCount - (int)Math.Round((float)leadingWhiteSpaceCount / collapseRatio);
+
+                for (int start = 0; start < collapseLength; start++)
+                {
+                    line.NextChar();
+                }
+            }
         }
 
         internal virtual void ReplaceFlexiIncludeBlock(BlockProcessor processor,
@@ -191,15 +242,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
 
             // Clipping areas need not be sequential, they can also overlap
-            foreach(ClippingArea clippingArea in clippingAreas)
+            foreach (ClippingArea clippingArea in clippingAreas)
             {
-                if(clippingArea.BeforeText != null)
+                if (clippingArea.BeforeText != null)
                 {
                     ProcessText(childProcessor, clippingArea.BeforeText);
                 }
 
                 int startLineNumber = -1;
-                if(clippingArea.StartDemarcationLineSubstring != null)
+                if (clippingArea.StartDemarcationLineSubstring != null)
                 {
                     for (int i = 0; i < content.Count - 1; i++) // Since demarcation lines are not included in the clipping, the last line cannot be a start demarcation line.
                     {
@@ -220,7 +271,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                     startLineNumber = clippingArea.StartLineNumber;
                 }
 
-                for(int lineNumber = startLineNumber; lineNumber <= content.Count; lineNumber++)
+                for (int lineNumber = startLineNumber; lineNumber <= content.Count; lineNumber++)
                 {
                     string line = content[lineNumber - 1];
                     var stringSlice = new StringSlice(line);
@@ -230,19 +281,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                     childProcessor.ProcessLine(stringSlice);
 
                     // Check whether we've reached the end of the clipping area
-                    if(clippingArea.EndDemarcationLineSubstring != null)
+                    if (clippingArea.EndDemarcationLineSubstring != null)
                     {
-                        if(lineNumber == content.Count)
+                        if (lineNumber == content.Count)
                         {
                             throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_InvalidClippingAreaNoLineContainsEndLineSubstring, clippingArea.EndDemarcationLineSubstring));
                         }
 
                         // Check if next line contains the end line substring
-                        if (content[lineNumber].Contains(clippingArea.EndDemarcationLineSubstring)){
+                        if (content[lineNumber].Contains(clippingArea.EndDemarcationLineSubstring))
+                        {
                             break;
                         }
                     }
-                    else if(lineNumber == clippingArea.EndLineNumber)
+                    else if (lineNumber == clippingArea.EndLineNumber)
                     {
                         break;
                     }
