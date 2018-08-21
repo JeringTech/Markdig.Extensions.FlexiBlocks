@@ -201,11 +201,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 int startLineNumber = -1;
                 if(clippingArea.StartLineSubstring != null)
                 {
-                    for (int i = 0; i < content.Count; i++)
+                    for (int i = 0; i < content.Count - 1; i++) // Since demarcation lines are not included in the clipping, the last line cannot be a start demarcation line.
                     {
                         if (content[i].Contains(clippingArea.StartLineSubstring))
                         {
-                            startLineNumber = i + 1;
+                            startLineNumber = i + 2;
                             break;
                         }
                     }
