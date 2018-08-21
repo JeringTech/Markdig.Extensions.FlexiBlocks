@@ -36,14 +36,44 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         [Fact]
         public void ReplaceFlexIncludeBlock_AddsBeforeAndAfterTextIfTheyAreNotNull()
         {
+            // Arrange
+            var dummyContent = new ReadOnlyCollection<string>(new string[] { "dummy", "content" });
+            BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
+            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
+            dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of flexi include block
+            const string dummyBeforeText = "# dummy before";
+            const string dummyAfterText = "> dummy\n > after";
+            var dummyClippingArea = new ClippingArea(1, -1, beforeText: dummyBeforeText, afterText: dummyAfterText);
+            var dummyClippingAreas = new List<ClippingArea> { dummyClippingArea };
+            var dummyIncludeOptions = new IncludeOptions("dummySource", ContentType.Markdown, clippingAreas: dummyClippingAreas);
+            FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
+            // Act
+            testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyContent, dummyIncludeOptions);
+
+            // Assert
+            Assert.Equal(3, dummyBlockProcessor.Document.Count);
+            // First block (from before text)
+            var resultHeadingBlock = dummyBlockProcessor.Document[0] as HeadingBlock;
+            Assert.NotNull(resultHeadingBlock);
+            Assert.Equal("dummy before", resultHeadingBlock.Lines.ToString());
+            // Second block (from content)
+            var resultParagraphBlock1 = dummyBlockProcessor.Document[1] as ParagraphBlock;
+            Assert.NotNull(resultParagraphBlock1);
+            Assert.Equal(string.Join("\n", dummyContent), resultParagraphBlock1.Lines.ToString());
+            // Third block (from after text)
+            var resultQuoteBlock = dummyBlockProcessor.Document[2] as QuoteBlock;
+            Assert.NotNull(resultQuoteBlock);
+            var resultParagraphBlock2 = resultQuoteBlock[0] as ParagraphBlock;
+            Assert.NotNull(resultParagraphBlock2);
+            Assert.Equal("dummy\nafter", resultParagraphBlock2.Lines.ToString());
         }
 
         [Fact]
         public void ReplaceFlexIncludeBlock_ThrowsInvalidOperationExceptionIfNoLineContainsStartLineSubStringOfAClippingArea()
         {
             // Arrange
-            var dummyContent = new ReadOnlyCollection<string>(new string[]{ "dummy", "content"});
+            var dummyContent = new ReadOnlyCollection<string>(new string[] { "dummy", "content" });
             const string dummyStartLineSubstring = "dummyStartLineSubstring";
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
@@ -64,7 +94,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             const string dummyEndLineSubstring = "dummyEndLineSubstring";
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
-            var dummyClippingArea = new ClippingArea(1, 0, endLineSubstring: dummyEndLineSubstring);
+            var dummyClippingArea = new ClippingArea(1, 0, endDemarcationLineSubstring: dummyEndLineSubstring);
             var dummyIncludeOptions = new IncludeOptions("dummySource", clippingAreas: new List<ClippingArea> { dummyClippingArea });
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
@@ -74,16 +104,101 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                 result.Message);
         }
 
-        [Fact]
-        public void ReplaceFlexiIncludeBlock_ClipsLinesAccordingToStartAndEndLineNumbers()
+        [Theory]
+        [MemberData(nameof(ReplaceFlexiIncludeBlock_ClipsLinesAccordingToStartAndEndLineNumbersAndSubstrings_Data))]
+        public void ReplaceFlexiIncludeBlock_ClipsLinesAccordingToStartAndEndLineNumbersAndSubstrings(SerializableWrapper<List<ClippingArea>> dummyClippingAreasWrapper, string[] expectedResult)
         {
+            // Arrange
+            var dummyContent = new ReadOnlyCollection<string>(new string[] { "line1", "line2", "line3", "line4", "line5" });
+            BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
+            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
+            dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of flexi include block
+            var dummyIncludeOptions = new IncludeOptions("dummySource", ContentType.Markdown, clippingAreas: dummyClippingAreasWrapper.Value);
+            FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
+            // Act
+            testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyContent, dummyIncludeOptions);
+
+            // Assert
+            Assert.Single(dummyBlockProcessor.Document);
+            var resultParagraphBlock = dummyBlockProcessor.Document[0] as ParagraphBlock;
+            Assert.NotNull(resultParagraphBlock);
+            Assert.Equal(string.Join("\n", expectedResult), resultParagraphBlock.Lines.ToString());
         }
 
-        [Fact]
-        public void ReplaceFlexiIncludeBlock_ClipsLinesAccordingToStartAndEndLineSubstrings()
+        public static IEnumerable<object[]> ReplaceFlexiIncludeBlock_ClipsLinesAccordingToStartAndEndLineNumbersAndSubstrings_Data()
         {
-
+            return new object[][]
+            {
+                // Single clipping area that includes all lines using line numbers
+                new object[]
+                {
+                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(1, 5)}),
+                    new string[] { "line1", "line2", "line3", "line4", "line5" }
+                },
+                // Single clipping area that includes all lines using -1 as end line number
+                new object[]
+                {
+                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(1, -1)}),
+                    new string[] { "line1", "line2", "line3", "line4", "line5" }
+                },
+                // Single clipping area that includes a single line using line numbers
+                new object[]
+                {
+                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(3, 3)}),
+                    new string[] { "line3" }
+                },
+                // Single clipping area that includes a single line using substrings
+                new object[]
+                {
+                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(0, 0, startDemarcationLineSubstring: "line2", endDemarcationLineSubstring: "line4")}),
+                    new string[] { "line3" }
+                },
+                // Single clipping area that includes a single line using line numbers and substrings
+                new object[]
+                {
+                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(0, 5, startDemarcationLineSubstring: "line4")}),
+                    new string[] { "line5" }
+                },
+                // Single clipping area that includes a subset of lines using line numbers
+                new object[]
+                {
+                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(2, 4)}),
+                    new string[] { "line2", "line3", "line4" }
+                },
+                // Single clipping area that includes a subset of lines using substrings
+                new object[]
+                {
+                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(0, 0, startDemarcationLineSubstring: "line1", endDemarcationLineSubstring: "line5")}),
+                    new string[] { "line2", "line3", "line4" }
+                },
+                // Single clipping area that includes a subset of lines using line numbers and substrings
+                new object[]
+                {
+                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(2, 0, endDemarcationLineSubstring: "line5")}),
+                    new string[] { "line2", "line3", "line4" }
+                },
+                // Multiple clipping areas that do not overlap
+                new object[]
+                {
+                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> {
+                        new ClippingArea(1, 2),
+                        new ClippingArea(0, 0, startDemarcationLineSubstring: "line2", endDemarcationLineSubstring: "line5"),
+                        new ClippingArea(0, 5, startDemarcationLineSubstring: "line4")
+                    }),
+                    new string[] { "line1", "line2", "line3", "line4", "line5" }
+                },
+                // Multiple clipping areas that overlap
+                new object[]
+                {
+                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> {
+                        new ClippingArea(1, 3),
+                        new ClippingArea(0, 0, startDemarcationLineSubstring: "line1", endDemarcationLineSubstring: "line5"),
+                        new ClippingArea(0, 5, startDemarcationLineSubstring: "line3")
+                    }),
+                    new string[] { "line1", "line2", "line3", "line2", "line3", "line4", "line4", "line5" }
+                },
+            };
         }
 
         private FlexiIncludeBlockParser CreateFlexiIncludBlockParser(IOptions<FlexiIncludeBlocksExtensionOptions> extensionOptionsAccessor = null,
