@@ -15689,6 +15689,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
     //     // Example comment
     //     return arg + 'dummyString';
     // }
+    // 
+    // //#region utility methods
+    // function add(a, b) {
+    //     return a + b;
+    // }
+    // //#endregion utility methods
     // ```
     public class FlexiIncludeBlocksTests
     {
@@ -16060,8 +16066,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
                 "all");
         }
 
-        // TODO prob have to set inner processor line number so that options block works    
-        // FlexiCodeOptions can be applied to included FlexiCodeBlocks:
+        // FlexiCodeOptions can be applied to FlexiIncludeBlocks of type `Code`:
         [Fact]
         public void FlexiIncludeBlocks_Spec8_FlexiIncludeBlocks_FlexiOptionsBlocks_FlexiCodeBlocks()
         {
@@ -16083,16 +16088,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     <pre><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">exampleFunction</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             //         <span class="token comment">// Example comment</span>
             //         <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">'dummyString'</span><span class="token punctuation">;</span>
-            //     <span class="token punctuation">}</span></code></pre>
+            //     <span class="token punctuation">}</span>
+            //     
+            //     <span class="token comment">//#region utility methods</span>
+            //     <span class="token keyword">function</span> <span class="token function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            //         <span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
+            //     <span class="token punctuation">}</span>
+            //     <span class="token comment">//#endregion utility methods</span></code></pre>
             //     </div>
 
             SpecTestHelper.AssertCompliance("This is an example article.\n@{\n    \"language\": \"javascript\"\n}\n+{\n    \"source\": \"./exampleInclude.js\"\n}", 
-                "<p>This is an example article.</p>\n<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-javascript\"><span class=\"token keyword\">function</span> <span class=\"token function\">exampleFunction</span><span class=\"token punctuation\">(</span>arg<span class=\"token punctuation\">)</span> <span class=\"token punctuation\">{</span>\n    <span class=\"token comment\">// Example comment</span>\n    <span class=\"token keyword\">return</span> arg <span class=\"token operator\">+</span> <span class=\"token string\">'dummyString'</span><span class=\"token punctuation\">;</span>\n<span class=\"token punctuation\">}</span></code></pre>\n</div>", 
+                "<p>This is an example article.</p>\n<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-javascript\"><span class=\"token keyword\">function</span> <span class=\"token function\">exampleFunction</span><span class=\"token punctuation\">(</span>arg<span class=\"token punctuation\">)</span> <span class=\"token punctuation\">{</span>\n    <span class=\"token comment\">// Example comment</span>\n    <span class=\"token keyword\">return</span> arg <span class=\"token operator\">+</span> <span class=\"token string\">'dummyString'</span><span class=\"token punctuation\">;</span>\n<span class=\"token punctuation\">}</span>\n\n<span class=\"token comment\">//#region utility methods</span>\n<span class=\"token keyword\">function</span> <span class=\"token function\">add</span><span class=\"token punctuation\">(</span>a<span class=\"token punctuation\">,</span> b<span class=\"token punctuation\">)</span> <span class=\"token punctuation\">{</span>\n    <span class=\"token keyword\">return</span> a <span class=\"token operator\">+</span> b<span class=\"token punctuation\">;</span>\n<span class=\"token punctuation\">}</span>\n<span class=\"token comment\">//#endregion utility methods</span></code></pre>\n</div>", 
                 "FlexiIncludeBlocks_FlexiOptionsBlocks_FlexiCodeBlocks");
         }
 
-        // TODO prob have to set inner processor line number so that options block works    
-        // FlexiCodeOptions can be applied to included FlexiCodeBlocks:
+        // FlexiCodeOptions can be applied to FlexiIncludeBlocks of type `Code`:
         [Fact]
         public void FlexiIncludeBlocks_Spec8_all()
         {
@@ -16114,11 +16124,271 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     <pre><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">exampleFunction</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             //         <span class="token comment">// Example comment</span>
             //         <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">'dummyString'</span><span class="token punctuation">;</span>
-            //     <span class="token punctuation">}</span></code></pre>
+            //     <span class="token punctuation">}</span>
+            //     
+            //     <span class="token comment">//#region utility methods</span>
+            //     <span class="token keyword">function</span> <span class="token function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            //         <span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
+            //     <span class="token punctuation">}</span>
+            //     <span class="token comment">//#endregion utility methods</span></code></pre>
             //     </div>
 
             SpecTestHelper.AssertCompliance("This is an example article.\n@{\n    \"language\": \"javascript\"\n}\n+{\n    \"source\": \"./exampleInclude.js\"\n}", 
-                "<p>This is an example article.</p>\n<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-javascript\"><span class=\"token keyword\">function</span> <span class=\"token function\">exampleFunction</span><span class=\"token punctuation\">(</span>arg<span class=\"token punctuation\">)</span> <span class=\"token punctuation\">{</span>\n    <span class=\"token comment\">// Example comment</span>\n    <span class=\"token keyword\">return</span> arg <span class=\"token operator\">+</span> <span class=\"token string\">'dummyString'</span><span class=\"token punctuation\">;</span>\n<span class=\"token punctuation\">}</span></code></pre>\n</div>", 
+                "<p>This is an example article.</p>\n<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code class=\"language-javascript\"><span class=\"token keyword\">function</span> <span class=\"token function\">exampleFunction</span><span class=\"token punctuation\">(</span>arg<span class=\"token punctuation\">)</span> <span class=\"token punctuation\">{</span>\n    <span class=\"token comment\">// Example comment</span>\n    <span class=\"token keyword\">return</span> arg <span class=\"token operator\">+</span> <span class=\"token string\">'dummyString'</span><span class=\"token punctuation\">;</span>\n<span class=\"token punctuation\">}</span>\n\n<span class=\"token comment\">//#region utility methods</span>\n<span class=\"token keyword\">function</span> <span class=\"token function\">add</span><span class=\"token punctuation\">(</span>a<span class=\"token punctuation\">,</span> b<span class=\"token punctuation\">)</span> <span class=\"token punctuation\">{</span>\n    <span class=\"token keyword\">return</span> a <span class=\"token operator\">+</span> b<span class=\"token punctuation\">;</span>\n<span class=\"token punctuation\">}</span>\n<span class=\"token comment\">//#endregion utility methods</span></code></pre>\n</div>", 
+                "all");
+        }
+
+        // Included content can be clipped using line numbers:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec9_FlexiIncludeBlocks_FlexiCodeBlocks()
+        {
+            // The following Markdown:
+            //     +{
+            //         "source": "./exampleInclude.js",
+            //         "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4}, {"startLineNumber": 7, "endLineNumber": 9}]
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>function exampleFunction(arg) {
+            //         // Example comment
+            //         return arg + 'dummyString';
+            //     }
+            //     function add(a, b) {
+            //         return a + b;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 1, \"endLineNumber\": 4}, {\"startLineNumber\": 7, \"endLineNumber\": 9}]\n}", 
+                "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n    // Example comment\n    return arg + 'dummyString';\n}\nfunction add(a, b) {\n    return a + b;\n}</code></pre>\n</div>", 
+                "FlexiIncludeBlocks_FlexiCodeBlocks");
+        }
+
+        // Included content can be clipped using line numbers:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec9_all()
+        {
+            // The following Markdown:
+            //     +{
+            //         "source": "./exampleInclude.js",
+            //         "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4}, {"startLineNumber": 7, "endLineNumber": 9}]
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>function exampleFunction(arg) {
+            //         // Example comment
+            //         return arg + 'dummyString';
+            //     }
+            //     function add(a, b) {
+            //         return a + b;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 1, \"endLineNumber\": 4}, {\"startLineNumber\": 7, \"endLineNumber\": 9}]\n}", 
+                "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n    // Example comment\n    return arg + 'dummyString';\n}\nfunction add(a, b) {\n    return a + b;\n}</code></pre>\n</div>", 
+                "all");
+        }
+
+        // Included content can also be clipped using demarcation line substrings:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec10_FlexiIncludeBlocks_FlexiCodeBlocks()
+        {
+            // The following Markdown:
+            //     +{
+            //         "source": "./exampleInclude.js",
+            //         "clippingAreas":[{"startDemarcationLineSubstring": "#region utility methods", "endDemarcationLineSubstring": "#endregion utility methods"}]
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>function add(a, b) {
+            //         return a + b;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startDemarcationLineSubstring\": \"#region utility methods\", \"endDemarcationLineSubstring\": \"#endregion utility methods\"}]\n}", 
+                "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function add(a, b) {\n    return a + b;\n}</code></pre>\n</div>", 
+                "FlexiIncludeBlocks_FlexiCodeBlocks");
+        }
+
+        // Included content can also be clipped using demarcation line substrings:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec10_all()
+        {
+            // The following Markdown:
+            //     +{
+            //         "source": "./exampleInclude.js",
+            //         "clippingAreas":[{"startDemarcationLineSubstring": "#region utility methods", "endDemarcationLineSubstring": "#endregion utility methods"}]
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>function add(a, b) {
+            //         return a + b;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startDemarcationLineSubstring\": \"#region utility methods\", \"endDemarcationLineSubstring\": \"#endregion utility methods\"}]\n}", 
+                "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function add(a, b) {\n    return a + b;\n}</code></pre>\n</div>", 
+                "all");
+        }
+
+        // Included content can also be clipped using a combination of line numbers and line substrings:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec11_FlexiIncludeBlocks_FlexiCodeBlocks()
+        {
+            // The following Markdown:
+            //     +{
+            //         "source": "./exampleInclude.js",
+            //         "clippingAreas":[{"startLineNumber": 7, 
+            //             "endDemarcationLineSubstring": "#endregion utility methods"}]
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>function add(a, b) {
+            //         return a + b;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 7, \n        \"endDemarcationLineSubstring\": \"#endregion utility methods\"}]\n}", 
+                "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function add(a, b) {\n    return a + b;\n}</code></pre>\n</div>", 
+                "FlexiIncludeBlocks_FlexiCodeBlocks");
+        }
+
+        // Included content can also be clipped using a combination of line numbers and line substrings:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec11_all()
+        {
+            // The following Markdown:
+            //     +{
+            //         "source": "./exampleInclude.js",
+            //         "clippingAreas":[{"startLineNumber": 7, 
+            //             "endDemarcationLineSubstring": "#endregion utility methods"}]
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>function add(a, b) {
+            //         return a + b;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 7, \n        \"endDemarcationLineSubstring\": \"#endregion utility methods\"}]\n}", 
+                "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function add(a, b) {\n    return a + b;\n}</code></pre>\n</div>", 
+                "all");
+        }
+
+        // Text can be prepended and appended to each clipping area:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec12_FlexiIncludeBlocks_FlexiCodeBlocks()
+        {
+            // The following Markdown:
+            //     +{
+            //         "source": "./exampleInclude.js",
+            //         "clippingAreas":[{
+            //             "startLineNumber": 1, 
+            //             "endLineNumber": 1,
+            //             "afterText": "..."
+            //         },
+            //         {
+            //             "startLineNumber": 4,
+            //             "endLineNumber": 4
+            //         },
+            //         {
+            //             "startLineNumber": 7, 
+            //             "endLineNumber": 7,
+            //             "beforeText": ""
+            //         },
+            //         {
+            //             "startLineNumber": 9, 
+            //             "endLineNumber": 9,
+            //             "beforeText": "..."
+            //         }]
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>function exampleFunction(arg) {
+            //     ...
+            //     }
+            //     
+            //     function add(a, b) {
+            //     ...
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\n        \"startLineNumber\": 1, \n        \"endLineNumber\": 1,\n        \"afterText\": \"...\"\n    },\n    {\n        \"startLineNumber\": 4,\n        \"endLineNumber\": 4\n    },\n    {\n        \"startLineNumber\": 7, \n        \"endLineNumber\": 7,\n        \"beforeText\": \"\"\n    },\n    {\n        \"startLineNumber\": 9, \n        \"endLineNumber\": 9,\n        \"beforeText\": \"...\"\n    }]\n}", 
+                "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n...\n}\n\nfunction add(a, b) {\n...\n}</code></pre>\n</div>", 
+                "FlexiIncludeBlocks_FlexiCodeBlocks");
+        }
+
+        // Text can be prepended and appended to each clipping area:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec12_all()
+        {
+            // The following Markdown:
+            //     +{
+            //         "source": "./exampleInclude.js",
+            //         "clippingAreas":[{
+            //             "startLineNumber": 1, 
+            //             "endLineNumber": 1,
+            //             "afterText": "..."
+            //         },
+            //         {
+            //             "startLineNumber": 4,
+            //             "endLineNumber": 4
+            //         },
+            //         {
+            //             "startLineNumber": 7, 
+            //             "endLineNumber": 7,
+            //             "beforeText": ""
+            //         },
+            //         {
+            //             "startLineNumber": 9, 
+            //             "endLineNumber": 9,
+            //             "beforeText": "..."
+            //         }]
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>function exampleFunction(arg) {
+            //     ...
+            //     }
+            //     
+            //     function add(a, b) {
+            //     ...
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\n        \"startLineNumber\": 1, \n        \"endLineNumber\": 1,\n        \"afterText\": \"...\"\n    },\n    {\n        \"startLineNumber\": 4,\n        \"endLineNumber\": 4\n    },\n    {\n        \"startLineNumber\": 7, \n        \"endLineNumber\": 7,\n        \"beforeText\": \"\"\n    },\n    {\n        \"startLineNumber\": 9, \n        \"endLineNumber\": 9,\n        \"beforeText\": \"...\"\n    }]\n}", 
+                "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n...\n}\n\nfunction add(a, b) {\n...\n}</code></pre>\n</div>", 
                 "all");
         }
     }
