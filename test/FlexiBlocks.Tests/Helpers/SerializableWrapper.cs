@@ -8,6 +8,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         private const string VALUE_KEY = "VALUE_KEY";
         public T Value { get; private set; }
 
+        // Required by xUnit
+        public SerializableWrapper()
+        {
+
+        }
+
         public SerializableWrapper(T target)
         {
             Value = target;
