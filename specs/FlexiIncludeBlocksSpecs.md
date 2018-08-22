@@ -296,7 +296,44 @@ function add(a, b) {
 </div>
 ````````````````````````````````
 
-TODO Content can be dendented
-TODO Leading white space can be collapsed
+A clipping area can be dedented:
+```````````````````````````````` extraExtensions
+FlexiCodeBlocks
+```````````````````````````````` example
++{
+    "source": "./exampleInclude.js",
+    "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4, "dedentLength": 2}],
+}
+.
+<div class="fcb">
+<header>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+</header>
+<pre><code>function exampleFunction(arg) {
+  // Example comment
+  return arg + 'dummyString';
+}</code></pre>
+</div>
+````````````````````````````````
+
+Leading white space in a clipping area can also be collapsed:
+```````````````````````````````` extraExtensions
+FlexiCodeBlocks
+```````````````````````````````` example
++{
+    "source": "./exampleInclude.js",
+    "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4, "collapseRatio": 2}]
+}
+.
+<div class="fcb">
+<header>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+</header>
+<pre><code>function exampleFunction(arg) {
+  // Example comment
+  return arg + 'dummyString';
+}</code></pre>
+</div>
+````````````````````````````````
 
 

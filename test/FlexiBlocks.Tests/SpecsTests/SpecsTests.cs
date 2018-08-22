@@ -16391,6 +16391,110 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n...\n}\n\nfunction add(a, b) {\n...\n}</code></pre>\n</div>", 
                 "all");
         }
+
+        // A clipping area can be dedented:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec13_FlexiIncludeBlocks_FlexiCodeBlocks()
+        {
+            // The following Markdown:
+            //     +{
+            //         "source": "./exampleInclude.js",
+            //         "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4, "dedentLength": 2}],
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>function exampleFunction(arg) {
+            //       // Example comment
+            //       return arg + 'dummyString';
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 1, \"endLineNumber\": 4, \"dedentLength\": 2}],\n}", 
+                "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n  // Example comment\n  return arg + 'dummyString';\n}</code></pre>\n</div>", 
+                "FlexiIncludeBlocks_FlexiCodeBlocks");
+        }
+
+        // A clipping area can be dedented:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec13_all()
+        {
+            // The following Markdown:
+            //     +{
+            //         "source": "./exampleInclude.js",
+            //         "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4, "dedentLength": 2}],
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>function exampleFunction(arg) {
+            //       // Example comment
+            //       return arg + 'dummyString';
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 1, \"endLineNumber\": 4, \"dedentLength\": 2}],\n}", 
+                "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n  // Example comment\n  return arg + 'dummyString';\n}</code></pre>\n</div>", 
+                "all");
+        }
+
+        // Leading white space in a clipping area can also be collapsed:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec14_FlexiIncludeBlocks_FlexiCodeBlocks()
+        {
+            // The following Markdown:
+            //     +{
+            //         "source": "./exampleInclude.js",
+            //         "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4, "collapseRatio": 2}]
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>function exampleFunction(arg) {
+            //       // Example comment
+            //       return arg + 'dummyString';
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 1, \"endLineNumber\": 4, \"collapseRatio\": 2}]\n}", 
+                "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n  // Example comment\n  return arg + 'dummyString';\n}</code></pre>\n</div>", 
+                "FlexiIncludeBlocks_FlexiCodeBlocks");
+        }
+
+        // Leading white space in a clipping area can also be collapsed:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec14_all()
+        {
+            // The following Markdown:
+            //     +{
+            //         "source": "./exampleInclude.js",
+            //         "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4, "collapseRatio": 2}]
+            //     }
+            //
+            // Should be rendered as:
+            //     <div class="fcb">
+            //     <header>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+            //     </header>
+            //     <pre><code>function exampleFunction(arg) {
+            //       // Example comment
+            //       return arg + 'dummyString';
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 1, \"endLineNumber\": 4, \"collapseRatio\": 2}]\n}", 
+                "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n  // Example comment\n  return arg + 'dummyString';\n}</code></pre>\n</div>", 
+                "all");
+        }
     }
 
     // Per-block options are useful for many extensions. For example, per-block options would allow a code extension to add line-numbers to select code blocks. 
