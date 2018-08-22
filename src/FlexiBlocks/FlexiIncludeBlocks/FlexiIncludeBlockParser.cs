@@ -7,14 +7,17 @@ using System;
 using System.Buffers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     public class FlexiIncludeBlockParser : BlockParser
     {
+        private const string CLOSING_FLEXI_INCLUDE_BLOCKS_KEY = "closingFlexiIncludeBlocksKey";
+        private static readonly StringSlice _codeBlockFence = new StringSlice("```");
+
         private readonly FlexiIncludeBlocksExtensionOptions _extensionOptions;
         private readonly IContentRetrievalService _contentRetrievalService;
-        private readonly StringSlice _codeBlockFence = new StringSlice("```");
 
 
         /// <summary>
@@ -127,7 +130,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             string json = flexiIncludeBlock.Lines.ToString();
             IncludeOptions includeOptions = JsonConvert.DeserializeObject<IncludeOptions>(json);
 
-            // TODO block circular includes
+            // Check for cycles in includes
+            Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks = null;
+            if (includeOptions.ContentType == ContentType.Markdown)
+            {
+                closingFlexiIncludeBlocks = processor.Document.GetData(CLOSING_FLEXI_INCLUDE_BLOCKS_KEY) as Stack<FlexiIncludeBlock>;
+                if (closingFlexiIncludeBlocks == null)
+                {
+                    closingFlexiIncludeBlocks = new Stack<FlexiIncludeBlock>();
+                    processor.Document.SetData(CLOSING_FLEXI_INCLUDE_BLOCKS_KEY, closingFlexiIncludeBlocks);
+                }
+
+                CheckForCyclesInIncludes(closingFlexiIncludeBlocks, flexiIncludeBlock, includeOptions);
+            }
 
             // Retrieve content (read as lines since we will most probably only be using a subset of all the lines)
             ReadOnlyCollection<string> content = _contentRetrievalService.GetContent(includeOptions.Source,
@@ -137,9 +152,51 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             // Convert content into blocks and replace flexiIncludeBlock with the newly created blocks
             ReplaceFlexiIncludeBlock(processor, flexiIncludeBlock, content, includeOptions);
 
+            // Remove flexi include block from closing blocks once it has been processed
+            closingFlexiIncludeBlocks?.Pop();
+
             // If true is returned, the block is kept as a child of its parent for rendering later on. If false is returned,
             // the block is discarded. We don't need the block any more.
             return false;
+        }
+
+        internal virtual void CheckForCyclesInIncludes(Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks, FlexiIncludeBlock flexiIncludeBlock, IncludeOptions includeOptions)
+        {
+            flexiIncludeBlock.Source = includeOptions.Source;
+
+            if (closingFlexiIncludeBlocks.Count > 0)
+            {
+                FlexiIncludeBlock parentFlexiIncludeBlock = closingFlexiIncludeBlocks.Peek();
+                flexiIncludeBlock.ContainingSource = parentFlexiIncludeBlock.Source;
+                flexiIncludeBlock.LineNumberInContainingSource = parentFlexiIncludeBlock.LineNumberOfLastProcessedLineInSource - flexiIncludeBlock.Lines.Count + 1;
+            }
+            else
+            {
+                // Root source, line number is always line index + 1
+                flexiIncludeBlock.LineNumberInContainingSource = flexiIncludeBlock.Line + 1;
+            }
+
+            for (int i = closingFlexiIncludeBlocks.Count - 1; i > -1; i--)
+            {
+                FlexiIncludeBlock closingFlexiIncludeBlock = closingFlexiIncludeBlocks.ElementAt(i);
+
+                if (closingFlexiIncludeBlock.ContainingSource == flexiIncludeBlock.ContainingSource &&
+                    closingFlexiIncludeBlock.LineNumberInContainingSource == flexiIncludeBlock.LineNumberInContainingSource)
+                {
+                    // Create string describing cycle
+                    string cycleDescription = "";
+                    for (; i > -1; i--)
+                    {
+                        FlexiIncludeBlock cycleFlexiIncludeBlock = closingFlexiIncludeBlocks.ElementAt(i);
+                        cycleDescription += $"Source: {cycleFlexiIncludeBlock.ContainingSource}, Line: {cycleFlexiIncludeBlock.LineNumberInContainingSource} >\n";
+                    }
+                    cycleDescription += $"Source: {closingFlexiIncludeBlock.ContainingSource}, Line: {closingFlexiIncludeBlock.LineNumberInContainingSource}";
+
+                    throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_CycleInIncludes, cycleDescription));
+                }
+            }
+
+            closingFlexiIncludeBlocks.Push(flexiIncludeBlock);
         }
 
         internal virtual void ProcessText(BlockProcessor processor, string text)
@@ -275,6 +332,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
                     DedentAndCollapseLeadingWhiteSpace(ref stringSlice, clippingArea.DedentLength, clippingArea.CollapseRatio);
 
+                    // TODO document, -1 by default to prevent issues with before and after?
+                    flexiIncludeBlock.LineNumberOfLastProcessedLineInSource = lineNumber;
                     childProcessor.ProcessLine(stringSlice);
 
                     // Check whether we've reached the end of the clipping area
@@ -303,7 +362,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 }
             }
 
-            if (includeOptions.ContentType != ContentType.Markdown) // TODO last line number isn't necessarily count
+            if (includeOptions.ContentType != ContentType.Markdown) // If content is code, end with ```
             {
                 childProcessor.ProcessLine(_codeBlockFence);
             }

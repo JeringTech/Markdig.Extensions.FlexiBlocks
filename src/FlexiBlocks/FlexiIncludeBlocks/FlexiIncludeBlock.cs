@@ -8,6 +8,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         {
         }
 
+        public string Source { get; set; }
+
+        public int LineNumberOfLastProcessedLineInSource { get; set; }
+
+        public string ContainingSource { get; set; }
+
+        public int LineNumberInContainingSource { get; set; }
+
+
         /// <summary>
         /// Number of open brackets in the JSON, used to determine when to stop parsing.
         /// </summary>

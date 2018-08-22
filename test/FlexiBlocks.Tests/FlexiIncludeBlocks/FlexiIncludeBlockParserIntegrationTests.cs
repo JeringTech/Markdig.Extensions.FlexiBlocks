@@ -1,17 +1,161 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
+using Markdig;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
-    public class FlexiIncludeBlockParserIntegrationTests
+    public class FlexiIncludeBlockParserIntegrationTests : IClassFixture<FlexiIncludeBlockParserIntegrationTestsFixture>
     {
+        private readonly FlexiIncludeBlockParserIntegrationTestsFixture _fixture;
+
+        public FlexiIncludeBlockParserIntegrationTests(FlexiIncludeBlockParserIntegrationTestsFixture fixture)
+        {
+            _fixture = fixture;
+        }
+
+        // TODO ProcessText
+        // TODO Close
+        // TODO TryContinue
+        // TODO TryOpen
+
+        [Theory]
+        [MemberData(nameof(FlexiIncludeBlockParser_ThrowsIfACircularIncludeIsFound_Data))]
+        public void FlexiIncludeBlockParser_ThrowsIfACircularIncludeIsFound(string dummyEntryMarkdown, string dummyMarkdown1, string dummyMarkdown2, string dummyMarkdown3, 
+            string expectedCycleDescription)
+        {
+            // Arrange
+            File.WriteAllText(Path.Combine(_fixture.TempDirectory, $"{nameof(dummyMarkdown1)}.md"), dummyMarkdown1);
+            File.WriteAllText(Path.Combine(_fixture.TempDirectory, $"{nameof(dummyMarkdown2)}.md"), dummyMarkdown2);
+            File.WriteAllText(Path.Combine(_fixture.TempDirectory, $"{nameof(dummyMarkdown3)}.md"), dummyMarkdown3);
+
+            // Need to dispose of services between tests so that FileCacheService's in memory cache doesn't affect results
+            var services = new ServiceCollection();
+            services.AddFlexiBlocks();
+            IServiceProvider serviceProvider = services.BuildServiceProvider();
+            using ((IDisposable)serviceProvider)
+            {
+                var dummyMarkdownPipelineBuilder = new MarkdownPipelineBuilder();
+                dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<FlexiIncludeBlocksExtension>());
+                FlexiIncludeBlocksExtensionOptions dummyExtensionOptions = serviceProvider.GetRequiredService<IOptions<FlexiIncludeBlocksExtensionOptions>>().Value;
+                dummyExtensionOptions.SourceBaseUri = _fixture.TempDirectory + "/";
+                MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
+
+                // Act and assert
+                InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => MarkdownParser.Parse(dummyEntryMarkdown, dummyMarkdownPipeline));
+                Assert.Equal(string.Format(Strings.InvalidOperationException_CycleInIncludes, expectedCycleDescription), result.Message, ignoreLineEndingDifferences: true);
+            }
+        }
+
+        public static IEnumerable<object[]> FlexiIncludeBlockParser_ThrowsIfACircularIncludeIsFound_Data()
+        {
+            return new object[][]
+            {
+                // Basic circular include
+                new object[]
+                {
+                    @"+{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown1.md""
+}",
+                    @"+{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown2.md""
+}",
+                    @"+{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown1.md""
+}",
+                    null,
+                    @"Source: ./dummyMarkdown1.md, Line: 1 >
+Source: ./dummyMarkdown2.md, Line: 1 >
+Source: ./dummyMarkdown1.md, Line: 1"
+                },
+                // Valid includes don't affect identification of circular includes
+                new object[]
+                {
+                    @"+{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown1.md"",
+    ""clippingAreas"": [{""startLineNumber"": 2, ""endLineNumber"": 2}]
+}
+
++{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown1.md""
+}",
+                    @"+{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown3.md""
+}
+
++{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown2.md""
+}",
+                    @"+{
+    ""contentType"": ""Code"",
+    ""source"": ""./dummyMarkdown1.md""
+}
+
++{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown1.md""
+}",
+                    "This is a line",
+                    @"Source: ./dummyMarkdown1.md, Line: 6 >
+Source: ./dummyMarkdown2.md, Line: 6 >
+Source: ./dummyMarkdown1.md, Line: 6"
+                },
+                // Circular includes that uses clipping areas are caught
+                new object[]
+                {
+                    @"+{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown1.md"",
+    ""clippingAreas"": [{""startLineNumber"": 2, ""endLineNumber"": 2}]
+}
+
++{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown1.md"",
+    ""clippingAreas"": [{""startLineNumber"": 6, ""endLineNumber"": -1}]
+}",
+                    @"+{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown3.md""
+}
+
++{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown2.md"",
+    ""clippingAreas"": [{""startLineNumber"": 6, ""endLineNumber"": -1}]
+}",
+                    @"+{
+    ""contentType"": ""Code"",
+    ""source"": ""./dummyMarkdown1.md""
+}
+
++{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown1.md""
+}",
+                    "This is a line",
+                    @"Source: ./dummyMarkdown1.md, Line: 6 >
+Source: ./dummyMarkdown2.md, Line: 6 >
+Source: ./dummyMarkdown1.md, Line: 6"
+                }
+            };
+        }
+
         [Theory]
         [MemberData(nameof(DedentAndCollapseLeadingWhiteSpace_DedentsAndCollapsesLeadingWhiteSpace_Data))]
         public void DedentAndCollapseLeadingWhiteSpace_DedentsAndCollapsesLeadingWhiteSpace(string dummyLine, int dummyDedentLength, int dummyCollapseRatio, string expectedResult)
@@ -74,7 +218,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             const string dummyBeforeText = "# dummy before";
             const string dummyAfterText = "> dummy\n > after";
             var dummyClippingArea = new ClippingArea(1, -1, beforeText: dummyBeforeText, afterText: dummyAfterText);
-            var dummyClippingAreas = new List<ClippingArea> { dummyClippingArea };
+            var dummyClippingAreas = new ClippingArea[] { dummyClippingArea };
             var dummyIncludeOptions = new IncludeOptions("dummySource", ContentType.Markdown, clippingAreas: dummyClippingAreas);
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
@@ -108,7 +252,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
             var dummyClippingArea = new ClippingArea(0, -1, dummyStartLineSubstring);
-            var dummyIncludeOptions = new IncludeOptions("dummySource", clippingAreas: new List<ClippingArea> { dummyClippingArea });
+            var dummyIncludeOptions = new IncludeOptions("dummySource", clippingAreas: new ClippingArea[] { dummyClippingArea });
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
             // Act and assert
@@ -125,7 +269,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
             var dummyClippingArea = new ClippingArea(1, 0, endDemarcationLineSubstring: dummyEndLineSubstring);
-            var dummyIncludeOptions = new IncludeOptions("dummySource", clippingAreas: new List<ClippingArea> { dummyClippingArea });
+            var dummyIncludeOptions = new IncludeOptions("dummySource", clippingAreas: new ClippingArea[] { dummyClippingArea });
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
             // Act and assert
@@ -136,7 +280,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
         [Theory]
         [MemberData(nameof(ReplaceFlexiIncludeBlock_ClipsLinesAccordingToStartAndEndLineNumbersAndSubstrings_Data))]
-        public void ReplaceFlexiIncludeBlock_ClipsLinesAccordingToStartAndEndLineNumbersAndSubstrings(SerializableWrapper<List<ClippingArea>> dummyClippingAreasWrapper, string[] expectedResult)
+        public void ReplaceFlexiIncludeBlock_ClipsLinesAccordingToStartAndEndLineNumbersAndSubstrings(SerializableWrapper<ClippingArea[]> dummyClippingAreasWrapper, string[] expectedResult)
         {
             // Arrange
             var dummyContent = new ReadOnlyCollection<string>(new string[] { "line1", "line2", "line3", "line4", "line5" });
@@ -163,55 +307,55 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                 // Single clipping area that includes all lines using line numbers
                 new object[]
                 {
-                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(1, 5)}),
+                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(1, 5)}),
                     new string[] { "line1", "line2", "line3", "line4", "line5" }
                 },
                 // Single clipping area that includes all lines using -1 as end line number
                 new object[]
                 {
-                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(1, -1)}),
+                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(1, -1)}),
                     new string[] { "line1", "line2", "line3", "line4", "line5" }
                 },
                 // Single clipping area that includes a single line using line numbers
                 new object[]
                 {
-                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(3, 3)}),
+                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(3, 3)}),
                     new string[] { "line3" }
                 },
                 // Single clipping area that includes a single line using substrings
                 new object[]
                 {
-                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(0, 0, startDemarcationLineSubstring: "line2", endDemarcationLineSubstring: "line4")}),
+                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(0, 0, startDemarcationLineSubstring: "line2", endDemarcationLineSubstring: "line4")}),
                     new string[] { "line3" }
                 },
                 // Single clipping area that includes a single line using line numbers and substrings
                 new object[]
                 {
-                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(0, 5, startDemarcationLineSubstring: "line4")}),
+                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(0, 5, startDemarcationLineSubstring: "line4")}),
                     new string[] { "line5" }
                 },
                 // Single clipping area that includes a subset of lines using line numbers
                 new object[]
                 {
-                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(2, 4)}),
+                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(2, 4)}),
                     new string[] { "line2", "line3", "line4" }
                 },
                 // Single clipping area that includes a subset of lines using substrings
                 new object[]
                 {
-                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(0, 0, startDemarcationLineSubstring: "line1", endDemarcationLineSubstring: "line5")}),
+                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(0, 0, startDemarcationLineSubstring: "line1", endDemarcationLineSubstring: "line5")}),
                     new string[] { "line2", "line3", "line4" }
                 },
                 // Single clipping area that includes a subset of lines using line numbers and substrings
                 new object[]
                 {
-                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> { new ClippingArea(2, 0, endDemarcationLineSubstring: "line5")}),
+                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(2, 0, endDemarcationLineSubstring: "line5")}),
                     new string[] { "line2", "line3", "line4" }
                 },
                 // Multiple clipping areas that do not overlap
                 new object[]
                 {
-                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> {
+                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] {
                         new ClippingArea(1, 2),
                         new ClippingArea(0, 0, startDemarcationLineSubstring: "line2", endDemarcationLineSubstring: "line5"),
                         new ClippingArea(0, 5, startDemarcationLineSubstring: "line4")
@@ -221,7 +365,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                 // Multiple clipping areas that overlap
                 new object[]
                 {
-                    new SerializableWrapper<List<ClippingArea>>(new List<ClippingArea> {
+                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] {
                         new ClippingArea(1, 3),
                         new ClippingArea(0, 0, startDemarcationLineSubstring: "line1", endDemarcationLineSubstring: "line5"),
                         new ClippingArea(0, 5, startDemarcationLineSubstring: "line3")

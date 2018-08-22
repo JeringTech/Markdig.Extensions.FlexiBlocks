@@ -242,6 +242,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The following cycle was found in the includes tree: 
+        ///{0}.
+        /// </summary>
+        internal static string InvalidOperationException_CycleInIncludes {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_CycleInIncludes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FlexiOptionsBlock &quot;{0}&quot; at line &quot;{1}&quot;, column &quot;{2}, does not immediately precede a block that consumes it..
         /// </summary>
         internal static string InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBlock {

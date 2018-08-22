@@ -177,6 +177,10 @@
   <data name="InvalidOperationException_ClippingAreasMustBeSequentialAndMustNotOverlap" xml:space="preserve">
     <value />
   </data>
+  <data name="InvalidOperationException_CycleInIncludes" xml:space="preserve">
+    <value>The following cycle was found in the includes tree: 
+{0}</value>
+  </data>
   <data name="InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBlock" xml:space="preserve">
     <value>FlexiOptionsBlock "{0}" at line "{1}", column "{2}, does not immediately precede a block that consumes it.</value>
   </data>
