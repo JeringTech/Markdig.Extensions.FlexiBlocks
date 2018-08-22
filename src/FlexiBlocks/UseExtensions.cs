@@ -15,7 +15,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     public static class UseExtensions
     {
-        private static readonly IServiceProvider _serviceProvider;
+        private static IServiceProvider _serviceProvider;
 
         static UseExtensions()
         {
@@ -23,12 +23,30 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             // is ever created (since it is a singleton service). Every INodeService instance instantiated creates a new Node.js process, so using DI here
             // is fine.
             // TODO consider registering services for extensions, some renderers and parsers use services.
-            var services = new ServiceCollection();
-            services.
+
+            // Default services
+            IServiceCollection defaultServices = GetDefaultServices();
+            BuildServiceProvider(defaultServices);
+        }
+
+        public static void BuildServiceProvider(IServiceCollection services)
+        {
+            if (services == null)
+            {
+                throw new ArgumentNullException(nameof(services));
+            }
+            _serviceProvider = services.BuildServiceProvider();
+        }
+
+        public static IServiceCollection GetDefaultServices()
+        {
+            var defaultServices = new ServiceCollection();
+            defaultServices.
                 AddPrism().
                 AddHighlightJS().
                 AddFlexiBlocks();
-            _serviceProvider = services.BuildServiceProvider();
+
+            return defaultServices;
         }
 
         public static MarkdownPipelineBuilder UseFlexiSectionBlocks(this MarkdownPipelineBuilder pipelineBuilder, FlexiSectionBlocksExtensionOptions options = null)
@@ -88,7 +106,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             if (!pipelineBuilder.Extensions.Contains<FlexiIncludeBlocksExtension>())
             {
                 // TODO verify that this works, is there any better way? Can we just assign options to the options manager for this type?
-                if(options != null)
+                if (options != null)
                 {
                     // This singleton instance is returned everytime the options object is injected
                     FlexiIncludeBlocksExtensionOptions injectedOptions = _serviceProvider.GetRequiredService<IOptions<FlexiIncludeBlocksExtensionOptions>>().Value;
