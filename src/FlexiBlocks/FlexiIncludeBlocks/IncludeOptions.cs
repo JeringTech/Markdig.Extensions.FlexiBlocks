@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
@@ -10,6 +10,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
     /// </summary>
     public class IncludeOptions
     {
+        private static readonly ReadOnlyCollection<ClippingArea> _defaultClippingAreas = new ReadOnlyCollection<ClippingArea>(new ClippingArea[] { new ClippingArea(1, -1) });
+
         /// <summary>
         /// Creates an <see cref="IncludeOptions"/> instance. Validates arguments.
         /// </summary>
@@ -21,7 +23,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// false otherwise. Only remote content (retrieved using HTTP or HTTPS) is affected by this argument since local content is already on disk.</param>
         public IncludeOptions(string source,
             ContentType contentType = ContentType.Code,
-            List<ClippingArea> clippingAreas = null,
+            ClippingArea[] clippingAreas = null,
             bool cacheOnDisk = true)
         {
             if (string.IsNullOrWhiteSpace(source))
@@ -39,7 +41,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
             Source = source;
             ContentType = contentType;
-            ClippingAreas = clippingAreas;
+            ClippingAreas = clippingAreas == null ? _defaultClippingAreas : new ReadOnlyCollection<ClippingArea>(clippingAreas);
             CacheOnDisk = cacheOnDisk;
         }
 
@@ -56,7 +58,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <summary>
         /// Gets the list of clipping areas to use when clipping the content.
         /// </summary>
-        public List<ClippingArea> ClippingAreas { get; }
+        public ReadOnlyCollection<ClippingArea> ClippingAreas { get; }
 
         /// <summary>
         /// Gets the boolean value specifying whether or not to cache content on disk. 

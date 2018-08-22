@@ -14,8 +14,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
     {
         private readonly FlexiIncludeBlocksExtensionOptions _extensionOptions;
         private readonly IContentRetrievalService _contentRetrievalService;
-        private readonly List<ClippingArea> _defaultClippingAreas = new List<ClippingArea> { new ClippingArea(1, -1) };
         private readonly StringSlice _codeBlockFence = new StringSlice("```");
+
 
         /// <summary>
         /// Creates a <see cref="FlexiIncludeBlockParser"/> instance.
@@ -233,16 +233,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             childProcessor.LineIndex = flexiIncludeBlock.Line;
 
             // Clip content
-            List<ClippingArea> clippingAreas = includeOptions.ClippingAreas ?? _defaultClippingAreas;
-
-            // If content is code, start with ```
-            if (includeOptions.ContentType != ContentType.Markdown) // Code by default
+            if (includeOptions.ContentType != ContentType.Markdown) // If content is code, start with ```
             {
                 childProcessor.ProcessLine(_codeBlockFence);
             }
 
             // Clipping areas need not be sequential, they can also overlap
-            foreach (ClippingArea clippingArea in clippingAreas)
+            foreach (ClippingArea clippingArea in includeOptions.ClippingAreas)
             {
                 if (clippingArea.BeforeText != null)
                 {
