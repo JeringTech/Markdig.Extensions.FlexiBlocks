@@ -85,7 +85,7 @@ Source: ./dummyMarkdown1.md, Line: 1"
                     @"+{
     ""contentType"": ""Markdown"",
     ""source"": ""./dummyMarkdown1.md"",
-    ""clippingAreas"": [{""startLineNumber"": 2, ""endLineNumber"": 2}]
+    ""clippings"": [{""startLineNumber"": 2, ""endLineNumber"": 2}]
 }
 
 +{
@@ -115,19 +115,19 @@ Source: ./dummyMarkdown1.md, Line: 1"
 Source: ./dummyMarkdown2.md, Line: 6 >
 Source: ./dummyMarkdown1.md, Line: 6"
                 },
-                // Circular includes that uses clipping areas are caught
+                // Circular includes that uses clippings are caught
                 new object[]
                 {
                     @"+{
     ""contentType"": ""Markdown"",
     ""source"": ""./dummyMarkdown1.md"",
-    ""clippingAreas"": [{""startLineNumber"": 2, ""endLineNumber"": 2}]
+    ""clippings"": [{""startLineNumber"": 2, ""endLineNumber"": 2}]
 }
 
 +{
     ""contentType"": ""Markdown"",
     ""source"": ""./dummyMarkdown1.md"",
-    ""clippingAreas"": [{""startLineNumber"": 6, ""endLineNumber"": -1}]
+    ""clippings"": [{""startLineNumber"": 6, ""endLineNumber"": -1}]
 }",
                     @"+{
     ""contentType"": ""Markdown"",
@@ -137,7 +137,7 @@ Source: ./dummyMarkdown1.md, Line: 6"
 +{
     ""contentType"": ""Markdown"",
     ""source"": ""./dummyMarkdown2.md"",
-    ""clippingAreas"": [{""startLineNumber"": 6, ""endLineNumber"": -1}]
+    ""clippings"": [{""startLineNumber"": 6, ""endLineNumber"": -1}]
 }",
                     @"+{
     ""contentType"": ""Code"",
@@ -158,7 +158,7 @@ Source: ./dummyMarkdown1.md, Line: 6"
 
         [Theory]
         [MemberData(nameof(DedentAndCollapseLeadingWhiteSpace_DedentsAndCollapsesLeadingWhiteSpace_Data))]
-        public void DedentAndCollapseLeadingWhiteSpace_DedentsAndCollapsesLeadingWhiteSpace(string dummyLine, int dummyDedentLength, int dummyCollapseRatio, string expectedResult)
+        public void DedentAndCollapseLeadingWhiteSpace_DedentsAndCollapsesLeadingWhiteSpace(string dummyLine, int dummyDedentLength, float dummyCollapseRatio, string expectedResult)
         {
             // Arrange
             var dummyStringSlice = new StringSlice(dummyLine);
@@ -176,13 +176,14 @@ Source: ./dummyMarkdown1.md, Line: 6"
             return new object[][]
             {
                 new object[]{"    dummyLine", 2, 1, "  dummyLine"}, // Dedent
-                new object[]{"  dummyLine", 2, 2, "dummyLine" }, // Dedent till there is no leading white space
-                new object[]{"  ", 3, 0, "" }, // Dedent till string is empty
-                new object[]{"    dummyLine", 0, 2, "  dummyLine"}, // Collapse
-                new object[]{"     dummyLine", 0, 2, "  dummyLine"}, // Collapse with number of leading white spaces indivisible by collapse ratio
-                new object[]{" dummyLine", 0, 3, "dummyLine"}, // Collapse till there is no leading white space
-                new object[]{"     dummyLine", 3, 2, " dummyLine"}, // Dedent and collapse
-                new object[]{"dummyLine", 2, 2, "dummyLine" }, // Do nothing to line with no leading white space
+                new object[]{"  dummyLine", 2, 1, "dummyLine" }, // Dedent till there is no leading white space
+                new object[]{"  ", 3, 1, "" }, // Dedent till string is empty
+                new object[]{"    dummyLine", 0, 0.5, "  dummyLine"}, // Collapse
+                new object[]{"     dummyLine", 0, 0.5, "  dummyLine"}, // Collapse with ratio*num leading white spaces != whole number
+                new object[]{" dummyLine", 0, 0.3, "dummyLine"}, // Collapse till there is no leading white space (final number of leading white spaces is rounded down)
+                new object[]{" dummyLine", 0, 0, "dummyLine"}, // Collapse till there is no leading white space
+                new object[]{"     dummyLine", 3, 0.5, " dummyLine"}, // Dedent and collapse
+                new object[]{"dummyLine", 2, 0.5, "dummyLine" }, // Do nothing to line with no leading white space
             };
         }
 
@@ -217,9 +218,9 @@ Source: ./dummyMarkdown1.md, Line: 6"
             dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of flexi include block
             const string dummyBeforeText = "# dummy before";
             const string dummyAfterText = "> dummy\n > after";
-            var dummyClippingArea = new ClippingArea(1, -1, beforeText: dummyBeforeText, afterText: dummyAfterText);
-            var dummyClippingAreas = new ClippingArea[] { dummyClippingArea };
-            var dummyIncludeOptions = new IncludeOptions("dummySource", ContentType.Markdown, clippingAreas: dummyClippingAreas);
+            var dummyClipping = new Clipping(1, -1, beforeText: dummyBeforeText, afterText: dummyAfterText);
+            var dummyClippings = new Clipping[] { dummyClipping };
+            var dummyIncludeOptions = new IncludeOptions("dummySource", ContentType.Markdown, clippings: dummyClippings);
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
             // Act
@@ -244,50 +245,50 @@ Source: ./dummyMarkdown1.md, Line: 6"
         }
 
         [Fact]
-        public void ReplaceFlexIncludeBlock_ThrowsInvalidOperationExceptionIfNoLineContainsStartLineSubStringOfAClippingArea()
+        public void ReplaceFlexIncludeBlock_ThrowsInvalidOperationExceptionIfNoLineContainsStartLineSubStringOfAClipping()
         {
             // Arrange
             var dummyContent = new ReadOnlyCollection<string>(new string[] { "dummy", "content" });
             const string dummyStartLineSubstring = "dummyStartLineSubstring";
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
-            var dummyClippingArea = new ClippingArea(0, -1, dummyStartLineSubstring);
-            var dummyIncludeOptions = new IncludeOptions("dummySource", clippingAreas: new ClippingArea[] { dummyClippingArea });
+            var dummyClipping = new Clipping(startDemarcationLineSubstring: dummyStartLineSubstring);
+            var dummyIncludeOptions = new IncludeOptions("dummySource", clippings: new Clipping[] { dummyClipping });
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
             // Act and assert
             InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyContent, dummyIncludeOptions));
-            Assert.Equal(string.Format(Strings.InvalidOperationException_InvalidClippingAreaNoLineContainsStartLineSubstring, dummyStartLineSubstring),
+            Assert.Equal(string.Format(Strings.InvalidOperationException_InvalidClippingNoLineContainsStartLineSubstring, dummyStartLineSubstring),
                 result.Message);
         }
 
         [Fact]
-        public void ReplaceFlexIncludeBlock_ThrowsInvalidOperationExceptionIfNoLineContainsEndLineSubStringOfAClippingArea()
+        public void ReplaceFlexIncludeBlock_ThrowsInvalidOperationExceptionIfNoLineContainsEndLineSubStringOfAClipping()
         {
             var dummyContent = new ReadOnlyCollection<string>(new string[] { "dummy", "content" });
             const string dummyEndLineSubstring = "dummyEndLineSubstring";
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
-            var dummyClippingArea = new ClippingArea(1, 0, endDemarcationLineSubstring: dummyEndLineSubstring);
-            var dummyIncludeOptions = new IncludeOptions("dummySource", clippingAreas: new ClippingArea[] { dummyClippingArea });
+            var dummyClipping = new Clipping(endDemarcationLineSubstring: dummyEndLineSubstring);
+            var dummyIncludeOptions = new IncludeOptions("dummySource", clippings: new Clipping[] { dummyClipping });
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
             // Act and assert
             InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyContent, dummyIncludeOptions));
-            Assert.Equal(string.Format(Strings.InvalidOperationException_InvalidClippingAreaNoLineContainsEndLineSubstring, dummyEndLineSubstring),
+            Assert.Equal(string.Format(Strings.InvalidOperationException_InvalidClippingNoLineContainsEndLineSubstring, dummyEndLineSubstring),
                 result.Message);
         }
 
         [Theory]
         [MemberData(nameof(ReplaceFlexiIncludeBlock_ClipsLinesAccordingToStartAndEndLineNumbersAndSubstrings_Data))]
-        public void ReplaceFlexiIncludeBlock_ClipsLinesAccordingToStartAndEndLineNumbersAndSubstrings(SerializableWrapper<ClippingArea[]> dummyClippingAreasWrapper, string[] expectedResult)
+        public void ReplaceFlexiIncludeBlock_ClipsLinesAccordingToStartAndEndLineNumbersAndSubstrings(SerializableWrapper<Clipping[]> dummyClippingsWrapper, string[] expectedResult)
         {
             // Arrange
             var dummyContent = new ReadOnlyCollection<string>(new string[] { "line1", "line2", "line3", "line4", "line5" });
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
             dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of flexi include block
-            var dummyIncludeOptions = new IncludeOptions("dummySource", ContentType.Markdown, clippingAreas: dummyClippingAreasWrapper.Value);
+            var dummyIncludeOptions = new IncludeOptions("dummySource", ContentType.Markdown, clippings: dummyClippingsWrapper.Value);
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
             // Act
@@ -304,71 +305,71 @@ Source: ./dummyMarkdown1.md, Line: 6"
         {
             return new object[][]
             {
-                // Single clipping area that includes all lines using line numbers
+                // Single clipping that includes all lines using line numbers
                 new object[]
                 {
-                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(1, 5)}),
+                    new SerializableWrapper<Clipping[]>(new Clipping[] { new Clipping(endLineNumber: 5)}),
                     new string[] { "line1", "line2", "line3", "line4", "line5" }
                 },
-                // Single clipping area that includes all lines using -1 as end line number
+                // Single clipping that includes all lines using -1 as end line number
                 new object[]
                 {
-                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(1, -1)}),
+                    new SerializableWrapper<Clipping[]>(new Clipping[] { new Clipping()}),
                     new string[] { "line1", "line2", "line3", "line4", "line5" }
                 },
-                // Single clipping area that includes a single line using line numbers
+                // Single clipping that includes a single line using line numbers
                 new object[]
                 {
-                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(3, 3)}),
+                    new SerializableWrapper<Clipping[]>(new Clipping[] { new Clipping(3, 3)}),
                     new string[] { "line3" }
                 },
-                // Single clipping area that includes a single line using substrings
+                // Single clipping that includes a single line using substrings
                 new object[]
                 {
-                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(0, 0, startDemarcationLineSubstring: "line2", endDemarcationLineSubstring: "line4")}),
+                    new SerializableWrapper<Clipping[]>(new Clipping[] { new Clipping(startDemarcationLineSubstring: "line2", endDemarcationLineSubstring: "line4")}),
                     new string[] { "line3" }
                 },
-                // Single clipping area that includes a single line using line numbers and substrings
+                // Single clipping that includes a single line using line numbers and substrings
                 new object[]
                 {
-                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(0, 5, startDemarcationLineSubstring: "line4")}),
+                    new SerializableWrapper<Clipping[]>(new Clipping[] { new Clipping(endLineNumber: 5, startDemarcationLineSubstring: "line4")}),
                     new string[] { "line5" }
                 },
-                // Single clipping area that includes a subset of lines using line numbers
+                // Single clipping that includes a subset of lines using line numbers
                 new object[]
                 {
-                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(2, 4)}),
+                    new SerializableWrapper<Clipping[]>(new Clipping[] { new Clipping(2, 4)}),
                     new string[] { "line2", "line3", "line4" }
                 },
-                // Single clipping area that includes a subset of lines using substrings
+                // Single clipping that includes a subset of lines using substrings
                 new object[]
                 {
-                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(0, 0, startDemarcationLineSubstring: "line1", endDemarcationLineSubstring: "line5")}),
+                    new SerializableWrapper<Clipping[]>(new Clipping[] { new Clipping(startDemarcationLineSubstring: "line1", endDemarcationLineSubstring: "line5")}),
                     new string[] { "line2", "line3", "line4" }
                 },
-                // Single clipping area that includes a subset of lines using line numbers and substrings
+                // Single clipping that includes a subset of lines using line numbers and substrings
                 new object[]
                 {
-                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] { new ClippingArea(2, 0, endDemarcationLineSubstring: "line5")}),
+                    new SerializableWrapper<Clipping[]>(new Clipping[] { new Clipping(2, endDemarcationLineSubstring: "line5")}),
                     new string[] { "line2", "line3", "line4" }
                 },
-                // Multiple clipping areas that do not overlap
+                // Multiple clippings that do not overlap
                 new object[]
                 {
-                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] {
-                        new ClippingArea(1, 2),
-                        new ClippingArea(0, 0, startDemarcationLineSubstring: "line2", endDemarcationLineSubstring: "line5"),
-                        new ClippingArea(0, 5, startDemarcationLineSubstring: "line4")
+                    new SerializableWrapper<Clipping[]>(new Clipping[] {
+                        new Clipping(endLineNumber: 2),
+                        new Clipping(startDemarcationLineSubstring: "line2", endDemarcationLineSubstring: "line5"),
+                        new Clipping(endLineNumber: 5, startDemarcationLineSubstring: "line4")
                     }),
                     new string[] { "line1", "line2", "line3", "line4", "line5" }
                 },
-                // Multiple clipping areas that overlap
+                // Multiple clippings that overlap
                 new object[]
                 {
-                    new SerializableWrapper<ClippingArea[]>(new ClippingArea[] {
-                        new ClippingArea(1, 3),
-                        new ClippingArea(0, 0, startDemarcationLineSubstring: "line1", endDemarcationLineSubstring: "line5"),
-                        new ClippingArea(0, 5, startDemarcationLineSubstring: "line3")
+                    new SerializableWrapper<Clipping[]>(new Clipping[] {
+                        new Clipping(endLineNumber: 3),
+                        new Clipping(startDemarcationLineSubstring: "line1", endDemarcationLineSubstring: "line5"),
+                        new Clipping(endLineNumber: 5, startDemarcationLineSubstring: "line3")
                     }),
                     new string[] { "line1", "line2", "line3", "line2", "line3", "line4", "line4", "line5" }
                 },

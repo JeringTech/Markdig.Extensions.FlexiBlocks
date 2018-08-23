@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ArgumentException_ArgumentMustBeInInterval" xml:space="preserve">
+    <value>"{0}" must be in interval {1}.</value>
+  </data>
   <data name="ArgumentException_ArgumentMustBeLargerThan0" xml:space="preserve">
     <value>"{0}" must be larger than 0.</value>
   </data>
@@ -156,8 +159,8 @@
   <data name="ArgumentException_NotAValidUri" xml:space="preserve">
     <value>"{0}" is not a valid  URI .</value>
   </data>
-  <data name="ArgumentException_OneAndOnlyOneArgumentMustBeDefined" xml:space="preserve">
-    <value>One and only one of "{0}" of "{1}" must be defined.</value>
+  <data name="ArgumentException_OnlyOneArgumentCanBeDefined" xml:space="preserve">
+    <value>Only one of "{0}" of "{1}" can be defined.</value>
   </data>
   <data name="ArgumentException_UriSchemeUnsupported" xml:space="preserve">
     <value> URI  "{0}" has unsupported scheme "{1}".</value>
@@ -174,9 +177,6 @@
   <data name="HttpRequestException_UnsuccessfulRequest" xml:space="preserve">
     <value>Request to "{0}" failed with status code "{1}" and message "{2}".</value>
   </data>
-  <data name="InvalidOperationException_ClippingAreasMustBeSequentialAndMustNotOverlap" xml:space="preserve">
-    <value />
-  </data>
   <data name="InvalidOperationException_CycleInIncludes" xml:space="preserve">
     <value>The following cycle was found in the includes tree: 
 {0}</value>
@@ -184,11 +184,11 @@
   <data name="InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBlock" xml:space="preserve">
     <value>FlexiOptionsBlock "{0}" at line "{1}", column "{2}, does not immediately precede a block that consumes it.</value>
   </data>
-  <data name="InvalidOperationException_InvalidClippingAreaNoLineContainsEndLineSubstring" xml:space="preserve">
-    <value>Invalid clipping area, no line contains end line substring "{0}".</value>
+  <data name="InvalidOperationException_InvalidClippingNoLineContainsEndLineSubstring" xml:space="preserve">
+    <value>Invalid clipping, no line contains end line substring "{0}".</value>
   </data>
-  <data name="InvalidOperationException_InvalidClippingAreaNoLineContainsStartLineSubstring" xml:space="preserve">
-    <value>Invalid clipping area, no line contains start line substring "{0}".</value>
+  <data name="InvalidOperationException_InvalidClippingNoLineContainsStartLineSubstring" xml:space="preserve">
+    <value>Invalid clipping, no line contains start line substring "{0}".</value>
   </data>
   <data name="InvalidOperationException_InvalidHighlightLineRange" xml:space="preserve">
     <value>The highlight line range "{0}" is not a subset of the actual number of lines, "{1}".</value>

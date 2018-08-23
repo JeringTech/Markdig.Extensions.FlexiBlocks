@@ -16145,7 +16145,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             // The following Markdown:
             //     +{
             //         "source": "./exampleInclude.js",
-            //         "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4}, {"startLineNumber": 7, "endLineNumber": 9}]
+            //         "clippings":[{"endLineNumber": 4}, {"startLineNumber": 7, "endLineNumber": 9}]
             //     }
             //
             // Should be rendered as:
@@ -16162,7 +16162,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 1, \"endLineNumber\": 4}, {\"startLineNumber\": 7, \"endLineNumber\": 9}]\n}", 
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\"endLineNumber\": 4}, {\"startLineNumber\": 7, \"endLineNumber\": 9}]\n}", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n    // Example comment\n    return arg + 'dummyString';\n}\nfunction add(a, b) {\n    return a + b;\n}</code></pre>\n</div>", 
                 "FlexiIncludeBlocks_FlexiCodeBlocks");
         }
@@ -16174,7 +16174,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             // The following Markdown:
             //     +{
             //         "source": "./exampleInclude.js",
-            //         "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4}, {"startLineNumber": 7, "endLineNumber": 9}]
+            //         "clippings":[{"endLineNumber": 4}, {"startLineNumber": 7, "endLineNumber": 9}]
             //     }
             //
             // Should be rendered as:
@@ -16191,7 +16191,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 1, \"endLineNumber\": 4}, {\"startLineNumber\": 7, \"endLineNumber\": 9}]\n}", 
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\"endLineNumber\": 4}, {\"startLineNumber\": 7, \"endLineNumber\": 9}]\n}", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n    // Example comment\n    return arg + 'dummyString';\n}\nfunction add(a, b) {\n    return a + b;\n}</code></pre>\n</div>", 
                 "all");
         }
@@ -16203,7 +16203,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             // The following Markdown:
             //     +{
             //         "source": "./exampleInclude.js",
-            //         "clippingAreas":[{"startDemarcationLineSubstring": "#region utility methods", "endDemarcationLineSubstring": "#endregion utility methods"}]
+            //         "clippings":[{"startDemarcationLineSubstring": "#region utility methods", "endDemarcationLineSubstring": "#endregion utility methods"}]
             //     }
             //
             // Should be rendered as:
@@ -16216,7 +16216,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startDemarcationLineSubstring\": \"#region utility methods\", \"endDemarcationLineSubstring\": \"#endregion utility methods\"}]\n}", 
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\"startDemarcationLineSubstring\": \"#region utility methods\", \"endDemarcationLineSubstring\": \"#endregion utility methods\"}]\n}", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function add(a, b) {\n    return a + b;\n}</code></pre>\n</div>", 
                 "FlexiIncludeBlocks_FlexiCodeBlocks");
         }
@@ -16228,7 +16228,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             // The following Markdown:
             //     +{
             //         "source": "./exampleInclude.js",
-            //         "clippingAreas":[{"startDemarcationLineSubstring": "#region utility methods", "endDemarcationLineSubstring": "#endregion utility methods"}]
+            //         "clippings":[{"startDemarcationLineSubstring": "#region utility methods", "endDemarcationLineSubstring": "#endregion utility methods"}]
             //     }
             //
             // Should be rendered as:
@@ -16241,7 +16241,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startDemarcationLineSubstring\": \"#region utility methods\", \"endDemarcationLineSubstring\": \"#endregion utility methods\"}]\n}", 
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\"startDemarcationLineSubstring\": \"#region utility methods\", \"endDemarcationLineSubstring\": \"#endregion utility methods\"}]\n}", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function add(a, b) {\n    return a + b;\n}</code></pre>\n</div>", 
                 "all");
         }
@@ -16253,7 +16253,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             // The following Markdown:
             //     +{
             //         "source": "./exampleInclude.js",
-            //         "clippingAreas":[{"startLineNumber": 7, 
+            //         "clippings":[{"startLineNumber": 7, 
             //             "endDemarcationLineSubstring": "#endregion utility methods"}]
             //     }
             //
@@ -16267,7 +16267,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 7, \n        \"endDemarcationLineSubstring\": \"#endregion utility methods\"}]\n}", 
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\"startLineNumber\": 7, \n        \"endDemarcationLineSubstring\": \"#endregion utility methods\"}]\n}", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function add(a, b) {\n    return a + b;\n}</code></pre>\n</div>", 
                 "FlexiIncludeBlocks_FlexiCodeBlocks");
         }
@@ -16279,7 +16279,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             // The following Markdown:
             //     +{
             //         "source": "./exampleInclude.js",
-            //         "clippingAreas":[{"startLineNumber": 7, 
+            //         "clippings":[{"startLineNumber": 7, 
             //             "endDemarcationLineSubstring": "#endregion utility methods"}]
             //     }
             //
@@ -16293,20 +16293,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 7, \n        \"endDemarcationLineSubstring\": \"#endregion utility methods\"}]\n}", 
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\"startLineNumber\": 7, \n        \"endDemarcationLineSubstring\": \"#endregion utility methods\"}]\n}", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function add(a, b) {\n    return a + b;\n}</code></pre>\n</div>", 
                 "all");
         }
 
-        // Text can be prepended and appended to each clipping area:
+        // Text can be prepended and appended to each clipping:
         [Fact]
         public void FlexiIncludeBlocks_Spec12_FlexiIncludeBlocks_FlexiCodeBlocks()
         {
             // The following Markdown:
             //     +{
             //         "source": "./exampleInclude.js",
-            //         "clippingAreas":[{
-            //             "startLineNumber": 1, 
+            //         "clippings":[{
             //             "endLineNumber": 1,
             //             "afterText": "..."
             //         },
@@ -16340,20 +16339,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\n        \"startLineNumber\": 1, \n        \"endLineNumber\": 1,\n        \"afterText\": \"...\"\n    },\n    {\n        \"startLineNumber\": 4,\n        \"endLineNumber\": 4\n    },\n    {\n        \"startLineNumber\": 7, \n        \"endLineNumber\": 7,\n        \"beforeText\": \"\"\n    },\n    {\n        \"startLineNumber\": 9, \n        \"endLineNumber\": 9,\n        \"beforeText\": \"...\"\n    }]\n}", 
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\n        \"endLineNumber\": 1,\n        \"afterText\": \"...\"\n    },\n    {\n        \"startLineNumber\": 4,\n        \"endLineNumber\": 4\n    },\n    {\n        \"startLineNumber\": 7, \n        \"endLineNumber\": 7,\n        \"beforeText\": \"\"\n    },\n    {\n        \"startLineNumber\": 9, \n        \"endLineNumber\": 9,\n        \"beforeText\": \"...\"\n    }]\n}", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n...\n}\n\nfunction add(a, b) {\n...\n}</code></pre>\n</div>", 
                 "FlexiIncludeBlocks_FlexiCodeBlocks");
         }
 
-        // Text can be prepended and appended to each clipping area:
+        // Text can be prepended and appended to each clipping:
         [Fact]
         public void FlexiIncludeBlocks_Spec12_all()
         {
             // The following Markdown:
             //     +{
             //         "source": "./exampleInclude.js",
-            //         "clippingAreas":[{
-            //             "startLineNumber": 1, 
+            //         "clippings":[{
             //             "endLineNumber": 1,
             //             "afterText": "..."
             //         },
@@ -16387,19 +16385,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\n        \"startLineNumber\": 1, \n        \"endLineNumber\": 1,\n        \"afterText\": \"...\"\n    },\n    {\n        \"startLineNumber\": 4,\n        \"endLineNumber\": 4\n    },\n    {\n        \"startLineNumber\": 7, \n        \"endLineNumber\": 7,\n        \"beforeText\": \"\"\n    },\n    {\n        \"startLineNumber\": 9, \n        \"endLineNumber\": 9,\n        \"beforeText\": \"...\"\n    }]\n}", 
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\n        \"endLineNumber\": 1,\n        \"afterText\": \"...\"\n    },\n    {\n        \"startLineNumber\": 4,\n        \"endLineNumber\": 4\n    },\n    {\n        \"startLineNumber\": 7, \n        \"endLineNumber\": 7,\n        \"beforeText\": \"\"\n    },\n    {\n        \"startLineNumber\": 9, \n        \"endLineNumber\": 9,\n        \"beforeText\": \"...\"\n    }]\n}", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n...\n}\n\nfunction add(a, b) {\n...\n}</code></pre>\n</div>", 
                 "all");
         }
 
-        // A clipping area can be dedented:
+        // A clipping can be dedented:
         [Fact]
         public void FlexiIncludeBlocks_Spec13_FlexiIncludeBlocks_FlexiCodeBlocks()
         {
             // The following Markdown:
             //     +{
             //         "source": "./exampleInclude.js",
-            //         "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4, "dedentLength": 2}],
+            //         "clippings":[{"endLineNumber": 4, "dedentLength": 2}],
             //     }
             //
             // Should be rendered as:
@@ -16413,19 +16411,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 1, \"endLineNumber\": 4, \"dedentLength\": 2}],\n}", 
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\"endLineNumber\": 4, \"dedentLength\": 2}],\n}", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n  // Example comment\n  return arg + 'dummyString';\n}</code></pre>\n</div>", 
                 "FlexiIncludeBlocks_FlexiCodeBlocks");
         }
 
-        // A clipping area can be dedented:
+        // A clipping can be dedented:
         [Fact]
         public void FlexiIncludeBlocks_Spec13_all()
         {
             // The following Markdown:
             //     +{
             //         "source": "./exampleInclude.js",
-            //         "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4, "dedentLength": 2}],
+            //         "clippings":[{"endLineNumber": 4, "dedentLength": 2}],
             //     }
             //
             // Should be rendered as:
@@ -16439,19 +16437,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 1, \"endLineNumber\": 4, \"dedentLength\": 2}],\n}", 
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\"endLineNumber\": 4, \"dedentLength\": 2}],\n}", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n  // Example comment\n  return arg + 'dummyString';\n}</code></pre>\n</div>", 
                 "all");
         }
 
-        // Leading white space in a clipping area can also be collapsed:
+        // Leading white space in a clipping can also be collapsed:
         [Fact]
         public void FlexiIncludeBlocks_Spec14_FlexiIncludeBlocks_FlexiCodeBlocks()
         {
             // The following Markdown:
             //     +{
             //         "source": "./exampleInclude.js",
-            //         "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4, "collapseRatio": 2}]
+            //         "clippings":[{"endLineNumber": 4, "collapseRatio": 0.5}]
             //     }
             //
             // Should be rendered as:
@@ -16465,19 +16463,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 1, \"endLineNumber\": 4, \"collapseRatio\": 2}]\n}", 
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\"endLineNumber\": 4, \"collapseRatio\": 0.5}]\n}", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n  // Example comment\n  return arg + 'dummyString';\n}</code></pre>\n</div>", 
                 "FlexiIncludeBlocks_FlexiCodeBlocks");
         }
 
-        // Leading white space in a clipping area can also be collapsed:
+        // Leading white space in a clipping can also be collapsed:
         [Fact]
         public void FlexiIncludeBlocks_Spec14_all()
         {
             // The following Markdown:
             //     +{
             //         "source": "./exampleInclude.js",
-            //         "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4, "collapseRatio": 2}]
+            //         "clippings":[{"endLineNumber": 4, "collapseRatio": 0.5}]
             //     }
             //
             // Should be rendered as:
@@ -16491,7 +16489,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippingAreas\":[{\"startLineNumber\": 1, \"endLineNumber\": 4, \"collapseRatio\": 2}]\n}", 
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\"endLineNumber\": 4, \"collapseRatio\": 0.5}]\n}", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n  // Example comment\n  return arg + 'dummyString';\n}</code></pre>\n</div>", 
                 "all");
         }

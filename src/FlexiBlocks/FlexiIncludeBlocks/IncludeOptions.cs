@@ -10,7 +10,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
     /// </summary>
     public class IncludeOptions
     {
-        private static readonly ReadOnlyCollection<ClippingArea> _defaultClippingAreas = new ReadOnlyCollection<ClippingArea>(new ClippingArea[] { new ClippingArea(1, -1) });
+        private static readonly ReadOnlyCollection<Clipping> _defaultClippings = new ReadOnlyCollection<Clipping>(new Clipping[] { new Clipping() });
 
         /// <summary>
         /// Creates an <see cref="IncludeOptions"/> instance. Validates arguments.
@@ -18,12 +18,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <param name="source">The source of the content to include. This argument should either be a relative URI or an absolute URI with scheme 
         /// file, HTTP or HTTPS.</param>
         /// <param name="contentType">The type of the content to include.</param>
-        /// <param name="clippingAreas">The list of clipping areas to use when clipping the content.</param>
+        /// <param name="clippings">The list of clippings from the content to include.</param>
         /// <param name="cacheOnDisk">The boolean value specifying whether or not to cache content on disk. True if content should be cached on disk,
         /// false otherwise. Only remote content (retrieved using HTTP or HTTPS) is affected by this argument since local content is already on disk.</param>
         public IncludeOptions(string source,
             ContentType contentType = ContentType.Code,
-            ClippingArea[] clippingAreas = null,
+            Clipping[] clippings = null,
             bool cacheOnDisk = true)
         {
             if (string.IsNullOrWhiteSpace(source))
@@ -41,7 +41,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
             Source = source;
             ContentType = contentType;
-            ClippingAreas = clippingAreas == null ? _defaultClippingAreas : new ReadOnlyCollection<ClippingArea>(clippingAreas);
+            Clippings = clippings == null ? _defaultClippings : new ReadOnlyCollection<Clipping>(clippings);
             CacheOnDisk = cacheOnDisk;
         }
 
@@ -56,9 +56,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         public ContentType ContentType { get; }
 
         /// <summary>
-        /// Gets the list of clipping areas to use when clipping the content.
+        /// Gets the list of clippings from the content to include.
         /// </summary>
-        public ReadOnlyCollection<ClippingArea> ClippingAreas { get; }
+        public ReadOnlyCollection<Clipping> Clippings { get; }
 
         /// <summary>
         /// Gets the boolean value specifying whether or not to cache content on disk. 

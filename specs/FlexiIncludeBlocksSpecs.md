@@ -199,7 +199,7 @@ FlexiCodeBlocks
 ```````````````````````````````` example
 +{
     "source": "./exampleInclude.js",
-    "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4}, {"startLineNumber": 7, "endLineNumber": 9}]
+    "clippings":[{"endLineNumber": 4}, {"startLineNumber": 7, "endLineNumber": 9}]
 }
 .
 <div class="fcb">
@@ -222,7 +222,7 @@ FlexiCodeBlocks
 ```````````````````````````````` example
 +{
     "source": "./exampleInclude.js",
-    "clippingAreas":[{"startDemarcationLineSubstring": "#region utility methods", "endDemarcationLineSubstring": "#endregion utility methods"}]
+    "clippings":[{"startDemarcationLineSubstring": "#region utility methods", "endDemarcationLineSubstring": "#endregion utility methods"}]
 }
 .
 <div class="fcb">
@@ -241,7 +241,7 @@ FlexiCodeBlocks
 ```````````````````````````````` example
 +{
     "source": "./exampleInclude.js",
-    "clippingAreas":[{"startLineNumber": 7, 
+    "clippings":[{"startLineNumber": 7, 
         "endDemarcationLineSubstring": "#endregion utility methods"}]
 }
 .
@@ -255,14 +255,13 @@ FlexiCodeBlocks
 </div>
 ````````````````````````````````
 
-Text can be prepended and appended to each clipping area:
+Text can be prepended and appended to each clipping:
 ```````````````````````````````` extraExtensions
 FlexiCodeBlocks
 ```````````````````````````````` example
 +{
     "source": "./exampleInclude.js",
-    "clippingAreas":[{
-        "startLineNumber": 1, 
+    "clippings":[{
         "endLineNumber": 1,
         "afterText": "..."
     },
@@ -296,13 +295,13 @@ function add(a, b) {
 </div>
 ````````````````````````````````
 
-A clipping area can be dedented:
+A clipping can be dedented:
 ```````````````````````````````` extraExtensions
 FlexiCodeBlocks
 ```````````````````````````````` example
 +{
     "source": "./exampleInclude.js",
-    "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4, "dedentLength": 2}],
+    "clippings":[{"endLineNumber": 4, "dedentLength": 2}],
 }
 .
 <div class="fcb">
@@ -316,13 +315,13 @@ FlexiCodeBlocks
 </div>
 ````````````````````````````````
 
-Leading white space in a clipping area can also be collapsed:
+Leading white space in a clipping can also be collapsed:
 ```````````````````````````````` extraExtensions
 FlexiCodeBlocks
 ```````````````````````````````` example
 +{
     "source": "./exampleInclude.js",
-    "clippingAreas":[{"startLineNumber": 1, "endLineNumber": 4, "collapseRatio": 2}]
+    "clippings":[{"endLineNumber": 4, "collapseRatio": 0.5}]
 }
 .
 <div class="fcb">

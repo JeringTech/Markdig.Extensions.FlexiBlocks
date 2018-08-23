@@ -62,6 +62,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; must be in interval {1}..
+        /// </summary>
+        internal static string ArgumentException_ArgumentMustBeInInterval {
+            get {
+                return ResourceManager.GetString("ArgumentException_ArgumentMustBeInInterval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;{0}&quot; must be larger than 0..
         /// </summary>
         internal static string ArgumentException_ArgumentMustBeLargerThan0 {
@@ -179,11 +188,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to One and only one of &quot;{0}&quot; of &quot;{1}&quot; must be defined..
+        ///   Looks up a localized string similar to Only one of &quot;{0}&quot; of &quot;{1}&quot; can be defined..
         /// </summary>
-        internal static string ArgumentException_OneAndOnlyOneArgumentMustBeDefined {
+        internal static string ArgumentException_OnlyOneArgumentCanBeDefined {
             get {
-                return ResourceManager.GetString("ArgumentException_OneAndOnlyOneArgumentMustBeDefined", resourceCulture);
+                return ResourceManager.GetString("ArgumentException_OnlyOneArgumentCanBeDefined", resourceCulture);
             }
         }
         
@@ -233,15 +242,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string InvalidOperationException_ClippingAreasMustBeSequentialAndMustNotOverlap {
-            get {
-                return ResourceManager.GetString("InvalidOperationException_ClippingAreasMustBeSequentialAndMustNotOverlap", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The following cycle was found in the includes tree: 
         ///{0}.
         /// </summary>
@@ -262,20 +262,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid clipping area, no line contains end line substring &quot;{0}&quot;..
+        ///   Looks up a localized string similar to Invalid clipping, no line contains end line substring &quot;{0}&quot;..
         /// </summary>
-        internal static string InvalidOperationException_InvalidClippingAreaNoLineContainsEndLineSubstring {
+        internal static string InvalidOperationException_InvalidClippingNoLineContainsEndLineSubstring {
             get {
-                return ResourceManager.GetString("InvalidOperationException_InvalidClippingAreaNoLineContainsEndLineSubstring", resourceCulture);
+                return ResourceManager.GetString("InvalidOperationException_InvalidClippingNoLineContainsEndLineSubstring", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid clipping area, no line contains start line substring &quot;{0}&quot;..
+        ///   Looks up a localized string similar to Invalid clipping, no line contains start line substring &quot;{0}&quot;..
         /// </summary>
-        internal static string InvalidOperationException_InvalidClippingAreaNoLineContainsStartLineSubstring {
+        internal static string InvalidOperationException_InvalidClippingNoLineContainsStartLineSubstring {
             get {
-                return ResourceManager.GetString("InvalidOperationException_InvalidClippingAreaNoLineContainsStartLineSubstring", resourceCulture);
+                return ResourceManager.GetString("InvalidOperationException_InvalidClippingNoLineContainsStartLineSubstring", resourceCulture);
             }
         }
         
