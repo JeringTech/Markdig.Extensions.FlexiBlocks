@@ -4,7 +4,6 @@ using Markdig.Syntax;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
-using System.Buffers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -248,7 +247,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
 
             // Collapse
-            if(collapseRatio == 0)
+            if (collapseRatio == 0)
             {
                 line.TrimStart(); // Remove all leading white space
             }
@@ -276,16 +275,27 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
         }
 
+        /// <summary>
+        /// Processes <paramref name="flexiIncludeBlock"/>'s contents, replacing the flexi include block with the results.
+        /// The method used here is also used by GridTable, basically, a child BlockProcessor is used to avoid conflicts with existing 
+        /// open blocks in <paramref name="processor"/>.
+        /// </summary>
+        /// <param name="processor"></param>
+        /// <param name="flexiIncludeBlock"></param>
+        /// <param name="content"></param>
+        /// <param name="includeOptions"></param>
         internal virtual void ReplaceFlexiIncludeBlock(BlockProcessor processor,
             FlexiIncludeBlock flexiIncludeBlock,
             ReadOnlyCollection<string> content,
             IncludeOptions includeOptions)
         {
-            // GridTable uses this pattern. Essentially, it creates a fresh context with the same root document. Not having a bunch of 
-            // open blocks makes it possible to create the replacement blocks for flexiIncludeBlock.
+            ContainerBlock parent = flexiIncludeBlock.Parent;
+            
+            // Remove the flexi include block
+            parent.Remove(flexiIncludeBlock);
+
             BlockProcessor childProcessor = processor.CreateChild();
-            var tempContainerBlock = new TempContainerBlock(null);
-            childProcessor.Open(tempContainerBlock);
+            childProcessor.Open(parent);
 
             // TODO what else is line index used for? 
             // TODO printing of errors when in a child processor, line numbers etc
@@ -371,29 +381,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 childProcessor.ProcessLine(_codeBlockFence);
             }
 
-            // Close temp container block
-            childProcessor.Close(tempContainerBlock);
-
-            // A Block with a parent cannot be added to another block. So before we add the replacement blocks to flexiIncludeBlock's parent, 
-            // we have to copy the blocks to an array, clear tempContainerBlock (this sets Parent to null for all of its child blocks).
-            Block[] replacementBlocks = ArrayPool<Block>.Shared.Rent(tempContainerBlock.Count);
-            try
-            {
-                int numReplacementBlocks = tempContainerBlock.Count;
-                tempContainerBlock.CopyTo(replacementBlocks, 0);
-                tempContainerBlock.Clear();
-                for (int i = 0; i < numReplacementBlocks; i++)
-                {
-                    flexiIncludeBlock.Parent.Add(replacementBlocks[i]);
-                }
-            }
-            finally
-            {
-                ArrayPool<Block>.Shared.Return(replacementBlocks);
-            }
-
-            // Remove the flexi include block
-            flexiIncludeBlock.Parent.Remove(flexiIncludeBlock);
+            // Ensure that the last replacement block has been closed. While the block never makes it to the OpenedBlocks collection in the root processor, 
+            // calling Close for it ensures that it and its children's Close methods and events get called.
+            childProcessor.Close(parent.LastChild);
 
             // BlockProcessors are pooled. Once we're done with innerProcessor, we must release it. This also removes all references to
             // tempContainerBlock, which should allow it to be collected quickly.

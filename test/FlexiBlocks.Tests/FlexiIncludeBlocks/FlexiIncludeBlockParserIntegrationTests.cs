@@ -252,6 +252,8 @@ Source: ./dummyMarkdown1.md, Line: 6"
             const string dummyStartLineSubstring = "dummyStartLineSubstring";
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
+            var dummyMarkdownDocument = new MarkdownDocument();
+            dummyMarkdownDocument.Add(dummyFlexiIncludeBlock); // ReplaceFlexiIncludeBlock uses flexi include block's parent
             var dummyClipping = new Clipping(startDemarcationLineSubstring: dummyStartLineSubstring);
             var dummyIncludeOptions = new IncludeOptions("dummySource", clippings: new Clipping[] { dummyClipping });
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
@@ -269,6 +271,8 @@ Source: ./dummyMarkdown1.md, Line: 6"
             const string dummyEndLineSubstring = "dummyEndLineSubstring";
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
+            var dummyMarkdownDocument = new MarkdownDocument();
+            dummyMarkdownDocument.Add(dummyFlexiIncludeBlock); // ReplaceFlexiIncludeBlock uses flexi include block's parent
             var dummyClipping = new Clipping(endDemarcationLineSubstring: dummyEndLineSubstring);
             var dummyIncludeOptions = new IncludeOptions("dummySource", clippings: new Clipping[] { dummyClipping });
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
