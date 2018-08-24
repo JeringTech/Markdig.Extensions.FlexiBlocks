@@ -15,6 +15,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         {
         }
 
+        public ProcessingStage ProcessingStage { get; set; }
+
         /// <summary>
         /// Gets or sets the source of the content that this FlexiIncludeBlock includes.
         /// </summary>

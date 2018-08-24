@@ -27,9 +27,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         // TODO TryContinue
         // TODO TryOpen
 
+        // As far as tests spanning the entire extension go, success cases are covered in FlexiIncludeBlockSpecs, so here we just test for exceptions.
         [Theory]
         [MemberData(nameof(FlexiIncludeBlockParser_ThrowsIfACircularIncludeIsFound_Data))]
-        public void FlexiIncludeBlockParser_ThrowsIfACircularIncludeIsFound(string dummyEntryMarkdown, string dummyMarkdown1, string dummyMarkdown2, string dummyMarkdown3, 
+        public void FlexiIncludeBlockParser_ThrowsIfACircularIncludeIsFound(string dummyEntryMarkdown, string dummyMarkdown1, string dummyMarkdown2, string dummyMarkdown3,
             string expectedCycleDescription)
         {
             // Arrange
@@ -152,6 +153,41 @@ Source: ./dummyMarkdown1.md, Line: 6"
                     @"Source: ./dummyMarkdown1.md, Line: 6 >
 Source: ./dummyMarkdown2.md, Line: 6 >
 Source: ./dummyMarkdown1.md, Line: 6"
+                },
+                // Circular includes originating from before and after content are caught
+                new object[]
+                {
+                    @"+{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown1.md""
+}",
+                    @"+{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown3.md"",
+    ""clippings"": [{
+                        ""beforeContent"": ""This is a line.
++{
+                            \""contentType\"": \""Markdown\"",
+                            \""source\"": \""./dummyMarkdown2.md\""
+                        }""
+                    }]
+}",
+                    @"+{
+    ""contentType"": ""Markdown"",
+    ""source"": ""./dummyMarkdown3.md"",
+    ""clippings"": [{
+                        ""afterContent"": ""+{
+                            \""contentType\"": \""Markdown\"",
+                            \""source\"": \""./dummyMarkdown1.md\""
+                        }""
+                    }]
+}",
+                    "This is a line.",
+                    @"Source: ./dummyMarkdown1.md, Line: 1 >
+Source: BeforeContent, Line: 2 >
+Source: ./dummyMarkdown2.md, Line: 1 >
+Source: AfterContent, Line: 1 >
+Source: ./dummyMarkdown1.md, Line: 1"
                 }
             };
         }
@@ -194,7 +230,7 @@ Source: ./dummyMarkdown1.md, Line: 6"
             var dummyContent = new ReadOnlyCollection<string>(new string[] { "dummy", "content" });
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
-            dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of flexi include block
+            dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of FlexiIncludeBlock
             var dummyIncludeOptions = new IncludeOptions("dummySource"); // Default content type is Code
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
@@ -209,16 +245,16 @@ Source: ./dummyMarkdown1.md, Line: 6"
         }
 
         [Fact]
-        public void ReplaceFlexIncludeBlock_AddsBeforeAndAfterTextIfTheyAreNotNull()
+        public void ReplaceFlexIncludeBlock_AddsBeforeAndAfterContentIfTheyAreNotNull()
         {
             // Arrange
             var dummyContent = new ReadOnlyCollection<string>(new string[] { "dummy", "content" });
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
-            dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of flexi include block
-            const string dummyBeforeText = "# dummy before";
-            const string dummyAfterText = "> dummy\n > after";
-            var dummyClipping = new Clipping(1, -1, beforeText: dummyBeforeText, afterText: dummyAfterText);
+            dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of FlexiIncludeBlock
+            const string dummyBeforeContent = "# dummy before";
+            const string dummyAfterContent = "> dummy\n > after";
+            var dummyClipping = new Clipping(1, -1, beforeContent: dummyBeforeContent, afterContent: dummyAfterContent);
             var dummyClippings = new Clipping[] { dummyClipping };
             var dummyIncludeOptions = new IncludeOptions("dummySource", ContentType.Markdown, clippings: dummyClippings);
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
@@ -253,7 +289,7 @@ Source: ./dummyMarkdown1.md, Line: 6"
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
             var dummyMarkdownDocument = new MarkdownDocument();
-            dummyMarkdownDocument.Add(dummyFlexiIncludeBlock); // ReplaceFlexiIncludeBlock uses flexi include block's parent
+            dummyMarkdownDocument.Add(dummyFlexiIncludeBlock); // ReplaceFlexiIncludeBlock uses FlexiIncludeBlock's parent
             var dummyClipping = new Clipping(startDemarcationLineSubstring: dummyStartLineSubstring);
             var dummyIncludeOptions = new IncludeOptions("dummySource", clippings: new Clipping[] { dummyClipping });
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
@@ -272,7 +308,7 @@ Source: ./dummyMarkdown1.md, Line: 6"
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
             var dummyMarkdownDocument = new MarkdownDocument();
-            dummyMarkdownDocument.Add(dummyFlexiIncludeBlock); // ReplaceFlexiIncludeBlock uses flexi include block's parent
+            dummyMarkdownDocument.Add(dummyFlexiIncludeBlock); // ReplaceFlexiIncludeBlock uses FlexiIncludeBlock's parent
             var dummyClipping = new Clipping(endDemarcationLineSubstring: dummyEndLineSubstring);
             var dummyIncludeOptions = new IncludeOptions("dummySource", clippings: new Clipping[] { dummyClipping });
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
@@ -291,7 +327,7 @@ Source: ./dummyMarkdown1.md, Line: 6"
             var dummyContent = new ReadOnlyCollection<string>(new string[] { "line1", "line2", "line3", "line4", "line5" });
             BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
-            dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of flexi include block
+            dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of FlexiIncludeBlock
             var dummyIncludeOptions = new IncludeOptions("dummySource", ContentType.Markdown, clippings: dummyClippingsWrapper.Value);
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 

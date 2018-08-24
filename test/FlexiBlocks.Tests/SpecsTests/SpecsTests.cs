@@ -16307,7 +16307,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //         "source": "./exampleInclude.js",
             //         "clippings":[{
             //             "endLineNumber": 1,
-            //             "afterText": "..."
+            //             "afterContent": "..."
             //         },
             //         {
             //             "startLineNumber": 4,
@@ -16316,12 +16316,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //         {
             //             "startLineNumber": 7, 
             //             "endLineNumber": 7,
-            //             "beforeText": ""
+            //             "beforeContent": ""
             //         },
             //         {
             //             "startLineNumber": 9, 
             //             "endLineNumber": 9,
-            //             "beforeText": "..."
+            //             "beforeContent": "..."
             //         }]
             //     }
             //
@@ -16339,7 +16339,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\n        \"endLineNumber\": 1,\n        \"afterText\": \"...\"\n    },\n    {\n        \"startLineNumber\": 4,\n        \"endLineNumber\": 4\n    },\n    {\n        \"startLineNumber\": 7, \n        \"endLineNumber\": 7,\n        \"beforeText\": \"\"\n    },\n    {\n        \"startLineNumber\": 9, \n        \"endLineNumber\": 9,\n        \"beforeText\": \"...\"\n    }]\n}", 
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\n        \"endLineNumber\": 1,\n        \"afterContent\": \"...\"\n    },\n    {\n        \"startLineNumber\": 4,\n        \"endLineNumber\": 4\n    },\n    {\n        \"startLineNumber\": 7, \n        \"endLineNumber\": 7,\n        \"beforeContent\": \"\"\n    },\n    {\n        \"startLineNumber\": 9, \n        \"endLineNumber\": 9,\n        \"beforeContent\": \"...\"\n    }]\n}", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n...\n}\n\nfunction add(a, b) {\n...\n}</code></pre>\n</div>", 
                 "FlexiIncludeBlocks_FlexiCodeBlocks");
         }
@@ -16353,7 +16353,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //         "source": "./exampleInclude.js",
             //         "clippings":[{
             //             "endLineNumber": 1,
-            //             "afterText": "..."
+            //             "afterContent": "..."
             //         },
             //         {
             //             "startLineNumber": 4,
@@ -16362,12 +16362,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //         {
             //             "startLineNumber": 7, 
             //             "endLineNumber": 7,
-            //             "beforeText": ""
+            //             "beforeContent": ""
             //         },
             //         {
             //             "startLineNumber": 9, 
             //             "endLineNumber": 9,
-            //             "beforeText": "..."
+            //             "beforeContent": "..."
             //         }]
             //     }
             //
@@ -16385,14 +16385,74 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }</code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\n        \"endLineNumber\": 1,\n        \"afterText\": \"...\"\n    },\n    {\n        \"startLineNumber\": 4,\n        \"endLineNumber\": 4\n    },\n    {\n        \"startLineNumber\": 7, \n        \"endLineNumber\": 7,\n        \"beforeText\": \"\"\n    },\n    {\n        \"startLineNumber\": 9, \n        \"endLineNumber\": 9,\n        \"beforeText\": \"...\"\n    }]\n}", 
+            SpecTestHelper.AssertCompliance("+{\n    \"source\": \"./exampleInclude.js\",\n    \"clippings\":[{\n        \"endLineNumber\": 1,\n        \"afterContent\": \"...\"\n    },\n    {\n        \"startLineNumber\": 4,\n        \"endLineNumber\": 4\n    },\n    {\n        \"startLineNumber\": 7, \n        \"endLineNumber\": 7,\n        \"beforeContent\": \"\"\n    },\n    {\n        \"startLineNumber\": 9, \n        \"endLineNumber\": 9,\n        \"beforeContent\": \"...\"\n    }]\n}", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n...\n}\n\nfunction add(a, b) {\n...\n}</code></pre>\n</div>", 
+                "all");
+        }
+
+        // Before text and after text can contain include blocks:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec13_FlexiIncludeBlocks_FlexiCodeBlocks()
+        {
+            // The following Markdown:
+            //     +{
+            //         "contentType": "Markdown",
+            //         "source": "./exampleInclude.md",
+            //         "clippings":[{
+            //             "afterContent": "+{
+            //                 \"contentType\": \"Markdown\",
+            //                 \"source\": \"./exampleInclude.md\"
+            //             }",
+            //             "beforeContent": "+{
+            //                 \"contentType\": \"Markdown\",
+            //                 \"source\": \"./exampleInclude.md\"
+            //             }"
+            //         }]
+            //     }
+            //
+            // Should be rendered as:
+            //     <p>This is example markdown.</p>
+            //     <p>This is example markdown.</p>
+            //     <p>This is example markdown.</p>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleInclude.md\",\n    \"clippings\":[{\n        \"afterContent\": \"+{\n            \\\"contentType\\\": \\\"Markdown\\\",\n            \\\"source\\\": \\\"./exampleInclude.md\\\"\n        }\",\n        \"beforeContent\": \"+{\n            \\\"contentType\\\": \\\"Markdown\\\",\n            \\\"source\\\": \\\"./exampleInclude.md\\\"\n        }\"\n    }]\n}", 
+                "<p>This is example markdown.</p>\n<p>This is example markdown.</p>\n<p>This is example markdown.</p>", 
+                "FlexiIncludeBlocks_FlexiCodeBlocks");
+        }
+
+        // Before text and after text can contain include blocks:
+        [Fact]
+        public void FlexiIncludeBlocks_Spec13_all()
+        {
+            // The following Markdown:
+            //     +{
+            //         "contentType": "Markdown",
+            //         "source": "./exampleInclude.md",
+            //         "clippings":[{
+            //             "afterContent": "+{
+            //                 \"contentType\": \"Markdown\",
+            //                 \"source\": \"./exampleInclude.md\"
+            //             }",
+            //             "beforeContent": "+{
+            //                 \"contentType\": \"Markdown\",
+            //                 \"source\": \"./exampleInclude.md\"
+            //             }"
+            //         }]
+            //     }
+            //
+            // Should be rendered as:
+            //     <p>This is example markdown.</p>
+            //     <p>This is example markdown.</p>
+            //     <p>This is example markdown.</p>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"contentType\": \"Markdown\",\n    \"source\": \"./exampleInclude.md\",\n    \"clippings\":[{\n        \"afterContent\": \"+{\n            \\\"contentType\\\": \\\"Markdown\\\",\n            \\\"source\\\": \\\"./exampleInclude.md\\\"\n        }\",\n        \"beforeContent\": \"+{\n            \\\"contentType\\\": \\\"Markdown\\\",\n            \\\"source\\\": \\\"./exampleInclude.md\\\"\n        }\"\n    }]\n}", 
+                "<p>This is example markdown.</p>\n<p>This is example markdown.</p>\n<p>This is example markdown.</p>", 
                 "all");
         }
 
         // A clipping can be dedented:
         [Fact]
-        public void FlexiIncludeBlocks_Spec13_FlexiIncludeBlocks_FlexiCodeBlocks()
+        public void FlexiIncludeBlocks_Spec14_FlexiIncludeBlocks_FlexiCodeBlocks()
         {
             // The following Markdown:
             //     +{
@@ -16418,7 +16478,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // A clipping can be dedented:
         [Fact]
-        public void FlexiIncludeBlocks_Spec13_all()
+        public void FlexiIncludeBlocks_Spec14_all()
         {
             // The following Markdown:
             //     +{
@@ -16444,7 +16504,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Leading white space in a clipping can also be collapsed:
         [Fact]
-        public void FlexiIncludeBlocks_Spec14_FlexiIncludeBlocks_FlexiCodeBlocks()
+        public void FlexiIncludeBlocks_Spec15_FlexiIncludeBlocks_FlexiCodeBlocks()
         {
             // The following Markdown:
             //     +{
@@ -16470,7 +16530,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
         // Leading white space in a clipping can also be collapsed:
         [Fact]
-        public void FlexiIncludeBlocks_Spec14_all()
+        public void FlexiIncludeBlocks_Spec15_all()
         {
             // The following Markdown:
             //     +{

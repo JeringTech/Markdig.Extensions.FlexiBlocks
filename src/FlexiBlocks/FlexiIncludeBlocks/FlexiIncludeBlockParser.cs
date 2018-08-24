@@ -151,7 +151,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             // Convert content into blocks and replace flexiIncludeBlock with the newly created blocks
             ReplaceFlexiIncludeBlock(processor, flexiIncludeBlock, content, includeOptions);
 
-            // Remove flexi include block from closing blocks once it has been processed
+            // Remove FlexiIncludeBlock from closing blocks once it has been processed
             closingFlexiIncludeBlocks?.Pop();
 
             // If true is returned, the block is kept as a child of its parent for rendering later on. If false is returned,
@@ -163,51 +163,69 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         {
             flexiIncludeBlock.Source = includeOptions.Source;
 
-            if (closingFlexiIncludeBlocks.Count > 0)
+            if (closingFlexiIncludeBlocks.Count > 0) // If Count is 0, we are at a root source. Since we do not have any way to identify root sources, we skip them.
             {
                 FlexiIncludeBlock parentFlexiIncludeBlock = closingFlexiIncludeBlocks.Peek();
-                flexiIncludeBlock.ContainingSource = parentFlexiIncludeBlock.Source;
                 flexiIncludeBlock.LineNumberInContainingSource = parentFlexiIncludeBlock.LineNumberOfLastProcessedLineInSource - flexiIncludeBlock.Lines.Count + 1;
-            }
-            else
-            {
-                // Root source, line number is always line index + 1
-                flexiIncludeBlock.LineNumberInContainingSource = flexiIncludeBlock.Line + 1;
-            }
 
-            for (int i = closingFlexiIncludeBlocks.Count - 1; i > -1; i--)
-            {
-                FlexiIncludeBlock closingFlexiIncludeBlock = closingFlexiIncludeBlocks.ElementAt(i);
-
-                if (closingFlexiIncludeBlock.ContainingSource == flexiIncludeBlock.ContainingSource &&
-                    closingFlexiIncludeBlock.LineNumberInContainingSource == flexiIncludeBlock.LineNumberInContainingSource)
+                switch (parentFlexiIncludeBlock.ProcessingStage)
                 {
-                    // Create string describing cycle
-                    string cycleDescription = "";
-                    for (; i > -1; i--)
-                    {
-                        FlexiIncludeBlock cycleFlexiIncludeBlock = closingFlexiIncludeBlocks.ElementAt(i);
-                        cycleDescription += $"Source: {cycleFlexiIncludeBlock.ContainingSource}, Line: {cycleFlexiIncludeBlock.LineNumberInContainingSource} >\n";
-                    }
-                    cycleDescription += $"Source: {closingFlexiIncludeBlock.ContainingSource}, Line: {closingFlexiIncludeBlock.LineNumberInContainingSource}";
 
-                    throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_CycleInIncludes, cycleDescription));
+                    // Since before and after content cannot be referenced (can't be used as the source of include blocks), they can't reference each other and can't form cycles on their own.
+                    // So we do not need to check if say the BeforeContent of a certain include block already exists in the stack.
+                    case ProcessingStage.BeforeContent:
+                        {
+                            flexiIncludeBlock.ContainingSource = "BeforeContent";
+                            break;
+                        }
+                    case ProcessingStage.AfterContent:
+                        {
+                            flexiIncludeBlock.ContainingSource = "AfterContent";
+                            break;
+                        }
+                    default:
+                        {
+                            flexiIncludeBlock.ContainingSource = parentFlexiIncludeBlock.Source;
+
+                            for (int i = closingFlexiIncludeBlocks.Count - 1; i > -1; i--)
+                            {
+                                FlexiIncludeBlock closingFlexiIncludeBlock = closingFlexiIncludeBlocks.ElementAt(i);
+
+                                if (closingFlexiIncludeBlock.ContainingSource == flexiIncludeBlock.ContainingSource &&
+                                    closingFlexiIncludeBlock.LineNumberInContainingSource == flexiIncludeBlock.LineNumberInContainingSource)
+                                {
+                                    // Create string describing cycle
+                                    string cycleDescription = "";
+                                    for (; i > -1; i--)
+                                    {
+                                        FlexiIncludeBlock cycleFlexiIncludeBlock = closingFlexiIncludeBlocks.ElementAt(i);
+                                        cycleDescription += $"Source: {cycleFlexiIncludeBlock.ContainingSource}, Line: {cycleFlexiIncludeBlock.LineNumberInContainingSource} >\n";
+                                    }
+                                    cycleDescription += $"Source: {closingFlexiIncludeBlock.ContainingSource}, Line: {closingFlexiIncludeBlock.LineNumberInContainingSource}";
+
+                                    throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_CycleInIncludes, cycleDescription));
+                                }
+                            }
+                            break;
+                        }
                 }
             }
 
             closingFlexiIncludeBlocks.Push(flexiIncludeBlock);
         }
 
-        internal virtual void ProcessText(BlockProcessor processor, string text)
+        internal virtual void ProcessContent(BlockProcessor processor, FlexiIncludeBlock flexiIncludeBlock, string content)
         {
-            if (text?.Length == 0) // If text is an empty string, LineReader.ReadLine immediately returns null
+            if (content?.Length == 0) // If text is an empty string, LineReader.ReadLine immediately returns null
             {
-                processor.ProcessLine(new StringSlice(text));
+                flexiIncludeBlock.LineNumberOfLastProcessedLineInSource = 1;
+                processor.ProcessLine(new StringSlice(content));
 
                 return;
             }
 
-            var lineReader = new LineReader(text);
+            var lineReader = new LineReader(content);
+            int lineNumber = 1;
             while (true)
             {
                 // Get the precise position of the begining of the line
@@ -218,6 +236,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 {
                     break;
                 }
+
+                flexiIncludeBlock.LineNumberOfLastProcessedLineInSource = lineNumber++;
                 processor.ProcessLine(lineText.Value);
             }
         }
@@ -276,7 +296,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         }
 
         /// <summary>
-        /// Processes <paramref name="flexiIncludeBlock"/>'s contents, replacing the flexi include block with the results.
+        /// Processes <paramref name="flexiIncludeBlock"/>'s contents, replacing the FlexiIncludeBlock with the results.
         /// The method used here is also used by GridTable, basically, a child BlockProcessor is used to avoid conflicts with existing 
         /// open blocks in <paramref name="processor"/>.
         /// </summary>
@@ -290,15 +310,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             IncludeOptions includeOptions)
         {
             ContainerBlock parent = flexiIncludeBlock.Parent;
-            
-            // Remove the flexi include block
+
+            // Remove the FlexiIncludeBlock
             parent.Remove(flexiIncludeBlock);
 
             BlockProcessor childProcessor = processor.CreateChild();
             childProcessor.Open(parent);
 
-            // TODO what else is line index used for? 
-            // TODO printing of errors when in a child processor, line numbers etc
             // MarkdownObject.Line is the line that the block starts at, it is set by BlockProcessor.ProcessNewBlocks. We need to set 
             // LineIndex to the line that the include block starts at for FlexiOptionsBlocks to work.
             childProcessor.LineIndex = flexiIncludeBlock.Line;
@@ -312,9 +330,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             // Clipping need not be sequential, they can also overlap
             foreach (Clipping clipping in includeOptions.Clippings)
             {
-                if (clipping.BeforeText != null)
+                if (clipping.BeforeContent != null)
                 {
-                    ProcessText(childProcessor, clipping.BeforeText);
+                    flexiIncludeBlock.ProcessingStage = ProcessingStage.BeforeContent;
+                    ProcessContent(childProcessor, flexiIncludeBlock, clipping.BeforeContent);
                 }
 
                 int startLineNumber = -1;
@@ -339,6 +358,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                     startLineNumber = clipping.StartLineNumber;
                 }
 
+                flexiIncludeBlock.ProcessingStage = ProcessingStage.Source;
+
                 for (int lineNumber = startLineNumber; lineNumber <= content.Count; lineNumber++)
                 {
                     string line = content[lineNumber - 1];
@@ -346,7 +367,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
                     DedentAndCollapseLeadingWhiteSpace(ref stringSlice, clipping.DedentLength, clipping.CollapseRatio);
 
-                    // TODO document, -1 by default to prevent issues with before and after?
+                    // To identify FlexiIncludeBlock's their exact line numbers in their containing sources must be known. For this to be possible, 
+                    // a parent FlexiIncludeBlock must keep track of the line number of the last line that has been processed.
                     flexiIncludeBlock.LineNumberOfLastProcessedLineInSource = lineNumber;
                     childProcessor.ProcessLine(stringSlice);
 
@@ -370,9 +392,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                     }
                 }
 
-                if (clipping.AfterText != null)
+                if (clipping.AfterContent != null)
                 {
-                    ProcessText(childProcessor, clipping.AfterText);
+                    flexiIncludeBlock.ProcessingStage = ProcessingStage.AfterContent;
+                    ProcessContent(childProcessor, flexiIncludeBlock, clipping.AfterContent);
                 }
             }
 

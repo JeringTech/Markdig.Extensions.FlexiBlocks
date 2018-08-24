@@ -263,7 +263,7 @@ FlexiCodeBlocks
     "source": "./exampleInclude.js",
     "clippings":[{
         "endLineNumber": 1,
-        "afterText": "..."
+        "afterContent": "..."
     },
     {
         "startLineNumber": 4,
@@ -272,12 +272,12 @@ FlexiCodeBlocks
     {
         "startLineNumber": 7, 
         "endLineNumber": 7,
-        "beforeText": ""
+        "beforeContent": ""
     },
     {
         "startLineNumber": 9, 
         "endLineNumber": 9,
-        "beforeText": "..."
+        "beforeContent": "..."
     }]
 }
 .
@@ -293,6 +293,30 @@ function add(a, b) {
 ...
 }</code></pre>
 </div>
+````````````````````````````````
+
+Before text and after text can contain include blocks:
+```````````````````````````````` extraExtensions
+FlexiCodeBlocks
+```````````````````````````````` example
++{
+    "contentType": "Markdown",
+    "source": "./exampleInclude.md",
+    "clippings":[{
+        "afterContent": "+{
+            \"contentType\": \"Markdown\",
+            \"source\": \"./exampleInclude.md\"
+        }",
+        "beforeContent": "+{
+            \"contentType\": \"Markdown\",
+            \"source\": \"./exampleInclude.md\"
+        }"
+    }]
+}
+.
+<p>This is example markdown.</p>
+<p>This is example markdown.</p>
+<p>This is example markdown.</p>
 ````````````````````````````````
 
 A clipping can be dedented:
