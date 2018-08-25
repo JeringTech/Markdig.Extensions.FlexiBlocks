@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
