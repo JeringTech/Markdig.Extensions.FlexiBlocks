@@ -7,7 +7,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
     /// <summary>
     /// An abstraction for retrieving content from external sources.
     /// </summary>
-    public interface IContentRetrievalService
+    public interface IContentRetrieverService
     {
         /// <summary>
         /// Retrieve content from a source.
@@ -23,9 +23,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <exception cref="ArgumentException">Thrown if <paramref name="sourceBaseUri"/> is not an absolute URI.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="source"/> is not a valid URI.</exception>
         /// <exception cref="ArgumentException">Thrown if the URI generated from <paramref name="source"/> and <paramref name="sourceBaseUri"/> is a URI with an unsupported scheme (file, http and https are supported, schemes such as ftp are not).</exception>
-        /// <exception cref="ContentRetrievalException">Thrown if a remote source does not exist.</exception>
-        /// <exception cref="ContentRetrievalException">Thrown if access to a remote source is forbidden.</exception>
-        /// <exception cref="ContentRetrievalException">Thrown if a remote source cannot be retrieved from after three attempts.</exception>
+        /// <exception cref="ContentRetrieverException">Thrown if a remote source does not exist.</exception>
+        /// <exception cref="ContentRetrieverException">Thrown if access to a remote source is forbidden.</exception>
+        /// <exception cref="ContentRetrieverException">Thrown if a remote source cannot be retrieved from after three attempts.</exception>
         ReadOnlyCollection<string> GetContent(string source, string cacheDirectory = null, string sourceBaseUri = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

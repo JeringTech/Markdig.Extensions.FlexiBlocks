@@ -208,27 +208,27 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         /// <summary>
         ///   Looks up a localized string similar to Multiple attempts retrieve content from &quot;{0}&quot; have failed. Please ensure that the Url is valid and that your network connection is stable. Enable debug level logging and try again for more information on why requests are failing..
         /// </summary>
-        internal static string ContentRetrievalException_FailedAfterMultipleAttempts {
+        internal static string ContentRetrieverException_FailedAfterMultipleAttempts {
             get {
-                return ResourceManager.GetString("ContentRetrievalException_FailedAfterMultipleAttempts", resourceCulture);
+                return ResourceManager.GetString("ContentRetrieverException_FailedAfterMultipleAttempts", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Access to the remote Url &quot;{0}&quot; is forbidden..
         /// </summary>
-        internal static string ContentRetrievalException_RemoteUriAccessForbidden {
+        internal static string ContentRetrieverException_RemoteUriAccessForbidden {
             get {
-                return ResourceManager.GetString("ContentRetrievalException_RemoteUriAccessForbidden", resourceCulture);
+                return ResourceManager.GetString("ContentRetrieverException_RemoteUriAccessForbidden", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The remote Url &quot;{0}&quot; does not exist..
         /// </summary>
-        internal static string ContentRetrievalException_RemoteUriDoesNotExist {
+        internal static string ContentRetrieverException_RemoteUriDoesNotExist {
             get {
-                return ResourceManager.GetString("ContentRetrievalException_RemoteUriDoesNotExist", resourceCulture);
+                return ResourceManager.GetString("ContentRetrieverException_RemoteUriDoesNotExist", resourceCulture);
             }
         }
         

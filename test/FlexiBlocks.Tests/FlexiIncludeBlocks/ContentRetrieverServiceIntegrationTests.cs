@@ -15,16 +15,16 @@ using Xunit;
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
     /// <summary>
-    /// These integration tests ensure that ContentRetrievalService utilizes its dependencies correctly.
+    /// These integration tests ensure that ContentRetrieverService utilizes its dependencies correctly.
     /// </summary>
-    public class ContentRetrievalServiceIntegrationTests : IClassFixture<ContentRetrievalServiceIntegrationTestsFixture>, IDisposable
+    public class ContentRetrieverServiceIntegrationTests : IClassFixture<ContentRetrieverServiceIntegrationTestsFixture>, IDisposable
     {
-        private readonly ContentRetrievalServiceIntegrationTestsFixture _fixture;
+        private readonly ContentRetrieverServiceIntegrationTestsFixture _fixture;
         private readonly string _dummyFile;
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default);
         private IServiceProvider _serviceProvider;
 
-        public ContentRetrievalServiceIntegrationTests(ContentRetrievalServiceIntegrationTestsFixture fixture)
+        public ContentRetrieverServiceIntegrationTests(ContentRetrieverServiceIntegrationTestsFixture fixture)
         {
             _fixture = fixture;
             _dummyFile = Path.Combine(fixture.TempDirectory, "dummyFile");
@@ -44,7 +44,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                 byte[] bytes = Encoding.UTF8.GetBytes(dummyContent);
                 fileStream.Write(bytes, 0, bytes.Length);
             }
-            IContentRetrievalService testSubject = _serviceProvider.GetRequiredService<IContentRetrievalService>();
+            IContentRetrieverService testSubject = _serviceProvider.GetRequiredService<IContentRetrieverService>();
 
             // Act
             var threads = new List<Thread>();
@@ -74,7 +74,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Arrange
             // Arbitrary permalink
             const string url = "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/197d9c30f19945e6629a124760b5aada60cd094e/src/FlexiBlocks/AssemblyInfo.cs";
-            IContentRetrievalService testSubject = _serviceProvider.GetRequiredService<IContentRetrievalService>();
+            IContentRetrieverService testSubject = _serviceProvider.GetRequiredService<IContentRetrieverService>();
             ReadOnlyCollection<string> expectedResult = testSubject.GetContent(url, _fixture.TempDirectory);
             ((IDisposable)_serviceProvider).Dispose(); // Avoid retrieving from in-memory cache
 
@@ -83,7 +83,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             services.AddFlexiBlocks();
             services.AddSingleton(mockHttpClientService.Object);
             _serviceProvider = services.BuildServiceProvider();
-            testSubject = _serviceProvider.GetRequiredService<IContentRetrievalService>();
+            testSubject = _serviceProvider.GetRequiredService<IContentRetrieverService>();
             
             // Act
             ReadOnlyCollection<string> result = testSubject.GetContent(url, _fixture.TempDirectory);

@@ -165,13 +165,13 @@
   <data name="ArgumentException_UriSchemeUnsupported" xml:space="preserve">
     <value> URI  "{0}" has unsupported scheme "{1}".</value>
   </data>
-  <data name="ContentRetrievalException_FailedAfterMultipleAttempts" xml:space="preserve">
+  <data name="ContentRetrieverException_FailedAfterMultipleAttempts" xml:space="preserve">
     <value>Multiple attempts retrieve content from "{0}" have failed. Please ensure that the Url is valid and that your network connection is stable. Enable debug level logging and try again for more information on why requests are failing.</value>
   </data>
-  <data name="ContentRetrievalException_RemoteUriAccessForbidden" xml:space="preserve">
+  <data name="ContentRetrieverException_RemoteUriAccessForbidden" xml:space="preserve">
     <value>Access to the remote Url "{0}" is forbidden.</value>
   </data>
-  <data name="ContentRetrievalException_RemoteUriDoesNotExist" xml:space="preserve">
+  <data name="ContentRetrieverException_RemoteUriDoesNotExist" xml:space="preserve">
     <value>The remote Url "{0}" does not exist.</value>
   </data>
   <data name="HttpRequestException_UnsuccessfulRequest" xml:space="preserve">

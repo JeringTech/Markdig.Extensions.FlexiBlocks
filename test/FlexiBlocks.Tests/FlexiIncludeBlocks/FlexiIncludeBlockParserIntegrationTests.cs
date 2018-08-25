@@ -417,9 +417,9 @@ Source: ./dummyMarkdown1.md, Line: 1"
         }
 
         private FlexiIncludeBlockParser CreateFlexiIncludBlockParser(IOptions<FlexiIncludeBlocksExtensionOptions> extensionOptionsAccessor = null,
-            IContentRetrievalService contentRetrievalService = null)
+            IContentRetrieverService contentRetrieverService = null)
         {
-            return new FlexiIncludeBlockParser(extensionOptionsAccessor, contentRetrievalService);
+            return new FlexiIncludeBlockParser(extensionOptionsAccessor, contentRetrieverService);
         }
 
         /// <summary>

@@ -23,7 +23,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
 
             // FlexiIncludeBlocks
             services.AddSingleton<IFileCacheService, FileCacheService>();
-            services.AddSingleton<IContentRetrievalService, ContentRetrievalService>();
+            services.AddSingleton<IContentRetrieverService, ContentRetrieverService>();
             services.AddSingleton<FlexiIncludeBlocksExtension>();
             services.AddSingleton<FlexiIncludeBlockParser>();
         }

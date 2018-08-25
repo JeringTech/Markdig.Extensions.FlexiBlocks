@@ -16,19 +16,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         private static readonly StringSlice _codeBlockFence = new StringSlice("```");
 
         private readonly FlexiIncludeBlocksExtensionOptions _extensionOptions;
-        private readonly IContentRetrievalService _contentRetrievalService;
+        private readonly IContentRetrieverService _contentRetrieverService;
 
 
         /// <summary>
         /// Creates a <see cref="FlexiIncludeBlockParser"/> instance.
         /// </summary>
         /// <param name="extensionOptionsAccessor"></param>
-        /// <param name="contentRetrievalService"></param>
+        /// <param name="contentRetrieverService"></param>
         public FlexiIncludeBlockParser(IOptions<FlexiIncludeBlocksExtensionOptions> extensionOptionsAccessor,
-            IContentRetrievalService contentRetrievalService)
+            IContentRetrieverService contentRetrieverService)
         {
             _extensionOptions = extensionOptionsAccessor?.Value ?? new FlexiIncludeBlocksExtensionOptions();
-            _contentRetrievalService = contentRetrievalService;
+            _contentRetrieverService = contentRetrieverService;
 
             OpeningCharacters = new[] { '+' };
         }
@@ -144,7 +144,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
 
             // Retrieve content (read as lines since we will most probably only be using a subset of all the lines)
-            ReadOnlyCollection<string> content = _contentRetrievalService.GetContent(includeOptions.Source,
+            ReadOnlyCollection<string> content = _contentRetrieverService.GetContent(includeOptions.Source,
                 includeOptions.CacheOnDisk ? _extensionOptions.FileCacheDirectory : null,
                 _extensionOptions.SourceBaseUri);
 

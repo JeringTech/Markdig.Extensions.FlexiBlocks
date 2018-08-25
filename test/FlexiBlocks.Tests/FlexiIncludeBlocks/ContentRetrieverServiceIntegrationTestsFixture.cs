@@ -3,13 +3,13 @@ using System.IO;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
-    public class ContentRetrievalServiceUnitTestsFixture : IDisposable
+    public class ContentRetrieverServiceIntegrationTestsFixture : IDisposable
     {
-        public string TempDirectory { get; } = Path.Combine(Path.GetTempPath(), nameof(ContentRetrievalServiceUnitTests)); // Dummy file for creating dummy file streams
+        public string TempDirectory { get; } = Path.Combine(Path.GetTempPath(), nameof(ContentRetrieverServiceIntegrationTests)); // Dummy file for creating dummy file streams
 
-        public ContentRetrievalServiceUnitTestsFixture()
+        public ContentRetrieverServiceIntegrationTestsFixture()
         {
-            TryDeleteDirectory();
+            TryDeleteDirectory(); // Delete directory if it already exists so that pre-existing files don't mess up tests
             Directory.CreateDirectory(TempDirectory);
         }
 

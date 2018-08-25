@@ -17,10 +17,10 @@ using System.Threading;
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     /// <summary>
-    /// <para>The default implementation of <see cref="IContentRetrievalService"/>.</para>
+    /// <para>The default implementation of <see cref="IContentRetrieverService"/>.</para>
     /// <para>This service caches all retrieved content in memory. Additionally, it caches content retrieved from remote sources on disk.</para>
     /// </summary>
-    public class ContentRetrievalService : IContentRetrievalService
+    public class ContentRetrieverService : IContentRetrieverService
     {
         // We only support a subset of schemes. For the full list of schemes, see https://docs.microsoft.com/en-sg/dotnet/api/system.uri.scheme?view=netstandard-2.0#System_Uri_Scheme
         private static readonly string[] _supportedSchemes = new string[] { "file", "http", "https" };
@@ -38,16 +38,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         private readonly IHttpClientService _httpClientService;
         private readonly IFileCacheService _fileCacheService;
         private readonly IFileService _fileService;
-        private readonly ILogger<ContentRetrievalService> _logger;
+        private readonly ILogger<ContentRetrieverService> _logger;
 
         /// <summary>
-        /// Creates a <see cref="ContentRetrievalService"/> instance.
+        /// Creates a <see cref="ContentRetrieverService"/> instance.
         /// </summary>
         /// <param name="httpClientService"></param>
         /// <param name="fileService"></param>
         /// <param name="fileCacheService"></param>
         /// <param name="loggerFactory"></param>
-        public ContentRetrievalService(IHttpClientService httpClientService,
+        public ContentRetrieverService(IHttpClientService httpClientService,
             IFileService fileService,
             IFileCacheService fileCacheService,
             ILoggerFactory loggerFactory)
@@ -55,7 +55,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             _fileService = fileService;
             _httpClientService = httpClientService;
             _fileCacheService = fileCacheService;
-            _logger = loggerFactory?.CreateLogger<ContentRetrievalService>();
+            _logger = loggerFactory?.CreateLogger<ContentRetrieverService>();
         }
 
         /// <inheritdoc />
@@ -160,12 +160,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                     else if (response.StatusCode == HttpStatusCode.NotFound)
                     {
                         // No point retrying if server is responsive but content does not exist
-                        throw new ContentRetrievalException(string.Format(Strings.ContentRetrievalException_RemoteUriDoesNotExist, uri.AbsoluteUri));
+                        throw new ContentRetrieverException(string.Format(Strings.ContentRetrieverException_RemoteUriDoesNotExist, uri.AbsoluteUri));
                     }
                     else if (response.StatusCode == HttpStatusCode.Forbidden)
                     {
                         // No point retrying if server is responsive but access to the content is forbidden
-                        throw new ContentRetrievalException(string.Format(Strings.ContentRetrievalException_RemoteUriAccessForbidden, uri.AbsoluteUri));
+                        throw new ContentRetrieverException(string.Format(Strings.ContentRetrieverException_RemoteUriAccessForbidden, uri.AbsoluteUri));
                     }
                     else
                     {
@@ -192,7 +192,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             while (remainingTries > 0);
 
             // remainingTries == 0
-            throw new ContentRetrievalException(string.Format(Strings.ContentRetrievalException_FailedAfterMultipleAttempts, uri.AbsoluteUri));
+            throw new ContentRetrieverException(string.Format(Strings.ContentRetrieverException_FailedAfterMultipleAttempts, uri.AbsoluteUri));
         }
 
         /// <summary>
