@@ -39,8 +39,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             var result = new LineNumberRange(dummyStartLineNumber, dummyEndLineNumber, dummyFirstLineNumber);
 
             // Assert
-            Assert.Equal(dummyStartLineNumber, result.LineRange.StartLine);
-            Assert.Equal(dummyEndLineNumber, result.LineRange.EndLine);
+            Assert.Equal(dummyStartLineNumber, result.LineRange.StartLineNumber);
+            Assert.Equal(dummyEndLineNumber, result.LineRange.EndLineNumber);
             Assert.Equal(dummyFirstLineNumber, result.FirstLineNumber);
         }
 

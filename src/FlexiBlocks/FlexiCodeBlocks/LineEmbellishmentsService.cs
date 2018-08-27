@@ -47,6 +47,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             int numLines = lines.Length;
 
             // Validate ranges
+            // TODO is this really efficient? ranges almost always going to be valid - any issues will be immediately fixed. just process ranges assuming they are valid and throw when they aren't? 
             ValidateRanges(lineNumberRanges, highlightLineRanges, numLines);
 
             // Embellishments
@@ -65,12 +66,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 
             int currentLineNumberRangeIndex = 0;
             LineNumberRange currentLineNumberRange = lineNumberRanges?.FirstOrDefault();
-            int currentLineNumber = currentLineNumberRange?.StartLineNumber ?? 0; // Line number to render
-            int currentLineNumberRangeEndLine = currentLineNumberRange?.LineRange.EndLine ?? 0;
+            int currentLineNumber = currentLineNumberRange?.FirstLineNumber ?? 0; // Line number to render
+            int currentLineNumberRangeEndLine = currentLineNumberRange?.LineRange.EndLineNumber ?? 0;
 
             int currentHighlightLineRangeIndex = 0;
             LineRange currentHighlightLineRange = highlightLineRanges?.FirstOrDefault();
-            int currentHighlightLineRangeEndLine = currentHighlightLineRange?.EndLine ?? 0;
+            int currentHighlightLineRangeEndLine = currentHighlightLineRange?.EndLineNumber ?? 0;
 
             foreach (string line in lines)
             {
@@ -82,8 +83,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                     currentLineNumberRange = lineNumberRanges.ElementAtOrDefault(++currentLineNumberRangeIndex);
                     if (currentLineNumberRange != null)
                     {
-                        currentLineNumberRangeEndLine = currentLineNumberRange.LineRange.EndLine;
-                        currentLineNumber = currentLineNumberRange.StartLineNumber;
+                        currentLineNumberRangeEndLine = currentLineNumberRange.LineRange.EndLineNumber;
+                        currentLineNumber = currentLineNumberRange.FirstLineNumber;
                     }
                 }
 
@@ -95,7 +96,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                     currentHighlightLineRange = highlightLineRanges.ElementAtOrDefault(++currentHighlightLineRangeIndex);
                     if (currentHighlightLineRange != null)
                     {
-                        currentHighlightLineRangeEndLine = currentHighlightLineRange.EndLine;
+                        currentHighlightLineRangeEndLine = currentHighlightLineRange.EndLineNumber;
                     }
                 }
 
@@ -130,15 +131,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             // Ranges must be a subset of the lines
             LineRange lastLineNumberLineRange = lineNumberRanges?.LastOrDefault()?.LineRange;
             if (lastLineNumberLineRange != null &&
-                (lastLineNumberLineRange.StartLine > numLines ||
-                lastLineNumberLineRange.EndLine > numLines))
+                (lastLineNumberLineRange.StartLineNumber > numLines ||
+                lastLineNumberLineRange.EndLineNumber > numLines))
             {
                 throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_InvalidLineNumberLineRange, lastLineNumberLineRange.ToString(), numLines));
             }
             LineRange lastHighlightLineRange = highlightLineRanges?.LastOrDefault();
             if (lastHighlightLineRange != null &&
-               (lastHighlightLineRange.StartLine > numLines ||
-               lastHighlightLineRange.EndLine > numLines))
+               (lastHighlightLineRange.StartLineNumber > numLines ||
+               lastHighlightLineRange.EndLineNumber > numLines))
             {
                 throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_InvalidHighlightLineRange, lastHighlightLineRange.ToString(), numLines));
             }
@@ -163,8 +164,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 
             // Line ranges cannot overlap and line number ranges cannot overlap or be in the wrong order
             if (result == 0 ||
-                result == -1 && x.EndLineNumber >= y.StartLineNumber ||
-                result == 1 && y.EndLineNumber >= x.StartLineNumber)
+                result == -1 && x.LastLineNumber >= y.FirstLineNumber ||
+                result == 1 && y.LastLineNumber >= x.FirstLineNumber)
             {
                 throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_LineNumbersCannotOverlap, x.ToString(), y.ToString()));
             }

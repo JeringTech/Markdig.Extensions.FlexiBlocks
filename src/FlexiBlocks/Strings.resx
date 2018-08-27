@@ -129,23 +129,23 @@
   <data name="ArgumentException_BaseUriMustBeDefinedIfSourceIsNotAnAbsoluteUri" xml:space="preserve">
     <value>Since source "{0}" is not an absolute URI, base URI cannot be null, white space or an empty string.</value>
   </data>
+  <data name="ArgumentException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber" xml:space="preserve">
+    <value>End line number "{0}" with associated start line number "{1}" is invalid. Unless an end line number is -1, it cannot be less than its associated start line number.</value>
+  </data>
   <data name="ArgumentException_EndLineNumberMustNotBeLessThanStartLineNumber" xml:space="preserve">
     <value>If endLineNumber is not -1, it must be larger than or equal to startLineNumber.</value>
   </data>
   <data name="ArgumentException_InvalidCacheDirectory" xml:space="preserve">
     <value>The directory to be used for file caching, "{0}" is invalid. Refer to the inner exception for details. </value>
   </data>
-  <data name="ArgumentException_InvalidEndLine" xml:space="preserve">
-    <value>Invalid end line "{0}". If end line isn't -1, it must be greater than or equal to start line, "{1}".</value>
-  </data>
   <data name="ArgumentException_InvalidEnumArgument" xml:space="preserve">
     <value>"{0}" has the value "{1}", which is not a valid value for the enum "{2}".</value>
   </data>
-  <data name="ArgumentException_InvalidStartLine" xml:space="preserve">
-    <value>Invalid start line "{0}". Start line must be greater than 0.</value>
-  </data>
   <data name="ArgumentException_InvalidStartLineNumber" xml:space="preserve">
     <value>Invalid start line number "{0}". Start line number must be greater than 0.</value>
+  </data>
+  <data name="ArgumentException_LineNumberMustBeGreaterThan0" xml:space="preserve">
+    <value>"{0}" is not a valid line number. Line numbers must be greater than 0.</value>
   </data>
   <data name="ArgumentException_MustBeDefined" xml:space="preserve">
     <value>"{0}" must be defined.</value>
@@ -169,7 +169,7 @@
     <value>Value cannot be null, white space or an empty string.</value>
   </data>
   <data name="ArgumentOutOfRangeException_CountCannotBeNegativeOrGreaterThanTheNumberOfEmptyElementsInBuffer" xml:space="preserve">
-    <value>Count cannot be negative or greater than the number of empty elements in buffer.</value>
+    <value>Value cannot be negative or greater than the number of empty elements in buffer.</value>
   </data>
   <data name="ArgumentOutOfRangeException_ValueMustBeWithinTheIntervalContainingBuffersIndices" xml:space="preserve">
     <value>Value must be within the interval containing "{0}"'s indices.</value>

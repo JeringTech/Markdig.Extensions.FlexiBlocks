@@ -9,10 +9,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
     {
         [Theory]
         [MemberData(nameof(NumLines_ReturnsNumberOfLinesInRange_Data))]
-        public void NumLines_ReturnsNumberOfLinesInRange(int startLine, int endLine, int expectedNumLines)
+        public void NumLines_ReturnsNumberOfLinesInRange(int startLineNumber, int endLineNumber, int expectedNumLines)
         {
             // Arrange
-            var lineRange = new LineRange(startLine, endLine);
+            var lineRange = new LineRange(startLineNumber, endLineNumber);
 
             // Assert
             Assert.Equal(expectedNumLines, lineRange.NumLines);
@@ -42,15 +42,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         }
 
         [Theory]
-        [MemberData(nameof(Constructor_ThrowsExceptionIfStartLineIsInvalid_Data))]
-        public void Constructor_ThrowsExceptionIfStartLineIsInvalid(int dummyStartLine)
+        [MemberData(nameof(Constructor_ThrowsArgumentOutOfrangeExceptionIfStartLineNumberIsLessThan1_Data))]
+        public void Constructor_ThrowsArgumentOutOfrangeExceptionIfStartLineNumberIsLessThan1(int dummyStartLine)
         {
             // Act and assert
-            ArgumentException result = Assert.Throws<ArgumentException>(() => new LineRange(dummyStartLine, 0));
-            Assert.Equal(string.Format(Strings.ArgumentException_InvalidStartLine, dummyStartLine), result.Message);
+            ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => new LineRange(dummyStartLine, 0));
+            Assert.Equal(string.Format(Strings.ArgumentException_LineNumberMustBeGreaterThan0, dummyStartLine) + "\nParameter name: startLineNumber", 
+                result.Message,
+                ignoreLineEndingDifferences: true);
         }
 
-        public static IEnumerable<object[]> Constructor_ThrowsExceptionIfStartLineIsInvalid_Data()
+        public static IEnumerable<object[]> Constructor_ThrowsArgumentOutOfrangeExceptionIfStartLineNumberIsLessThan1_Data()
         {
             return new object[][]
             {
@@ -60,15 +62,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         }
 
         [Theory]
-        [MemberData(nameof(Constructor_ThrowsExceptionIfEndLineIsInvalid_Data))]
-        public void Constructor_ThrowsExceptionIfEndLineIsInvalid(int dummyStartLine, int dummyEndLine)
+        [MemberData(nameof(Constructor_ThrowsArgumentOutOfRangeExceptionIfEndLineNumberIsInvalid_Data))]
+        public void Constructor_ThrowsArgumentOutOfRangeExceptionIfEndLineNumberIsInvalid(int dummyStartLineNumber, int dummyEndLineNumber)
         {
             // Act and assert
-            ArgumentException result = Assert.Throws<ArgumentException>(() => new LineRange(dummyStartLine, dummyEndLine));
-            Assert.Equal(string.Format(Strings.ArgumentException_InvalidEndLine, dummyEndLine, dummyStartLine), result.Message);
+            ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => new LineRange(dummyStartLineNumber, dummyEndLineNumber));
+            Assert.Equal(string.Format(Strings.ArgumentException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, dummyEndLineNumber, dummyStartLineNumber) + "\nParameter name: endLineNumber",
+                result.Message,
+                ignoreLineEndingDifferences: true);
         }
 
-        public static IEnumerable<object[]> Constructor_ThrowsExceptionIfEndLineIsInvalid_Data()
+        public static IEnumerable<object[]> Constructor_ThrowsArgumentOutOfRangeExceptionIfEndLineNumberIsInvalid_Data()
         {
             return new object[][]
             {
@@ -79,14 +83,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 
         [Theory]
         [MemberData(nameof(Constructor_CorrectlyAssignsValuesIfSuccessful_Data))]
-        public void Constructor_CorrectlyAssignsValuesIfSuccessful(int dummyStartLine, int dummyEndLine)
+        public void Constructor_CorrectlyAssignsValuesIfSuccessful(int dummyStartLineNumber, int dummyEndLineNumber)
         {
             // Act
-            var result = new LineRange(dummyStartLine, dummyEndLine);
+            var result = new LineRange(dummyStartLineNumber, dummyEndLineNumber);
 
             // Assert
-            Assert.Equal(dummyStartLine, result.StartLine);
-            Assert.Equal(dummyEndLine, result.EndLine);
+            Assert.Equal(dummyStartLineNumber, result.StartLineNumber);
+            Assert.Equal(dummyEndLineNumber, result.EndLineNumber);
         }
 
         public static IEnumerable<object[]> Constructor_CorrectlyAssignsValuesIfSuccessful_Data()
@@ -94,20 +98,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             return new object[][]
             {
                 new object[]{ 2, -1 }, // -1 = infinity
-                new object[]{ 1, 1 }, // Start line can be the same as end line
+                new object[]{ 1, 1 }, // Start line number can be the same as end line number
                 new object[]{ 2, 3}
             };
         }
 
         [Theory]
         [MemberData(nameof(Contains_ReturnsTrueIfRangeContainsLineOtherwiseReturnsFalse_Data))]
-        public void Contains_ReturnsTrueIfRangeContainsLineOtherwiseReturnsFalse(int startLine, int endLine, int dummyLine, bool expectedResult)
+        public void Contains_ReturnsTrueIfRangeContainsLineOtherwiseReturnsFalse(int startLineNumber, int endLineNumber, int dummyLineNumber, bool expectedResult)
         {
             // Arrange
-            var lineRange = new LineRange(startLine, endLine);
+            var lineRange = new LineRange(startLineNumber, endLineNumber);
 
             // Act
-            bool result = lineRange.Contains(dummyLine);
+            bool result = lineRange.Contains(dummyLineNumber);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -117,8 +121,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         {
             return new object[][]
             {
-                new object[]{ 10, 12, 10, true}, // Range is inclusive of start line
-                new object[]{ 1, 5, 5, true}, // Range is inclusive of end line
+                new object[]{ 10, 12, 10, true}, // Range is inclusive of start line number
+                new object[]{ 1, 5, 5, true}, // Range is inclusive of end line number
                 new object[]{ 2, 2, 2, true}, // Single line range
                 new object[]{ 3, -1, 1000, true}, // -1 = infinity
                 new object[]{ 4, 8, -1, false }, // Negative numbers can't be in a range
@@ -129,8 +133,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         }
 
         [Theory]
-        [MemberData(nameof(CompareTo_ReturnsMinus1IfCurrentRangeOccursBeforeLineRange0IfTheRangesOverlapAnd1IfCurrentRangeOccursAfterLineRange_Data))]
-        public void CompareTo_ReturnsMinus1IfCurrentRangeOccursBeforeLineRange0IfTheRangesOverlapAnd1IfCurrentRangeOccursAfterLineRange(
+        [MemberData(nameof(CompareTo_ReturnsMinus1IfRangeOccursBeforeLineRange0IfTheRangesOverlapAnd1IfRangeOccursAfterLineRange_Data))]
+        public void CompareTo_ReturnsMinus1IfRangeOccursBeforeLineRange0IfTheRangesOverlapAnd1IfRangeOccursAfterLineRange(
             int primaryRangeStartLine, int primaryRangeEndLine,
             int secondaryRangeStartLine, int secondaryRangeEndLine,
             int expectedResult)
@@ -146,7 +150,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             Assert.Equal(expectedResult, result);
         }
 
-        public static IEnumerable<object[]> CompareTo_ReturnsMinus1IfCurrentRangeOccursBeforeLineRange0IfTheRangesOverlapAnd1IfCurrentRangeOccursAfterLineRange_Data()
+        public static IEnumerable<object[]> CompareTo_ReturnsMinus1IfRangeOccursBeforeLineRange0IfTheRangesOverlapAnd1IfRangeOccursAfterLineRange_Data()
         {
             return new object[][]
             {

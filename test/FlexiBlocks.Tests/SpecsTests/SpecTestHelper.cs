@@ -19,7 +19,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         static SpecTestHelper()
         {
             // Populate UseExtensionMethods and ExtensionOptionsTypes for constructing pipelines
-            Type flexiBlocksUseExtensions = typeof(FlexiBlocksExtensions);
+            Type flexiBlocksUseExtensions = typeof(UseExtensions);
             foreach (MethodInfo methodInfo in flexiBlocksUseExtensions.GetMethods(BindingFlags.Public | BindingFlags.Static))
             {
                 if (!methodInfo.Name.StartsWith("Use"))

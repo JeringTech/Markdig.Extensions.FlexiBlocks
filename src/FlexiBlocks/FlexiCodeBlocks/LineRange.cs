@@ -8,79 +8,86 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     public class LineRange
     {
         /// <summary>
-        /// Creates an instance of type <see cref="LineRange"/>.
+        /// Creates a <see cref="LineRange"/> instance.
         /// </summary>
-        /// <param name="startLine">Line that range begins at. Must be greater than 0, <see cref="StartLine"/></param>
-        /// <param name="endLine">Line that range ends at, -1 denotes a range that extends to infinity. If <paramref name="endLine"/> is not -1, it must be 
-        /// greater than or equal to <paramref name="startLine"/></param>
-        public LineRange(int startLine, int endLine)
+        /// <param name="startLineNumber">Start line number of this range. Must be greater than 0.</param>
+        /// <param name="endLineNumber">End line number of this range. -1 denotes a range that extends to infinity. If <paramref name="endLineNumber"/> is not -1, it must be 
+        /// greater than or equal to <paramref name="startLineNumber"/></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="startLineNumber"/> is less than 1.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="endLineNumber"/> is not -1 and is less than <paramref name="startLineNumber"/>.</exception>
+        public LineRange(int startLineNumber, int endLineNumber)
         {
-            if(startLine < 1)
+            if(startLineNumber < 1)
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_InvalidStartLine, startLine));
+                throw new ArgumentOutOfRangeException(nameof(startLineNumber),
+                    string.Format(Strings.ArgumentException_LineNumberMustBeGreaterThan0, startLineNumber));
             }
 
-            if(endLine != -1 && endLine < startLine)
+            if(endLineNumber != -1 && endLineNumber < startLineNumber)
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_InvalidEndLine, endLine, startLine));
+                throw new ArgumentOutOfRangeException(nameof(endLineNumber),
+                    string.Format(Strings.ArgumentException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, endLineNumber, startLineNumber));
             }
 
-            StartLine = startLine;
-            EndLine = endLine;
+            StartLineNumber = startLineNumber;
+            EndLineNumber = endLineNumber;
         }
 
         /// <summary>
-        /// Gets the value specifying the line at which this line range begins.
+        /// Gets the start line number of this range.
         /// </summary>
-        public int StartLine { get; }
+        public int StartLineNumber { get; }
 
         /// <summary>
-        /// Gets the value specifying the line at which this line range ends.
+        /// Gets the end line number of this range.
         /// </summary>
-        public int EndLine { get; }
+        public int EndLineNumber { get; }
 
         /// <summary>
-        /// Gets the value specifying the number of lines in the range.
+        /// Gets the number of lines in this range.
         /// </summary>
-        public int NumLines => EndLine == -1 ? -1 : EndLine - StartLine + 1;
+        public int NumLines => EndLineNumber == -1 ? -1 : EndLineNumber - StartLineNumber + 1;
 
         /// <summary>
-        /// Checks whether <paramref name="line"/> is within the range.
+        /// Checks whether <paramref name="lineNumber"/> is within this range.
         /// </summary>
-        /// <param name="line"></param>
-        /// <returns>True if <paramref name="line"/> is within the range, otherwise false.</returns>
-        public bool Contains(int line)
+        /// <param name="lineNumber">The line number to check.</param>
+        /// <returns>True if <paramref name="lineNumber"/> is within this range, otherwise false.</returns>
+        public bool Contains(int lineNumber)
         {
-            return line >= StartLine && (EndLine == -1 || line <= EndLine);
+            return lineNumber >= StartLineNumber && (EndLineNumber == -1 || lineNumber <= EndLineNumber);
         }
 
         /// <summary>
         /// Compares the current instance with <paramref name="lineRange"/> to determine the order in which they occur.
         /// </summary>
-        /// <param name="lineRange"></param>
-        /// <returns>-1 if the current <see cref="LineRange"/> occurs before <paramref name="lineRange"/>. 0 if the <see cref="LineRange"/>s overlap.
-        /// 1 if the current <see cref="LineRange"/> occurs after <paramref name="lineRange"/>.</returns>
+        /// <param name="lineRange">The range to compare to.</param>
+        /// <returns>-1 if this range occurs before <paramref name="lineRange"/>. 0 if the line range's overlap.
+        /// 1 if this range occurs after <paramref name="lineRange"/>.</returns>
         public virtual int CompareTo(LineRange lineRange)
         {
-            if(EndLine != -1 && EndLine < lineRange.StartLine)
+            if(EndLineNumber != -1 && EndLineNumber < lineRange.StartLineNumber)
             {
                 return -1;
             }
-            else if((StartLine <= lineRange.EndLine && (EndLine == -1 || EndLine >= lineRange.StartLine)) ||
-                (lineRange.EndLine == -1 && lineRange.StartLine <= EndLine))
+            else if((StartLineNumber <= lineRange.EndLineNumber && (EndLineNumber == -1 || EndLineNumber >= lineRange.StartLineNumber)) ||
+                (lineRange.EndLineNumber == -1 && lineRange.StartLineNumber <= EndLineNumber))
             {
                 return 0;
             }
             else
             {
-                // StartLine > lineRange.EndLine
+                // StartLineNumber > lineRange.EndLineNumber
                 return 1;
             }
         }
 
+        /// <summary>
+        /// Returns the string representation of this instance.
+        /// </summary>
         public override string ToString()
         {
-            return $"{StartLine} - {EndLine}";
+            return $"{StartLineNumber} - {EndLineNumber}";
         }
     }
 }

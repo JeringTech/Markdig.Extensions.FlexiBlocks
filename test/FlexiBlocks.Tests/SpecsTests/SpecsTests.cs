@@ -14403,14 +14403,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //         "renderLineNumbers": true,
             //         "lineNumberRanges": [
             //             {
-            //                 "startLine": 1,
-            //                 "endLine": 8,
-            //                 "startLineNumber": 1
+            //                 "startLineNumber": 1,
+            //                 "endLineNumber": 8,
+            //                 "firstLineNumber": 1
             //             },
             //             {
-            //                 "startLine": 11,
-            //                 "endLine": -1,
-            //                 "startLineNumber": 32
+            //                 "startLineNumber": 11,
+            //                 "endLineNumber": -1,
+            //                 "firstLineNumber": 32
             //             }
             //         ]
             //     }
@@ -14458,7 +14458,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     <span class="line"><span class="line-number">38</span><span class="line-text">}</span></span></code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("@{\n    \"renderLineNumbers\": true,\n    \"lineNumberRanges\": [\n        {\n            \"startLine\": 1,\n            \"endLine\": 8,\n            \"startLineNumber\": 1\n        },\n        {\n            \"startLine\": 11,\n            \"endLine\": -1,\n            \"startLineNumber\": 32\n        }\n    ]\n}\n```\npublic class ExampleClass\n{\n    public string ExampleFunction1(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n\n    // Some functions omitted for brevity\n    ...\n\n    public string ExampleFunction3(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n}\n```", 
+            SpecTestHelper.AssertCompliance("@{\n    \"renderLineNumbers\": true,\n    \"lineNumberRanges\": [\n        {\n            \"startLineNumber\": 1,\n            \"endLineNumber\": 8,\n            \"firstLineNumber\": 1\n        },\n        {\n            \"startLineNumber\": 11,\n            \"endLineNumber\": -1,\n            \"firstLineNumber\": 32\n        }\n    ]\n}\n```\npublic class ExampleClass\n{\n    public string ExampleFunction1(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n\n    // Some functions omitted for brevity\n    ...\n\n    public string ExampleFunction3(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line\"><span class=\"line-number\">1</span><span class=\"line-text\">public class ExampleClass</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line\"><span class=\"line-number\">3</span><span class=\"line-text\">    public string ExampleFunction1(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">4</span><span class=\"line-text\">    {</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">        // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">6</span><span class=\"line-text\">        return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">7</span><span class=\"line-text\">    }</span></span>\n<span class=\"line\"><span class=\"line-number\">8</span><span class=\"line-text\"></span></span>\n<span class=\"line\"><span class=\"line-text\">    // Some functions omitted for brevity</span></span>\n<span class=\"line\"><span class=\"line-text\">    ...</span></span>\n<span class=\"line\"><span class=\"line-number\">32</span><span class=\"line-text\"></span></span>\n<span class=\"line\"><span class=\"line-number\">33</span><span class=\"line-text\">    public string ExampleFunction3(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">34</span><span class=\"line-text\">    {</span></span>\n<span class=\"line\"><span class=\"line-number\">35</span><span class=\"line-text\">        // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">36</span><span class=\"line-text\">        return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">37</span><span class=\"line-text\">    }</span></span>\n<span class=\"line\"><span class=\"line-number\">38</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
                 "FlexiCodeBlocks_FlexiOptionsBlocks");
         }
@@ -14473,14 +14473,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //         "renderLineNumbers": true,
             //         "lineNumberRanges": [
             //             {
-            //                 "startLine": 1,
-            //                 "endLine": 8,
-            //                 "startLineNumber": 1
+            //                 "startLineNumber": 1,
+            //                 "endLineNumber": 8,
+            //                 "firstLineNumber": 1
             //             },
             //             {
-            //                 "startLine": 11,
-            //                 "endLine": -1,
-            //                 "startLineNumber": 32
+            //                 "startLineNumber": 11,
+            //                 "endLineNumber": -1,
+            //                 "firstLineNumber": 32
             //             }
             //         ]
             //     }
@@ -14528,7 +14528,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     <span class="line"><span class="line-number">38</span><span class="line-text">}</span></span></code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("@{\n    \"renderLineNumbers\": true,\n    \"lineNumberRanges\": [\n        {\n            \"startLine\": 1,\n            \"endLine\": 8,\n            \"startLineNumber\": 1\n        },\n        {\n            \"startLine\": 11,\n            \"endLine\": -1,\n            \"startLineNumber\": 32\n        }\n    ]\n}\n```\npublic class ExampleClass\n{\n    public string ExampleFunction1(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n\n    // Some functions omitted for brevity\n    ...\n\n    public string ExampleFunction3(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n}\n```", 
+            SpecTestHelper.AssertCompliance("@{\n    \"renderLineNumbers\": true,\n    \"lineNumberRanges\": [\n        {\n            \"startLineNumber\": 1,\n            \"endLineNumber\": 8,\n            \"firstLineNumber\": 1\n        },\n        {\n            \"startLineNumber\": 11,\n            \"endLineNumber\": -1,\n            \"firstLineNumber\": 32\n        }\n    ]\n}\n```\npublic class ExampleClass\n{\n    public string ExampleFunction1(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n\n    // Some functions omitted for brevity\n    ...\n\n    public string ExampleFunction3(string arg)\n    {\n        // Example comment\n        return arg + \"dummyString\";\n    }\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line\"><span class=\"line-number\">1</span><span class=\"line-text\">public class ExampleClass</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line\"><span class=\"line-number\">3</span><span class=\"line-text\">    public string ExampleFunction1(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">4</span><span class=\"line-text\">    {</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">        // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">6</span><span class=\"line-text\">        return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">7</span><span class=\"line-text\">    }</span></span>\n<span class=\"line\"><span class=\"line-number\">8</span><span class=\"line-text\"></span></span>\n<span class=\"line\"><span class=\"line-text\">    // Some functions omitted for brevity</span></span>\n<span class=\"line\"><span class=\"line-text\">    ...</span></span>\n<span class=\"line\"><span class=\"line-number\">32</span><span class=\"line-text\"></span></span>\n<span class=\"line\"><span class=\"line-number\">33</span><span class=\"line-text\">    public string ExampleFunction3(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">34</span><span class=\"line-text\">    {</span></span>\n<span class=\"line\"><span class=\"line-number\">35</span><span class=\"line-text\">        // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">36</span><span class=\"line-text\">        return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">37</span><span class=\"line-text\">    }</span></span>\n<span class=\"line\"><span class=\"line-number\">38</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
                 "all");
         }
@@ -14542,12 +14542,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     @{
             //         "highlightLineRanges": [
             //             {
-            //                 "startLine": 1,
-            //                 "endLine": 1
+            //                 "startLineNumber": 1,
+            //                 "endLineNumber": 1
             //             },
             //             {
-            //                 "startLine": 3,
-            //                 "endLine": 4
+            //                 "startLineNumber": 3,
+            //                 "endLineNumber": 4
             //             }
             //         ]
             //     }
@@ -14571,7 +14571,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     <span class="line"><span class="line-number">5</span><span class="line-text">}</span></span></code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("@{\n    \"highlightLineRanges\": [\n        {\n            \"startLine\": 1,\n            \"endLine\": 1\n        },\n        {\n            \"startLine\": 3,\n            \"endLine\": 4\n        }\n    ]\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
+            SpecTestHelper.AssertCompliance("@{\n    \"highlightLineRanges\": [\n        {\n            \"startLineNumber\": 1,\n            \"endLineNumber\": 1\n        },\n        {\n            \"startLineNumber\": 3,\n            \"endLineNumber\": 4\n        }\n    ]\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line highlight\"><span class=\"line-number\">1</span><span class=\"line-text\">public string ExampleFunction(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">3</span><span class=\"line-text\">    // Example comment</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">4</span><span class=\"line-text\">    return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
                 "FlexiCodeBlocks_FlexiOptionsBlocks");
         }
@@ -14585,12 +14585,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     @{
             //         "highlightLineRanges": [
             //             {
-            //                 "startLine": 1,
-            //                 "endLine": 1
+            //                 "startLineNumber": 1,
+            //                 "endLineNumber": 1
             //             },
             //             {
-            //                 "startLine": 3,
-            //                 "endLine": 4
+            //                 "startLineNumber": 3,
+            //                 "endLineNumber": 4
             //             }
             //         ]
             //     }
@@ -14614,7 +14614,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     <span class="line"><span class="line-number">5</span><span class="line-text">}</span></span></code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("@{\n    \"highlightLineRanges\": [\n        {\n            \"startLine\": 1,\n            \"endLine\": 1\n        },\n        {\n            \"startLine\": 3,\n            \"endLine\": 4\n        }\n    ]\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
+            SpecTestHelper.AssertCompliance("@{\n    \"highlightLineRanges\": [\n        {\n            \"startLineNumber\": 1,\n            \"endLineNumber\": 1\n        },\n        {\n            \"startLineNumber\": 3,\n            \"endLineNumber\": 4\n        }\n    ]\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```", 
                 "<div class=\"fcb\">\n<header>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>\n</header>\n<pre><code><span class=\"line highlight\"><span class=\"line-number\">1</span><span class=\"line-text\">public string ExampleFunction(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">3</span><span class=\"line-text\">    // Example comment</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">4</span><span class=\"line-text\">    return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">}</span></span></code></pre>\n</div>", 
                 "all");
         }

@@ -98,6 +98,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End line number &quot;{0}&quot; with associated start line number &quot;{1}&quot; is invalid. Unless an end line number is -1, it cannot be less than its associated start line number..
+        /// </summary>
+        internal static string ArgumentException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber {
+            get {
+                return ResourceManager.GetString("ArgumentException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If endLineNumber is not -1, it must be larger than or equal to startLineNumber..
         /// </summary>
         internal static string ArgumentException_EndLineNumberMustNotBeLessThanStartLineNumber {
@@ -116,15 +125,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid end line &quot;{0}&quot;. If end line isn&apos;t -1, it must be greater than or equal to start line, &quot;{1}&quot;..
-        /// </summary>
-        internal static string ArgumentException_InvalidEndLine {
-            get {
-                return ResourceManager.GetString("ArgumentException_InvalidEndLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &quot;{0}&quot; has the value &quot;{1}&quot;, which is not a valid value for the enum &quot;{2}&quot;..
         /// </summary>
         internal static string ArgumentException_InvalidEnumArgument {
@@ -134,20 +134,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid start line &quot;{0}&quot;. Start line must be greater than 0..
-        /// </summary>
-        internal static string ArgumentException_InvalidStartLine {
-            get {
-                return ResourceManager.GetString("ArgumentException_InvalidStartLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invalid start line number &quot;{0}&quot;. Start line number must be greater than 0..
         /// </summary>
         internal static string ArgumentException_InvalidStartLineNumber {
             get {
                 return ResourceManager.GetString("ArgumentException_InvalidStartLineNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; is not a valid line number. Line numbers must be greater than 0..
+        /// </summary>
+        internal static string ArgumentException_LineNumberMustBeGreaterThan0 {
+            get {
+                return ResourceManager.GetString("ArgumentException_LineNumberMustBeGreaterThan0", resourceCulture);
             }
         }
         
@@ -215,7 +215,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Count cannot be negative or greater than the number of empty elements in buffer..
+        ///   Looks up a localized string similar to Value cannot be negative or greater than the number of empty elements in buffer..
         /// </summary>
         internal static string ArgumentOutOfRangeException_CountCannotBeNegativeOrGreaterThanTheNumberOfEmptyElementsInBuffer {
             get {

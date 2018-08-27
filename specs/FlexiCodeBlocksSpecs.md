@@ -262,14 +262,14 @@ FlexiOptionsBlocks
     "renderLineNumbers": true,
     "lineNumberRanges": [
         {
-            "startLine": 1,
-            "endLine": 8,
-            "startLineNumber": 1
+            "startLineNumber": 1,
+            "endLineNumber": 8,
+            "firstLineNumber": 1
         },
         {
-            "startLine": 11,
-            "endLine": -1,
-            "startLineNumber": 32
+            "startLineNumber": 11,
+            "endLineNumber": -1,
+            "firstLineNumber": 32
         }
     ]
 }
@@ -326,12 +326,12 @@ FlexiOptionsBlocks
 @{
     "highlightLineRanges": [
         {
-            "startLine": 1,
-            "endLine": 1
+            "startLineNumber": 1,
+            "endLineNumber": 1
         },
         {
-            "startLine": 3,
-            "endLine": 4
+            "startLineNumber": 3,
+            "endLineNumber": 4
         }
     ]
 }
