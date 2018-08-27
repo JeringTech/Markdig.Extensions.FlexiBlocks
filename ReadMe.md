@@ -7,12 +7,13 @@
 ## Overview
 FlexiBlocks is a collection of [Markdig](https://github.com/lunet-io/markdig) extensions. It is a [work in progress](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/ThingsToDo.md).
 
-The following are somewhat complete FlexiBlock extensions (the specs all pass, but the text in the following documents may be outdated):
-- [FlexiOptionsBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/Specs/FlexiOptionsBlocksSpecs.md)
-- [FlexiAlertBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/Specs/FlexiAlertBlocksSpecs.md)
-- [FlexiCodeBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/Specs/FlexiCodeBlocksSpecs.md)
-- [FlexiTableBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/Specs/FlexiTableBlocksSpecs.md)
-- [FlexiSectionBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/Specs/FlexiSectionBlocksSpecs.md)
+The following are somewhat complete FlexiBlock extensions (the specs all pass, but spec descriptions are unpolished and in some cases, outdated):
+- [FlexiOptionsBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md)
+- [FlexiCodeBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiCodeBlocksSpecs.md)
+- [FlexiIncludeBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiIncludeBlocksSpecs.md)
+- [FlexiAlertBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiAlertBlocksSpecs.md)
+- [FlexiTableBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiTableBlocksSpecs.md)
+- [FlexiSectionBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiSectionBlocksSpecs.md)
 
 ## About
 Follow [@JeremyTCD](https://twitter.com/JeremyTCD) for updates.
