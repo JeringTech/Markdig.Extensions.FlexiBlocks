@@ -8,15 +8,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
     public class LineNumberRangeUnitTests
     {
         [Theory]
-        [MemberData(nameof(Constructor_ThrowsExceptionIfStartLineNumberIsInvalid_Data))]
-        public void Constructor_ThrowsExceptionIfEndLineIsInvalid(int startLineNumber)
+        [MemberData(nameof(Constructor_ThrowsExceptionIfFirstLineNumberIsInvalid_Data))]
+        public void Constructor_ThrowsExceptionIfFirstLineNumberIsInvalid(int firstLineNumber)
         {
             // Act and assert
-            ArgumentException result = Assert.Throws<ArgumentException>(() => new LineNumberRange(1, 1, startLineNumber));
-            Assert.Equal(string.Format(Strings.ArgumentException_InvalidStartLineNumber, startLineNumber), result.Message);
+            ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => new LineNumberRange(1, 1, firstLineNumber));
+            Assert.Equal(string.Format(Strings.ArgumentException_LineNumberMustBeGreaterThan0, firstLineNumber) + "\nParameter name: firstLineNumber", 
+                result.Message,
+                ignoreLineEndingDifferences: true);
         }
 
-        public static IEnumerable<object[]> Constructor_ThrowsExceptionIfStartLineNumberIsInvalid_Data()
+        public static IEnumerable<object[]> Constructor_ThrowsExceptionIfFirstLineNumberIsInvalid_Data()
         {
             return new object[][]
             {
@@ -29,31 +31,31 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         public void Constructor_CorrectlyAssignsValuesIfSuccessful()
         {
             // Arrange
-            const int dummyStartLine = 1;
-            const int dummyEndLine = 2;
-            const int dummyStartLineNumber = 3;
+            const int dummyStartLineNumber = 1;
+            const int dummyEndLineNumber = 2;
+            const int dummyFirstLineNumber = 3;
 
             // Act
-            var result = new LineNumberRange(dummyStartLine, dummyEndLine, dummyStartLineNumber);
+            var result = new LineNumberRange(dummyStartLineNumber, dummyEndLineNumber, dummyFirstLineNumber);
 
             // Assert
-            Assert.Equal(dummyStartLine, result.LineRange.StartLine);
-            Assert.Equal(dummyEndLine, result.LineRange.EndLine);
-            Assert.Equal(dummyStartLineNumber, result.StartLineNumber);
+            Assert.Equal(dummyStartLineNumber, result.LineRange.StartLine);
+            Assert.Equal(dummyEndLineNumber, result.LineRange.EndLine);
+            Assert.Equal(dummyFirstLineNumber, result.FirstLineNumber);
         }
 
         [Theory]
-        [MemberData(nameof(EndLineNumber_ReturnsEndLineNumber_Data))]
-        public void EndLineNumber_ReturnsEndLineNumber(int dummyStartLine, int dummyEndLine, int dummyStartLineNumber, int expectedEndLineNumber)
+        [MemberData(nameof(LastLineNumber_ReturnsLastLineNumber_Data))]
+        public void LastLineNumber_ReturnsLastLineNumber(int dummyStartLine, int dummyEndLine, int dummyStartLineNumber, int expectedLastLineNumber)
         {
             // Arrange
             var lineNumberRange = new LineNumberRange(dummyStartLine, dummyEndLine, dummyStartLineNumber);
 
             // Act and assert
-            Assert.Equal(expectedEndLineNumber, lineNumberRange.EndLineNumber);
+            Assert.Equal(expectedLastLineNumber, lineNumberRange.LastLineNumber);
         }
 
-        public static IEnumerable<object[]> EndLineNumber_ReturnsEndLineNumber_Data()
+        public static IEnumerable<object[]> LastLineNumber_ReturnsLastLineNumber_Data()
         {
             return new object[][]
             {

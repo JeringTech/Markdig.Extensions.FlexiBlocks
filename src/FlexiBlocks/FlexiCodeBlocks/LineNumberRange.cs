@@ -8,42 +8,49 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     public class LineNumberRange
     {
         /// <summary>
-        /// Creates an instance of type <see cref="LineNumberRange"/>.
+        /// Creates a <see cref="LineNumberRange"/> instance.
         /// </summary>
-        /// <param name="startLine">Start line of range that this <see cref="LineNumberRange"/> applies to. Must be greater than 0.</param>
-        /// <param name="endLine">End line of range that his <see cref="LineNumberRange"/> applies to. -1 denotes a range that extends to infinity. If 
-        /// <paramref name="endLine"/> is not -1, it must be greater than or equal to <paramref name="startLine"/></param>
-        /// <param name="startLineNumber">Starting line number for the lines specified by <paramref name="startLine"/> and <paramref name="endLine"/>. Must
+        /// <param name="startLineNumber">Start line number of the range of lines that this <see cref="LineNumberRange"/> applies to. Must be greater than 0.</param>
+        /// <param name="endLineNumber">End line number of the range of lines that his <see cref="LineNumberRange"/> applies to. -1 denotes a range that extends to infinity. If 
+        /// <paramref name="endLineNumber"/> is not -1, it must be greater than or equal to <paramref name="startLineNumber"/></param>
+        /// <param name="firstLineNumber">Line number of the first line in the range of lines that this <see cref="LineNumberRange"/> applies to. Must
         /// be greater than 0.</param>
-        public LineNumberRange(int startLine, int endLine, int startLineNumber)
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="firstLineNumber"/> is less than 1.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="startLineNumber"/> is less than 1.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="endLineNumber"/> is not -1 and is less than <paramref name="startLineNumber"/>.</exception>
+        public LineNumberRange(int startLineNumber, int endLineNumber, int firstLineNumber)
         {
-            if (startLineNumber < 1)
+            if (firstLineNumber < 1)
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_InvalidStartLineNumber, startLineNumber));
+                throw new ArgumentOutOfRangeException(nameof(firstLineNumber), 
+                    string.Format(Strings.ArgumentException_LineNumberMustBeGreaterThan0, firstLineNumber));
             }
 
-            LineRange = new LineRange(startLine, endLine);
-            StartLineNumber = startLineNumber;
+            LineRange = new LineRange(startLineNumber, endLineNumber);
+            FirstLineNumber = firstLineNumber;
         }
 
         /// <summary>
-        /// Gets the value that will be used as the start line number for the lines specified by <see cref="LineRange"/>.
+        /// Gets the line number of the first line in the range of lines that this instance applies to.
         /// </summary>
-        public int StartLineNumber { get; }
+        public int FirstLineNumber { get; }
 
         /// <summary>
-        /// Gets the value specifying the last line number for the line number range.
+        /// Gets the line number of the last line in the range of lines that this instance applies to.
         /// </summary>
-        public int EndLineNumber => LineRange.NumLines == -1 ? -1 : StartLineNumber + LineRange.NumLines - 1;
+        public int LastLineNumber => LineRange.NumLines == -1 ? -1 : FirstLineNumber + LineRange.NumLines - 1;
 
         /// <summary>
-        /// Gets the <see cref="LineRange"/> that specifies the range of lines to apply line numbers to.
+        /// Gets the <see cref="LineRange"/> representing the range of lines that this instance applies to.
         /// </summary>
         public LineRange LineRange { get; }
 
+        /// <summary>
+        /// Returns the string representation of this instance.
+        /// </summary>
         public override string ToString()
         {
-            return $"Lines: {LineRange}, Line numbers: {StartLineNumber} - {EndLineNumber}";
+            return $"Lines: {LineRange}, Line numbers: {FirstLineNumber} - {LastLineNumber}";
         }
     }
 }
