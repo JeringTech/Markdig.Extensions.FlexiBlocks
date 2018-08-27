@@ -15,5 +15,7 @@ The following are somewhat complete FlexiBlock extensions (the specs all pass, b
 - [FlexiTableBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiTableBlocksSpecs.md)
 - [FlexiSectionBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiSectionBlocksSpecs.md)
 
+Note that the latest additions may not be present in the latest nuget package. Build the solution locally to test them out.
+
 ## About
 Follow [@JeremyTCD](https://twitter.com/JeremyTCD) for updates.
