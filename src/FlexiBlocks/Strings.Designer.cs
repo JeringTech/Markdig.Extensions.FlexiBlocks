@@ -62,15 +62,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; must be in interval {1}..
-        /// </summary>
-        internal static string ArgumentException_ArgumentMustBeInInterval {
-            get {
-                return ResourceManager.GetString("ArgumentException_ArgumentMustBeInInterval", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &quot;{0}&quot; must be larger than 0..
         /// </summary>
         internal static string ArgumentException_ArgumentMustBeLargerThan0 {
@@ -103,15 +94,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         internal static string ArgumentException_BaseUriMustBeDefinedIfSourceIsNotAnAbsoluteUri {
             get {
                 return ResourceManager.GetString("ArgumentException_BaseUriMustBeDefinedIfSourceIsNotAnAbsoluteUri", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The parameter &quot;{0}&quot; cannot be null, white space or an empty string..
-        /// </summary>
-        internal static string ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString {
-            get {
-                return ResourceManager.GetString("ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString", resourceCulture);
             }
         }
         
@@ -197,11 +179,57 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Text has length &quot;{0}&quot;, start char index &quot;{1}&quot; is out of range..
+        /// </summary>
+        internal static string ArgumentException_StartCharIndexIsOutOfRange {
+            get {
+                return ResourceManager.GetString("ArgumentException_StartCharIndexIsOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  URI  &quot;{0}&quot; has unsupported scheme &quot;{1}&quot;..
         /// </summary>
         internal static string ArgumentException_UriSchemeUnsupported {
             get {
                 return ResourceManager.GetString("ArgumentException_UriSchemeUnsupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value cannot not be null or an empty string..
+        /// </summary>
+        internal static string ArgumentException_ValueCannotBeNullOrAnEmptyString {
+            get {
+                return ResourceManager.GetString("ArgumentException_ValueCannotBeNullOrAnEmptyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value cannot be null, white space or an empty string..
+        /// </summary>
+        internal static string ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString {
+            get {
+                return ResourceManager.GetString("ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Count cannot be negative or greater than the number of empty elements in buffer..
+        /// </summary>
+        internal static string ArgumentOutOfRangeException_CountCannotBeNegativeOrGreaterThanTheNumberOfEmptyElementsInBuffer {
+            get {
+                return ResourceManager.GetString("ArgumentOutOfRangeException_CountCannotBeNegativeOrGreaterThanTheNumberOfEmptyEle" +
+                        "mentsInBuffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value must be within the interval containing &quot;{0}&quot;&apos;s indices..
+        /// </summary>
+        internal static string ArgumentOutOfRangeException_ValueMustBeWithinTheIntervalContainingBuffersIndices {
+            get {
+                return ResourceManager.GetString("ArgumentOutOfRangeException_ValueMustBeWithinTheIntervalContainingBuffersIndices", resourceCulture);
             }
         }
         

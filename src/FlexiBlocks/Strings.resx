@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ArgumentException_ArgumentMustBeInInterval" xml:space="preserve">
-    <value>"{0}" must be in interval {1}.</value>
-  </data>
   <data name="ArgumentException_ArgumentMustBeLargerThan0" xml:space="preserve">
     <value>"{0}" must be larger than 0.</value>
   </data>
@@ -131,9 +128,6 @@
   </data>
   <data name="ArgumentException_BaseUriMustBeDefinedIfSourceIsNotAnAbsoluteUri" xml:space="preserve">
     <value>Since source "{0}" is not an absolute URI, base URI cannot be null, white space or an empty string.</value>
-  </data>
-  <data name="ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString" xml:space="preserve">
-    <value>The parameter "{0}" cannot be null, white space or an empty string.</value>
   </data>
   <data name="ArgumentException_EndLineNumberMustNotBeLessThanStartLineNumber" xml:space="preserve">
     <value>If endLineNumber is not -1, it must be larger than or equal to startLineNumber.</value>
@@ -162,8 +156,23 @@
   <data name="ArgumentException_OnlyOneArgumentCanBeDefined" xml:space="preserve">
     <value>Only one of "{0}" of "{1}" can be defined.</value>
   </data>
+  <data name="ArgumentException_StartCharIndexIsOutOfRange" xml:space="preserve">
+    <value>Text has length "{0}", start char index "{1}" is out of range.</value>
+  </data>
   <data name="ArgumentException_UriSchemeUnsupported" xml:space="preserve">
     <value> URI  "{0}" has unsupported scheme "{1}".</value>
+  </data>
+  <data name="ArgumentException_ValueCannotBeNullOrAnEmptyString" xml:space="preserve">
+    <value>Value cannot not be null or an empty string.</value>
+  </data>
+  <data name="ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString" xml:space="preserve">
+    <value>Value cannot be null, white space or an empty string.</value>
+  </data>
+  <data name="ArgumentOutOfRangeException_CountCannotBeNegativeOrGreaterThanTheNumberOfEmptyElementsInBuffer" xml:space="preserve">
+    <value>Count cannot be negative or greater than the number of empty elements in buffer.</value>
+  </data>
+  <data name="ArgumentOutOfRangeException_ValueMustBeWithinTheIntervalContainingBuffersIndices" xml:space="preserve">
+    <value>Value must be within the interval containing "{0}"'s indices.</value>
   </data>
   <data name="ContentRetrieverException_FailedAfterMultipleAttempts" xml:space="preserve">
     <value>Multiple attempts retrieve content from "{0}" have failed. Please ensure that the Url is valid and that your network connection is stable. Enable debug level logging and try again for more information on why requests are failing.</value>
