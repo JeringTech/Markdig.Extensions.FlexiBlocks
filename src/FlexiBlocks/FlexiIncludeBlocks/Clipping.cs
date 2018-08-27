@@ -22,10 +22,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// the final number of leading white space characters will be 3. This argument must be in the interval [0, 1]. Defaults to 1.</param>
         /// <param name="beforeContent">The content to be prepended to the clipping.</param>
         /// <param name="afterContent">The content to be appended to the clipping.</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="startLineNumber"/> is less than 1.</exception>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="endLineNumber"/> is not -1 and is less than <paramref name="startLineNumber"/>.</exception>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="dedentLength"/> is negative.</exception>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="collapseRatio"/> is not in interval [0, 1].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="startLineNumber"/> is less than 1.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="endLineNumber"/> is not -1 and is less than <paramref name="startLineNumber"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="dedentLength"/> is negative.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="collapseRatio"/> is not within range [0, 1].</exception>
         public Clipping(int startLineNumber = 1, int endLineNumber = -1,
             string startDemarcationLineSubstring = null, string endDemarcationLineSubstring = null,
             int dedentLength = 0, float collapseRatio = 1,
@@ -33,22 +33,26 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         {
             if(startLineNumber < 1)
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_ArgumentMustBeLargerThan0, nameof(startLineNumber)));
+                throw new ArgumentOutOfRangeException(nameof(startLineNumber),
+                    string.Format(Strings.ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0, startLineNumber));
             }
 
             if (endLineNumber != -1 && endLineNumber < startLineNumber)
             {
-                throw new ArgumentException(Strings.ArgumentException_EndLineNumberMustNotBeLessThanStartLineNumber);
+                throw new ArgumentOutOfRangeException(nameof(endLineNumber),
+                    string.Format(Strings.ArgumentOutOfRangeException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, endLineNumber, startLineNumber));
             }
 
             if(dedentLength < 0)
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_ArgumentMustNotBeNegative, nameof(dedentLength)));
+                throw new ArgumentOutOfRangeException(nameof(dedentLength),
+                    string.Format(Strings.ArgumentOutOfRangeException_ValueCannotBeNegative, dedentLength));
             }
 
             if (collapseRatio < 0 || collapseRatio > 1)
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_ArgumentMustBeInInterval, nameof(collapseRatio), "[0, 1]"));
+                throw new ArgumentOutOfRangeException(nameof(collapseRatio),
+                    string.Format(Strings.ArgumentOutOfRangeException_ValueMustBeWithinRange, "[0, 1]", collapseRatio));
             }
 
             StartLineNumber = startLineNumber;
