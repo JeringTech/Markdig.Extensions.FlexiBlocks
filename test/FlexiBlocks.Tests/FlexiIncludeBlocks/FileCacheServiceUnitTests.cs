@@ -29,7 +29,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             ArgumentException result = Assert.Throws<ArgumentException>(() => fileCacheService.TryGetCacheFile(dummyIdentifier, null));
-            Assert.Equal(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, "identifier"), result.Message);
+            Assert.Equal(string.Format(Strings.ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString, "identifier"), result.Message);
         }
 
         public static IEnumerable<object[]> TryGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data()
@@ -52,7 +52,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             ArgumentException result = Assert.Throws<ArgumentException>(() => fileCacheService.TryGetCacheFile(dummyIdentifier, dummyCacheDirectory));
-            Assert.Equal(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, "cacheDirectory"), result.Message);
+            Assert.Equal(string.Format(Strings.ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString, "cacheDirectory"), result.Message);
         }
 
         public static IEnumerable<object[]> TryGetCacheFile_ThrowsArgumentExceptionIfCacheDirectoryIsNullWhiteSpaceOrAnEmptyString_Data()
@@ -155,7 +155,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             ArgumentException result = Assert.Throws<ArgumentException>(() => fileCacheService.CreateOrGetCacheFile(dummyIdentifier, null));
-            Assert.Equal(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, "identifier"), result.Message);
+            Assert.Equal(string.Format(Strings.ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString, "identifier"), result.Message);
         }
 
         public static IEnumerable<object[]> CreateOrGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data()
@@ -178,7 +178,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             ArgumentException result = Assert.Throws<ArgumentException>(() => fileCacheService.CreateOrGetCacheFile(dummyIdentifier, dummyCacheDirectory));
-            Assert.Equal(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, "cacheDirectory"), result.Message);
+            Assert.Equal(string.Format(Strings.ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString, "cacheDirectory"), result.Message);
         }
 
         public static IEnumerable<object[]> CreateOrGetCacheFile_ThrowsArgumentExceptionIfCacheDirectoryIsNullWhiteSpaceOrAnEmptyString_Data()

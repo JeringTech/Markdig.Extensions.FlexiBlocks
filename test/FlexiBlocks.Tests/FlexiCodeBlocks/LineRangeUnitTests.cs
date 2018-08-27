@@ -47,7 +47,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Act and assert
             ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => new LineRange(dummyStartLine, 0));
-            Assert.Equal(string.Format(Strings.ArgumentException_LineNumberMustBeGreaterThan0, dummyStartLine) + "\nParameter name: startLineNumber", 
+            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0, dummyStartLine) + "\nParameter name: startLineNumber", 
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
@@ -67,7 +67,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Act and assert
             ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => new LineRange(dummyStartLineNumber, dummyEndLineNumber));
-            Assert.Equal(string.Format(Strings.ArgumentException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, dummyEndLineNumber, dummyStartLineNumber) + "\nParameter name: endLineNumber",
+            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, dummyEndLineNumber, dummyStartLineNumber) + "\nParameter name: endLineNumber",
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }

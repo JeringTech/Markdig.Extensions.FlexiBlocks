@@ -35,7 +35,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             ArgumentException result = Assert.Throws<ArgumentException>(() => testSubject.GetContent(dummySource));
-            Assert.Equal(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, "source"), result.Message);
+            Assert.Equal(string.Format(Strings.ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString, "source"), result.Message);
         }
 
         public static IEnumerable<object[]> GetContent_ThrowsArgumentExceptionIfSourceIsNullWhiteSpaceOrAnEmptyString_Data()

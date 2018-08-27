@@ -63,7 +63,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         {
             if (string.IsNullOrWhiteSpace(source))
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, nameof(source)));
+                throw new ArgumentException(string.Format(Strings.ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString, nameof(source)));
             }
 
             if (!Uri.TryCreate(source, UriKind.Absolute, out Uri uri)) // source is not an absolute URI

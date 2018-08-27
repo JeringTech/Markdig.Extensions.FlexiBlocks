@@ -20,13 +20,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             if(startLineNumber < 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(startLineNumber),
-                    string.Format(Strings.ArgumentException_LineNumberMustBeGreaterThan0, startLineNumber));
+                    string.Format(Strings.ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0, startLineNumber));
             }
 
             if(endLineNumber != -1 && endLineNumber < startLineNumber)
             {
                 throw new ArgumentOutOfRangeException(nameof(endLineNumber),
-                    string.Format(Strings.ArgumentException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, endLineNumber, startLineNumber));
+                    string.Format(Strings.ArgumentOutOfRangeException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, endLineNumber, startLineNumber));
             }
 
             StartLineNumber = startLineNumber;

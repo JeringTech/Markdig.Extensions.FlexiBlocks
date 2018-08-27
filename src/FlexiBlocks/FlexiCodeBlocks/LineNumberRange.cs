@@ -23,7 +23,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             if (firstLineNumber < 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(firstLineNumber), 
-                    string.Format(Strings.ArgumentException_LineNumberMustBeGreaterThan0, firstLineNumber));
+                    string.Format(Strings.ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0, firstLineNumber));
             }
 
             LineRange = new LineRange(startLineNumber, endLineNumber);

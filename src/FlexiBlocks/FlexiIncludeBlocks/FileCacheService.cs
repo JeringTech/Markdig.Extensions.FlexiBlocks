@@ -36,12 +36,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         {
             if (string.IsNullOrWhiteSpace(identifier))
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, nameof(identifier)));
+                throw new ArgumentException(string.Format(Strings.ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString, nameof(identifier)));
             }
 
             if (string.IsNullOrWhiteSpace(cacheDirectory))
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, nameof(cacheDirectory)));
+                throw new ArgumentException(string.Format(Strings.ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString, nameof(cacheDirectory)));
             }
 
             string filePath = CreatePath(identifier, cacheDirectory);
@@ -72,12 +72,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         {
             if (string.IsNullOrWhiteSpace(identifier))
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, nameof(identifier)));
+                throw new ArgumentException(string.Format(Strings.ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString, nameof(identifier)));
             }
 
             if (string.IsNullOrWhiteSpace(cacheDirectory))
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_CannotBeNullWhiteSpaceOrAnEmptyString, nameof(cacheDirectory)));
+                throw new ArgumentException(string.Format(Strings.ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString, nameof(cacheDirectory)));
             }
 
             // Ensure that cache directory string is valid and that the directory exists

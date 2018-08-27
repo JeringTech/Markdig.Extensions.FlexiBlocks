@@ -62,24 +62,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; must be larger than 0..
-        /// </summary>
-        internal static string ArgumentException_ArgumentMustBeLargerThan0 {
-            get {
-                return ResourceManager.GetString("ArgumentException_ArgumentMustBeLargerThan0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; cannot be negative..
-        /// </summary>
-        internal static string ArgumentException_ArgumentMustNotBeNegative {
-            get {
-                return ResourceManager.GetString("ArgumentException_ArgumentMustNotBeNegative", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Base URI must be absolute , received &quot;{0}&quot;..
         /// </summary>
         internal static string ArgumentException_BaseUriMustBeAbsolute {
@@ -98,24 +80,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to End line number &quot;{0}&quot; with associated start line number &quot;{1}&quot; is invalid. Unless an end line number is -1, it cannot be less than its associated start line number..
-        /// </summary>
-        internal static string ArgumentException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber {
-            get {
-                return ResourceManager.GetString("ArgumentException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to If endLineNumber is not -1, it must be larger than or equal to startLineNumber..
-        /// </summary>
-        internal static string ArgumentException_EndLineNumberMustNotBeLessThanStartLineNumber {
-            get {
-                return ResourceManager.GetString("ArgumentException_EndLineNumberMustNotBeLessThanStartLineNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The directory to be used for file caching, &quot;{0}&quot; is invalid. Refer to the inner exception for details. .
         /// </summary>
         internal static string ArgumentException_InvalidCacheDirectory {
@@ -130,24 +94,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         internal static string ArgumentException_InvalidEnumArgument {
             get {
                 return ResourceManager.GetString("ArgumentException_InvalidEnumArgument", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid start line number &quot;{0}&quot;. Start line number must be greater than 0..
-        /// </summary>
-        internal static string ArgumentException_InvalidStartLineNumber {
-            get {
-                return ResourceManager.GetString("ArgumentException_InvalidStartLineNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; is not a valid line number. Line numbers must be greater than 0..
-        /// </summary>
-        internal static string ArgumentException_LineNumberMustBeGreaterThan0 {
-            get {
-                return ResourceManager.GetString("ArgumentException_LineNumberMustBeGreaterThan0", resourceCulture);
             }
         }
         
@@ -221,6 +167,43 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
             get {
                 return ResourceManager.GetString("ArgumentOutOfRangeException_CountCannotBeNegativeOrGreaterThanTheNumberOfEmptyEle" +
                         "mentsInBuffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End line number &quot;{0}&quot; with associated start line number &quot;{1}&quot; is invalid. Unless an end line number is -1, it cannot be less than its associated start line number..
+        /// </summary>
+        internal static string ArgumentOutOfRangeException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber {
+            get {
+                return ResourceManager.GetString("ArgumentOutOfRangeException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartL" +
+                        "ineNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; is not a valid line number. Line numbers must be greater than 0..
+        /// </summary>
+        internal static string ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0 {
+            get {
+                return ResourceManager.GetString("ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value cannot be negative. The specified value &quot;{0}&quot; is invalid..
+        /// </summary>
+        internal static string ArgumentOutOfRangeException_ValueCannotBeNegative {
+            get {
+                return ResourceManager.GetString("ArgumentOutOfRangeException_ValueCannotBeNegative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value must be within range {0}. The specified value &quot;{1}&quot; is invalid..
+        /// </summary>
+        internal static string ArgumentOutOfRangeException_ValueMustBeWithinRange {
+            get {
+                return ResourceManager.GetString("ArgumentOutOfRangeException_ValueMustBeWithinRange", resourceCulture);
             }
         }
         
