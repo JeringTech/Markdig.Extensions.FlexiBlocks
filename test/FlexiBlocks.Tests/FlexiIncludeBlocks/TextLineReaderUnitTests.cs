@@ -158,7 +158,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                     "line 1\nline 2\nline 3\n",
                     0,
                     3,
-                    "line 1line 2line 3"
+                    "line 1\nline 2\nline 3\n"
                 },
                 // Carraige returns only
                 new object[]{
@@ -166,7 +166,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                     "line 1\rline 2\rline 3\r",
                     0,
                     3,
-                    "line 1line 2line 3"
+                    "line 1\nline 2\nline 3\n"
                 },
                 // Carriage returns and line feeds
                 new object[]{
@@ -174,15 +174,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                     "line 1\rline 2\r\nline 3\n",
                     0,
                     3,
-                    "line 1line 2line 3"
+                    "line 1\nline 2\nline 3\n"
                 },
-                // Last line ends without new line characters
+                // Last line ends without an end of line character
                 new object[]{
                     32,
                     "line 1\nline 2\nline 3",
                     0,
                     3,
-                    "line 1line 2line 3"
+                    "line 1\nline 2\nline 3"
                 },
                 // Non-zero start char index
                 new object[]{
@@ -190,9 +190,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                     "line 1\nline 2\nline 3",
                     7,
                     2,
-                    "line 2line 3"
+                    "line 2\nline 3"
                 },
-                // No new lines
+                // Single line
                 new object[]{
                     32,
                     "line 1",
@@ -206,7 +206,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                     "line 1\nline 2\nline 3\n",
                     0,
                     3,
-                    "line 1line 2line 3"
+                    "line 1\nline 2\nline 3\n"
                 }
             };
         }

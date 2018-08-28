@@ -52,18 +52,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="count"/> is negative or greater than the number of elements in <paramref name="buffer"/>.</exception>
         public override int Read(char[] buffer, int index, int count)
         {
-            if(buffer == null)
+            if (buffer == null)
             {
                 throw new ArgumentNullException(nameof(buffer));
             }
 
-            if(index < 0 || index >= buffer.Length)
+            if (index < 0 || index >= buffer.Length)
             {
                 throw new ArgumentOutOfRangeException(nameof(index),
                     string.Format(Strings.ArgumentOutOfRangeException_ValueMustBeWithinTheIntervalContainingBuffersIndices, nameof(buffer)));
             }
 
-            if(count < 0 || count > buffer.Length - index)
+            if (count < 0 || count > buffer.Length - index)
             {
                 throw new ArgumentOutOfRangeException(nameof(count),
                     Strings.ArgumentOutOfRangeException_CountCannotBeNegativeOrGreaterThanTheNumberOfEmptyElementsInBuffer);
@@ -77,33 +77,28 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
 
             int numChars = 0;
 
-            while(true)
+            while (true)
             {
-                char currentChar = _text[_currentCharIndex];
-                 _currentCharIndex++;
+                char currentChar = _text[_currentCharIndex++];
 
-                if (currentChar == '\n')
+                if (currentChar == '\n' || currentChar == '\r')
                 {
-                    LinesRead++;
-                    return numChars;
-                }
-
-                // Consider \r alone to denote a new line, TextReader.ReadLine does this too.
-                if (currentChar == '\r')
-                {
-                    if (_currentCharIndex < _text.Length && _text[_currentCharIndex] == '\n')
+                    // Skip \n characters that come immediately after \r characters. 
+                    // Note that \r alone denotes a new line as is the case in TextReader.ReadLine.
+                    if (currentChar == '\r' && _currentCharIndex < _text.Length && _text[_currentCharIndex] == '\n')
                     {
                         _currentCharIndex++;
                     }
 
+                    buffer[index + numChars++] = '\n';
                     LinesRead++;
                     return numChars;
                 }
 
                 // Current char is not a new line character, add it to the buffer
-                buffer[index + numChars] = currentChar;
-                numChars++;
+                buffer[index + numChars++] = currentChar;
 
+                // No more chars to read
                 if (_currentCharIndex >= _text.Length)
                 {
                     LinesRead++;
