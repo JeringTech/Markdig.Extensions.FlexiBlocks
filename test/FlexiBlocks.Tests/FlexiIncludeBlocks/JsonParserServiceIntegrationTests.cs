@@ -1,4 +1,5 @@
 ﻿using Markdig.Helpers;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using Xunit;
 
@@ -6,6 +7,45 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
     public class JsonParserServiceIntegrationTests
     {
+        [Theory]
+        [MemberData(nameof(Parse_ThrowsJsonExceptionIfJsonCannotBeDeserialized_Data))]
+        public void Parse_ThrowsJsonExceptionIfJsonCannotBeDeserialized(string dummyJson)
+        {
+            // Arrange
+            var dummyStringSlice = new StringSlice(dummyJson, 0, dummyJson.Length - 1);
+            var testSubject = new JsonParserService();
+
+            // Act and assert
+            JsonException result = Assert.ThrowsAny<JsonException>(() => testSubject.Parse<DummyModel>(dummyStringSlice));
+        }
+
+        public static IEnumerable<object[]> Parse_ThrowsJsonExceptionIfJsonCannotBeDeserialized_Data()
+        {
+            return new object[][]
+            {
+                // Missing char (comma after dummy value 1)
+                new object[]{
+                    @"{
+    ""Property1"": ""dummyValue1""
+    ""Property2"": ""dummyValue2""
+}",
+                },
+                // Extra char
+                new object[]{
+                    @"{
+    ""Property1"": ""dummyValue1"", a
+    ""Property2"": ""dummyValue2""
+}",
+                },
+                // No closing bracket
+                new object[]{
+                    @"{
+""Property1"": ""dummyValue1"",
+""Property2"": ""dummyValue2"""
+                }
+            };
+        }
+
         [Theory]
         [MemberData(nameof(Parse_ParsesJson_Data))]
         public void Parse_ParsesJson(string dummyJson, int dummyStartIndex, int expectedNumLines)
