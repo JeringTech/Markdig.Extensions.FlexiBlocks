@@ -101,6 +101,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// </returns>
         public override BlockState TryContinue(BlockProcessor processor, Block block)
         {
+            // TODO this doesn't work if a child block is a code block and a line beginning with # exists in the code
+            // Possible solution:
+            //  - Maintain a tree of SectionBlocks
+            //  - Always continue
+            //  - When a new header is opened, traverse the tree up till node that has level > new node, close all of its children
+
             // If first non-whitespace char is not #, continue
             if (processor.CurrentChar != _headingBlockParser.OpeningCharacters[0])
             {
