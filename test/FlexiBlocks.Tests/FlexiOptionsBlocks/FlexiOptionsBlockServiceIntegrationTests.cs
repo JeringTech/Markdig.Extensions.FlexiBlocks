@@ -10,10 +10,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
 {
     public class FlexiOptionsBlockServiceIntegrationTests
     {
-        private MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
+        private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
 
         [Fact]
-        public void TryExtractOptions_ReturnsNullIfNoJsonOptionsBlockExists()
+        public void TryExtractOptions_ReturnsNullIfNoFlexiOptionsBlockExists()
         {
             // Arrange
             const int dummyStartLine = 1;
@@ -38,7 +38,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             const int dummyLine = 1;
             const int dummyStartLine = 1;
             const int dummyColumn = 2;
-            var dummyJsonOptionsBlock = new FlexiOptionsBlock(null)
+            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null)
             {
                 Lines = new StringLineGroup(dummyJson),
                 Line = dummyLine,
@@ -47,7 +47,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<FlexiOptionsBlockService> mockFlexiOptionsBlockService = _mockRepository.Create<FlexiOptionsBlockService>();
             mockFlexiOptionsBlockService.CallBase = true;
-            mockFlexiOptionsBlockService.Setup(j => j.TryGetFlexiOptionsBlock(dummyBlockProcessor, dummyStartLine)).Returns(dummyJsonOptionsBlock);
+            mockFlexiOptionsBlockService.Setup(j => j.TryGetFlexiOptionsBlock(dummyBlockProcessor, dummyStartLine)).Returns(dummyFlexiOptionsBlock);
 
             // Act and assert
             InvalidOperationException result = Assert.Throws<InvalidOperationException>(() =>
@@ -58,20 +58,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         }
 
         [Fact]
-        public void TryExtractOptions_ExtractsObjectFromJsonOptionsBlock()
+        public void TryExtractOptions_ExtractsObjectFromFlexiOptionsBlock()
         {
             // Arrange
             const string dummyValue1 = "value1";
             const int dummyStartLine = 1;
             const int dummyValue2 = 2;
-            var dummyJsonOptionsBlock = new FlexiOptionsBlock(null)
+            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null)
             {
                 Lines = new StringLineGroup($"{{\"Option1\": \"{dummyValue1}\", \"Option2\": {dummyValue2}}}")
             };
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<FlexiOptionsBlockService> mockFlexiOptionsBlockService = _mockRepository.Create<FlexiOptionsBlockService>();
             mockFlexiOptionsBlockService.CallBase = true;
-            mockFlexiOptionsBlockService.Setup(j => j.TryGetFlexiOptionsBlock(dummyBlockProcessor, dummyStartLine)).Returns(dummyJsonOptionsBlock);
+            mockFlexiOptionsBlockService.Setup(j => j.TryGetFlexiOptionsBlock(dummyBlockProcessor, dummyStartLine)).Returns(dummyFlexiOptionsBlock);
 
             // Act
             TestOptions result = mockFlexiOptionsBlockService.Object.TryExtractOptions<TestOptions>(dummyBlockProcessor, dummyStartLine);
@@ -83,7 +83,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         }
 
         [Fact]
-        public void TryPopulateOptions_ReturnsFalseIfNoJsonOptionsBlockExists()
+        public void TryPopulateOptions_ReturnsFalseIfNoFlexiOptionsBlockExists()
         {
             // Arrange
             int dummyLineIndex = 1;
@@ -110,7 +110,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             const int dummyLine = 1;
             const int dummyStartLine = 1;
             const int dummyColumn = 2;
-            var dummyJsonOptionsBlock = new FlexiOptionsBlock(null)
+            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null)
             {
                 Lines = new StringLineGroup(dummyJson),
                 Line = dummyLine,
@@ -119,7 +119,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<FlexiOptionsBlockService> mockFlexiOptionsBlockService = _mockRepository.Create<FlexiOptionsBlockService>();
             mockFlexiOptionsBlockService.CallBase = true;
-            mockFlexiOptionsBlockService.Setup(j => j.TryGetFlexiOptionsBlock(dummyBlockProcessor, dummyStartLine)).Returns(dummyJsonOptionsBlock);
+            mockFlexiOptionsBlockService.Setup(j => j.TryGetFlexiOptionsBlock(dummyBlockProcessor, dummyStartLine)).Returns(dummyFlexiOptionsBlock);
             var dummyTestOptions = new TestOptions();
 
             // Act and assert
@@ -130,13 +130,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         }
 
         [Fact]
-        public void TryPopulateOptions_PopulatesObjectFromJsonOptionsBlock()
+        public void TryPopulateOptions_PopulatesObjectFromFlexiOptionsBlock()
         {
             // Arrange
             const string dummyValue1 = "value1";
             const int dummyValue2 = 2;
             const int dummyStartLine = 1;
-            var dummyJsonOptionsBlock = new FlexiOptionsBlock(null)
+            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null)
             {
                 Lines = new StringLineGroup($"{{\"Option1\": \"{dummyValue1}\"}}")
             };
@@ -147,7 +147,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<FlexiOptionsBlockService> mockFlexiOptionsBlockService = _mockRepository.Create<FlexiOptionsBlockService>();
             mockFlexiOptionsBlockService.CallBase = true;
-            mockFlexiOptionsBlockService.Setup(j => j.TryGetFlexiOptionsBlock(dummyBlockProcessor, dummyStartLine)).Returns(dummyJsonOptionsBlock);
+            mockFlexiOptionsBlockService.Setup(j => j.TryGetFlexiOptionsBlock(dummyBlockProcessor, dummyStartLine)).Returns(dummyFlexiOptionsBlock);
 
             // Act
             mockFlexiOptionsBlockService.Object.TryPopulateOptions(dummyBlockProcessor, dummyTestOptions, dummyStartLine);
@@ -159,7 +159,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         }
 
         [Fact]
-        public void TryGetJsonOptionsBlock_ReturnsNullIfAJsonOptionsBlockDoesNotExist()
+        public void TryGetFlexiOptionsBlock_ReturnsNullIfAFlexiOptionsBlockDoesNotExist()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
@@ -173,53 +173,55 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         }
 
         [Fact]
-        public void TryGetJsonOptionsBlock_ThrowsExceptionIfJsonOptionsBlockDoesNotImmediatelyPrecedeCurrentLine()
+        public void TryGetFlexiOptionsBlock_ThrowsExceptionIfFlexiOptionsBlockDoesNotImmediatelyPrecedeCurrentLine()
         {
             // Arrange
             const string dummyJson = "dummyJson";
+            var dummyStringLineGroup = new StringLineGroup(dummyJson);
             const int dummyLine = 0;
-            const int dummyOptionsEndLine = 1;
             const int dummyColumn = 2;
-            var dummyJsonOptionsBlock = new FlexiOptionsBlock(null)
+            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null)
             {
                 Line = dummyLine,
-                EndLine = dummyOptionsEndLine,
                 Column = dummyColumn,
-                Lines = new StringLineGroup(dummyJson)
+                Lines = dummyStringLineGroup
             };
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Document.SetData(FlexiOptionsBlockParser.FLEXI_OPTIONS_BLOCK, dummyJsonOptionsBlock);
+            dummyBlockProcessor.Document.SetData(FlexiOptionsBlockParser.FLEXI_OPTIONS_BLOCK, dummyFlexiOptionsBlock);
             var flexiOptionsBlockService = new FlexiOptionsBlockService();
 
             // Act and Assert
             InvalidOperationException result = Assert.
-                Throws<InvalidOperationException>(() => 
-                    flexiOptionsBlockService.TryGetFlexiOptionsBlock(dummyBlockProcessor, dummyOptionsEndLine + 2));  // 1 line gap between options block and current line
+                Throws<InvalidOperationException>(() =>
+                    flexiOptionsBlockService.TryGetFlexiOptionsBlock(dummyBlockProcessor, dummyLine + dummyStringLineGroup.Count + 1));  // 1 line gap between options block and current line
             Assert.Equal(string.Format(Strings.InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBlock,
                 dummyJson,
                 dummyLine,
-                dummyColumn), 
+                dummyColumn),
                 result.Message);
         }
 
         [Fact]
-        public void TryGetJsonOptionsBlock_IfSuccessfulReturnsJsonOptionsBlockAndRemovesItFromDocumentData()
+        public void TryGetFlexiOptionsBlock_IfSuccessfulReturnsFlexiOptionsBlockAndRemovesItFromDocumentData()
         {
             // Arrange
-            const int dummyOptionsEndLine = 1;
-            var dummyJsonOptionsBlock = new FlexiOptionsBlock(null)
+            const string dummyJson = "dummyJson";
+            var dummyStringLineGroup = new StringLineGroup(dummyJson);
+            const int dummyLine = 0;
+            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null)
             {
-                EndLine = dummyOptionsEndLine
+                Line = dummyLine,
+                Lines = dummyStringLineGroup
             };
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Document.SetData(FlexiOptionsBlockParser.FLEXI_OPTIONS_BLOCK, dummyJsonOptionsBlock);
+            dummyBlockProcessor.Document.SetData(FlexiOptionsBlockParser.FLEXI_OPTIONS_BLOCK, dummyFlexiOptionsBlock);
             var flexiOptionsBlockService = new FlexiOptionsBlockService();
 
             // Act
-            FlexiOptionsBlock result = flexiOptionsBlockService.TryGetFlexiOptionsBlock(dummyBlockProcessor, dummyOptionsEndLine + 1); // 1 line gap between options block and current line
+            FlexiOptionsBlock result = flexiOptionsBlockService.TryGetFlexiOptionsBlock(dummyBlockProcessor, dummyLine + dummyStringLineGroup.Count); // no gap between options block and current line
 
             // Assert
-            Assert.Same(dummyJsonOptionsBlock, result);
+            Assert.Same(dummyFlexiOptionsBlock, result);
             Assert.Null(dummyBlockProcessor.Document.GetData(FlexiOptionsBlockParser.FLEXI_OPTIONS_BLOCK));
         }
 

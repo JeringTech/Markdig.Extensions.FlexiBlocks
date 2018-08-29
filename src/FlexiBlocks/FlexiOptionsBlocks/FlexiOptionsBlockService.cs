@@ -108,7 +108,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
         {
             if (processor.Document.GetData(FlexiOptionsBlockParser.FLEXI_OPTIONS_BLOCK) is FlexiOptionsBlock flexiOptionsBlock)
             {
-                if (flexiOptionsBlock.EndLine + 1 != blockStartLine)
+                if (flexiOptionsBlock.Line + flexiOptionsBlock.Lines.Count != blockStartLine)
                 {
                     throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBlock,
                         flexiOptionsBlock.Lines.ToString(),

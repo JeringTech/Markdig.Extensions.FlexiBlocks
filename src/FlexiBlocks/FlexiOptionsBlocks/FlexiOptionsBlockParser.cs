@@ -1,14 +1,22 @@
-﻿using Markdig.Helpers;
-using Markdig.Parsers;
+﻿using Markdig.Parsers;
 using Markdig.Syntax;
 using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
 {
+    /// <summary>
+    /// A markdown parser that creates <see cref="FlexiOptionsBlock"/>s.
+    /// </summary>
     public class FlexiOptionsBlockParser : BlockParser
     {
+        /// <summary>
+        /// Key for storing <see cref="FlexiOptionsBlock"/>s in <see cref="BlockProcessor.Document"/> data.
+        /// </summary>
         public const string FLEXI_OPTIONS_BLOCK = "flexiOptionsBlock";
 
+        /// <summary>
+        /// Creates a <see cref="FlexiOptionsBlockParser"/> instance.
+        /// </summary>
         public FlexiOptionsBlockParser()
         {
             // If options block is not consumed by the following block, it is rendered as a paragraph or in the preceding paragraph, so {, despite being common, should work fine.
@@ -47,14 +55,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
             };
             processor.NewBlocks.Push(flexiOptionsBlock);
 
-            return TryContinue(processor, flexiOptionsBlock);
+            return flexiOptionsBlock.ParseLine(processor.Line);
         }
 
         /// <summary>
-        /// Determines whether or not the <see cref="FlexiOptionsBlock"/> is complete by checking whether all opening curly brackets have been closed. 
-        /// The JSON spec allows for unescaped curly brackets within strings - https://www.json.org/, so this method ignores everything between unescaped quotes.
-        /// 
-        /// TODO This function can be improved - it does not verify that what has been read is valid JSON. Use JsonTextReader?
+        /// Determines whether or not the <see cref="FlexiOptionsBlock"/> is complete.
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="block"></param>
@@ -65,64 +70,34 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
         public override BlockState TryContinue(BlockProcessor processor, Block block)
         {
             var flexiOptionsBlock = (FlexiOptionsBlock)block;
-            StringSlice line = processor.Line;
-            char pc = line.PeekCharExtra(-1);
-            char c = line.CurrentChar;
 
-            while (c != '\0')
-            {
-                if (!flexiOptionsBlock.EndsInString)
-                {
-                    if (c == '{')
-                    {
-                        flexiOptionsBlock.NumOpenBrackets++;
-                    }
-                    else if (c == '}')
-                    {
-                        if (--flexiOptionsBlock.NumOpenBrackets == 0)
-                        {
-                            flexiOptionsBlock.UpdateSpanEnd(line.End);
-                            flexiOptionsBlock.EndLine = processor.LineIndex;
-
-                            // Unused FlexiOptionsBlock
-                            if (processor.Document.GetData(FLEXI_OPTIONS_BLOCK) is FlexiOptionsBlock pendingFlexiOptionsBlock)
-                            {
-                                throw new InvalidOperationException(string.Format(
-                                    Strings.InvalidOperationException_UnusedFlexiOptionsBlock,
-                                    pendingFlexiOptionsBlock.Lines.ToString(),
-                                    pendingFlexiOptionsBlock.Line,
-                                    pendingFlexiOptionsBlock.Column));
-                            }
-
-                            // Save the options block to document data. There are two reasons for this. Firstly, it makes it easy to detect if an options block goes unused.
-                            // Secondly, it means that the options block does not need to be a sibling of the block that consumes it. This can occur in
-                            // when extensions like FlexiSectionBlocks is used - when a container block only ends when a new container block
-                            // is encountered, the options block ends up being a child of the container block that precedes the container block that the options apply to. Leave 
-                            // the options block in the AST so that the current line gets assigned to it.
-                            processor.Document.SetData(FLEXI_OPTIONS_BLOCK, flexiOptionsBlock);
-
-                            return BlockState.Break;
-                        }
-                    }
-                    else if (pc != '\\' && c == '"')
-                    {
-                        flexiOptionsBlock.EndsInString = true;
-                    }
-                }
-                else if (pc != '\\' && c == '"')
-                {
-                    flexiOptionsBlock.EndsInString = false;
-                }
-
-                pc = c;
-                c = line.NextChar();
-            }
-
-            return BlockState.Continue;
+            return flexiOptionsBlock.ParseLine(processor.Line);
         }
 
+        /// <summary>
+        /// Adds closing <see cref="FlexiOptionsBlock"/>s to <see cref="BlockProcessor.Document"/> data.
+        /// </summary>
+        /// <param name="processor">The processor for the block that is closing.</param>
+        /// <param name="block">The block that is closing.</param>
+        /// <returns>Returns false, indicating that the block should be discarded from the tree of blocks.</returns>
         public override bool Close(BlockProcessor processor, Block block)
         {
+            if (processor.Document.GetData(FLEXI_OPTIONS_BLOCK) is FlexiOptionsBlock pendingFlexiOptionsBlock)
+            {
+                // There is an unused FlexiOptionsBlock
+                throw new InvalidOperationException(string.Format(
+                    Strings.InvalidOperationException_UnusedFlexiOptionsBlock,
+                    pendingFlexiOptionsBlock.Lines.ToString(),
+                    pendingFlexiOptionsBlock.Line,
+                    pendingFlexiOptionsBlock.Column));
+            }
+
+            // Save the options block to document data. There are two reasons for this. Firstly, it makes it easy to detect if an options block goes unused.
+            // Secondly, it means that the options block does not need to be a sibling of the block that consumes it. This can occur in
+            // when extensions like FlexiSectionBlocks is used - when a container block only ends when a new container block
+            // is encountered, the options block ends up being a child of the container block that precedes the container block that the options apply to.
+            processor.Document.SetData(FLEXI_OPTIONS_BLOCK, block);
+
             // If true is returned, the block is kept as a child of its parent for rendering later on. If false is returned,
             // the block is discarded. We don't need the block any more.
             return false;
