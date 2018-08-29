@@ -29,7 +29,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             return new BlockProcessor(
                 stringBuilderCache ?? new StringBuilderCache(),
                 markdownDocument ?? new MarkdownDocument(),
-                blockParsers ?? new BlockParserList(new BlockParser[0]));
+                blockParsers ?? new BlockParserList(
+                    new BlockParser[]{
+                        new ThematicBreakParser(),
+                        new HeadingBlockParser(),
+                        new QuoteBlockParser(),
+                        new ListBlockParser(),
+
+                        new HtmlBlockParser(),
+                        new FencedCodeBlockParser(),
+                        new IndentedCodeBlockParser(),
+                        new ParagraphBlockParser(),
+                    }
+                ));
         }
     }
 }
