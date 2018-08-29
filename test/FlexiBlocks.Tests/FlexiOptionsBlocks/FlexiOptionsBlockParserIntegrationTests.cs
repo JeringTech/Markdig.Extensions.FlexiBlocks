@@ -50,6 +50,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         {
             return new object[][]
             {
+                // Character after @ must be an opening brace
+                new string[]{"@a"},
                 // No whitespace between @ and {
                 new string[]{"@ {"},
                 new string[]{"@\n{"}
@@ -65,14 +67,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             dummyBlockProcessor.Column = dummyColumn;
             dummyBlockProcessor.Line = new StringSlice("@{dummy");
             const BlockState dummyBlockState = BlockState.Continue;
-            var mockFlexiOptionsBlockParser = new Mock<FlexiOptionsBlockParser>
-            {
-                CallBase = true
-            };
-            mockFlexiOptionsBlockParser.Setup(j => j.TryContinue(dummyBlockProcessor, It.IsAny<FlexiOptionsBlock>())).Returns(dummyBlockState);
+            var testSubject = new FlexiOptionsBlockParser();
 
             // Act
-            BlockState result = mockFlexiOptionsBlockParser.Object.TryOpen(dummyBlockProcessor);
+            BlockState result = testSubject.TryOpen(dummyBlockProcessor);
 
             // Assert
             Assert.Equal(dummyBlockState, result);
