@@ -22,15 +22,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             _fixture = fixture;
         }
 
-        // TODO ProcessText
-        // TODO Close
-        // TODO TryContinue
-        // TODO TryOpen
-
         // As far as tests spanning the entire extension go, success cases are covered in FlexiIncludeBlockSpecs, so here we just test for exceptions.
         [Theory]
-        [MemberData(nameof(FlexiIncludeBlockParser_ThrowsIfACircularIncludeIsFound_Data))]
-        public void FlexiIncludeBlockParser_ThrowsIfACircularIncludeIsFound(string dummyEntryMarkdown, string dummyMarkdown1, string dummyMarkdown2, string dummyMarkdown3,
+        [MemberData(nameof(FlexiIncludeBlockParser_ThrowsIfACycleIsFound_Data))]
+        public void FlexiIncludeBlockParser_ThrowsIfACycleIsFound(string dummyEntryMarkdown, string dummyMarkdown1, string dummyMarkdown2, string dummyMarkdown3,
             string expectedCycleDescription)
         {
             // Arrange
@@ -56,7 +51,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             }
         }
 
-        public static IEnumerable<object[]> FlexiIncludeBlockParser_ThrowsIfACircularIncludeIsFound_Data()
+        public static IEnumerable<object[]> FlexiIncludeBlockParser_ThrowsIfACycleIsFound_Data()
         {
             return new object[][]
             {
@@ -192,6 +187,98 @@ Source: ./dummyMarkdown1.md, Line: 1"
             };
         }
 
+
+        [Fact]
+        public void TryOpen_ReturnsBlockStateNoneIfInCodeIndent()
+        {
+            // Arrange
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            // These three lines just set IsCodeIndent to true
+            dummyBlockProcessor.Column = 0;
+            dummyBlockProcessor.RestartIndent();
+            dummyBlockProcessor.Column = 4;
+            FlexiIncludeBlockParser flexiIncludeBlockParser = CreateFlexiIncludBlockParser();
+
+            // Act
+            BlockState result = flexiIncludeBlockParser.TryOpen(dummyBlockProcessor);
+
+            // Assert
+            Assert.True(dummyBlockProcessor.IsCodeIndent);
+            Assert.Equal(BlockState.None, result);
+        }
+
+        [Theory]
+        [MemberData(nameof(TryOpen_ReturnsBlockStateNoneIfLineDoesNotBeginWithExpectedCharacters_Data))]
+        public void TryOpen_ReturnsBlockStateNoneIfLineDoesNotBeginWithExpectedCharacters(string line)
+        {
+            // Arrange
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            dummyBlockProcessor.Line = new StringSlice(line);
+            FlexiIncludeBlockParser flexiIncludeBlockParser = CreateFlexiIncludBlockParser();
+
+            // Act
+            BlockState result = flexiIncludeBlockParser.TryOpen(dummyBlockProcessor);
+
+            // Assert
+            Assert.Equal(BlockState.None, result);
+        }
+
+        public static IEnumerable<object[]> TryOpen_ReturnsBlockStateNoneIfLineDoesNotBeginWithExpectedCharacters_Data()
+        {
+            return new object[][]
+            {
+                // Character after + must be an open brace
+                new string[]{ "+a" },
+                // No whitespace between + and {
+                new string[]{"+ {"},
+                new string[]{"+\n{"}
+            };
+        }
+
+        [Fact]
+        public void TryOpen_SetsProcessorLineStartCreatesFlexiIncludeBlockAndReturnsBlockStateIfSuccessful()
+        {
+            // Arrange
+            const int dummyColumn = 1;
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            dummyBlockProcessor.Column = dummyColumn;
+            dummyBlockProcessor.Line = new StringSlice("+{dummy");
+            const BlockState dummyBlockState = BlockState.Continue;
+            FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
+
+            // Act
+            BlockState result = testSubject.TryOpen(dummyBlockProcessor);
+
+            // Assert
+            Assert.Equal(dummyBlockState, result);
+            Assert.Equal(1, dummyBlockProcessor.Line.Start);
+            Assert.Single(dummyBlockProcessor.NewBlocks);
+            Block block = dummyBlockProcessor.NewBlocks.Peek();
+            Assert.IsType<FlexiIncludeBlock>(block);
+            Assert.Equal(dummyColumn, block.Column);
+            Assert.Equal(1, block.Span.Start);
+        }
+
+        [Fact]
+        public void Close_CreatesClosingFlexiIncludeBlocksStackIfContentTypeisMarkdownAndNoSuchStackExists()
+        {
+
+        }
+
+        // Cycle detecting logic is tested by  FlexiIncludeBlockParser_ThrowsIfACycleIsFound
+        [Fact]
+        public void CheckForCycleInIncludes_AddsBlockToCLosingFlexIncludeBlocksStackIfNoCycleIsFound()
+        {
+
+        }
+
+        // TODO empty content
+        // TODO normal content
+        public void ProcessBeforeOrAfterContent_()
+        {
+
+        }
+
         [Theory]
         [MemberData(nameof(DedentAndCollapseLeadingWhiteSpace_DedentsAndCollapsesLeadingWhiteSpace_Data))]
         public void DedentAndCollapseLeadingWhiteSpace_DedentsAndCollapsesLeadingWhiteSpace(string dummyLine, int dummyDedentLength, float dummyCollapseRatio, string expectedResult)
@@ -220,6 +307,8 @@ Source: ./dummyMarkdown1.md, Line: 1"
                 new object[]{" dummyLine", 0, 0, "dummyLine"}, // Collapse till there is no leading white space
                 new object[]{"     dummyLine", 3, 0.5, " dummyLine"}, // Dedent and collapse
                 new object[]{"dummyLine", 2, 0.5, "dummyLine" }, // Do nothing to line with no leading white space
+                new object[]{"", 0, 0, "" }, // Empty string
+                new object[]{"    ", 2, 0.5, " " }, // White space only string
             };
         }
 
@@ -228,14 +317,14 @@ Source: ./dummyMarkdown1.md, Line: 1"
         {
             // Arrange
             var dummyContent = new ReadOnlyCollection<string>(new string[] { "dummy", "content" });
-            BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
             dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of FlexiIncludeBlock
-            var dummyIncludeOptions = new IncludeOptions("dummySource"); // Default content type is Code
+            dummyFlexiIncludeBlock.IncludeOptions = new IncludeOptions("dummySource"); // Default content type is Code
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
             // Act
-            testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyContent, dummyIncludeOptions);
+            testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyContent);
 
             // Assert
             Assert.Single(dummyBlockProcessor.Document);
@@ -249,18 +338,18 @@ Source: ./dummyMarkdown1.md, Line: 1"
         {
             // Arrange
             var dummyContent = new ReadOnlyCollection<string>(new string[] { "dummy", "content" });
-            BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
             dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of FlexiIncludeBlock
             const string dummyBeforeContent = "# dummy before";
             const string dummyAfterContent = "> dummy\n > after";
             var dummyClipping = new Clipping(1, -1, beforeContent: dummyBeforeContent, afterContent: dummyAfterContent);
             var dummyClippings = new Clipping[] { dummyClipping };
-            var dummyIncludeOptions = new IncludeOptions("dummySource", ContentType.Markdown, clippings: dummyClippings);
+            dummyFlexiIncludeBlock.IncludeOptions = new IncludeOptions("dummySource", ContentType.Markdown, clippings: dummyClippings);
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
             // Act
-            testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyContent, dummyIncludeOptions);
+            testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyContent);
 
             // Assert
             Assert.Equal(3, dummyBlockProcessor.Document.Count);
@@ -286,16 +375,16 @@ Source: ./dummyMarkdown1.md, Line: 1"
             // Arrange
             var dummyContent = new ReadOnlyCollection<string>(new string[] { "dummy", "content" });
             const string dummyStartLineSubstring = "dummyStartLineSubstring";
-            BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
             var dummyMarkdownDocument = new MarkdownDocument();
             dummyMarkdownDocument.Add(dummyFlexiIncludeBlock); // ReplaceFlexiIncludeBlock uses FlexiIncludeBlock's parent
             var dummyClipping = new Clipping(startDemarcationLineSubstring: dummyStartLineSubstring);
-            var dummyIncludeOptions = new IncludeOptions("dummySource", clippings: new Clipping[] { dummyClipping });
+            dummyFlexiIncludeBlock.IncludeOptions = new IncludeOptions("dummySource", clippings: new Clipping[] { dummyClipping });
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
             // Act and assert
-            InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyContent, dummyIncludeOptions));
+            InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyContent));
             Assert.Equal(string.Format(Strings.InvalidOperationException_InvalidClippingNoLineContainsStartLineSubstring, dummyStartLineSubstring),
                 result.Message);
         }
@@ -305,16 +394,16 @@ Source: ./dummyMarkdown1.md, Line: 1"
         {
             var dummyContent = new ReadOnlyCollection<string>(new string[] { "dummy", "content" });
             const string dummyEndLineSubstring = "dummyEndLineSubstring";
-            BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
             var dummyMarkdownDocument = new MarkdownDocument();
             dummyMarkdownDocument.Add(dummyFlexiIncludeBlock); // ReplaceFlexiIncludeBlock uses FlexiIncludeBlock's parent
             var dummyClipping = new Clipping(endDemarcationLineSubstring: dummyEndLineSubstring);
-            var dummyIncludeOptions = new IncludeOptions("dummySource", clippings: new Clipping[] { dummyClipping });
+            dummyFlexiIncludeBlock.IncludeOptions = new IncludeOptions("dummySource", clippings: new Clipping[] { dummyClipping });
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
             // Act and assert
-            InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyContent, dummyIncludeOptions));
+            InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyContent));
             Assert.Equal(string.Format(Strings.InvalidOperationException_InvalidClippingNoLineContainsEndLineSubstring, dummyEndLineSubstring),
                 result.Message);
         }
@@ -325,14 +414,14 @@ Source: ./dummyMarkdown1.md, Line: 1"
         {
             // Arrange
             var dummyContent = new ReadOnlyCollection<string>(new string[] { "line1", "line2", "line3", "line4", "line5" });
-            BlockProcessor dummyBlockProcessor = CreateBlockProcessor();
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
             dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of FlexiIncludeBlock
-            var dummyIncludeOptions = new IncludeOptions("dummySource", ContentType.Markdown, clippings: dummyClippingsWrapper.Value);
+            dummyFlexiIncludeBlock.IncludeOptions = new IncludeOptions("dummySource", ContentType.Markdown, clippings: dummyClippingsWrapper.Value);
             FlexiIncludeBlockParser testSubject = CreateFlexiIncludBlockParser();
 
             // Act
-            testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyContent, dummyIncludeOptions);
+            testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyContent);
 
             // Assert
             Assert.Single(dummyBlockProcessor.Document);
@@ -420,31 +509,6 @@ Source: ./dummyMarkdown1.md, Line: 1"
             IContentRetrieverService contentRetrieverService = null)
         {
             return new FlexiIncludeBlockParser(extensionOptionsAccessor, contentRetrieverService);
-        }
-
-        /// <summary>
-        /// Create a default BlockProcessor. Markdig's defaults are specified in MarkdownPipelineBuilder, but aren't accessible through it.
-        /// </summary>
-        private BlockProcessor CreateBlockProcessor()
-        {
-            var stringBuilders = new StringBuilderCache();
-
-            var parsers = new OrderedList<BlockParser>()
-            {
-                new ThematicBreakParser(),
-                new HeadingBlockParser(),
-                new QuoteBlockParser(),
-                new ListBlockParser(),
-
-                new HtmlBlockParser(),
-                new FencedCodeBlockParser(),
-                new IndentedCodeBlockParser(),
-                new ParagraphBlockParser(),
-            };
-
-            var markdownDocument = new MarkdownDocument();
-
-            return new BlockProcessor(stringBuilders, markdownDocument, new BlockParserList(parsers));
         }
     }
 }
