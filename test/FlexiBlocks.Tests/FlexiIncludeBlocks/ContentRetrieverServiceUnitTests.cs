@@ -196,17 +196,28 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         {
             // Arrange
             var dummyUri = new Uri("C:/dummy/path");
-            var dummyContent = new string[] { "dummy", "content" };
+            var dummyContent = new ReadOnlyCollection<string>(new string[0]);
             Mock<IFileService> mockFileService = _mockRepository.Create<IFileService>();
-            mockFileService.Setup(f => f.ReadAllLines(dummyUri.AbsolutePath)).Returns(dummyContent);
-            ContentRetrieverService testSubject = CreateContentRetrieverService(fileService: mockFileService.Object);
+            FileStream dummyFileStream = null;
+            try
+            {
+                dummyFileStream = File.Open(_dummyFile, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite);
+                mockFileService.Setup(f => f.Open(dummyUri.AbsolutePath, FileMode.Open, FileAccess.Read, FileShare.Read)).Returns(dummyFileStream);
+                Mock<ContentRetrieverService> mockTestSubject = CreateMockContentRetrieverService(fileService: mockFileService.Object);
+                mockTestSubject.CallBase = true;
+                mockTestSubject.Setup(c => c.ReadAndNormalizeAllLines(dummyFileStream)).Returns(dummyContent);
 
-            // Act
-            ReadOnlyCollection<string> result = testSubject.GetContentCore(dummyUri, null, default(CancellationToken));
+                // Act
+                ReadOnlyCollection<string> result = mockTestSubject.Object.GetContentCore(dummyUri, null, default(CancellationToken));
 
-            // Assert
-            _mockRepository.VerifyAll();
-            Assert.Equal(dummyContent, result);
+                // Assert
+                _mockRepository.VerifyAll();
+                Assert.Same(dummyContent, result);
+            }
+            finally
+            {
+                dummyFileStream?.Dispose();
+            }
         }
 
         [Fact]
@@ -245,7 +256,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                 Mock<ContentRetrieverService> mockTestSubject = CreateMockContentRetrieverService(fileCacheService: mockFileCacheService.Object);
                 mockTestSubject.CallBase = true;
                 mockTestSubject.Setup(c => c.GetCacheIdentifier(dummyUri.AbsoluteUri)).Returns(dummyCacheIdentifier);
-                mockTestSubject.Setup(c => c.ReadAllLines(dummyFileStream)).Returns(dummyContent);
+                mockTestSubject.Setup(c => c.ReadAndNormalizeAllLines(dummyFileStream)).Returns(dummyContent);
 
                 // Act
                 ReadOnlyCollection<string> result = mockTestSubject.Object.GetRemoteContent(dummyUri, dummyCacheDirectory, default(CancellationToken));
@@ -388,19 +399,49 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             Assert.Equal("B09E67B0F1899D8BB5C8D1F087DDC9CF", result);
         }
 
-        [Fact]
-        public void ReadAllLines_ReadsAllLines()
+        [Theory]
+        [MemberData(nameof(ReadAndNormalizeLines_ReadsAndNormalizesAllLines_Data))]
+        public void ReadAndNormalizeLines_ReadsAndNormalizesAllLines(string dummyLines, string[] expectedResult)
         {
             // Arrange
-            const string dummyLines = "these\nare\ndummy\nlines";
             var dummyMemoryStream = new MemoryStream(Encoding.UTF8.GetBytes(dummyLines));
             ContentRetrieverService testSubject = CreateContentRetrieverService();
 
             // Act
-            ReadOnlyCollection<string> result = testSubject.ReadAllLines(dummyMemoryStream);
+            ReadOnlyCollection<string> result = testSubject.ReadAndNormalizeAllLines(dummyMemoryStream);
 
             // Assert
-            Assert.Equal(dummyLines.Split('\n'), result);
+            Assert.Equal(expectedResult, result);
+        }
+
+        public static IEnumerable<object[]> ReadAndNormalizeLines_ReadsAndNormalizesAllLines_Data()
+        {
+            return new object[][]
+            {
+                new object[]
+                {
+                    "these\nare\ndummy\nlines",
+                    new string[]
+                    {
+                        "these",
+                        "are",
+                        "dummy",
+                        "lines"
+                    }
+                },
+                // Replaces null characters
+                new object[]
+                {
+                    "these\0\nare\ndu\0mmy\nlines",
+                    new string[]
+                    {
+                        "these\uFFFD",
+                        "are",
+                        "du\uFFFDmmy",
+                        "lines"
+                    }
+                }
+            };
         }
 
         private ContentRetrieverService CreateContentRetrieverService(IHttpClientService httpClientService = null,

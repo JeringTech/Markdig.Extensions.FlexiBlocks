@@ -99,7 +99,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             if (uri.Scheme == "file")
             {
                 // Local source
-                return new ReadOnlyCollection<string>(_fileService.ReadAllLines(uri.AbsolutePath));
+                using (FileStream fileStream = _fileService.Open(uri.AbsolutePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    return ReadAndNormalizeAllLines(fileStream);
+                }
             }
 
             // Remote source
@@ -118,7 +121,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 {
                     using (readOnlyFileStream)
                     {
-                        return ReadAllLines(readOnlyFileStream);
+                        return ReadAndNormalizeAllLines(readOnlyFileStream);
                     }
                 }
             }
@@ -155,7 +158,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                             contentStream = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
                         }
 
-                        return ReadAllLines(contentStream);
+                        return ReadAndNormalizeAllLines(contentStream);
                     }
                     else if (response.StatusCode == HttpStatusCode.NotFound)
                     {
@@ -240,7 +243,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
         }
 
-        internal virtual ReadOnlyCollection<string> ReadAllLines(Stream stream)
+        internal virtual ReadOnlyCollection<string> ReadAndNormalizeAllLines(Stream stream)
         {
             // This is exactly what File.ReadAllLines does - https://github.com/dotnet/corefx/blob/e267ad25d58459b90be7cea74ea11b9689daf191/src/System.IO.FileSystem/src/System/IO/File.cs#L449
             string line;
@@ -250,7 +253,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             {
                 while ((line = streamReader.ReadLine()) != null)
                 {
-                    lines.Add(line);
+                    // Replace null characters to prevent null byte injection. A description of such attacks can be found here: http://projects.webappsec.org/w/page/13246949/Null%20Byte%20Injection.
+                    // Replacing null characters is recommended by the commonmark spec: https://spec.commonmark.org/0.28/#insecure-characters. The risk of null byte injection attacks is exacerbated by
+                    // the fact that this class can read remote content, it is like that some users may read from untrusted sources. Additionally, users may add extensions that are vulnerable to null 
+                    // byte injection attacks. It is worth the performance hit to remove all null characters.
+                    lines.Add(line.Replace('\0', '\uFFFD'));
                 }
             }
 
