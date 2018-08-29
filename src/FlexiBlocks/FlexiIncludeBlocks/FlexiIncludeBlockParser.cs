@@ -18,7 +18,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         private readonly FlexiIncludeBlocksExtensionOptions _extensionOptions;
         private readonly IContentRetrieverService _contentRetrieverService;
 
-
         /// <summary>
         /// Creates a <see cref="FlexiIncludeBlockParser"/> instance.
         /// </summary>
@@ -34,7 +33,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         }
 
         /// <summary>
-        /// Opens a FlexiIncludeBlock if a line begins with "+{".
+        /// Opens a FlexiIncludeBlock if the current line begins with "+{".
         /// </summary>
         /// <param name="processor"></param>
         /// <returns>
@@ -84,15 +83,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             return flexiIncludeBlock.ParseLine(processor.Line);
         }
 
+        /// <summary>
+        /// Replaces the FlexiIncludeBlock with blocks generated from its content.
+        /// </summary>
+        /// <param name="processor"></param>
+        /// <param name="block"></param>
+        /// <returns></returns>
         public override bool Close(BlockProcessor processor, Block block)
         {
             var flexiIncludeBlock = (FlexiIncludeBlock)block;
             string json = flexiIncludeBlock.Lines.ToString();
-            IncludeOptions includeOptions = JsonConvert.DeserializeObject<IncludeOptions>(json);
+            flexiIncludeBlock.IncludeOptions = JsonConvert.DeserializeObject<IncludeOptions>(json);
 
             // Check for cycles in includes
             Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks = null;
-            if (includeOptions.ContentType == ContentType.Markdown)
+            if (flexiIncludeBlock.IncludeOptions.ContentType == ContentType.Markdown)
             {
                 closingFlexiIncludeBlocks = processor.Document.GetData(CLOSING_FLEXI_INCLUDE_BLOCKS_KEY) as Stack<FlexiIncludeBlock>;
                 if (closingFlexiIncludeBlocks == null)
@@ -101,16 +106,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                     processor.Document.SetData(CLOSING_FLEXI_INCLUDE_BLOCKS_KEY, closingFlexiIncludeBlocks);
                 }
 
-                CheckForCyclesInIncludes(closingFlexiIncludeBlocks, flexiIncludeBlock, includeOptions);
+                CheckForCyclesInIncludes(closingFlexiIncludeBlocks, flexiIncludeBlock);
             }
 
             // Retrieve content (read as lines since we will most probably only be using a subset of all the lines)
-            ReadOnlyCollection<string> content = _contentRetrieverService.GetContent(includeOptions.Source,
-                includeOptions.CacheOnDisk ? _extensionOptions.FileCacheDirectory : null,
+            ReadOnlyCollection<string> content = _contentRetrieverService.GetContent(flexiIncludeBlock.IncludeOptions.Source,
+                flexiIncludeBlock.IncludeOptions.CacheOnDisk ? _extensionOptions.FileCacheDirectory : null,
                 _extensionOptions.SourceBaseUri);
 
             // Convert content into blocks and replace flexiIncludeBlock with the newly created blocks
-            ReplaceFlexiIncludeBlock(processor, flexiIncludeBlock, content, includeOptions);
+            ReplaceFlexiIncludeBlock(processor, flexiIncludeBlock, content);
 
             // Remove FlexiIncludeBlock from closing blocks once it has been processed
             closingFlexiIncludeBlocks?.Pop();
@@ -120,10 +125,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             return false;
         }
 
-        internal virtual void CheckForCyclesInIncludes(Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks, FlexiIncludeBlock flexiIncludeBlock, IncludeOptions includeOptions)
+        internal virtual void CheckForCyclesInIncludes(Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks, FlexiIncludeBlock flexiIncludeBlock)
         {
-            flexiIncludeBlock.Source = includeOptions.Source;
-
             if (closingFlexiIncludeBlocks.Count > 0) // If Count is 0, we are at a root source. Since we do not have any way to identify root sources, we skip them.
             {
                 FlexiIncludeBlock parentFlexiIncludeBlock = closingFlexiIncludeBlocks.Peek();
@@ -146,7 +149,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                         }
                     default:
                         {
-                            flexiIncludeBlock.ContainingSource = parentFlexiIncludeBlock.Source;
+                            flexiIncludeBlock.ContainingSource = parentFlexiIncludeBlock.IncludeOptions.Source;
 
                             for (int i = closingFlexiIncludeBlocks.Count - 1; i > -1; i--)
                             {
@@ -177,7 +180,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
         internal virtual void ProcessBeforeOrAfterContent(BlockProcessor processor, FlexiIncludeBlock flexiIncludeBlock, string content)
         {
-            if (content?.Length == 0) // If text is an empty string, LineReader.ReadLine immediately returns null
+            flexiIncludeBlock.LineNumberOfLastProcessedLineInSource = 0;
+
+            if (content.Length == 0) // If text is an empty string, LineReader.ReadLine immediately returns null
             {
                 flexiIncludeBlock.LineNumberOfLastProcessedLineInSource = 1;
                 processor.ProcessLine(new StringSlice(content));
@@ -186,7 +191,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
 
             var lineReader = new LineReader(content);
-            int lineNumber = 1;
             while (true)
             {
                 // Get the precise position of the begining of the line
@@ -198,14 +202,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                     break;
                 }
 
-                flexiIncludeBlock.LineNumberOfLastProcessedLineInSource = lineNumber++;
+                flexiIncludeBlock.LineNumberOfLastProcessedLineInSource++;
                 processor.ProcessLine(lineText.Value);
             }
         }
 
         internal virtual void DedentAndCollapseLeadingWhiteSpace(ref StringSlice line, int dedentLength, float collapseRatio)
         {
-            if (line.Text.Length == 0)
+            if (line.IsEmpty)
             {
                 return;
             }
@@ -256,25 +260,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
         }
 
-        /// <summary>
-        /// Processes <paramref name="flexiIncludeBlock"/>'s contents, replacing the FlexiIncludeBlock with the results.
-        /// The method used here is also used by GridTable, basically, a child BlockProcessor is used to avoid conflicts with existing 
-        /// open blocks in <paramref name="processor"/>.
-        /// </summary>
-        /// <param name="processor"></param>
-        /// <param name="flexiIncludeBlock"></param>
-        /// <param name="content"></param>
-        /// <param name="includeOptions"></param>
         internal virtual void ReplaceFlexiIncludeBlock(BlockProcessor processor,
             FlexiIncludeBlock flexiIncludeBlock,
-            ReadOnlyCollection<string> content,
-            IncludeOptions includeOptions)
+            ReadOnlyCollection<string> content)
         {
             ContainerBlock parent = flexiIncludeBlock.Parent;
 
             // Remove the FlexiIncludeBlock
             parent.Remove(flexiIncludeBlock);
 
+            // The child processor method used here is also used by GridTable. The child processor facilitates avoidance of conflicts with existing 
+            // open blocks in the root processor.
             BlockProcessor childProcessor = processor.CreateChild();
             childProcessor.Open(parent);
 
@@ -283,13 +279,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             childProcessor.LineIndex = flexiIncludeBlock.Line;
 
             // Clip content
-            if (includeOptions.ContentType != ContentType.Markdown) // If content is code, start with ```
+            if (flexiIncludeBlock.IncludeOptions.ContentType != ContentType.Markdown) // If content is code, start with ```
             {
                 childProcessor.ProcessLine(_codeBlockFence);
             }
 
             // Clipping need not be sequential, they can also overlap
-            foreach (Clipping clipping in includeOptions.Clippings)
+            foreach (Clipping clipping in flexiIncludeBlock.IncludeOptions.Clippings)
             {
                 if (clipping.BeforeContent != null)
                 {
@@ -360,7 +356,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 }
             }
 
-            if (includeOptions.ContentType != ContentType.Markdown) // If content is code, end with ```
+            if (flexiIncludeBlock.IncludeOptions.ContentType != ContentType.Markdown) // If content is code, end with ```
             {
                 childProcessor.ProcessLine(_codeBlockFence);
             }
