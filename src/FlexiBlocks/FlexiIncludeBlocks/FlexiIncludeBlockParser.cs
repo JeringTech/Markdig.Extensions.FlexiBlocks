@@ -65,14 +65,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             };
             processor.NewBlocks.Push(flexiIncludeBlock);
 
-            return TryContinue(processor, flexiIncludeBlock);
+            return flexiIncludeBlock.ParseLine(processor.Line);
         }
 
         /// <summary>
-        /// Determines whether or not the <see cref="FlexiIncludeBlock"/> is complete by checking whether all opening curly brackets have been closed. 
-        /// The JSON spec allows for unescaped curly brackets within strings - https://www.json.org/, so this method ignores everything between unescaped quotes.
-        /// 
-        /// TODO This function can be improved - it does not verify that what has been read is valid JSON. Use JsonTextReader?
+        /// Determines whether or not the <see cref="FlexiIncludeBlock"/> is complete. 
         /// </summary>
         /// <param name="processor"></param>
         /// <param name="block"></param>
@@ -84,43 +81,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         {
             var flexiIncludeBlock = (FlexiIncludeBlock)block;
 
-            StringSlice line = processor.Line;
-            char pc = line.PeekCharExtra(-1);
-            char c = line.CurrentChar;
-
-            while (c != '\0')
-            {
-                if (!flexiIncludeBlock.EndsInString)
-                {
-                    if (c == '{')
-                    {
-                        flexiIncludeBlock.NumOpenBrackets++;
-                    }
-                    else if (c == '}')
-                    {
-                        if (--flexiIncludeBlock.NumOpenBrackets == 0)
-                        {
-                            flexiIncludeBlock.UpdateSpanEnd(line.End);
-
-                            // End block
-                            return BlockState.Break;
-                        }
-                    }
-                    else if (pc != '\\' && c == '"')
-                    {
-                        flexiIncludeBlock.EndsInString = true;
-                    }
-                }
-                else if (pc != '\\' && c == '"')
-                {
-                    flexiIncludeBlock.EndsInString = false;
-                }
-
-                pc = c;
-                c = line.NextChar();
-            }
-
-            return BlockState.Continue;
+            return flexiIncludeBlock.ParseLine(processor.Line);
         }
 
         public override bool Close(BlockProcessor processor, Block block)
@@ -214,7 +175,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             closingFlexiIncludeBlocks.Push(flexiIncludeBlock);
         }
 
-        internal virtual void ProcessContent(BlockProcessor processor, FlexiIncludeBlock flexiIncludeBlock, string content)
+        internal virtual void ProcessBeforeOrAfterContent(BlockProcessor processor, FlexiIncludeBlock flexiIncludeBlock, string content)
         {
             if (content?.Length == 0) // If text is an empty string, LineReader.ReadLine immediately returns null
             {
@@ -333,7 +294,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 if (clipping.BeforeContent != null)
                 {
                     flexiIncludeBlock.ProcessingStage = ProcessingStage.BeforeContent;
-                    ProcessContent(childProcessor, flexiIncludeBlock, clipping.BeforeContent);
+                    ProcessBeforeOrAfterContent(childProcessor, flexiIncludeBlock, clipping.BeforeContent);
                 }
 
                 int startLineNumber = -1;
@@ -395,7 +356,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 if (clipping.AfterContent != null)
                 {
                     flexiIncludeBlock.ProcessingStage = ProcessingStage.AfterContent;
-                    ProcessContent(childProcessor, flexiIncludeBlock, clipping.AfterContent);
+                    ProcessBeforeOrAfterContent(childProcessor, flexiIncludeBlock, clipping.AfterContent);
                 }
             }
 

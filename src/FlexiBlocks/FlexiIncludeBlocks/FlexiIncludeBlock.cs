@@ -1,20 +1,21 @@
-﻿using Markdig.Syntax;
-
-namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
+﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     /// <summary>
     /// Represents a flexible include block.
     /// </summary>
-    public class FlexiIncludeBlock : LeafBlock
+    public class FlexiIncludeBlock : JsonBlock
     {
         /// <summary>
         /// Creates a <see cref="FlexiIncludeBlock"/> instance.
         /// </summary>
-        /// <param name="parser">The parser opening this instance.</param>
+        /// <param name="parser">The parser for this instance.</param>
         public FlexiIncludeBlock(FlexiIncludeBlockParser parser) : base(parser)
         {
         }
 
+        /// <summary>
+        /// Gets the current processing stage.
+        /// </summary>
         public ProcessingStage ProcessingStage { get; set; }
 
         /// <summary>
@@ -37,15 +38,5 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// Gets or sets this FlexiIncludeBlock's line number in the source that it occurs in.
         /// </summary>
         public int LineNumberInContainingSource { get; set; }
-
-        /// <summary>
-        /// Number of open brackets in the JSON, used to determine when to stop parsing.
-        /// </summary>
-        public int NumOpenBrackets { get; set; } = 0;
-
-        /// <summary>
-        /// True if the JSON parsed so far ends within a string, for example if the JSON parsed so far is "{ \"part". False otherwise.
-        /// </summary>
-        public bool EndsInString { get; set; }
     }
 }
