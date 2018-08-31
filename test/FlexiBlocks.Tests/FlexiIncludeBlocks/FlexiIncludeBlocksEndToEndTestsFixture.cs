@@ -3,11 +3,11 @@ using System.IO;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
-    public class FlexiIncludeBlockParserIntegrationTestsFixture : IDisposable
+    public class FlexiIncludeBlocksEndToEndTestsFixture : IDisposable
     {
-        public string TempDirectory { get; } = Path.Combine(Path.GetTempPath(), nameof(FlexiIncludeBlockParserIntegrationTests)); // Dummy file for creating dummy file streams
+        public string TempDirectory { get; } = Path.Combine(Path.GetTempPath(), nameof(FlexiIncludeBlocksEndToEndTests)); // Dummy file for creating dummy file streams
 
-        public FlexiIncludeBlockParserIntegrationTestsFixture()
+        public FlexiIncludeBlocksEndToEndTestsFixture()
         {
             TryDeleteDirectory();
             Directory.CreateDirectory(TempDirectory);
