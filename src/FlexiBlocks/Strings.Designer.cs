@@ -244,6 +244,43 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The {0} starting at line &quot;{1}&quot;, column &quot;{2}&quot;, is invalid:
+        ///{3}.
+        /// </summary>
+        internal static string FlexiBlocksException_InvalidFlexiBlock {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_InvalidFlexiBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FlexiOptionsBlock must immediately precede the block that consumes it..
+        /// </summary>
+        internal static string FlexiBlocksException_MispositionedFlexiOptionsBlock {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_MispositionedFlexiOptionsBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to parse JSON &quot;{0}&quot;. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string FlexiBlocksException_UnableToParseJson {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_UnableToParseJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FlexiOptionsBlock must be consumed..
+        /// </summary>
+        internal static string FlexiBlocksException_UnconsumedFlexiOptionsBlock {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_UnconsumedFlexiOptionsBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Request to &quot;{0}&quot; failed with status code &quot;{1}&quot; and message &quot;{2}&quot;..
         /// </summary>
         internal static string HttpRequestException_UnsuccessfulRequest {
@@ -259,16 +296,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         internal static string InvalidOperationException_CycleInIncludes {
             get {
                 return ResourceManager.GetString("InvalidOperationException_CycleInIncludes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to FlexiOptionsBlock &quot;{0}&quot; at line &quot;{1}&quot;, column &quot;{2}, does not immediately precede a block that consumes it..
-        /// </summary>
-        internal static string InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBlock {
-            get {
-                return ResourceManager.GetString("InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBloc" +
-                        "k", resourceCulture);
             }
         }
         
@@ -323,24 +350,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         internal static string InvalidOperationException_LineRangesForHighlightingCannotOverlap {
             get {
                 return ResourceManager.GetString("InvalidOperationException_LineRangesForHighlightingCannotOverlap", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unable to parse JSON &quot;{0}&quot; at line &quot;{1}&quot;, column &quot;{2}&quot;..
-        /// </summary>
-        internal static string InvalidOperationException_UnableToParseJson {
-            get {
-                return ResourceManager.GetString("InvalidOperationException_UnableToParseJson", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unused FlexiOptionsBlock &quot;{0}&quot; at line &quot;{1}&quot;, column &quot;{2}&quot;..
-        /// </summary>
-        internal static string InvalidOperationException_UnusedFlexiOptionsBlock {
-            get {
-                return ResourceManager.GetString("InvalidOperationException_UnusedFlexiOptionsBlock", resourceCulture);
             }
         }
     }

@@ -177,15 +177,25 @@
   <data name="ContentRetrieverException_RemoteUriDoesNotExist" xml:space="preserve">
     <value>The remote Url "{0}" does not exist.</value>
   </data>
+  <data name="FlexiBlocksException_InvalidFlexiBlock" xml:space="preserve">
+    <value>The {0} starting at line "{1}", column "{2}", is invalid:
+{3}</value>
+  </data>
+  <data name="FlexiBlocksException_MispositionedFlexiOptionsBlock" xml:space="preserve">
+    <value>FlexiOptionsBlock must immediately precede the block that consumes it.</value>
+  </data>
+  <data name="FlexiBlocksException_UnableToParseJson" xml:space="preserve">
+    <value>Unable to parse JSON "{0}". Refer to the inner exception for more details.</value>
+  </data>
+  <data name="FlexiBlocksException_UnconsumedFlexiOptionsBlock" xml:space="preserve">
+    <value>FlexiOptionsBlock must be consumed.</value>
+  </data>
   <data name="HttpRequestException_UnsuccessfulRequest" xml:space="preserve">
     <value>Request to "{0}" failed with status code "{1}" and message "{2}".</value>
   </data>
   <data name="InvalidOperationException_CycleInIncludes" xml:space="preserve">
     <value>The following cycle was found in the includes tree: 
 {0}</value>
-  </data>
-  <data name="InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBlock" xml:space="preserve">
-    <value>FlexiOptionsBlock "{0}" at line "{1}", column "{2}, does not immediately precede a block that consumes it.</value>
   </data>
   <data name="InvalidOperationException_InvalidClippingNoLineContainsEndLineSubstring" xml:space="preserve">
     <value>Invalid clipping, no line contains end line substring "{0}".</value>
@@ -204,11 +214,5 @@
   </data>
   <data name="InvalidOperationException_LineRangesForHighlightingCannotOverlap" xml:space="preserve">
     <value>Invalid line ranges for highlighting: the ranges "{0}" and "{1}" overlap.</value>
-  </data>
-  <data name="InvalidOperationException_UnableToParseJson" xml:space="preserve">
-    <value>Unable to parse JSON "{0}" at line "{1}", column "{2}".</value>
-  </data>
-  <data name="InvalidOperationException_UnusedFlexiOptionsBlock" xml:space="preserve">
-    <value>Unused FlexiOptionsBlock "{0}" at line "{1}", column "{2}".</value>
   </data>
 </root>
