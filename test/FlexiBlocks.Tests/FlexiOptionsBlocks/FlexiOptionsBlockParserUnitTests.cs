@@ -2,14 +2,12 @@
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
-using Moq;
-using System;
 using System.Collections.Generic;
 using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
 {
-    public class FlexiOptionsBlockParserIntegrationTests
+    public class FlexiOptionsBlockParserUnitTests
     {
         [Fact]
         public void TryOpen_ReturnsBlockStateNoneIfInCodeIndent()
@@ -66,14 +64,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Column = dummyColumn;
             dummyBlockProcessor.Line = new StringSlice("@{dummy");
-            const BlockState dummyBlockState = BlockState.Continue;
             var testSubject = new FlexiOptionsBlockParser();
 
             // Act
             BlockState result = testSubject.TryOpen(dummyBlockProcessor);
 
             // Assert
-            Assert.Equal(dummyBlockState, result);
+            Assert.Equal(BlockState.Continue, result);
             Assert.Equal(1, dummyBlockProcessor.Line.Start);
             Assert.Single(dummyBlockProcessor.NewBlocks);
             Block block = dummyBlockProcessor.NewBlocks.Peek();
@@ -83,27 +80,28 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         }
 
         [Fact]
-        public void Close_ThrowsExceptionIfDocumentDataAlreadyContainsAFlexiOptionsBlock()
+        public void Close_ThrowsFlexiBlocksExceptionIfThereIsAnUncomsumedFlexiOptionsBlock()
         {
             // Arrange
-            const string dummyPendingJson = "dummyPendingJson";
-            const int dummyPendingLine = 1;
-            const int dummyPendingColumn = 2;
+            const int dummyLineIndex = 1;
+            const int dummyColumn = 2;
             var dummyPendingFlexiOptionsBlock = new FlexiOptionsBlock(null)
             {
-                Lines = new StringLineGroup(dummyPendingJson),
-                Line = dummyPendingLine,
-                Column = dummyPendingColumn
+                Line = dummyLineIndex,
+                Column = dummyColumn
             };
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Document.SetData(FlexiOptionsBlockParser.FLEXI_OPTIONS_BLOCK, dummyPendingFlexiOptionsBlock);
+            dummyBlockProcessor.Document.SetData(FlexiOptionsBlockParser.PENDING_FLEXI_OPTIONS_BLOCK, dummyPendingFlexiOptionsBlock);
             var flexiOptionsBlockParser = new FlexiOptionsBlockParser();
 
             // Act and assert
-            InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => flexiOptionsBlockParser.Close(dummyBlockProcessor, null));
-
-            // Assert
-            Assert.Equal(string.Format(Strings.InvalidOperationException_UnusedFlexiOptionsBlock, dummyPendingJson, dummyPendingLine, dummyPendingColumn), result.Message);
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => flexiOptionsBlockParser.Close(dummyBlockProcessor, null));
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
+                    typeof(FlexiOptionsBlock).Name,
+                    dummyLineIndex + 1,
+                    dummyColumn,
+                    Strings.FlexiBlocksException_UnconsumedFlexiOptionsBlock),
+                result.Message);
         }
 
         [Fact]
@@ -119,7 +117,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
 
             // Assert
             Assert.False(result);
-            Assert.Same(dummyFlexiOptionsBlock, dummyBlockProcessor.Document.GetData(FlexiOptionsBlockParser.FLEXI_OPTIONS_BLOCK));
+            Assert.Same(dummyFlexiOptionsBlock, dummyBlockProcessor.Document.GetData(FlexiOptionsBlockParser.PENDING_FLEXI_OPTIONS_BLOCK));
         }
     }
 }

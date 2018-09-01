@@ -1,30 +1,31 @@
-﻿using Markdig.Parsers;
+﻿using Jering.IocServices.Newtonsoft.Json;
+using Markdig.Parsers;
 using Newtonsoft.Json;
 using System;
+using System.IO;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
 {
-    public class FlexiOptionsBlockService
+    /// <summary>
+    /// The default implementation of <see cref="IFlexiOptionsBlockService"/>.
+    /// </summary>
+    public class FlexiOptionsBlockService : IFlexiOptionsBlockService
     {
-        /// <summary>
-        /// Attempts to extract an object of type <typeparamref name="T"/> from the <see cref="FlexiOptionsBlock"/> held by <paramref name="processor"/>.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="processor"></param>
-        /// <param name="blockStartLine"></param>
-        /// <returns>
-        /// Instance of type <typeparamref name="T"/> or null if no <see cref="FlexiOptionsBlock"/> exists.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="processor"/> is null.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the <see cref="FlexiOptionsBlock"/>'s JSON cannot be parsed.</exception>
-        public virtual T TryExtractOptions<T>(BlockProcessor processor, int blockStartLine) where T : class
-        {
-            if (processor == null)
-            {
-                throw new ArgumentNullException(nameof(processor));
-            }
+        private readonly IJsonSerializerService _jsonSerializerService;
 
-            FlexiOptionsBlock flexiOptionsBlock = TryGetFlexiOptionsBlock(processor, blockStartLine);
+        /// <summary>
+        /// Creates a <see cref="FlexiOptionsBlockService"/> instance.
+        /// </summary>
+        /// <param name="jsonSerializerService">The service that will handle JSON deserialization.</param>
+        public FlexiOptionsBlockService(IJsonSerializerService jsonSerializerService)
+        {
+            _jsonSerializerService = jsonSerializerService;
+        }
+
+        /// <inheritdoc />
+        public virtual T TryExtractOptions<T>(BlockProcessor processor, int consumingBlockStartLineNumber) where T : class
+        {
+            FlexiOptionsBlock flexiOptionsBlock = TryGetFlexiOptionsBlock(processor, consumingBlockStartLineNumber);
 
             if (flexiOptionsBlock == null)
             {
@@ -35,46 +36,30 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
 
             try
             {
-                return JsonConvert.DeserializeObject<T>(json);
+                using (var jsonTextReader = new JsonTextReader(new StringReader(json)))
+                {
+                    return _jsonSerializerService.Deserialize<T>(jsonTextReader);
+                }
             }
-            catch (JsonException jsonException)
+            catch (Exception exception)
             {
-                throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_UnableToParseJson,
-                    json,
-                    flexiOptionsBlock.Line,
-                    flexiOptionsBlock.Column),
-                    jsonException);
+                throw new FlexiBlocksException(flexiOptionsBlock, 
+                    string.Format(Strings.FlexiBlocksException_UnableToParseJson, json), 
+                    exception);
             }
         }
 
-        /// <summary>
-        /// Attempts to extract an object of type <typeparamref name="T"/> from  the <see cref="FlexiOptionsBlock"/> held by <paramref name="processor"/> 
-        /// and to populate <paramref name="target"/> with values from the extracted object. Properties in <paramref name="target"/> 
-        /// retain their values if the extracted object does not contain replacements.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="processor"></param>
-        /// <param name="target"></param>
-        /// <param name="blockStartLine"></param>
-        /// <returns>True if <paramref name="target"/> is successfully populated, false otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="processor"/> is null.</exception>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the FlexiOptionsBlock's JSON cannot be parsed.</exception>
-        public virtual bool TryPopulateOptions<T>(BlockProcessor processor, T target, int blockStartLine) where T : class
+        /// <inheritdoc />
+        public virtual bool TryPopulateOptions<T>(BlockProcessor processor, T target, int consumingBlockStartLineNumber) where T : class
         {
-            if (processor == null)
-            {
-                throw new ArgumentNullException(nameof(processor));
-            }
-
             if (target == null)
             {
                 throw new ArgumentNullException(nameof(target));
             }
 
-            FlexiOptionsBlock flexiOptionsBlock = TryGetFlexiOptionsBlock(processor, blockStartLine);
+            FlexiOptionsBlock flexiOptionsBlock = TryGetFlexiOptionsBlock(processor, consumingBlockStartLineNumber);
 
-            if(flexiOptionsBlock == null)
+            if (flexiOptionsBlock == null)
             {
                 return false;
             }
@@ -83,40 +68,36 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
 
             try
             {
-                JsonConvert.PopulateObject(json, target);
+                using (var jsonTextReader = new JsonTextReader(new StringReader(json)))
+                {
+                    _jsonSerializerService.Populate(jsonTextReader, target);
+                }
                 return true;
             }
-            catch (JsonException jsonException)
+            catch (Exception exception)
             {
-                throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_UnableToParseJson,
-                    json, flexiOptionsBlock.Line, flexiOptionsBlock.Column), jsonException);
+                throw new FlexiBlocksException(flexiOptionsBlock,
+                    string.Format(Strings.FlexiBlocksException_UnableToParseJson, json),
+                    exception);
             }
         }
 
-        /// <summary>
-        /// Attempts to retrieve the <see cref="FlexiOptionsBlock"/> held by <paramref name="processor"/>.
-        /// </summary>
-        /// <param name="processor"></param>
-        /// <param name="blockStartLine"></param>
-        /// <returns>
-        /// A <see cref="FlexiOptionsBlock"/> if successful, null otherwise.
-        /// </returns>
-        /// <exception cref="InvalidOperationException">
-        /// Thrown if <see cref="FlexiOptionsBlock"/> does not immediately precede current line.
-        /// </exception>
-        public virtual FlexiOptionsBlock TryGetFlexiOptionsBlock(BlockProcessor processor, int blockStartLine)
+        /// <inheritdoc />
+        public virtual FlexiOptionsBlock TryGetFlexiOptionsBlock(BlockProcessor processor, int consumingBlockStartLineNumber)
         {
-            if (processor.Document.GetData(FlexiOptionsBlockParser.FLEXI_OPTIONS_BLOCK) is FlexiOptionsBlock flexiOptionsBlock)
+            if(processor == null)
             {
-                if (flexiOptionsBlock.Line + flexiOptionsBlock.Lines.Count != blockStartLine)
+                throw new ArgumentNullException(nameof(processor));
+            }
+
+            if (processor.Document.GetData(FlexiOptionsBlockParser.PENDING_FLEXI_OPTIONS_BLOCK) is FlexiOptionsBlock flexiOptionsBlock)
+            {
+                if (flexiOptionsBlock.Line + flexiOptionsBlock.Lines.Count != consumingBlockStartLineNumber)
                 {
-                    throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_FlexiOptionsBlockDoesNotImmediatelyPrecedeConsumingBlock,
-                        flexiOptionsBlock.Lines.ToString(),
-                        flexiOptionsBlock.Line,
-                        flexiOptionsBlock.Column));
+                    throw new FlexiBlocksException(flexiOptionsBlock, Strings.FlexiBlocksException_MispositionedFlexiOptionsBlock);
                 }
 
-                processor.Document.RemoveData(FlexiOptionsBlockParser.FLEXI_OPTIONS_BLOCK);
+                processor.Document.RemoveData(FlexiOptionsBlockParser.PENDING_FLEXI_OPTIONS_BLOCK);
 
                 return flexiOptionsBlock;
             }
