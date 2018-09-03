@@ -76,7 +76,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             Block block = dummyBlockProcessor.NewBlocks.Peek();
             Assert.IsType<FlexiOptionsBlock>(block);
             Assert.Equal(dummyColumn, block.Column);
-            Assert.Equal(1, block.Span.Start);
+            Assert.Equal(0, block.Span.Start);
         }
 
         [Fact]

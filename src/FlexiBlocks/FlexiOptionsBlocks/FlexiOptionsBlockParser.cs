@@ -33,28 +33,48 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
         /// </returns>
         public override BlockState TryOpen(BlockProcessor processor)
         {
-            if (processor.IsCodeIndent)
+            FlexiOptionsBlock flexiOptionsBlock = null;
+
+            try
             {
-                return BlockState.None;
+                if (processor.IsCodeIndent)
+                {
+                    return BlockState.None;
+                }
+
+                // First line of a FlexiOptionsBlock must begin with @{
+                if (processor.PeekChar(1) != '{')
+                {
+                    return BlockState.None;
+                }
+
+                flexiOptionsBlock = new FlexiOptionsBlock(this)
+                {
+                    Column = processor.Column,
+                    Span = new SourceSpan(processor.Line.Start, processor.Line.End) // Might be the only line, we'll update End if there are more lines 
+                };
+
+                processor.NewBlocks.Push(flexiOptionsBlock);
+
+                // Dispose of @ (JSON starts at the curly bracket)
+                processor.NextChar();
+
+                return flexiOptionsBlock.ParseLine(processor.Line);
             }
-
-            // First line of a FlexiOptionsBlock must begin with @{
-            if (processor.PeekChar(1) != '{')
+            catch (Exception exception) when (!(exception is FlexiBlocksException))
             {
-                return BlockState.None;
+                if (flexiOptionsBlock == null)
+                {
+                    throw new FlexiBlocksException(processor.LineIndex,
+                        processor.Column,
+                        string.Format(Strings.FlexiBlocksException_UnexpectedExceptionWhileAttemptingToOpenBlock, nameof(FlexiOptionsBlockParser)),
+                        exception);
+                }
+                else
+                {
+                    throw new FlexiBlocksException(flexiOptionsBlock);
+                }
             }
-
-            var flexiOptionsBlock = new FlexiOptionsBlock(this)
-            {
-                Column = processor.Column,
-                Span = new SourceSpan (processor.Line.Start, processor.Line.End) // Might be the only line, we'll update End if there are more lines
-            };
-            processor.NewBlocks.Push(flexiOptionsBlock);
-
-            // Dispose of @ (JSON starts at the curly bracket)
-            processor.NextChar();
-
-            return flexiOptionsBlock.ParseLine(processor.Line);
         }
 
         /// <summary>
@@ -68,9 +88,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
         /// </returns>
         public override BlockState TryContinue(BlockProcessor processor, Block block)
         {
-            var flexiOptionsBlock = (FlexiOptionsBlock)block;
+            try
+            {
+                var flexiOptionsBlock = (FlexiOptionsBlock)block;
 
-            return flexiOptionsBlock.ParseLine(processor.Line);
+                return flexiOptionsBlock.ParseLine(processor.Line);
+            }
+            catch (Exception exception) when (!(exception is FlexiBlocksException))
+            {
+                throw new FlexiBlocksException(block, exception);
+            }
         }
 
         /// <summary>
@@ -82,22 +109,29 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
         /// <exception cref="FlexiBlocksException">Thrown if there is an uncomsumed <see cref="FlexiOptionsBlock"/>.</exception>
         public override bool Close(BlockProcessor processor, Block block)
         {
-            if (processor.Document.GetData(PENDING_FLEXI_OPTIONS_BLOCK) is FlexiOptionsBlock pendingFlexiOptionsBlock)
+            try
             {
-                // There is an unconsumed FlexiOptionsBlock
-                throw new FlexiBlocksException(pendingFlexiOptionsBlock, Strings.FlexiBlocksException_UnconsumedFlexiOptionsBlock);
+                if (processor.Document.GetData(PENDING_FLEXI_OPTIONS_BLOCK) is FlexiOptionsBlock pendingFlexiOptionsBlock)
+                {
+                    // There is an unconsumed FlexiOptionsBlock
+                    throw new FlexiBlocksException(pendingFlexiOptionsBlock, Strings.FlexiBlocksException_UnconsumedFlexiOptionsBlock);
+                }
+
+                // Save the options block to document data. There are two reasons for this. Firstly, it makes it easy to detect if an options block goes unused.
+                // Secondly, it means that the options block does not need to be a sibling of the block that consumes it. This can occur
+                // when extensions like FlexiSectionBlocks are used. When a container block only ends when a new container block
+                // is encountered, an options block can end up being a child of the container block that precedes the container block that the options apply to.
+                // Searching through the tree of blocks is a brittle approach. This simple approach is relatively robust.
+                processor.Document.SetData(PENDING_FLEXI_OPTIONS_BLOCK, block);
+
+                // If true is returned, the block is kept as a child of its parent for rendering later on. If false is returned,
+                // the block is discarded. We don't need the block any more, so we return false.
+                return false;
             }
-
-            // Save the options block to document data. There are two reasons for this. Firstly, it makes it easy to detect if an options block goes unused.
-            // Secondly, it means that the options block does not need to be a sibling of the block that consumes it. This can occur
-            // when extensions like FlexiSectionBlocks are used. When a container block only ends when a new container block
-            // is encountered, an options block can end up being a child of the container block that precedes the container block that the options apply to.
-            // Searching through the tree of blocks is a brittle approach. This simple approach is relatively robust.
-            processor.Document.SetData(PENDING_FLEXI_OPTIONS_BLOCK, block);
-
-            // If true is returned, the block is kept as a child of its parent for rendering later on. If false is returned,
-            // the block is discarded. We don't need the block any more, so we return false.
-            return false;
+            catch (Exception exception) when (!(exception is FlexiBlocksException))
+            {
+                throw new FlexiBlocksException(block, exception);
+            }
         }
     }
 }
