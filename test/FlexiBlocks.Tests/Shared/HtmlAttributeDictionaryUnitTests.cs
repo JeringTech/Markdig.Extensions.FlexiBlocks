@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
 {
-    public class HtmlAttributeDictionaryIntegrationTests
+    public class HtmlAttributeDictionaryUnitTests
     {
         [Theory]
         [MemberData(nameof(Add_AppendsValueToClassValueIfItAlreadyExists_Data))]

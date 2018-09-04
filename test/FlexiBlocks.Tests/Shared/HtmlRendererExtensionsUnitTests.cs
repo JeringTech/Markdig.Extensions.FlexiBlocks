@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
 {
-    public class HtmlRendererExtensionsIntegrationTests
+    public class HtmlRendererExtensionsUnitTests
     {
         [Fact]
         public void WriteHtmlAttributeDictionary_WritesAttributes()
