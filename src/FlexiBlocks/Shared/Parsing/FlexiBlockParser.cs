@@ -36,6 +36,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         public abstract BlockState TryContinueFlexiBlock(BlockProcessor processor, Block block);
 
         /// <summary>
+        /// Closes a FlexiBlock.
+        /// </summary>
+        /// <param name="processor">The block processor for the FlexiBlock to close.</param>
+        /// <param name="block">The FlexiBlock to close.</param>
+        /// <returns>False if the block should be discarded, true otherwise.</returns>
+        /// <exception cref="FlexiBlocksException">Thrown if an exception is thrown while attempting to close the FlexiBlock.</exception>
+        public virtual bool CloseFlexiBlock(BlockProcessor processor, Block block)
+        {
+            // Keep the block by default
+            return true;
+        }
+
+        /// <summary>
         /// Opens a FlexiBlock if a line contains the expected content.
         /// </summary>
         /// <param name="processor">The block processor for the document that contains the line.</param>
@@ -79,6 +92,25 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             try
             {
                 return TryContinueFlexiBlock(processor, block);
+            }
+            catch (Exception exception) when (!(exception is FlexiBlocksException))
+            {
+                throw new FlexiBlocksException(block, exception);
+            }
+        }
+
+        /// <summary>
+        /// Closes a FlexiBlock.
+        /// </summary>
+        /// <param name="processor">The block processor for the FlexiBlock to close.</param>
+        /// <param name="block">The FlexiBlock to close.</param>
+        /// <returns>False if the block should be discarded, true otherwise.</returns>
+        /// <exception cref="FlexiBlocksException">Thrown if an exception is thrown while attempting to close the FlexiBlock.</exception>
+        public sealed override bool Close(BlockProcessor processor, Block block)
+        {
+            try
+            {
+                return CloseFlexiBlock(processor, block);
             }
             catch (Exception exception) when (!(exception is FlexiBlocksException))
             {

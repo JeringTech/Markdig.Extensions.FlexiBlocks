@@ -22,6 +22,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryOpen(dummyBlockProcessor));
+            _mockRepository.VerifyAll();
             Assert.Same(dummyFlexiBlocksException, result);
             Assert.Null(result.InnerException);
         }
@@ -40,6 +41,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryOpen(dummyBlockProcessor));
+            _mockRepository.VerifyAll();
             Assert.Equal(@"The DummyBlock starting at line ""1"", column ""0"", is invalid:
 An unexpected exception occurred. Refer to the inner exception for more details.",
                 result.Message, ignoreLineEndingDifferences: true);
@@ -58,6 +60,7 @@ An unexpected exception occurred. Refer to the inner exception for more details.
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryOpen(dummyBlockProcessor));
+            _mockRepository.VerifyAll();
             Assert.Equal(@"The markdown at line ""1"", column ""0"" is invalid:
 An unexpected exception occurred in ""FlexiBlockParserProxy"" while attempting to open a block. Refer to the inner exception for more details.",
                 result.Message, ignoreLineEndingDifferences: true);
@@ -77,6 +80,7 @@ An unexpected exception occurred in ""FlexiBlockParserProxy"" while attempting t
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryContinue(dummyBlockProcessor, dummyBlock));
+            _mockRepository.VerifyAll();
             Assert.Same(dummyFlexiBlocksException, result);
             Assert.Null(result.InnerException);
         }
@@ -94,8 +98,47 @@ An unexpected exception occurred in ""FlexiBlockParserProxy"" while attempting t
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryContinue(dummyBlockProcessor, dummyBlock));
+            _mockRepository.VerifyAll();
             Assert.Equal(@"The DummyBlock starting at line ""1"", column ""0"", is invalid:
 An unexpected exception occurred. Refer to the inner exception for more details.", 
+                result.Message, ignoreLineEndingDifferences: true);
+            Assert.Same(dummyException, result.InnerException);
+        }
+
+        [Fact]
+        public void Close_DoesNotInterfereWithFlexiBlocksExceptionsThrownByCloseFlexiBlock()
+        {
+            // Arrange
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            var dummyBlock = new DummyBlock(null);
+            var dummyFlexiBlocksException = new FlexiBlocksException();
+            Mock<FlexiBlockParser> mockTestSubject = _mockRepository.Create<FlexiBlockParser>();
+            mockTestSubject.CallBase = true;
+            mockTestSubject.Setup(f => f.CloseFlexiBlock(dummyBlockProcessor, dummyBlock)).Throws(dummyFlexiBlocksException);
+
+            // Act and assert
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.Close(dummyBlockProcessor, dummyBlock));
+            _mockRepository.VerifyAll();
+            Assert.Same(dummyFlexiBlocksException, result);
+            Assert.Null(result.InnerException);
+        }
+
+        [Fact]
+        public void Close_WrapsNonFlexiBlocksExceptionsThrownByTryContinueFlexiBlockInFlexiBlocksExceptions()
+        {
+            // Arrange
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            var dummyBlock = new DummyBlock(null);
+            var dummyException = new ArgumentException(); // Arbitrary type
+            Mock<FlexiBlockParser> mockTestSubject = _mockRepository.Create<FlexiBlockParser>();
+            mockTestSubject.CallBase = true;
+            mockTestSubject.Setup(f => f.CloseFlexiBlock(dummyBlockProcessor, dummyBlock)).Throws(dummyException);
+
+            // Act and assert
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.Close(dummyBlockProcessor, dummyBlock));
+            _mockRepository.VerifyAll();
+            Assert.Equal(@"The DummyBlock starting at line ""1"", column ""0"", is invalid:
+An unexpected exception occurred. Refer to the inner exception for more details.",
                 result.Message, ignoreLineEndingDifferences: true);
             Assert.Same(dummyException, result.InnerException);
         }
