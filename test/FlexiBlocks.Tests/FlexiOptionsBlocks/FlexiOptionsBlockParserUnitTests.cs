@@ -10,7 +10,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
     public class FlexiOptionsBlockParserUnitTests
     {
         [Fact]
-        public void TryOpen_ReturnsBlockStateNoneIfInCodeIndent()
+        public void TryOpenFlexiBlock_ReturnsBlockStateNoneIfInCodeIndent()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
@@ -29,8 +29,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         }
 
         [Theory]
-        [MemberData(nameof(TryOpen_ReturnsBlockStateNoneIfLineDoesNotBeginWithExpectedCharacters_Data))]
-        public void TryOpen_ReturnsBlockStateNoneIfLineDoesNotBeginWithExpectedCharacters(string line)
+        [MemberData(nameof(TryOpenFlexiBlock_ReturnsBlockStateNoneIfLineDoesNotBeginWithExpectedCharacters_Data))]
+        public void TryOpenFlexiBlock_ReturnsBlockStateNoneIfLineDoesNotBeginWithExpectedCharacters(string line)
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
@@ -44,7 +44,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             Assert.Equal(BlockState.None, result);
         }
 
-        public static IEnumerable<object[]> TryOpen_ReturnsBlockStateNoneIfLineDoesNotBeginWithExpectedCharacters_Data()
+        public static IEnumerable<object[]> TryOpenFlexiBlock_ReturnsBlockStateNoneIfLineDoesNotBeginWithExpectedCharacters_Data()
         {
             return new object[][]
             {
@@ -57,7 +57,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         }
 
         [Fact]
-        public void TryOpen_SetsProcessorLineStartCreatesFlexiOptionsBlockAndReturnsBlockStateIfSuccessful()
+        public void TryOpenFlexiBlock_SetsProcessorLineStartCreatesFlexiOptionsBlockAndReturnsBlockStateIfSuccessful()
         {
             // Arrange
             const int dummyColumn = 1;
@@ -80,7 +80,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         }
 
         [Fact]
-        public void Close_ThrowsFlexiBlocksExceptionIfThereIsAnUncomsumedFlexiOptionsBlock()
+        public void CloseFlexiBlock_ThrowsFlexiBlocksExceptionIfThereIsAnUncomsumedFlexiOptionsBlock()
         {
             // Arrange
             const int dummyLineIndex = 1;
@@ -105,7 +105,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         }
 
         [Fact]
-        public void Close_AddsFlexiOptionsBlockToDocumentData()
+        public void CloseFlexiBlock_AddsFlexiOptionsBlockToDocumentData()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
