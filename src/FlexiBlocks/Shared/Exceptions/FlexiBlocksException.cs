@@ -109,6 +109,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// Creates a <see cref="FlexiBlocksException"/> instance representing an unexpected unrecoverable situation encountered when processing a FlexiBlock.
         /// </summary>
         /// <param name="invalidFlexiBlock">The offending FlexiBlock.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="invalidFlexiBlock"/> is null.</exception>
         public FlexiBlocksException(Block invalidFlexiBlock) : this(invalidFlexiBlock, null, null)
         {
         }
@@ -118,6 +119,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// </summary>
         /// <param name="invalidFlexiBlock">The offending FlexiBlock.</param>
         /// <param name="innerException">This exception's inner exception.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="invalidFlexiBlock"/> is null.</exception>
         public FlexiBlocksException(Block invalidFlexiBlock, Exception innerException) : this(invalidFlexiBlock, null, innerException)
         {
         }
@@ -127,6 +129,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// </summary>
         /// <param name="invalidFlexiBlock">The offending FlexiBlock.</param>
         /// <param name="description">A description of the problem.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="invalidFlexiBlock"/> is null.</exception>
         public FlexiBlocksException(Block invalidFlexiBlock, string description) : this(invalidFlexiBlock, description, null)
         {
         }
@@ -137,8 +140,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <param name="invalidFlexiBlock">The offending FlexiBlock.</param>
         /// <param name="description">A description of the problem.</param>
         /// <param name="innerException">This exception's inner exception.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="invalidFlexiBlock"/> is null.</exception>
         public FlexiBlocksException(Block invalidFlexiBlock, string description, Exception innerException) : base(null, innerException)
         {
+            if (invalidFlexiBlock == null)
+            {
+                throw new ArgumentNullException(nameof(invalidFlexiBlock));
+            }
+
             Description = description;
             LineNumber = invalidFlexiBlock.Line + 1;
             Column = invalidFlexiBlock.Column;
