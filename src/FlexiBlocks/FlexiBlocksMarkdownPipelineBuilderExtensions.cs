@@ -67,21 +67,22 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <summary>
         /// Adds <see cref="FlexiAlertBlocksExtension"/> to the pipeline.
         /// </summary>
+        /// <param name="pipelineBuilder">The pipeline builder for the pipeline.</param>
+        /// <param name="options">Options for the FlexiAlertBlocks extension.</param>
+        /// <param name="serviceProvider">Alternative service provider for resolving the <see cref="FlexiAlertBlocksExtension"/> service.</param>
         public static MarkdownPipelineBuilder UseFlexiAlertBlocks(this MarkdownPipelineBuilder pipelineBuilder,
             FlexiAlertBlocksExtensionOptions options = null,
             IServiceProvider serviceProvider = null)
         {
             serviceProvider = serviceProvider ?? _serviceProvider;
 
+            if (options != null)
+            {
+                SetOptions(options, serviceProvider);
+            }
+
             if (!pipelineBuilder.Extensions.Contains<FlexiAlertBlocksExtension>())
             {
-                if (options != null && 
-                    serviceProvider.GetRequiredService<IOptions<FlexiAlertBlocksExtensionOptions>>() is ExposedOptionsManager<FlexiAlertBlocksExtensionOptions> optionsManager)
-                {
-                    optionsManager.Value = options;
-                    // TODO throw FlexiBlocksException, user registered custom service for IOptions that doesn't extend exposed options manager
-                }
-
                 pipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<FlexiAlertBlocksExtension>());
             }
 
@@ -90,7 +91,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
 
         /// <summary>
         /// Adds <see cref="FlexiOptionsBlocksExtension"/> to the pipeline.
-        /// </summary>
+        /// </summary> 
         public static MarkdownPipelineBuilder UseFlexiOptionsBlocks(this MarkdownPipelineBuilder pipelineBuilder,
             IServiceProvider serviceProvider = null)
         {
@@ -143,5 +144,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
 
         //    return pipelineBuilder;
         //}
+
+        internal static void SetOptions<T>(T extensionOptions, IServiceProvider serviceProvider) where T : class, new()
+        {
+            if (serviceProvider.GetRequiredService<IOptions<T>>() is ExposedOptionsManager<T> optionsManager)
+            {
+                optionsManager.Value = extensionOptions;
+            }
+            else
+            {
+                throw new FlexiBlocksException(Strings.FlexiBlocksException_UnableToSetOptions);
+            }
+        }
     }
 }

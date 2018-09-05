@@ -282,6 +282,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expected an &quot;ExposedOptionsManager&lt;{0}&gt;&quot; for service &quot;IOptions&lt;{1}&gt;&quot;, unable to set &quot;{1}&quot;..
+        /// </summary>
+        internal static string FlexiBlocksException_UnableToSetOptions {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_UnableToSetOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FlexiOptionsBlock must be consumed..
         /// </summary>
         internal static string FlexiBlocksException_UnconsumedFlexiOptionsBlock {

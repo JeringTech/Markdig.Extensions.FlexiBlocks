@@ -191,6 +191,9 @@
   <data name="FlexiBlocksException_UnableToParseJson" xml:space="preserve">
     <value>Unable to parse JSON "{0}". Refer to the inner exception for more details.</value>
   </data>
+  <data name="FlexiBlocksException_UnableToSetOptions" xml:space="preserve">
+    <value>Expected an "ExposedOptionsManager&lt;{0}&gt;" for service "IOptions&lt;{1}&gt;", unable to set "{1}".</value>
+  </data>
   <data name="FlexiBlocksException_UnconsumedFlexiOptionsBlock" xml:space="preserve">
     <value>FlexiOptionsBlock must be consumed.</value>
   </data>
