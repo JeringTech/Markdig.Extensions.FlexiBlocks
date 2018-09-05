@@ -1,11 +1,9 @@
-﻿<#@ template debug="false" hostspecific="true" language="C#" #>
-<#@ output extension=".cs" #>
-<#@ assembly name="System.Core" #>
-<#@ import namespace="System.IO" #>
-<#@ import namespace="System.Text.RegularExpressions" #>
-<#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="System.Threading" #>
-<#
+﻿<#@ template debug="false" hostspecific="true" language="C#" #><#@ output extension=".cs" #><#@ 
+assembly name="System.Core" #><#@ 
+import namespace="System.IO" #><#@ 
+import namespace="System.Text.RegularExpressions" #><#@ 
+import namespace="System.Collections.Generic" #><#@ 
+import namespace="System.Threading" #><#
     var specFiles = new KeyValuePair<string, string>[] {
 		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/CommonMarkSpecs.md"), "CommonMark"),
 		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiSectionBlocksSpecs.md"), "FlexiSectionBlocks|all"),
@@ -15,8 +13,7 @@
 		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiIncludeBlocksSpecs.md"), "FlexiIncludeBlocks|all"),
 		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiOptionsBlocksSpecs.md"), "all")
 	};
-#>
-using Xunit;
+#>using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 {
@@ -30,18 +27,19 @@ foreach (KeyValuePair<string, string> specFileItem in specFiles)
     foreach (Extension extension in extensions)
     {
         bool firstSpec = true;
-#><#= !string.IsNullOrWhiteSpace(extension.Description) ? "\n" + extension.Description : string.Empty #>
-    public class <#= extension.Name #>Tests
+#>    public class <#= extension.Name #>Tests
     {
 <#  
         foreach (Spec spec in extension.Specs)
         {
-            foreach (string pipeline in pipelines)
+#><#= !firstSpec ? "\n" : string.Empty #>        [Theory]
+<#          foreach (string pipeline in pipelines)
             {
                 string completePipeline = pipeline + (!string.IsNullOrWhiteSpace(spec.ExtraExtensions) && !pipeline.Equals("all") ? "_" + spec.ExtraExtensions : string.Empty);
-#><#= !string.IsNullOrWhiteSpace(spec.Description) ? (!firstSpec ? "\n" : string.Empty) + spec.Description : string.Empty #>
-        [Fact]
-        public void <#= extension.Name #>_Spec<#= spec.Number #>_<#= completePipeline #>()
+#>        [InlineData("<#= completePipeline #>")]
+<#
+            }
+#>        public void <#= extension.Name #>_Spec<#= spec.Number #>(string extensions)
         {
             // The following Markdown:
 <#= spec.MarkdownAsComment #>
@@ -57,9 +55,9 @@ foreach (KeyValuePair<string, string> specFileItem in specFiles)
             // Should be rendered as:
 <#= spec.HtmlAsComment #>
 
-            SpecTestHelper.AssertCompliance("<#= spec.Markdown #>", 
-                "<#= spec.Html #>", 
-                "<#= completePipeline #>"<# if(!string.IsNullOrWhiteSpace(spec.ExtensionOptions))
+            SpecTestHelper.AssertCompliance("<#= spec.Markdown #>",
+                "<#= spec.Html #>",
+                extensions<# if(!string.IsNullOrWhiteSpace(spec.ExtensionOptions))
                 {
 #>, 
                 "<#= spec.ExtensionOptions #>"<#
@@ -67,8 +65,7 @@ foreach (KeyValuePair<string, string> specFileItem in specFiles)
 #>);
         }
 <#
-                firstSpec = false;
-            }
+            firstSpec = false;
         }
 #>    }
 <#
