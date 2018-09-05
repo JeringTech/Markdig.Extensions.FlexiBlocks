@@ -20,7 +20,7 @@ The following is a FlexiAlertBlock:
 ````````````````````````````````
 
 Note how an SVG has been included as the FlexiAlertBlock's icon. The icon markup for each FlexiAlertBlock
-can be customized or omitted, options for icon markup are covered [here](TODO).
+can be customized or omitted, options for icon markup are covered in the [options section](#options).
 
 Also note how the class `fab-<FlexiAlertBlock type>` (`fab-critical-warning` in this case) is assigned to the outermost `div` element. Using a 
 different FlexiAlertBlock type results in a different class:
@@ -144,7 +144,7 @@ Options for a FlexiAlertBlock.
   - Description: The HTML attributes for the FlexiAlertBlock's outermost element.
 
 ##### Usage
-To specify FlexiAlertBlockOptions for individual FlexiAlertBlocks, the [FlexiOptionsBlock](TODO) extension must be registered.
+To specify FlexiAlertBlockOptions for individual FlexiAlertBlocks, the [FlexiOptionsBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be registered.
 
 Icon markup can specified for a FlexiAlertBlock:
 ```````````````````````````````` extraExtensions
