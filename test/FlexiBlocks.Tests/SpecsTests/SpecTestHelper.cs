@@ -1,4 +1,5 @@
 ﻿using Markdig;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         static SpecTestHelper()
         {
             // Populate UseExtensionMethods and ExtensionOptionsTypes for constructing pipelines
-            Type flexiBlocksUseExtensions = typeof(UseExtensions);
+            Type flexiBlocksUseExtensions = typeof(FlexiBlocksMarkdownPipelineBuilderExtensions);
             foreach (MethodInfo methodInfo in flexiBlocksUseExtensions.GetMethods(BindingFlags.Public | BindingFlags.Static))
             {
                 if (!methodInfo.Name.StartsWith("Use"))
@@ -29,7 +30,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 
                 string extensionName = methodInfo.Name.Replace("Use", "");
                 ParameterInfo[] parameters = methodInfo.GetParameters();
-                if (parameters.Length > 1)
+                if (parameters.Length > 1 && 
+                    parameters[1].ParameterType.GetInterfaces().Any(interfaceType => interfaceType.GetGenericTypeDefinition() == typeof(IMarkdownExtensionOptions<>)))
                 {
                     // Assume that use methods only take extension options as arguments
                     ExtensionOptionsTypes.Add(extensionName, parameters[1].ParameterType);
@@ -70,6 +72,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                 return builder.Build();
             }
 
+            // Create service provider (use a fresh ServiceProvider to prevent specs from interfering with one another)
+            var services = new ServiceCollection();
+            services.AddFlexiBlocks();
+            IServiceProvider serviceProvider = services.BuildServiceProvider();
+
             // TODO could be sped up
             string[] extensions = pipelineOptions.Equals("all", StringComparison.OrdinalIgnoreCase) ? ExtensionNames : pipelineOptions.Split('_');
 
@@ -83,11 +90,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                 object[] args;
                 if (ExtensionOptionsTypes.TryGetValue(extension, out Type extensionOptionsType))
                 {
-                    args = new object[] { builder, extensionOptions?.GetValue(extension, StringComparison.OrdinalIgnoreCase)?.ToObject(extensionOptionsType) };
+                    args = new object[] { builder,
+                        extensionOptions?.GetValue(extension, StringComparison.OrdinalIgnoreCase)?.ToObject(extensionOptionsType),
+                        serviceProvider };
                 }
                 else
                 {
-                    args = new object[] { builder };
+                    args = new object[] { builder, serviceProvider };
                 }
 
                 useExtensionMethod.Invoke(null, args);

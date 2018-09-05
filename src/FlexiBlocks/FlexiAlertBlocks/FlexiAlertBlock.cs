@@ -4,10 +4,14 @@ using Markdig.Syntax;
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
     /// <summary>
-    /// A block containing content that is tangential to its containing article.
+    /// Represents a block containing tangential content such as warnings and elaborations.
     /// </summary>
     public class FlexiAlertBlock : ContainerBlock
     {
+        /// <summary>
+        /// Creates a <see cref="FlexiAlertBlock"/> instance.
+        /// </summary>
+        /// <param name="parser">The parser for this block.</param>
         public FlexiAlertBlock(BlockParser parser) : base(parser)
         {
         }

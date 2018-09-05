@@ -3,12 +3,14 @@ using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
 {
-    public class FlexiAlertBlockOptionsIntegrationTests
+    public class FlexiAlertBlockOptionsUnitTests
     {
         [Fact]
         public void Clone_ReturnsADeepClone()
         {
             // Arrange
+            const string dummyClassNameFormat = "dummyClassNameFormat";
+            const string dummyContentClassName = "dummyContentClassName";
             const string dummyIconMarkup = "dummyIconMarkup";
             const string dummyAttributeKey1 = "dummyAttributeKey1";
             const string dummyAttributeValue1 = "dummyAttributeValue1";
@@ -22,7 +24,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             var flexiAlertBlockOptions = new FlexiAlertBlockOptions()
             {
                 IconMarkup = dummyIconMarkup,
-                Attributes = dummyAttributes
+                Attributes = dummyAttributes,
+                ClassNameFormat = dummyClassNameFormat,
+                ContentClassName = dummyContentClassName
             };
 
             // Act
@@ -31,6 +35,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             // Assert
             Assert.NotSame(flexiAlertBlockOptions, result);
             Assert.Equal(dummyIconMarkup, result.IconMarkup);
+            Assert.Equal(dummyClassNameFormat, result.ClassNameFormat);
+            Assert.Equal(dummyContentClassName, result.ContentClassName);
             HtmlAttributeDictionary resultAttributes = result.Attributes;
             Assert.Equal(2, resultAttributes.Count);
             Assert.Equal(dummyAttributeValue1, resultAttributes[dummyAttributeKey1]);

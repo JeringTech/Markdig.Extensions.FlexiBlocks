@@ -1,28 +1,33 @@
 ﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
+    /// <summary>
+    /// Represents options for a <see cref="FlexiAlertBlock"/>.
+    /// </summary>
     public class FlexiAlertBlockOptions : IMarkdownObjectOptions<FlexiAlertBlockOptions>
     {
         /// <summary>
-        /// Markup for the FlexiAlertBlock's icon. If specified, rendered before the FlexiAlertBlock's content.
+        /// <para>Gets or sets the markup for the <see cref="FlexiAlertBlock" />'s icon.</para>
+        /// If not null, white space or an empty string,
+        /// the markup is rendered before the <see cref="FlexiAlertBlock" />'s content.
         /// </summary>
         public string IconMarkup { get; set; }
 
         /// <summary>
-        /// Gets or sets the value used as the format for the FlexiAlertBlock's outermost element's class. 
-        /// The inserted string is the FlexiAlertBlock's type (the string provided in the first line of the markdown for a FlexiAlertBlock). 
-        /// 
+        /// <para>Gets or sets the format for the <see cref="FlexiAlertBlock" />'s outermost element's class.</para>
+        /// <para>The <see cref="FlexiAlertBlock" />'s type (the string provided in the first line of the markdown for a <see cref="FlexiAlertBlock" />) 
+        /// will replace "{0}" in the format.</para> 
         /// If the format is null, whitespace or an empty string, no class is assigned.
         /// </summary>
         public string ClassNameFormat { get; set; } = "fab-{0}";
 
         /// <summary>
-        /// Gets or sets the value used as the class of the FlexiAlertBlock's content wrapper. 
+        /// <para>Gets or sets the class of the <see cref="FlexiAlertBlock" />'s content wrapper.</para>  
         /// If the value is null, whitespace or an empty string, no class is assigned. 
         /// </summary>
         public string ContentClassName { get; set; } = "fab-content";
 
         /// <summary>
-        /// HTML attributes for the outermost element of the FlexiAlertBlock.
+        /// Gets or sets HTML attributes for the outermost element of the <see cref="FlexiAlertBlock" />.
         /// </summary>
         public HtmlAttributeDictionary Attributes { get; set; } = new HtmlAttributeDictionary();
 

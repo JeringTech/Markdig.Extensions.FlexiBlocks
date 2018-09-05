@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
-    public class FlexiAlertBlocksExtensionOptions
+    /// <summary>
+    /// Represents options for the <see cref="FlexiAlertBlocksExtension"/>.
+    /// </summary>
+    public class FlexiAlertBlocksExtensionOptions : IMarkdownExtensionOptions<FlexiAlertBlockOptions>
     {
         /// <summary>
-        /// Map of FlexiAlertBlock types to icon markups.
-        /// 
-        /// The default SVGs are part of the excellent material design icon set - https://material.io/tools/icons/?style=baseline
-        /// They are licensed under an Apache License Version 2 license - https://www.apache.org/licenses/LICENSE-2.0.html
+        /// <para>A map of <see cref="FlexiAlertBlock" /> types to icon markups.</para>
+        /// <para>The default SVGs are part of the excellent material design icon set - https://material.io/tools/icons/?style=baseline.
+        /// They are licensed under an Apache License Version 2 license - https://www.apache.org/licenses/LICENSE-2.0.html.</para>
         /// </summary>
         public Dictionary<string, string> IconMarkups = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
@@ -19,8 +21,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         };
 
         /// <summary>
-        /// Default <see cref="FlexiAlertBlockOptions"/>.
+        /// Gets or sets the default <see cref="FlexiAlertBlockOptions"/>.
         /// </summary>
-        public FlexiAlertBlockOptions DefaultFlexiAlertBlockOptions { get; set; } = new FlexiAlertBlockOptions();
+        public FlexiAlertBlockOptions DefaultBlockOptions { get; set; } = new FlexiAlertBlockOptions();
     }
 }

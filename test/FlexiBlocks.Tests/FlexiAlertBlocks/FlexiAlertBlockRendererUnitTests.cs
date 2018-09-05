@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
 {
-    public class FlexiAlertBlockRendererIntegrationTests
+    public class FlexiAlertBlockRendererUnitTests
     {
         [Theory]
         [MemberData(nameof(Write_RendersFlexiAlertBlock_Data))]

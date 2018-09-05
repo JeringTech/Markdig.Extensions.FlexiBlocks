@@ -7,13 +7,13 @@
 <#@ import namespace="System.Threading" #>
 <#
     var specFiles = new KeyValuePair<string, string>[] {
-		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/CommonMarkSpecs.md"), "CommonMark"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiSectionBlocksSpecs.md"), "FlexiSectionBlocks|all"),
+		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/CommonMarkSpecs.md"), "CommonMark"),
+		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiSectionBlocksSpecs.md"), "FlexiSectionBlocks|all"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiAlertBlocksSpecs.md"), "FlexiAlertBlocks|all"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiCodeBlocksSpecs.md"), "FlexiCodeBlocks|all"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiTableBlocksSpecs.md"), "FlexiTableBlocks|all"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiIncludeBlocksSpecs.md"), "FlexiIncludeBlocks|all"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiOptionsBlocksSpecs.md"), "all")
+		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiCodeBlocksSpecs.md"), "FlexiCodeBlocks|all"),
+		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiTableBlocksSpecs.md"), "FlexiTableBlocks|all"),
+		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiIncludeBlocksSpecs.md"), "FlexiIncludeBlocks|all"),
+		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiOptionsBlocksSpecs.md"), "all")
 	};
 #>
 using Xunit;

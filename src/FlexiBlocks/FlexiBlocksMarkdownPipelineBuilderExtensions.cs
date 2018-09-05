@@ -1,11 +1,10 @@
 ﻿//using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 //using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 //using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 //using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 //using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
-using Jering.Web.SyntaxHighlighters.HighlightJS;
-using Jering.Web.SyntaxHighlighters.Prism;
 using Markdig;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -13,11 +12,12 @@ using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks
 {
-    public static class MarkdownPipelineBuilderExtensions
+    public static class FlexiBlocksMarkdownPipelineBuilderExtensions
     {
+        private static IServiceCollection _services;
         private static IServiceProvider _serviceProvider;
 
-        static MarkdownPipelineBuilderExtensions()
+        static FlexiBlocksMarkdownPipelineBuilderExtensions()
         {
             // The underlying service for running JS, INodeService, was built with DI in mind. Using DI does ensure that only one instance of INodeService
             // is ever created (since it is a singleton service). Every INodeService instance instantiated creates a new Node.js process, so using DI here
@@ -25,11 +25,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             // TODO consider registering services for extensions, some renderers and parsers use services.
 
             // Default services
-            IServiceCollection defaultServices = GetDefaultServices();
-            BuildServiceProvider(defaultServices);
+            _services = new ServiceCollection();
+            _services.AddFlexiBlocks();
+            SetServiceCollection(_services);
         }
 
-        public static void BuildServiceProvider(IServiceCollection services)
+        public static void SetServiceCollection(IServiceCollection services)
         {
             if (services == null)
             {
@@ -38,21 +39,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             _serviceProvider = services.BuildServiceProvider();
         }
 
-        public static IServiceCollection GetDefaultServices()
+        public static IServiceCollection GetServiceCollection()
         {
-            var defaultServices = new ServiceCollection();
-            defaultServices.AddFlexiBlocks();
-
-            return defaultServices;
+            return _services;
         }
 
         /// <summary>
         /// Adds all FlexiBlock extensions to the pipeline.
         /// </summary>
         /// <param name="pipelineBuilder"></param>
-        public static MarkdownPipelineBuilder UseFlexiBlocks(this MarkdownPipelineBuilder pipelineBuilder)
+        public static MarkdownPipelineBuilder UseFlexiBlocks(this MarkdownPipelineBuilder pipelineBuilder, IServiceProvider serviceProvider = null)
         {
-            return pipelineBuilder.UseFlexiOptionsBlocks();
+            return pipelineBuilder.
+                UseFlexiOptionsBlocks(serviceProvider);
         }
 
         //public static MarkdownPipelineBuilder UseFlexiSectionBlocks(this MarkdownPipelineBuilder pipelineBuilder, FlexiSectionBlocksExtensionOptions options = null)
@@ -65,24 +64,41 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         //    return pipelineBuilder;
         //}
 
-        //public static MarkdownPipelineBuilder UseFlexiAlertBlocks(this MarkdownPipelineBuilder pipelineBuilder, FlexiAlertBlocksExtensionOptions options = null)
-        //{
-        //    if (!pipelineBuilder.Extensions.Contains<FlexiAlertBlocksExtension>())
-        //    {
-        //        pipelineBuilder.Extensions.Add(new FlexiAlertBlocksExtension(options));
-        //    }
+        /// <summary>
+        /// Adds <see cref="FlexiAlertBlocksExtension"/> to the pipeline.
+        /// </summary>
+        public static MarkdownPipelineBuilder UseFlexiAlertBlocks(this MarkdownPipelineBuilder pipelineBuilder,
+            FlexiAlertBlocksExtensionOptions options = null,
+            IServiceProvider serviceProvider = null)
+        {
+            serviceProvider = serviceProvider ?? _serviceProvider;
 
-        //    return pipelineBuilder;
-        //}
+            if (!pipelineBuilder.Extensions.Contains<FlexiAlertBlocksExtension>())
+            {
+                if (options != null && 
+                    serviceProvider.GetRequiredService<IOptions<FlexiAlertBlocksExtensionOptions>>() is ExposedOptionsManager<FlexiAlertBlocksExtensionOptions> optionsManager)
+                {
+                    optionsManager.Value = options;
+                    // TODO throw FlexiBlocksException, user registered custom service for IOptions that doesn't extend exposed options manager
+                }
+
+                pipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<FlexiAlertBlocksExtension>());
+            }
+
+            return pipelineBuilder;
+        }
 
         /// <summary>
         /// Adds <see cref="FlexiOptionsBlocksExtension"/> to the pipeline.
         /// </summary>
-        public static MarkdownPipelineBuilder UseFlexiOptionsBlocks(this MarkdownPipelineBuilder pipelineBuilder)
+        public static MarkdownPipelineBuilder UseFlexiOptionsBlocks(this MarkdownPipelineBuilder pipelineBuilder,
+            IServiceProvider serviceProvider = null)
         {
+            serviceProvider = serviceProvider ?? _serviceProvider;
+
             if (!pipelineBuilder.Extensions.Contains<FlexiOptionsBlocksExtension>())
             {
-                pipelineBuilder.Extensions.Add(_serviceProvider.GetRequiredService<FlexiOptionsBlocksExtension>());
+                pipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<FlexiOptionsBlocksExtension>());
             }
 
             return pipelineBuilder;

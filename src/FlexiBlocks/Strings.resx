@@ -181,6 +181,10 @@
     <value>The {0} starting at line "{1}", column "{2}", is invalid:
 {3}</value>
   </data>
+  <data name="FlexiBlocksException_InvalidMarkdown" xml:space="preserve">
+    <value>The markdown at line "{0}", column "{1}" is invalid:
+{2}</value>
+  </data>
   <data name="FlexiBlocksException_MispositionedFlexiOptionsBlock" xml:space="preserve">
     <value>FlexiOptionsBlock must immediately precede the block that consumes it.</value>
   </data>
@@ -189,6 +193,12 @@
   </data>
   <data name="FlexiBlocksException_UnconsumedFlexiOptionsBlock" xml:space="preserve">
     <value>FlexiOptionsBlock must be consumed.</value>
+  </data>
+  <data name="FlexiBlocksException_UnexpectedException" xml:space="preserve">
+    <value>An unexpected exception occurred. Refer to the inner exception for more details.</value>
+  </data>
+  <data name="FlexiBlocksException_UnexpectedExceptionWhileAttemptingToOpenBlock" xml:space="preserve">
+    <value>An unexpected exception occurred in "{0}" while attempting to open a block. Refer to the inner exception for more details.</value>
   </data>
   <data name="HttpRequestException_UnsuccessfulRequest" xml:space="preserve">
     <value>Request to "{0}" failed with status code "{1}" and message "{2}".</value>

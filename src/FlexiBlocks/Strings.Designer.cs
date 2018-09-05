@@ -254,6 +254,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The markdown at line &quot;{0}&quot;, column &quot;{1}&quot; is invalid:
+        ///{2}.
+        /// </summary>
+        internal static string FlexiBlocksException_InvalidMarkdown {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_InvalidMarkdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FlexiOptionsBlock must immediately precede the block that consumes it..
         /// </summary>
         internal static string FlexiBlocksException_MispositionedFlexiOptionsBlock {
@@ -277,6 +287,24 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         internal static string FlexiBlocksException_UnconsumedFlexiOptionsBlock {
             get {
                 return ResourceManager.GetString("FlexiBlocksException_UnconsumedFlexiOptionsBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unexpected exception occurred. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string FlexiBlocksException_UnexpectedException {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_UnexpectedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unexpected exception occurred in &quot;{0}&quot; while attempting to open a block. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string FlexiBlocksException_UnexpectedExceptionWhileAttemptingToOpenBlock {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_UnexpectedExceptionWhileAttemptingToOpenBlock", resourceCulture);
             }
         }
         

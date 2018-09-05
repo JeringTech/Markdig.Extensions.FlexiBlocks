@@ -1,33 +1,49 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
-using Markdig;
+﻿using Markdig;
 using Markdig.Renderers;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
+    /// <summary>
+    /// A markdig extension for <see cref="FlexiAlertBlock"/>s.
+    /// </summary>
     public class FlexiAlertBlocksExtension : IMarkdownExtension
     {
-        private readonly FlexiAlertBlocksExtensionOptions _options;
+        private readonly FlexiAlertBlockParser _flexiAlertBlockParser;
+        private readonly FlexiAlertBlockRenderer _flexiAlertBlockRenderer;
 
-        public FlexiAlertBlocksExtension(FlexiAlertBlocksExtensionOptions options)
+        /// <summary>
+        /// Creates a <see cref="FlexiAlertBlocksExtension"/> instance.
+        /// </summary>
+        /// <param name="flexiAlertBlockParser">The parser for creating <see cref="FlexiAlertBlock"/>s from markdown.</param>
+        /// <param name="flexiAlertBlockRenderer">The renderer for rendering <see cref="FlexiAlertBlock"/>s as HTML.</param>
+        public FlexiAlertBlocksExtension(FlexiAlertBlockParser flexiAlertBlockParser, FlexiAlertBlockRenderer flexiAlertBlockRenderer)
         {
-            _options = options ?? new FlexiAlertBlocksExtensionOptions();
+            _flexiAlertBlockParser = flexiAlertBlockParser;
+            _flexiAlertBlockRenderer = flexiAlertBlockRenderer;
         }
 
-        public void Setup(MarkdownPipelineBuilder pipeline)
+        /// <summary>
+        /// Registers a <see cref="FlexiAlertBlock"/> parser if one isn't already registered.
+        /// </summary>
+        /// <param name="pipelineBuilder">The pipeline builder to register the parser for.</param>
+        public void Setup(MarkdownPipelineBuilder pipelineBuilder)
         {
-            if (!pipeline.BlockParsers.Contains<FlexiAlertBlockParser>())
+            if (!pipelineBuilder.BlockParsers.Contains<FlexiAlertBlockParser>())
             {
-                var flexiOptionsBlockService = new FlexiOptionsBlockService();
-                var flexiAlertBlockParser = new FlexiAlertBlockParser(_options, flexiOptionsBlockService);
-                pipeline.BlockParsers.Insert(0, flexiAlertBlockParser);
+                pipelineBuilder.BlockParsers.Insert(0, _flexiAlertBlockParser);
             }
         }
 
+        /// <summary>
+        /// Registers a <see cref="FlexiAlertBlock"/> renderer if one isn't already registered.
+        /// </summary>
+        /// <param name="pipeline">The pipeline to register the renderer for.</param>
+        /// <param name="renderer">The root renderer to register the renderer for.</param>
         public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
             if (renderer is HtmlRenderer htmlRenderer && !htmlRenderer.ObjectRenderers.Contains<FlexiAlertBlockRenderer>())
             {
-                htmlRenderer.ObjectRenderers.Insert(0, new FlexiAlertBlockRenderer());
+                htmlRenderer.ObjectRenderers.Insert(0, _flexiAlertBlockRenderer);
             }
         }
     }

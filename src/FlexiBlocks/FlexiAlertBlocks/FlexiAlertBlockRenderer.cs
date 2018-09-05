@@ -1,11 +1,18 @@
 ﻿using Markdig.Renderers;
-using Markdig.Renderers.Html;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
-    public class FlexiAlertBlockRenderer : HtmlObjectRenderer<FlexiAlertBlock>
+    /// <summary>
+    /// A renderer that renders <see cref="FlexiAlertBlock"/>s as HTML.
+    /// </summary>
+    public class FlexiAlertBlockRenderer : FlexiBlockRenderer<FlexiAlertBlock>
     {
-        protected override void Write(HtmlRenderer renderer, FlexiAlertBlock obj)
+        /// <summary>
+        /// Renders a <see cref="FlexiAlertBlock"/> as HTML.
+        /// </summary>
+        /// <param name="renderer">The renderer to write to.</param>
+        /// <param name="obj">The <see cref="FlexiAlertBlock"/> to render.</param>
+        public override void WriteFlexiBlock(HtmlRenderer renderer, FlexiAlertBlock obj)
         {
             FlexiAlertBlockOptions flexiAlertBlockOptions = obj.FlexiAlertBlockOptions;
 
@@ -15,7 +22,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
             {
                 renderer.Write("<div").WriteHtmlAttributeDictionary(flexiAlertBlockOptions.Attributes).WriteLine(">");
 
-                if (flexiAlertBlockOptions.IconMarkup != null)
+                if (!string.IsNullOrWhiteSpace(flexiAlertBlockOptions.IconMarkup))
                 {
                     renderer.WriteLine(flexiAlertBlockOptions.IconMarkup);
                 }
