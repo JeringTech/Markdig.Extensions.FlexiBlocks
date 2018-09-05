@@ -3,6 +3,7 @@ using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using Microsoft.Extensions.Options;
+using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
@@ -126,8 +127,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
             // Add FlexiAlertBlock class
             if (!string.IsNullOrWhiteSpace(result.ClassNameFormat))
             {
-                string alertClass = string.Format(result.ClassNameFormat, alertType.ToLowerInvariant());
-                result.Attributes.Add("class", alertClass);
+                try
+                {
+                    string alertClass = string.Format(result.ClassNameFormat, alertType.ToLowerInvariant());
+                    result.Attributes.Add("class", alertClass);
+                }
+                catch (FormatException formatException)
+                {
+                    throw new FlexiBlocksException(processor.NewBlocks.Peek(),
+                        string.Format(Strings.FlexiBlocksException_InvalidFormat, nameof(result.ClassNameFormat), result.ClassNameFormat, 1),
+                        formatException);
+                }
             }
 
             return result;

@@ -254,6 +254,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The {0} &quot;{1}&quot; is invalid. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string FlexiBlocksException_InvalidFormat {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_InvalidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The markdown at line &quot;{0}&quot;, column &quot;{1}&quot; is invalid:
         ///{2}.
         /// </summary>

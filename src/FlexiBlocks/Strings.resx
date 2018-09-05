@@ -181,6 +181,9 @@
     <value>The {0} starting at line "{1}", column "{2}", is invalid:
 {3}</value>
   </data>
+  <data name="FlexiBlocksException_InvalidFormat" xml:space="preserve">
+    <value>The {0} "{1}" is invalid. Refer to the inner exception for more details.</value>
+  </data>
   <data name="FlexiBlocksException_InvalidMarkdown" xml:space="preserve">
     <value>The markdown at line "{0}", column "{1}" is invalid:
 {2}</value>

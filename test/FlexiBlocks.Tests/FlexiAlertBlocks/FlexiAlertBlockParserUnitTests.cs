@@ -298,6 +298,33 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             };
         }
 
+        [Fact]
+        public void CreateFlexiAlertBlockOptions_ThrowsFlexiBlocksExceptionIfClassNameFormatIsInvalid()
+        {
+            // Arrange
+            const string dummyClassNameFormat = "alert-{0}-{1}"; // Too many format items
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            dummyBlockProcessor.NewBlocks.Push(new FlexiAlertBlock(null));
+            var dummyExtensionOptions = new FlexiAlertBlocksExtensionOptions();
+            dummyExtensionOptions.DefaultBlockOptions.ClassNameFormat = dummyClassNameFormat;
+            Mock<IOptions<FlexiAlertBlocksExtensionOptions>> mockExtensionOptionsAccessor = _mockRepository.Create<IOptions<FlexiAlertBlocksExtensionOptions>>();
+            mockExtensionOptionsAccessor.Setup(o => o.Value).Returns(dummyExtensionOptions);
+            Mock<IFlexiOptionsBlockService> mockFlexiOptionsBlockService = _mockRepository.Create<IFlexiOptionsBlockService>();
+            mockFlexiOptionsBlockService.Setup(f => f.TryPopulateOptions(dummyBlockProcessor, It.IsAny<FlexiAlertBlockOptions>(), dummyBlockProcessor.LineIndex));
+            FlexiAlertBlockParser testSubject = CreateFlexiAlertBlockParser(mockExtensionOptionsAccessor.Object, mockFlexiOptionsBlockService.Object);
+
+            // Act and assert
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.CreateFlexiAlertBlockOptions(dummyBlockProcessor, "dummyAlertType"));
+            Assert.Equal(
+                string.Format(
+                    Strings.FlexiBlocksException_InvalidFlexiBlock,
+                    nameof(FlexiAlertBlock),
+                    1,
+                    0,
+                    string.Format(Strings.FlexiBlocksException_InvalidFormat, nameof(FlexiAlertBlockOptions.ClassNameFormat), dummyClassNameFormat)),
+                result.Message);
+        }
+
         [Theory]
         [MemberData(nameof(TryGetFlexiAlertType_ReturnsNullIfLineContainsIllegalCharacters_Data))]
         public void TryGetFlexiAlertType_ReturnsNullIfLineContainsIllegalCharactersOrHasNoCharacters(string dummyString)
