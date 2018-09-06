@@ -6,7 +6,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
     /// <summary>
     /// A markdig extension for <see cref="FlexiAlertBlock"/>s.
     /// </summary>
-    public class FlexiAlertBlocksExtension : IMarkdownExtension
+    public class FlexiAlertBlocksExtension : FlexiBlocksExtension
     {
         private readonly FlexiAlertBlockParser _flexiAlertBlockParser;
         private readonly FlexiAlertBlockRenderer _flexiAlertBlockRenderer;
@@ -26,7 +26,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// Registers a <see cref="FlexiAlertBlock"/> parser if one isn't already registered.
         /// </summary>
         /// <param name="pipelineBuilder">The pipeline builder to register the parser for.</param>
-        public void Setup(MarkdownPipelineBuilder pipelineBuilder)
+        public override void Setup(MarkdownPipelineBuilder pipelineBuilder)
         {
             if (!pipelineBuilder.BlockParsers.Contains<FlexiAlertBlockParser>())
             {
@@ -39,7 +39,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// </summary>
         /// <param name="pipeline">The pipeline to register the renderer for.</param>
         /// <param name="renderer">The root renderer to register the renderer for.</param>
-        public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
+        public override void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
             if (renderer is HtmlRenderer htmlRenderer && !htmlRenderer.ObjectRenderers.Contains<FlexiAlertBlockRenderer>())
             {
