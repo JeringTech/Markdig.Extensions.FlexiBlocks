@@ -51,7 +51,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         public static MarkdownPipelineBuilder UseFlexiBlocks(this MarkdownPipelineBuilder pipelineBuilder, IServiceProvider serviceProvider = null)
         {
             return pipelineBuilder.
-                UseFlexiOptionsBlocks(serviceProvider);
+                UseFlexiOptionsBlocks(serviceProvider).
+                UseFlexiAlertBlocks(serviceProvider: serviceProvider);
         }
 
         //public static MarkdownPipelineBuilder UseFlexiSectionBlocks(this MarkdownPipelineBuilder pipelineBuilder, FlexiSectionBlocksExtensionOptions options = null)
