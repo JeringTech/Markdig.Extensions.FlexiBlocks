@@ -1,12 +1,47 @@
 ﻿using Markdig.Parsers;
 using Markdig.Syntax;
 using System.Collections.Generic;
+using System.IO;
 using Xunit;
+#if NETCOREAPP2_1
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+#endif
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
 {
     public class FlexiBlockExceptionUnitTests
     {
+#if NETCOREAPP2_1
+        [Fact]
+        public void FlexiBlockException_CanBeSerialized()
+        {
+            // Arrange
+            const int dummyLineIndex = 1;
+            const int dummyColumn = 2;
+            var dummyBlock = new DummyBlock(null)
+            {
+                Column = dummyColumn,
+                Line = dummyLineIndex
+            };
+            const string dummyDescription = "dummyDescription";
+            IFormatter dummyFormatter = new BinaryFormatter();
+            var dummyStream = new MemoryStream();
+            var testSubject = new FlexiBlocksException(dummyBlock, dummyDescription);
+
+            // Act
+            dummyFormatter.Serialize(dummyStream, testSubject);
+            dummyStream.Position = 0;
+            var result = (FlexiBlocksException)dummyFormatter.Deserialize(dummyStream);
+
+            // Assert
+            Assert.Equal(dummyLineIndex + 1, result.LineNumber);
+            Assert.Equal(dummyColumn, result.Column);
+            Assert.Equal(dummyDescription, result.Description);
+            Assert.Equal(nameof(DummyBlock), result.BlockTypeName);
+        }
+#endif
+
         [Theory]
         [MemberData(nameof(Message_ReturnsInvalidFlexiBlockMessageIfBlockTypeNameIsNotNull_Data))]
         public void Message_ReturnsInvalidFlexiBlockMessageIfBlockTypeNameIsNotNull(string dummyDescription, string dummyExpectedDescription)
