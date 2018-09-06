@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks
 {
+    /// <summary>
+    /// An implementation of <see cref="IOptions{TOptions}"/> that allows manual setting of the options instance.
+    /// </summary>
+    /// <typeparam name="TOptions">The type of this <see cref="IOptions{TOptions}"/>'s options instance.</typeparam>
     public class ExposedOptionsManager<TOptions> : IOptions<TOptions> where TOptions : class, new()
     {
         private TOptions _settableOptions;
@@ -11,7 +15,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         private readonly IEnumerable<IConfigureOptions<TOptions>> _setups;
 
         /// <summary>
-        /// Initializes a new instance with the specified options configurations.
+        /// Creates an <see cref="ExposedOptionsManager{TOptions}"/> instance.
         /// </summary>
         /// <param name="setups">The configuration actions to run.</param>
         public ExposedOptionsManager(IEnumerable<IConfigureOptions<TOptions>> setups)
@@ -34,7 +38,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
-        /// The configured options instance.
+        /// Gets or sets the options instance.
         /// </summary>
         public virtual TOptions Value
         {
