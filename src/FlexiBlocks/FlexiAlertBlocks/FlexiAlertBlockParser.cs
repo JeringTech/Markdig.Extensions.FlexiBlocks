@@ -126,7 +126,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
                 result.IconMarkup = iconMarkup;
             }
 
-            // Add FlexiAlertBlock class
+            // Validate options and create composite values
             if (!string.IsNullOrWhiteSpace(result.ClassNameFormat))
             {
                 try
@@ -137,7 +137,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
                 catch (FormatException formatException)
                 {
                     throw new FlexiBlocksException(processor.NewBlocks.Peek(),
-                        string.Format(Strings.FlexiBlocksException_InvalidFormat, nameof(result.ClassNameFormat), result.ClassNameFormat, 1),
+                        string.Format(Strings.FlexiBlocksException_InvalidFormat, nameof(result.ClassNameFormat), result.ClassNameFormat),
                         formatException);
                 }
             }
