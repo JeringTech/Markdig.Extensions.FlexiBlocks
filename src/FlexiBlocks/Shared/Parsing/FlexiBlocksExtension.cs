@@ -12,7 +12,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
     /// <para>An abstraction for FlexiBlock extensions.</para>
     /// 
     /// <para>FlexiBlocks extensions utilize <see cref="FlexiOptionsBlocksExtension"/> - it is what makes FlexiBlocks flexible. Typical usage of <see cref="FlexiOptionsBlocksExtension"/>
-    /// involves extracting a <see cref="FlexiOptionsBlock"/> in a parser's <see cref="FlexiBlockParser.CloseFlexiBlock(BlockProcessor, Block)"/> method.</para>
+    /// involves extracting a <see cref="FlexiOptionsBlock"/> in a parser's <see cref="FlexiBlockParser.TryOpenFlexiBlock(BlockProcessor)"/> method.</para>
     /// 
     /// <para>Not all extensions define their own parsers though. For such extensions, a method must be assigned to the <see cref="BlockParser.Closed"/> event of the parser(s)
     /// that the extension depends on.</para>
@@ -22,7 +22,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
     /// methods to the <see cref="BlockParser.Closed"/> events of both parsers.</para>
     /// 
     /// <para>The primary functionality that this class provides is consistent exception handling for methods assigned to <see cref="BlockParser.Closed"/>.
-    /// Implementors that are unable to define <see cref="FlexiBlockParser.CloseFlexiBlock(BlockProcessor, Block)"/> for their parsers should override 
+    /// Implementors that are unable to define <see cref="FlexiBlockParser.TryOpenFlexiBlock(BlockProcessor)"/> for their parsers should override 
     /// <see cref="OnFlexiBlockClosed(BlockProcessor, Block)"/> and register <see cref="OnClosed(BlockProcessor, Block)"/> to <see cref="BlockParser.Closed"/>. </para>
     /// </summary>
     public abstract class FlexiBlocksExtension : IMarkdownExtension
