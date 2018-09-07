@@ -10,14 +10,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
     {
         /// <summary>
         /// <para>A map of <see cref="FlexiAlertBlock" /> types to icon markups.</para>
-        /// <para>The default SVGs are part of the excellent material design icon set - https://material.io/tools/icons/?style=baseline.
-        /// They are licensed under an Apache License Version 2 license - https://www.apache.org/licenses/LICENSE-2.0.html.</para>
+        /// 
+        /// <para>By default, contains type "info" with icon https://material.io/tools/icons/?icon=info&amp;style=sharp,
+        /// type "warning" with icon "https://material.io/tools/icons/?icon=warning&amp;style=sharp", 
+        /// and type "critical-warning" with icon "https://material.io/tools/icons/?icon=error&amp;style=sharp".</para>
+        /// 
+        /// <para>The default icons are licensed under an Apache License Version 2 license - https://www.apache.org/licenses/LICENSE-2.0.html.</para>
         /// </summary>
-        public Dictionary<string, string> IconMarkups = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        public Dictionary<string, string> IconMarkups { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "info", "<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z\"></path></svg>" },
-            { "warning", "<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>" },
-            { "critical-warning", "<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"></path><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"></path></svg>" }
+            { "info", "<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z\"/></svg>" },
+            { "warning", "<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"m1 21h22l-11-19-11 19zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"/></svg>" },
+            { "critical-warning", "<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-2h2v2zm0-4h-2v-6h2v6z\"/>" }
         };
 
         /// <summary>

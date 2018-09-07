@@ -7,22 +7,31 @@
     {
         /// <summary>
         /// <para>Gets or sets the markup for the <see cref="FlexiAlertBlock" />'s icon.</para>
-        /// If not null, white space or an empty string,
-        /// the markup is rendered before the <see cref="FlexiAlertBlock" />'s content.
+        /// 
+        /// <para>If the value is not null, whitespace or an empty string, the markup is rendered before the <see cref="FlexiAlertBlock" />'s content.</para>
+        /// 
+        /// <para>Defaults to null.</para>
         /// </summary>
         public string IconMarkup { get; set; }
 
         /// <summary>
         /// <para>Gets or sets the format for the <see cref="FlexiAlertBlock" />'s outermost element's class.</para>
+        /// 
         /// <para>The <see cref="FlexiAlertBlock" />'s type (the string provided in the first line of the markdown for a <see cref="FlexiAlertBlock" />) 
         /// will replace "{0}" in the format.</para> 
-        /// If the format is null, whitespace or an empty string, no class is assigned.
+        /// 
+        /// <para>If the format is null, whitespace or an empty string, no class is assigned.</para>
+        /// 
+        /// <para>Defaults to "fab-{0}".</para>
         /// </summary>
         public string ClassNameFormat { get; set; } = "fab-{0}";
 
         /// <summary>
         /// <para>Gets or sets the class of the <see cref="FlexiAlertBlock" />'s content wrapper.</para>  
-        /// If the value is null, whitespace or an empty string, no class is assigned. 
+        /// 
+        /// <para>If the value is null, whitespace or an empty string, no class is assigned.</para>
+        /// 
+        /// <para>Defaults to "fab-content".</para>
         /// </summary>
         public string ContentClassName { get; set; } = "fab-content";
 
