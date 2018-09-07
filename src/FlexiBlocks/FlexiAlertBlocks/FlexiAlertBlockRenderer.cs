@@ -14,35 +14,37 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <param name="obj">The <see cref="FlexiAlertBlock"/> to render.</param>
         public override void WriteFlexiBlock(HtmlRenderer renderer, FlexiAlertBlock obj)
         {
-            FlexiAlertBlockOptions flexiAlertBlockOptions = obj.FlexiAlertBlockOptions;
-
             renderer.EnsureLine();
 
-            if (renderer.EnableHtmlForBlock)
+            if (!renderer.EnableHtmlForBlock)
             {
-                renderer.Write("<div").WriteHtmlAttributeDictionary(flexiAlertBlockOptions.Attributes).WriteLine(">");
-
-                if (!string.IsNullOrWhiteSpace(flexiAlertBlockOptions.IconMarkup))
-                {
-                    renderer.WriteLine(flexiAlertBlockOptions.IconMarkup);
-                }
-
-                renderer.Write("<div");
-                if (!string.IsNullOrWhiteSpace(flexiAlertBlockOptions.ContentClassName))
-                {
-                    renderer.Write($" class=\"{flexiAlertBlockOptions.ContentClassName}\"");
-                }
-                renderer.WriteLine(">");
+                renderer.WriteChildren(obj, false);
+                return;
             }
 
-            renderer.WriteChildren(obj, false);
+            FlexiAlertBlockOptions flexiAlertBlockOptions = obj.FlexiAlertBlockOptions;
 
-            if (renderer.EnableHtmlForBlock)
+            renderer.Write("<div").WriteHtmlAttributeDictionary(flexiAlertBlockOptions.Attributes).WriteLine(">");
+         
+            // Icon
+            if (!string.IsNullOrWhiteSpace(flexiAlertBlockOptions.IconMarkup))
             {
-                renderer.
-                    WriteLine("</div>").
-                    WriteLine("</div>");
+                renderer.WriteLine(flexiAlertBlockOptions.IconMarkup);
             }
+
+            renderer.Write("<div");
+
+            // Content class
+            if (!string.IsNullOrWhiteSpace(flexiAlertBlockOptions.ContentClassName))
+            {
+                renderer.Write($" class=\"{flexiAlertBlockOptions.ContentClassName}\"");
+            }
+
+            renderer.
+                WriteLine(">").
+                WriteChildren(obj, false).
+                WriteLine("</div>").
+                WriteLine("</div>");
         }
     }
 }
