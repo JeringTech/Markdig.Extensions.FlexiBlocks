@@ -1,9 +1,9 @@
 ﻿using Markdig.Parsers;
 using Markdig.Syntax;
 using System.Collections.Generic;
-using System.IO;
 using Xunit;
 #if NETCOREAPP2_1
+using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 #endif
@@ -60,7 +60,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             string result = testSubject.Message;
 
             // Assert
-            Assert.Equal($@"The DummyBlock starting at line ""6"", column ""2"", is invalid:
+            Assert.Equal($@"The FlexiDummyBlock starting at line ""6"", column ""2"", is invalid:
 {dummyExpectedDescription}", result, ignoreLineEndingDifferences: true);
         }
 

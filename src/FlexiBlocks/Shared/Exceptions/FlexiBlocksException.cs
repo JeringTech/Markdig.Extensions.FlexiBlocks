@@ -153,6 +153,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             Column = invalidFlexiBlock.Column;
             BlockTypeName = invalidFlexiBlock.GetType().Name;
 
+            // Certain extensions use externally defined blocks, such as CodeBlock and Table.
+            if (!BlockTypeName.StartsWith("Flexi"))
+            {
+                BlockTypeName = "Flexi" + BlockTypeName;
+            }
+
             _customMessage = true;
         }
 
