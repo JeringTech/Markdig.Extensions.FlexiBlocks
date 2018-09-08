@@ -6,7 +6,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     public static class HtmlRendererExtensions
     {
-        public static HtmlRenderer WriteHtmlAttributeDictionary(this HtmlRenderer htmlRenderer, HtmlAttributeDictionary attributes)
+        public static HtmlRenderer WriteHtmlAttributeDictionary(this HtmlRenderer htmlRenderer, IReadOnlyDictionary<string, string> attributes)
         {
             if (attributes != null)
             {
