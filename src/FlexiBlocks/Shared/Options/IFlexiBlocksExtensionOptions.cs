@@ -1,6 +1,6 @@
 ﻿namespace Jering.Markdig.Extensions.FlexiBlocks
 {
-    public interface IMarkdownExtensionOptions<T>
+    public interface IFlexiBlocksExtensionOptions<T>
     {
         T DefaultBlockOptions { get; set; }
     }
