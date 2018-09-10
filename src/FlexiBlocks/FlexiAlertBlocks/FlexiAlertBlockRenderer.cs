@@ -1,4 +1,5 @@
 ﻿using Markdig.Renderers;
+using System.Collections.Generic;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
@@ -24,8 +25,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 
             FlexiAlertBlockOptions flexiAlertBlockOptions = obj.FlexiAlertBlockOptions;
 
-            renderer.Write("<div").WriteHtmlAttributeDictionary(flexiAlertBlockOptions.Attributes).WriteLine(">");
-         
+            // Add class to attributes
+            IDictionary<string, string> attributes = flexiAlertBlockOptions.Attributes;
+            if (!string.IsNullOrWhiteSpace(flexiAlertBlockOptions.Class))
+            {
+                attributes = new HtmlAttributeDictionary(attributes)
+                {
+                    { "class", flexiAlertBlockOptions.Class }
+                };
+            }
+
+            renderer.Write("<div").WriteAttributes(attributes).WriteLine(">");
+
             // Icon
             if (!string.IsNullOrWhiteSpace(flexiAlertBlockOptions.IconMarkup))
             {
@@ -35,9 +46,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
             renderer.Write("<div");
 
             // Content class
-            if (!string.IsNullOrWhiteSpace(flexiAlertBlockOptions.ContentClassName))
+            if (!string.IsNullOrWhiteSpace(flexiAlertBlockOptions.ContentClass))
             {
-                renderer.Write($" class=\"{flexiAlertBlockOptions.ContentClassName}\"");
+                renderer.Write($" class=\"{flexiAlertBlockOptions.ContentClass}\"");
             }
 
             renderer.

@@ -6,7 +6,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
     /// <summary>
     /// Represents options for the <see cref="FlexiAlertBlocksExtension"/>.
     /// </summary>
-    public class FlexiAlertBlocksExtensionOptions : IMarkdownExtensionOptions<FlexiAlertBlockOptions>
+    public class FlexiAlertBlocksExtensionOptions : IFlexiBlocksExtensionOptions<FlexiAlertBlockOptions>
     {
         /// <summary>
         /// <para>A map of <see cref="FlexiAlertBlock" /> types to icon markups.</para>

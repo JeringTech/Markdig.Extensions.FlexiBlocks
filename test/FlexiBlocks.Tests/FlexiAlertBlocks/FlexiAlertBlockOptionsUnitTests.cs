@@ -1,4 +1,6 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
+using Newtonsoft.Json;
+using System;
 using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
@@ -6,41 +8,49 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
     public class FlexiAlertBlockOptionsUnitTests
     {
         [Fact]
-        public void Clone_ReturnsADeepClone()
+        public void ValidateAndPopulate_ThrowsFlexiBlocksExceptionIfClassFormatIsAnInvalidFormat()
         {
             // Arrange
-            const string dummyClassNameFormat = "dummyClassNameFormat";
-            const string dummyContentClassName = "dummyContentClassName";
-            const string dummyIconMarkup = "dummyIconMarkup";
-            const string dummyAttributeKey1 = "dummyAttributeKey1";
-            const string dummyAttributeValue1 = "dummyAttributeValue1";
-            const string dummyAttributeKey2 = "dummyAttributeKey2";
-            const string dummyAttributeValue2 = "dummyAttributeValue2";
-            var dummyAttributes = new HtmlAttributeDictionary()
-            {
-                {dummyAttributeKey1, dummyAttributeValue1 },
-                {dummyAttributeKey2, dummyAttributeValue2 }
-            };
-            var flexiAlertBlockOptions = new FlexiAlertBlockOptions()
-            {
-                IconMarkup = dummyIconMarkup,
-                Attributes = dummyAttributes,
-                ClassNameFormat = dummyClassNameFormat,
-                ContentClassName = dummyContentClassName
-            };
+            const string dummyClassFormat = "dummy-{0}-{1}";
+
+            // Act and assert
+            FlexiBlocksException result = Assert.
+                Throws<FlexiBlocksException>(() => new FlexiAlertBlockOptions(classFormat: dummyClassFormat, alertType: "dummyAlertType"));
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFormat,
+                    nameof(FlexiAlertBlockOptions.ClassFormat),
+                    dummyClassFormat),
+                result.Message);
+            Assert.IsType<FormatException>(result.InnerException);
+        }
+
+        [Fact]
+        public void ValidateAndPopulate_PopulatesClassifClassFormatAndAlertTypeAreDefined()
+        {
+            // Arrange
+            const string dummyClassFormat = "dummy-{0}";
+            const string dummyAlertType = "dummyAlertType";
 
             // Act
-            FlexiAlertBlockOptions result = flexiAlertBlockOptions.Clone();
+            var testSubject = new FlexiAlertBlockOptions(classFormat: dummyClassFormat, alertType: dummyAlertType);
 
             // Assert
-            Assert.NotSame(flexiAlertBlockOptions, result);
-            Assert.Equal(dummyIconMarkup, result.IconMarkup);
-            Assert.Equal(dummyClassNameFormat, result.ClassNameFormat);
-            Assert.Equal(dummyContentClassName, result.ContentClassName);
-            HtmlAttributeDictionary resultAttributes = result.Attributes;
-            Assert.Equal(2, resultAttributes.Count);
-            Assert.Equal(dummyAttributeValue1, resultAttributes[dummyAttributeKey1]);
-            Assert.Equal(dummyAttributeValue2, resultAttributes[dummyAttributeKey2]);
+            Assert.Equal(string.Format(dummyClassFormat, dummyAlertType), testSubject.Class);
         }
+
+        [Fact]
+        public void ValidateAndPopulate_SetsClassToNullIfClassFormatOrAlertTypeIsUndefined()
+        {
+            // Arrange
+            var testSubject = new FlexiAlertBlockOptions();
+            string initialClass = testSubject.Class;
+
+            // Act
+            JsonConvert.PopulateObject($"{{\"classFormat\": null}}", testSubject);
+
+            // Assert
+            Assert.NotNull(initialClass);
+            Assert.Null(testSubject.Class);
+        }
+
     }
 }

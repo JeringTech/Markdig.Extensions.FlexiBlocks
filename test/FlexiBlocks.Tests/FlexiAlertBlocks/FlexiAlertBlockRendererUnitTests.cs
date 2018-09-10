@@ -11,8 +11,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
     public class FlexiAlertBlockRendererUnitTests
     {
         [Theory]
-        [MemberData(nameof(Write_RendersFlexiAlertBlock_Data))]
-        public void Write_RendersFlexiAlertBlock(SerializableWrapper<FlexiAlertBlock> dummyFlexiAlertBlockWrapper, string expectedResult)
+        [MemberData(nameof(WriteFlexiBlock_RendersFlexiAlertBlock_Data))]
+        public void WriteFlexiBlock_RendersFlexiAlertBlock(SerializableWrapper<FlexiAlertBlock> dummyFlexiAlertBlockWrapper, string expectedResult)
         {
             // Arrange
             string result = null;
@@ -30,11 +30,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             Assert.Equal(expectedResult, result);
         }
 
-        public static IEnumerable<object[]> Write_RendersFlexiAlertBlock_Data()
+        public static IEnumerable<object[]> WriteFlexiBlock_RendersFlexiAlertBlock_Data()
         {
             const string dummyIconMarkup = "dummyIconMarkup";
             const string dummyAttribute = "dummyAttribute";
             const string dummyAttributeValue = "dummyAttributeValue";
+            const string dummyClass = "dummyClass";
 
             return new object[][]
             {
@@ -44,13 +45,36 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                     new SerializableWrapper<FlexiAlertBlock>(
                         new FlexiAlertBlock(null)
                         {
-                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions()
-                            {
-                                Attributes = new HtmlAttributeDictionary(){ { dummyAttribute, dummyAttributeValue } }
-                            }
+                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions(attributes: new Dictionary<string, string>{
+                                { dummyAttribute, dummyAttributeValue }
+                            })
                         }
                     ),
-                    $"<div {dummyAttribute}=\"{dummyAttributeValue}\">\n<div class=\"fab-content\">\n</div>\n</div>\n"
+                    $"<div {dummyAttribute}=\"{dummyAttributeValue}\" class=\"fab-info\">\n<div class=\"fab-content\">\n</div>\n</div>\n"
+                },
+                // Any value for the class attribute is prepended to the default class value
+                new object[]
+                {
+                    new SerializableWrapper<FlexiAlertBlock>(
+                        new FlexiAlertBlock(null)
+                        {
+                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions(attributes: new Dictionary<string, string>{
+                                { "class", dummyClass }
+                            })
+                        }
+                    ),
+                    $"<div class=\"{dummyClass} fab-info\">\n<div class=\"fab-content\">\n</div>\n</div>\n"
+                },
+                // Does not render default class if Class is null
+                new object[]
+                {
+                    new SerializableWrapper<FlexiAlertBlock>(
+                        new FlexiAlertBlock(null)
+                        {
+                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions(classFormat: null)
+                        }
+                    ),
+                    $"<div>\n<div class=\"fab-content\">\n</div>\n</div>\n"
                 },
                 // Writes icon markup if specified
                 new object[]
@@ -61,47 +85,44 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                             FlexiAlertBlockOptions = new FlexiAlertBlockOptions(){IconMarkup = dummyIconMarkup}
                         }
                     ),
-                    $"<div>\n{dummyIconMarkup}\n<div class=\"fab-content\">\n</div>\n</div>\n"
+                    $"<div class=\"fab-info\">\n{dummyIconMarkup}\n<div class=\"fab-content\">\n</div>\n</div>\n"
+                },
+                // Does not render content class if ContentClass is null, whitespace or an empty string
+                new object[]
+                {
+                    new SerializableWrapper<FlexiAlertBlock>(
+                        new FlexiAlertBlock(null)
+                        {
+                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions(contentClass: null)
+                        }
+                    ),
+                    "<div class=\"fab-info\">\n<div>\n</div>\n</div>\n"
+                },
+                new object[]
+                {
+                    new SerializableWrapper<FlexiAlertBlock>(
+                        new FlexiAlertBlock(null)
+                        {
+                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions(contentClass: " ")
+                        }
+                    ),
+                    "<div class=\"fab-info\">\n<div>\n</div>\n</div>\n"
+                },
+                new object[]
+                {
+                    new SerializableWrapper<FlexiAlertBlock>(
+                        new FlexiAlertBlock(null)
+                        {
+                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions(contentClass: string.Empty)
+                        }
+                    ),
+                    "<div class=\"fab-info\">\n<div>\n</div>\n</div>\n"
                 },
             };
         }
 
-        [Theory]
-        [MemberData(nameof(Write_DoesNotRenderContentClassIfContentClassNameIsNullWhitespaceOrEmpty_Data))]
-        public void Write_DoesNotRenderContentClassIfContentClassNameIsNullWhitespaceOrEmpty(string dummyContentClassName)
-        {
-            // Arrange
-            var dummyFlexiAlertBlock = new FlexiAlertBlock(null)
-            {
-                FlexiAlertBlockOptions = new FlexiAlertBlockOptions() { ContentClassName = dummyContentClassName }
-            };
-            string result = null;
-            using (var dummyStringWriter = new StringWriter())
-            {
-                var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                var flexiAlertBlockRenderer = new FlexiAlertBlockRenderer();
-
-                // Act
-                flexiAlertBlockRenderer.Write(dummyHtmlRenderer, dummyFlexiAlertBlock);
-                result = dummyStringWriter.ToString();
-            }
-
-            // Assert
-            Assert.Equal($"<div>\n<div>\n</div>\n</div>\n", result);
-        }
-
-        public static IEnumerable<object[]> Write_DoesNotRenderContentClassIfContentClassNameIsNullWhitespaceOrEmpty_Data()
-        {
-            return new object[][]
-            {
-                new object[]{string.Empty},
-                new object[]{" "},
-                new object[]{null},
-            };
-        }
-
         [Fact]
-        public void Write_WritesChildren()
+        public void WriteFlexiBlock_WritesChildren()
         {
             // Arrange
             const string dummyChildText = "dummyChildText";
@@ -129,7 +150,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             }
 
             // Assert
-            Assert.Equal($"<div>\n<div class=\"fab-content\">\n<p>{dummyChildText}</p>\n</div>\n</div>\n", result);
+            Assert.Equal($"<div class=\"fab-info\">\n<div class=\"fab-content\">\n<p>{dummyChildText}</p>\n</div>\n</div>\n", result);
         }
     }
 }
