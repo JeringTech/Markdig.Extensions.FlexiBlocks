@@ -2,6 +2,7 @@
 using Jering.IocServices.System.IO;
 using Jering.IocServices.System.Net.Http;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 //using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Jering.Web.SyntaxHighlighters.HighlightJS;
@@ -16,36 +17,37 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
     {
         public static void AddFlexiBlocks(this IServiceCollection services)
         {
-            // Third party services
-            services.AddPrism();
-            services.AddHighlightJS();
+            // Shared
             services.AddLogging();
             services.AddOptions();
             services.TryAddSingleton<IFileService, FileService>();
             services.TryAddSingleton<IDirectoryService, DirectoryService>();
             services.TryAddSingleton<IHttpClientService, HttpClientService>();
             services.TryAddSingleton<IJsonSerializerService, JsonSerializerService>();
-
-            // Shared
-#if NETSTANDARD1_3
             services.AddSingleton(typeof(IOptions<>), typeof(ExposedOptionsManager<>));
-#endif
-
-            // FlexiOptionsBlocks
-            services.AddSingleton<IFlexiOptionsBlockService, FlexiOptionsBlockService>();
-            services.AddSingleton<FlexiOptionsBlockParser>();
-            services.AddSingleton<FlexiOptionsBlocksExtension>();
 
             // FlexAlertBlocks
-            services.AddSingleton<FlexiAlertBlockParser>();
-            services.AddSingleton<FlexiAlertBlockRenderer>();
-            services.AddSingleton<FlexiAlertBlocksExtension>();
+            services.TryAddSingleton<FlexiAlertBlockParser>();
+            services.TryAddSingleton<FlexiAlertBlockRenderer>();
+            services.TryAddSingleton<FlexiAlertBlocksExtension>();
+
+            // FlexiCodeBlocks
+            services.AddPrism();
+            services.AddHighlightJS();
+            services.TryAddSingleton<ILineEmbellishmentsService, LineEmbellishmentsService>();
+            services.TryAddSingleton<FlexiCodeBlockRenderer>();
+            services.TryAddSingleton<FlexiCodeBlocksExtension>();
 
             // FlexiIncludeBlocks
-            //services.AddSingleton<IFileCacheService, FileCacheService>();
-            //services.AddSingleton<IContentRetrieverService, ContentRetrieverService>();
-            //services.AddSingleton<FlexiIncludeBlockParser>();
-            //services.AddSingleton<FlexiIncludeBlocksExtension>();
+            //services.TryAddSingleton<IFileCacheService, FileCacheService>();
+            //services.TryAddSingleton<IContentRetrieverService, ContentRetrieverService>();
+            //services.TryAddSingleton<FlexiIncludeBlockParser>();
+            //services.TryAddSingleton<FlexiIncludeBlocksExtension>();
+
+            // FlexiOptionsBlocks
+            services.TryAddSingleton<IFlexiOptionsBlockService, FlexiOptionsBlockService>();
+            services.TryAddSingleton<FlexiOptionsBlockParser>();
+            services.TryAddSingleton<FlexiOptionsBlocksExtension>();
         }
     }
 }

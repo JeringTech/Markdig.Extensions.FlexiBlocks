@@ -177,6 +177,9 @@
   <data name="ContentRetrieverException_RemoteUriDoesNotExist" xml:space="preserve">
     <value>The remote Url "{0}" does not exist.</value>
   </data>
+  <data name="FlexiBlocksException_InvalidEnumValue" xml:space="preserve">
+    <value>The value "{0}" for option {1} is not within the range of valid values for the enum {2}.</value>
+  </data>
   <data name="FlexiBlocksException_InvalidFlexiBlock" xml:space="preserve">
     <value>The {0} starting at line "{1}", column "{2}", is invalid:
 {3}</value>
@@ -188,6 +191,15 @@
     <value>The markdown at line "{0}", column "{1}" is invalid:
 {2}</value>
   </data>
+  <data name="FlexiBlocksException_LineRangeNotASubset" xml:space="preserve">
+    <value>The line range "{0}" is not a subset of the full range of lines, "[1, {1}]".</value>
+  </data>
+  <data name="FlexiBlocksException_LineRangesCannotOverlap" xml:space="preserve">
+    <value>The line ranges in {0} are invalid. These line ranges must not overlap, but the line ranges "{1}" and "{2}" do.</value>
+  </data>
+  <data name="FlexiBlocksException_LineRangesMustBeSequential" xml:space="preserve">
+    <value>The line ranges in {0} are invalid. These line ranges must be sequential, the line range "{1}" must be specified after line range "{2}".</value>
+  </data>
   <data name="FlexiBlocksException_MispositionedFlexiOptionsBlock" xml:space="preserve">
     <value>FlexiOptionsBlock must immediately precede the block that consumes it.</value>
   </data>
@@ -195,7 +207,7 @@
     <value>Unable to parse JSON "{0}". Refer to the inner exception for more details.</value>
   </data>
   <data name="FlexiBlocksException_UnableToSetOptions" xml:space="preserve">
-    <value>Expected an "ExposedOptionsManager&lt;{0}&gt;" for service "IOptions&lt;{1}&gt;", unable to set "{1}".</value>
+    <value>Expected an "ExposedOptionsManager&lt;{0}&gt;" for service "IOptions&lt;{0}&gt;". Unable to set "{0}".</value>
   </data>
   <data name="FlexiBlocksException_UnconsumedFlexiOptionsBlock" xml:space="preserve">
     <value>FlexiOptionsBlock must be consumed.</value>
@@ -218,17 +230,5 @@
   </data>
   <data name="InvalidOperationException_InvalidClippingNoLineContainsStartLineSubstring" xml:space="preserve">
     <value>Invalid clipping, no line contains start line substring "{0}".</value>
-  </data>
-  <data name="InvalidOperationException_InvalidHighlightLineRange" xml:space="preserve">
-    <value>The highlight line range "{0}" is not a subset of the actual number of lines, "{1}".</value>
-  </data>
-  <data name="InvalidOperationException_InvalidLineNumberLineRange" xml:space="preserve">
-    <value>The line number line range "{0}" is not a subset of the actual number of lines, "{1}".</value>
-  </data>
-  <data name="InvalidOperationException_LineNumbersCannotOverlap" xml:space="preserve">
-    <value>Invalid line number ranges: the line number ranges "{0}" and "{1}" overlap.</value>
-  </data>
-  <data name="InvalidOperationException_LineRangesForHighlightingCannotOverlap" xml:space="preserve">
-    <value>Invalid line ranges for highlighting: the ranges "{0}" and "{1}" overlap.</value>
   </data>
 </root>

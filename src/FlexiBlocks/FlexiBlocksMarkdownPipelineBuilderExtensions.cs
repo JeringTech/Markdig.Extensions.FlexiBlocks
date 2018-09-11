@@ -1,5 +1,4 @@
-﻿//using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
-//using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 //using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
@@ -52,7 +51,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         {
             return pipelineBuilder.
                 UseFlexiOptionsBlocks(serviceProvider).
-                UseFlexiAlertBlocks(serviceProvider: serviceProvider);
+                UseFlexiAlertBlocks(serviceProvider: serviceProvider).
+                UseFlexiCodeBlocks(serviceProvider: serviceProvider);
         }
 
         //public static MarkdownPipelineBuilder UseFlexiSectionBlocks(this MarkdownPipelineBuilder pipelineBuilder, FlexiSectionBlocksExtensionOptions options = null)
@@ -91,6 +91,31 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
+        /// Adds <see cref="FlexiCodeBlocksExtension"/> to the pipeline.
+        /// </summary>
+        /// <param name="pipelineBuilder">The pipeline builder for the pipeline.</param>
+        /// <param name="options">Options for the FlexiCodeBlocks extension.</param>
+        /// <param name="serviceProvider">Alternative service provider for resolving the <see cref="FlexiCodeBlocksExtension"/> service.</param>
+        public static MarkdownPipelineBuilder UseFlexiCodeBlocks(this MarkdownPipelineBuilder pipelineBuilder,
+            FlexiCodeBlocksExtensionOptions options = null,
+            IServiceProvider serviceProvider = null)
+        {
+            serviceProvider = serviceProvider ?? _serviceProvider;
+
+            if (options != null)
+            {
+                SetOptions(options, serviceProvider);
+            }
+
+            if (!pipelineBuilder.Extensions.Contains<FlexiCodeBlocksExtension>())
+            {
+                pipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<FlexiCodeBlocksExtension>());
+            }
+
+            return pipelineBuilder;
+        }
+
+        /// <summary>
         /// Adds <see cref="FlexiOptionsBlocksExtension"/> to the pipeline.
         /// </summary> 
         public static MarkdownPipelineBuilder UseFlexiOptionsBlocks(this MarkdownPipelineBuilder pipelineBuilder,
@@ -111,18 +136,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         //    if (!pipelineBuilder.Extensions.Contains<FlexiTableBlocksExtension>())
         //    {
         //        pipelineBuilder.Extensions.Add(new FlexiTableBlocksExtension(options));
-        //    }
-
-        //    return pipelineBuilder;
-        //}
-
-        //public static MarkdownPipelineBuilder UseFlexiCodeBlocks(this MarkdownPipelineBuilder pipelineBuilder, FlexiCodeBlocksExtensionOptions options = null)
-        //{
-        //    if (!pipelineBuilder.Extensions.Contains<FlexiCodeBlocksExtension>())
-        //    {
-        //        pipelineBuilder.Extensions.Add(new FlexiCodeBlocksExtension(options,
-        //            _serviceProvider.GetRequiredService<IPrismService>(),
-        //            _serviceProvider.GetRequiredService<IHighlightJSService>()));
         //    }
 
         //    return pipelineBuilder;
@@ -154,7 +167,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             }
             else
             {
-                throw new FlexiBlocksException(Strings.FlexiBlocksException_UnableToSetOptions);
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_UnableToSetOptions, typeof(T).Name));
             }
         }
     }

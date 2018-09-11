@@ -1,80 +1,57 @@
 ﻿## FlexiAlertBlocks
 FlexiAlertBlocks contain content that is tangential to their containing articles, such as extra information and warnings.
 
-### Syntax
-A FlexiAlertBlock is a sequence of lines that each start with`!`. The first line of the sequence must be of the form `!<optional space><FlexiAlertBlock type>`, where `<FlexiAlertBlock type>`
-is a string containing 1 or more characters from the regex character set `[A-Za-z0-9_-]`. 
-
-The following is a FlexiAlertBlock:
+### Basic Syntax
+A FlexiAlertBlock is a sequence of lines that each start with`!`. The following is a FlexiAlertBlock:
 
 ```````````````````````````````` example
 --------------- Markdown ---------------
-! critical-warning
-! This is a critical warning.
---------------- Expected Markup ---------------
-<div class="fab-critical-warning">
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
-<div class="fab-content">
-<p>This is a critical warning.</p>
-</div>
-</div>
-````````````````````````````````
-
-Note how an SVG has been included as the FlexiAlertBlock's icon. The icon markup for each FlexiAlertBlock
-can be customized or omitted, options for icon markup are covered in the [options section](#options).
-
-Also note how the class `fab-<FlexiAlertBlock type>` (`fab-critical-warning` in this case) is assigned to the outermost `div` element. Using a 
-different FlexiAlertBlock type results in a different class:
-
-```````````````````````````````` example
---------------- Markdown ---------------
-! info
-! This is information.
+! This is a FlexiAlertBlock.
+! This is tangential content.
 --------------- Expected Markup ---------------
 <div class="fab-info">
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
 <div class="fab-content">
-<p>This is information.</p>
+<p>This is a FlexiAlertBlock.
+This is tangential content.</p>
 </div>
 </div>
 ````````````````````````````````
 
-The following is not a FlexiAlertBlock since the first line does not contain a FlexiAlertBlock type:
+Generated classes, icon markup, and more can be customized or omitted - refer to the [options section](#options) for instructions.
+
+The first space after the starting `!` is optional:
 
 ```````````````````````````````` example
 --------------- Markdown ---------------
-! 
-! This is a warning.
+!This line will be the same as the next line.
+! This line will be the same as the previous line.
 --------------- Expected Markup ---------------
-<p>!
-! This is a warning.</p>
-````````````````````````````````
-
-The following is not a FlexiAlertBlock either since the first line does not contain a valid FlexiAlertBlock type - 
-`illegal space` contains a space, which isn't in the regex character set `[A-Za-z0-9_-]`:
-
-```````````````````````````````` example
---------------- Markdown ---------------
-! illegal space
-! This is a warning.
---------------- Expected Markup ---------------
-<p>! illegal space
-! This is a warning.</p>
-````````````````````````````````
-
-The first space after the starting `!` of each line is ignored:
-
-```````````````````````````````` example
---------------- Markdown ---------------
-! warning
-!This line will be rendered with 0 leading spaces.
-! This line will also be rendered with 0 leading spaces.
---------------- Expected Markup ---------------
-<div class="fab-warning">
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
+<div class="fab-info">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
 <div class="fab-content">
-<p>This line will be rendered with 0 leading spaces.
-This line will also be rendered with 0 leading spaces.</p>
+<p>This line will be the same as the next line.
+This line will be the same as the previous line.</p>
+</div>
+</div>
+````````````````````````````````
+
+`!` can be preceded by up to three spaces:
+
+```````````````````````````````` example
+--------------- Markdown ---------------
+! These lines belong to the same FlexiAlertBlock.
+ ! These lines belong to the same FlexiAlertBlock.
+  ! These lines belong to the same FlexiAlertBlock.
+   ! These lines belong to the same FlexiAlertBlock.
+--------------- Expected Markup ---------------
+<div class="fab-info">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+<div class="fab-content">
+<p>These lines belong to the same FlexiAlertBlock.
+These lines belong to the same FlexiAlertBlock.
+These lines belong to the same FlexiAlertBlock.
+These lines belong to the same FlexiAlertBlock.</p>
 </div>
 </div>
 ````````````````````````````````
@@ -83,19 +60,16 @@ This line will also be rendered with 0 leading spaces.</p>
 
 ```````````````````````````````` example
 --------------- Markdown ---------------
-! info
-! This is part of
-the info.
-! This is also part of
-the info.
+! This FlexiAlertBlock
+contains multiple
+lazy continuation lines.
 --------------- Expected Markup ---------------
 <div class="fab-info">
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
 <div class="fab-content">
-<p>This is part of
-the info.
-This is also part of
-the info.</p>
+<p>This FlexiAlertBlock
+contains multiple
+lazy continuation lines.</p>
 </div>
 </div>
 ````````````````````````````````
@@ -104,22 +78,20 @@ A blank line closes a FlexiAlertBlock:
 
 ```````````````````````````````` example
 --------------- Markdown ---------------
-! info
-! This is information.
+! This is a FlexiAlertBlock.
 
-! warning
-! This is a warning.
+! This is another FlexiAlertBlock.
 --------------- Expected Markup ---------------
 <div class="fab-info">
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
 <div class="fab-content">
-<p>This is information.</p>
+<p>This is a FlexiAlertBlock.</p>
 </div>
 </div>
-<div class="fab-warning">
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
+<div class="fab-info">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
 <div class="fab-content">
-<p>This is a warning.</p>
+<p>This is another FlexiAlertBlock.</p>
 </div>
 </div>
 ````````````````````````````````
@@ -130,45 +102,51 @@ The FlexiAlertBlocks extension has the following option types:
 #### `FlexiAlertBlockOptions`
 Options for a FlexiAlertBlock.
 ##### Properties
-- IconMarkup
+- `IconMarkup`
   - Type: `string`
   - Description: The markup for the FlexiAlertBlock's icon. If the value is null, whitespace or an empty string, 
-    no icon markup is rendered.
+    an attempt is made to retrieve icon markup for this block's type from [FlexiAlertBlocksExtensionOptions](#flexialertblocksextensionoptions), 
+    failing which, no icon is rendered.
   - Default: `null`
-- ClassNameFormat
+- `ClassFormat`
   - Type: `string`
   - Description: The format for the FlexiAlertBlock's outermost element's class. The FlexiAlertBlock's type will
     replace "{0}" in the format. If the value is null, whitespace or an empty string,
     no class is assigned.  
   - Default: "fab-{0}"
-- ContentClassName
+- `ContentClass`
   - Type: `string`
   - Description: The class of the FlexiAlertBlock's content wrapper. If the value is null, whitespace or an empty string,
     no class is assigned. 
   - Default: "fab-content"
-- Attributes
-  - Type: `HtmlAttributeDictionary`
-  - Description: The HTML attributes for the FlexiAlertBlock's outermost element.
+- `AlertType`
+  - Type: `string`
+  - Description: The FlexiAlertBlock's type. If the value is null, whitespace or an empty string, the FlexiAlertBlock will have no type.
+  - Default: "info"
+- `Attributes`
+  - Type: `IDictionary<string, string>`
+  - Description: The HTML attributes for the FlexiAlertBlock's outermost element. If this dictionary is null, no 
+    attributes will be assigned to the outermost element.
+  - Default: `null`
 
 ##### Usage
-To specify FlexiAlertBlockOptions for individual FlexiAlertBlocks, the [FlexiOptionsBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be registered.
+To specify FlexiAlertBlockOptions for individual FlexiAlertBlocks, the [FlexiOptionsBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled.
 
-Icon markup can specified for a FlexiAlertBlock:
+Icon markup can be specified for a FlexiAlertBlock:
 
 ```````````````````````````````` example
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
 @{
-    "iconMarkup": "<svg><use xlink:href=\"#alternative-warning-icon\"></use></svg>"
+    "iconMarkup": "<svg><use xlink:href=\"#alternative-icon-markup\"></use></svg>"
 }
-! warning
-! This is a warning.
+! This is a FlexiAlertBlock.
 --------------- Expected Markup ---------------
-<div class="fab-warning">
-<svg><use xlink:href="#alternative-warning-icon"></use></svg>
+<div class="fab-info">
+<svg><use xlink:href="#alternative-icon-markup"></use></svg>
 <div class="fab-content">
-<p>This is a warning.</p>
+<p>This is a FlexiAlertBlock.</p>
 </div>
 </div>
 ````````````````````````````````
@@ -179,15 +157,14 @@ The format for the FlexiAlertBlock's outermost element's class can be specified:
 FlexiOptionsBlocks
 --------------- Markdown ---------------
 @{
-    "classNameFormat": "alert-{0}"
+    "classFormat": "alert-{0}"
 }
-! warning
-! This is a warning.
+! This is a FlexiAlertBlock.
 --------------- Expected Markup ---------------
-<div class="alert-warning">
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
+<div class="alert-info">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
 <div class="fab-content">
-<p>This is a warning.</p>
+<p>This is a FlexiAlertBlock.</p>
 </div>
 </div>
 ````````````````````````````````
@@ -198,15 +175,32 @@ The class of the FlexiAlertBlock's content wrapper can be specified:
 FlexiOptionsBlocks
 --------------- Markdown ---------------
 @{
-    "contentClassName": "alert-content"
+    "contentClass": "alert-content"
 }
-! warning
-! This is a warning.
+! This is a FlexiAlertBlock.
+--------------- Expected Markup ---------------
+<div class="fab-info">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+<div class="alert-content">
+<p>This is a FlexiAlertBlock.</p>
+</div>
+</div>
+````````````````````````````````
+
+The FlexiAlertBlock's type can be specified:
+```````````````````````````````` example
+--------------- Extra Extensions ---------------
+FlexiOptionsBlocks
+--------------- Markdown ---------------
+@{
+    "type": "warning"
+}
+! This is a FlexiAlertBlock.
 --------------- Expected Markup ---------------
 <div class="fab-warning">
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
-<div class="alert-content">
-<p>This is a warning.</p>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m1 21h22l-11-19-11 19zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+<div class="fab-content">
+<p>This is a FlexiAlertBlock.</p>
 </div>
 </div>
 ````````````````````````````````
@@ -218,40 +212,47 @@ FlexiOptionsBlocks
 --------------- Markdown ---------------
 @{
     "attributes": {
-        "id" : "warning-1"
+        "id" : "info-1",
+        "class" : "block"
     }
 }
-! warning
-! This is a warning.
+! This is a FlexiAlertBlock.
 --------------- Expected Markup ---------------
-<div id="warning-1" class="fab-warning">
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
+<div class="fab-info">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
 <div class="fab-content">
-<p>This is a warning.</p>
+<p>This is a FlexiAlertBlock.</p>
 </div>
 </div>
 ````````````````````````````````
+If a value is specified for the class attribute, it will not override the outermost element's generated class. Instead, it will be 
+prepended to the generated class. In the above example, this results in the outermost element's class attribute having the value 
+`block fab-info`.
 
 #### `FlexiAlertBlocksExtensionOptions`
 ##### Description
-Global options for FlexiAlertBlocks. These options can be used to define defaults for all FlexiAlertBlocks. Block specific options take precedence over these options.
+Global options for FlexiAlertBlocks. These options can be used to define defaults for all FlexiAlertBlocks. They have
+lower precedence than block specific options specified using the FlexiOptionsBlocks extension.
 ##### Properties
 - IconMarkups
   - Type: `Dictionary<string, string>`
   - Description: A map of FlexiAlertBlock types to icon markups. Add markups for custom FlexiAlertBlock types to this dictionary.
-  - Default: Contains icon markups for `info`, 
-    `warning` and `critical-warning`.
+  - Default: Contains icon markups for types "info", 
+    "warning" and "critical-warning".
 - DefaultBlockOptions
   - Type: `FlexiAlertBlockOptions`
   - Description: Default `FlexiAlertBlockOptions` for all FlexiAlertBlocks. 
 ##### Usage
-FlexiAlertBlocksExtensionOptions can be specified when registering the FlexiAlertBlocks extension
+FlexiAlertBlocksExtensionOptions can be specified when enabling the FlexiAlertBlocks extension:
 ``` 
 MyMarkdownPipelineBuilder.UseFlexiAlertBlocks(myFlexiAlertBlocksExtensionOptions);
 ```
 
-Default icon markups for custom FlexiAlertBlock types can be specified:
+<!-- TODO cleanup example icon svgs, add links to licenses -->
+Icon markups for custom FlexiAlertBlock types can be specified:
 ```````````````````````````````` example
+--------------- Extra Extensions ---------------
+FlexiOptionsBlocks
 --------------- Extension Options ---------------
 {
     "flexiAlertBlocks": {
@@ -262,10 +263,10 @@ Default icon markups for custom FlexiAlertBlock types can be specified:
     }
 }
 --------------- Markdown ---------------
-! closer-look
+@{ "type": "closer-look" }
 ! This is a closer look at some topic.
 
-! help
+@{ "type": "help" }
 ! This is a helpful tip.
 --------------- Expected Markup ---------------
 <div class="fab-closer-look">
@@ -282,38 +283,62 @@ Default icon markups for custom FlexiAlertBlock types can be specified:
 </div>
 ````````````````````````````````
 
-Default FlexiBlockOptions can be specified:
+Default FlexiAlertBlockOptions can be specified:
 ```````````````````````````````` example
 --------------- Extension Options ---------------
 {
     "flexiAlertBlocks": {
         "defaultBlockOptions": {
             "iconMarkup": "<svg><use xlink:href=\"#alert-icon\"></use></svg>",
-            "classNameFormat": "alert-{0}",
-            "contentClassName": "alert-content",
+            "classFormat": "alert-{0}",
+            "contentClass": "alert-content",
             "attributes": {
-                "class": "stretch"
+                "class": "block"
             }
         }
     }
 }
 --------------- Markdown ---------------
-! warning
-! This is a warning.
-
-! info
-! This is information.
+! This is a FlexiAlertBlock.
 --------------- Expected Markup ---------------
-<div class="stretch alert-warning">
+<div class="alert-info">
 <svg><use xlink:href="#alert-icon"></use></svg>
 <div class="alert-content">
-<p>This is a warning.</p>
+<p>This is a FlexiAlertBlock.</p>
 </div>
 </div>
-<div class="stretch alert-info">
-<svg><use xlink:href="#alert-icon"></use></svg>
-<div class="alert-content">
-<p>This is information.</p>
+````````````````````````````````
+
+Default FlexiAlertBlockOptions have lower precedence than block specific options:
+```````````````````````````````` example
+--------------- Extra Extensions ---------------
+FlexiOptionsBlocks
+--------------- Extension Options ---------------
+{
+    "flexiAlertBlocks": {
+        "defaultBlockOptions": {
+            "classFormat": "alert-{0}"
+        }
+    }
+}
+--------------- Markdown ---------------
+! This is a FlexiAlertBlock
+
+@{
+    "classFormat": "special-alert-{0}"
+}
+! This is a FlexiAlertBlock with block specific options.
+--------------- Expected Markup ---------------
+<div class="alert-info">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+<div class="fab-content">
+<p>This is a FlexiAlertBlock</p>
+</div>
+</div>
+<div class="special-alert-info">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+<div class="fab-content">
+<p>This is a FlexiAlertBlock with block specific options.</p>
 </div>
 </div>
 ````````````````````````````````

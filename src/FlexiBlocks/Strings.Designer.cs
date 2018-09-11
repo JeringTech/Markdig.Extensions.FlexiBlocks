@@ -244,6 +244,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; for option {1} is not within the range of valid values for the enum {2}..
+        /// </summary>
+        internal static string FlexiBlocksException_InvalidEnumValue {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_InvalidEnumValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The {0} starting at line &quot;{1}&quot;, column &quot;{2}&quot;, is invalid:
         ///{3}.
         /// </summary>
@@ -273,6 +282,33 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The line range &quot;{0}&quot; is not a subset of the full range of lines, &quot;[1, {1}]&quot;..
+        /// </summary>
+        internal static string FlexiBlocksException_LineRangeNotASubset {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_LineRangeNotASubset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The line ranges in {0} are invalid. These line ranges must not overlap, but the line ranges &quot;{1}&quot; and &quot;{2}&quot; do..
+        /// </summary>
+        internal static string FlexiBlocksException_LineRangesCannotOverlap {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_LineRangesCannotOverlap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The line ranges in {0} are invalid. These line ranges must be sequential, the line range &quot;{1}&quot; must be specified after line range &quot;{2}&quot;..
+        /// </summary>
+        internal static string FlexiBlocksException_LineRangesMustBeSequential {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_LineRangesMustBeSequential", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FlexiOptionsBlock must immediately precede the block that consumes it..
         /// </summary>
         internal static string FlexiBlocksException_MispositionedFlexiOptionsBlock {
@@ -291,7 +327,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expected an &quot;ExposedOptionsManager&lt;{0}&gt;&quot; for service &quot;IOptions&lt;{1}&gt;&quot;, unable to set &quot;{1}&quot;..
+        ///   Looks up a localized string similar to Expected an &quot;ExposedOptionsManager&lt;{0}&gt;&quot; for service &quot;IOptions&lt;{0}&gt;&quot;. Unable to set &quot;{0}&quot;..
         /// </summary>
         internal static string FlexiBlocksException_UnableToSetOptions {
             get {
@@ -360,42 +396,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         internal static string InvalidOperationException_InvalidClippingNoLineContainsStartLineSubstring {
             get {
                 return ResourceManager.GetString("InvalidOperationException_InvalidClippingNoLineContainsStartLineSubstring", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The highlight line range &quot;{0}&quot; is not a subset of the actual number of lines, &quot;{1}&quot;..
-        /// </summary>
-        internal static string InvalidOperationException_InvalidHighlightLineRange {
-            get {
-                return ResourceManager.GetString("InvalidOperationException_InvalidHighlightLineRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The line number line range &quot;{0}&quot; is not a subset of the actual number of lines, &quot;{1}&quot;..
-        /// </summary>
-        internal static string InvalidOperationException_InvalidLineNumberLineRange {
-            get {
-                return ResourceManager.GetString("InvalidOperationException_InvalidLineNumberLineRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid line number ranges: the line number ranges &quot;{0}&quot; and &quot;{1}&quot; overlap..
-        /// </summary>
-        internal static string InvalidOperationException_LineNumbersCannotOverlap {
-            get {
-                return ResourceManager.GetString("InvalidOperationException_LineNumbersCannotOverlap", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid line ranges for highlighting: the ranges &quot;{0}&quot; and &quot;{1}&quot; overlap..
-        /// </summary>
-        internal static string InvalidOperationException_LineRangesForHighlightingCannotOverlap {
-            get {
-                return ResourceManager.GetString("InvalidOperationException_LineRangesForHighlightingCannotOverlap", resourceCulture);
             }
         }
     }

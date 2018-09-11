@@ -25,7 +25,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <param name="iconMarkup">
         /// <para>The markup for the <see cref="FlexiAlertBlock" />'s icon.</para>
         /// <para>If the value is null, whitespace or an empty string, an attempt is made to retrieve icon markup for this block's
-        /// alert type from <see cref="FlexiAlertBlocksExtensionOptions"/>, failing which, no icon is rendered.</para>
+        /// type from <see cref="FlexiAlertBlocksExtensionOptions"/>, failing which, no icon is rendered.</para>
         /// <para>Defaults to null.</para>
         /// </param>
         /// <param name="classFormat">
