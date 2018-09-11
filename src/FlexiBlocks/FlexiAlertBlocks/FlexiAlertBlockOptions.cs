@@ -17,20 +17,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
     {
         private const string _defaultClassFormat = "fab-{0}";
         private const string _defaultContentClass = "fab-content";
-        private const string _defaultAlertType = "info";
+        private const string _defaultType = "info";
 
         /// <summary>
         /// Creates a <see cref="FlexiAlertBlockOptions"/> instance.
         /// </summary>
         /// <param name="iconMarkup">
         /// <para>The markup for the <see cref="FlexiAlertBlock" />'s icon.</para>
-        /// <para>If the value is not null, whitespace or an empty string, the markup is rendered before the <see cref="FlexiAlertBlock" />'s content.</para>
+        /// <para>If the value is null, whitespace or an empty string, an attempt is made to retrieve icon markup for this block's
+        /// alert type from <see cref="FlexiAlertBlocksExtensionOptions"/>, failing which, no icon is rendered.</para>
         /// <para>Defaults to null.</para>
         /// </param>
         /// <param name="classFormat">
         /// <para>The format for the <see cref="FlexiAlertBlock" />'s outermost element's class.</para>
         /// <para>The <see cref="FlexiAlertBlock" />'s type will replace "{0}" in the format.</para> 
-        /// <para>If the format is null, whitespace or an empty string, no class is assigned.</para>
+        /// <para>If the value is null, whitespace or an empty string, no class is assigned.</para>
         /// <para>Defaults to "fab-{0}".</para>
         /// </param>
         /// <param name="contentClass">
@@ -38,13 +39,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <para>If the value is null, whitespace or an empty string, no class is assigned.</para>
         /// <para>Defaults to "fab-content".</para>
         /// </param>
-        /// <param name="alertType">
+        /// <param name="type">
         /// <para>The <see cref="FlexiAlertBlock"/>'s type.</para>
         /// <para>If the value is null, whitespace or an empty string, the <see cref="FlexiAlertBlock"/> will have no type.</para>
         /// <para>Defaults to "info".</para>
         /// </param>
         /// <param name="attributes">
-        /// <para>The HTML attributes for the outermost element of the FlexiCodeBlock.</para>
+        /// <para>The HTML attributes for the <see cref="FlexiAlertBlock"/>'s outermost element.</para>
         /// <para>If this dictionary is null, no attributes will be assigned to the outermost element.</para>
         /// <para>Defaults to null.</para>
         /// </param>
@@ -52,13 +53,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
             string iconMarkup = default,
             string classFormat = _defaultClassFormat,
             string contentClass = _defaultContentClass,
-            string alertType = _defaultAlertType,
+            string type = _defaultType,
             IDictionary<string, string> attributes = default) : base(attributes)
         {
             IconMarkup = iconMarkup;
             ClassFormat = classFormat;
             ContentClass = contentClass;
-            AlertType = alertType;
+            Type = type;
 
             ValidateAndPopulate();
         }
@@ -90,7 +91,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// Gets or sets the <see cref="FlexiAlertBlock"/>'s type.
         /// </summary>
         [JsonProperty]
-        public string AlertType { get; private set; }
+        public string Type { get; private set; }
 
         /// <summary>
         /// Validates options and populates generated properties.
@@ -99,11 +100,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         protected override void ValidateAndPopulate()
         {
             if (!string.IsNullOrWhiteSpace(ClassFormat) &&
-                !string.IsNullOrWhiteSpace(AlertType))
+                !string.IsNullOrWhiteSpace(Type))
             {
                 try
                 {
-                    Class = string.Format(ClassFormat, AlertType);
+                    Class = string.Format(ClassFormat, Type);
                 }
                 catch (FormatException formatException)
                 {

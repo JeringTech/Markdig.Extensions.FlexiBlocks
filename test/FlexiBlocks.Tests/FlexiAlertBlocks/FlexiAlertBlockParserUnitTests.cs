@@ -133,7 +133,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             dummyBlockProcessor.LineIndex = dummyLineIndex;
             Mock<IFlexiOptionsBlockService> mockFlexiOptionsBlockService = _mockRepository.Create<IFlexiOptionsBlockService>();
             mockFlexiOptionsBlockService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<FlexiAlertBlockOptions>(), dummyLineIndex));
-            var dummyExtensionOptions = new FlexiAlertBlocksExtensionOptions { DefaultBlockOptions = new FlexiAlertBlockOptions(alertType: dummyAlertType) };
+            var dummyExtensionOptions = new FlexiAlertBlocksExtensionOptions { DefaultBlockOptions = new FlexiAlertBlockOptions(type: dummyAlertType) };
             dummyExtensionOptions.IconMarkups[dummyAlertType] = dummyIconMarkup;
             Mock<IOptions<FlexiAlertBlocksExtensionOptions>> mockExtensionOptionsAccessor = _mockRepository.Create<IOptions<FlexiAlertBlocksExtensionOptions>>();
             mockExtensionOptionsAccessor.Setup(e => e.Value).Returns(dummyExtensionOptions);

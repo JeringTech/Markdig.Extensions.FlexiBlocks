@@ -105,7 +105,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
             // Set icon markup (precedence - FlexiOptionsBlock > default FlexiAlertBlockOptions > FlexiAlertBlocksExtensionOptions.IconMarkups)
             if (result.IconMarkup == null &&
                 _extensionOptions.IconMarkups != null &&
-                _extensionOptions.IconMarkups.TryGetValue(result.AlertType, out string iconMarkup))
+                _extensionOptions.IconMarkups.TryGetValue(result.Type, out string iconMarkup))
             {
                 result.IconMarkup = iconMarkup;
             }
