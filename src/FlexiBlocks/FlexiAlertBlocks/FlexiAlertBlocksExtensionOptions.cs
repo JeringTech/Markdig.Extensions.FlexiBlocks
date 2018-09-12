@@ -9,7 +9,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
     public class FlexiAlertBlocksExtensionOptions : IFlexiBlocksExtensionOptions<FlexiAlertBlockOptions>
     {
         /// <summary>
-        /// <para>A map of <see cref="FlexiAlertBlock" /> types to icon markups.</para>
+        /// <para>Gets or sets a map of <see cref="FlexiAlertBlock" /> types to icon markups.</para>
         /// 
         /// <para>By default, contains type "info" with icon https://material.io/tools/icons/?icon=info&amp;style=sharp,
         /// type "warning" with icon "https://material.io/tools/icons/?icon=warning&amp;style=sharp", 
