@@ -282,7 +282,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The line range &quot;{0}&quot; is not a subset of the full range of lines, &quot;[1, {1}]&quot;..
+        ///   Looks up a localized string similar to The line range &quot;{0}&quot; in {1} is not a subset of the full range of lines, &quot;[1, {2}]&quot;..
         /// </summary>
         internal static string FlexiBlocksException_LineRangeNotASubset {
             get {

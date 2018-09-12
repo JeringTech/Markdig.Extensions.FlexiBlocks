@@ -192,7 +192,7 @@
 {2}</value>
   </data>
   <data name="FlexiBlocksException_LineRangeNotASubset" xml:space="preserve">
-    <value>The line range "{0}" is not a subset of the full range of lines, "[1, {1}]".</value>
+    <value>The line range "{0}" in {1} is not a subset of the full range of lines, "[1, {2}]".</value>
   </data>
   <data name="FlexiBlocksException_LineRangesCannotOverlap" xml:space="preserve">
     <value>The line ranges in {0} are invalid. These line ranges must not overlap, but the line ranges "{1}" and "{2}" do.</value>
