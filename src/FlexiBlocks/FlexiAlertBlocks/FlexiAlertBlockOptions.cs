@@ -24,29 +24,29 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// </summary>
         /// <param name="iconMarkup">
         /// <para>The markup for the <see cref="FlexiAlertBlock" />'s icon.</para>
-        /// <para>If the value is null, whitespace or an empty string, an attempt is made to retrieve icon markup for this block's
+        /// <para>If this value is null, whitespace or an empty string, an attempt is made to retrieve icon markup for this block's
         /// type from <see cref="FlexiAlertBlocksExtensionOptions"/>, failing which, no icon is rendered.</para>
         /// <para>Defaults to null.</para>
         /// </param>
         /// <param name="classFormat">
         /// <para>The format for the <see cref="FlexiAlertBlock" />'s outermost element's class.</para>
         /// <para>The <see cref="FlexiAlertBlock" />'s type will replace "{0}" in the format.</para> 
-        /// <para>If the value is null, whitespace or an empty string, no class is assigned.</para>
+        /// <para>If this value is null, whitespace or an empty string, no class is assigned.</para>
         /// <para>Defaults to "fab-{0}".</para>
         /// </param>
         /// <param name="contentClass">
         /// <para>The class of the <see cref="FlexiAlertBlock" />'s content wrapper.</para>  
-        /// <para>If the value is null, whitespace or an empty string, no class is assigned.</para>
+        /// <para>If this value is null, whitespace or an empty string, no class is assigned.</para>
         /// <para>Defaults to "fab-content".</para>
         /// </param>
         /// <param name="type">
         /// <para>The <see cref="FlexiAlertBlock"/>'s type.</para>
-        /// <para>If the value is null, whitespace or an empty string, the <see cref="FlexiAlertBlock"/> will have no type.</para>
+        /// <para>If this value is null, whitespace or an empty string, the <see cref="FlexiAlertBlock"/> will have no type.</para>
         /// <para>Defaults to "info".</para>
         /// </param>
         /// <param name="attributes">
         /// <para>The HTML attributes for the <see cref="FlexiAlertBlock"/>'s outermost element.</para>
-        /// <para>If this dictionary is null, no attributes will be assigned to the outermost element.</para>
+        /// <para>If this value is null, no attributes will be assigned to the outermost element.</para>
         /// <para>Defaults to null.</para>
         /// </param>
         public FlexiAlertBlockOptions(

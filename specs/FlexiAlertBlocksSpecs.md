@@ -103,28 +103,28 @@ Options for a FlexiAlertBlock.
 ##### Properties
 - `IconMarkup`
   - Type: `string`
-  - Description: The markup for the FlexiAlertBlock's icon. If the value is null, whitespace or an empty string, 
+  - Description: The markup for the FlexiAlertBlock's icon. If this value is null, whitespace or an empty string, 
     an attempt is made to retrieve icon markup for this block's type from [FlexiAlertBlocksExtensionOptions](#flexialertblocksextensionoptions), 
     failing which, no icon is rendered.
   - Default: `null`
 - `ClassFormat`
   - Type: `string`
   - Description: The format for the FlexiAlertBlock's outermost element's class. The FlexiAlertBlock's type will
-    replace "{0}" in the format. If the value is null, whitespace or an empty string,
+    replace "{0}" in the format. If this value is null, whitespace or an empty string,
     no class is assigned.  
   - Default: "fab-{0}"
 - `ContentClass`
   - Type: `string`
-  - Description: The class of the FlexiAlertBlock's content wrapper. If the value is null, whitespace or an empty string,
+  - Description: The class of the FlexiAlertBlock's content wrapper. If this value is null, whitespace or an empty string,
     no class is assigned. 
   - Default: "fab-content"
 - `AlertType`
   - Type: `string`
-  - Description: The FlexiAlertBlock's type. If the value is null, whitespace or an empty string, the FlexiAlertBlock will have no type.
+  - Description: The FlexiAlertBlock's type. If this value is null, whitespace or an empty string, the FlexiAlertBlock will have no type.
   - Default: "info"
 - `Attributes`
   - Type: `IDictionary<string, string>`
-  - Description: The HTML attributes for the FlexiAlertBlock's outermost element. If this dictionary is null, no 
+  - Description: The HTML attributes for the FlexiAlertBlock's outermost element. If this value is null, no 
     attributes will be assigned to the outermost element.
   - Default: `null`
 

@@ -59,12 +59,12 @@ Options for a FlexiCodeBlock.
 - `CopyIconMarkup`
   - Type: `string`
   - Description: The markup for the FlexiCodeBlock's copy icon.
-    If the value is null, whitespace or an empty string, no copy icon is rendered.
+    If this value is null, whitespace or an empty string, no copy icon is rendered.
   - Default: [Material Design File Copy](https://material.io/tools/icons/?icon=file_copy&style=sharp)
 - `Title`
   - Type: `string`
   - Description: The FlexiCodeBlock's title.
-    If the value is null, whitespace or an empty string, no title is rendered.
+    If this value is null, whitespace or an empty string, no title is rendered.
   - Default: `null`
 - `Language`
   - Type: `string`
@@ -73,13 +73,13 @@ Options for a FlexiCodeBlock.
     - Valid langauge aliases for Prism can be found here: https://prismjs.com/index.html#languages-list.
     - Valid language aliases for HighlightJS can be found here: http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases.</para>
     
-    If the value is null, whitespace or an empty string, syntax highlighting is disabled and no class is assigned to the FlexiCodeBlock's code element.
+    If this value is null, whitespace or an empty string, syntax highlighting is disabled and no class is assigned to the FlexiCodeBlock's code element.
   - Default: `null`
 - `CodeClassFormat`
   - Type: `string`
   - Description: The format for the FlexiCodeBlock's code element's class.
     `Language` will replace "{0}" in the format.
-    If the value is null, whitespace or an empty string, no class is assigned to the code element.
+    If this value is null, whitespace or an empty string, no class is assigned to the code element.
   - Default: "language-{0}"
 - `SyntaxHighlighter`
   - Type: `SyntaxHighlighter`
@@ -90,27 +90,28 @@ Options for a FlexiCodeBlock.
   - Type: `string`
   - Description: The prefix for HighlightJS classes.
     This option is only relevant if syntax highlighting is enabled and HighlightJS is the selected syntax highlighter.
+    If this value is null, whitespace or an empty string, no prefix is prepended to HighlightJS classes.
   - Default: "hljs-"
 - `LineNumberRanges`
   - Type: `IList<LineNumberRange>`
   - Description: The `LineNumberRange`s that specify the line number for each line of code.
-    If this list is null, no line numbers will be rendered.
+    If this value is null, no line numbers will be rendered.
   - Default: `null`
 - `HighlightLineRanges`
   - Type: `IList<LineRange>`
   - Description: The `LineRange`s that specify which lines of code to highlight.
-    If this List is null, no lines will be highlighted.
+    If this value is null, no lines will be highlighted.
     Line highlighting should not be confused with syntax highlighting. While syntax highlighting highlights tokens in code, line highlighting highlights entire lines.
   - Default: `null`
 - `LineEmbellishmentClassesPrefix`
   - Type: `string`
   - Description: The prefix for line number and line highlighting classes (line embellishment classes).
-    If the value is null, whitespace or an empty string, no prefix is added to line embellishment classes.
+    If this value is null, whitespace or an empty string, no prefix is added to line embellishment classes.
   - Default: `null`
 - `Attributes`
   - Type: `IDictionary<string, string>`
   - Description: The HTML attributes for the outermost element of the FlexiCodeBlock.
-    If this dictionary is null, no attributes will be assigned to the outermost element.
+    If this value is null, no attributes will be assigned to the outermost element.
   - Default: `null`
 
 ##### Usage

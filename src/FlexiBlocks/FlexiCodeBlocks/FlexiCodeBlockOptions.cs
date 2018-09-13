@@ -27,12 +27,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// </summary>
         /// <param name="copyIconMarkup">
         /// <para>The markup for the FlexiCodeBlock's copy icon.</para>
-        /// <para>If the value is null, whitespace or an empty string, no copy icon is rendered.</para>
+        /// <para>If this value is null, whitespace or an empty string, no copy icon is rendered.</para>
         /// <para>Defaults to https://material.io/tools/icons/?icon=file_copy&amp;style=sharp, licensed under an Apache License Version 2 license - https://www.apache.org/licenses/LICENSE-2.0.html.</para>
         /// </param>
         /// <param name="title">
         /// <para>The FlexiCodeBlock's title.</para>
-        /// <para>If the value is null, whitespace or an empty string, no title is rendered.</para>
+        /// <para>If this value is null, whitespace or an empty string, no title is rendered.</para>
         /// <para>Defaults to null.</para>
         /// </param>    
         /// <param name="language">
@@ -40,13 +40,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <para>The value must be a valid language alias for the chosen syntax highlighter (defaults to <see cref="SyntaxHighlighter.Prism"/>).</para>
         /// <para>Valid langauge aliases for Prism can be found here: https://prismjs.com/index.html#languages-list.
         /// Valid language aliases for HighlightJS can be found here: http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases.</para>
-        /// <para>If the value is null, whitespace or an empty string, syntax highlighting is disabled and no class is assigned to the FlexiCodeBlock's code element.</para>
+        /// <para>If this value is null, whitespace or an empty string, syntax highlighting is disabled and no class is assigned to the FlexiCodeBlock's code element.</para>
         /// <para>Defaults to null.</para>
         /// </param>
         /// <param name="codeClassFormat">
         /// <para>The format for the FlexiCodeBlock's code element's class.</para>
         /// <para><see cref="Language"/> will replace "{0}" in the format.</para>
-        /// <para>If the value is null, whitespace or an empty string, no class is assigned to the code element.</para>
+        /// <para>If this value is null, whitespace or an empty string, no class is assigned to the code element.</para>
         /// <para>Defaults to "language-{0}".</para>
         /// </param>
         /// <param name="syntaxHighlighter">
@@ -57,28 +57,29 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <param name="highlightJSClassPrefix">
         /// <para>The prefix for HighlightJS classes.</para>
         /// <para>This option is only relevant if syntax highlighting is enabled and <see cref="SyntaxHighlighter.HighlightJS"/> is the selected syntax highlighter.</para>
+        /// <para>If this value is null, whitespace or an empty string, no prefix is prepended to HighlightJS classes.</para>
         /// <para>Defaults to "hljs-".</para>
         /// </param>
         /// <param name="lineNumberRanges">
         /// <para>The <see cref="LineNumberRange"/>s that specify the line number for each line of code.</para>
-        /// <para>If this list is null, no line numbers will be rendered.</para>
+        /// <para>If this value is null, no line numbers will be rendered.</para>
         /// <para>Defaults to null.</para>
         /// </param>
         /// <param name="highlightLineRanges">
         /// <para>The <see cref="LineRange"/>s that specify which lines of code to highlight.</para>
-        /// <para>If this List is null, no lines will be highlighted.</para>
+        /// <para>If this value is null, no lines will be highlighted.</para>
         /// <para>Line highlighting should not be confused with syntax highlighting. While syntax highlighting highlights tokens in code, line highlighting highlights
         /// entire lines.</para>
         /// <para>Defaults to null.</para>
         /// </param>
         /// <param name="lineEmbellishmentClassesPrefix">
         /// <para>The prefix for line number and line highlighting classes (line embellishment classes).</para>
-        /// <para>If the value is null, whitespace or an empty string, no prefix is added to line embellishment classes.</para>
+        /// <para>If this value is null, whitespace or an empty string, no prefix is added to line embellishment classes.</para>
         /// <para>Defaults to null.</para>
         /// </param>
         /// <param name="attributes">
         /// <para>The HTML attributes for the outermost element of the FlexiCodeBlock.</para>
-        /// <para>If this dictionary is null, no attributes will be assigned to the outermost element.</para>
+        /// <para>If this value is null, no attributes will be assigned to the outermost element.</para>
         /// <para>Defaults to null.</para>
         /// </param>
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="CodeClassFormat"/> is an invalid format.</exception>
