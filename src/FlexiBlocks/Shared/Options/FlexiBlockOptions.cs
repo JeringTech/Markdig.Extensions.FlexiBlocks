@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks
@@ -12,7 +14,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <summary>
         /// Gets or sets the HTML attributes for the outermost element of the FlexiBlock.
         /// </summary>
-        public ReadOnlyDictionary<string, string> Attributes { get; protected set; }
+        [JsonProperty]
+        public ReadOnlyDictionary<string, string> Attributes { get; private set; }
+
+        /// <summary>
+        /// Creates a FlexiBlockOptions instance.
+        /// </summary>
+        /// <param name="attributes">
+        /// <para>The HTML attributes for the outermost element of the FlexiBlock.</para>
+        /// </param>
+        protected FlexiBlockOptions(IDictionary<string, string> attributes)
+        {
+            Attributes = attributes == null ? null : new ReadOnlyDictionary<string, string>(attributes);
+        }
 
         /// <summary>
         /// Validates options and populates generated properties.
@@ -39,7 +53,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
-        /// Returns a deep clone.
+        /// Returns a shallow clone.
         /// </summary>
         public T Clone()
         {

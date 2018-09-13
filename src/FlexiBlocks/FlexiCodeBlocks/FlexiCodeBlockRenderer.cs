@@ -1,43 +1,42 @@
 ﻿using Jering.Web.SyntaxHighlighters.HighlightJS;
 using Jering.Web.SyntaxHighlighters.Prism;
 using Markdig.Renderers;
-using Markdig.Renderers.Html;
 using Markdig.Syntax;
-using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
-    public class FlexiCodeBlockRenderer : HtmlObjectRenderer<CodeBlock>
+    /// <summary>
+    /// A renderer that renders FlexiCodeBlocks as HTML.
+    /// </summary>
+    public class FlexiCodeBlockRenderer : FlexiBlockRenderer<CodeBlock>
     {
-        private static readonly List<LineNumberRange> _defaultLineNumberRanges = new List<LineNumberRange> { new LineNumberRange(1, -1, 1) };
-
-        private readonly HtmlRenderer _codeRenderer;
-        private readonly StringWriter _stringWriter;
         private readonly IPrismService _prismService;
         private readonly IHighlightJSService _highlightJSService;
-        private readonly LineEmbellishmentsService _lineEmbellishmentsService;
+        private readonly ILineEmbellishmentsService _lineEmbellishmentsService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FlexiCodeBlockRenderer"/> class.
+        /// Creates a <see cref="FlexiCodeBlockRenderer"/> instance.
         /// </summary>
-        /// <param name="prismService"></param>
-        /// <param name="highlightJSService"></param>
+        /// <param name="prismService">The service that will handle syntax highlighting using Prism.</param>
+        /// <param name="highlightJSService">The service that will handle syntax highlighting using HighlightJS.</param>
+        /// <param name="lineEmbellishmentsService">The service that will handle line embellishments (line highlighting and line numbers).</param>
         public FlexiCodeBlockRenderer(IPrismService prismService,
-            IHighlightJSService highlightJSService)
+            IHighlightJSService highlightJSService,
+            ILineEmbellishmentsService lineEmbellishmentsService)
         {
-            _stringWriter = new StringWriter();
-            _codeRenderer = new HtmlRenderer(_stringWriter);
             _prismService = prismService;
             _highlightJSService = highlightJSService;
-            _lineEmbellishmentsService = new LineEmbellishmentsService();
+            _lineEmbellishmentsService = lineEmbellishmentsService;
         }
 
-        protected override void Write(HtmlRenderer renderer, CodeBlock obj)
+        /// <summary>
+        /// Renders a FlexiCodeBlock as HTML.
+        /// </summary>
+        /// <param name="renderer">The renderer to write to.</param>
+        /// <param name="obj">The FlexiCodeBlock to render.</param>
+        public override void WriteFlexiBlock(HtmlRenderer renderer, CodeBlock obj)
         {
-            var flexiCodeBlockOptions = (FlexiCodeBlockOptions)obj.GetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY);
-
             renderer.EnsureLine();
 
             if (!renderer.EnableHtmlForBlock)
@@ -45,42 +44,49 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 renderer.WriteLeafRawLines(obj, true, true);
                 return;
             }
+            
+            var flexiCodeBlockOptions = (FlexiCodeBlockOptions)obj.GetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY);
 
-            renderer.Write("<div").
-                WriteHtmlAttributeDictionary(flexiCodeBlockOptions.Attributes).
-                WriteLine(">");
-
-            renderer.WriteLine("<header>");
+            renderer.
+                Write("<div").
+                WriteAttributes(flexiCodeBlockOptions.Attributes).
+                WriteLine(">").
+                WriteLine("<header>");
+          
+            // Title
             if (!string.IsNullOrWhiteSpace(flexiCodeBlockOptions.Title))
             {
-                // Title
                 renderer.WriteLine($"<span>{flexiCodeBlockOptions.Title}</span>");
             }
+
+            // Copy icon
             if (!string.IsNullOrWhiteSpace(flexiCodeBlockOptions.CopyIconMarkup))
             {
-                // Copy icon
                 renderer.WriteLine(flexiCodeBlockOptions.CopyIconMarkup);
             }
-            renderer.WriteLine("</header>");
 
-            renderer.Write("<pre><code");
+            renderer.
+                WriteLine("</header>").
+                Write("<pre><code");
 
-            // Add language class to code element
-            bool languageIsDefined = !string.IsNullOrWhiteSpace(flexiCodeBlockOptions.Language);
-            if (languageIsDefined && !string.IsNullOrWhiteSpace(flexiCodeBlockOptions.CodeLanguageClassNameFormat))
+            // Language class
+            if (!string.IsNullOrWhiteSpace(flexiCodeBlockOptions.CodeClass))
             {
-                renderer.Write($" class=\"{string.Format(flexiCodeBlockOptions.CodeLanguageClassNameFormat, flexiCodeBlockOptions.Language)}\"");
+                renderer.Write($" class=\"{flexiCodeBlockOptions.CodeClass}\"");
             }
+
             renderer.Write(">");
 
-            // Highlight syntax
-            string code = null;
-            if (languageIsDefined && flexiCodeBlockOptions.HighlightSyntax)
-            {
-                _codeRenderer.WriteLeafRawLines(obj, false, false); // Don't escape, prism can't deal with escaped chars
+            var stringWriter = new StringWriter();
+            var codeRenderer = new HtmlRenderer(stringWriter);
 
-                code = _stringWriter.ToString();
-                _stringWriter.GetStringBuilder().Length = 0;
+            // Syntax highlighting
+            string code = null;
+            if (!string.IsNullOrWhiteSpace(flexiCodeBlockOptions.Language) && flexiCodeBlockOptions.SyntaxHighlighter != SyntaxHighlighter.None)
+            {
+                codeRenderer.WriteLeafRawLines(obj, false, false); // Don't escape, prism can't deal with escaped chars
+                code = stringWriter.ToString();
+                stringWriter.GetStringBuilder().Length = 0; // In case we need to use it again
 
                 // All code up the stack from HighlightAsync calls ConfigureAwait(false), so there is no need to run this calls in the thread pool.
                 // Use GetAwaiter and GetResult to avoid an AggregateException - https://blog.stephencleary.com/2014/12/a-tour-of-task-part-6-results.html
@@ -96,21 +102,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 }
             }
 
-            // Embellish code
-            if (flexiCodeBlockOptions.RenderLineNumbers ||
+            // Line embellishments (line highlighting and line numbers)
+            if (flexiCodeBlockOptions.LineNumberRanges?.Count > 0 ||
                 flexiCodeBlockOptions.HighlightLineRanges?.Count > 0)
             {
-                // TODO optimize - possible to pass obj.Lines directly to EmbellishLines?
                 // Code still null since syntax highlighting wasn't done
                 if (code == null)
                 {
-                    _codeRenderer.WriteLeafRawLines(obj, false, true); // Escape
-                    code = _stringWriter.ToString();
-                    _stringWriter.GetStringBuilder().Length = 0;
+                    codeRenderer.WriteLeafRawLines(obj, false, true); // Escape
+                    code = stringWriter.ToString();
                 }
 
                 code = _lineEmbellishmentsService.EmbellishLines(code,
-                    flexiCodeBlockOptions.LineNumberRanges == null || flexiCodeBlockOptions.LineNumberRanges.Count == 0 ? _defaultLineNumberRanges : flexiCodeBlockOptions.LineNumberRanges,
+                    flexiCodeBlockOptions.LineNumberRanges,
                     flexiCodeBlockOptions.HighlightLineRanges,
                     flexiCodeBlockOptions.LineEmbellishmentClassesPrefix);
             }
@@ -121,13 +125,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             }
             else
             {
-                // No embellishing and no syntax highlighting, write directly to renderer to avoid unecessary string allocation
-                renderer.WriteLeafRawLines(obj, false, true);
+                // No embellishing and no syntax highlighting, write directly to renderer
+                renderer.WriteLeafRawLines(obj, false, true); // Escape
             }
 
-            renderer.WriteLine("</code></pre>");
-            renderer.WriteLine("</div>");
-
+            renderer.
+                WriteLine("</code></pre>").
+                WriteLine("</div>");
         }
     }
 }

@@ -7,7 +7,7 @@ import namespace="System.Threading" #><#
     var specFiles = new KeyValuePair<string, string>[] {
 		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiSectionBlocksSpecs.md"), "FlexiSectionBlocks|All"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiAlertBlocksSpecs.md"), "FlexiAlertBlocks|All"),
-		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiCodeBlocksSpecs.md"), "FlexiCodeBlocks|All"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiCodeBlocksSpecs.md"), "FlexiCodeBlocks|All"),
 		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiTableBlocksSpecs.md"), "FlexiTableBlocks|All"),
 		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiIncludeBlocksSpecs.md"), "FlexiIncludeBlocks|All"),
 		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiOptionsBlocksSpecs.md"), "All")
@@ -17,6 +17,7 @@ import namespace="System.Threading" #><#
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 {
 <#
+    bool firstExtension = true;
 foreach (KeyValuePair<string, string> specFileItem in specFiles)
 {
 	string specFile = specFileItem.Key;
@@ -26,7 +27,7 @@ foreach (KeyValuePair<string, string> specFileItem in specFiles)
     foreach (Extension extension in extensions)
     {
         bool firstSpec = true;
-#>    public class <#= extension.Name #>Tests
+#><#= !firstExtension ? "\n" : string.Empty #>    public class <#= extension.Name #>Specs
     {
 <#  
         foreach (Spec spec in extension.Specs)
@@ -54,6 +55,7 @@ foreach (KeyValuePair<string, string> specFileItem in specFiles)
 <#
             firstSpec = false;
         }
+        firstExtension = false;
 #>    }
 <#
     }

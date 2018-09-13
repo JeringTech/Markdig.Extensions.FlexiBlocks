@@ -1,54 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
     /// <summary>
-    /// Adds embellishements to lines in a block of text.
+    /// The default implementation of <see cref="ILineEmbellishmentsService"/>.
     /// </summary>
-    public class LineEmbellishmentsService
+    public class LineEmbellishmentsService : ILineEmbellishmentsService
     {
-        private static readonly string[] _newLineStrings = new string[] { "\r\n", "\n", "\r" };
         private const string _spanEndTag = "</span>";
 
-        /// <summary>
-        /// Adds line numbers and highlights lines.
-        /// </summary>
-        /// <param name="text">Source of lines to embellish.</param>
-        /// <param name="lineNumberRanges">Ranges of lines to add line numbers for and line numbers to use for each line. If null, line numbers will not be added.</param>
-        /// <param name="highlightLineRanges">Ranges of lines to highlight. If null, no lines will be highlighted.</param>
-        /// <param name="prefixForClasses">Optional prefix for classes.</param>
-        /// <returns><paramref name="text"/> if <paramref name="highlightLineRanges"/> and <paramref name="lineNumberRanges"/> are both null or empty. Otherwise, 
-        /// <paramref name="text"/> with added line numbers and highlighted lines.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if <paramref name="highlightLineRanges"/> or <paramref name="lineNumberRanges"/> contain overlapping ranges.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the full ranges of <paramref name="highlightLineRanges"/> or <paramref name="lineNumberRanges"/> exceeds 
-        /// the lines in <paramref name="text"/>.</exception>
+        /// <inheritdoc />
         public string EmbellishLines(string text,
-            List<LineNumberRange> lineNumberRanges,
-            List<LineRange> highlightLineRanges,
+            IEnumerable<LineNumberRange> lineNumberRanges,
+            IEnumerable<LineRange> highlightLineRanges,
             string prefixForClasses = null)
         {
-            if ((lineNumberRanges == null || lineNumberRanges.Count == 0) &&
-                (highlightLineRanges == null || highlightLineRanges.Count == 0))
+            if (!(lineNumberRanges?.Count() > 0 || highlightLineRanges?.Count() > 0))
             {
-                // Nothing to do
-                return text;
+                return text; // Nothing to do
             }
-
-            // Sort ranges in ascending order
-            lineNumberRanges?.Sort(CompareLineNumberRanges);
-            highlightLineRanges?.Sort(CompareHighlightLineRanges);
-
-            // TODO use Span
-            // Get lines, we need to know the number of lines in the text to verify that the provided ranges are valid
-            string[] lines = text.Split(_newLineStrings, StringSplitOptions.None);
-            int numLines = lines.Length;
-
-            // Validate ranges
-            // TODO is this really efficient? ranges almost always going to be valid - any issues will be immediately fixed. just process ranges assuming they are valid and throw when they aren't? 
-            ValidateRanges(lineNumberRanges, highlightLineRanges, numLines);
 
             // Embellishments
             if (string.IsNullOrWhiteSpace(prefixForClasses))
@@ -62,51 +36,41 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 
             // Embellish lines
             var result = new StringBuilder();
-            int currentLine = 1; // Actual line we are at
-
-            int currentLineNumberRangeIndex = 0;
+            int currentLineNumber = 0;
             LineNumberRange currentLineNumberRange = lineNumberRanges?.FirstOrDefault();
-            int currentLineNumber = currentLineNumberRange?.FirstLineNumber ?? 0; // Line number to render
-            int currentLineNumberRangeEndLine = currentLineNumberRange?.LineRange.EndLineNumber ?? 0;
-
-            int currentHighlightLineRangeIndex = 0;
+            int currentLineNumberRangeIndex = 0, currentLineNumberToRender = currentLineNumberRange?.FirstLineNumber ?? 0;
             LineRange currentHighlightLineRange = highlightLineRanges?.FirstOrDefault();
-            int currentHighlightLineRangeEndLine = currentHighlightLineRange?.EndLineNumber ?? 0;
+            int currentHighlightLineRangeIndex = 0;
 
-            foreach (string line in lines)
+            var stringReader = new StringReader(text);
+            string line = null;
+            while ((line = stringReader.ReadLine()) != null)
             {
+                currentLineNumber++;
+
                 // Set current line number range
-                if (currentLineNumberRange != null &&
-                    currentLineNumberRangeEndLine != -1 &&
-                    currentLine > currentLineNumberRangeEndLine)
+                if (currentLineNumberRange?.LineRange.Before(currentLineNumber) == true)
                 {
                     currentLineNumberRange = lineNumberRanges.ElementAtOrDefault(++currentLineNumberRangeIndex);
                     if (currentLineNumberRange != null)
                     {
-                        currentLineNumberRangeEndLine = currentLineNumberRange.LineRange.EndLineNumber;
-                        currentLineNumber = currentLineNumberRange.FirstLineNumber;
+                        currentLineNumberToRender = currentLineNumberRange.FirstLineNumber;
                     }
                 }
 
                 // Set current highlight range
-                if (currentHighlightLineRange != null &&
-                    currentHighlightLineRangeEndLine != -1 &&
-                    currentLine > currentHighlightLineRangeEndLine)
+                if (currentHighlightLineRange?.Before(currentLineNumber) == true)
                 {
-                    currentHighlightLineRange = highlightLineRanges.ElementAtOrDefault(++currentHighlightLineRangeIndex);
-                    if (currentHighlightLineRange != null)
-                    {
-                        currentHighlightLineRangeEndLine = currentHighlightLineRange.EndLineNumber;
-                    }
+                    currentHighlightLineRange = highlightLineRanges?.ElementAtOrDefault(++currentHighlightLineRangeIndex);
                 }
 
                 // Line start tag
-                result.Append(currentHighlightLineRange?.Contains(currentLine) == true ? highlightedLineStartTag : lineStartTag);
+                result.Append(currentHighlightLineRange?.Contains(currentLineNumber) == true ? highlightedLineStartTag : lineStartTag);
 
                 // If within line number range, add line number
-                if (currentLineNumberRange?.LineRange.Contains(currentLine) == true)
+                if (currentLineNumberRange?.LineRange.Contains(currentLineNumber) == true)
                 {
-                    result.Append(lineNumberStartTag).Append(currentLineNumber++).Append(_spanEndTag);
+                    result.Append(lineNumberStartTag).Append(currentLineNumberToRender++).Append(_spanEndTag);
                 }
 
                 // Add line text
@@ -114,63 +78,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 
                 // End tag for line start tag
                 result.AppendLine(_spanEndTag);
-
-                currentLine++;
             }
 
             // Remove last new line character(s)
             result.Length -= Environment.NewLine.Length;
 
             return result.ToString();
-        }
-
-        internal void ValidateRanges(List<LineNumberRange> lineNumberRanges,
-            List<LineRange> highlightLineRanges,
-            int numLines)
-        {
-            // Ranges must be a subset of the lines
-            LineRange lastLineNumberLineRange = lineNumberRanges?.LastOrDefault()?.LineRange;
-            if (lastLineNumberLineRange != null &&
-                (lastLineNumberLineRange.StartLineNumber > numLines ||
-                lastLineNumberLineRange.EndLineNumber > numLines))
-            {
-                throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_InvalidLineNumberLineRange, lastLineNumberLineRange.ToString(), numLines));
-            }
-            LineRange lastHighlightLineRange = highlightLineRanges?.LastOrDefault();
-            if (lastHighlightLineRange != null &&
-               (lastHighlightLineRange.StartLineNumber > numLines ||
-               lastHighlightLineRange.EndLineNumber > numLines))
-            {
-                throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_InvalidHighlightLineRange, lastHighlightLineRange.ToString(), numLines));
-            }
-        }
-
-        internal int CompareHighlightLineRanges(LineRange x, LineRange y)
-        {
-            int result = x.CompareTo(y);
-
-            // Line ranges cannot overlap
-            if (result == 0)
-            {
-                throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_LineRangesForHighlightingCannotOverlap, x.ToString(), y.ToString()));
-            }
-
-            return result;
-        }
-
-        internal int CompareLineNumberRanges(LineNumberRange x, LineNumberRange y)
-        {
-            int result = x.LineRange.CompareTo(y.LineRange);
-
-            // Line ranges cannot overlap and line number ranges cannot overlap or be in the wrong order
-            if (result == 0 ||
-                result == -1 && x.LastLineNumber >= y.FirstLineNumber ||
-                result == 1 && y.LastLineNumber >= x.FirstLineNumber)
-            {
-                throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_LineNumbersCannotOverlap, x.ToString(), y.ToString()));
-            }
-
-            return result;
         }
     }
 }

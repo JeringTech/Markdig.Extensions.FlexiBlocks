@@ -23,7 +23,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             Type flexiBlocksUseExtensions = typeof(FlexiBlocksMarkdownPipelineBuilderExtensions);
             foreach (MethodInfo methodInfo in flexiBlocksUseExtensions.GetMethods(BindingFlags.Public | BindingFlags.Static))
             {
-                if (!methodInfo.Name.StartsWith("Use"))
+                if (!methodInfo.Name.StartsWith("Use") || methodInfo.Name == "UseFlexiBlocks") // Don't include general use method since it doesn't allow for extension options
                 {
                     continue;
                 }

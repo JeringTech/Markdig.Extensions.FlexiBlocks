@@ -20,9 +20,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// Instantiates a <see cref="HtmlAttributeDictionary"/> with the contents in <paramref name="source"/>.
         /// </summary>
         /// <param name="source"></param>
-        public HtmlAttributeDictionary(HtmlAttributeDictionary source)
+        public HtmlAttributeDictionary(IDictionary<string, string> source)
         {
-            _map = new Dictionary<string, string>(source._map);
+            _map = source == null || source.Count == 0 ? new Dictionary<string, string>() : new Dictionary<string, string>(source);
         }
 
         public string this[string key]

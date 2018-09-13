@@ -38,7 +38,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             string result = lineRange.ToString();
 
             // Assert
-            Assert.Equal("2 - 4", result);
+            Assert.Equal("[2, 4]", result);
         }
 
         [Theory]
@@ -47,7 +47,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Act and assert
             ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => new LineRange(dummyStartLine, 0));
-            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0, dummyStartLine) + "\nParameter name: startLineNumber", 
+            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0, dummyStartLine) + "\nParameter name: startLineNumber",
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
@@ -133,35 +133,29 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         }
 
         [Theory]
-        [MemberData(nameof(CompareTo_ReturnsMinus1IfRangeOccursBeforeLineRange0IfTheRangesOverlapAnd1IfRangeOccursAfterLineRange_Data))]
-        public void CompareTo_ReturnsMinus1IfRangeOccursBeforeLineRange0IfTheRangesOverlapAnd1IfRangeOccursAfterLineRange(
-            int primaryRangeStartLine, int primaryRangeEndLine,
-            int secondaryRangeStartLine, int secondaryRangeEndLine,
-            int expectedResult)
+        [MemberData(nameof(Before_ReturnsTrueIfRangeOccursBeforeLineOtherwiseReturnsFalse_Data))]
+        public void Before_ReturnsTrueIfRangeOccursBeforeLineOtherwiseReturnsFalse(int startLineNumber, int endLineNumber, int dummyLineNumber, bool expectedResult)
         {
             // Arrange
-            var primaryLineRange = new LineRange(primaryRangeStartLine, primaryRangeEndLine);
-            var secondaryLineRange = new LineRange(secondaryRangeStartLine, secondaryRangeEndLine);
+            var lineRange = new LineRange(startLineNumber, endLineNumber);
 
             // Act
-            int result = primaryLineRange.CompareTo(secondaryLineRange);
+            bool result = lineRange.Before(dummyLineNumber);
 
             // Assert
             Assert.Equal(expectedResult, result);
         }
 
-        public static IEnumerable<object[]> CompareTo_ReturnsMinus1IfRangeOccursBeforeLineRange0IfTheRangesOverlapAnd1IfRangeOccursAfterLineRange_Data()
+        public static IEnumerable<object[]> Before_ReturnsTrueIfRangeOccursBeforeLineOtherwiseReturnsFalse_Data()
         {
             return new object[][]
             {
-                new object[]{ 1, 5, 6, 10, -1 }, // Before
-                new object[]{ 11, 15, 6, 10, 1 }, // After
-                new object[]{ 2, 7, 7, 11, 0 }, // Overlap at end of main line range
-                new object[]{ 11, 15, 7, 11, 0 }, // Overlap at start of main line range
-                new object[]{ 5, 12, 8, 12, 0 }, // Main line range contains other line range
-                new object[]{ 5, -1, 1000, 1234, 0 }, // Main line range contains other line range
-                new object[]{ 8, 12, 5, 12, 0 }, // Other line range contains main line range
-                new object[]{ 1000, 1234, 5, -1, 0 }, // Other line range contains main line range
+                new object[]{ 2, 5, 6, true}, // Range occurs just before line
+                new object[]{ 2, 5, 1, false}, // Range occurs after line
+                new object[]{ 2, 5, 3, false}, // Range contains line
+                new object[]{ 2, -1, 6, false}, // Range contains line
+                new object[]{ 2, 5, 5, false}, // Range contains line
+                new object[]{ 2, 5, 2, false}, // Range contains line
             };
         }
     }

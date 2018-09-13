@@ -1,93 +1,253 @@
-﻿using System.Collections.Generic;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
-    public class FlexiCodeBlockOptions : IMarkdownObjectOptions<FlexiCodeBlockOptions>
+    /// <summary>
+    /// <para>An implementation of <see cref="FlexiBlockOptions{T}"/> representing options for a FlexiCodeBlock.</para>
+    /// 
+    /// <para>This class is primarily used through the <see cref="FlexiOptionsBlocksExtension"/>. To that end, this class is designed to be populated from JSON.
+    /// This class may occasionally be created manually for use as the default FlexiCodeBlock options, so it accomodates manual creation as well.</para>
+    /// 
+    /// <para>Markdig is designed to be extensible, as a result, any third party extension can access a FlexiCodeBlock's options. To prevent inconsistent state, 
+    /// this class is immutable.</para>
+    /// </summary>
+    public class FlexiCodeBlockOptions : FlexiBlockOptions<FlexiCodeBlockOptions>
     {
-        /// <summary>
-        /// Gets or sets the value used as the markup for the FlexiCodeBlock's copy icon. 
-        /// If the value is null, whitespace or an empty string, no copy icon is rendered.
-        /// 
-        /// The default SVG is part of the excellent material design icon set - https://material.io/tools/icons/?style=baseline
-        /// It is licensed under an Apache License Version 2 license - https://www.apache.org/licenses/LICENSE-2.0.html
-        /// </summary>
-        public string CopyIconMarkup { get; set; } = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z\"/></svg>";
+        private const string _defaultCopyIconMarkup = "<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>";
+        private const string _defaultCodeClassFormat = "language-{0}";
+        private const SyntaxHighlighter _defaultSyntaxHighlighter = SyntaxHighlighter.Prism;
+        private const string _defaultHighlightJSClassPrefix = "hljs-";
 
         /// <summary>
-        /// Gets or sets the value used as the FlexiCodeBlock's title.
-        /// If the value is null, whitespace or an empty string, no title is rendered.
+        /// Creates a <see cref="FlexiCodeBlockOptions"/> instance.
         /// </summary>
-        public string Title { get; set; }
+        /// <param name="copyIconMarkup">
+        /// <para>The markup for the FlexiCodeBlock's copy icon.</para>
+        /// <para>If the value is null, whitespace or an empty string, no copy icon is rendered.</para>
+        /// <para>Defaults to https://material.io/tools/icons/?icon=file_copy&amp;style=sharp, licensed under an Apache License Version 2 license - https://www.apache.org/licenses/LICENSE-2.0.html.</para>
+        /// </param>
+        /// <param name="title">
+        /// <para>The FlexiCodeBlock's title.</para>
+        /// <para>If the value is null, whitespace or an empty string, no title is rendered.</para>
+        /// <para>Defaults to null.</para>
+        /// </param>    
+        /// <param name="language">
+        /// <para>The language for syntax highlighting of the FlexiCodeBlock's code.</para>
+        /// <para>The value must be a valid language alias for the chosen syntax highlighter (defaults to <see cref="SyntaxHighlighter.Prism"/>).</para>
+        /// <para>Valid langauge aliases for Prism can be found here: https://prismjs.com/index.html#languages-list.
+        /// Valid language aliases for HighlightJS can be found here: http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases.</para>
+        /// <para>If the value is null, whitespace or an empty string, syntax highlighting is disabled and no class is assigned to the FlexiCodeBlock's code element.</para>
+        /// <para>Defaults to null.</para>
+        /// </param>
+        /// <param name="codeClassFormat">
+        /// <para>The format for the FlexiCodeBlock's code element's class.</para>
+        /// <para><see cref="Language"/> will replace "{0}" in the format.</para>
+        /// <para>If the value is null, whitespace or an empty string, no class is assigned to the code element.</para>
+        /// <para>Defaults to "language-{0}".</para>
+        /// </param>
+        /// <param name="syntaxHighlighter">
+        /// <para>The syntax highlighter to use for syntax highlighting.</para>
+        /// <para>If this value is <see cref="SyntaxHighlighter.None"/>, syntax highlighting will be disabled.</para>
+        /// <para>Defaults to <see cref="SyntaxHighlighter.Prism"/>.</para>
+        /// </param>
+        /// <param name="highlightJSClassPrefix">
+        /// <para>The prefix for HighlightJS classes.</para>
+        /// <para>This option is only relevant if syntax highlighting is enabled and <see cref="SyntaxHighlighter.HighlightJS"/> is the selected syntax highlighter.</para>
+        /// <para>Defaults to "hljs-".</para>
+        /// </param>
+        /// <param name="lineNumberRanges">
+        /// <para>The <see cref="LineNumberRange"/>s that specify the line number for each line of code.</para>
+        /// <para>If this list is null, no line numbers will be rendered.</para>
+        /// <para>Defaults to null.</para>
+        /// </param>
+        /// <param name="highlightLineRanges">
+        /// <para>The <see cref="LineRange"/>s that specify which lines of code to highlight.</para>
+        /// <para>If this List is null, no lines will be highlighted.</para>
+        /// <para>Line highlighting should not be confused with syntax highlighting. While syntax highlighting highlights tokens in code, line highlighting highlights
+        /// entire lines.</para>
+        /// <para>Defaults to null.</para>
+        /// </param>
+        /// <param name="lineEmbellishmentClassesPrefix">
+        /// <para>The prefix for line number and line highlighting classes (line embellishment classes).</para>
+        /// <para>If the value is null, whitespace or an empty string, no prefix is added to line embellishment classes.</para>
+        /// <para>Defaults to null.</para>
+        /// </param>
+        /// <param name="attributes">
+        /// <para>The HTML attributes for the outermost element of the FlexiCodeBlock.</para>
+        /// <para>If this dictionary is null, no attributes will be assigned to the outermost element.</para>
+        /// <para>Defaults to null.</para>
+        /// </param>
+        /// <exception cref="FlexiBlocksException">Thrown if <see cref="CodeClassFormat"/> is an invalid format.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <see cref="SyntaxHighlighter"/> is not within the range of valid vales for the num <see cref="SyntaxHighlighter"/>.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <see cref="HighlightLineRanges"/> line ranges are not sequential or overlap.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <see cref="LineNumberRanges"/> line ranges are not sequential or overlap.</exception>
+        public FlexiCodeBlockOptions(
+            string copyIconMarkup = _defaultCopyIconMarkup,
+            string title = default,
+            string language = default,
+            string codeClassFormat = _defaultCodeClassFormat,
+            SyntaxHighlighter syntaxHighlighter = _defaultSyntaxHighlighter,
+            string highlightJSClassPrefix = _defaultHighlightJSClassPrefix,
+            IList<LineNumberRange> lineNumberRanges = default,
+            IList<LineRange> highlightLineRanges = default,
+            string lineEmbellishmentClassesPrefix = default,
+            IDictionary<string, string> attributes = default) : base(attributes)
+        {
+            CopyIconMarkup = copyIconMarkup;
+            Title = title;
+            Language = language;
+            CodeClassFormat = codeClassFormat;
+            SyntaxHighlighter = syntaxHighlighter;
+            HighlightJSClassPrefix = highlightJSClassPrefix;
+            LineNumberRanges = lineNumberRanges == null ? null : new ReadOnlyCollection<LineNumberRange>(lineNumberRanges);
+            HighlightLineRanges = highlightLineRanges == null ? null : new ReadOnlyCollection<LineRange>(highlightLineRanges);
+            LineEmbellishmentClassesPrefix = lineEmbellishmentClassesPrefix;
+
+            ValidateAndPopulate();
+        }
 
         /// <summary>
-        /// Gets or sets the value used as the language for syntax highlighting of the FlexiCodeBlock's code.
-        /// The value must be a valid language alias for the chosen <see cref="SyntaxHighlighter"/> (defaults to <see cref="SyntaxHighlighter.Prism"/>).
-        /// Valid langauge aliases for Prism can be found here: https://prismjs.com/index.html#languages-list.
-        /// Valid language aliases for HighlightJS can be found here: http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases.
+        /// Gets or sets the markup for the FlexiCodeBlock's copy icon.
         /// </summary>
-        public string Language { get; set; }
+        [JsonProperty]
+        public string CopyIconMarkup { get; private set; }
 
         /// <summary>
-        /// Gets or sets the value used as the format for the FlexiCodeBlock's code element's language class.
-        /// <see cref="Language"/> will be inserted into the format.
-        /// If either this format or <see cref="Language"/> is null, whitespace or an empty string, no language class is assigned to the code element.
+        /// Gets or sets the FlexiCodeBlock's title.
         /// </summary>
-        public string CodeLanguageClassNameFormat { get; set; } = "language-{0}";
+        [JsonProperty]
+        public string Title { get; private set; }
 
         /// <summary>
-        /// Gets or sets the value indicating whether code syntax should be highlighted.
+        /// Gets or sets the language for syntax highlighting.
         /// </summary>
-        public bool HighlightSyntax { get; set; } = true;
+        [JsonProperty]
+        public string Language { get; private set; }
 
         /// <summary>
-        /// Gets or sets the value indicating which <see cref="SyntaxHighlighter"/> to use for syntax highlighting.
-        /// Defaults to <see cref="SyntaxHighlighter.Prism"/>.
+        /// Gets or sets the format for the FlexiCodeBlock's code element's class.
         /// </summary>
-        public SyntaxHighlighter SyntaxHighlighter { get; set; }
+        [JsonProperty]
+        public string CodeClassFormat { get; private set; }
 
         /// <summary>
-        /// Gets or sets the value used as the prefix for HighlightJS classes. Only relevant if <see cref="SyntaxHighlighter"/>
-        /// is set to <see cref="SyntaxHighlighter.HighlightJS"/>.
+        /// Gets or sets the FlexiCodeBlock's code element's class.
         /// </summary>
-        public string HighlightJSClassPrefix { get; set; } = "hljs-";
+        public string CodeClass { get; private set; }
 
         /// <summary>
-        /// Gets or sets the boolean value indicating whether or not line numbers should be rendered.
+        /// Gets or sets the syntax highlighter to use.
         /// </summary>
-        public bool RenderLineNumbers { get; set; }
+        [JsonProperty]
+        public SyntaxHighlighter SyntaxHighlighter { get; private set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="LineNumberRange"/>s that specify the line number for each line of code. 
-        /// If this List is null but <see cref="RenderLineNumbers"/> is true, the first line of code will have line number 1, and the line number will be
-        /// incremented for each subsequent line of code.
+        /// Gets or sets the prefix for HighlightJS classes.
         /// </summary>
-        public List<LineNumberRange> LineNumberRanges { get; set; }
+        [JsonProperty]
+        public string HighlightJSClassPrefix { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="LineNumberRange"/>s that specify the line number to render for each line of code.
+        /// </summary>
+        [JsonProperty]
+        public ReadOnlyCollection<LineNumberRange> LineNumberRanges { get; private set; }
 
         /// <summary>
         /// Gets or sets the <see cref="LineRange"/>s that specify which lines of code to highlight.
         /// </summary>
-        public List<LineRange> HighlightLineRanges { get; set; }
+        [JsonProperty]
+        public ReadOnlyCollection<LineRange> HighlightLineRanges { get; private set; }
 
         /// <summary>
-        /// Gets or sets the value used to prefix line number and line highlighting classes (line embellishment classes). 
-        /// If the value is null, whitespace or an empty string, no prefix is added to line embellishment classes.
+        /// Gets or sets the prefix for line number and line highlighting classes (line embellishment classes).
         /// </summary>
-        public string LineEmbellishmentClassesPrefix { get; set; }
+        [JsonProperty]
+        public string LineEmbellishmentClassesPrefix { get; private set; }
 
         /// <summary>
-        /// HTML attributes for the outermost element of the FlexiCodeBlock. Includes a "class" attribute with value "fcb" by default.
+        /// Validates options and populates generated properties.
         /// </summary>
-        public HtmlAttributeDictionary Attributes { get; set; } = new HtmlAttributeDictionary { { "class", "fcb" } };
-
-        /// <summary>
-        /// Returns a deep clone.
-        /// </summary>
-        public FlexiCodeBlockOptions Clone()
+        /// <exception cref="FlexiBlocksException">Thrown if <see cref="CodeClassFormat"/> is an invalid format.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <see cref="SyntaxHighlighter"/> is not within the range of valid vales for the enum <see cref="SyntaxHighlighter"/>.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <see cref="HighlightLineRanges"/>'s line ranges are not sequential or overlap.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <see cref="LineNumberRanges"/>'s line ranges are not sequential or overlap.</exception>        
+        protected override void ValidateAndPopulate()
         {
-            var result = (FlexiCodeBlockOptions)MemberwiseClone();
-            result.Attributes = new HtmlAttributeDictionary(Attributes);
+            if (!string.IsNullOrWhiteSpace(Language) &&
+                !string.IsNullOrWhiteSpace(CodeClassFormat))
+            {
+                try
+                {
+                    CodeClass = string.Format(CodeClassFormat, Language);
+                }
+                catch (FormatException formatException)
+                {
+                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_InvalidFormat, nameof(CodeClassFormat),
+                        CodeClassFormat),
+                        formatException);
+                }
+            }
+            else
+            {
+                CodeClass = null;
+            }
 
-            return result;
+            if (!Enum.IsDefined(typeof(SyntaxHighlighter), SyntaxHighlighter))
+            {
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_InvalidEnumValue,
+                        SyntaxHighlighter,
+                        nameof(SyntaxHighlighter),
+                        nameof(FlexiCodeBlocks.SyntaxHighlighter)));
+            }
+
+            if (HighlightLineRanges?.Count > 0)
+            {
+                // Highlight line ranges must be in sequential order and must not overlap (overlapping highlight line ranges does not make sense).
+                LineRange lastLineRange = null;
+                foreach (LineRange lineRange in HighlightLineRanges)
+                {
+                    ValidateLineRanges(lineRange, lastLineRange, nameof(HighlightLineRanges));
+                    lastLineRange = lineRange;
+                }
+            }
+
+            if (LineNumberRanges?.Count > 0)
+            {
+                // Line number ranges must be in sequential order and must not overlap (overlapping line number line ranges does not make sense).
+                LineRange lastLineRange = null;
+                foreach (LineNumberRange lineNumberRange in LineNumberRanges)
+                {
+                    ValidateLineRanges(lineNumberRange.LineRange, lastLineRange, nameof(LineNumberRanges));
+                    lastLineRange = lineNumberRange.LineRange;
+                }
+            }
+        }
+
+        internal void ValidateLineRanges(LineRange lineRange, LineRange lastLineRange, string propertyName)
+        {
+            if (lastLineRange != null)
+            {
+                if(lineRange.EndLineNumber != -1 && lineRange.EndLineNumber < lastLineRange.StartLineNumber)
+                {
+                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_LineRangesMustBeSequential,
+                        propertyName,
+                        lastLineRange.ToString(),
+                        lineRange.ToString()));
+                }
+
+                if (lastLineRange.EndLineNumber == -1 || lineRange.StartLineNumber <= lastLineRange.EndLineNumber)
+                {
+                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_LineRangesCannotOverlap,
+                        propertyName,
+                        lastLineRange.ToString(),
+                        lineRange.ToString()));
+                }
+            }
         }
     }
 }
