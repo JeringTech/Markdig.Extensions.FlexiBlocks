@@ -14,25 +14,28 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
 #endif
     public class FlexiBlocksException : Exception
     {
-        private readonly bool _customMessage;
+        /// <summary>
+        /// Gets the context of the unrecoverable situation.
+        /// </summary>
+        public Context Context { get; }
 
         /// <summary>
-        /// The description of the problem causing the FlexiBlock to be invalid.
+        /// Gets the description of the problem causing the FlexiBlock to be invalid.
         /// </summary>
         public string Description { get; }
 
         /// <summary>
-        /// The line number of the offending markdown.
+        /// Gets the line number of the offending markdown.
         /// </summary>
         public int LineNumber { get; }
 
         /// <summary>
-        /// The column of the offending markdown.
+        /// Gets the column of the offending markdown.
         /// </summary>
         public int Column { get; }
 
         /// <summary>
-        /// The name of the type of the offending block.
+        /// Gets the name of the type of the offending block.
         /// </summary>
         public string BlockTypeName { get; }
 
@@ -102,7 +105,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             Column = column;
             Description = description;
 
-            _customMessage = true;
+            Context = Context.Line;
         }
 
         /// <summary>
@@ -159,7 +162,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 BlockTypeName = "Flexi" + BlockTypeName;
             }
 
-            _customMessage = true;
+            Context = Context.Block;
         }
 
 #if NETSTANDARD2_0
@@ -199,7 +202,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         {
             get
             {
-                if (_customMessage && BlockTypeName != null) // The exception represents an unrecoverable situation encountered when processing a FlexiBlock.
+                if (Context == Context.Block) // The exception represents an unrecoverable situation encountered when processing a FlexiBlock.
                 {
                     return string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
                         BlockTypeName,
@@ -207,7 +210,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                         Column,
                         Description ?? Strings.FlexiBlocksException_UnexpectedException);
                 }
-                else if(_customMessage) // The exception represents an unrecoverable situation encountered while parsing markdown.
+                else if (Context == Context.Line) // The exception represents an unrecoverable situation encountered while parsing markdown.
                 {
                     return string.Format(Strings.FlexiBlocksException_InvalidMarkdown,
                         LineNumber,
