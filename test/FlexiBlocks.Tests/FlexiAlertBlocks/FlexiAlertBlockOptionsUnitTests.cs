@@ -45,12 +45,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             string initialClass = testSubject.Class;
 
             // Act
-            JsonConvert.PopulateObject($"{{\"classFormat\": null}}", testSubject);
+            JsonConvert.PopulateObject("{\"classFormat\": null}", testSubject);
 
             // Assert
             Assert.NotNull(initialClass);
             Assert.Null(testSubject.Class);
         }
-
     }
 }

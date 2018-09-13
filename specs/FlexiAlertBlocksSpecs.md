@@ -17,7 +17,6 @@ This is tangential content.</p>
 </div>
 </div>
 ````````````````````````````````
-
 Generated classes, icon markup, and more can be customized or omitted - refer to the [options section](#options) for instructions.
 
 The first space after the starting `!` is optional:
@@ -97,7 +96,7 @@ A blank line closes a FlexiAlertBlock:
 ````````````````````````````````
 
 ### Options
-The FlexiAlertBlocks extension has the following option types:
+The FlexiAlertBlocks extension has the following options types:
 
 #### `FlexiAlertBlockOptions`
 Options for a FlexiAlertBlock.
@@ -132,26 +131,25 @@ Options for a FlexiAlertBlock.
 ##### Usage
 To specify FlexiAlertBlockOptions for individual FlexiAlertBlocks, the [FlexiOptionsBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled.
 
-Icon markup can be specified for a FlexiAlertBlock:
-
+`IconMarkup`:
 ```````````````````````````````` example
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
 @{
-    "iconMarkup": "<svg><use xlink:href=\"#alternative-icon-markup\"></use></svg>"
+    "iconMarkup": "<svg><use xlink:href=\"#alert-icon\"></use></svg>"
 }
 ! This is a FlexiAlertBlock.
 --------------- Expected Markup ---------------
 <div class="fab-info">
-<svg><use xlink:href="#alternative-icon-markup"></use></svg>
+<svg><use xlink:href="#alert-icon"></use></svg>
 <div class="fab-content">
 <p>This is a FlexiAlertBlock.</p>
 </div>
 </div>
 ````````````````````````````````
 
-The format for the FlexiAlertBlock's outermost element's class can be specified:
+`ClassFormat`:
 ```````````````````````````````` example
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
@@ -169,7 +167,7 @@ FlexiOptionsBlocks
 </div>
 ````````````````````````````````
 
-The class of the FlexiAlertBlock's content wrapper can be specified:
+`ContentClass`:
 ```````````````````````````````` example
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
@@ -187,7 +185,7 @@ FlexiOptionsBlocks
 </div>
 ````````````````````````````````
 
-The FlexiAlertBlock's type can be specified:
+`Type`:
 ```````````````````````````````` example
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
@@ -205,7 +203,7 @@ FlexiOptionsBlocks
 </div>
 ````````````````````````````````
 
-The HTML attributes for the FlexiAlertBlock's outermost element can be specified:
+`Attributes`:
 ```````````````````````````````` example
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
@@ -230,7 +228,6 @@ prepended to the generated class. In the above example, this results in the oute
 `block fab-info`.
 
 #### `FlexiAlertBlocksExtensionOptions`
-##### Description
 Global options for FlexiAlertBlocks. These options can be used to define defaults for all FlexiAlertBlocks. They have
 lower precedence than block specific options specified using the FlexiOptionsBlocks extension.
 ##### Properties
