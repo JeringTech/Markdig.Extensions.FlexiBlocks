@@ -38,20 +38,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
 
             // Act and assert
             FlexiBlocksException result =Assert.Throws<FlexiBlocksException>(() => FlexiBlocksMarkdownPipelineBuilderExtensions.SetOptions(dummyExtensionOptions, dummyServiceProvider));
-            Assert.Equal(Strings.FlexiBlocksException_UnableToSetOptions, result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_UnableToSetOptions, nameof(DummyExtensionOptions)), result.Message);
         }
 
-        public class DummyBlockOptions : IMarkdownObjectOptions<DummyBlockOptions>
+        public class DummyBlockOptions : FlexiBlockOptions<DummyBlockOptions>
         {
-            public HtmlAttributeDictionary Attributes { get; set; }
-
-            public DummyBlockOptions Clone()
-            {
-                return null;
-            }
+            public DummyBlockOptions() : base(null) { }
         }
 
-        public class DummyExtensionOptions : IMarkdownExtensionOptions<DummyBlockOptions>
+        public class DummyExtensionOptions : IFlexiBlocksExtensionOptions<DummyBlockOptions>
         {
             public DummyBlockOptions DefaultBlockOptions { get; set; }
         }

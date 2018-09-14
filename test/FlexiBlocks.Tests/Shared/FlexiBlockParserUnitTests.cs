@@ -42,7 +42,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryOpen(dummyBlockProcessor));
             _mockRepository.VerifyAll();
-            Assert.Equal(@"The DummyBlock starting at line ""1"", column ""0"", is invalid:
+            Assert.Equal(@"The FlexiDummyBlock starting at line ""1"", column ""0"", is invalid:
 An unexpected exception occurred. Refer to the inner exception for more details.",
                 result.Message, ignoreLineEndingDifferences: true);
             Assert.Same(dummyException, result.InnerException);
@@ -99,7 +99,7 @@ An unexpected exception occurred in ""FlexiBlockParserProxy"" while attempting t
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryContinue(dummyBlockProcessor, dummyBlock));
             _mockRepository.VerifyAll();
-            Assert.Equal(@"The DummyBlock starting at line ""1"", column ""0"", is invalid:
+            Assert.Equal(@"The FlexiDummyBlock starting at line ""1"", column ""0"", is invalid:
 An unexpected exception occurred. Refer to the inner exception for more details.", 
                 result.Message, ignoreLineEndingDifferences: true);
             Assert.Same(dummyException, result.InnerException);
@@ -137,7 +137,7 @@ An unexpected exception occurred. Refer to the inner exception for more details.
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.Close(dummyBlockProcessor, dummyBlock));
             _mockRepository.VerifyAll();
-            Assert.Equal(@"The DummyBlock starting at line ""1"", column ""0"", is invalid:
+            Assert.Equal(@"The FlexiDummyBlock starting at line ""1"", column ""0"", is invalid:
 An unexpected exception occurred. Refer to the inner exception for more details.",
                 result.Message, ignoreLineEndingDifferences: true);
             Assert.Same(dummyException, result.InnerException);
