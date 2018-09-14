@@ -47,15 +47,28 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             string pipelineOptions,
             string extensionOptionsJson = null)
         {
-            MarkdownPipeline pipeline = CreatePipeline(pipelineOptions, extensionOptionsJson);
-            string result = Markdown.ToHtml(markdown, pipeline);
-            result = Compact(result);
-            string expectedResult = Compact(expectedHtml);
+            // Create service provider (use a fresh ServiceProvider to prevent specs from interfering with one another)
+            var services = new ServiceCollection();
+            services.AddFlexiBlocks();
+            IServiceProvider serviceProvider = null;
 
-            Assert.Equal(expectedResult, result, ignoreLineEndingDifferences: true);
+            try
+            {
+                serviceProvider = services.BuildServiceProvider();
+                MarkdownPipeline pipeline = CreatePipeline(pipelineOptions, extensionOptionsJson, serviceProvider);
+                string result = Markdown.ToHtml(markdown, pipeline);
+                result = Compact(result);
+                string expectedResult = Compact(expectedHtml);
+
+                Assert.Equal(expectedResult, result, ignoreLineEndingDifferences: true);
+            }
+            finally
+            {
+                (serviceProvider as IDisposable)?.Dispose(); // Can't use using block for IServiceProvider since in earlier netcoreapp versions, it does not implement IDisposable directly
+            }
         }
 
-        private static MarkdownPipeline CreatePipeline(string pipelineOptions, string extensionOptionsJson)
+        private static MarkdownPipeline CreatePipeline(string pipelineOptions, string extensionOptionsJson, IServiceProvider serviceProvider)
         {
             JObject extensionOptions = null;
 
@@ -71,11 +84,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             {
                 return builder.Build();
             }
-
-            // Create service provider (use a fresh ServiceProvider to prevent specs from interfering with one another)
-            var services = new ServiceCollection();
-            services.AddFlexiBlocks();
-            IServiceProvider serviceProvider = services.BuildServiceProvider();
 
             // TODO could be sped up
             string[] extensions = pipelineOptions.Equals("all", StringComparison.OrdinalIgnoreCase) ? ExtensionNames : pipelineOptions.Split('_');
