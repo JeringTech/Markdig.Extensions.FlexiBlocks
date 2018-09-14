@@ -560,7 +560,7 @@ Represents a range of lines.
 - `EndLineNumber`
   - Type: `int`
   - Description: End line number of this range.
-    If this value is -1 the range that extends to infinity. If it is not -1, it must be greater than or equal to `StartLineNumber`.
+    If this value is -1, this range extends to the last line. If it is not -1, it must be greater than or equal to `StartLineNumber`.
   - Default: `-1`
 
 #### `LineNumberRange`
@@ -575,7 +575,7 @@ Represents a range of line numbers for a range of lines.
 - `EndLineNumber`
   - Type: `int`
   - Description: End line number of the range of lines that this `LineNumberRange` applies to.
-    If this value is -1 the range that extends to infinity. If it is not -1, it must be greater than or equal to `StartLineNumber`.
+    If this value is -1, this range extends to the last line. If it is not -1, it must be greater than or equal to `StartLineNumber`.
   - Default: `-1`
 - `FirstLineNumber`
   - Type: `int`

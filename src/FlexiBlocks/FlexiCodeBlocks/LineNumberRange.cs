@@ -19,7 +19,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// </param>
         /// <param name="endLineNumber">
         /// <para>The end line number of the range of lines that this <see cref="LineNumberRange"/> applies to.</para>
-        /// <para>If this value is -1, the range that extends to infinity. If it is not -1, it must be greater than or equal to <paramref name="startLineNumber"/></para>
+        /// <para>If this value is -1, this range extends to the last line. If it is not -1, it must be greater than or equal to <paramref name="startLineNumber"/></para>
         /// <para>Defaults to -1.</para>
         /// </param>
         /// <param name="firstLineNumber">
