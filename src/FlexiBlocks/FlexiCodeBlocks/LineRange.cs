@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
@@ -44,13 +45,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <summary>
         /// Gets the start line number of this range.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(1)]
         public int StartLineNumber { get; }
 
         /// <summary>
         /// Gets the end line number of this range.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(-1)]
         public int EndLineNumber { get; }
 
         /// <summary>
@@ -84,6 +85,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         public override string ToString()
         {
             return $"[{StartLineNumber}, {EndLineNumber}]";
+        }
+
+        /// <summary>
+        /// Checks for value equality between this <see cref="LineRange"/> and an object.
+        /// </summary>
+        /// <param name="obj">The object to check for value equality.</param>
+        /// <returns>True if this <see cref="LineRange"/>'s value is equal to the object's value, false otherwise.</returns>
+        public override bool Equals(object obj)
+        {
+            if(!(obj is LineRange otherLineRange))
+            {
+                return false;
+            }
+
+            return StartLineNumber == otherLineRange.StartLineNumber && EndLineNumber == otherLineRange.EndLineNumber;
         }
     }
 }
