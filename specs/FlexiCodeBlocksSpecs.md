@@ -353,6 +353,13 @@ public class ExampleClass
 <span class="line"><span class="line-number">38</span><span class="line-text">}</span></span></code></pre>
 </div>
 ````````````````````````````````
+The markdown in the above spec can be simplified by ommitting [`LineNumberRange`](#linenumberrange) properties that were set to their default values. For example, the first `LineNumberRange` can be
+specified as:
+```
+{
+    "endLineNumber": 8
+}
+```
 
 `HighlightLineRanges`:
 ```````````````````````````````` example
@@ -390,6 +397,13 @@ public string ExampleFunction(string arg)
 <span class="line"><span class="line-text">}</span></span></code></pre>
 </div>
 ````````````````````````````````
+The markdown in the above spec can be simplified by ommitting [`LineRange`](#linerange) properties that were set to their default values. For example, the first `LineRange` can be
+specified as:
+```
+{
+    "endLineNumber": 1
+}
+```
 
 `Attributes`:
 ```````````````````````````````` example
@@ -447,19 +461,8 @@ Default FlexiCodeBlockOptions can be specified:
             "codeClassFormat": "lang-{0}",
             "syntaxHighlighter": "highlightJS",
             "highlightJSClassPrefix": "highlightjs-",
-            "lineNumberRanges": [
-                {
-                    "startLineNumber": 1,
-                    "endLineNumber": -1,
-                    "firstLineNumber": 1
-                }
-            ],
-            "highlightLineRanges": [
-                {
-                    "startLineNumber": 1,
-                    "endLineNumber": -1
-                }
-            ]
+            "lineNumberRanges": [{}],
+            "highlightLineRanges": [{}]
         }
     }
 }
@@ -493,13 +496,7 @@ FlexiOptionsBlocks
 {
     "flexiCodeBlocks": {
         "defaultBlockOptions": {
-            "lineNumberRanges": [
-                {
-                    "startLineNumber": 1,
-                    "endLineNumber": -1,
-                    "firstLineNumber": 1
-                }
-            ]
+            "lineNumberRanges": [{}]
         }
     }
 }
@@ -515,8 +512,6 @@ public string ExampleFunction1(string arg)
 @{
     "lineNumberRanges": [
         {
-            "startLineNumber": 1,
-            "endLineNumber": -1,
             "firstLineNumber": 6
         }
     ]

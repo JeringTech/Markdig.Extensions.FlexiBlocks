@@ -216,7 +216,7 @@ FlexiOptionsBlocks
 }
 ! This is a FlexiAlertBlock.
 --------------- Expected Markup ---------------
-<div class="fab-info">
+<div id="info-1" class="block fab-info">
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
 <div class="fab-content">
 <p>This is a FlexiAlertBlock.</p>
@@ -298,7 +298,7 @@ Default FlexiAlertBlockOptions can be specified:
 --------------- Markdown ---------------
 ! This is a FlexiAlertBlock.
 --------------- Expected Markup ---------------
-<div class="alert-info">
+<div class="block alert-info">
 <svg><use xlink:href="#alert-icon"></use></svg>
 <div class="alert-content">
 <p>This is a FlexiAlertBlock.</p>

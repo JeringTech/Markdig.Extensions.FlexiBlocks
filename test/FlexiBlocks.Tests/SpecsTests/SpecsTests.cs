@@ -242,7 +242,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     }
             //     ! This is a FlexiAlertBlock.
             //     --------------- Expected Markup ---------------
-            //     <div class="fab-info">
+            //     <div id="info-1" class="block fab-info">
             //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
             //     <div class="fab-content">
             //     <p>This is a FlexiAlertBlock.</p>
@@ -250,7 +250,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     </div>
 
             SpecTestHelper.AssertCompliance("@{\n    \"attributes\": {\n        \"id\" : \"info-1\",\n        \"class\" : \"block\"\n    }\n}\n! This is a FlexiAlertBlock.",
-                "<div class=\"fab-info\">\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z\"/></svg>\n<div class=\"fab-content\">\n<p>This is a FlexiAlertBlock.</p>\n</div>\n</div>",
+                "<div id=\"info-1\" class=\"block fab-info\">\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z\"/></svg>\n<div class=\"fab-content\">\n<p>This is a FlexiAlertBlock.</p>\n</div>\n</div>",
                 extensions);
         }
 
@@ -317,7 +317,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Markdown ---------------
             //     ! This is a FlexiAlertBlock.
             //     --------------- Expected Markup ---------------
-            //     <div class="alert-info">
+            //     <div class="block alert-info">
             //     <svg><use xlink:href="#alert-icon"></use></svg>
             //     <div class="alert-content">
             //     <p>This is a FlexiAlertBlock.</p>
@@ -325,7 +325,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     </div>
 
             SpecTestHelper.AssertCompliance("! This is a FlexiAlertBlock.",
-                "<div class=\"alert-info\">\n<svg><use xlink:href=\"#alert-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a FlexiAlertBlock.</p>\n</div>\n</div>",
+                "<div class=\"block alert-info\">\n<svg><use xlink:href=\"#alert-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a FlexiAlertBlock.</p>\n</div>\n</div>",
                 extensions, 
                 "{\n    \"flexiAlertBlocks\": {\n        \"defaultBlockOptions\": {\n            \"iconMarkup\": \"<svg><use xlink:href=\\\"#alert-icon\\\"></use></svg>\",\n            \"classFormat\": \"alert-{0}\",\n            \"contentClass\": \"alert-content\",\n            \"attributes\": {\n                \"class\": \"block\"\n            }\n        }\n    }\n}");
         }
@@ -815,19 +815,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //                 "codeClassFormat": "lang-{0}",
             //                 "syntaxHighlighter": "highlightJS",
             //                 "highlightJSClassPrefix": "highlightjs-",
-            //                 "lineNumberRanges": [
-            //                     {
-            //                         "startLineNumber": 1,
-            //                         "endLineNumber": -1,
-            //                         "firstLineNumber": 1
-            //                     }
-            //                 ],
-            //                 "highlightLineRanges": [
-            //                     {
-            //                         "startLineNumber": 1,
-            //                         "endLineNumber": -1
-            //                     }
-            //                 ]
+            //                 "lineNumberRanges": [{}],
+            //                 "highlightLineRanges": [{}]
             //             }
             //         }
             //     }
@@ -855,7 +844,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             SpecTestHelper.AssertCompliance("```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```",
                 "<div>\n<header>\n<span>ExampleDocument.cs</span>\n<svg><use xlink:href=\"#material-design-copy\"></use></svg>\n</header>\n<pre><code class=\"lang-csharp\"><span class=\"line highlight\"><span class=\"line-number\">1</span><span class=\"line-text\"><span class=\"highlightjs-function\"><span class=\"highlightjs-keyword\">public</span> <span class=\"highlightjs-keyword\">string</span> <span class=\"highlightjs-title\">ExampleFunction</span>(<span class=\"highlightjs-params\"><span class=\"highlightjs-keyword\">string</span> arg</span>)</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">2</span><span class=\"line-text\"></span>{</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">3</span><span class=\"line-text\">    <span class=\"highlightjs-comment\">// Example comment</span></span></span>\n<span class=\"line highlight\"><span class=\"line-number\">4</span><span class=\"line-text\">    <span class=\"highlightjs-keyword\">return</span> arg + <span class=\"highlightjs-string\">\"dummyString\"</span>;</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">5</span><span class=\"line-text\">}</span></span></code></pre>\n</div>",
                 extensions, 
-                "{\n    \"flexiCodeBlocks\": {\n        \"defaultBlockOptions\": {\n            \"copyIconMarkup\": \"<svg><use xlink:href=\\\"#material-design-copy\\\"></use></svg>\",\n            \"title\": \"ExampleDocument.cs\",\n            \"language\": \"csharp\",\n            \"codeClassFormat\": \"lang-{0}\",\n            \"syntaxHighlighter\": \"highlightJS\",\n            \"highlightJSClassPrefix\": \"highlightjs-\",\n            \"lineNumberRanges\": [\n                {\n                    \"startLineNumber\": 1,\n                    \"endLineNumber\": -1,\n                    \"firstLineNumber\": 1\n                }\n            ],\n            \"highlightLineRanges\": [\n                {\n                    \"startLineNumber\": 1,\n                    \"endLineNumber\": -1\n                }\n            ]\n        }\n    }\n}");
+                "{\n    \"flexiCodeBlocks\": {\n        \"defaultBlockOptions\": {\n            \"copyIconMarkup\": \"<svg><use xlink:href=\\\"#material-design-copy\\\"></use></svg>\",\n            \"title\": \"ExampleDocument.cs\",\n            \"language\": \"csharp\",\n            \"codeClassFormat\": \"lang-{0}\",\n            \"syntaxHighlighter\": \"highlightJS\",\n            \"highlightJSClassPrefix\": \"highlightjs-\",\n            \"lineNumberRanges\": [{}],\n            \"highlightLineRanges\": [{}]\n        }\n    }\n}");
         }
 
         [Theory]
@@ -869,13 +858,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     {
             //         "flexiCodeBlocks": {
             //             "defaultBlockOptions": {
-            //                 "lineNumberRanges": [
-            //                     {
-            //                         "startLineNumber": 1,
-            //                         "endLineNumber": -1,
-            //                         "firstLineNumber": 1
-            //                     }
-            //                 ]
+            //                 "lineNumberRanges": [{}]
             //             }
             //         }
             //     }
@@ -891,8 +874,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     @{
             //         "lineNumberRanges": [
             //             {
-            //                 "startLineNumber": 1,
-            //                 "endLineNumber": -1,
             //                 "firstLineNumber": 6
             //             }
             //         ]
@@ -926,10 +907,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     <span class="line"><span class="line-number">10</span><span class="line-text">}</span></span></code></pre>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("```\npublic string ExampleFunction1(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```\n\n@{\n    \"lineNumberRanges\": [\n        {\n            \"startLineNumber\": 1,\n            \"endLineNumber\": -1,\n            \"firstLineNumber\": 6\n        }\n    ]\n}\n```\npublic string ExampleFunction2(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```",
+            SpecTestHelper.AssertCompliance("```\npublic string ExampleFunction1(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```\n\n@{\n    \"lineNumberRanges\": [\n        {\n            \"firstLineNumber\": 6\n        }\n    ]\n}\n```\npublic string ExampleFunction2(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```",
                 "<div>\n<header>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>\n</header>\n<pre><code><span class=\"line\"><span class=\"line-number\">1</span><span class=\"line-text\">public string ExampleFunction1(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line\"><span class=\"line-number\">3</span><span class=\"line-text\">    // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">4</span><span class=\"line-text\">    return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">}</span></span></code></pre>\n</div>\n<div>\n<header>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>\n</header>\n<pre><code><span class=\"line\"><span class=\"line-number\">6</span><span class=\"line-text\">public string ExampleFunction2(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">7</span><span class=\"line-text\">{</span></span>\n<span class=\"line\"><span class=\"line-number\">8</span><span class=\"line-text\">    // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">9</span><span class=\"line-text\">    return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">10</span><span class=\"line-text\">}</span></span></code></pre>\n</div>",
                 extensions, 
-                "{\n    \"flexiCodeBlocks\": {\n        \"defaultBlockOptions\": {\n            \"lineNumberRanges\": [\n                {\n                    \"startLineNumber\": 1,\n                    \"endLineNumber\": -1,\n                    \"firstLineNumber\": 1\n                }\n            ]\n        }\n    }\n}");
+                "{\n    \"flexiCodeBlocks\": {\n        \"defaultBlockOptions\": {\n            \"lineNumberRanges\": [{}]\n        }\n    }\n}");
         }
     }
 }
