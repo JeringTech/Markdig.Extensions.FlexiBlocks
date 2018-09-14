@@ -165,7 +165,7 @@ public class FlexiBlocksSpecsParser
 
     private static void PreSpecStageHandleLine(string line)
     {
-        if (line == "```````````````````````````````` example")
+        if (line == "```````````````````````````````` spec")
         {
             if (currentExtension == null)
             {

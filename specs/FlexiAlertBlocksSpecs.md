@@ -4,7 +4,7 @@ FlexiAlertBlocks contain content that is tangential to their containing articles
 ### Basic Syntax
 A FlexiAlertBlock is a sequence of lines that each start with`!`. The following is a FlexiAlertBlock:
 
-```````````````````````````````` example
+```````````````````````````````` spec
 --------------- Markdown ---------------
 ! This is a FlexiAlertBlock.
 ! This is tangential content.
@@ -21,7 +21,7 @@ Generated classes, icon markup, and more can be customized or omitted - refer to
 
 The first space after the starting `!` is optional:
 
-```````````````````````````````` example
+```````````````````````````````` spec
 --------------- Markdown ---------------
 !This line will be the same as the next line.
 ! This line will be the same as the previous line.
@@ -37,7 +37,7 @@ This line will be the same as the previous line.</p>
 
 `!` can be preceded by up to three spaces:
 
-```````````````````````````````` example
+```````````````````````````````` spec
 --------------- Markdown ---------------
 ! These lines belong to the same FlexiAlertBlock.
  ! These lines belong to the same FlexiAlertBlock.
@@ -57,7 +57,7 @@ These lines belong to the same FlexiAlertBlock.</p>
 
 [Lazy continuation lines](https://spec.commonmark.org/0.28/#lazy-continuation-line) are allowed within a FlexiAlertBlock:
 
-```````````````````````````````` example
+```````````````````````````````` spec
 --------------- Markdown ---------------
 ! This FlexiAlertBlock
 contains multiple
@@ -75,7 +75,7 @@ lazy continuation lines.</p>
 
 A blank line closes a FlexiAlertBlock:
 
-```````````````````````````````` example
+```````````````````````````````` spec
 --------------- Markdown ---------------
 ! This is a FlexiAlertBlock.
 
@@ -132,7 +132,7 @@ Options for a FlexiAlertBlock.
 To specify FlexiAlertBlockOptions for individual FlexiAlertBlocks, the [FlexiOptionsBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled.
 
 `IconMarkup`:
-```````````````````````````````` example
+```````````````````````````````` spec
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
@@ -150,7 +150,7 @@ FlexiOptionsBlocks
 ````````````````````````````````
 
 `ClassFormat`:
-```````````````````````````````` example
+```````````````````````````````` spec
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
@@ -168,7 +168,7 @@ FlexiOptionsBlocks
 ````````````````````````````````
 
 `ContentClass`:
-```````````````````````````````` example
+```````````````````````````````` spec
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
@@ -186,7 +186,7 @@ FlexiOptionsBlocks
 ````````````````````````````````
 
 `Type`:
-```````````````````````````````` example
+```````````````````````````````` spec
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
@@ -204,7 +204,7 @@ FlexiOptionsBlocks
 ````````````````````````````````
 
 `Attributes`:
-```````````````````````````````` example
+```````````````````````````````` spec
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
@@ -247,7 +247,7 @@ MyMarkdownPipelineBuilder.UseFlexiAlertBlocks(myFlexiAlertBlocksExtensionOptions
 
 <!-- TODO cleanup example icon svgs, add links to licenses -->
 Icon markups for custom FlexiAlertBlock types can be specified:
-```````````````````````````````` example
+```````````````````````````````` spec
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Extension Options ---------------
@@ -281,7 +281,7 @@ FlexiOptionsBlocks
 ````````````````````````````````
 
 Default FlexiAlertBlockOptions can be specified:
-```````````````````````````````` example
+```````````````````````````````` spec
 --------------- Extension Options ---------------
 {
     "flexiAlertBlocks": {
@@ -307,7 +307,7 @@ Default FlexiAlertBlockOptions can be specified:
 ````````````````````````````````
 
 Default FlexiAlertBlockOptions have lower precedence than block specific options:
-```````````````````````````````` example
+```````````````````````````````` spec
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Extension Options ---------------
