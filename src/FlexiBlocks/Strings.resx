@@ -121,7 +121,7 @@
     <value>Base URI must be absolute , received "{0}".</value>
   </data>
   <data name="ArgumentException_BaseUriMustBeDefinedIfSourceIsNotAnAbsoluteUri" xml:space="preserve">
-    <value>Since source "{0}" is not an absolute URI, base URI cannot be null, white space or an empty string.</value>
+    <value>Since source "{0}" is not an absolute URI, base URI cannot be null, whitespace or an empty string.</value>
   </data>
   <data name="ArgumentException_InvalidCacheDirectory" xml:space="preserve">
     <value>The directory to be used for file caching, "{0}" is invalid. Refer to the inner exception for details. </value>
@@ -147,8 +147,8 @@
   <data name="ArgumentException_ValueCannotBeNullOrAnEmptyString" xml:space="preserve">
     <value>Value cannot not be null or an empty string.</value>
   </data>
-  <data name="ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString" xml:space="preserve">
-    <value>Value cannot be null, white space or an empty string.</value>
+  <data name="ArgumentException_ValueCannotBeNullWhitespaceOrAnEmptyString" xml:space="preserve">
+    <value>Value cannot be null, whitespace or an empty string.</value>
   </data>
   <data name="ArgumentOutOfRangeException_CountCannotBeNegativeOrGreaterThanTheNumberOfEmptyElementsInBuffer" xml:space="preserve">
     <value>Value cannot be negative or greater than the number of empty elements in buffer.</value>

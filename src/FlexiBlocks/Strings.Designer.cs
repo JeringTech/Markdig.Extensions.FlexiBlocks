@@ -71,7 +71,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Since source &quot;{0}&quot; is not an absolute URI, base URI cannot be null, white space or an empty string..
+        ///   Looks up a localized string similar to Since source &quot;{0}&quot; is not an absolute URI, base URI cannot be null, whitespace or an empty string..
         /// </summary>
         internal static string ArgumentException_BaseUriMustBeDefinedIfSourceIsNotAnAbsoluteUri {
             get {
@@ -152,11 +152,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value cannot be null, white space or an empty string..
+        ///   Looks up a localized string similar to Value cannot be null, whitespace or an empty string..
         /// </summary>
-        internal static string ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString {
+        internal static string ArgumentException_ValueCannotBeNullWhitespaceOrAnEmptyString {
             get {
-                return ResourceManager.GetString("ArgumentException_ValueCannotBeNullWhiteSpaceOrAnEmptyString", resourceCulture);
+                return ResourceManager.GetString("ArgumentException_ValueCannotBeNullWhitespaceOrAnEmptyString", resourceCulture);
             }
         }
         
