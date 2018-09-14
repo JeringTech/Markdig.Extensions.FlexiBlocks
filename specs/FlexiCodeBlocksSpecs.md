@@ -5,7 +5,7 @@ FlexiCodeBlocks contain code.
 A FlexiCodeBlock is a sequence of fenced or indented lines. Basic-syntax-wise, FlexiCodeBlocks are identical to
 [CommonMark code blocks](https://spec.commonmark.org/0.28/#indented-code-blocks). The following is a fenced FlexiCodeBlock:
 
-```````````````````````````````` spec
+```````````````````````````````` none
 --------------- Markdown ---------------
 ```
 public string ExampleFunction(string arg)
@@ -29,7 +29,7 @@ public string ExampleFunction(string arg)
 
 The following is an indented FlexiCodeBlock:
 
-```````````````````````````````` spec
+```````````````````````````````` none
 --------------- Markdown ---------------
     public string ExampleFunction(string arg)
     {
@@ -118,7 +118,7 @@ Options for a FlexiCodeBlock.
 To specify FlexiCodeBlockOptions for individual FlexiCodeBlocks, the [FlexiOptionsBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled.
 
 `CopyIconMarkup`:
-```````````````````````````````` spec
+```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
@@ -146,7 +146,7 @@ public string ExampleFunction(string arg)
 ````````````````````````````````
 
 `Title`:
-```````````````````````````````` spec
+```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
@@ -175,7 +175,7 @@ public string ExampleFunction(string arg)
 ````````````````````````````````
 
 `Language`:
-```````````````````````````````` spec
+```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
@@ -204,7 +204,7 @@ public string ExampleFunction(string arg)
 By default, if a language is specified, syntax highlighting is performed.
 
 `CodeClassFormat`:
-```````````````````````````````` spec
+```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
@@ -233,7 +233,7 @@ public string ExampleFunction(string arg)
 ````````````````````````````````
 
 `SyntaxHighlighter`:
-```````````````````````````````` spec
+```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
@@ -262,7 +262,7 @@ public string ExampleFunction(string arg)
 ````````````````````````````````
 
 `HighlightJSClassPrefix`:
-```````````````````````````````` spec
+```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
@@ -292,7 +292,7 @@ public string ExampleFunction(string arg)
 ````````````````````````````````
 
 `LineNumberRanges`:
-```````````````````````````````` spec
+```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
@@ -362,7 +362,7 @@ specified as:
 ```
 
 `HighlightLineRanges`:
-```````````````````````````````` spec
+```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
@@ -406,7 +406,7 @@ specified as:
 ```
 
 `Attributes`:
-```````````````````````````````` spec
+```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Markdown ---------------
@@ -450,7 +450,7 @@ MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
 ```
 
 Default FlexiCodeBlockOptions can be specified:
-```````````````````````````````` spec
+```````````````````````````````` none
 --------------- Extension Options ---------------
 {
     "flexiCodeBlocks": {
@@ -489,7 +489,7 @@ public string ExampleFunction(string arg)
 ````````````````````````````````
 
 Default FlexiCodeBlockOptions have lower precedence than block specific options:
-```````````````````````````````` spec
+```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 --------------- Extension Options ---------------
