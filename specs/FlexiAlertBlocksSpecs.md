@@ -19,12 +19,12 @@ This is tangential content.</p>
 ````````````````````````````````
 Generated classes, icon markup, and more can be customized or omitted - refer to the [options section](#options) for instructions.
 
-The first space after the starting `!` is optional:
+The first space after the starting `!` of each line is optional:
 
 ```````````````````````````````` none
 --------------- Markdown ---------------
-!This line will be the same as the next line.
-! This line will be the same as the previous line.
+!This line will render identically to the next line.
+! This line will render identically to the previous line.
 --------------- Expected Markup ---------------
 <div class="fab-info">
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
@@ -35,7 +35,7 @@ This line will be the same as the previous line.</p>
 </div>
 ````````````````````````````````
 
-`!` can be preceded by up to three spaces:
+Starting `!`s can be preceded by up to three spaces:
 
 ```````````````````````````````` none
 --------------- Markdown ---------------
@@ -246,7 +246,7 @@ MyMarkdownPipelineBuilder.UseFlexiAlertBlocks(myFlexiAlertBlocksExtensionOptions
 ```
 
 <!-- TODO cleanup example icon svgs, add links to licenses -->
-Icon markups for custom FlexiAlertBlock types can be specified:
+`IconMarkups`:
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
@@ -280,7 +280,7 @@ FlexiOptionsBlocks
 </div>
 ````````````````````````````````
 
-Default FlexiAlertBlockOptions can be specified:
+`DefaultBlockOptions`:
 ```````````````````````````````` none
 --------------- Extension Options ---------------
 {

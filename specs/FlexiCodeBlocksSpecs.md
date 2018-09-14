@@ -449,7 +449,7 @@ FlexiCodeBlocksExtensionOptions can be specified when enabling the FlexiCodeBloc
 MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
 ```
 
-Default FlexiCodeBlockOptions can be specified:
+`DefaultCodeBlockOptions`:
 ```````````````````````````````` none
 --------------- Extension Options ---------------
 {
