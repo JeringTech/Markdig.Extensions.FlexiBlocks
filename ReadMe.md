@@ -5,17 +5,19 @@
 <!-- TODO tests badge, this service should work - https://github.com/monkey3310/appveyor-shields-badges/blob/master/README.md -->
 
 ## Overview
-FlexiBlocks is a collection of [Markdig](https://github.com/lunet-io/markdig) extensions. It is a [work in progress](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/ThingsToDo.md).
+FlexiBlocks is a collection of [Markdig](https://github.com/lunet-io/markdig) extensions. It is a work in progress undergoing a final cleanup.
 
-The following are somewhat complete FlexiBlock extensions (the specs all pass, but spec descriptions are unpolished and in some cases, outdated):
-- [FlexiOptionsBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md)
-- [FlexiCodeBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiCodeBlocksSpecs.md)
-- [FlexiIncludeBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiIncludeBlocksSpecs.md)
+These extensions are ready for the initial release:
 - [FlexiAlertBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiAlertBlocksSpecs.md)
+- [FlexiCodeBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiCodeBlocksSpecs.md)
+
+The following are being cleaned up (these specs are unpolished and in some cases, outdated):
+- [FlexiOptionsBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md)
+- [FlexiIncludeBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiIncludeBlocksSpecs.md)
 - [FlexiTableBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiTableBlocksSpecs.md)
 - [FlexiSectionBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiSectionBlocksSpecs.md)
 
-Note that the latest additions may not be present in the latest nuget package. Build the solution locally to test them out.
+The nuget package is not up to date at this point in time.
 
 ## About
 Follow [@JeremyTCD](https://twitter.com/JeremyTCD) for updates.
