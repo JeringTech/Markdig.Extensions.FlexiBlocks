@@ -56,7 +56,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// </param>
         /// <param name="highlightJSClassPrefix">
         /// <para>The prefix for HighlightJS classes.</para>
-        /// <para>This option is only relevant if syntax highlighting is enabled and <see cref="SyntaxHighlighter.HighlightJS"/> is the selected syntax highlighter.</para>
+        /// <para>This option is only relevant if <see cref="SyntaxHighlighter.HighlightJS"/> is the selected syntax highlighter.</para>
         /// <para>If this value is null, whitespace or an empty string, no prefix is prepended to HighlightJS classes.</para>
         /// <para>Defaults to "hljs-".</para>
         /// </param>

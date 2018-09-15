@@ -89,7 +89,7 @@ Options for a FlexiCodeBlock.
 - `HighlightJSClassPrefix`
   - Type: `string`
   - Description: The prefix for HighlightJS classes.
-    This option is only relevant if syntax highlighting is enabled and HighlightJS is the selected syntax highlighter.
+    This option is only relevant if HighlightJS is the selected syntax highlighter.
     If this value is null, whitespace or an empty string, no prefix is prepended to HighlightJS classes.
   - Default: "hljs-"
 - `LineNumberRanges`
