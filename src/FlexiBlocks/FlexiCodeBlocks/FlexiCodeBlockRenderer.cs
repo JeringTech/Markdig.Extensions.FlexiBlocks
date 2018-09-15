@@ -13,21 +13,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     {
         private readonly IPrismService _prismService;
         private readonly IHighlightJSService _highlightJSService;
-        private readonly ILineEmbellishmentsService _lineEmbellishmentsService;
+        private readonly ILineEmbellisherService _lineEmbellisherService;
 
         /// <summary>
         /// Creates a <see cref="FlexiCodeBlockRenderer"/> instance.
         /// </summary>
         /// <param name="prismService">The service that will handle syntax highlighting using Prism.</param>
         /// <param name="highlightJSService">The service that will handle syntax highlighting using HighlightJS.</param>
-        /// <param name="lineEmbellishmentsService">The service that will handle line embellishments (line highlighting and line numbers).</param>
+        /// <param name="lineEmbellisherService">The service that will handle line embellishments (line highlighting and line numbers).</param>
         public FlexiCodeBlockRenderer(IPrismService prismService,
             IHighlightJSService highlightJSService,
-            ILineEmbellishmentsService lineEmbellishmentsService)
+            ILineEmbellisherService lineEmbellisherService)
         {
             _prismService = prismService;
             _highlightJSService = highlightJSService;
-            _lineEmbellishmentsService = lineEmbellishmentsService;
+            _lineEmbellisherService = lineEmbellisherService;
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                     code = stringWriter.ToString();
                 }
 
-                code = _lineEmbellishmentsService.EmbellishLines(code,
+                code = _lineEmbellisherService.EmbellishLines(code,
                     flexiCodeBlockOptions.LineNumberRanges,
                     flexiCodeBlockOptions.HighlightLineRanges,
                     flexiCodeBlockOptions.LineEmbellishmentClassesPrefix);

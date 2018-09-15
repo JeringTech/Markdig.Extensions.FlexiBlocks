@@ -7,9 +7,9 @@ using System.Text;
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
     /// <summary>
-    /// The default implementation of <see cref="ILineEmbellishmentsService"/>.
+    /// The default implementation of <see cref="ILineEmbellisherService"/>.
     /// </summary>
-    public class LineEmbellishmentsService : ILineEmbellishmentsService
+    public class LineEmbellisherService : ILineEmbellisherService
     {
         private const string _spanEndTag = "</span>";
 
@@ -19,7 +19,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             IEnumerable<LineRange> highlightLineRanges,
             string prefixForClasses = null)
         {
-            if (!(lineNumberRanges?.Count() > 0 || highlightLineRanges?.Count() > 0))
+            if (!(lineNumberRanges?.Count() > 0 || highlightLineRanges?.Count() > 0) || string.IsNullOrEmpty(text))
             {
                 return text; // Nothing to do
             }

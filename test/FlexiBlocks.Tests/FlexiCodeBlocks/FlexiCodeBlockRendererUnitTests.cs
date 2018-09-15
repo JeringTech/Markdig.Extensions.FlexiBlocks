@@ -367,13 +367,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                 lineEmbellishmentClassesPrefix: dummyLineEmbellishmentClassesPrefix,
                 copyIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
-            Mock<ILineEmbellishmentsService> mockLineEmbellishmentsService = _mockRepository.Create<ILineEmbellishmentsService>();
-            mockLineEmbellishmentsService.Setup(l => l.EmbellishLines("dummyCode&quot;&amp;&lt;&gt;", // Code gets escaped before embellishing
+            Mock<ILineEmbellisherService> mockLineEmbellisherService = _mockRepository.Create<ILineEmbellisherService>();
+            mockLineEmbellisherService.Setup(l => l.EmbellishLines("dummyCode&quot;&amp;&lt;&gt;", // Code gets escaped before embellishing
                     dummyLineNumberRangesWrapper.Value,
                     dummyHighlightLineRangesWrapper.Value,
                     dummyLineEmbellishmentClassesPrefix)).
                 Returns(dummyEmbellishedCode);
-            FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer(lineEmbellishmentsService: mockLineEmbellishmentsService.Object);
+            FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer(lineEmbellisherService: mockLineEmbellisherService.Object);
 
             // Act
             string result = null;
@@ -437,7 +437,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                 highlightLineRanges: dummyHighlightLineRangesWrapper.Value,
                 copyIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
-            // Don't provide LineEmbellishmentsService. As long as Renderer.Write does not throw, the test has passed.
+            // Don't provide LineEmbellisherService. As long as Renderer.Write does not throw, the test has passed.
             FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer();
 
             // Act
@@ -510,9 +510,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         }
 
         public FlexiCodeBlockRenderer CreateFlexiCodeBlockRenderer(IPrismService prismService = null, IHighlightJSService highlightJSService = null,
-            ILineEmbellishmentsService lineEmbellishmentsService = null)
+            ILineEmbellisherService lineEmbellisherService = null)
         {
-            return new FlexiCodeBlockRenderer(prismService, highlightJSService, lineEmbellishmentsService);
+            return new FlexiCodeBlockRenderer(prismService, highlightJSService, lineEmbellisherService);
         }
     }
 }

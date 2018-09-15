@@ -4,7 +4,7 @@ using Jering.IocServices.System.Net.Http;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
-//using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Jering.Web.SyntaxHighlighters.HighlightJS;
 using Jering.Web.SyntaxHighlighters.Prism;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,15 +34,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             // FlexiCodeBlocks
             services.AddPrism();
             services.AddHighlightJS();
-            services.TryAddSingleton<ILineEmbellishmentsService, LineEmbellishmentsService>();
+            services.TryAddSingleton<ILineEmbellisherService, LineEmbellisherService>();
             services.TryAddSingleton<FlexiCodeBlockRenderer>();
             services.TryAddSingleton<FlexiCodeBlocksExtension>();
 
             // FlexiIncludeBlocks
-            //services.TryAddSingleton<IFileCacheService, FileCacheService>();
-            //services.TryAddSingleton<IContentRetrieverService, ContentRetrieverService>();
-            //services.TryAddSingleton<FlexiIncludeBlockParser>();
-            //services.TryAddSingleton<FlexiIncludeBlocksExtension>();
+            services.TryAddSingleton<IFileCacheService, FileCacheService>();
+            services.TryAddSingleton<IContentRetrieverService, ContentRetrieverService>();
+            services.TryAddSingleton<FlexiIncludeBlockParser>();
+            services.TryAddSingleton<FlexiIncludeBlocksExtension>();
 
             // FlexiOptionsBlocks
             services.TryAddSingleton<IFlexiOptionsBlockService, FlexiOptionsBlockService>();

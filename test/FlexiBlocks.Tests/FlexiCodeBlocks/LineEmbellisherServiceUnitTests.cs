@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 {
-    public class LineEmbellishmentsServiceUnitTests
+    public class LineEmbellishersServiceUnitTests
     {
         [Theory]
         [MemberData(nameof(EmbellishLines_ReturnsTextIfBothListsOfRangesAreNullOrEmpty_Data))]
@@ -12,10 +12,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Arrange
             const string dummyText = "dummyText";
-            var lineEmbellishmentService = new LineEmbellishmentsService();
+            var lineEmbellisherService = new LineEmbellisherService();
 
             // Act  
-            string result = lineEmbellishmentService.EmbellishLines(dummyText, dummyLineNumberRangesWrapper?.Value, dummyLineRangesWrapper?.Value);
+            string result = lineEmbellisherService.EmbellishLines(dummyText, dummyLineNumberRangesWrapper?.Value, dummyLineRangesWrapper?.Value);
 
             // Assert
             Assert.Equal(dummyText, result);
@@ -67,10 +67,10 @@ line 7
 line 8
 line 9
 line 10";
-            var lineEmbellishmentService = new LineEmbellishmentsService();
+            var lineEmbellisherService = new LineEmbellisherService();
 
             // Act
-            string result = lineEmbellishmentService.EmbellishLines(dummyText, dummyLineNumberRanges?.Value, dummyHighlightLineRanges?.Value, dummyPrefixForClasses);
+            string result = lineEmbellisherService.EmbellishLines(dummyText, dummyLineNumberRanges?.Value, dummyHighlightLineRanges?.Value, dummyPrefixForClasses);
 
             // Assert
             Assert.Equal(expectedResult, result, ignoreLineEndingDifferences: true);

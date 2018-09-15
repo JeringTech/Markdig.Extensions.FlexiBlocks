@@ -5,7 +5,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     /// <summary>
     /// An abstraction for adding line numbers and highlighting lines.
     /// </summary>
-    public interface ILineEmbellishmentsService
+    public interface ILineEmbellisherService
     {
         /// <summary>
         /// Adds line numbers and highlights lines in a block of text.
