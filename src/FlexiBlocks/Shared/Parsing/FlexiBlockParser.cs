@@ -61,13 +61,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             {
                 return TryOpenFlexiBlock(processor);
             }
-            catch (Exception exception) when (!(exception is FlexiBlocksException))
+            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)
             {
                 // The FlexiBlock must always be at the top of the NewBlocks stack
                 Block newBlock = processor.NewBlocks.Count == 0 ? null : processor.NewBlocks.Peek();
 
                 if (newBlock == null)
                 {
+                    // Can't add any more specific context
+                    if((exception as FlexiBlocksException)?.Context == Context.Line)
+                    {
+                        throw;
+                    }
+
                     throw new FlexiBlocksException(processor.LineIndex,
                         processor.Column,
                         string.Format(Strings.FlexiBlocksException_ExceptionOccurredWhileAttemptingToOpenBlock, GetType().Name),
@@ -93,7 +99,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             {
                 return TryContinueFlexiBlock(processor, block);
             }
-            catch (Exception exception) when (!(exception is FlexiBlocksException))
+            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)
             {
                 throw new FlexiBlocksException(block, exception);
             }
@@ -112,7 +118,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             {
                 return CloseFlexiBlock(processor, block);
             }
-            catch (Exception exception) when (!(exception is FlexiBlocksException))
+            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)
             {
                 throw new FlexiBlocksException(block, exception);
             }

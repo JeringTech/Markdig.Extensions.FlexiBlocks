@@ -2,6 +2,7 @@
 using Markdig.Syntax;
 using Moq;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
@@ -11,11 +12,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
 
         [Fact]
-        public void TryOpen_DoesNotInterfereWithFlexiBlocksExceptionsThrownByTryOpenFlexiBlock()
+        public void TryOpen_DoesNotInterfereWithFlexiBlocksExceptionsWithBlockContextIfAFlexiBlockIsCreated()
         {
             // Arrange
+            var dummyBlock = new DummyBlock(null);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            var dummyFlexiBlocksException = new FlexiBlocksException();
+            dummyBlockProcessor.NewBlocks.Push(dummyBlock);
+            var dummyFlexiBlocksException = new FlexiBlocksException(new DummyBlock(null));
             Mock<FlexiBlockParser> mockTestSubject = _mockRepository.Create<FlexiBlockParser>();
             mockTestSubject.CallBase = true;
             mockTestSubject.Setup(f => f.TryOpenFlexiBlock(dummyBlockProcessor)).Throws(dummyFlexiBlocksException);
@@ -27,8 +30,42 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             Assert.Null(result.InnerException);
         }
 
+        [Theory]
+        [MemberData(nameof(TryOpen_DoesNotInterfereWithFlexiBlocksExceptionsWithBlockOrLineContextIfNoFlexiBlockIsCreated_Data))]
+        public void TryOpen_DoesNotInterfereWithFlexiBlocksExceptionsWithBlockOrLineContextIfNoFlexiBlockIsCreated(SerializableWrapper<FlexiBlocksException> dummyExceptionWrapper)
+        {
+            // Arrange
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            Mock<FlexiBlockParser> mockTestSubject = _mockRepository.Create<FlexiBlockParser>();
+            mockTestSubject.CallBase = true;
+            mockTestSubject.Setup(f => f.TryOpenFlexiBlock(dummyBlockProcessor)).Throws(dummyExceptionWrapper.Value);
+
+            // Act and assert
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryOpen(dummyBlockProcessor));
+            _mockRepository.VerifyAll();
+            Assert.Same(dummyExceptionWrapper.Value, result);
+            Assert.Null(result.InnerException);
+        }
+
+        public static IEnumerable<object[]> TryOpen_DoesNotInterfereWithFlexiBlocksExceptionsWithBlockOrLineContextIfNoFlexiBlockIsCreated_Data()
+        {
+            return new object[][]
+            {
+                // FlexiBlocksException with block context
+                new object[]
+                {
+                    new SerializableWrapper<FlexiBlocksException>(new FlexiBlocksException(new DummyBlock(null)))
+                },
+                // FlexiBlocksException with line context
+                new object[]
+                {
+                    new SerializableWrapper<FlexiBlocksException>(new FlexiBlocksException(1, 0)) // Arbitrary line and column
+                }
+            };
+        }
+
         [Fact]
-        public void TryOpen_WrapsAnyNonFlexiBlocksExceptionThrownByTryOpenFlexiBlockInAFlexiBlocksExceptionWithAnInvalidBlockMessageIfAFlexiBlockIsCreated()
+        public void TryOpen_WrapsExceptionsInAFlexiBlocksExceptionWithAnInvalidBlockMessageIfAFlexiBlockIsCreated()
         {
             // Arrange
             var dummyBlock = new DummyBlock(null);
@@ -53,7 +90,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
         }
 
         [Fact]
-        public void TryOpen_WrapsAnyNonFlexiBlocksExceptionThrownByTryOpenFlexiBlockInAFlexiBlocksExceptionWithAnInvalidMarkdownMessageIfNoFlexiBlockIsCreated()
+        public void TryOpen_WrapsExceptionInAFlexiBlocksExceptionWithAnInvalidMarkdownMessageIfNoFlexiBlockIsCreated()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
@@ -75,25 +112,25 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
         }
 
         [Fact]
-        public void TryContinue_DoesNotInterfereWithFlexiBlocksExceptionsThrownByTryContinueFlexiBlock()
+        public void TryContinue_DoesNotInterfereWithFlexiBlocksExceptionsWithBlockContext()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            var dummyBlock = new DummyBlock(null);
-            var dummyFlexiBlocksException = new FlexiBlocksException();
+            var dummyContinueBlock = new DummyBlock(null);
+            var dummyFlexiBlocksException = new FlexiBlocksException(new DummyBlock(null));
             Mock<FlexiBlockParser> mockTestSubject = _mockRepository.Create<FlexiBlockParser>();
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(f => f.TryContinueFlexiBlock(dummyBlockProcessor, dummyBlock)).Throws(dummyFlexiBlocksException);
+            mockTestSubject.Setup(f => f.TryContinueFlexiBlock(dummyBlockProcessor, dummyContinueBlock)).Throws(dummyFlexiBlocksException);
 
             // Act and assert
-            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryContinue(dummyBlockProcessor, dummyBlock));
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryContinue(dummyBlockProcessor, dummyContinueBlock));
             _mockRepository.VerifyAll();
             Assert.Same(dummyFlexiBlocksException, result);
             Assert.Null(result.InnerException);
         }
 
         [Fact]
-        public void TryContinue_WrapsNonFlexiBlocksExceptionsThrownByTryContinueFlexiBlockInFlexiBlocksExceptions()
+        public void TryContinue_WrapsExceptionsInFlexiBlocksExceptions()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
@@ -117,12 +154,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
         }
 
         [Fact]
-        public void Close_DoesNotInterfereWithFlexiBlocksExceptionsThrownByCloseFlexiBlock()
+        public void Close_DoesNotInterfereWithFlexiBlocksExceptionsWithBlockContext()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var dummyBlock = new DummyBlock(null);
-            var dummyFlexiBlocksException = new FlexiBlocksException();
+            var dummyFlexiBlocksException = new FlexiBlocksException(new DummyBlock(null));
             Mock<FlexiBlockParser> mockTestSubject = _mockRepository.Create<FlexiBlockParser>();
             mockTestSubject.CallBase = true;
             mockTestSubject.Setup(f => f.CloseFlexiBlock(dummyBlockProcessor, dummyBlock)).Throws(dummyFlexiBlocksException);
@@ -135,7 +172,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
         }
 
         [Fact]
-        public void Close_WrapsNonFlexiBlocksExceptionsThrownByTryContinueFlexiBlockInFlexiBlocksExceptions()
+        public void Close_WrapsExceptionsInFlexiBlocksExceptions()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
