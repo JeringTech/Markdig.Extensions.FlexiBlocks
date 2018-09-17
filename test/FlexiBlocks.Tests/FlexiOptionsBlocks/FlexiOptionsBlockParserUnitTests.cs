@@ -80,7 +80,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         }
 
         [Fact]
-        public void CloseFlexiBlock_ThrowsFlexiBlocksExceptionIfThereIsAnUncomsumedFlexiOptionsBlock()
+        public void CloseFlexiBlock_ThrowsFlexiBlocksExceptionIfThereIsAnUnconsumedFlexiOptionsBlock()
         {
             // Arrange
             const int dummyLineIndex = 1;
