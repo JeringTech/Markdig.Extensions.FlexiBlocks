@@ -13,12 +13,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
 
         [Fact]
-        public void Write_DoesNotInterfereWithFlexiBlocksExceptionsThrownByWriteFlexiBlock()
+        public void Write_DoesNotInterfereWithFlexiBlocksExceptionsWithBlockContext()
         {
             // Arrange
             var dummyRenderer = new HtmlRenderer(new StringWriter());
             var dummyBlock = new DummyBlock(null);
-            var dummyFlexiBlocksException = new FlexiBlocksException();
+            var dummyFlexiBlocksException = new FlexiBlocksException(new DummyBlock(null));
             Mock<FlexiBlockRenderer<DummyBlock>> mockTestSubject = _mockRepository.Create<FlexiBlockRenderer<DummyBlock>>();
             mockTestSubject.CallBase = true;
             mockTestSubject.Setup(f => f.WriteFlexiBlock(dummyRenderer, dummyBlock)).Throws(dummyFlexiBlocksException);
@@ -31,7 +31,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
         }
 
         [Fact]
-        public void Write_WrapsNonFlexiBlocksExceptionsThrownByWriteFlexiBlockInFlexiBlocksExceptions()
+        public void Write_WrapsExceptionsInFlexiBlocksExceptions()
         {
             // Arrange
             var dummyRenderer = new HtmlRenderer(new StringWriter());
