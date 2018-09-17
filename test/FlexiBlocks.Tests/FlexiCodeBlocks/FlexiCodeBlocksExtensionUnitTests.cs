@@ -22,16 +22,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Arrange
             const string dummyPropertyName = "dummyPropertyName";
-            var dummyBlock = new DummyBlock(null);
             FlexiCodeBlocksExtension testSubject = CreateFlexiCodeBlocksExtension();
 
             // Act and assert
-            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.ValidateLineRange(lineRangeWrapper.Value, dummyNumLines, dummyBlock, dummyPropertyName));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
-                "Flexi" + nameof(DummyBlock),
-                dummyBlock.Line + 1,
-                dummyBlock.Column,
-                string.Format(Strings.FlexiBlocksException_LineRangeNotASubset, lineRangeWrapper.Value.ToString(), dummyPropertyName, dummyNumLines)),
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.ValidateLineRange(lineRangeWrapper.Value, dummyNumLines, dummyPropertyName));
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionLineRangeNotASubset, lineRangeWrapper.Value.ToString(), dummyPropertyName, dummyNumLines),
                 result.Message);
         }
 
@@ -67,11 +62,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Arrange
             const string dummyPropertyName = "dummyPropertyName";
-            var dummyBlock = new DummyBlock(null);
             FlexiCodeBlocksExtension testSubject = CreateFlexiCodeBlocksExtension();
 
             // Act and assert
-            testSubject.ValidateLineRange(lineRangeWrapper.Value, numLines, dummyBlock, dummyPropertyName); // Test passes as long as this doesn't throw
+            testSubject.ValidateLineRange(lineRangeWrapper.Value, numLines, dummyPropertyName); // Test passes as long as this doesn't throw
         }
 
         public static IEnumerable<object[]> ValidateLineRange_DoesNotThrowFlexiBlocksExceptionIfLineRangeIsASubsetOfTheFullRangeOfLines_Data()
@@ -129,9 +123,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                flexiOptionsBlockService: mockFlexiOptionsBlockService.Object);
             mockTestSubject.CallBase = true;
             mockTestSubject.
-                Setup(t => t.ValidateLineRange(dummyHighlightLineRanges.Last(), dummyLines.Count, dummyBlock, nameof(FlexiCodeBlockOptions.HighlightLineRanges)));
+                Setup(t => t.ValidateLineRange(dummyHighlightLineRanges.Last(), dummyLines.Count, nameof(FlexiCodeBlockOptions.HighlightLineRanges)));
             mockTestSubject.
-                Setup(t => t.ValidateLineRange(dummyLineNumberRanges.Last().LineRange, dummyLines.Count, dummyBlock, nameof(FlexiCodeBlockOptions.LineNumberRanges)));
+                Setup(t => t.ValidateLineRange(dummyLineNumberRanges.Last().LineRange, dummyLines.Count, nameof(FlexiCodeBlockOptions.LineNumberRanges)));
 
             // Act
             mockTestSubject.Object.ExposedOnFlexiBlockClosed(dummyBlockProcessor, dummyBlock);
@@ -153,13 +147,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             public void ExposedOnFlexiBlockClosed(BlockProcessor processor, Block block)
             {
                 base.OnFlexiBlockClosed(processor, block);
-            }
-        }
-
-        private class DummyBlock : Block
-        {
-            public DummyBlock(BlockParser parser) : base(parser)
-            {
             }
         }
 

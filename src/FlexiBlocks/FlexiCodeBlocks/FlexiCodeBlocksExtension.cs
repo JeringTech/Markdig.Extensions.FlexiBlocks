@@ -5,7 +5,6 @@ using Markdig.Renderers;
 using Markdig.Renderers.Html;
 using Markdig.Syntax;
 using Microsoft.Extensions.Options;
-using System;
 using System.Linq;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
@@ -104,23 +103,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             int numLines = ((LeafBlock)block).Lines.Count;
             if (flexiCodeBlockOptions.HighlightLineRanges?.Count > 0)
             {
-                ValidateLineRange(flexiCodeBlockOptions.HighlightLineRanges.Last(), numLines, block, nameof(FlexiCodeBlockOptions.HighlightLineRanges));
+                ValidateLineRange(flexiCodeBlockOptions.HighlightLineRanges.Last(), numLines, nameof(FlexiCodeBlockOptions.HighlightLineRanges));
             }
 
             if (flexiCodeBlockOptions.LineNumberRanges?.Count > 0)
             {
-                ValidateLineRange(flexiCodeBlockOptions.LineNumberRanges.Last().LineRange, numLines, block, nameof(FlexiCodeBlockOptions.LineNumberRanges));
+                ValidateLineRange(flexiCodeBlockOptions.LineNumberRanges.Last().LineRange, numLines, nameof(FlexiCodeBlockOptions.LineNumberRanges));
             }
 
             block.SetData(FLEXI_CODE_BLOCK_OPTIONS_KEY, flexiCodeBlockOptions);
         }
 
-        internal virtual void ValidateLineRange(LineRange lineRange, int numLines, Block block, string propertyName)
+        internal virtual void ValidateLineRange(LineRange lineRange, int numLines, string propertyName)
         {
             // Line ranges must be a subset of the full range of lines.
             if (lineRange.StartLineNumber > numLines || lineRange.EndLineNumber > numLines)
             {
-                throw new FlexiBlocksException(block, string.Format(Strings.FlexiBlocksException_LineRangeNotASubset, lineRange.ToString(), propertyName, numLines));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionLineRangeNotASubset, lineRange.ToString(), propertyName, numLines));
             }
         }
     }
