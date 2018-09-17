@@ -161,7 +161,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             // Act and assert
             FlexiBlocksException result = Assert.
                 Throws<FlexiBlocksException>(() => new FlexiCodeBlockOptions(codeClassFormat: dummyCodeLanguageClassFormat, language: "dummyLanguage"));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFormat,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionIsAnInvalidFormat,
                     nameof(FlexiCodeBlockOptions.CodeClassFormat),
                     dummyCodeLanguageClassFormat),
                 result.Message);
@@ -177,7 +177,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             // Act and assert
             FlexiBlocksException result = Assert.
                 Throws<FlexiBlocksException>(() => new FlexiCodeBlockOptions(syntaxHighlighter: dummySyntaxHighlighter));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidEnumValue,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeAValidEnumValue,
                     dummySyntaxHighlighter,
                     nameof(FlexiCodeBlockOptions.SyntaxHighlighter),
                     nameof(SyntaxHighlighter)),
@@ -205,7 +205,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                         new LineRange(2, -1),
                         new LineRange(5, -1)
                     }),
-                    string.Format(Strings.FlexiBlocksException_LineRangesCannotOverlap, nameof(FlexiCodeBlockOptions.HighlightLineRanges), "[2, -1]", "[5, -1]")
+                    string.Format(Strings.FlexiBlocksException_OptionLineRangesCannotOverlap, nameof(FlexiCodeBlockOptions.HighlightLineRanges), "[2, -1]", "[5, -1]")
                 },
                 // Overlapping line ranges
                 new object[]{
@@ -213,7 +213,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                         new LineRange(2, 5),
                         new LineRange(5, 11)
                     }),
-                    string.Format(Strings.FlexiBlocksException_LineRangesCannotOverlap, nameof(FlexiCodeBlockOptions.HighlightLineRanges),  "[2, 5]", "[5, 11]")
+                    string.Format(Strings.FlexiBlocksException_OptionLineRangesCannotOverlap, nameof(FlexiCodeBlockOptions.HighlightLineRanges),  "[2, 5]", "[5, 11]")
                 },
                 // Line ranges not in sequential order
                 new object[]{
@@ -221,7 +221,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                         new LineRange(6, 13),
                         new LineRange(2, 4)
                     }),
-                    string.Format(Strings.FlexiBlocksException_LineRangesMustBeSequential, nameof(FlexiCodeBlockOptions.HighlightLineRanges), "[6, 13]", "[2, 4]")
+                    string.Format(Strings.FlexiBlocksException_OptionLineRangesMustBeSequential, nameof(FlexiCodeBlockOptions.HighlightLineRanges), "[6, 13]", "[2, 4]")
                 }
             };
         }
@@ -247,7 +247,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                         new LineNumberRange(2), // End line number is -1 by default
                         new LineNumberRange(5)
                     }),
-                    string.Format(Strings.FlexiBlocksException_LineRangesCannotOverlap, nameof(FlexiCodeBlockOptions.LineNumberRanges), "[2, -1]", "[5, -1]")
+                    string.Format(Strings.FlexiBlocksException_OptionLineRangesCannotOverlap, nameof(FlexiCodeBlockOptions.LineNumberRanges), "[2, -1]", "[5, -1]")
                 },
                 // Overlapping line ranges
                 new object[]{
@@ -255,7 +255,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                         new LineNumberRange(2, 5),
                         new LineNumberRange(5, 11)
                     }),
-                    string.Format(Strings.FlexiBlocksException_LineRangesCannotOverlap, nameof(FlexiCodeBlockOptions.LineNumberRanges), "[2, 5]", "[5, 11]")
+                    string.Format(Strings.FlexiBlocksException_OptionLineRangesCannotOverlap, nameof(FlexiCodeBlockOptions.LineNumberRanges), "[2, 5]", "[5, 11]")
                 },
                 // Line ranges not in sequential order
                 new object[]{
@@ -263,7 +263,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                         new LineNumberRange(6, 13),
                         new LineNumberRange(2, 4)
                     }),
-                    string.Format(Strings.FlexiBlocksException_LineRangesMustBeSequential, nameof(FlexiCodeBlockOptions.LineNumberRanges), "[6, 13]", "[2, 4]")
+                    string.Format(Strings.FlexiBlocksException_OptionLineRangesMustBeSequential, nameof(FlexiCodeBlockOptions.LineNumberRanges), "[6, 13]", "[2, 4]")
                 }
             };
         }

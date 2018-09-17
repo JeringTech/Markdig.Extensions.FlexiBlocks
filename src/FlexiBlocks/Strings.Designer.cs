@@ -62,24 +62,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Base URI must be absolute , received &quot;{0}&quot;..
-        /// </summary>
-        internal static string ArgumentException_BaseUriMustBeAbsolute {
-            get {
-                return ResourceManager.GetString("ArgumentException_BaseUriMustBeAbsolute", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Since source &quot;{0}&quot; is not an absolute URI, base URI cannot be null, whitespace or an empty string..
-        /// </summary>
-        internal static string ArgumentException_BaseUriMustBeDefinedIfSourceIsNotAnAbsoluteUri {
-            get {
-                return ResourceManager.GetString("ArgumentException_BaseUriMustBeDefinedIfSourceIsNotAnAbsoluteUri", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The directory to be used for file caching, &quot;{0}&quot; is invalid. Refer to the inner exception for details. .
         /// </summary>
         internal static string ArgumentException_InvalidCacheDirectory {
@@ -107,15 +89,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; is not a valid  URI ..
-        /// </summary>
-        internal static string ArgumentException_NotAValidUri {
-            get {
-                return ResourceManager.GetString("ArgumentException_NotAValidUri", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Only one of &quot;{0}&quot; of &quot;{1}&quot; can be defined..
         /// </summary>
         internal static string ArgumentException_OnlyOneArgumentCanBeDefined {
@@ -130,15 +103,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         internal static string ArgumentException_StartCharIndexIsOutOfRange {
             get {
                 return ResourceManager.GetString("ArgumentException_StartCharIndexIsOutOfRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to  URI  &quot;{0}&quot; has unsupported scheme &quot;{1}&quot;..
-        /// </summary>
-        internal static string ArgumentException_UriSchemeUnsupported {
-            get {
-                return ResourceManager.GetString("ArgumentException_UriSchemeUnsupported", resourceCulture);
             }
         }
         
@@ -244,11 +208,39 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value &quot;{0}&quot; for option {1} is not within the range of valid values for the enum {2}..
+        ///   Looks up a localized string similar to The following cycle was found in the FlexiIncludeBlocks tree: 
+        ///{0}.
         /// </summary>
-        internal static string FlexiBlocksException_InvalidEnumValue {
+        internal static string FlexiBlockException_FlexiIncludeBlocksCycle {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_InvalidEnumValue", resourceCulture);
+                return ResourceManager.GetString("FlexiBlockException_FlexiIncludeBlocksCycle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The option {0} must be a valid URI. The specified value &quot;{1}&quot; is invalid..
+        /// </summary>
+        internal static string FlexiBlockException_OptionMustBeAValidUri {
+            get {
+                return ResourceManager.GetString("FlexiBlockException_OptionMustBeAValidUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception occurred in &quot;{0}&quot; while attempting to open a block. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string FlexiBlocksException_ExceptionOccurredWhileAttemptingToOpenBlock {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_ExceptionOccurredWhileAttemptingToOpenBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception occurred while processing a block. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string FlexiBlocksException_ExceptionOccurredWhileProcessingABlock {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_ExceptionOccurredWhileProcessingABlock", resourceCulture);
             }
         }
         
@@ -263,15 +255,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The {0} &quot;{1}&quot; is invalid. Refer to the inner exception for more details..
-        /// </summary>
-        internal static string FlexiBlocksException_InvalidFormat {
-            get {
-                return ResourceManager.GetString("FlexiBlocksException_InvalidFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The markdown at line &quot;{0}&quot;, column &quot;{1}&quot; is invalid:
         ///{2}.
         /// </summary>
@@ -282,38 +265,83 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The line range &quot;{0}&quot; in {1} is not a subset of the full range of lines, &quot;[1, {2}]&quot;..
-        /// </summary>
-        internal static string FlexiBlocksException_LineRangeNotASubset {
-            get {
-                return ResourceManager.GetString("FlexiBlocksException_LineRangeNotASubset", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The line ranges in {0} are invalid. These line ranges must not overlap, but the line ranges &quot;{1}&quot; and &quot;{2}&quot; do..
-        /// </summary>
-        internal static string FlexiBlocksException_LineRangesCannotOverlap {
-            get {
-                return ResourceManager.GetString("FlexiBlocksException_LineRangesCannotOverlap", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The line ranges in {0} are invalid. These line ranges must be sequential, the line range &quot;{1}&quot; must be specified after line range &quot;{2}&quot;..
-        /// </summary>
-        internal static string FlexiBlocksException_LineRangesMustBeSequential {
-            get {
-                return ResourceManager.GetString("FlexiBlocksException_LineRangesMustBeSequential", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to FlexiOptionsBlock must immediately precede the block that consumes it..
         /// </summary>
         internal static string FlexiBlocksException_MispositionedFlexiOptionsBlock {
             get {
                 return ResourceManager.GetString("FlexiBlocksException_MispositionedFlexiOptionsBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The option {0} cannot be null, whitespace or an empty string..
+        /// </summary>
+        internal static string FlexiBlocksException_OptionCannotBeNullWhitespaceOrAnEmptyString {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_OptionCannotBeNullWhitespaceOrAnEmptyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The option {0} has invalid value &quot;{1}&quot;. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string FlexiBlocksException_OptionIsAnInvalidFormat {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_OptionIsAnInvalidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The line range &quot;{0}&quot; in option {1} is not a subset of the full range of lines, &quot;[1, {2}]&quot;..
+        /// </summary>
+        internal static string FlexiBlocksException_OptionLineRangeNotASubset {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_OptionLineRangeNotASubset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The line ranges in option {0} are invalid. These line ranges must not overlap, but the line ranges &quot;{1}&quot; and &quot;{2}&quot; do..
+        /// </summary>
+        internal static string FlexiBlocksException_OptionLineRangesCannotOverlap {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_OptionLineRangesCannotOverlap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The line ranges in option {0} are invalid. These line ranges must be sequential, the line range &quot;{1}&quot; must be specified after line range &quot;{2}&quot;..
+        /// </summary>
+        internal static string FlexiBlocksException_OptionLineRangesMustBeSequential {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_OptionLineRangesMustBeSequential", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The option {0} must be an absolute URI. The specified value &quot;{1}&quot; is invalid..
+        /// </summary>
+        internal static string FlexiBlocksException_OptionMustBeAnAbsoluteUri {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_OptionMustBeAnAbsoluteUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The option {0} must be a URI with scheme FILE, HTTP or HTTPS. The specified URI &quot;{1}&quot; has invalid scheme &quot;{2}&quot;..
+        /// </summary>
+        internal static string FlexiBlocksException_OptionMustBeAUriWithASupportedScheme {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_OptionMustBeAUriWithASupportedScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; for option {1} is not within the range of valid values for the enum {2}..
+        /// </summary>
+        internal static string FlexiBlocksException_OptionMustBeAValidEnumValue {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_OptionMustBeAValidEnumValue", resourceCulture);
             }
         }
         
@@ -345,39 +373,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An unexpected exception occurred. Refer to the inner exception for more details..
-        /// </summary>
-        internal static string FlexiBlocksException_UnexpectedException {
-            get {
-                return ResourceManager.GetString("FlexiBlocksException_UnexpectedException", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An unexpected exception occurred in &quot;{0}&quot; while attempting to open a block. Refer to the inner exception for more details..
-        /// </summary>
-        internal static string FlexiBlocksException_UnexpectedExceptionWhileAttemptingToOpenBlock {
-            get {
-                return ResourceManager.GetString("FlexiBlocksException_UnexpectedExceptionWhileAttemptingToOpenBlock", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Request to &quot;{0}&quot; failed with status code &quot;{1}&quot; and message &quot;{2}&quot;..
         /// </summary>
         internal static string HttpRequestException_UnsuccessfulRequest {
             get {
                 return ResourceManager.GetString("HttpRequestException_UnsuccessfulRequest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The following cycle was found in the includes tree: 
-        ///{0}.
-        /// </summary>
-        internal static string InvalidOperationException_CycleInIncludes {
-            get {
-                return ResourceManager.GetString("InvalidOperationException_CycleInIncludes", resourceCulture);
             }
         }
         

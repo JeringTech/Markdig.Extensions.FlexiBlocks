@@ -188,7 +188,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 }
                 catch (FormatException formatException)
                 {
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_InvalidFormat, nameof(CodeClassFormat),
+                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionIsAnInvalidFormat, nameof(CodeClassFormat),
                         CodeClassFormat),
                         formatException);
                 }
@@ -200,7 +200,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 
             if (!Enum.IsDefined(typeof(SyntaxHighlighter), SyntaxHighlighter))
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_InvalidEnumValue,
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeAValidEnumValue,
                         SyntaxHighlighter,
                         nameof(SyntaxHighlighter),
                         nameof(FlexiCodeBlocks.SyntaxHighlighter)));
@@ -235,7 +235,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             {
                 if(lineRange.EndLineNumber != -1 && lineRange.EndLineNumber < lastLineRange.StartLineNumber)
                 {
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_LineRangesMustBeSequential,
+                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionLineRangesMustBeSequential,
                         propertyName,
                         lastLineRange.ToString(),
                         lineRange.ToString()));
@@ -243,7 +243,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 
                 if (lastLineRange.EndLineNumber == -1 || lineRange.StartLineNumber <= lastLineRange.EndLineNumber)
                 {
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_LineRangesCannotOverlap,
+                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionLineRangesCannotOverlap,
                         propertyName,
                         lastLineRange.ToString(),
                         lineRange.ToString()));

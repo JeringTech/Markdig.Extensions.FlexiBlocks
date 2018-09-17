@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ArgumentException_BaseUriMustBeAbsolute" xml:space="preserve">
-    <value>Base URI must be absolute , received "{0}".</value>
-  </data>
-  <data name="ArgumentException_BaseUriMustBeDefinedIfSourceIsNotAnAbsoluteUri" xml:space="preserve">
-    <value>Since source "{0}" is not an absolute URI, base URI cannot be null, whitespace or an empty string.</value>
-  </data>
   <data name="ArgumentException_InvalidCacheDirectory" xml:space="preserve">
     <value>The directory to be used for file caching, "{0}" is invalid. Refer to the inner exception for details. </value>
   </data>
@@ -132,17 +126,11 @@
   <data name="ArgumentException_MustBeDefined" xml:space="preserve">
     <value>"{0}" must be defined.</value>
   </data>
-  <data name="ArgumentException_NotAValidUri" xml:space="preserve">
-    <value>"{0}" is not a valid  URI .</value>
-  </data>
   <data name="ArgumentException_OnlyOneArgumentCanBeDefined" xml:space="preserve">
     <value>Only one of "{0}" of "{1}" can be defined.</value>
   </data>
   <data name="ArgumentException_StartCharIndexIsOutOfRange" xml:space="preserve">
     <value>Text has length "{0}", start char index "{1}" is out of range.</value>
-  </data>
-  <data name="ArgumentException_UriSchemeUnsupported" xml:space="preserve">
-    <value> URI  "{0}" has unsupported scheme "{1}".</value>
   </data>
   <data name="ArgumentException_ValueCannotBeNullOrAnEmptyString" xml:space="preserve">
     <value>Value cannot not be null or an empty string.</value>
@@ -177,31 +165,40 @@
   <data name="ContentRetrieverException_RemoteUriDoesNotExist" xml:space="preserve">
     <value>The remote Url "{0}" does not exist.</value>
   </data>
-  <data name="FlexiBlocksException_InvalidEnumValue" xml:space="preserve">
-    <value>The value "{0}" for option {1} is not within the range of valid values for the enum {2}.</value>
+  <data name="FlexiBlockException_OptionMustBeAValidUri" xml:space="preserve">
+    <value>The option {0} must be a valid URI. The specified value "{1}" is invalid.</value>
   </data>
   <data name="FlexiBlocksException_InvalidFlexiBlock" xml:space="preserve">
     <value>The {0} starting at line "{1}", column "{2}", is invalid:
 {3}</value>
   </data>
-  <data name="FlexiBlocksException_InvalidFormat" xml:space="preserve">
-    <value>The {0} "{1}" is invalid. Refer to the inner exception for more details.</value>
+  <data name="FlexiBlocksException_OptionIsAnInvalidFormat" xml:space="preserve">
+    <value>The option {0} has invalid value "{1}". Refer to the inner exception for more details.</value>
   </data>
   <data name="FlexiBlocksException_InvalidMarkdown" xml:space="preserve">
     <value>The markdown at line "{0}", column "{1}" is invalid:
 {2}</value>
   </data>
-  <data name="FlexiBlocksException_LineRangeNotASubset" xml:space="preserve">
-    <value>The line range "{0}" in {1} is not a subset of the full range of lines, "[1, {2}]".</value>
-  </data>
-  <data name="FlexiBlocksException_LineRangesCannotOverlap" xml:space="preserve">
-    <value>The line ranges in {0} are invalid. These line ranges must not overlap, but the line ranges "{1}" and "{2}" do.</value>
-  </data>
-  <data name="FlexiBlocksException_LineRangesMustBeSequential" xml:space="preserve">
-    <value>The line ranges in {0} are invalid. These line ranges must be sequential, the line range "{1}" must be specified after line range "{2}".</value>
-  </data>
   <data name="FlexiBlocksException_MispositionedFlexiOptionsBlock" xml:space="preserve">
     <value>FlexiOptionsBlock must immediately precede the block that consumes it.</value>
+  </data>
+  <data name="FlexiBlocksException_OptionCannotBeNullWhitespaceOrAnEmptyString" xml:space="preserve">
+    <value>The option {0} cannot be null, whitespace or an empty string.</value>
+  </data>
+  <data name="FlexiBlocksException_OptionLineRangeNotASubset" xml:space="preserve">
+    <value>The line range "{0}" in option {1} is not a subset of the full range of lines, "[1, {2}]".</value>
+  </data>
+  <data name="FlexiBlocksException_OptionLineRangesCannotOverlap" xml:space="preserve">
+    <value>The line ranges in option {0} are invalid. These line ranges must not overlap, but the line ranges "{1}" and "{2}" do.</value>
+  </data>
+  <data name="FlexiBlocksException_OptionLineRangesMustBeSequential" xml:space="preserve">
+    <value>The line ranges in option {0} are invalid. These line ranges must be sequential, the line range "{1}" must be specified after line range "{2}".</value>
+  </data>
+  <data name="FlexiBlocksException_OptionMustBeAnAbsoluteUri" xml:space="preserve">
+    <value>The option {0} must be an absolute URI. The specified value "{1}" is invalid.</value>
+  </data>
+  <data name="FlexiBlocksException_OptionMustBeAValidEnumValue" xml:space="preserve">
+    <value>The value "{0}" for option {1} is not within the range of valid values for the enum {2}.</value>
   </data>
   <data name="FlexiBlocksException_UnableToParseJson" xml:space="preserve">
     <value>Unable to parse JSON "{0}". Refer to the inner exception for more details.</value>
@@ -212,17 +209,17 @@
   <data name="FlexiBlocksException_UnconsumedFlexiOptionsBlock" xml:space="preserve">
     <value>FlexiOptionsBlock must be consumed.</value>
   </data>
-  <data name="FlexiBlocksException_UnexpectedException" xml:space="preserve">
-    <value>An unexpected exception occurred. Refer to the inner exception for more details.</value>
+  <data name="FlexiBlocksException_ExceptionOccurredWhileProcessingABlock" xml:space="preserve">
+    <value>An exception occurred while processing a block. Refer to the inner exception for more details.</value>
   </data>
-  <data name="FlexiBlocksException_UnexpectedExceptionWhileAttemptingToOpenBlock" xml:space="preserve">
-    <value>An unexpected exception occurred in "{0}" while attempting to open a block. Refer to the inner exception for more details.</value>
+  <data name="FlexiBlocksException_ExceptionOccurredWhileAttemptingToOpenBlock" xml:space="preserve">
+    <value>An exception occurred in "{0}" while attempting to open a block. Refer to the inner exception for more details.</value>
   </data>
   <data name="HttpRequestException_UnsuccessfulRequest" xml:space="preserve">
     <value>Request to "{0}" failed with status code "{1}" and message "{2}".</value>
   </data>
-  <data name="InvalidOperationException_CycleInIncludes" xml:space="preserve">
-    <value>The following cycle was found in the includes tree: 
+  <data name="FlexiBlockException_FlexiIncludeBlocksCycle" xml:space="preserve">
+    <value>The following cycle was found in the FlexiIncludeBlocks tree: 
 {0}</value>
   </data>
   <data name="InvalidOperationException_InvalidClippingNoLineContainsEndLineSubstring" xml:space="preserve">
@@ -230,5 +227,8 @@
   </data>
   <data name="InvalidOperationException_InvalidClippingNoLineContainsStartLineSubstring" xml:space="preserve">
     <value>Invalid clipping, no line contains start line substring "{0}".</value>
+  </data>
+  <data name="FlexiBlocksException_OptionMustBeAUriWithASupportedScheme" xml:space="preserve">
+    <value>The option {0} must be a URI with scheme FILE, HTTP or HTTPS. The specified URI "{1}" has invalid scheme "{2}".</value>
   </data>
 </root>

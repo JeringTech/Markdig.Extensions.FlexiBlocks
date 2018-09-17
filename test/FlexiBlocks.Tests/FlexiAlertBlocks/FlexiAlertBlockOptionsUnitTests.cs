@@ -87,7 +87,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             // Act and assert
             FlexiBlocksException result = Assert.
                 Throws<FlexiBlocksException>(() => new FlexiAlertBlockOptions(classFormat: dummyClassFormat, type: "dummyAlertType"));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFormat,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionIsAnInvalidFormat,
                     nameof(FlexiAlertBlockOptions.ClassFormat),
                     dummyClassFormat),
                 result.Message);

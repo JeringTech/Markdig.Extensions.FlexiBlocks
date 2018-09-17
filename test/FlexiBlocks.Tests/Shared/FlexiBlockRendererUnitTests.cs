@@ -44,9 +44,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.Write(dummyRenderer, dummyBlock));
             _mockRepository.VerifyAll();
-            Assert.Equal(@"The FlexiDummyBlock starting at line ""1"", column ""0"", is invalid:
-An unexpected exception occurred. Refer to the inner exception for more details.", 
-                result.Message, ignoreLineEndingDifferences: true);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
+                    $"Flexi{nameof(DummyBlock)}",
+                    dummyBlock.Line + 1,
+                    dummyBlock.Column,
+                    Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
+                result.Message,
+                ignoreLineEndingDifferences: true);
             Assert.Same(dummyException, result.InnerException);
         }
        

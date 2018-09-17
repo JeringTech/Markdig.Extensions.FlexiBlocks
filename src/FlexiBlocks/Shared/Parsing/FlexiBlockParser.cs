@@ -70,7 +70,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 {
                     throw new FlexiBlocksException(processor.LineIndex,
                         processor.Column,
-                        string.Format(Strings.FlexiBlocksException_UnexpectedExceptionWhileAttemptingToOpenBlock, GetType().Name),
+                        string.Format(Strings.FlexiBlocksException_ExceptionOccurredWhileAttemptingToOpenBlock, GetType().Name),
                         exception);
                 }
                 else

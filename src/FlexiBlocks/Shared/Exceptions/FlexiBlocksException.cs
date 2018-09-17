@@ -208,14 +208,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                         BlockTypeName,
                         LineNumber,
                         Column,
-                        Description ?? Strings.FlexiBlocksException_UnexpectedException);
+                        Description ?? Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock);
                 }
                 else if (Context == Context.Line) // The exception represents an unrecoverable situation encountered while parsing markdown.
                 {
                     return string.Format(Strings.FlexiBlocksException_InvalidMarkdown,
                         LineNumber,
                         Column,
-                        Description ?? Strings.FlexiBlocksException_UnexpectedException);
+                        Description ?? Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock);
                 }
 
                 return base.Message;
