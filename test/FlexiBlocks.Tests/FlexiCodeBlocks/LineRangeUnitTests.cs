@@ -1,5 +1,4 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
-using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -42,17 +41,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         }
 
         [Theory]
-        [MemberData(nameof(Constructor_ThrowsArgumentOutOfrangeExceptionIfStartLineNumberIsLessThan1_Data))]
-        public void Constructor_ThrowsArgumentOutOfrangeExceptionIfStartLineNumberIsLessThan1(int dummyStartLine)
+        [MemberData(nameof(Constructor_ThrowsFlexiBlocksExceptionIfStartLineNumberIsLessThan1_Data))]
+        public void Constructor_ThrowsFlexiBlocksExceptionIfStartLineNumberIsLessThan1(int dummyStartLine)
         {
             // Act and assert
-            ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => new LineRange(dummyStartLine, 0));
-            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0, dummyStartLine) + "\nParameter name: startLineNumber",
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new LineRange(dummyStartLine, 0));
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(LineRange.StartLineNumber), dummyStartLine),
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
 
-        public static IEnumerable<object[]> Constructor_ThrowsArgumentOutOfrangeExceptionIfStartLineNumberIsLessThan1_Data()
+        public static IEnumerable<object[]> Constructor_ThrowsFlexiBlocksExceptionIfStartLineNumberIsLessThan1_Data()
         {
             return new object[][]
             {
@@ -62,17 +61,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         }
 
         [Theory]
-        [MemberData(nameof(Constructor_ThrowsArgumentOutOfRangeExceptionIfEndLineNumberIsInvalid_Data))]
-        public void Constructor_ThrowsArgumentOutOfRangeExceptionIfEndLineNumberIsInvalid(int dummyStartLineNumber, int dummyEndLineNumber)
+        [MemberData(nameof(Constructor_ThrowsFlexiBlocksExceptionIfEndLineNumberIsInvalid_Data))]
+        public void Constructor_ThrowsFlexiBlocksExceptionIfEndLineNumberIsInvalid(int dummyStartLineNumber, int dummyEndLineNumber)
         {
             // Act and assert
-            ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => new LineRange(dummyStartLineNumber, dummyEndLineNumber));
-            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, dummyEndLineNumber, dummyStartLineNumber) + "\nParameter name: endLineNumber",
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new LineRange(dummyStartLineNumber, dummyEndLineNumber));
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, nameof(LineRange.EndLineNumber),
+                    dummyEndLineNumber, dummyStartLineNumber),
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
 
-        public static IEnumerable<object[]> Constructor_ThrowsArgumentOutOfRangeExceptionIfEndLineNumberIsInvalid_Data()
+        public static IEnumerable<object[]> Constructor_ThrowsFlexiBlocksExceptionIfEndLineNumberIsInvalid_Data()
         {
             return new object[][]
             {

@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.ComponentModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
@@ -27,9 +26,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <para>This value must be greater than 0.</para>
         /// <para>Defaults to 1.</para>
         /// </param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="firstLineNumber"/> is less than 1.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="startLineNumber"/> is less than 1.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="endLineNumber"/> is not -1 and is less than <paramref name="startLineNumber"/>.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <paramref name="firstLineNumber"/> is less than 1.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <paramref name="startLineNumber"/> is less than 1.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <paramref name="endLineNumber"/> is not -1 and is less than <paramref name="startLineNumber"/>.</exception>
         public LineNumberRange(
             int startLineNumber = 1,
             int endLineNumber = -1,
@@ -37,8 +36,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         {
             if (firstLineNumber < 1)
             {
-                throw new ArgumentOutOfRangeException(nameof(firstLineNumber),
-                    string.Format(Strings.ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0, firstLineNumber));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(FirstLineNumber), firstLineNumber));
             }
 
             LineRange = new LineRange(startLineNumber, endLineNumber);

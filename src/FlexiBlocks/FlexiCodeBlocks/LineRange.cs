@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.ComponentModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
@@ -22,20 +21,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <para>If this value is -1, this range extends to the last line. If it is not -1, it must be greater than or equal to <paramref name="startLineNumber"/></para>
         /// <para>Defaults to -1.</para>
         /// </param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="startLineNumber"/> is less than 1.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="endLineNumber"/> is not -1 and is less than <paramref name="startLineNumber"/>.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <paramref name="startLineNumber"/> is less than 1.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <paramref name="endLineNumber"/> is not -1 and is less than <paramref name="startLineNumber"/>.</exception>
         public LineRange(int startLineNumber = 1, int endLineNumber = -1)
         {
             if(startLineNumber < 1)
             {
-                throw new ArgumentOutOfRangeException(nameof(startLineNumber),
-                    string.Format(Strings.ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0, startLineNumber));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(StartLineNumber), startLineNumber));
             }
 
             if(endLineNumber != -1 && endLineNumber < startLineNumber)
             {
-                throw new ArgumentOutOfRangeException(nameof(endLineNumber),
-                    string.Format(Strings.ArgumentOutOfRangeException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, endLineNumber, startLineNumber));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber,
+                    nameof(EndLineNumber),
+                    endLineNumber,
+                    startLineNumber));
             }
 
             StartLineNumber = startLineNumber;

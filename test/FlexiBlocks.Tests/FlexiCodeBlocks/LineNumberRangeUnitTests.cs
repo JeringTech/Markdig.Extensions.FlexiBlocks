@@ -1,5 +1,4 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
-using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -8,17 +7,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
     public class LineNumberRangeUnitTests
     {
         [Theory]
-        [MemberData(nameof(Constructor_ThrowsExceptionIfFirstLineNumberIsInvalid_Data))]
-        public void Constructor_ThrowsExceptionIfFirstLineNumberIsInvalid(int firstLineNumber)
+        [MemberData(nameof(Constructor_ThrowsFlexiBlocksExceptionIfFirstLineNumberIsInvalid_Data))]
+        public void Constructor_ThrowsFlexiBlocksExceptionIfFirstLineNumberIsInvalid(int firstLineNumber)
         {
             // Act and assert
-            ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => new LineNumberRange(1, 1, firstLineNumber));
-            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0, firstLineNumber) + "\nParameter name: firstLineNumber",
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new LineNumberRange(1, 1, firstLineNumber));
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(LineNumberRange.FirstLineNumber), firstLineNumber),
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
 
-        public static IEnumerable<object[]> Constructor_ThrowsExceptionIfFirstLineNumberIsInvalid_Data()
+        public static IEnumerable<object[]> Constructor_ThrowsFlexiBlocksExceptionIfFirstLineNumberIsInvalid_Data()
         {
             return new object[][]
             {
