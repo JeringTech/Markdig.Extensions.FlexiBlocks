@@ -7,15 +7,40 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
     public class LineEmbellisherServiceUnitTests
     {
         [Theory]
+        [MemberData(nameof(EmbellishLines_ReturnsTextIfTextIsNullOrEmpty_Data))]
+        public void EmbellishLines_ReturnsTextIfTextIsNullOrEmpty(string dummyText)
+        {
+            // Arrange
+            var testSubject = new LineEmbellisherService();
+
+            // Act  
+            string result = testSubject.EmbellishLines(dummyText,
+                new List<LineNumberRange> { new LineNumberRange() },
+                new List<LineRange> { new LineRange() });
+
+            // Assert
+            Assert.Equal(dummyText, result);
+        }
+
+        public static IEnumerable<object[]> EmbellishLines_ReturnsTextIfTextIsNullOrEmpty_Data()
+        {
+            return new object[][]
+            {
+                new object[]{null},
+                new object[]{string.Empty}
+            };
+        }
+
+        [Theory]
         [MemberData(nameof(EmbellishLines_ReturnsTextIfBothListsOfRangesAreNullOrEmpty_Data))]
         public void EmbellishLines_ReturnsTextIfBothListsOfRangesAreNullOrEmpty(SerializableWrapper<List<LineNumberRange>> dummyLineNumberRangesWrapper, SerializableWrapper<List<LineRange>> dummyLineRangesWrapper)
         {
             // Arrange
             const string dummyText = "dummyText";
-            var lineEmbellisherService = new LineEmbellisherService();
+            var testSubject = new LineEmbellisherService();
 
             // Act  
-            string result = lineEmbellisherService.EmbellishLines(dummyText, dummyLineNumberRangesWrapper?.Value, dummyLineRangesWrapper?.Value);
+            string result = testSubject.EmbellishLines(dummyText, dummyLineNumberRangesWrapper?.Value, dummyLineRangesWrapper?.Value);
 
             // Assert
             Assert.Equal(dummyText, result);
@@ -67,10 +92,10 @@ line 7
 line 8
 line 9
 line 10";
-            var lineEmbellisherService = new LineEmbellisherService();
+            var testSubject = new LineEmbellisherService();
 
             // Act
-            string result = lineEmbellisherService.EmbellishLines(dummyText, dummyLineNumberRanges?.Value, dummyHighlightLineRanges?.Value, dummyPrefixForClasses);
+            string result = testSubject.EmbellishLines(dummyText, dummyLineNumberRanges?.Value, dummyHighlightLineRanges?.Value, dummyPrefixForClasses);
 
             // Assert
             Assert.Equal(expectedResult, result, ignoreLineEndingDifferences: true);
