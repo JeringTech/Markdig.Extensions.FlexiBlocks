@@ -43,9 +43,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
             }
             catch (Exception exception)
             {
-                throw new FlexiBlocksException(flexiOptionsBlock, 
-                    string.Format(Strings.FlexiBlocksException_UnableToParseJson, json), 
-                    exception);
+                // If a FlexiBlocksException is thrown while validating the new object, it is wrapped in a TargetInvocationException.
+                bool innerIsFlexiBlocksException = exception.InnerException is FlexiBlocksException;
+
+                throw new FlexiBlocksException(flexiOptionsBlock,
+                    innerIsFlexiBlocksException ? null : string.Format(Strings.FlexiBlocksException_UnableToParseJson, json), // If we got to validation, deserialization succeeded
+                    innerIsFlexiBlocksException ? exception.InnerException : exception);
             }
         }
 
@@ -76,9 +79,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
             }
             catch (Exception exception)
             {
+                // If a FlexiBlocksException is thrown while validating the populated object, it is wrapped in a TargetInvocationException.
+                bool innerIsFlexiBlocksException = exception.InnerException is FlexiBlocksException;
+
                 throw new FlexiBlocksException(flexiOptionsBlock,
-                    string.Format(Strings.FlexiBlocksException_UnableToParseJson, json),
-                    exception);
+                    innerIsFlexiBlocksException ? null : string.Format(Strings.FlexiBlocksException_UnableToParseJson, json), // If we got to validation, deserialization succeeded
+                    innerIsFlexiBlocksException ? exception.InnerException : exception);
             }
         }
 

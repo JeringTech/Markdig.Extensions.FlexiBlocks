@@ -5,6 +5,7 @@ using Markdig.Parsers;
 using Moq;
 using Newtonsoft.Json;
 using System;
+using System.Reflection;
 using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
@@ -36,18 +37,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         {
             // Arrange
             const string dummyJson = "dummyJson";
-            const int dummyLineIndex = 1;
-            const int dummyStartLineNumber = dummyLineIndex + 1;
+            const int dummyStartLineNumber = 1;
             const int dummyColumn = 2;
             var dummyJsonException = new JsonException();
             Mock<IJsonSerializerService> mockJsonSerializerService = _mockRepository.Create<IJsonSerializerService>();
             mockJsonSerializerService.Setup(j => j.Deserialize<DummyOptions>(It.IsAny<JsonTextReader>())).Throws(dummyJsonException);
-            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null)
-            {
-                Lines = new StringLineGroup(dummyJson),
-                Line = dummyLineIndex,
-                Column = dummyColumn
-            };
+            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null) { Lines = new StringLineGroup(dummyJson), Column = dummyColumn };
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<FlexiOptionsBlockService> mockTestSubject = CreateMockFlexiOptionsBlockService(mockJsonSerializerService.Object);
             mockTestSubject.CallBase = true;
@@ -61,9 +56,39 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
                     typeof(FlexiOptionsBlock).Name,
                     dummyStartLineNumber,
                     dummyColumn,
-                    string.Format(Strings.FlexiBlocksException_UnableToParseJson, dummyJson)), 
+                    string.Format(Strings.FlexiBlocksException_UnableToParseJson, dummyJson)),
                 result.Message);
             Assert.Same(dummyJsonException, result.InnerException);
+        }
+
+        [Fact]
+        public void TryExtractOptions_ThrowsFlexiBlocksExceptionIfValidationOfTheNewObjectFails()
+        {
+            // Arrange
+            const int dummyStartLineNumber = 1;
+            const int dummyColumn = 2;
+            const string dummyInnerFlexiBlocksExceptionMessage = "dummyInnerFlexiBlocksExceptionMessage";
+            var dummyInnerFlexiBlocksException = new FlexiBlocksException(dummyInnerFlexiBlocksExceptionMessage);
+            var dummyTargetInvocationException = new TargetInvocationException(dummyInnerFlexiBlocksException);
+            Mock<IJsonSerializerService> mockJsonSerializerService = _mockRepository.Create<IJsonSerializerService>();
+            mockJsonSerializerService.Setup(j => j.Deserialize<DummyOptions>(It.IsAny<JsonTextReader>())).Throws(dummyTargetInvocationException);
+            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null) { Column = dummyColumn };
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            Mock<FlexiOptionsBlockService> mockTestSubject = CreateMockFlexiOptionsBlockService(mockJsonSerializerService.Object);
+            mockTestSubject.CallBase = true;
+            mockTestSubject.Setup(j => j.TryGetFlexiOptionsBlock(dummyBlockProcessor, dummyStartLineNumber)).Returns(dummyFlexiOptionsBlock);
+
+            // Act and assert
+            FlexiBlocksException result = Assert.
+                Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryExtractOptions<DummyOptions>(dummyBlockProcessor, dummyStartLineNumber));
+            _mockRepository.VerifyAll();
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
+                    typeof(FlexiOptionsBlock).Name,
+                    dummyStartLineNumber,
+                    dummyColumn,
+                    dummyInnerFlexiBlocksExceptionMessage),
+                result.Message);
+            Assert.Same(dummyInnerFlexiBlocksException, result.InnerException);
         }
 
         [Fact]
@@ -101,19 +126,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         {
             // Arrange
             const string dummyJson = "dummyJson";
-            const int dummyLineIndex = 1;
-            const int dummyStartLineNumber = dummyLineIndex + 1;
+            const int dummyStartLineNumber = 1;
             const int dummyColumn = 2;
             var dummyJsonException = new JsonException();
             var dummyOptions = new DummyOptions();
             Mock<IJsonSerializerService> mockJsonSerializerService = _mockRepository.Create<IJsonSerializerService>();
             mockJsonSerializerService.Setup(j => j.Populate(It.IsAny<JsonTextReader>(), dummyOptions)).Throws(dummyJsonException);
-            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null)
-            {
-                Lines = new StringLineGroup(dummyJson),
-                Line = dummyLineIndex,
-                Column = dummyColumn
-            };
+            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null) { Lines = new StringLineGroup(dummyJson), Column = dummyColumn };
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<FlexiOptionsBlockService> mockTestSubject = CreateMockFlexiOptionsBlockService(mockJsonSerializerService.Object);
             mockTestSubject.CallBase = true;
@@ -130,6 +149,37 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
                     string.Format(Strings.FlexiBlocksException_UnableToParseJson, dummyJson)),
                 result.Message);
             Assert.Same(dummyJsonException, result.InnerException);
+        }
+
+        [Fact]
+        public void TryPopulateOptions_ThrowsFlexiBlocksExceptionIfValidationOfTheNewObjectFails()
+        {
+            // Arrange
+            const int dummyStartLineNumber = 1;
+            const int dummyColumn = 2;
+            const string dummyInnerFlexiBlocksExceptionMessage = "dummyInnerFlexiBlocksExceptionMessage";
+            var dummyInnerFlexiBlocksException = new FlexiBlocksException(dummyInnerFlexiBlocksExceptionMessage);
+            var dummyTargetInvocationException = new TargetInvocationException(dummyInnerFlexiBlocksException);
+            var dummyOptions = new DummyOptions();
+            Mock<IJsonSerializerService> mockJsonSerializerService = _mockRepository.Create<IJsonSerializerService>();
+            mockJsonSerializerService.Setup(j => j.Populate(It.IsAny<JsonTextReader>(), dummyOptions)).Throws(dummyTargetInvocationException);
+            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null) { Column = dummyColumn };
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            Mock<FlexiOptionsBlockService> mockTestSubject = CreateMockFlexiOptionsBlockService(mockJsonSerializerService.Object);
+            mockTestSubject.CallBase = true;
+            mockTestSubject.Setup(j => j.TryGetFlexiOptionsBlock(dummyBlockProcessor, dummyStartLineNumber)).Returns(dummyFlexiOptionsBlock);
+
+            // Act and assert
+            FlexiBlocksException result = Assert.
+                Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryPopulateOptions(dummyBlockProcessor, dummyOptions, dummyStartLineNumber));
+            _mockRepository.VerifyAll();
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
+                    typeof(FlexiOptionsBlock).Name,
+                    dummyStartLineNumber,
+                    dummyColumn,
+                    dummyInnerFlexiBlocksExceptionMessage),
+                result.Message);
+            Assert.Same(dummyInnerFlexiBlocksException, result.InnerException);
         }
 
         [Fact]
