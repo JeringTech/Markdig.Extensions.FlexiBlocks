@@ -19,7 +19,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
         /// <param name="jsonSerializerService">The service that will handle JSON deserialization.</param>
         public FlexiOptionsBlockService(IJsonSerializerService jsonSerializerService)
         {
-            _jsonSerializerService = jsonSerializerService;
+            _jsonSerializerService = jsonSerializerService ?? throw new ArgumentNullException(nameof(jsonSerializerService));
         }
 
         /// <inheritdoc />

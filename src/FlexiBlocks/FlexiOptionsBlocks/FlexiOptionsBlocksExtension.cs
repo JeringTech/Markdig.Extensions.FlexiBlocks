@@ -1,4 +1,5 @@
 ﻿using Markdig;
+using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
 {
@@ -15,7 +16,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
         /// <param name="flexiOptionsBlockParser">The parser for creating <see cref="FlexiOptionsBlock"/>s from markdown.</param>
         public FlexiOptionsBlocksExtension(FlexiOptionsBlockParser flexiOptionsBlockParser)
         {
-            _flexiOptionsBlockParser = flexiOptionsBlockParser;
+            _flexiOptionsBlockParser = flexiOptionsBlockParser ?? throw new ArgumentNullException(nameof(flexiOptionsBlockParser));
         }
 
         /// <summary>
@@ -24,6 +25,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
         /// <param name="pipelineBuilder">The pipeline builder to register the parser for.</param>
         public override void Setup(MarkdownPipelineBuilder pipelineBuilder)
         {
+            if(pipelineBuilder == null)
+            {
+                throw new ArgumentNullException(nameof(pipelineBuilder));
+            }
+
             if (!pipelineBuilder.BlockParsers.Contains<FlexiOptionsBlockParser>())
             {
                 pipelineBuilder.BlockParsers.Insert(0, _flexiOptionsBlockParser);

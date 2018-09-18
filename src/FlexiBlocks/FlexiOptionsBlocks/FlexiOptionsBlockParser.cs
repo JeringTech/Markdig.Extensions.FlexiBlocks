@@ -1,5 +1,6 @@
 ﻿using Markdig.Parsers;
 using Markdig.Syntax;
+using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
 {
@@ -30,8 +31,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
         /// <see cref="BlockState.Break"/> if a <see cref="FlexiOptionsBlock"/> is opened and the current line contains the entire JSON string.
         /// <see cref="BlockState.Continue"/> if a <see cref="FlexiOptionsBlock"/> is opened and the current line contains part of the JSON string.
         /// </returns>
-        public override BlockState TryOpenFlexiBlock(BlockProcessor processor)
+        protected override BlockState TryOpenFlexiBlock(BlockProcessor processor)
         {
+            if (processor == null)
+            {
+                throw new ArgumentNullException(nameof(processor));
+            }
+
             if (processor.IsCodeIndent)
             {
                 return BlockState.None;
@@ -66,8 +72,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
         /// <see cref="BlockState.Continue"/> if the <see cref="FlexiOptionsBlock"/> is still open.
         /// <see cref="BlockState.Break"/> if the <see cref="FlexiOptionsBlock"/> has ended and should be closed.
         /// </returns>
-        public override BlockState TryContinueFlexiBlock(BlockProcessor processor, Block block)
+        protected override BlockState TryContinueFlexiBlock(BlockProcessor processor, Block block)
         {
+            if (processor == null)
+            {
+                throw new ArgumentNullException(nameof(processor));
+            }
+
+            if (block == null)
+            {
+                throw new ArgumentNullException(nameof(block));
+            }
+
             var flexiOptionsBlock = (FlexiOptionsBlock)block;
 
             return flexiOptionsBlock.ParseLine(processor.Line);
@@ -80,8 +96,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
         /// <param name="block">The <see cref="FlexiOptionsBlock"/> that is closing.</param>
         /// <returns>Returns false, indicating that the <see cref="FlexiOptionsBlock"/> should be discarded from the tree of blocks.</returns>
         /// <exception cref="FlexiBlocksException">Thrown if there is an uncomsumed <see cref="FlexiOptionsBlock"/>.</exception>
-        public override bool CloseFlexiBlock(BlockProcessor processor, Block block)
+        protected override bool CloseFlexiBlock(BlockProcessor processor, Block block)
         {
+            if (processor == null)
+            {
+                throw new ArgumentNullException(nameof(processor));
+            }
+
+            if (block == null)
+            {
+                throw new ArgumentNullException(nameof(block));
+            }
+
             if (processor.Document.GetData(PENDING_FLEXI_OPTIONS_BLOCK) is FlexiOptionsBlock pendingFlexiOptionsBlock)
             {
                 // There is an unconsumed FlexiOptionsBlock

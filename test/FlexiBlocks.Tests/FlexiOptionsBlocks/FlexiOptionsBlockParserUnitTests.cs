@@ -18,10 +18,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             dummyBlockProcessor.Column = 0;
             dummyBlockProcessor.RestartIndent();
             dummyBlockProcessor.Column = 4;
-            var flexiOptionsBlockParser = new FlexiOptionsBlockParser();
+            ExposedFlexiOptionsBlockParser testSubject = CreateExposedFlexiOptionsBlockParser();
 
             // Act
-            BlockState result = flexiOptionsBlockParser.TryOpen(dummyBlockProcessor);
+            BlockState result = testSubject.ExposedTryOpenFlexiBlock(dummyBlockProcessor);
 
             // Assert
             Assert.True(dummyBlockProcessor.IsCodeIndent);
@@ -35,10 +35,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = new StringSlice(line);
-            var flexiOptionsBlockParser = new FlexiOptionsBlockParser();
+            ExposedFlexiOptionsBlockParser testSubject = CreateExposedFlexiOptionsBlockParser();
 
             // Act
-            BlockState result = flexiOptionsBlockParser.TryOpen(dummyBlockProcessor);
+            BlockState result = testSubject.ExposedTryOpenFlexiBlock(dummyBlockProcessor);
 
             // Assert
             Assert.Equal(BlockState.None, result);
@@ -64,10 +64,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Column = dummyColumn;
             dummyBlockProcessor.Line = new StringSlice("@{dummy");
-            var testSubject = new FlexiOptionsBlockParser();
+            ExposedFlexiOptionsBlockParser testSubject = CreateExposedFlexiOptionsBlockParser();
 
             // Act
-            BlockState result = testSubject.TryOpen(dummyBlockProcessor);
+            BlockState result = testSubject.ExposedTryOpenFlexiBlock(dummyBlockProcessor);
 
             // Assert
             Assert.Equal(BlockState.Continue, result);
@@ -92,10 +92,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             };
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Document.SetData(FlexiOptionsBlockParser.PENDING_FLEXI_OPTIONS_BLOCK, dummyPendingFlexiOptionsBlock);
-            var flexiOptionsBlockParser = new FlexiOptionsBlockParser();
+            ExposedFlexiOptionsBlockParser testSubject = CreateExposedFlexiOptionsBlockParser();
 
             // Act and assert
-            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => flexiOptionsBlockParser.Close(dummyBlockProcessor, null));
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.ExposedCloseFlexiBlock(dummyBlockProcessor, new DummyBlock(null)));
             Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
                     typeof(FlexiOptionsBlock).Name,
                     dummyLineIndex + 1,
@@ -110,14 +110,44 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null);
-            var flexiOptionsBlockParser = new FlexiOptionsBlockParser();
+            ExposedFlexiOptionsBlockParser testSubject = CreateExposedFlexiOptionsBlockParser();
 
             // Act
-            bool result = flexiOptionsBlockParser.Close(dummyBlockProcessor, dummyFlexiOptionsBlock);
+            bool result = testSubject.ExposedCloseFlexiBlock(dummyBlockProcessor, dummyFlexiOptionsBlock);
 
             // Assert
             Assert.False(result);
             Assert.Same(dummyFlexiOptionsBlock, dummyBlockProcessor.Document.GetData(FlexiOptionsBlockParser.PENDING_FLEXI_OPTIONS_BLOCK));
+        }
+
+        public class ExposedFlexiOptionsBlockParser : FlexiOptionsBlockParser
+        {
+            public BlockState ExposedTryOpenFlexiBlock(BlockProcessor processor)
+            {
+                return TryOpenFlexiBlock(processor);
+            }
+
+            public BlockState ExposedTryContinueFlexiBlock(BlockProcessor processor, Block block)
+            {
+                return TryContinueFlexiBlock(processor, block);
+            }
+
+            public bool ExposedCloseFlexiBlock(BlockProcessor processor, Block block)
+            {
+                return CloseFlexiBlock(processor, block);
+            }
+        }
+
+        private ExposedFlexiOptionsBlockParser CreateExposedFlexiOptionsBlockParser()
+        {
+            return new ExposedFlexiOptionsBlockParser();
+        }
+
+        private class DummyBlock : Block
+        {
+            public DummyBlock(BlockParser parser) : base(parser)
+            {
+            }
         }
     }
 }

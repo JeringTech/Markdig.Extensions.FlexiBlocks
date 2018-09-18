@@ -262,12 +262,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
 
         public FlexiOptionsBlockService CreateFlexiOptionsBlockService(IJsonSerializerService jsonSerializerService = null)
         {
-            return new FlexiOptionsBlockService(jsonSerializerService ?? new JsonSerializerService());
+            return new FlexiOptionsBlockService(jsonSerializerService ?? _mockRepository.Create<IJsonSerializerService>().Object);
         }
 
         public Mock<FlexiOptionsBlockService> CreateMockFlexiOptionsBlockService(IJsonSerializerService jsonSerializerService = null)
         {
-            return _mockRepository.Create<FlexiOptionsBlockService>(jsonSerializerService ?? new JsonSerializerService());
+            return _mockRepository.Create<FlexiOptionsBlockService>(jsonSerializerService ?? _mockRepository.Create<IJsonSerializerService>().Object);
         }
 
         private class DummyOptions
