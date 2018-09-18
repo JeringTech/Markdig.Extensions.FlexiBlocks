@@ -25,7 +25,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// </summary>
         /// <param name="processor">The block processor for the document that contains the line.</param>
         /// <returns>The state of the block.</returns>
-        public abstract BlockState TryOpenFlexiBlock(BlockProcessor processor);
+        protected abstract BlockState TryOpenFlexiBlock(BlockProcessor processor);
 
         /// <summary>
         /// Continues a FlexiBlock if block specific expectations are met.
@@ -33,7 +33,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <param name="processor">The block processor for the FlexiBlock to try and continue.</param>
         /// <param name="block">The FlexiBlock to try and continue.</param>
         /// <returns>The state of the block.</returns>
-        public abstract BlockState TryContinueFlexiBlock(BlockProcessor processor, Block block);
+        protected abstract BlockState TryContinueFlexiBlock(BlockProcessor processor, Block block);
 
         /// <summary>
         /// Closes a FlexiBlock.
@@ -42,7 +42,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <param name="block">The FlexiBlock to close.</param>
         /// <returns>False if the block should be discarded, true otherwise.</returns>
         /// <exception cref="FlexiBlocksException">Thrown if an exception is thrown while attempting to close the FlexiBlock.</exception>
-        public virtual bool CloseFlexiBlock(BlockProcessor processor, Block block)
+        protected virtual bool CloseFlexiBlock(BlockProcessor processor, Block block)
         {
             // Keep the block by default
             return true;

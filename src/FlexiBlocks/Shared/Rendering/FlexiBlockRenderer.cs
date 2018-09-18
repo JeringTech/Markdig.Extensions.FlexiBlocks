@@ -26,7 +26,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// </summary>
         /// <param name="renderer">The renderer to write to.</param>
         /// <param name="obj">The FlexiBlock to render.</param>
-        public abstract void WriteFlexiBlock(HtmlRenderer renderer, T obj);
+        protected abstract void WriteFlexiBlock(HtmlRenderer renderer, T obj);
 
         /// <summary>
         /// Renders a FlexiBlock as HTML.
