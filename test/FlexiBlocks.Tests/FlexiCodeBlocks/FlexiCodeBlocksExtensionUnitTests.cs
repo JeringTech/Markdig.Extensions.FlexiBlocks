@@ -1,5 +1,7 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
+using Jering.Web.SyntaxHighlighters.HighlightJS;
+using Jering.Web.SyntaxHighlighters.Prism;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
@@ -154,14 +156,34 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             IOptions<FlexiCodeBlocksExtensionOptions> extensionOptionsAccessor = null,
             IFlexiOptionsBlockService flexiOptionsBlockService = null)
         {
-            return _mockRepository.Create<ExposedFlexiCodeBlocksExtension>(flexiCodeBlockRenderer, extensionOptionsAccessor, flexiOptionsBlockService);
+            return _mockRepository.Create<ExposedFlexiCodeBlocksExtension>(flexiCodeBlockRenderer ?? CreateFlexiCodeBlockRenderer(), 
+                extensionOptionsAccessor ?? CreateExtensionOptionsAccessor(), 
+                flexiOptionsBlockService ?? _mockRepository.Create<IFlexiOptionsBlockService>().Object);
         }
 
         private FlexiCodeBlocksExtension CreateFlexiCodeBlocksExtension(FlexiCodeBlockRenderer flexiCodeBlockRenderer = null,
             IOptions<FlexiCodeBlocksExtensionOptions> extensionOptionsAccessor = null,
             IFlexiOptionsBlockService flexiOptionsBlockService = null)
         {
-            return new FlexiCodeBlocksExtension(flexiCodeBlockRenderer, extensionOptionsAccessor, flexiOptionsBlockService);
+            return new FlexiCodeBlocksExtension(flexiCodeBlockRenderer ?? CreateFlexiCodeBlockRenderer(),
+                extensionOptionsAccessor ?? CreateExtensionOptionsAccessor(),
+                flexiOptionsBlockService ?? _mockRepository.Create<IFlexiOptionsBlockService>().Object);
+        }
+
+        private FlexiCodeBlockRenderer CreateFlexiCodeBlockRenderer()
+        {
+            return new FlexiCodeBlockRenderer(_mockRepository.Create<IPrismService>().Object,
+                _mockRepository.Create<IHighlightJSService>().Object,
+                _mockRepository.Create<ILineEmbellisherService>().Object);
+        }
+
+        private IOptions<FlexiCodeBlocksExtensionOptions> CreateExtensionOptionsAccessor()
+        {
+            var dummyExtensionOptions = new FlexiCodeBlocksExtensionOptions();
+            Mock<IOptions<FlexiCodeBlocksExtensionOptions>> mockExtensionOptionsAccessor = _mockRepository.Create<IOptions<FlexiCodeBlocksExtensionOptions>>();
+            mockExtensionOptionsAccessor.Setup(e => e.Value).Returns(dummyExtensionOptions);
+
+            return mockExtensionOptionsAccessor.Object;
         }
     }
 }

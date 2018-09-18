@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 {
-    public class LineEmbellishersServiceUnitTests
+    public class LineEmbellisherServiceUnitTests
     {
         [Theory]
         [MemberData(nameof(EmbellishLines_ReturnsTextIfBothListsOfRangesAreNullOrEmpty_Data))]

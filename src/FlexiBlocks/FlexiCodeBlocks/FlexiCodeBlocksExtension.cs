@@ -5,6 +5,7 @@ using Markdig.Renderers;
 using Markdig.Renderers.Html;
 using Markdig.Syntax;
 using Microsoft.Extensions.Options;
+using System;
 using System.Linq;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
@@ -36,9 +37,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             IOptions<FlexiCodeBlocksExtensionOptions> extensionOptionsAccessor,
             IFlexiOptionsBlockService flexiOptionsBlockService)
         {
-            _flexiCodeBlockRenderer = flexiCodeBlockRenderer;
-            _options = extensionOptionsAccessor?.Value ?? new FlexiCodeBlocksExtensionOptions();
-            _flexiOptionsBlockService = flexiOptionsBlockService;
+            _flexiCodeBlockRenderer = flexiCodeBlockRenderer ?? throw new ArgumentNullException(nameof(FlexiCodeBlockRenderer));
+            _options = extensionOptionsAccessor?.Value ?? throw new ArgumentNullException(nameof(extensionOptionsAccessor));
+            _flexiOptionsBlockService = flexiOptionsBlockService ?? throw new ArgumentNullException(nameof(flexiOptionsBlockService));
         }
 
 
@@ -48,6 +49,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <param name="pipelineBuilder">The pipeline builder to register the parsers for.</param>
         public override void Setup(MarkdownPipelineBuilder pipelineBuilder)
         {
+            if (pipelineBuilder == null)
+            {
+                throw new ArgumentNullException(nameof(pipelineBuilder));
+            }
+
             // FencedCodeBlockParser and IndentedCodeBlockParser are default parsers registered in MarkdownPipelineBuilder's constructor,
             // only register them again if they've been removed.
             FencedCodeBlockParser fencedCodeBlockParser = pipelineBuilder.BlockParsers.Find<FencedCodeBlockParser>();
@@ -66,10 +72,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <summary>
         /// Registers a FlexiCodeBlock renderer if one isn't already registered.
         /// </summary>
-        /// <param name="pipeline">The pipeline to register the renderer for.</param>
+        /// <param name="pipeline">Unused.</param>
         /// <param name="renderer">The root renderer to register the renderer for.</param>
         public override void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
+            if (renderer == null)
+            {
+                throw new ArgumentNullException(nameof(renderer));
+            }
+
             if (renderer is HtmlRenderer htmlRenderer)
             {
                 if (!htmlRenderer.ObjectRenderers.Contains<FlexiCodeBlockRenderer>())
@@ -94,6 +105,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <exception cref="FlexiBlocksException">Thrown if line number line ranges are not a subset of the full range of lines.</exception>
         protected override void OnFlexiBlockClosed(BlockProcessor processor, Block block)
         {
+            if(block == null)
+            {
+                throw new ArgumentNullException(nameof(block));
+            }
+
             FlexiCodeBlockOptions flexiCodeBlockOptions = _options.DefaultBlockOptions.Clone();
 
             // Apply FlexiOptionsBlock options if they exist

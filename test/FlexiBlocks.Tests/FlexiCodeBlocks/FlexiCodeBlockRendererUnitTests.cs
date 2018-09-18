@@ -24,14 +24,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             var dummyCodeBlock = new CodeBlock(null);
             var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(attributes: dummyAttributesWrapper.Value, copyIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
-            FlexiCodeBlockRenderer dummyFlexiCodeBlockRenderer = CreateFlexiCodeBlockRenderer();
+            FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer();
 
             // Act
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter);
-                dummyFlexiCodeBlockRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
+                testSubject.Write(dummyHtmlRenderer, dummyCodeBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -82,14 +82,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             var dummyCodeBlock = new CodeBlock(null);
             var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(title: dummyTitle, copyIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
-            FlexiCodeBlockRenderer dummyFlexiCodeBlockRenderer = CreateFlexiCodeBlockRenderer();
+            FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer();
 
             // Act
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter);
-                dummyFlexiCodeBlockRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
+                testSubject.Write(dummyHtmlRenderer, dummyCodeBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -137,14 +137,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             var dummyCodeBlock = new CodeBlock(null);
             var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(copyIconMarkup: dummyCopyIconMarkup);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
-            FlexiCodeBlockRenderer dummyFlexiCodeBlockRenderer = CreateFlexiCodeBlockRenderer();
+            FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer();
 
             // Act
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter);
-                dummyFlexiCodeBlockRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
+                testSubject.Write(dummyHtmlRenderer, dummyCodeBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -192,17 +192,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Arrange
             var dummyCodeBlock = new CodeBlock(null);
-            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(language: dummyLanguage, codeClassFormat: dummyCodeLanguageClassFormat, 
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(language: dummyLanguage, codeClassFormat: dummyCodeLanguageClassFormat,
                 syntaxHighlighter: SyntaxHighlighter.None, copyIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
-            FlexiCodeBlockRenderer dummyFlexiCodeBlockRenderer = CreateFlexiCodeBlockRenderer();
+            FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer();
 
             // Act
             string result = null;
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter);
-                dummyFlexiCodeBlockRenderer.Write(dummyHtmlRenderer, dummyCodeBlock);
+                testSubject.Write(dummyHtmlRenderer, dummyCodeBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -509,10 +509,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 ", result, ignoreLineEndingDifferences: true);
         }
 
-        public FlexiCodeBlockRenderer CreateFlexiCodeBlockRenderer(IPrismService prismService = null, IHighlightJSService highlightJSService = null,
+        public FlexiCodeBlockRenderer CreateFlexiCodeBlockRenderer(IPrismService prismService = null,
+            IHighlightJSService highlightJSService = null,
             ILineEmbellisherService lineEmbellisherService = null)
         {
-            return new FlexiCodeBlockRenderer(prismService, highlightJSService, lineEmbellisherService);
+            return new FlexiCodeBlockRenderer(prismService ?? _mockRepository.Create<IPrismService>().Object,
+                highlightJSService ?? _mockRepository.Create<IHighlightJSService>().Object,
+                lineEmbellisherService ?? _mockRepository.Create<ILineEmbellisherService>().Object);
         }
     }
 }

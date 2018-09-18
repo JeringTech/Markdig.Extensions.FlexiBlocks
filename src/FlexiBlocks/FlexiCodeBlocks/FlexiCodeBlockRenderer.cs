@@ -2,6 +2,7 @@
 using Jering.Web.SyntaxHighlighters.Prism;
 using Markdig.Renderers;
 using Markdig.Syntax;
+using System;
 using System.IO;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
@@ -25,9 +26,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             IHighlightJSService highlightJSService,
             ILineEmbellisherService lineEmbellisherService)
         {
-            _prismService = prismService;
-            _highlightJSService = highlightJSService;
-            _lineEmbellisherService = lineEmbellisherService;
+            _prismService = prismService ?? throw new ArgumentNullException(nameof(prismService));
+            _highlightJSService = highlightJSService ?? throw new ArgumentNullException(nameof(highlightJSService));
+            _lineEmbellisherService = lineEmbellisherService ?? throw new ArgumentNullException(nameof(lineEmbellisherService));
         }
 
         /// <summary>
@@ -35,8 +36,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// </summary>
         /// <param name="renderer">The renderer to write to.</param>
         /// <param name="obj">The FlexiCodeBlock to render.</param>
-        public override void WriteFlexiBlock(HtmlRenderer renderer, CodeBlock obj)
+        protected override void WriteFlexiBlock(HtmlRenderer renderer, CodeBlock obj)
         {
+            if (renderer == null)
+            {
+                throw new ArgumentNullException(nameof(renderer));
+            }
+
+            if (obj == null)
+            {
+                throw new ArgumentNullException(nameof(obj));
+            }
+
             renderer.EnsureLine();
 
             if (!renderer.EnableHtmlForBlock)
@@ -44,7 +55,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 renderer.WriteLeafRawLines(obj, true, true);
                 return;
             }
-            
+
             var flexiCodeBlockOptions = (FlexiCodeBlockOptions)obj.GetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY);
 
             renderer.
@@ -52,7 +63,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 WriteAttributes(flexiCodeBlockOptions.Attributes).
                 WriteLine(">").
                 WriteLine("<header>");
-          
+
             // Title
             if (!string.IsNullOrWhiteSpace(flexiCodeBlockOptions.Title))
             {
