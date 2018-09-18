@@ -3,6 +3,7 @@ using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using Microsoft.Extensions.Options;
+using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
@@ -24,8 +25,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         {
             OpeningCharacters = new[] { '!' };
 
-            _extensionOptions = extensionOptionsAccessor?.Value ?? new FlexiAlertBlocksExtensionOptions();
-            _flexiOptionsBlockService = flexiOptionsBlockService;
+            _extensionOptions = extensionOptionsAccessor?.Value ?? throw new ArgumentNullException(nameof(extensionOptionsAccessor));
+            _flexiOptionsBlockService = flexiOptionsBlockService ?? throw new ArgumentNullException(nameof(flexiOptionsBlockService));
         }
 
         /// <summary>
@@ -36,8 +37,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <see cref="BlockState.None"/> if current line has code indent. 
         /// <see cref="BlockState.Continue"/> if a <see cref="FlexiAlertBlock"/> is opened.
         /// </returns>
-        public override BlockState TryOpenFlexiBlock(BlockProcessor processor)
+        protected override BlockState TryOpenFlexiBlock(BlockProcessor processor)
         {
+            if(processor == null)
+            {
+                throw new ArgumentNullException(nameof(processor));
+            }
+
             if (processor.IsCodeIndent)
             {
                 return BlockState.None;
@@ -73,8 +79,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <see cref="BlockState.BreakDiscard"/> if the current line is blank, indicating that the <see cref="FlexiAlertBlock"/> has ended and should be closed.
         /// <see cref="BlockState.Continue"/> if the <see cref="FlexiAlertBlock"/> is still open.
         /// </returns>
-        public override BlockState TryContinueFlexiBlock(BlockProcessor processor, Block block)
+        protected override BlockState TryContinueFlexiBlock(BlockProcessor processor, Block block)
         {
+            if (processor == null)
+            {
+                throw new ArgumentNullException(nameof(processor));
+            }
+
+            if (block == null)
+            {
+                throw new ArgumentNullException(nameof(block));
+            }
+
             if (processor.IsCodeIndent)
             {
                 return BlockState.None;

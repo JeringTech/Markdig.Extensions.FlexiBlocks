@@ -1,4 +1,5 @@
 ﻿using Markdig.Renderers;
+using System;
 using System.Collections.Generic;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
@@ -13,8 +14,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// </summary>
         /// <param name="renderer">The renderer to write to.</param>
         /// <param name="obj">The <see cref="FlexiAlertBlock"/> to render.</param>
-        public override void WriteFlexiBlock(HtmlRenderer renderer, FlexiAlertBlock obj)
+        protected override void WriteFlexiBlock(HtmlRenderer renderer, FlexiAlertBlock obj)
         {
+            if(renderer == null)
+            {
+                throw new ArgumentNullException(nameof(renderer));
+            }
+
+            if (obj == null)
+            {
+                throw new ArgumentNullException(nameof(obj));
+            }
+
             renderer.EnsureLine();
 
             if (!renderer.EnableHtmlForBlock)

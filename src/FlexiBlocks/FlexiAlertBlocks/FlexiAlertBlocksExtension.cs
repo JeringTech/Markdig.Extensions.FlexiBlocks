@@ -1,5 +1,6 @@
 ﻿using Markdig;
 using Markdig.Renderers;
+using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
@@ -18,8 +19,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <param name="flexiAlertBlockRenderer">The renderer for rendering <see cref="FlexiAlertBlock"/>s as HTML.</param>
         public FlexiAlertBlocksExtension(FlexiAlertBlockParser flexiAlertBlockParser, FlexiAlertBlockRenderer flexiAlertBlockRenderer)
         {
-            _flexiAlertBlockParser = flexiAlertBlockParser;
-            _flexiAlertBlockRenderer = flexiAlertBlockRenderer;
+            _flexiAlertBlockParser = flexiAlertBlockParser ?? throw new ArgumentNullException(nameof(flexiAlertBlockParser));
+            _flexiAlertBlockRenderer = flexiAlertBlockRenderer ?? throw new ArgumentNullException(nameof(flexiAlertBlockRenderer));
         }
 
         /// <summary>
@@ -28,6 +29,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <param name="pipelineBuilder">The pipeline builder to register the parser for.</param>
         public override void Setup(MarkdownPipelineBuilder pipelineBuilder)
         {
+            if(pipelineBuilder == null)
+            {
+                throw new ArgumentNullException(nameof(pipelineBuilder));
+            }
+
             if (!pipelineBuilder.BlockParsers.Contains<FlexiAlertBlockParser>())
             {
                 pipelineBuilder.BlockParsers.Insert(0, _flexiAlertBlockParser);
@@ -37,10 +43,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <summary>
         /// Registers a <see cref="FlexiAlertBlock"/> renderer if one isn't already registered.
         /// </summary>
-        /// <param name="pipeline">The pipeline to register the renderer for.</param>
+        /// <param name="pipeline">Unused.</param>
         /// <param name="renderer">The root renderer to register the renderer for.</param>
         public override void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
+            if (renderer == null)
+            {
+                throw new ArgumentNullException(nameof(renderer));
+            }
+
             if (renderer is HtmlRenderer htmlRenderer && !htmlRenderer.ObjectRenderers.Contains<FlexiAlertBlockRenderer>())
             {
                 htmlRenderer.ObjectRenderers.Insert(0, _flexiAlertBlockRenderer);
