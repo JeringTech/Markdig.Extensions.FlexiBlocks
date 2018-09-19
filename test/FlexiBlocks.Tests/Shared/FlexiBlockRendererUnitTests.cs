@@ -2,6 +2,7 @@
 using Markdig.Renderers;
 using Markdig.Syntax;
 using Moq;
+using Moq.Protected;
 using System;
 using System.IO;
 using Xunit;
@@ -21,7 +22,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             var dummyFlexiBlocksException = new FlexiBlocksException(new DummyBlock(null));
             Mock<FlexiBlockRenderer<DummyBlock>> mockTestSubject = _mockRepository.Create<FlexiBlockRenderer<DummyBlock>>();
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(f => f.WriteFlexiBlock(dummyRenderer, dummyBlock)).Throws(dummyFlexiBlocksException);
+            mockTestSubject.Protected().Setup("WriteFlexiBlock", dummyRenderer, dummyBlock).Throws(dummyFlexiBlocksException);
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.Write(dummyRenderer, dummyBlock));
@@ -39,7 +40,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             var dummyException = new ArgumentException(); // Arbitrary type
             Mock<FlexiBlockRenderer<DummyBlock>> mockTestSubject = _mockRepository.Create<FlexiBlockRenderer<DummyBlock>>();
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(f => f.WriteFlexiBlock(dummyRenderer, dummyBlock)).Throws(dummyException);
+            mockTestSubject.Protected().Setup("WriteFlexiBlock", dummyRenderer, dummyBlock).Throws(dummyException);
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.Write(dummyRenderer, dummyBlock));
