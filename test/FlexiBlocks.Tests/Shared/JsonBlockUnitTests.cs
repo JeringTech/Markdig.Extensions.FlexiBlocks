@@ -9,26 +9,28 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
     {
         [Theory]
         [MemberData(nameof(ParseLine_ParsesTheLineAndReturnsTheStateOfTheBlock_Data))]
-        public void ParseLine_ParsesTheLineAndReturnsTheStateOfTheBlock(string[] lines)
+        public void ParseLine_ParsesTheLineUpdatesBlockSpanEndAndReturnsTheStateOfTheBlock(string dummyJson)
         {
             // Arrange
             var testSubject = new DummyJsonBlock(null);
+            var lineReader = new LineReader(dummyJson);
 
             // Act and assert
-            for(int i = 0; i < lines.Length; i++)
+            while(true)
             {
-                string line = lines[i];
-                BlockState result = testSubject.ParseLine(new StringSlice(line));
-                
-                if(i == lines.Length - 1)
+                BlockState result = testSubject.ParseLine(lineReader.ReadLine().Value);
+
+                if (result == BlockState.Break)
                 {
-                    Assert.Equal(BlockState.Break, result);
+                    Assert.Null(lineReader.ReadLine()); // If result is break we must be at the last line
+                    break;
                 }
                 else
                 {
                     Assert.Equal(BlockState.Continue, result);
                 }
             }
+            Assert.Equal(dummyJson.Length - 1, testSubject.Span.End);
         }
 
         public static IEnumerable<object[]> ParseLine_ParsesTheLineAndReturnsTheStateOfTheBlock_Data()
@@ -36,49 +38,43 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             return new object[][]
             {
                 // Multi-line JSON
-                new object[]{
-                    new string[]{
-                        "{",
-                        "    \"property1\": \"value1\",",
-                        "    \"property2\": \"value2\"",
-                        "}"
-                    }
+                new object[]
+                {
+                    @"{
+    ""property1"": ""value1"",
+    ""property2"": ""value2""
+}"
                 },
                 // Single-line JSON
                 new object[]
                 {
-                    new string[]{
-                        "{\"property1\": \"value1\", \"property2\": \"value2\"}"
-                    }
+                    @"{""property1"": ""value1"", ""property2"": ""value2""}"
                 },
                 // Braces in strings
-                new object[]{
-                    new string[]{
-                        "{",
-                        "    \"}property1\": \"}value1\",",
-                        "    \"{property2\": \"{value2\"",
-                        "}"
-                    }
+                new object[]
+                {
+                    @"{
+    ""}property1"": ""}value1"",
+    ""{property2"": ""{value2""
+}"
                 },
                 // Nested objects
-                new object[]{
-                    new string[]{
-                        "{",
-                        "    \"property1\": \"value1\",",
-                        "    \"property2\": {",
-                        "        \"property3\": \"value3\"",
-                        "    }",
-                        "}"
-                    }
+                new object[]
+                {
+                    @"{
+    ""property1"": ""value1"",
+    ""property2"": {
+        ""property3"": ""value3""
+    }
+}"
                 },
                 // Escaped quotes in strings
-                new object[]{
-                    new string[]{
-                        "{",
-                        "    \"prop\"erty1\": \"value1\"\",",
-                        "    \"\"property2\": \"val\"ue2\"",
-                        "}"
-                    }
+                new object[]
+                {
+                    @"{
+    ""prop\""erty1"": ""value1\"""",
+    ""\""property2"": ""val\""ue2""
+}"
                 },
             };
         }
