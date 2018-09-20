@@ -128,7 +128,7 @@ public class FlexiBlocksSpecsParser
         {
             while (!end && (line = reader.ReadLine()) != null)
             {
-                line = currentLeadingWhitespaceCount > line.Length - 1 ? "" : line.Substring(currentLeadingWhitespaceCount);
+                line = currentLeadingWhitespaceCount > line.Length - 1 ? line : line.Substring(currentLeadingWhitespaceCount);
 
                 if (stage == ParseStage.PreSpec)
                 {
@@ -144,6 +144,10 @@ public class FlexiBlocksSpecsParser
                     {
                         markdownLines.Add(line);
                     }
+                    else if (stage == ParseStage.ExpectedMarkup)
+                    {
+                        expectedMarkupLines.Add(line);
+                    }
                     else if (!string.IsNullOrWhiteSpace(line)) // Empty lines are ignored for the following extensions
                     {
                         if (stage == ParseStage.ExtraExtensions)
@@ -153,11 +157,6 @@ public class FlexiBlocksSpecsParser
                         else if (stage == ParseStage.ExtensionOptions)
                         {
                             extensionOptionsLines.Add(line);
-                        }
-
-                        else if (stage == ParseStage.ExpectedMarkup)
-                        {
-                            expectedMarkupLines.Add(line);
                         }
                     }
                 }
