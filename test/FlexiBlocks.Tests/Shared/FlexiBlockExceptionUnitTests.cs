@@ -38,7 +38,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             Assert.Equal(dummyLineIndex + 1, result.LineNumber);
             Assert.Equal(dummyColumn, result.Column);
             Assert.Equal(dummyDescription, result.Description);
-            Assert.Equal(nameof(DummyBlock), result.BlockTypeName);
+            Assert.Equal($"Flexi{nameof(DummyBlock)}", result.BlockTypeName);
         }
 #endif
 
