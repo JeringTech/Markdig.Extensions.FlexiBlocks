@@ -100,7 +100,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
             {
                 if (flexiOptionsBlock.Line + flexiOptionsBlock.Lines.Count != consumingBlockStartLineNumber)
                 {
-                    throw new FlexiBlocksException(flexiOptionsBlock, Strings.FlexiBlocksException_MispositionedFlexiOptionsBlock);
+                    throw new FlexiBlocksException(flexiOptionsBlock, Strings.FlexiBlocksException_FlexiOptionsBlocks_MispositionedBlock);
                 }
 
                 processor.Document.RemoveData(FlexiOptionsBlockParser.PENDING_FLEXI_OPTIONS_BLOCK);

@@ -52,7 +52,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
             var flexiOptionsBlock = new FlexiOptionsBlock(this)
             {
                 Column = processor.Column,
-                Span = new SourceSpan(processor.Line.Start, processor.Line.End) // Might be the only line, we'll update End if there are more lines 
+                Span = { Start = processor.Start } // FlexiOptionsBlock.ParseLine will update the span's end
             };
 
             processor.NewBlocks.Push(flexiOptionsBlock);
@@ -111,7 +111,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
             if (processor.Document.GetData(PENDING_FLEXI_OPTIONS_BLOCK) is FlexiOptionsBlock pendingFlexiOptionsBlock)
             {
                 // There is an unconsumed FlexiOptionsBlock
-                throw new FlexiBlocksException(pendingFlexiOptionsBlock, Strings.FlexiBlocksException_UnconsumedFlexiOptionsBlock);
+                throw new FlexiBlocksException(pendingFlexiOptionsBlock, Strings.FlexiBlocksException_FlexiOptionsBlocks_UnconsumedBlock);
             }
 
             // Save the options block to document data. There are two reasons for this. Firstly, it makes it easy to detect if an options block goes unused.
