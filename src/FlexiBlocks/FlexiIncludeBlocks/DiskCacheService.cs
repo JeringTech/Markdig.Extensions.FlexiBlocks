@@ -156,17 +156,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         {
             int byteCount = Encoding.UTF8.GetByteCount(sourceUri);
             byte[] bytes = null;
-            byte[] hashBytes = null;
             try
             {
                 bytes = ArrayPool<byte>.Shared.Rent(byteCount);
                 Encoding.UTF8.GetBytes(sourceUri, 0, sourceUri.Length, bytes, 0);
-#if NETSTANDARD1_3
-                hashBytes = _mD5.ComputeHash(bytes, 0, byteCount);
-#elif NETSTANDARD2_0
-                hashBytes = ArrayPool<byte>.Shared.Rent(16);
-                _mD5.TransformBlock(bytes, 0, bytes.Length, hashBytes, 0);
-#endif
+                byte[] hashBytes = _mD5.ComputeHash(bytes, 0, byteCount);
 
                 var hex = new StringBuilder();
                 foreach (byte hashByte in hashBytes)
@@ -183,13 +177,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 {
                     ArrayPool<byte>.Shared.Return(bytes);
                 }
-
-#if NETSTANDARD2_0
-                if (hashBytes != null)
-                {
-                    ArrayPool<byte>.Shared.Return(hashBytes);
-                }
-#endif
             }
         }
     }
