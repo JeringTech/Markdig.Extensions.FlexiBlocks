@@ -117,6 +117,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <param name="context"></param>
         protected FlexiBlocksException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
+            Context = (Context)info.GetInt32(nameof(Context));
             Description = info.GetString(nameof(Description));
             LineNumber = info.GetInt32(nameof(LineNumber));
             Column = info.GetInt32(nameof(LineNumber));
@@ -132,10 +133,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         {
             base.GetObjectData(info, context);
 
-            info.AddValue(nameof(Description), Description, Description.GetType());
-            info.AddValue(nameof(LineNumber), LineNumber, LineNumber.GetType());
-            info.AddValue(nameof(Column), Column, Column.GetType());
-            info.AddValue(nameof(BlockTypeName), BlockTypeName, BlockTypeName.GetType());
+            info.AddValue(nameof(Context), Context, typeof(int));
+            info.AddValue(nameof(Description), Description, typeof(string));
+            info.AddValue(nameof(LineNumber), LineNumber, typeof(int));
+            info.AddValue(nameof(Column), Column, typeof(int));
+            info.AddValue(nameof(BlockTypeName), BlockTypeName, typeof(string));
         }
 #endif
 
