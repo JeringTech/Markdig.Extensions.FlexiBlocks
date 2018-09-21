@@ -10,10 +10,10 @@ FlexiBlocks is a collection of [Markdig](https://github.com/lunet-io/markdig) ex
 These extensions are ready for the initial release:
 - [FlexiAlertBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiAlertBlocksSpecs.md)
 - [FlexiCodeBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiCodeBlocksSpecs.md)
+- [FlexiIncludeBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiIncludeBlocksSpecs.md)
 
 The following are being cleaned up (these specs are unpolished and in some cases, outdated):
 - [FlexiOptionsBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md)
-- [FlexiIncludeBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiIncludeBlocksSpecs.md)
 - [FlexiTableBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiTableBlocksSpecs.md)
 - [FlexiSectionBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiSectionBlocksSpecs.md)
 
