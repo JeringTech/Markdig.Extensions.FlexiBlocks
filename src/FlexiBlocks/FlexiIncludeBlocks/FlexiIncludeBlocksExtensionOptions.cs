@@ -1,16 +1,13 @@
-﻿using System.IO;
-
-namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
+﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
-    public class FlexiIncludeBlocksExtensionOptions : IExtensionOptions<FlexiIncludeBlocksExtensionOptions>
+    /// <summary>
+    /// Represents options for the <see cref="FlexiIncludeBlocksExtension"/>.
+    /// </summary>
+    public class FlexiIncludeBlocksExtensionOptions : IFlexiBlocksExtensionOptions<FlexiIncludeBlockOptions>
     {
-        public string SourceBaseUri { get; set; } = Directory.GetCurrentDirectory() + "/";
-        public string FileCacheDirectory { get; set; } = Path.Combine(Directory.GetCurrentDirectory(), "FileCache");
-
-        public void CopyTo(FlexiIncludeBlocksExtensionOptions target)
-        {
-            target.SourceBaseUri = SourceBaseUri;
-            target.FileCacheDirectory = FileCacheDirectory;
-        }
+        /// <summary>
+        /// Gets or sets the default <see cref="FlexiIncludeBlockOptions"/>.
+        /// </summary>
+        public FlexiIncludeBlockOptions DefaultBlockOptions { get; set; } = new FlexiIncludeBlockOptions();
     }
 }

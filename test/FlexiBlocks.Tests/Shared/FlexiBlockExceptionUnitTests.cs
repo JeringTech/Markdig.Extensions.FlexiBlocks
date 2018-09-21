@@ -43,85 +43,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
 #endif
 
         [Theory]
-        [MemberData(nameof(Message_AppendsInnerExceptionMessageToDescriptionIfExceptionHasBlockContextAndInnerExceptionHasNoContext_Data))]
-        public void Message_AppendsInnerExceptionMessageToDescriptionIfExceptionHasBlockContextAndInnerExceptionHasNoContext(string dummyDescription,
-            string dummyInnerExceptionMessage,
-            string dummyExpectedDescription)
-        {
-            // Arrange
-            var dummyBlock = new DummyBlock(null);
-            var dummyNoContextInnerException = new FlexiBlocksException(dummyInnerExceptionMessage);
-            var testSubject = new FlexiBlocksException(dummyBlock, dummyDescription, dummyNoContextInnerException);
-
-            // Act
-            string result = testSubject.Message;
-
-            // Assert
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, "Flexi" + nameof(DummyBlock), dummyBlock.Line + 1, dummyBlock.Column, dummyExpectedDescription),
-                result);
-        }
-
-        public static IEnumerable<object[]> Message_AppendsInnerExceptionMessageToDescriptionIfExceptionHasBlockContextAndInnerExceptionHasNoContext_Data()
-        {
-            const string dummyInnerExceptionMessage = "dummyInnerExceptionMessage";
-            const string dummyDescription = "dummyDescription";
-
-            return new object[][]
-            {
-                new object[]{dummyDescription, dummyInnerExceptionMessage, dummyDescription + "\n" + dummyInnerExceptionMessage},
-                new object[]{null, dummyInnerExceptionMessage, dummyInnerExceptionMessage}
-            };
-        }
-
-        [Theory]
-        [MemberData(nameof(Message_AppendsInnerExceptionMessageToDescriptionIfExceptionHasLineContextAndInnerExceptionHasNoContext_Data))]
-        public void Message_AppendsInnerExceptionMessageToDescriptionIfExceptionHasLineContextAndInnerExceptionHasNoContext(string dummyDescription,
-            string dummyInnerExceptionMessage,
-            string dummyExpectedDescription)
-        {
-            // Arrange
-            const int dummyLineIndex = 1;
-            const int dummyColumn = 2;
-            var dummyNoContextInnerException = new FlexiBlocksException(dummyInnerExceptionMessage);
-            var testSubject = new FlexiBlocksException(dummyLineIndex, dummyColumn, dummyDescription, dummyNoContextInnerException);
-
-            // Act
-            string result = testSubject.Message;
-
-            // Assert
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidMarkdown, dummyLineIndex + 1, dummyColumn, dummyExpectedDescription),
-                result);
-        }
-
-        public static IEnumerable<object[]> Message_AppendsInnerExceptionMessageToDescriptionIfExceptionHasLineContextAndInnerExceptionHasNoContext_Data()
-        {
-            const string dummyInnerExceptionMessage = "dummyInnerExceptionMessage";
-            const string dummyDescription = "dummyDescription";
-
-            return new object[][]
-            {
-                new object[]{dummyDescription, dummyInnerExceptionMessage, dummyDescription + "\n" + dummyInnerExceptionMessage},
-                new object[]{null, dummyInnerExceptionMessage, dummyInnerExceptionMessage}
-            };
-        }
-
-        [Fact]
-        public void Message_AppendsInnerExceptionMessageToMessageIfExceptionHasNoContextAndInnerExceptionHasNoContext()
-        {
-            // Arrange
-            const string dummyInnerExceptionMessage = "dummyInnerExceptionMessage";
-            const string dummyMessage = "dummyMessage";
-            var dummyNoContextInnerException = new FlexiBlocksException(dummyInnerExceptionMessage);
-            var testSubject = new FlexiBlocksException(dummyMessage, dummyNoContextInnerException);
-
-            // Act
-            string result = testSubject.Message;
-
-            // Assert
-            Assert.Equal($"{dummyMessage}\n{dummyInnerExceptionMessage}", result);
-        }
-
-        [Theory]
         [MemberData(nameof(Message_ReturnsInvalidFlexiBlockMessageIfBlockTypeNameIsNotNull_Data))]
         public void Message_ReturnsInvalidFlexiBlockMessageIfBlockTypeNameIsNotNull(string dummyDescription, string dummyExpectedDescription)
         {
@@ -165,7 +86,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             string result = testSubject.Message;
 
             // Assert
-            Assert.Equal($@"The markdown at line ""6"", column ""2"" is invalid:
+            Assert.Equal($@"The markdown at line ""{dummyLineIndex}"", column ""{dummyColumn}"" is invalid:
 {dummyExpectedDescription}", result, ignoreLineEndingDifferences: true);
         }
 

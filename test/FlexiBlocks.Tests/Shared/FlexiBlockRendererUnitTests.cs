@@ -54,7 +54,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
                 ignoreLineEndingDifferences: true);
             Assert.Same(dummyException, result.InnerException);
         }
-       
+
         public class DummyBlock : Block
         {
             public DummyBlock(BlockParser parser) : base(parser)

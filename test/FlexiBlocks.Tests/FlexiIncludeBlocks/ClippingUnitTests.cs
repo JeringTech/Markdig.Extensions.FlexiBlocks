@@ -1,5 +1,4 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
-using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -8,17 +7,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
     public class ClippingUnitTests
     {
         [Theory]
-        [MemberData(nameof(Constructor_ThrowsArgumentOutOfRangeExceptionIfStartLineNumberIsLessThan1_Data))]
-        public void Constructor_ThrowsArgumentOutOfRangeExceptionIfStartLineNumberIsLessThan1(int dummyStartLineNumber)
+        [MemberData(nameof(Constructor_ThrowsFlexiBlocksExceptionIfStartLineNumberIsLessThan1_Data))]
+        public void Constructor_ThrowsFlexiBlocksExceptionIfStartLineNumberIsLessThan1(int dummyStartLineNumber)
         {
             // Act and assert
-            ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => new Clipping(dummyStartLineNumber));
-            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0, dummyStartLineNumber) + "\nParameter name: startLineNumber", 
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new Clipping(dummyStartLineNumber));
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(Clipping.StartLineNumber), dummyStartLineNumber),
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
 
-        public static IEnumerable<object[]> Constructor_ThrowsArgumentOutOfRangeExceptionIfStartLineNumberIsLessThan1_Data()
+        public static IEnumerable<object[]> Constructor_ThrowsFlexiBlocksExceptionIfStartLineNumberIsLessThan1_Data()
         {
             return new object[][]
             {
@@ -28,17 +27,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         }
 
         [Theory]
-        [MemberData(nameof(Constructor_ThrowsArgumentOutOfRangeExceptionIfEndLineNumberIsNotMinus1AndIsLessThanStartLineNumber_Data))]
-        public void Constructor_ThrowsArgumentOutOfRangeExceptionIfEndLineNumberIsNotMinus1AndIsLessThanStartLineNumber(int dummyStartLineNumber, int dummyEndLineNumber)
+        [MemberData(nameof(Constructor_ThrowsFlexiBlocksExceptionIfEndLineNumberIsNotMinus1AndIsLessThanStartLineNumber_Data))]
+        public void Constructor_ThrowsFlexiBlocksExceptionIfEndLineNumberIsNotMinus1AndIsLessThanStartLineNumber(int dummyStartLineNumber, int dummyEndLineNumber)
         {
             // Act and assert
-            ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => new Clipping(dummyStartLineNumber, dummyEndLineNumber));
-            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, dummyEndLineNumber, dummyStartLineNumber) + "\nParameter name: endLineNumber",
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new Clipping(dummyStartLineNumber, dummyEndLineNumber));
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, nameof(Clipping.EndLineNumber), dummyEndLineNumber, dummyStartLineNumber),
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
 
-        public static IEnumerable<object[]> Constructor_ThrowsArgumentOutOfRangeExceptionIfEndLineNumberIsNotMinus1AndIsLessThanStartLineNumber_Data()
+        public static IEnumerable<object[]> Constructor_ThrowsFlexiBlocksExceptionIfEndLineNumberIsNotMinus1AndIsLessThanStartLineNumber_Data()
         {
             return new object[][]
             {
@@ -49,30 +48,30 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         }
 
         [Fact]
-        public void Constructor_ThrowsArgumentOutOfRangeExceptionIfDedentLengthIsLessThan0()
+        public void Constructor_ThrowsFlexiBlocksExceptionIfDedentLengthIsLessThan0()
         {
             // Arrange
             const int dummyDedentLength = -1;
 
             // Act and assert
-            ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => new Clipping(dedentLength: dummyDedentLength));
-            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_ValueCannotBeNegative, dummyDedentLength) + "\nParameter name: dedentLength", 
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new Clipping(dedentLength: dummyDedentLength));
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(Clipping.DedentLength), dummyDedentLength),
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
 
         [Theory]
-        [MemberData(nameof(Constructor_ThrowsArgumentOutOfRangeExceptionIfCollapseRatioIsNotInTheExpectedRange_Data))]
-        public void Constructor_ThrowsArgumentOutOfRangeExceptionIfCollapseRatioIsNotInTheExpectedRange(float dummyCollapseRatio)
+        [MemberData(nameof(Constructor_ThrowsFlexiBlocksExceptionIfCollapseRatioIsNotInTheExpectedRange_Data))]
+        public void Constructor_ThrowsFlexiBlocksExceptionIfCollapseRatioIsNotInTheExpectedRange(float dummyCollapseRatio)
         {
             // Act and assert
-            ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => new Clipping(collapseRatio: dummyCollapseRatio));
-            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_ValueMustBeWithinRange, "[0, 1]", dummyCollapseRatio) + "\nParameter name: collapseRatio", 
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new Clipping(collapseRatio: dummyCollapseRatio));
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeWithinRange, nameof(Clipping.CollapseRatio), "[0, 1]", dummyCollapseRatio),
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
 
-        public static IEnumerable<object[]> Constructor_ThrowsArgumentOutOfRangeExceptionIfCollapseRatioIsNotInTheExpectedRange_Data()
+        public static IEnumerable<object[]> Constructor_ThrowsFlexiBlocksExceptionIfCollapseRatioIsNotInTheExpectedRange_Data()
         {
             return new object[][]
             {

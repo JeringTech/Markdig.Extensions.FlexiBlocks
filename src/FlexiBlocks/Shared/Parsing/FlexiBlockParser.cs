@@ -74,14 +74,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                         throw;
                     }
 
-                    throw new FlexiBlocksException(processor.LineIndex,
+                    throw new FlexiBlocksException(processor.LineIndex + 1,
                         processor.Column,
                         string.Format(Strings.FlexiBlocksException_ExceptionOccurredWhileAttemptingToOpenBlock, GetType().Name),
                         exception);
                 }
                 else
                 {
-                    throw new FlexiBlocksException(newBlock, exception);
+                    throw new FlexiBlocksException(newBlock, innerException: exception);
                 }
             }
         }
@@ -101,7 +101,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             }
             catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)
             {
-                throw new FlexiBlocksException(block, exception);
+                throw new FlexiBlocksException(block, innerException: exception);
             }
         }
 
@@ -120,7 +120,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             }
             catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)
             {
-                throw new FlexiBlocksException(block, exception);
+                throw new FlexiBlocksException(block, innerException: exception);
             }
         }
     }

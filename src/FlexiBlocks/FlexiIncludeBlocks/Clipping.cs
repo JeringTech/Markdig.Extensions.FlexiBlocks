@@ -5,54 +5,85 @@ using System.ComponentModel;
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     /// <summary>
-    /// Represents a clipping from text content.
+    /// Represents a clipping from a sequence of lines.
     /// </summary>
     public class Clipping
     {
         /// <summary>
         /// Creates a <see cref="Clipping"/> instance. Validates arguments.
         /// </summary>
-        /// <param name="startLineNumber">The line number that the clipping starts at. Defaults to 1. <paramref name="startDemarcationLineSubstring"/> takes precedence if it is defined. </param>
-        /// <param name="endLineNumber">The line number that the clipping ends at. If this argument is -1, the clipping extends to the end of the content.
-        /// Otherwise, this argument must be larger than <paramref name="startLineNumber"/>. Defaults to -1. <paramref name="endDemarcationLineSubstring"/> takes precedence if it is defined.</param>
-        /// <param name="startDemarcationLineSubstring">The substring that the line immediately preceding the clipping contains. If defined, takes precedence over <paramref name="startLineNumber"/>.</param>
-        /// <param name="endDemarcationLineSubstring">The substring that the line immediately after the clipping contains. If defined, takes <paramref name="endLineNumber"/>.</param>
-        /// <param name="dedentLength">The number of leading white space characters to remove from each line in the clipping. This argument must not be negative. Defaults to 0.</param>
-        /// <param name="collapseRatio">The proportion of leading whitespace characters to keep. For example, if there are intially 9 leading white space characters and this argument is 0.33,
-        /// the final number of leading white space characters will be 3. This argument must be in the interval [0, 1]. Defaults to 1.</param>
-        /// <param name="beforeContent">The content to be prepended to the clipping.</param>
-        /// <param name="afterContent">The content to be appended to the clipping.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="startLineNumber"/> is less than 1.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="endLineNumber"/> is not -1 and is less than <paramref name="startLineNumber"/>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="dedentLength"/> is negative.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="collapseRatio"/> is not within range [0, 1].</exception>
-        public Clipping(int startLineNumber = 1, int endLineNumber = -1,
-            string startDemarcationLineSubstring = null, string endDemarcationLineSubstring = null,
-            int dedentLength = 0, float collapseRatio = 1,
-            string beforeContent = null, string afterContent = null)
+        /// <param name="startLineNumber">
+        /// <para>The line number of the line that this clipping starts at.</para>
+        /// <para>This value must be greater than 0.</para>
+        /// <para>Defaults to 1.</para>
+        /// </param>
+        /// <param name="endLineNumber">
+        /// <para>The line number of the line that this clipping ends at.</para>
+        /// <para>If this value is -1, this clipping extends to the last line. If it is not -1, it must be greater than or equal to <paramref name="startLineNumber"/>.</para>
+        /// <para>Defaults to -1.</para>
+        /// </param>
+        /// <param name="startDemarcationLineSubstring">
+        /// <para>A substring that the line immediately preceding this clipping contains.</para>
+        /// <para>If this value is not null, whitespace or an empty string, it takes precedence over <paramref name="startLineNumber"/>.</para>
+        /// <para>Defaults to null.</para>
+        /// </param>
+        /// <param name="endDemarcationLineSubstring">
+        /// <para>A substring that the line immediately after this clipping contains.</para>
+        /// <para>If this value is not null, whitespace or an empty string, it takes precedence over <paramref name="endLineNumber"/>.</para>
+        /// <para>Defaults to null.</para>
+        /// </param>
+        /// <param name="dedentLength">
+        /// <para>The number of leading whitespace characters to remove from each line in this clipping.</para>
+        /// <para>This value must not be negative.</para>
+        /// <para>Defaults to 0.</para>
+        /// </param>
+        /// <param name="collapseRatio">
+        /// <para>The proportion of leading whitespace characters (after dedenting) to keep.</para>
+        /// <para>For example, if there are 9 leading whitespace characters after dedenting, and this value is 0.33, the final number of leading whitespace characters will be 3.</para> 
+        /// <para>This value must be in the range [0, 1].</para>
+        /// <para>Defaults to 1.</para>
+        /// </param>
+        /// <param name="beforeContent">
+        /// <para>The content to be prepended to this clipping.</para>
+        /// <para>This value will be processed as markdown if the <see cref="FlexiIncludeBlock"/> that this clipping belongs to has Markdown as its content type.</para>
+        /// <para>Defaults to null.</para>
+        /// </param>
+        /// <param name="afterContent">
+        /// <para>The content to be appended to this clipping.</para>
+        /// <para>This value will be processed as markdown if the <see cref="FlexiIncludeBlock"/> that this clipping belongs to has Markdown as its content type.</para>
+        /// <para>Defaults to null.</para>
+        /// </param>
+        /// <exception cref="FlexiBlocksException">Thrown if <paramref name="startLineNumber"/> is less than 1.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <paramref name="endLineNumber"/> is not -1 and is less than <paramref name="startLineNumber"/>.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <paramref name="dedentLength"/> is negative.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <paramref name="collapseRatio"/> is not in the range [0, 1].</exception>
+        public Clipping(int startLineNumber = 1,
+            int endLineNumber = -1,
+            string startDemarcationLineSubstring = null,
+            string endDemarcationLineSubstring = null,
+            int dedentLength = 0,
+            float collapseRatio = 1,
+            string beforeContent = null,
+            string afterContent = null)
         {
             if(startLineNumber < 1)
             {
-                throw new ArgumentOutOfRangeException(nameof(startLineNumber),
-                    string.Format(Strings.ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0, startLineNumber));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(StartLineNumber), startLineNumber));
             }
 
             if (endLineNumber != -1 && endLineNumber < startLineNumber)
             {
-                throw new ArgumentOutOfRangeException(nameof(endLineNumber),
-                    string.Format(Strings.ArgumentOutOfRangeException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, endLineNumber, startLineNumber));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, nameof(EndLineNumber), endLineNumber, startLineNumber));
             }
 
             if(dedentLength < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(dedentLength),
-                    string.Format(Strings.ArgumentOutOfRangeException_ValueCannotBeNegative, dedentLength));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(DedentLength), dedentLength));
             }
 
             if (collapseRatio < 0 || collapseRatio > 1)
             {
-                throw new ArgumentOutOfRangeException(nameof(collapseRatio),
-                    string.Format(Strings.ArgumentOutOfRangeException_ValueMustBeWithinRange, "[0, 1]", collapseRatio));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeWithinRange, nameof(CollapseRatio), "[0, 1]", collapseRatio));
             }
 
             StartLineNumber = startLineNumber;
@@ -66,51 +97,68 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         }
 
         /// <summary>
-        /// Gets the line number that the clipping starts at. If <see cref="StartDemarcationLineSubstring"/> is defined, it takes precedence over this value.
+        /// Gets the line number of the line that this clipping starts at.
         /// </summary>
-        [DefaultValue(1)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(1)]
         public int StartLineNumber { get; }
 
         /// <summary>
-        /// Gets the line number that the clipping ends at. If <see cref="EndDemarcationLineSubstring"/> is defined, it takes precedence over this value.
+        /// Gets the line number of the line that this clipping ends at.
         /// </summary>
-        [DefaultValue(-1)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(-1)]
         public int EndLineNumber { get; }
 
         /// <summary>
-        /// Gets the substring that the line immediately preceding the clipping contains. If this value is not defined, the first line of the clipping will be specified by
-        /// <see cref="StartLineNumber"/>.
+        /// Gets a substring that the line immediately preceding this clipping contains.
         /// </summary>
         public string StartDemarcationLineSubstring { get; }
 
         /// <summary>
-        /// Gets the substring that the line immediately after the clipping contains. If this value is not defined, the last line of the clipping will be specified by
-        /// <see cref="EndLineNumber"/>.
+        /// Gets a substring that the line immediately after this clipping contains.
         /// </summary>
         public string EndDemarcationLineSubstring { get; }
 
         /// <summary>
-        /// Gets the number of leading white space characters to remove from each line in the clipping.
+        /// Gets the number of leading whitespace characters to remove from each line in this clipping.
         /// </summary>
         public int DedentLength { get; }
 
         /// <summary>
-        /// Gets the proportion of leading whitespace characters to keep.
+        /// Gets the proportion of leading whitespace characters (after dedenting) to keep.
         /// </summary>
-        [DefaultValue(1)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(1)]
         public float CollapseRatio { get; }
 
         /// <summary>
-        /// Gets the content to be prepended to the clipping.
+        /// Gets the content to be prepended to this clipping.
         /// </summary>
         public string BeforeContent { get; }
 
         /// <summary>
-        /// Gets the content to be appended to the clipping.
+        /// Gets the content to be appended to this clipping.
         /// </summary>
         public string AfterContent { get; }
+
+        /// <summary>
+        /// Checks for value equality between this <see cref="Clipping"/> and an object.
+        /// </summary>
+        /// <param name="obj">The object to check for value equality.</param>
+        /// <returns>True if this <see cref="Clipping"/>'s value is equal to the object's value, false otherwise.</returns>
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Clipping otherClipping))
+            {
+                return false;
+            }
+
+            return StartLineNumber == otherClipping.StartLineNumber &&
+                EndLineNumber == otherClipping.EndLineNumber &&
+                StartDemarcationLineSubstring == otherClipping.StartDemarcationLineSubstring &&
+                EndDemarcationLineSubstring == otherClipping.EndDemarcationLineSubstring &&
+                DedentLength == otherClipping.DedentLength &&
+                CollapseRatio == otherClipping.CollapseRatio &&
+                BeforeContent == otherClipping.BeforeContent &&
+                AfterContent == otherClipping.AfterContent;
+        }
     }
 }

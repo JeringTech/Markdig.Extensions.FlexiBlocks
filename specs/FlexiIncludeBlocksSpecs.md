@@ -1,184 +1,418 @@
 ﻿## FlexiIncludeBlocks
-The FlexiIncludeBlocks extension provides ways to include content from both local and remote documents.
+FlexiIncludeBlocks include content from local or remote sources.  
 
-In the following specs, `exampleInclude.md` has the following contents:
-```
-This is example markdown.
-```
-`exampleIncludeWithNestedInclude.md` has the following contents:
-```
-This is example markdown with an include.
-
-+{
-    "contentType": "Markdown",
-    "source": "./exampleInclude.md"    
-}
-```
-And `exampleInclude.js` has the following contents:
-```
-function exampleFunction(arg) {
-    // Example comment
-    return arg + 'dummyString';
-}
-
-//#region utility methods
-function add(a, b) {
-    return a + b;
-}
-//#endregion utility methods
-```
-
-A FlexiIncludeBlock is an `IncludeOptions` instance in JSON form with `+` prepended immediately before the opening `{`. This first line
-must begin with `+{`:
-```````````````````````````````` example
-This is an example article.
-+{
-    "contentType": "Markdown",
-    "source": "./exampleInclude.md"
-}
-.
-<p>This is an example article.</p>
-<p>This is example markdown.</p>
-````````````````````````````````
-
-A FlexiIncludeBlock can retrieve remote content over HTTP or HTTPS:
-```````````````````````````````` extraExtensions
-FlexiCodeBlocks
-```````````````````````````````` example
-This is an example article.
-+{
-    "source": "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/42e2be4e8adb15b0fb28193fc615f520243420f0/src/FlexiBlocks/FlexiIncludeBlocks/ContentType.cs"
-}
-.
-<p>This is an example article.</p>
-<div class="fcb">
-<header>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
-</header>
-<pre><code>namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
-{
-    /// &lt;summary&gt;
-    /// Include content types.
-    /// &lt;/summary&gt;
-    public enum ContentType
-    {
-        /// &lt;summary&gt;
-        /// Code include content.
-        /// &lt;/summary&gt;
-        Code,
-
-        /// &lt;summary&gt;
-        /// Markdown include content.
-        /// &lt;/summary&gt;
-        Markdown
-    }
-}</code></pre>
-</div>
-````````````````````````````````
-
-Includes can be nested:
-```````````````````````````````` example
-This is an example article.
-
-+{
-    "contentType": "Markdown",
-    "source": "./exampleIncludeWithNestedInclude.md"
-}
-.
-<p>This is an example article.</p>
-<p>This is example markdown with an include.</p>
-<p>This is example markdown.</p>
-````````````````````````````````
-
-Includes can be used within any kind of container block, such as a list item:
-```````````````````````````````` example
-- First item.
-- Second item
-
+The specs in this document use the following dummy sources:
+- exampleInclude.md, with content:
+  ```
+  This is example markdown.
+  ```
+- exampleIncludeWithNestedInclude.md, with content:
+  ```
   +{
-      "contentType": "Markdown",
-      "source": "./exampleInclude.md"
+      "type": "Markdown",
+      "sourceUri": "./exampleInclude.md"    
   }
-- Third item
-.
+  ```
+- exampleInclude.js, with content:
+  ```
+  function exampleFunction(arg) {
+      // Example comment
+      return arg + 'dummyString';
+  }
+
+  //#region utility methods
+  function add(a, b) {
+      return a + b;
+  }
+  //#endregion utility methods
+  ```
+
+### Basic Syntax
+A FlexiIncludeBlock is a [`FlexiIncludeBlockOptions`](#flexiincludeblockoptions) object in JSON form, prepended with `+`. The following is a FlexiIncludeBlock:
+
+```````````````````````````````` none
+--------------- Markdown ---------------
++{ "type": "Markdown", "sourceUri": "./exampleInclude.md" }
+--------------- Expected Markup ---------------
+<p>This is example markdown.</p>
+````````````````````````````````
+Refer to [`FlexiIncludeBlockOptions`](#flexiincludeblockoptions) for more information on configuring FlexiIncludeBlocks.  
+
+The JSON can span any number of lines, as long as it is valid:
+```````````````````````````````` none
+--------------- Markdown ---------------
++{
+    "type": "Markdown",
+    "sourceUri": "./exampleInclude.md"    
+}
+--------------- Expected Markup ---------------
+<p>This is example markdown.</p>
+````````````````````````````````
+
+Starting `+` characters must immediately precede opening `{` characters. The following is not a FlexiIncludeBlock because there is a space between 
+the starting `+` and the opening `{`:
+```````````````````````````````` none
+--------------- Markdown ---------------
++ {
+    "type": "Markdown",
+    "sourceUri": "./exampleInclude.md"    
+}
+--------------- Expected Markup ---------------
 <ul>
-<li><p>First item.</p></li>
-<li><p>Second item</p>
-<p>This is example markdown.</p></li>
-<li><p>Third item</p></li>
+<li>{
+&quot;type&quot;: &quot;Markdown&quot;,
+&quot;sourceUri&quot;: &quot;./exampleInclude.md&quot;<br />
+}</li>
 </ul>
 ````````````````````````````````
 
-Or a blockquote:
-```````````````````````````````` example
-> First line.
-> +{
->     "contentType": "Markdown",
->     "source": "./exampleInclude.md"
-> }
-> Third line
-.
-<blockquote>
-<p>First line.</p>
-<p>This is example markdown.</p>
-<p>Third line</p>
-</blockquote>
-````````````````````````````````
+### Options
+The FlexiIncludeBlocks extension has the following options types:
 
-Content can be included as a code block, using the FlexiCodeBlocks extension:
-```````````````````````````````` extraExtensions
-FlexiCodeBlocks
-```````````````````````````````` example
-This is an example article.
-+{
-    "contentType": "Code",
-    "source": "./exampleInclude.md"
-}
-.
-<p>This is an example article.</p>
-<div class="fcb">
-<header>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
-</header>
-<pre><code>This is example markdown.</code></pre>
-</div>
-````````````````````````````````
+#### `FlexiIncludeBlockOptions`
+Options for a FlexiIncludeBlock.
+##### Properties
+- `SourceUri`
+  - Type: `string`
+  - Description: The URI of the source.
+    This value must either be a relative URI or an absolute URI with scheme file, http or https.
+  - Default: `string.Empty`
+  - Usage:
+    ```````````````````````````````` none
+    --------------- Markdown ---------------
+    +{
+        "type": "markdown",
+        "sourceUri": "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md"
+    }
+    --------------- Expected Markup ---------------
+    <p>This is example markdown.</p>
+    ````````````````````````````````
+    Retrieving remote sources can introduce security issues. One way to mitigate such issues is to 
+    only retrieve from trusted or permanent links. For example, the source URI in the above spec is a [Github permalink](https://help.github.com/articles/getting-permanent-links-to-files/).
+    Additionally, consider sanitizing generated markup.
 
-Code is the default content type, `IncludeOptions.ContentType` can be omitted when including a code block:
-```````````````````````````````` extraExtensions
-FlexiCodeBlocks
-```````````````````````````````` example
-This is an example article.
-+{
-    "source": "./exampleInclude.md"
-}
-.
-<p>This is an example article.</p>
-<div class="fcb">
-<header>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
-</header>
-<pre><code>This is example markdown.</code></pre>
-</div>
-````````````````````````````````
+- `BaseUri`
+  - Type: `string`
+  - Description: The base for the source URI.
+    This option is only relevant if the source URI is a relative URI.
+    If this value is null, whitespace or an empty string, the application's current directory is used.
+    Otherwise, it must be an absolute URI with scheme file, http or https.
+  - Default: `null`
+  - Usage: 
+    ```````````````````````````````` none
+    --------------- Markdown ---------------
+    +{
+        "type": "markdown",
+        "baseUri": "https://raw.githubusercontent.com",
+        "sourceUri": "JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md"
+    }
+    --------------- Expected Markup ---------------
+    <p>This is example markdown.</p>
+    ````````````````````````````````
 
-FlexiCodeOptions can be applied to FlexiIncludeBlocks of type `Code`:
-```````````````````````````````` extraExtensions
+- `Type`
+  - Type: `IncludeType`
+  - Description: The FlexiIncludeBlock's type.
+    If this value is `IncludeType.Code`, a single code block containing the included content is generated. If this value is `IncludeType.Markdown`,
+    included content is processed as markdown.
+  - Default: `IncludeType.Code`
+  - Usage:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiCodeBlocks
+    --------------- Markdown ---------------
+    +{
+        "type": "Code",
+        "sourceUri": "./exampleInclude.js"
+    }
+    --------------- Expected Markup ---------------
+    <div>
+    <header>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    </header>
+    <pre><code>function exampleFunction(arg) {
+        // Example comment
+        return arg + 'dummyString';
+    }
+
+    //#region utility methods
+    function add(a, b) {
+        return a + b;
+    }
+    //#endregion utility methods</code></pre>
+    </div>
+    ````````````````````````````````
+    By default, `Type` is `IncludeType.Code`, so the markdown in the above spec can be simplified to:
+    ```
+    +{
+        "sourceUri": "./exampleInclude.js"
+    }
+    ```
+
+- `CacheOnDisk`
+  - Type: `bool`
+  - Description: The boolean value specifying whether or not to cache sources on disk.
+    If this value is true, sources will be cached on disk, otherwise, content will not be cached on disk.
+    On-disk caching only applies to remote sources (retrieved using HTTP or HTTPS) since local sources (retrieved from the file system) are already on disk.
+  - Default: `true`
+  - Usage
+    ```````````````````````````````` none
+    --------------- Markdown ---------------
+    +{
+        "cacheOnDisk": false,
+        "type": "markdown",
+        "sourceURI": "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md"
+    }
+    --------------- Expected Markup ---------------
+    <p>This is example markdown.</p>
+    ````````````````````````````````
+    By default, on an initial run, when arbitrary remote source "a" is included, FlexiIncludeBlocks will 
+    retrieve remote source "a" from a server, and immediately cache it in memory as well as on disk.
+    Subsequent requests to retrieve "a" during the same run will retrieve it from 
+    the in-memory cache. At the end of the initial run, the in-memory cache is lost when the
+    process dies. For the next run, FlexiIncludeBlocks will 
+    retrieve remote source "a" from the on-disk cache, avoiding a round trip to a server.
+
+    This means that if you are only going to execute one run on a system (e.g on a CI/CD system), then performance 
+    will be better if on-disk caching is disabled. 
+
+- `DiskCacheDirectory`
+  - Type: `string`
+  - Description: The directory for the on-disk cache.
+    This option is only relevant if caching on disk is enabled.
+    If this value is null, whitespace or an empty string, a folder named "SourceCache" in the application's current directory is used.
+  - Default: `null`
+
+- `Clippings`
+  - Type: `IList<Clipping>`
+  - Description: The list of clippings from the source to include.
+    If this value is null or empty, the entire source is included.
+  - Default: `null`
+  - Usage:  
+    Refer to the [`Clipping`](#clipping) type for the full list of clipping options. Clipping using line numbers:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiCodeBlocks
+    --------------- Markdown ---------------
+    +{
+        "sourceUri": "./exampleInclude.js",
+        "clippings":[{"endLineNumber": 4}, {"startLineNumber": 7, "endLineNumber": 9}]
+    }
+    --------------- Expected Markup ---------------
+    <div>
+    <header>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    </header>
+    <pre><code>function exampleFunction(arg) {
+        // Example comment
+        return arg + 'dummyString';
+    }
+    function add(a, b) {
+        return a + b;
+    }</code></pre>
+    </div>
+    ````````````````````````````````
+
+    Clipping using demarcation line substrings:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiCodeBlocks
+    --------------- Markdown ---------------
+    +{
+        "sourceUri": "./exampleInclude.js",
+        "clippings":[{"startDemarcationLineSubstring": "#region utility methods", "endDemarcationLineSubstring": "#endregion utility methods"}]
+    }
+    --------------- Expected Markup ---------------
+    <div>
+    <header>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    </header>
+    <pre><code>function add(a, b) {
+        return a + b;
+    }</code></pre>
+    </div>
+    ````````````````````````````````
+
+    Clipping using a combination of line numbers and demarcation line substrings:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiCodeBlocks
+    --------------- Markdown ---------------
+    +{
+        "sourceUri": "./exampleInclude.js",
+        "clippings":[{"startLineNumber": 7, "endDemarcationLineSubstring": "#endregion utility methods"}]
+    }
+    --------------- Expected Markup ---------------
+    <div>
+    <header>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    </header>
+    <pre><code>function add(a, b) {
+        return a + b;
+    }</code></pre>
+    </div>
+    ````````````````````````````````
+
+    Appending and prepending content to clippings:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiCodeBlocks
+    --------------- Markdown ---------------
+    +{
+        "sourceUri": "./exampleInclude.js",
+        "clippings":[{
+            "endLineNumber": 1,
+            "afterContent": "..."
+        },
+        {
+            "startLineNumber": 4,
+            "endLineNumber": 4
+        },
+        {
+            "startLineNumber": 7, 
+            "endLineNumber": 7,
+            "beforeContent": ""
+        },
+        {
+            "startLineNumber": 9, 
+            "endLineNumber": 9,
+            "beforeContent": "..."
+        }]
+    }
+    --------------- Expected Markup ---------------
+    <div>
+    <header>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    </header>
+    <pre><code>function exampleFunction(arg) {
+    ...
+    }
+
+    function add(a, b) {
+    ...
+    }</code></pre>
+    </div>
+    ````````````````````````````````
+
+    Dedenting leading whitespace in a clipping:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiCodeBlocks
+    --------------- Markdown ---------------
+    +{
+        "sourceUri": "./exampleInclude.js",
+        "clippings":[{"dedentLength": 2}],
+    }
+    --------------- Expected Markup ---------------
+    <div>
+    <header>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    </header>
+    <pre><code>function exampleFunction(arg) {
+      // Example comment
+      return arg + 'dummyString';
+    }
+
+    //#region utility methods
+    function add(a, b) {
+      return a + b;
+    }
+    //#endregion utility methods</code></pre>
+    </div>
+    ````````````````````````````````
+
+    Collapsing leading whitespace in a clipping:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiCodeBlocks
+    --------------- Markdown ---------------
+    +{
+        "sourceUri": "./exampleInclude.js",
+        "clippings":[{"collapseRatio": 0.5}]
+    }
+    --------------- Expected Markup ---------------
+    <div>
+    <header>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    </header>
+    <pre><code>function exampleFunction(arg) {
+      // Example comment
+      return arg + 'dummyString';
+    }
+
+    //#region utility methods
+    function add(a, b) {
+      return a + b;
+    }
+    //#endregion utility methods</code></pre>
+    </div>
+    ````````````````````````````````
+
+#### `Clipping`
+Represents a clipping from a sequence of lines.
+
+##### Properties
+- `StartLineNumber`
+  - Type: `int`
+  - Description: The line number of the line that this clipping starts at.
+    This value must be greater than 0.
+  - Default: `1`
+- `endLineNumber`
+  - Type: `int`
+  - Description: The line number of the line that this clipping ends at.
+    If this value is -1, this clipping extends to the last line. If it is not -1, it must be greater than or equal to `StartLineNumber`.
+  - Default: `-1`
+- `startDemarcationLineSubstring`
+  - Type: `string`
+  - Description: A substring that the line immediately preceding this clipping contains.
+    If this value is not null, whitespace or an empty string, it takes precedence over `StartLineNumber`.
+  - Default: `null`
+- `endDemarcationLineSubstring`
+  - Type: `string`
+  - Description: A substring that the line immediately after this clipping contains.
+    If this value is not null, whitespace or an empty string, it takes precedence over `EndLineNumber`.
+  - Default: `null`
+- `dedentLength`
+  - Type: `int`
+  - Description: The number of leading whitespace characters to remove from each line in this clipping.
+    This value must not be negative.
+  - Default: `0`
+- `collapseRatio`
+  - Type: `float`
+  - Description: The proportion of leading whitespace characters (after dedenting) to keep.
+    For example, if there are 9 leading whitespace characters after dedenting, and this value is 0.33, the final number of leading whitespace characters will be 3. 
+    This value must be in the range [0, 1].
+  - Default: `1`
+- `beforeContent`
+  - Type: `string`
+  - Description: The content to be prepended to this clipping.
+    This value will be processed as markdown if the FlexiIncludeBlock that this clipping belongs to has Markdown as its content type.
+  - Default: `null`
+- `afterContent`
+  - Type: `string`
+  - Description: The content to be appended to this clipping.
+    This value will be processed as markdown if the FlexiIncludeBlock that this clipping belongs to has Markdown as its content type.
+  - Default: `null`
+
+### Mechanics
+A [FlexiOptionsBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md) can be placed before a FlexiIncludeBlock. 
+It will be applied to the first block generated by the FlexiIncludeBlock. For example, a FlexiIncludeBlock with `Type` `IncludeType.Code` generates a single code block -
+if the FlexiCodeBlocks extension is enabled, we can specify FlexiCodeBlockOptions for the generated FlexiCodeBlock.  :
+```````````````````````````````` none
+--------------- Extra Extensions ---------------
 FlexiOptionsBlocks
 FlexiCodeBlocks
-```````````````````````````````` example
-This is an example article.
+--------------- Markdown ---------------
 @{
     "language": "javascript"
 }
 +{
-    "source": "./exampleInclude.js"
+    "sourceUri": "./exampleInclude.js"
 }
-.
-<p>This is an example article.</p>
-<div class="fcb">
+--------------- Expected Markup ---------------
+<div>
 <header>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
 </header>
 <pre><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">exampleFunction</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment">// Example comment</span>
@@ -193,170 +427,51 @@ This is an example article.
 </div>
 ````````````````````````````````
 
-Included content can be clipped using line numbers:
-```````````````````````````````` extraExtensions
-FlexiCodeBlocks
-```````````````````````````````` example
+FlexiIncludeBlocks can be nested:
+```````````````````````````````` none
+--------------- Markdown ---------------
 +{
-    "source": "./exampleInclude.js",
-    "clippings":[{"endLineNumber": 4}, {"startLineNumber": 7, "endLineNumber": 9}]
+    "type": "Markdown",
+    "sourceUri": "./exampleIncludeWithNestedInclude.md"
 }
-.
-<div class="fcb">
-<header>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
-</header>
-<pre><code>function exampleFunction(arg) {
-    // Example comment
-    return arg + 'dummyString';
-}
-function add(a, b) {
-    return a + b;
-}</code></pre>
-</div>
-````````````````````````````````
-
-Included content can also be clipped using demarcation line substrings:
-```````````````````````````````` extraExtensions
-FlexiCodeBlocks
-```````````````````````````````` example
-+{
-    "source": "./exampleInclude.js",
-    "clippings":[{"startDemarcationLineSubstring": "#region utility methods", "endDemarcationLineSubstring": "#endregion utility methods"}]
-}
-.
-<div class="fcb">
-<header>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
-</header>
-<pre><code>function add(a, b) {
-    return a + b;
-}</code></pre>
-</div>
-````````````````````````````````
-
-Included content can also be clipped using a combination of line numbers and line substrings:
-```````````````````````````````` extraExtensions
-FlexiCodeBlocks
-```````````````````````````````` example
-+{
-    "source": "./exampleInclude.js",
-    "clippings":[{"startLineNumber": 7, 
-        "endDemarcationLineSubstring": "#endregion utility methods"}]
-}
-.
-<div class="fcb">
-<header>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
-</header>
-<pre><code>function add(a, b) {
-    return a + b;
-}</code></pre>
-</div>
-````````````````````````````````
-
-Text can be prepended and appended to each clipping:
-```````````````````````````````` extraExtensions
-FlexiCodeBlocks
-```````````````````````````````` example
-+{
-    "source": "./exampleInclude.js",
-    "clippings":[{
-        "endLineNumber": 1,
-        "afterContent": "..."
-    },
-    {
-        "startLineNumber": 4,
-        "endLineNumber": 4
-    },
-    {
-        "startLineNumber": 7, 
-        "endLineNumber": 7,
-        "beforeContent": ""
-    },
-    {
-        "startLineNumber": 9, 
-        "endLineNumber": 9,
-        "beforeContent": "..."
-    }]
-}
-.
-<div class="fcb">
-<header>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
-</header>
-<pre><code>function exampleFunction(arg) {
-...
-}
-
-function add(a, b) {
-...
-}</code></pre>
-</div>
-````````````````````````````````
-
-Before text and after text can contain include blocks:
-```````````````````````````````` extraExtensions
-FlexiCodeBlocks
-```````````````````````````````` example
-+{
-    "contentType": "Markdown",
-    "source": "./exampleInclude.md",
-    "clippings":[{
-        "afterContent": "+{
-            \"contentType\": \"Markdown\",
-            \"source\": \"./exampleInclude.md\"
-        }",
-        "beforeContent": "+{
-            \"contentType\": \"Markdown\",
-            \"source\": \"./exampleInclude.md\"
-        }"
-    }]
-}
-.
-<p>This is example markdown.</p>
-<p>This is example markdown.</p>
+--------------- Expected Markup ---------------
+<p>This is example markdown with an include.</p>
 <p>This is example markdown.</p>
 ````````````````````````````````
 
-A clipping can be dedented:
-```````````````````````````````` extraExtensions
-FlexiCodeBlocks
-```````````````````````````````` example
-+{
-    "source": "./exampleInclude.js",
-    "clippings":[{"endLineNumber": 4, "dedentLength": 2}],
-}
-.
-<div class="fcb">
-<header>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
-</header>
-<pre><code>function exampleFunction(arg) {
-  // Example comment
-  return arg + 'dummyString';
-}</code></pre>
-</div>
+FlexiIncludeBlocks can be used anywhere that a typical block can be used. For example, in a list item:
+```````````````````````````````` none
+--------------- Markdown ---------------
+- First item.
+- Second item  
+
+  +{
+      "type": "Markdown",
+      "sourceUri": "./exampleInclude.md"
+  }
+- Third item
+--------------- Expected Markup ---------------
+<ul>
+<li><p>First item.</p></li>
+<li><p>Second item</p>
+<p>This is example markdown.</p></li>
+<li><p>Third item</p></li>
+</ul>
 ````````````````````````````````
 
-Leading white space in a clipping can also be collapsed:
-```````````````````````````````` extraExtensions
-FlexiCodeBlocks
-```````````````````````````````` example
-+{
-    "source": "./exampleInclude.js",
-    "clippings":[{"endLineNumber": 4, "collapseRatio": 0.5}]
-}
-.
-<div class="fcb">
-<header>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
-</header>
-<pre><code>function exampleFunction(arg) {
-  // Example comment
-  return arg + 'dummyString';
-}</code></pre>
-</div>
+Or a blockquote:
+```````````````````````````````` none
+--------------- Markdown ---------------
+> First line.
+> +{
+>     "type": "Markdown",
+>     "sourceUri": "./exampleInclude.md"
+> }
+> Third line
+--------------- Expected Markup ---------------
+<blockquote>
+<p>First line.</p>
+<p>This is example markdown.</p>
+<p>Third line</p>
+</blockquote>
 ````````````````````````````````
-
-

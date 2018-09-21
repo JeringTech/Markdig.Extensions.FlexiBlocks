@@ -98,6 +98,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The property &quot;{0}&quot; already has a value..
+        /// </summary>
+        internal static string ArgumentException_PropertyAlreadyHasAValue {
+            get {
+                return ResourceManager.GetString("ArgumentException_PropertyAlreadyHasAValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Text has length &quot;{0}&quot;, start char index &quot;{1}&quot; is out of range..
         /// </summary>
         internal static string ArgumentException_StartCharIndexIsOutOfRange {
@@ -135,25 +144,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to End line number &quot;{0}&quot; with associated start line number &quot;{1}&quot; is invalid. Unless an end line number is -1, it cannot be less than its associated start line number..
-        /// </summary>
-        internal static string ArgumentOutOfRangeException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber {
-            get {
-                return ResourceManager.GetString("ArgumentOutOfRangeException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartL" +
-                        "ineNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; is not a valid line number. Line numbers must be greater than 0..
-        /// </summary>
-        internal static string ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0 {
-            get {
-                return ResourceManager.GetString("ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Value cannot be negative. The specified value &quot;{0}&quot; is invalid..
         /// </summary>
         internal static string ArgumentOutOfRangeException_ValueCannotBeNegative {
@@ -181,48 +171,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Multiple attempts retrieve content from &quot;{0}&quot; have failed. Please ensure that the Url is valid and that your network connection is stable. Enable debug level logging and try again for more information on why requests are failing..
+        ///   Looks up a localized string similar to The option {0} must be  -1 or not less than its associated start line number. The specified value &quot;{1}&quot; with associated start line number &quot;{2}&quot; is invalid. .
         /// </summary>
-        internal static string ContentRetrieverException_FailedAfterMultipleAttempts {
+        internal static string FlexiBlocksException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber {
             get {
-                return ResourceManager.GetString("ContentRetrieverException_FailedAfterMultipleAttempts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Access to the remote Url &quot;{0}&quot; is forbidden..
-        /// </summary>
-        internal static string ContentRetrieverException_RemoteUriAccessForbidden {
-            get {
-                return ResourceManager.GetString("ContentRetrieverException_RemoteUriAccessForbidden", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The remote Url &quot;{0}&quot; does not exist..
-        /// </summary>
-        internal static string ContentRetrieverException_RemoteUriDoesNotExist {
-            get {
-                return ResourceManager.GetString("ContentRetrieverException_RemoteUriDoesNotExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The following cycle was found in the FlexiIncludeBlocks tree: 
-        ///{0}.
-        /// </summary>
-        internal static string FlexiBlockException_FlexiIncludeBlocksCycle {
-            get {
-                return ResourceManager.GetString("FlexiBlockException_FlexiIncludeBlocksCycle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The option {0} must be a valid URI. The specified value &quot;{1}&quot; is invalid..
-        /// </summary>
-        internal static string FlexiBlockException_OptionMustBeAValidUri {
-            get {
-                return ResourceManager.GetString("FlexiBlockException_OptionMustBeAValidUri", resourceCulture);
+                return ResourceManager.GetString("FlexiBlocksException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumb" +
+                        "er", resourceCulture);
             }
         }
         
@@ -236,11 +190,140 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception occurred while processing a block. Refer to the inner exception for more details..
+        ///   Looks up a localized string similar to An exception occurred while processing the block. Refer to the inner exception for more details..
         /// </summary>
         internal static string FlexiBlocksException_ExceptionOccurredWhileProcessingABlock {
             get {
                 return ResourceManager.GetString("FlexiBlocksException_ExceptionOccurredWhileProcessingABlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following cycle was found in the FlexiIncludeBlock tree: 
+        ///{0}.
+        /// </summary>
+        internal static string FlexiBlocksException_FlexiIncludeBlocks_CycleFound {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlocks_CycleFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception occured while processing the FlexiIncludeBlock..
+        /// </summary>
+        internal static string FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingBlock {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception occured while processing the FlexiIncludeBlock&apos;s {0}. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingContent {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception occured while processing the FlexiIncludeBlock&apos;s source, &quot;{0}&quot;. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiple attempts to retrieve content from the remote URI &quot;{0}&quot; have failed. Please ensure that the URI is valid and that your network connection is stable. Enable debug level logging and try again for more information on why requests are failing..
+        /// </summary>
+        internal static string FlexiBlocksException_FlexiIncludeBlocks_FailedAfterMultipleAttempts {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlocks_FailedAfterMultipleAttempts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid clipping, no line contains end line substring &quot;{0}&quot;..
+        /// </summary>
+        internal static string FlexiBlocksException_FlexiIncludeBlocks_InvalidClippingNoLineContainsEndLineSubstring {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlocks_InvalidClippingNoLineContainsEndLineSubst" +
+                        "ring", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid clipping, no line contains start line substring &quot;{0}&quot;..
+        /// </summary>
+        internal static string FlexiBlocksException_FlexiIncludeBlocks_InvalidClippingNoLineContainsStartLineSubstring {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlocks_InvalidClippingNoLineContainsStartLineSub" +
+                        "string", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The disk cache directory &quot;{0}&quot; is invalid. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string FlexiBlocksException_FlexiIncludeBlocks_InvalidDiskCacheDirectory {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlocks_InvalidDiskCacheDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The local URI &quot;{0}&quot; is invalid. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string FlexiBlocksException_FlexiIncludeBlocks_InvalidLocalUri {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlocks_InvalidLocalUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access to the remote URI &quot;{0}&quot; is forbidden..
+        /// </summary>
+        internal static string FlexiBlocksException_FlexiIncludeBlocks_RemoteUriAccessForbidden {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlocks_RemoteUriAccessForbidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The remote URI &quot;{0}&quot; does not exist..
+        /// </summary>
+        internal static string FlexiBlocksException_FlexiIncludeBlocks_RemoteUriDoesNotExist {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlocks_RemoteUriDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unexpected exception occurred when attempting to retrieve the source for &quot;{0}&quot;, from the disk cache at &quot;{1}&quot;. Refer to the inner exception for more information..
+        /// </summary>
+        internal static string FlexiBlocksException_FlexiIncludeBlocks_UnexpectedDiskCacheException {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlocks_UnexpectedDiskCacheException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FlexiOptionsBlock must immediately precede the block that consumes it..
+        /// </summary>
+        internal static string FlexiBlocksException_FlexiOptionsBlocks_MispositionedBlock {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_FlexiOptionsBlocks_MispositionedBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FlexiOptionsBlock must be consumed..
+        /// </summary>
+        internal static string FlexiBlocksException_FlexiOptionsBlocks_UnconsumedBlock {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_FlexiOptionsBlocks_UnconsumedBlock", resourceCulture);
             }
         }
         
@@ -261,15 +344,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         internal static string FlexiBlocksException_InvalidMarkdown {
             get {
                 return ResourceManager.GetString("FlexiBlocksException_InvalidMarkdown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to FlexiOptionsBlock must immediately precede the block that consumes it..
-        /// </summary>
-        internal static string FlexiBlocksException_MispositionedFlexiOptionsBlock {
-            get {
-                return ResourceManager.GetString("FlexiBlocksException_MispositionedFlexiOptionsBlock", resourceCulture);
             }
         }
         
@@ -346,6 +420,42 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The option {0} must be a valid URI. The specified value &quot;{1}&quot; is invalid..
+        /// </summary>
+        internal static string FlexiBlocksException_OptionMustBeAValidUri {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_OptionMustBeAValidUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The option {0} must be greater than 0. The specified value &quot;{1}&quot; is invalid..
+        /// </summary>
+        internal static string FlexiBlocksException_OptionMustBeGreaterThan0 {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_OptionMustBeGreaterThan0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The option {0} must be within the range &quot;{1}&quot;. The specified value &quot;{2}&quot; is invalid..
+        /// </summary>
+        internal static string FlexiBlocksException_OptionMustBeWithinRange {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_OptionMustBeWithinRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The option {0} cannot be null..
+        /// </summary>
+        internal static string FlexiBlocksException_OptionsMustNotBeNull {
+            get {
+                return ResourceManager.GetString("FlexiBlocksException_OptionsMustNotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to parse JSON &quot;{0}&quot;. Refer to the inner exception for more details..
         /// </summary>
         internal static string FlexiBlocksException_UnableToParseJson {
@@ -364,38 +474,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FlexiOptionsBlock must be consumed..
-        /// </summary>
-        internal static string FlexiBlocksException_UnconsumedFlexiOptionsBlock {
-            get {
-                return ResourceManager.GetString("FlexiBlocksException_UnconsumedFlexiOptionsBlock", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Request to &quot;{0}&quot; failed with status code &quot;{1}&quot; and message &quot;{2}&quot;..
         /// </summary>
         internal static string HttpRequestException_UnsuccessfulRequest {
             get {
                 return ResourceManager.GetString("HttpRequestException_UnsuccessfulRequest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid clipping, no line contains end line substring &quot;{0}&quot;..
-        /// </summary>
-        internal static string InvalidOperationException_InvalidClippingNoLineContainsEndLineSubstring {
-            get {
-                return ResourceManager.GetString("InvalidOperationException_InvalidClippingNoLineContainsEndLineSubstring", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid clipping, no line contains start line substring &quot;{0}&quot;..
-        /// </summary>
-        internal static string InvalidOperationException_InvalidClippingNoLineContainsStartLineSubstring {
-            get {
-                return ResourceManager.GetString("InvalidOperationException_InvalidClippingNoLineContainsStartLineSubstring", resourceCulture);
             }
         }
     }

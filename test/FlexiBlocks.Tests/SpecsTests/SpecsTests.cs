@@ -32,19 +32,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         public void FlexiAlertBlocks_Spec2(string extensions)
         {
             //     --------------- Markdown ---------------
-            //     !This line will be the same as the next line.
-            //     ! This line will be the same as the previous line.
+            //     !This line will render identically to the next line.
+            //     ! This line will render identically to the previous line.
             //     --------------- Expected Markup ---------------
             //     <div class="fab-info">
             //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
             //     <div class="fab-content">
-            //     <p>This line will be the same as the next line.
-            //     This line will be the same as the previous line.</p>
+            //     <p>This line will render identically to the next line.
+            //     This line will render identically to the previous line.</p>
             //     </div>
             //     </div>
 
-            SpecTestHelper.AssertCompliance("!This line will be the same as the next line.\n! This line will be the same as the previous line.",
-                "<div class=\"fab-info\">\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z\"/></svg>\n<div class=\"fab-content\">\n<p>This line will be the same as the next line.\nThis line will be the same as the previous line.</p>\n</div>\n</div>",
+            SpecTestHelper.AssertCompliance("!This line will render identically to the next line.\n! This line will render identically to the previous line.",
+                "<div class=\"fab-info\">\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z\"/></svg>\n<div class=\"fab-content\">\n<p>This line will render identically to the next line.\nThis line will render identically to the previous line.</p>\n</div>\n</div>",
                 extensions);
         }
 
@@ -292,7 +292,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("@{ \"type\": \"closer-look\" }\n! This is a closer look at some topic.\n\n@{ \"type\": \"help\" }\n! This is a helpful tip.",
                 "<div class=\"fab-closer-look\">\n<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>\n<div class=\"fab-content\">\n<p>This is a closer look at some topic.</p>\n</div>\n</div>\n<div class=\"fab-help\">\n<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z\"/></svg>\n<div class=\"fab-content\">\n<p>This is a helpful tip.</p>\n</div>\n</div>",
-                extensions, 
+                extensions,
                 "{\n    \"flexiAlertBlocks\": {\n        \"iconMarkups\": {\n            \"closer-look\": \"<svg height=\\\"24\\\" viewBox=\\\"0 0 24 24\\\" width=\\\"24\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><path d=\\\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\\\"/></svg>\",\n            \"help\": \"<svg width=\\\"24\\\" height=\\\"24\\\" viewBox=\\\"0 0 24 24\\\"><path d=\\\"M0 0h24v24H0z\\\" fill=\\\"none\\\"/><path d=\\\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z\\\"/></svg>\"\n        }\n    }\n}");
         }
 
@@ -326,7 +326,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! This is a FlexiAlertBlock.",
                 "<div class=\"block alert-info\">\n<svg><use xlink:href=\"#alert-icon\"></use></svg>\n<div class=\"alert-content\">\n<p>This is a FlexiAlertBlock.</p>\n</div>\n</div>",
-                extensions, 
+                extensions,
                 "{\n    \"flexiAlertBlocks\": {\n        \"defaultBlockOptions\": {\n            \"iconMarkup\": \"<svg><use xlink:href=\\\"#alert-icon\\\"></use></svg>\",\n            \"classFormat\": \"alert-{0}\",\n            \"contentClass\": \"alert-content\",\n            \"attributes\": {\n                \"class\": \"block\"\n            }\n        }\n    }\n}");
         }
 
@@ -368,7 +368,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("! This is a FlexiAlertBlock\n\n@{\n    \"classFormat\": \"special-alert-{0}\"\n}\n! This is a FlexiAlertBlock with block specific options.",
                 "<div class=\"alert-info\">\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z\"/></svg>\n<div class=\"fab-content\">\n<p>This is a FlexiAlertBlock</p>\n</div>\n</div>\n<div class=\"special-alert-info\">\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z\"/></svg>\n<div class=\"fab-content\">\n<p>This is a FlexiAlertBlock with block specific options.</p>\n</div>\n</div>",
-                extensions, 
+                extensions,
                 "{\n    \"flexiAlertBlocks\": {\n        \"defaultBlockOptions\": {\n            \"classFormat\": \"alert-{0}\"\n        }\n    }\n}");
         }
     }
@@ -843,7 +843,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```",
                 "<div>\n<header>\n<span>ExampleDocument.cs</span>\n<svg><use xlink:href=\"#material-design-copy\"></use></svg>\n</header>\n<pre><code class=\"lang-csharp\"><span class=\"line highlight\"><span class=\"line-number\">1</span><span class=\"line-text\"><span class=\"highlightjs-function\"><span class=\"highlightjs-keyword\">public</span> <span class=\"highlightjs-keyword\">string</span> <span class=\"highlightjs-title\">ExampleFunction</span>(<span class=\"highlightjs-params\"><span class=\"highlightjs-keyword\">string</span> arg</span>)</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">2</span><span class=\"line-text\"></span>{</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">3</span><span class=\"line-text\">    <span class=\"highlightjs-comment\">// Example comment</span></span></span>\n<span class=\"line highlight\"><span class=\"line-number\">4</span><span class=\"line-text\">    <span class=\"highlightjs-keyword\">return</span> arg + <span class=\"highlightjs-string\">\"dummyString\"</span>;</span></span>\n<span class=\"line highlight\"><span class=\"line-number\">5</span><span class=\"line-text\">}</span></span></code></pre>\n</div>",
-                extensions, 
+                extensions,
                 "{\n    \"flexiCodeBlocks\": {\n        \"defaultBlockOptions\": {\n            \"copyIconMarkup\": \"<svg><use xlink:href=\\\"#material-design-copy\\\"></use></svg>\",\n            \"title\": \"ExampleDocument.cs\",\n            \"language\": \"csharp\",\n            \"codeClassFormat\": \"lang-{0}\",\n            \"syntaxHighlighter\": \"highlightJS\",\n            \"highlightJSClassPrefix\": \"highlightjs-\",\n            \"lineNumberRanges\": [{}],\n            \"highlightLineRanges\": [{}]\n        }\n    }\n}");
         }
 
@@ -909,8 +909,465 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
 
             SpecTestHelper.AssertCompliance("```\npublic string ExampleFunction1(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```\n\n@{\n    \"lineNumberRanges\": [\n        {\n            \"firstLineNumber\": 6\n        }\n    ]\n}\n```\npublic string ExampleFunction2(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```",
                 "<div>\n<header>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>\n</header>\n<pre><code><span class=\"line\"><span class=\"line-number\">1</span><span class=\"line-text\">public string ExampleFunction1(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">2</span><span class=\"line-text\">{</span></span>\n<span class=\"line\"><span class=\"line-number\">3</span><span class=\"line-text\">    // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">4</span><span class=\"line-text\">    return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">5</span><span class=\"line-text\">}</span></span></code></pre>\n</div>\n<div>\n<header>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>\n</header>\n<pre><code><span class=\"line\"><span class=\"line-number\">6</span><span class=\"line-text\">public string ExampleFunction2(string arg)</span></span>\n<span class=\"line\"><span class=\"line-number\">7</span><span class=\"line-text\">{</span></span>\n<span class=\"line\"><span class=\"line-number\">8</span><span class=\"line-text\">    // Example comment</span></span>\n<span class=\"line\"><span class=\"line-number\">9</span><span class=\"line-text\">    return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"line\"><span class=\"line-number\">10</span><span class=\"line-text\">}</span></span></code></pre>\n</div>",
-                extensions, 
+                extensions,
                 "{\n    \"flexiCodeBlocks\": {\n        \"defaultBlockOptions\": {\n            \"lineNumberRanges\": [{}]\n        }\n    }\n}");
+        }
+    }
+
+    public class FlexiIncludeBlocksSpecs
+    {
+        [Theory]
+        [InlineData("FlexiIncludeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec1(string extensions)
+        {
+            //     --------------- Markdown ---------------
+            //     +{ "type": "Markdown", "sourceUri": "./exampleInclude.md" }
+            //     --------------- Expected Markup ---------------
+            //     <p>This is example markdown.</p>
+
+            SpecTestHelper.AssertCompliance("+{ \"type\": \"Markdown\", \"sourceUri\": \"./exampleInclude.md\" }",
+                "<p>This is example markdown.</p>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec2(string extensions)
+        {
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "type": "Markdown",
+            //         "sourceUri": "./exampleInclude.md"    
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <p>This is example markdown.</p>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"type\": \"Markdown\",\n    \"sourceUri\": \"./exampleInclude.md\"    \n}",
+                "<p>This is example markdown.</p>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec3(string extensions)
+        {
+            //     --------------- Markdown ---------------
+            //     + {
+            //         "type": "Markdown",
+            //         "sourceUri": "./exampleInclude.md"    
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <ul>
+            //     <li>{
+            //     &quot;type&quot;: &quot;Markdown&quot;,
+            //     &quot;sourceUri&quot;: &quot;./exampleInclude.md&quot;<br />
+            //     }</li>
+            //     </ul>
+
+            SpecTestHelper.AssertCompliance("+ {\n    \"type\": \"Markdown\",\n    \"sourceUri\": \"./exampleInclude.md\"    \n}",
+                "<ul>\n<li>{\n&quot;type&quot;: &quot;Markdown&quot;,\n&quot;sourceUri&quot;: &quot;./exampleInclude.md&quot;<br />\n}</li>\n</ul>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec4(string extensions)
+        {
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "type": "markdown",
+            //         "sourceUri": "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md"
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <p>This is example markdown.</p>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"type\": \"markdown\",\n    \"sourceUri\": \"https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md\"\n}",
+                "<p>This is example markdown.</p>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec5(string extensions)
+        {
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "type": "markdown",
+            //         "baseUri": "https://raw.githubusercontent.com",
+            //         "sourceUri": "JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md"
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <p>This is example markdown.</p>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"type\": \"markdown\",\n    \"baseUri\": \"https://raw.githubusercontent.com\",\n    \"sourceUri\": \"JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md\"\n}",
+                "<p>This is example markdown.</p>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec6(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiCodeBlocks
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "type": "Code",
+            //         "sourceUri": "./exampleInclude.js"
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <div>
+            //     <header>
+            //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+            //     </header>
+            //     <pre><code>function exampleFunction(arg) {
+            //         // Example comment
+            //         return arg + 'dummyString';
+            //     }
+            //     
+            //     //#region utility methods
+            //     function add(a, b) {
+            //         return a + b;
+            //     }
+            //     //#endregion utility methods</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"type\": \"Code\",\n    \"sourceUri\": \"./exampleInclude.js\"\n}",
+                "<div>\n<header>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n    // Example comment\n    return arg + 'dummyString';\n}\n\n//#region utility methods\nfunction add(a, b) {\n    return a + b;\n}\n//#endregion utility methods</code></pre>\n</div>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec7(string extensions)
+        {
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "cacheOnDisk": false,
+            //         "type": "markdown",
+            //         "sourceURI": "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md"
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <p>This is example markdown.</p>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"cacheOnDisk\": false,\n    \"type\": \"markdown\",\n    \"sourceURI\": \"https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md\"\n}",
+                "<p>This is example markdown.</p>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec8(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiCodeBlocks
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "sourceUri": "./exampleInclude.js",
+            //         "clippings":[{"endLineNumber": 4}, {"startLineNumber": 7, "endLineNumber": 9}]
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <div>
+            //     <header>
+            //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+            //     </header>
+            //     <pre><code>function exampleFunction(arg) {
+            //         // Example comment
+            //         return arg + 'dummyString';
+            //     }
+            //     function add(a, b) {
+            //         return a + b;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"sourceUri\": \"./exampleInclude.js\",\n    \"clippings\":[{\"endLineNumber\": 4}, {\"startLineNumber\": 7, \"endLineNumber\": 9}]\n}",
+                "<div>\n<header>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n    // Example comment\n    return arg + 'dummyString';\n}\nfunction add(a, b) {\n    return a + b;\n}</code></pre>\n</div>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec9(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiCodeBlocks
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "sourceUri": "./exampleInclude.js",
+            //         "clippings":[{"startDemarcationLineSubstring": "#region utility methods", "endDemarcationLineSubstring": "#endregion utility methods"}]
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <div>
+            //     <header>
+            //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+            //     </header>
+            //     <pre><code>function add(a, b) {
+            //         return a + b;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"sourceUri\": \"./exampleInclude.js\",\n    \"clippings\":[{\"startDemarcationLineSubstring\": \"#region utility methods\", \"endDemarcationLineSubstring\": \"#endregion utility methods\"}]\n}",
+                "<div>\n<header>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>\n</header>\n<pre><code>function add(a, b) {\n    return a + b;\n}</code></pre>\n</div>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec10(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiCodeBlocks
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "sourceUri": "./exampleInclude.js",
+            //         "clippings":[{"startLineNumber": 7, "endDemarcationLineSubstring": "#endregion utility methods"}]
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <div>
+            //     <header>
+            //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+            //     </header>
+            //     <pre><code>function add(a, b) {
+            //         return a + b;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"sourceUri\": \"./exampleInclude.js\",\n    \"clippings\":[{\"startLineNumber\": 7, \"endDemarcationLineSubstring\": \"#endregion utility methods\"}]\n}",
+                "<div>\n<header>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>\n</header>\n<pre><code>function add(a, b) {\n    return a + b;\n}</code></pre>\n</div>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec11(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiCodeBlocks
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "sourceUri": "./exampleInclude.js",
+            //         "clippings":[{
+            //             "endLineNumber": 1,
+            //             "afterContent": "..."
+            //         },
+            //         {
+            //             "startLineNumber": 4,
+            //             "endLineNumber": 4
+            //         },
+            //         {
+            //             "startLineNumber": 7, 
+            //             "endLineNumber": 7,
+            //             "beforeContent": ""
+            //         },
+            //         {
+            //             "startLineNumber": 9, 
+            //             "endLineNumber": 9,
+            //             "beforeContent": "..."
+            //         }]
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <div>
+            //     <header>
+            //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+            //     </header>
+            //     <pre><code>function exampleFunction(arg) {
+            //     ...
+            //     }
+            //     
+            //     function add(a, b) {
+            //     ...
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"sourceUri\": \"./exampleInclude.js\",\n    \"clippings\":[{\n        \"endLineNumber\": 1,\n        \"afterContent\": \"...\"\n    },\n    {\n        \"startLineNumber\": 4,\n        \"endLineNumber\": 4\n    },\n    {\n        \"startLineNumber\": 7, \n        \"endLineNumber\": 7,\n        \"beforeContent\": \"\"\n    },\n    {\n        \"startLineNumber\": 9, \n        \"endLineNumber\": 9,\n        \"beforeContent\": \"...\"\n    }]\n}",
+                "<div>\n<header>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n...\n}\n\nfunction add(a, b) {\n...\n}</code></pre>\n</div>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec12(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiCodeBlocks
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "sourceUri": "./exampleInclude.js",
+            //         "clippings":[{"dedentLength": 2}],
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <div>
+            //     <header>
+            //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+            //     </header>
+            //     <pre><code>function exampleFunction(arg) {
+            //       // Example comment
+            //       return arg + 'dummyString';
+            //     }
+            //     
+            //     //#region utility methods
+            //     function add(a, b) {
+            //       return a + b;
+            //     }
+            //     //#endregion utility methods</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"sourceUri\": \"./exampleInclude.js\",\n    \"clippings\":[{\"dedentLength\": 2}],\n}",
+                "<div>\n<header>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n  // Example comment\n  return arg + 'dummyString';\n}\n\n//#region utility methods\nfunction add(a, b) {\n  return a + b;\n}\n//#endregion utility methods</code></pre>\n</div>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec13(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiCodeBlocks
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "sourceUri": "./exampleInclude.js",
+            //         "clippings":[{"collapseRatio": 0.5}]
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <div>
+            //     <header>
+            //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+            //     </header>
+            //     <pre><code>function exampleFunction(arg) {
+            //       // Example comment
+            //       return arg + 'dummyString';
+            //     }
+            //     
+            //     //#region utility methods
+            //     function add(a, b) {
+            //       return a + b;
+            //     }
+            //     //#endregion utility methods</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"sourceUri\": \"./exampleInclude.js\",\n    \"clippings\":[{\"collapseRatio\": 0.5}]\n}",
+                "<div>\n<header>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>\n</header>\n<pre><code>function exampleFunction(arg) {\n  // Example comment\n  return arg + 'dummyString';\n}\n\n//#region utility methods\nfunction add(a, b) {\n  return a + b;\n}\n//#endregion utility methods</code></pre>\n</div>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks_FlexiOptionsBlocks_FlexiCodeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec14(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiOptionsBlocks
+            //     FlexiCodeBlocks
+            //     --------------- Markdown ---------------
+            //     @{
+            //         "language": "javascript"
+            //     }
+            //     +{
+            //         "sourceUri": "./exampleInclude.js"
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <div>
+            //     <header>
+            //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+            //     </header>
+            //     <pre><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">exampleFunction</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            //         <span class="token comment">// Example comment</span>
+            //         <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">'dummyString'</span><span class="token punctuation">;</span>
+            //     <span class="token punctuation">}</span>
+            //     
+            //     <span class="token comment">//#region utility methods</span>
+            //     <span class="token keyword">function</span> <span class="token function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            //         <span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
+            //     <span class="token punctuation">}</span>
+            //     <span class="token comment">//#endregion utility methods</span></code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"language\": \"javascript\"\n}\n+{\n    \"sourceUri\": \"./exampleInclude.js\"\n}",
+                "<div>\n<header>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>\n</header>\n<pre><code class=\"language-javascript\"><span class=\"token keyword\">function</span> <span class=\"token function\">exampleFunction</span><span class=\"token punctuation\">(</span>arg<span class=\"token punctuation\">)</span> <span class=\"token punctuation\">{</span>\n    <span class=\"token comment\">// Example comment</span>\n    <span class=\"token keyword\">return</span> arg <span class=\"token operator\">+</span> <span class=\"token string\">'dummyString'</span><span class=\"token punctuation\">;</span>\n<span class=\"token punctuation\">}</span>\n\n<span class=\"token comment\">//#region utility methods</span>\n<span class=\"token keyword\">function</span> <span class=\"token function\">add</span><span class=\"token punctuation\">(</span>a<span class=\"token punctuation\">,</span> b<span class=\"token punctuation\">)</span> <span class=\"token punctuation\">{</span>\n    <span class=\"token keyword\">return</span> a <span class=\"token operator\">+</span> b<span class=\"token punctuation\">;</span>\n<span class=\"token punctuation\">}</span>\n<span class=\"token comment\">//#endregion utility methods</span></code></pre>\n</div>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec15(string extensions)
+        {
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "type": "Markdown",
+            //         "sourceUri": "./exampleIncludeWithNestedInclude.md"
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <p>This is example markdown with an include.</p>
+            //     <p>This is example markdown.</p>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"type\": \"Markdown\",\n    \"sourceUri\": \"./exampleIncludeWithNestedInclude.md\"\n}",
+                "<p>This is example markdown with an include.</p>\n<p>This is example markdown.</p>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec16(string extensions)
+        {
+            //     --------------- Markdown ---------------
+            //     - First item.
+            //     - Second item  
+            //     
+            //       +{
+            //           "type": "Markdown",
+            //           "sourceUri": "./exampleInclude.md"
+            //       }
+            //     - Third item
+            //     --------------- Expected Markup ---------------
+            //     <ul>
+            //     <li><p>First item.</p></li>
+            //     <li><p>Second item</p>
+            //     <p>This is example markdown.</p></li>
+            //     <li><p>Third item</p></li>
+            //     </ul>
+
+            SpecTestHelper.AssertCompliance("- First item.\n- Second item  \n\n  +{\n      \"type\": \"Markdown\",\n      \"sourceUri\": \"./exampleInclude.md\"\n  }\n- Third item",
+                "<ul>\n<li><p>First item.</p></li>\n<li><p>Second item</p>\n<p>This is example markdown.</p></li>\n<li><p>Third item</p></li>\n</ul>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec17(string extensions)
+        {
+            //     --------------- Markdown ---------------
+            //     > First line.
+            //     > +{
+            //     >     "type": "Markdown",
+            //     >     "sourceUri": "./exampleInclude.md"
+            //     > }
+            //     > Third line
+            //     --------------- Expected Markup ---------------
+            //     <blockquote>
+            //     <p>First line.</p>
+            //     <p>This is example markdown.</p>
+            //     <p>Third line</p>
+            //     </blockquote>
+
+            SpecTestHelper.AssertCompliance("> First line.\n> +{\n>     \"type\": \"Markdown\",\n>     \"sourceUri\": \"./exampleInclude.md\"\n> }\n> Third line",
+                "<blockquote>\n<p>First line.</p>\n<p>This is example markdown.</p>\n<p>Third line</p>\n</blockquote>",
+                extensions);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 
                 string extensionName = methodInfo.Name.Replace("Use", "");
                 ParameterInfo[] parameters = methodInfo.GetParameters();
-                if (parameters.Length > 1 && 
+                if (parameters.Length > 1 &&
                     parameters[1].ParameterType.GetInterfaces().Any(interfaceType => interfaceType.GetGenericTypeDefinition() == typeof(IFlexiBlocksExtensionOptions<>)))
                 {
                     // Assume that use methods only take extension options as arguments

@@ -64,44 +64,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
-        /// Creates a <see cref="FlexiBlocksException"/> instance representing an unexpected unrecoverable situation encountered when parsing markdown.
-        /// </summary>
-        /// <param name="lineIndex">The line index of the offending markdown.</param>
-        /// <param name="column">The column that the offending markdown starts at.</param>
-        public FlexiBlocksException(int lineIndex, int column) : this(lineIndex, column, null, null)
-        {
-        }
-
-        /// <summary>
-        /// Creates a <see cref="FlexiBlocksException"/> instance representing an unexpected unrecoverable situation encountered when parsing markdown.
-        /// </summary>
-        /// <param name="lineIndex">The line index of the offending markdown.</param>
-        /// <param name="column">The column that the offending markdown starts at.</param>
-        /// <param name="innerException">This exception's inner exception.</param>
-        public FlexiBlocksException(int lineIndex, int column, Exception innerException) : this(lineIndex, column, null, innerException)
-        {
-        }
-
-        /// <summary>
         /// Creates a <see cref="FlexiBlocksException"/> instance representing an unrecoverable situation encountered when parsing markdown.
         /// </summary>
-        /// <param name="lineIndex">The line index of the offending markdown.</param>
-        /// <param name="column">The column that the offending markdown starts at.</param>
-        /// <param name="description">A description of the problem.</param>
-        public FlexiBlocksException(int lineIndex, int column, string description) : this(lineIndex, column, description, null)
-        {
-        }
-
-        /// <summary>
-        /// Creates a <see cref="FlexiBlocksException"/> instance representing an unrecoverable situation encountered when parsing markdown.
-        /// </summary>
-        /// <param name="lineIndex">The line index of the offending markdown.</param>
+        /// <param name="lineNumber">The line number of the offending markdown.</param>
         /// <param name="column">The column that the offending markdown starts at.</param>
         /// <param name="description">A description of the problem.</param>
         /// <param name="innerException">This exception's inner exception.</param>
-        public FlexiBlocksException(int lineIndex, int column, string description, Exception innerException) : base(null, innerException)
+        public FlexiBlocksException(int lineNumber, int column, string description = null, Exception innerException = null) : base(null, innerException)
         {
-            LineNumber = lineIndex + 1;
+            LineNumber = lineNumber;
             Column = column;
             Description = description;
 
@@ -109,42 +80,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
-        /// Creates a <see cref="FlexiBlocksException"/> instance representing an unexpected unrecoverable situation encountered when processing a FlexiBlock.
-        /// </summary>
-        /// <param name="invalidFlexiBlock">The offending FlexiBlock.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="invalidFlexiBlock"/> is null.</exception>
-        public FlexiBlocksException(Block invalidFlexiBlock) : this(invalidFlexiBlock, null, null)
-        {
-        }
-
-        /// <summary>
-        /// Creates a <see cref="FlexiBlocksException"/> instance representing an unexpected unrecoverable situation encountered when processing a FlexiBlock.
-        /// </summary>
-        /// <param name="invalidFlexiBlock">The offending FlexiBlock.</param>
-        /// <param name="innerException">This exception's inner exception.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="invalidFlexiBlock"/> is null.</exception>
-        public FlexiBlocksException(Block invalidFlexiBlock, Exception innerException) : this(invalidFlexiBlock, null, innerException)
-        {
-        }
-
-        /// <summary>
         /// Creates a <see cref="FlexiBlocksException"/> instance representing an unrecoverable situation encountered when processing a FlexiBlock.
         /// </summary>
         /// <param name="invalidFlexiBlock">The offending FlexiBlock.</param>
-        /// <param name="description">A description of the problem.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="invalidFlexiBlock"/> is null.</exception>
-        public FlexiBlocksException(Block invalidFlexiBlock, string description) : this(invalidFlexiBlock, description, null)
-        {
-        }
-
-        /// <summary>
-        /// Creates a <see cref="FlexiBlocksException"/> instance representing an unrecoverable situation encountered when processing a FlexiBlock.
-        /// </summary>
-        /// <param name="invalidFlexiBlock">The offending FlexiBlock.</param>
+        /// <param name="lineNumber">The line number of the offending markdown.</param>
+        /// <param name="column">The column that the offending markdown starts at.</param>
         /// <param name="description">A description of the problem.</param>
         /// <param name="innerException">This exception's inner exception.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="invalidFlexiBlock"/> is null.</exception>
-        public FlexiBlocksException(Block invalidFlexiBlock, string description, Exception innerException) : base(null, innerException)
+        public FlexiBlocksException(Block invalidFlexiBlock, string description = null, Exception innerException = null, int? lineNumber = null, int? column = null) : base(null, innerException)
         {
             if (invalidFlexiBlock == null)
             {
@@ -152,8 +96,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             }
 
             Description = description;
-            LineNumber = invalidFlexiBlock.Line + 1;
-            Column = invalidFlexiBlock.Column;
+            LineNumber = lineNumber ?? invalidFlexiBlock.Line + 1;
+            Column = column ?? invalidFlexiBlock.Column;
             BlockTypeName = invalidFlexiBlock.GetType().Name;
 
             // Certain extensions use externally defined blocks, such as CodeBlock and Table.
@@ -202,29 +146,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         {
             get
             {
-                string description = Description;
-                if((InnerException as FlexiBlocksException)?.Context == Context.None)
-                {
-                    description = description == null ? InnerException.Message : description + "\n" + InnerException.Message;
-                }
-
                 if (Context == Context.Block) // The exception represents an unrecoverable situation encountered when processing a FlexiBlock.
                 {
                     return string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
                         BlockTypeName,
                         LineNumber,
                         Column,
-                        description ?? Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock);
+                        Description ?? Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock);
                 }
                 else if (Context == Context.Line) // The exception represents an unrecoverable situation encountered while parsing markdown.
                 {
                     return string.Format(Strings.FlexiBlocksException_InvalidMarkdown,
                         LineNumber,
                         Column,
-                        description ?? Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock);
+                        Description ?? Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock);
                 }
 
-                return base.Message + (description == null ? string.Empty : "\n" + description);
+                return base.Message;
             }
         }
     }

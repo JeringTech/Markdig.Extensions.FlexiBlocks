@@ -41,7 +41,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             }
             catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)
             {
-                throw new FlexiBlocksException(obj as Block, exception);
+                throw new FlexiBlocksException(obj as Block, innerException: exception);
             }
         }
     }

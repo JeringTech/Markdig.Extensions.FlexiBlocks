@@ -1,17 +1,17 @@
 ﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     /// <summary>
-    /// Include content types.
+    /// Include types.
     /// </summary>
-    public enum ContentType
+    public enum IncludeType
     {
         /// <summary>
-        /// Code include content.
+        /// Code.
         /// </summary>
         Code,
 
         /// <summary>
-        /// Markdown include content.
+        /// Markdown.
         /// </summary>
         Markdown
     }

@@ -39,8 +39,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             services.TryAddSingleton<FlexiCodeBlocksExtension>();
 
             // FlexiIncludeBlocks
-            services.TryAddSingleton<IFileCacheService, FileCacheService>();
-            services.TryAddSingleton<IContentRetrieverService, ContentRetrieverService>();
+            services.TryAddSingleton<IDiskCacheService, DiskCacheService>();
+            services.TryAddSingleton<ISourceRetrieverService, SourceRetrieverService>();
+            services.TryAddSingleton<ILeadingWhitespaceEditorService, LeadingWhitespaceEditorService>();
             services.TryAddSingleton<FlexiIncludeBlockParser>();
             services.TryAddSingleton<FlexiIncludeBlocksExtension>();
 

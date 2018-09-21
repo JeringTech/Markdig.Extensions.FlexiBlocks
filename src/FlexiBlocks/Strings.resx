@@ -141,11 +141,11 @@
   <data name="ArgumentOutOfRangeException_CountCannotBeNegativeOrGreaterThanTheNumberOfEmptyElementsInBuffer" xml:space="preserve">
     <value>Value cannot be negative or greater than the number of empty elements in buffer.</value>
   </data>
-  <data name="ArgumentOutOfRangeException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber" xml:space="preserve">
-    <value>End line number "{0}" with associated start line number "{1}" is invalid. Unless an end line number is -1, it cannot be less than its associated start line number.</value>
+  <data name="FlexiBlocksException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber" xml:space="preserve">
+    <value>The option {0} must be  -1 or not less than its associated start line number. The specified value "{1}" with associated start line number "{2}" is invalid. </value>
   </data>
-  <data name="ArgumentOutOfRangeException_LineNumberMustBeGreaterThan0" xml:space="preserve">
-    <value>"{0}" is not a valid line number. Line numbers must be greater than 0.</value>
+  <data name="FlexiBlocksException_OptionMustBeGreaterThan0" xml:space="preserve">
+    <value>The option {0} must be greater than 0. The specified value "{1}" is invalid.</value>
   </data>
   <data name="ArgumentOutOfRangeException_ValueCannotBeNegative" xml:space="preserve">
     <value>Value cannot be negative. The specified value "{0}" is invalid.</value>
@@ -156,16 +156,16 @@
   <data name="ArgumentOutOfRangeException_ValueMustBeWithinTheIntervalContainingBuffersIndices" xml:space="preserve">
     <value>Value must be within the interval containing "{0}"'s indices.</value>
   </data>
-  <data name="ContentRetrieverException_FailedAfterMultipleAttempts" xml:space="preserve">
-    <value>Multiple attempts retrieve content from "{0}" have failed. Please ensure that the Url is valid and that your network connection is stable. Enable debug level logging and try again for more information on why requests are failing.</value>
+  <data name="FlexiBlocksException_FlexiIncludeBlocks_FailedAfterMultipleAttempts" xml:space="preserve">
+    <value>Multiple attempts to retrieve content from the remote URI "{0}" have failed. Please ensure that the URI is valid and that your network connection is stable. Enable debug level logging and try again for more information on why requests are failing.</value>
   </data>
-  <data name="ContentRetrieverException_RemoteUriAccessForbidden" xml:space="preserve">
-    <value>Access to the remote Url "{0}" is forbidden.</value>
+  <data name="FlexiBlocksException_FlexiIncludeBlocks_RemoteUriAccessForbidden" xml:space="preserve">
+    <value>Access to the remote URI "{0}" is forbidden.</value>
   </data>
-  <data name="ContentRetrieverException_RemoteUriDoesNotExist" xml:space="preserve">
-    <value>The remote Url "{0}" does not exist.</value>
+  <data name="FlexiBlocksException_FlexiIncludeBlocks_RemoteUriDoesNotExist" xml:space="preserve">
+    <value>The remote URI "{0}" does not exist.</value>
   </data>
-  <data name="FlexiBlockException_OptionMustBeAValidUri" xml:space="preserve">
+  <data name="FlexiBlocksException_OptionMustBeAValidUri" xml:space="preserve">
     <value>The option {0} must be a valid URI. The specified value "{1}" is invalid.</value>
   </data>
   <data name="FlexiBlocksException_InvalidFlexiBlock" xml:space="preserve">
@@ -179,7 +179,7 @@
     <value>The markdown at line "{0}", column "{1}" is invalid:
 {2}</value>
   </data>
-  <data name="FlexiBlocksException_MispositionedFlexiOptionsBlock" xml:space="preserve">
+  <data name="FlexiBlocksException_FlexiOptionsBlocks_MispositionedBlock" xml:space="preserve">
     <value>FlexiOptionsBlock must immediately precede the block that consumes it.</value>
   </data>
   <data name="FlexiBlocksException_OptionCannotBeNullWhitespaceOrAnEmptyString" xml:space="preserve">
@@ -206,11 +206,11 @@
   <data name="FlexiBlocksException_UnableToSetOptions" xml:space="preserve">
     <value>Expected an "ExposedOptionsManager&lt;{0}&gt;" for service "IOptions&lt;{0}&gt;". Unable to set "{0}".</value>
   </data>
-  <data name="FlexiBlocksException_UnconsumedFlexiOptionsBlock" xml:space="preserve">
+  <data name="FlexiBlocksException_FlexiOptionsBlocks_UnconsumedBlock" xml:space="preserve">
     <value>FlexiOptionsBlock must be consumed.</value>
   </data>
   <data name="FlexiBlocksException_ExceptionOccurredWhileProcessingABlock" xml:space="preserve">
-    <value>An exception occurred while processing a block. Refer to the inner exception for more details.</value>
+    <value>An exception occurred while processing the block. Refer to the inner exception for more details.</value>
   </data>
   <data name="FlexiBlocksException_ExceptionOccurredWhileAttemptingToOpenBlock" xml:space="preserve">
     <value>An exception occurred in "{0}" while attempting to open a block. Refer to the inner exception for more details.</value>
@@ -218,17 +218,44 @@
   <data name="HttpRequestException_UnsuccessfulRequest" xml:space="preserve">
     <value>Request to "{0}" failed with status code "{1}" and message "{2}".</value>
   </data>
-  <data name="FlexiBlockException_FlexiIncludeBlocksCycle" xml:space="preserve">
-    <value>The following cycle was found in the FlexiIncludeBlocks tree: 
+  <data name="FlexiBlocksException_FlexiIncludeBlocks_CycleFound" xml:space="preserve">
+    <value>The following cycle was found in the FlexiIncludeBlock tree: 
 {0}</value>
   </data>
-  <data name="InvalidOperationException_InvalidClippingNoLineContainsEndLineSubstring" xml:space="preserve">
+  <data name="FlexiBlocksException_FlexiIncludeBlocks_InvalidClippingNoLineContainsEndLineSubstring" xml:space="preserve">
     <value>Invalid clipping, no line contains end line substring "{0}".</value>
   </data>
-  <data name="InvalidOperationException_InvalidClippingNoLineContainsStartLineSubstring" xml:space="preserve">
+  <data name="FlexiBlocksException_FlexiIncludeBlocks_InvalidClippingNoLineContainsStartLineSubstring" xml:space="preserve">
     <value>Invalid clipping, no line contains start line substring "{0}".</value>
   </data>
   <data name="FlexiBlocksException_OptionMustBeAUriWithASupportedScheme" xml:space="preserve">
     <value>The option {0} must be a URI with scheme FILE, HTTP or HTTPS. The specified URI "{1}" has invalid scheme "{2}".</value>
+  </data>
+  <data name="FlexiBlocksException_OptionMustBeWithinRange" xml:space="preserve">
+    <value>The option {0} must be within the range "{1}". The specified value "{2}" is invalid.</value>
+  </data>
+  <data name="FlexiBlocksException_FlexiIncludeBlocks_InvalidDiskCacheDirectory" xml:space="preserve">
+    <value>The disk cache directory "{0}" is invalid. Refer to the inner exception for more details.</value>
+  </data>
+  <data name="FlexiBlocksException_FlexiIncludeBlocks_UnexpectedDiskCacheException" xml:space="preserve">
+    <value>An unexpected exception occurred when attempting to retrieve the source for "{0}", from the disk cache at "{1}". Refer to the inner exception for more information.</value>
+  </data>
+  <data name="FlexiBlocksException_OptionsMustNotBeNull" xml:space="preserve">
+    <value>The option {0} cannot be null.</value>
+  </data>
+  <data name="FlexiBlocksException_FlexiIncludeBlocks_InvalidLocalUri" xml:space="preserve">
+    <value>The local URI "{0}" is invalid. Refer to the inner exception for more details.</value>
+  </data>
+  <data name="ArgumentException_PropertyAlreadyHasAValue" xml:space="preserve">
+    <value>The property "{0}" already has a value.</value>
+  </data>
+  <data name="FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource" xml:space="preserve">
+    <value>An exception occured while processing the FlexiIncludeBlock's source, "{0}". Refer to the inner exception for more details.</value>
+  </data>
+  <data name="FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingContent" xml:space="preserve">
+    <value>An exception occured while processing the FlexiIncludeBlock's {0}. Refer to the inner exception for more details.</value>
+  </data>
+  <data name="FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingBlock" xml:space="preserve">
+    <value>An exception occured while processing the FlexiIncludeBlock.</value>
   </data>
 </root>
