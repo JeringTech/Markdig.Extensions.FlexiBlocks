@@ -23,11 +23,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <summary>
         /// Creates a <see cref="FlexiAlertBlockOptions"/> instance.
         /// </summary>
-        /// <param name="iconMarkup">
-        /// <para>The markup for the <see cref="FlexiAlertBlock" />'s icon.</para>
-        /// <para>If this value is null, whitespace or an empty string, an attempt is made to retrieve icon markup for this block's
-        /// type from <see cref="FlexiAlertBlocksExtensionOptions"/>, failing which, no icon is rendered.</para>
-        /// <para>Defaults to null.</para>
+        /// <param name="type">
+        /// <para>The <see cref="FlexiAlertBlock"/>'s type.</para>
+        /// <para>If this value is null, whitespace or an empty string, the <see cref="FlexiAlertBlock"/> will have no type.</para>
+        /// <para>Defaults to "info".</para>
         /// </param>
         /// <param name="classFormat">
         /// <para>The format for the <see cref="FlexiAlertBlock" />'s outermost element's class.</para>
@@ -35,15 +34,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <para>If this value is null, whitespace or an empty string, no class is assigned.</para>
         /// <para>Defaults to "fab-{0}".</para>
         /// </param>
+        /// <param name="iconMarkup">
+        /// <para>The markup for the <see cref="FlexiAlertBlock" />'s icon.</para>
+        /// <para>If this value is null, whitespace or an empty string, an attempt is made to retrieve icon markup for this block's
+        /// type from <see cref="FlexiAlertBlocksExtensionOptions"/>, failing which, no icon is rendered.</para>
+        /// <para>Defaults to null.</para>
+        /// </param>
         /// <param name="contentClass">
         /// <para>The class of the <see cref="FlexiAlertBlock" />'s content wrapper.</para>  
         /// <para>If this value is null, whitespace or an empty string, no class is assigned.</para>
         /// <para>Defaults to "fab-content".</para>
-        /// </param>
-        /// <param name="type">
-        /// <para>The <see cref="FlexiAlertBlock"/>'s type.</para>
-        /// <para>If this value is null, whitespace or an empty string, the <see cref="FlexiAlertBlock"/> will have no type.</para>
-        /// <para>Defaults to "info".</para>
         /// </param>
         /// <param name="attributes">
         /// <para>The HTML attributes for the <see cref="FlexiAlertBlock"/>'s outermost element.</para>
@@ -51,10 +51,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <para>Defaults to null.</para>
         /// </param>
         public FlexiAlertBlockOptions(
-            string iconMarkup = default,
-            string classFormat = _defaultClassFormat,
-            string contentClass = _defaultContentClass,
             string type = _defaultType,
+            string classFormat = _defaultClassFormat,
+            string iconMarkup = default,
+            string contentClass = _defaultContentClass,
             IDictionary<string, string> attributes = default) : base(attributes)
         {
             IconMarkup = iconMarkup;
@@ -66,10 +66,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         }
 
         /// <summary>
-        /// Gets or sets the markup for the <see cref="FlexiAlertBlock" />'s icon.
+        /// Gets or sets the <see cref="FlexiAlertBlock"/>'s type.
         /// </summary>
         [JsonProperty]
-        public string IconMarkup { get; internal set; }
+        public string Type { get; private set; }
 
         /// <summary>
         /// Gets or sets the format for the <see cref="FlexiAlertBlock" />'s outermost element's class.
@@ -83,16 +83,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         public string Class { get; private set; }
 
         /// <summary>
+        /// Gets or sets the markup for the <see cref="FlexiAlertBlock" />'s icon.
+        /// </summary>
+        [JsonProperty]
+        public string IconMarkup { get; internal set; }
+
+        /// <summary>
         /// Gets or sets the class of the <see cref="FlexiAlertBlock" />'s content wrapper.  
         /// </summary>
         [JsonProperty]
         public string ContentClass { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="FlexiAlertBlock"/>'s type.
-        /// </summary>
-        [JsonProperty]
-        public string Type { get; private set; }
 
         /// <summary>
         /// Validates options and populates generated properties.

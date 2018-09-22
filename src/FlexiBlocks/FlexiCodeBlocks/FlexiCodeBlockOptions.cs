@@ -45,8 +45,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// </param>
         /// <param name="codeClassFormat">
         /// <para>The format for the FlexiCodeBlock's code element's class.</para>
-        /// <para><see cref="Language"/> will replace "{0}" in the format.</para>
-        /// <para>If this value is null, whitespace or an empty string, no class is assigned to the code element.</para>
+        /// <para>The FlexiCodeBlock's language will replace "{0}" in the format.</para>
+        /// <para>If this value or the FlexiCodeBlock's language are null, whitespace or an empty string, no class is assigned to the code element.</para>
         /// <para>Defaults to "language-{0}".</para>
         /// </param>
         /// <param name="syntaxHighlighter">
