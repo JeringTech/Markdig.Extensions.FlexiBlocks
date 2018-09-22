@@ -771,6 +771,43 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     FlexiOptionsBlocks
             //     --------------- Markdown ---------------
             //     @{
+            //         "lineEmbellishmentClassesPrefix": "le-",
+            //         "highlightLineRanges": [{}],
+            //         "lineNumberRanges": [{}]
+            //     }
+            //     ```
+            //     public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + "dummyString";
+            //     }
+            //     ```
+            //     --------------- Expected Markup ---------------
+            //     <div>
+            //     <header>
+            //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+            //     </header>
+            //     <pre><code><span class="le-line le-highlight"><span class="le-line-number">1</span><span class="le-line-text">public string ExampleFunction(string arg)</span></span>
+            //     <span class="le-line le-highlight"><span class="le-line-number">2</span><span class="le-line-text">{</span></span>
+            //     <span class="le-line le-highlight"><span class="le-line-number">3</span><span class="le-line-text">    // Example comment</span></span>
+            //     <span class="le-line le-highlight"><span class="le-line-number">4</span><span class="le-line-text">    return arg + &quot;dummyString&quot;;</span></span>
+            //     <span class="le-line le-highlight"><span class="le-line-number">5</span><span class="le-line-text">}</span></span></code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"lineEmbellishmentClassesPrefix\": \"le-\",\n    \"highlightLineRanges\": [{}],\n    \"lineNumberRanges\": [{}]\n}\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```",
+                "<div>\n<header>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>\n</header>\n<pre><code><span class=\"le-line le-highlight\"><span class=\"le-line-number\">1</span><span class=\"le-line-text\">public string ExampleFunction(string arg)</span></span>\n<span class=\"le-line le-highlight\"><span class=\"le-line-number\">2</span><span class=\"le-line-text\">{</span></span>\n<span class=\"le-line le-highlight\"><span class=\"le-line-number\">3</span><span class=\"le-line-text\">    // Example comment</span></span>\n<span class=\"le-line le-highlight\"><span class=\"le-line-number\">4</span><span class=\"le-line-text\">    return arg + &quot;dummyString&quot;;</span></span>\n<span class=\"le-line le-highlight\"><span class=\"le-line-number\">5</span><span class=\"le-line-text\">}</span></span></code></pre>\n</div>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiCodeBlocks_FlexiOptionsBlocks")]
+        [InlineData("All")]
+        public void FlexiCodeBlocks_Spec12(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiOptionsBlocks
+            //     --------------- Markdown ---------------
+            //     @{
             //         "attributes": {
             //             "id" : "code-1",
             //             "class" : "fcb"
@@ -803,7 +840,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiCodeBlocks")]
         [InlineData("All")]
-        public void FlexiCodeBlocks_Spec12(string extensions)
+        public void FlexiCodeBlocks_Spec13(string extensions)
         {
             //     --------------- Extension Options ---------------
             //     {
@@ -850,7 +887,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiCodeBlocks_FlexiOptionsBlocks")]
         [InlineData("All")]
-        public void FlexiCodeBlocks_Spec13(string extensions)
+        public void FlexiCodeBlocks_Spec14(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiOptionsBlocks
