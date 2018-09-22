@@ -1,5 +1,5 @@
 # FlexiCodeBlocks
-FlexiCodeBlocks contain code. The FlexiCodeBlocks extension enhances code blocks with features like syntax highlighting,
+FlexiCodeBlocks contain code. They enhance code with aesthetic and functional features like syntax highlighting,
 line highlighting, line numbering and more.
 
 ## Basic Syntax
@@ -53,11 +53,10 @@ The following is an indented FlexiCodeBlock:
 
 ## Options
 
-
-## `LineRange`
+### `LineRange`
 Represents a range of lines. Used by [FlexiCodeBlockOptions](#flexicodeblockoptions).
 
-### Properties
+#### Properties
 - `StartLineNumber`
   - Type: `int`
   - Description: Start line number of this range.
@@ -69,10 +68,10 @@ Represents a range of lines. Used by [FlexiCodeBlockOptions](#flexicodeblockopti
     If this value is -1, this range extends to the last line. If it is not -1, it must be greater than or equal to `StartLineNumber`.
   - Default: `-1`
 
-## `LineNumberRange`
+### `LineNumberRange`
 Represents a range of line numbers for a range of lines. Used by [FlexiCodeBlockOptions](#flexicodeblockoptions).
 
-### Properties
+#### Properties
 - `StartLineNumber`
   - Type: `int`
   - Description: Start line number of the range of lines that this `LineNumberRange` applies to.
@@ -89,12 +88,12 @@ Represents a range of line numbers for a range of lines. Used by [FlexiCodeBlock
     This value must be greater than 0.
   - Default: `1`
 
-## `FlexiCodeBlockOptions`
+### `FlexiCodeBlockOptions`
 Options for a FlexiCodeBlock. To specify FlexiCodeBlockOptions for a FlexiCodeBlock, the 
 [FlexiOptionsBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled. To specify default FlexiCodeBlockOptions for all FlexiCodeBlocks,
 use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
 
-### Properties
+#### Properties
 - `CopyIconMarkup`
   - Type: `string`
   - Description: The markup for the FlexiCodeBlock's copy icon.
@@ -501,7 +500,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     </div>
     ````````````````````````````````
 
-## `FlexiCodeBlocksExtensionOptions`
+### `FlexiCodeBlocksExtensionOptions`
 Global options for FlexiCodeBlocks. These options can be used to define defaults for all FlexiCodeBlocks. They have
 lower precedence than block specific options specified using the FlexiOptionsBlocks extension.  
 
@@ -510,7 +509,7 @@ FlexiCodeBlocksExtensionOptions can be specified when enabling the FlexiCodeBloc
 MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
 ```
 
-### Properties
+#### Properties
 - DefaultBlockOptions
   - Type: `FlexiCodeBlockOptions`
   - Description: Default `FlexiCodeBlockOptions` for all FlexiCodeBlocks. 

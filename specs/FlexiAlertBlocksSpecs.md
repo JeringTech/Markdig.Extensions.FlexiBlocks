@@ -1,5 +1,5 @@
 ﻿# FlexiAlertBlocks
-FlexiAlertBlocks contain tangential content, such as extra information and warnings. The FlexiAlertBlocks extension facilitates consistent presentation of
+FlexiAlertBlocks contain tangential content, such as extra information and warnings. They facilitate consistent presentation of
 different types of tangential content. For example, warnings may be rendered in red boxes with exclamation marks as icons.
 
 ## Basic Syntax
@@ -99,12 +99,12 @@ A blank line closes a FlexiAlertBlock:
 
 ## Options
 
-## `FlexiAlertBlockOptions`
+### `FlexiAlertBlockOptions`
 Options for a FlexiAlertBlock. To specify FlexiAlertBlockOptions for a FlexiAlertBlock, the 
 [FlexiOptionsBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled. To specify default FlexiAlertBlockOptions for all FlexiAlertBlocks,
 use [FlexiAlertBlocksExtensionOptions](#flexialertblocksextensionoptions).
 
-### Properties
+#### Properties
 - `Type`
   - Type: `string`
   - Description: The FlexiAlertBlock's type. If this value is null, whitespace or an empty string, the FlexiAlertBlock will have no type.
@@ -229,7 +229,7 @@ use [FlexiAlertBlocksExtensionOptions](#flexialertblocksextensionoptions).
     prepended to the generated class. In the above example, this results in the outermost element's class attribute having the value 
     `block fab-info`.
 
-## `FlexiAlertBlocksExtensionOptions`
+### `FlexiAlertBlocksExtensionOptions`
 Global options for FlexiAlertBlocks. These options can be used to define defaults for all FlexiAlertBlocks. They have
 lower precedence than block specific options specified using the FlexiOptionsBlocks extension.  
 
@@ -238,7 +238,7 @@ FlexiAlertBlocksExtensionOptions can be specified when enabling the FlexiAlertBl
 MyMarkdownPipelineBuilder.UseFlexiAlertBlocks(myFlexiAlertBlocksExtensionOptions);
 ```
 
-### Properties
+#### Properties
 - IconMarkups
   - Type: `Dictionary<string, string>`
   - Description: A map of FlexiAlertBlock types to icon markups. Add markups for custom FlexiAlertBlock types to this dictionary.
