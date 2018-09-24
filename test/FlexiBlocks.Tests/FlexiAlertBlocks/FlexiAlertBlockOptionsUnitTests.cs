@@ -47,10 +47,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                 new object[]
                 {
                     new SerializableWrapper<FlexiAlertBlockOptions>(new FlexiAlertBlockOptions()),
-                    new SerializableWrapper<FlexiAlertBlockOptions>(new FlexiAlertBlockOptions(dummyIconMarkup,
+                    new SerializableWrapper<FlexiAlertBlockOptions>(new FlexiAlertBlockOptions(dummyType,
                         dummyClassFormat,
+                        dummyIconMarkup,
                         dummyContentClass,
-                        dummyType,
                         dummyAttributes1)),
                     $@"{{
     ""{nameof(FlexiAlertBlockOptions.IconMarkup)}"": ""{dummyIconMarkup}"",

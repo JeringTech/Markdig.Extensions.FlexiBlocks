@@ -157,7 +157,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
 
         public class ExposedFlexiAlertBlockParser : FlexiAlertBlockParser
         {
-            public ExposedFlexiAlertBlockParser(IOptions<FlexiAlertBlocksExtensionOptions> extensionOptionsAccessor, IFlexiOptionsBlockService flexiOptionsBlockService) : 
+            public ExposedFlexiAlertBlockParser(IOptions<FlexiAlertBlocksExtensionOptions> extensionOptionsAccessor, IFlexiOptionsBlockService flexiOptionsBlockService) :
                 base(extensionOptionsAccessor, flexiOptionsBlockService)
             {
             }

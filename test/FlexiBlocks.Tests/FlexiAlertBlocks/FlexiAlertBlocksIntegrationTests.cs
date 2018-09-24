@@ -13,10 +13,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
     {
         [Theory]
         [MemberData(nameof(FlexiAlertBlockParser_ThrowsFlexiBlocksExceptionsWithBlockContext_Data))]
-        public void FlexiAlertBlockParser_ThrowsFlexiBlocksExceptionsWithBlockContext(string dummyMarkdown, string expectedMessage)
+        public void FlexiAlertBlockParser_ThrowsFlexiBlocksExceptionsWithBlockContext(string dummyMarkdown, string expectedExceptionMessage, string expectedInnerExceptionMessage)
         {
             // Arrange
-            // Need to dispose of services between tests so that FileCacheService's in memory cache doesn't affect results
+            // Need to dispose of services between tests so that DiskCacheService's in memory cache doesn't affect results
             var services = new ServiceCollection();
             services.AddFlexiBlocks();
             IServiceProvider serviceProvider = services.BuildServiceProvider();
@@ -30,7 +30,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
 
                 // Act and assert
                 FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => MarkdownParser.Parse(dummyMarkdown, dummyMarkdownPipeline));
-                Assert.Equal(expectedMessage, result.Message);
+                Assert.Equal(expectedExceptionMessage, result.Message);
+                Assert.Equal(expectedInnerExceptionMessage, result.InnerException.Message);
             }
         }
 
@@ -45,7 +46,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
 }
 ! This is an alert block.",
                     string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiOptionsBlock), 1, 0,
-                        string.Format(Strings.FlexiBlocksException_OptionIsAnInvalidFormat, "ClassFormat", "dummy-{0}-{1}"))
+                        Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
+                    string.Format(Strings.FlexiBlocksException_OptionIsAnInvalidFormat, "ClassFormat", "dummy-{0}-{1}")
                 }
             };
         }
