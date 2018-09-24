@@ -156,8 +156,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             IOptions<FlexiCodeBlocksExtensionOptions> extensionOptionsAccessor = null,
             IFlexiOptionsBlockService flexiOptionsBlockService = null)
         {
-            return _mockRepository.Create<ExposedFlexiCodeBlocksExtension>(flexiCodeBlockRenderer ?? CreateFlexiCodeBlockRenderer(), 
-                extensionOptionsAccessor ?? CreateExtensionOptionsAccessor(), 
+            return _mockRepository.Create<ExposedFlexiCodeBlocksExtension>(flexiCodeBlockRenderer ?? CreateFlexiCodeBlockRenderer(),
+                extensionOptionsAccessor ?? CreateExtensionOptionsAccessor(),
                 flexiOptionsBlockService ?? _mockRepository.Create<IFlexiOptionsBlockService>().Object);
         }
 
