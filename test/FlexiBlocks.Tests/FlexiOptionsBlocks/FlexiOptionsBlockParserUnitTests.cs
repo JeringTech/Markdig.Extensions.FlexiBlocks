@@ -100,7 +100,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
                     typeof(FlexiOptionsBlock).Name,
                     dummyLineIndex + 1,
                     dummyColumn,
-                    Strings.FlexiBlocksException_UnconsumedFlexiOptionsBlock),
+                    Strings.FlexiBlocksException_FlexiOptionsBlocks_UnconsumedBlock),
                 result.Message);
         }
 

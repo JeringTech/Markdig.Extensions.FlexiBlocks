@@ -12,7 +12,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
 {
     public class FlexiOptionsBlockServiceUnitTests
     {
-        private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
+        private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Empty };
 
         [Fact]
         public void TryExtractOptions_ReturnsNullIfNoFlexiOptionsBlockExists()
@@ -86,7 +86,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
                     typeof(FlexiOptionsBlock).Name,
                     dummyStartLineNumber,
                     dummyColumn,
-                    dummyInnerFlexiBlocksExceptionMessage),
+                    Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
                 result.Message);
             Assert.Same(dummyInnerFlexiBlocksException, result.InnerException);
         }
@@ -177,7 +177,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
                     typeof(FlexiOptionsBlock).Name,
                     dummyStartLineNumber,
                     dummyColumn,
-                    dummyInnerFlexiBlocksExceptionMessage),
+                    Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
                 result.Message);
             Assert.Same(dummyInnerFlexiBlocksException, result.InnerException);
         }
@@ -232,7 +232,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
                     typeof(FlexiOptionsBlock).Name,
                     dummyLineIndex + 1,
                     dummyColumn,
-                    Strings.FlexiBlocksException_MispositionedFlexiOptionsBlock),
+                    Strings.FlexiBlocksException_FlexiOptionsBlocks_MispositionedBlock),
                 result.Message);
         }
 
