@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
@@ -12,8 +11,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
     /// </summary>
     public class FlexiIncludeBlockOptions : FlexiBlockOptions<FlexiIncludeBlockOptions>
     {
-        // We only support a subset of schemes. For the full list of schemes, see https://docs.microsoft.com/en-sg/dotnet/api/system.uri.scheme?view=netstandard-2.0#System_Uri_Scheme
-        private static readonly string[] _supportedSchemes = new string[] { "file", "http", "https" };
         private const string _defaultSourceUri = "";
         private const IncludeType _defaultIncludeType = IncludeType.Code;
         private const bool _defaultCacheOnDisk = true;
@@ -25,13 +22,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <para>The URI of the source.</para>
         /// <para>This value must either be a relative URI or an absolute URI with scheme file, http or https.</para>
         /// <para>Defaults to <see cref="string.Empty"/>.</para>
-        /// </param>
-        /// <param name="baseUri">
-        /// <para>The base for the source URI.</para>
-        /// <para>This option is only relevant if the source URI is a relative URI.</para>
-        /// <para>If this value is null, whitespace or an empty string, the application's current directory is used instead.</para>
-        /// <para>Otherwise, it must be an absolute URI with scheme file, http or https.</para>
-        /// <para>Defaults to null.</para>
         /// </param>
         /// <param name="type">
         /// <para>The <see cref="FlexiIncludeBlock"/>'s type.</para>
@@ -57,14 +47,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <para>Defaults to null.</para>
         /// </param>
         public FlexiIncludeBlockOptions(string sourceUri = _defaultSourceUri,
-            string baseUri = default,
             IncludeType type = _defaultIncludeType,
             bool cacheOnDisk = _defaultCacheOnDisk,
             string diskCacheDirectory = default,
             IList<Clipping> clippings = default) : base(null)
         {
             SourceUri = sourceUri;
-            BaseUri = baseUri;
             Type = type;
             CacheOnDisk = cacheOnDisk;
             DiskCacheDirectory = diskCacheDirectory;
@@ -78,17 +66,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// </summary>
         [JsonProperty]
         public string SourceUri { get; private set; }
-
-        /// <summary>
-        /// Gets the base for the source URI.
-        /// </summary>
-        [JsonProperty]
-        public string BaseUri { get; private set; }
-
-        /// <summary>
-        /// Gets the normalized URI of the source.
-        /// </summary>
-        public Uri NormalizedSourceUri { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="FlexiIncludeBlock"/>'s type.
@@ -124,10 +101,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// Validates options and populates generated properties.
         /// </summary>
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="SourceUri"/> is null.</exception>
-        /// <exception cref="FlexiBlocksException">Thrown if <see cref="SourceUri"/> is an absolute URI with an invalid scheme.</exception>
-        /// <exception cref="FlexiBlocksException">Thrown if <see cref="BaseUri"/> is not an absolute URI.</exception>
-        /// <exception cref="FlexiBlocksException">Thrown if <see cref="BaseUri"/> has an invalid scheme.</exception>
-        /// <exception cref="FlexiBlocksException">Thrown if <see cref="SourceUri"/> is not a valid URI.</exception>
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="Type"/> is not within the range of valid values for the enum <see cref="IncludeType"/>.</exception>
         protected override void ValidateAndPopulate()
         {
@@ -135,45 +108,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             {
                 throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionsMustNotBeNull, nameof(SourceUri)));
             }
-
-            if (Uri.TryCreate(SourceUri, UriKind.Absolute, out Uri normalizedSourceUri))
-            {
-                // Invalid scheme
-                if (!_supportedSchemes.Contains(normalizedSourceUri.Scheme))
-                {
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeAUriWithASupportedScheme,
-                        nameof(SourceUri),
-                        SourceUri,
-                        normalizedSourceUri.Scheme));
-                }
-            }
-            else // SourceUri is not an absolute URI
-            {
-                string baseUri = string.IsNullOrWhiteSpace(BaseUri) ? Directory.GetCurrentDirectory() + "/" : BaseUri;
-
-                // Normalize the base URI. A base URI must be absolute, see http://www.ietf.org/rfc/rfc3986.txt, section 5.1
-                if (!Uri.TryCreate(baseUri, UriKind.Absolute, out Uri normalizedBaseUri))
-                {
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeAnAbsoluteUri, nameof(BaseUri), BaseUri));
-                }
-
-                // Invalid scheme
-                if (!_supportedSchemes.Contains(normalizedBaseUri.Scheme))
-                {
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeAUriWithASupportedScheme,
-                        nameof(BaseUri),
-                        BaseUri,
-                        normalizedBaseUri.Scheme));
-                }
-
-                if (!Uri.TryCreate(normalizedBaseUri, SourceUri, out normalizedSourceUri))
-                {
-                    // If we get to this point, SourceUri is neither a valid absolute URI nor a valid relative URI
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeAValidUri, nameof(SourceUri), SourceUri));
-                }
-            }
-
-            NormalizedSourceUri = normalizedSourceUri;
 
             if (!Enum.IsDefined(typeof(IncludeType), Type))
             {

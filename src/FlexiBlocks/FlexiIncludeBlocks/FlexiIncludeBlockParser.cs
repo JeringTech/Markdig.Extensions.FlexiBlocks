@@ -74,7 +74,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 return BlockState.None;
             }
 
-            var flexiIncludeBlock = new FlexiIncludeBlock(this)
+            // Get or create stack
+            Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks = GetOrCreateStack(processor);
+
+            var flexiIncludeBlock = new FlexiIncludeBlock(closingFlexiIncludeBlocks.FirstOrDefault(), this)
             {
                 Column = processor.Column,
                 Span = { Start = processor.Start } // FlexiOptionsBlock.ParseLine will update the span's end
@@ -138,25 +141,27 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             try
             {
                 // Create options
-                FlexiIncludeBlockOptions flexiIncludeBlockOptions = flexiIncludeBlock.FlexiIncludeBlockOptions = CreateFlexiIncludeBlockOptions(flexiIncludeBlock);
+                SetupFlexiIncludeBlock(flexiIncludeBlock);
 
-                if (flexiIncludeBlockOptions.Type == IncludeType.Markdown)
+                // If the FlexiIncludeBlock's type is markdown, we need to ensure that we don't have a cycle of includes.  
+                Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks = null;
+                if (flexiIncludeBlock.FlexiIncludeBlockOptions.Type == IncludeType.Markdown)
                 {
-                    // If FlexiIncludeBlock's type is markdown, we need to ensure that we don't have a cycle of includes. 
-                    CheckForCycle(processor, flexiIncludeBlock);
+                    closingFlexiIncludeBlocks = GetOrCreateStack(processor);
+                    CheckForCycle(closingFlexiIncludeBlocks, flexiIncludeBlock);
                 }
 
                 // Retrieve source
-                ReadOnlyCollection<string> source = _sourceRetrieverService.GetSource(flexiIncludeBlockOptions.NormalizedSourceUri,
-                    flexiIncludeBlockOptions.ResolvedDiskCacheDirectory);
+                ReadOnlyCollection<string> source = _sourceRetrieverService.GetSource(flexiIncludeBlock.AbsoluteSourceUri,
+                    flexiIncludeBlock.FlexiIncludeBlockOptions.ResolvedDiskCacheDirectory);
 
                 // Convert source into blocks and replace flexiIncludeBlock with the newly created blocks
                 ReplaceFlexiIncludeBlock(processor, flexiIncludeBlock, source);
 
                 // Remove FlexiIncludeBlock from graph used to check for cycles
-                if (flexiIncludeBlockOptions.Type == IncludeType.Markdown)
+                if (flexiIncludeBlock.FlexiIncludeBlockOptions.Type == IncludeType.Markdown)
                 {
-                    ((Stack<FlexiIncludeBlock>)processor.Document.GetData(CLOSING_FLEXI_INCLUDE_BLOCKS_KEY)).Pop();
+                    closingFlexiIncludeBlocks.Pop();
                 }
             }
             catch (Exception exception)
@@ -168,8 +173,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 }
                 else if (flexiIncludeBlock.ClippingProcessingStage == ClippingProcessingStage.Source)
                 {
-                    description = string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource,
-                        flexiIncludeBlock.FlexiIncludeBlockOptions.NormalizedSourceUri.AbsoluteUri);
+                    description = string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource, flexiIncludeBlock.AbsoluteSourceUri.AbsoluteUri);
                 }
                 else // Before or after content
                 {
@@ -181,7 +185,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                     exception,
                     // FlexiIncludeBlock.Line is the index of the current line if included content actually got inlined. What we really want
                     // is the line in the containing source (unless we are dealing with Root).
-                    flexiIncludeBlock.ParentFlexiIncludeBlock == null ? flexiIncludeBlock.Line + 1 : flexiIncludeBlock.LineNumberInContainingSource,
+                    flexiIncludeBlock.ContainingSourceUri == null ? flexiIncludeBlock.Line + 1 : flexiIncludeBlock.LineNumberInContainingSource,
                     flexiIncludeBlock.Column);
             }
 
@@ -189,16 +193,28 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             return false;
         }
 
-        internal virtual FlexiIncludeBlockOptions CreateFlexiIncludeBlockOptions(FlexiIncludeBlock flexiIncludeBlock)
+        internal virtual Stack<FlexiIncludeBlock> GetOrCreateStack(BlockProcessor processor)
         {
-            FlexiIncludeBlockOptions result = _extensionOptions.DefaultBlockOptions.Clone();
+            if (!(processor.Document.GetData(CLOSING_FLEXI_INCLUDE_BLOCKS_KEY) is Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks))
+            {
+                closingFlexiIncludeBlocks = new Stack<FlexiIncludeBlock>();
+                processor.Document.SetData(CLOSING_FLEXI_INCLUDE_BLOCKS_KEY, closingFlexiIncludeBlocks);
+            }
+
+            return closingFlexiIncludeBlocks;
+        }
+
+        // Create FlexiIncludeBlock options and setup FlexiIncludeBlock
+        internal virtual void SetupFlexiIncludeBlock(FlexiIncludeBlock flexiIncludeBlock)
+        {
+            FlexiIncludeBlockOptions flexiIncludeBlockOptions = _extensionOptions.DefaultBlockOptions.Clone();
             string json = flexiIncludeBlock.Lines.ToString();
 
             try
             {
                 using (var jsonTextReader = new JsonTextReader(new StringReader(json)))
                 {
-                    _jsonSerializerService.Populate(jsonTextReader, result);
+                    _jsonSerializerService.Populate(jsonTextReader, flexiIncludeBlockOptions);
                 }
             }
             catch (Exception exception)
@@ -213,38 +229,29 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_UnableToParseJson, json), exception);
             }
 
-            return result;
+            // Setup FlexiIncludeBlock
+            flexiIncludeBlock.Setup(flexiIncludeBlockOptions, _extensionOptions.RootBaseUri);
         }
 
-        internal virtual void CheckForCycle(BlockProcessor processor, FlexiIncludeBlock flexiIncludeBlock)
+        internal virtual void CheckForCycle(Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks, FlexiIncludeBlock flexiIncludeBlock)
         {
-            if (!(processor.Document.GetData(CLOSING_FLEXI_INCLUDE_BLOCKS_KEY) is Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks))
+            if (closingFlexiIncludeBlocks.Count > 0 && flexiIncludeBlock.ParentFlexiIncludeBlock.ClippingProcessingStage == ClippingProcessingStage.Source)
             {
-                closingFlexiIncludeBlocks = new Stack<FlexiIncludeBlock>();
-                processor.Document.SetData(CLOSING_FLEXI_INCLUDE_BLOCKS_KEY, closingFlexiIncludeBlocks);
-            }
-            else if (closingFlexiIncludeBlocks.Count > 0)
-            {
-                flexiIncludeBlock.ParentFlexiIncludeBlock = closingFlexiIncludeBlocks.Peek();
-
-                if (flexiIncludeBlock.ParentFlexiIncludeBlock.ClippingProcessingStage == ClippingProcessingStage.Source)
+                for (int i = closingFlexiIncludeBlocks.Count - 1; i > -1; i--)
                 {
-                    for (int i = closingFlexiIncludeBlocks.Count - 1; i > -1; i--)
+                    FlexiIncludeBlock closingFlexiIncludeBlock = closingFlexiIncludeBlocks.ElementAt(i);
+
+                    if (closingFlexiIncludeBlock.ContainingSourceUri == flexiIncludeBlock.ContainingSourceUri &&
+                        closingFlexiIncludeBlock.LineNumberInContainingSource == flexiIncludeBlock.LineNumberInContainingSource)
                     {
-                        FlexiIncludeBlock closingFlexiIncludeBlock = closingFlexiIncludeBlocks.ElementAt(i);
-
-                        if (closingFlexiIncludeBlock.ContainingSourceUri == flexiIncludeBlock.ContainingSourceUri &&
-                            closingFlexiIncludeBlock.LineNumberInContainingSource == flexiIncludeBlock.LineNumberInContainingSource)
+                        // Cycle found
+                        string cycleDescription = "";
+                        for (; i > -1; i--)
                         {
-                            // Cycle found
-                            string cycleDescription = "";
-                            for (; i > -1; i--)
-                            {
-                                cycleDescription += closingFlexiIncludeBlocks.ElementAt(i) + " >\n";
-                            }
-
-                            throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_CycleFound, cycleDescription + flexiIncludeBlock));
+                            cycleDescription += closingFlexiIncludeBlocks.ElementAt(i) + " >\n";
                         }
+
+                        throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_CycleFound, cycleDescription + flexiIncludeBlock));
                     }
                 }
             }

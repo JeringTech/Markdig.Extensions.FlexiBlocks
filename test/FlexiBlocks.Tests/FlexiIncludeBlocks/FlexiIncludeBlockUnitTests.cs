@@ -6,202 +6,329 @@ using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
+    // TODO SerializableWrapper does not work with FlexiIncludeBlock (test discovery hangs), seems like it has something to do with FlexiIncludeBlock not being 
+    // JSON serializable/deserializable
     public class FlexiIncludeBlockUnitTests
     {
         [Theory]
-        [MemberData(nameof(ContainingSourceUri_ReturnsTheUriOfTheSourceThatTheFlexiIncludeBlockIsContainedIn_Data))]
-        public void ContainingSourceUri_ReturnsTheUriOfTheSourceThatTheFlexiIncludeBlockIsContainedIn(FlexiIncludeBlock dummyParentFlexiIncludeBlock,
-            string expectedResult)
+        [MemberData(nameof(Setup_ThrowsFlexiBlocksExceptionIfSourceUriSchemeIsUnsupported_Data))]
+        public void Setup_ThrowsFlexiBlocksExceptionIfSourceUriSchemeIsUnsupported(string dummySourceUri, string expectedScheme)
         {
             // Arrange
-            var testSubject = new FlexiIncludeBlock(null)
+            var testSubject = new FlexiIncludeBlock(null, null);
+
+            // Act and assert
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.Setup(new FlexiIncludeBlockOptions(dummySourceUri), null));
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeAUriWithASupportedScheme,
+                    nameof(FlexiIncludeBlockOptions.SourceUri),
+                    dummySourceUri,
+                    expectedScheme),
+                result.Message);
+        }
+
+        public static IEnumerable<object[]> Setup_ThrowsFlexiBlocksExceptionIfSourceUriSchemeIsUnsupported_Data()
+        {
+            return new object[][]
             {
-                ParentFlexiIncludeBlock = dummyParentFlexiIncludeBlock
+                        new object[]{ "ftp://base/uri", "ftp" },
+                        new object[]{ "mailto:base@uri.com", "mailto" },
+                        new object[]{ "gopher://base.uri.com/", "gopher" }
             };
+        }
+
+        [Theory]
+        [MemberData(nameof(Setup_ThrowsFlexiBlocksExceptionIfRootBaseUriIsNotAnAbsoluteUri_Data))]
+        public void Setup_ThrowsFlexiBlocksExceptionIfRootBaseUriIsNotAnAbsoluteUri(string dummyRootBaseUri)
+        {
+            // Arrange
+            var testSubject = new FlexiIncludeBlock(null, null);
+
+            // Act and assert
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.Setup(new FlexiIncludeBlockOptions("relative/uri"), dummyRootBaseUri));
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeAnAbsoluteUri, nameof(FlexiIncludeBlocksExtensionOptions.RootBaseUri), dummyRootBaseUri), result.Message);
+        }
+
+        public static IEnumerable<object[]> Setup_ThrowsFlexiBlocksExceptionIfRootBaseUriIsNotAnAbsoluteUri_Data()
+        {
+            return new object[][]
+            {
+                // Common relative (non absolute) URIs, see http://www.ietf.org/rfc/rfc3986.txt, section 5.4.1
+                new object[]{ "./relative/uri" },
+                new object[]{ "../relative/uri" },
+                new object[]{ "/relative/uri"  },
+                new object[]{ "relative/uri"  }
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(Setup_ThrowsFlexiBlocksExceptionIfRootBaseUriSchemeIsUnsupported_Data))]
+        public void Setup_ThrowsFlexiBlocksExceptionIfRootBaseUriSchemeIsUnsupported(string dummyRootBaseUri, string expectedScheme)
+        {
+            // Arrange
+            var testSubject = new FlexiIncludeBlock(null, null);
+
+            // Act and assert
+            FlexiBlocksException result = Assert.
+                Throws<FlexiBlocksException>(() => testSubject.Setup(new FlexiIncludeBlockOptions("relative/uri"), dummyRootBaseUri));
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeAUriWithASupportedScheme,
+                    nameof(FlexiIncludeBlocksExtensionOptions.RootBaseUri),
+                    dummyRootBaseUri,
+                    expectedScheme),
+                result.Message);
+        }
+
+        public static IEnumerable<object[]> Setup_ThrowsFlexiBlocksExceptionIfRootBaseUriSchemeIsUnsupported_Data()
+        {
+            return new object[][]
+            {
+                        new object[]{ "ftp://base/uri", "ftp" },
+                        new object[]{ "mailto:base@uri.com", "mailto" },
+                        new object[]{ "gopher://base.uri.com/", "gopher" }
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(Setup_PopulatesAbsoluteSourceUri_Data))]
+        public void Setup_PopulatesAbsoluteSourceUri(string dummySourceUri,
+            string dummyRootBaseUri,
+            string dummyParentAbsoluteSourceUri,
+            string expectedAbsoluteSourceUri)
+        {
+            // Arrange
+            FlexiIncludeBlock dummyParentFlexiIncludeBlock = dummyParentAbsoluteSourceUri == null ? null : new FlexiIncludeBlock(null, null);
+            dummyParentFlexiIncludeBlock?.Setup(new FlexiIncludeBlockOptions(dummyParentAbsoluteSourceUri), null);
+            var dummyFlexiIncludeBlockOptions = new FlexiIncludeBlockOptions(dummySourceUri);
+            var testSubject = new FlexiIncludeBlock(dummyParentFlexiIncludeBlock, null);
+            testSubject.Setup(dummyFlexiIncludeBlockOptions, dummyRootBaseUri);
+
+            // Act
+            Uri result = testSubject.AbsoluteSourceUri;
+
+            // Assert
+            Assert.Equal(expectedAbsoluteSourceUri, result.AbsoluteUri);
+        }
+
+        public static IEnumerable<object[]> Setup_PopulatesAbsoluteSourceUri_Data()
+        {
+            const string absoluteSourceUri = "C:/absolute/source/uri";
+            const string relativeSourceUri = "../../../relative/source/uri";
+
+            return new object[][]
+            {
+                // Absolute SourceUri
+                new object[]
+                {
+                    absoluteSourceUri,
+                    null,
+                    null,
+                    new Uri(absoluteSourceUri).AbsoluteUri
+                },
+                // Relative SourceUri with specified parent FlexiIncludeBlock
+                new object[]
+                {
+                    relativeSourceUri,
+                    null,
+                    absoluteSourceUri,
+                    new Uri(new Uri(absoluteSourceUri), relativeSourceUri).AbsoluteUri
+                },
+                // Relative SourceUri with no parent FlexiIncludeBlock
+                new object[]
+                {
+                    relativeSourceUri,
+                    absoluteSourceUri,
+                    null,
+                    new Uri(new Uri(absoluteSourceUri), relativeSourceUri).AbsoluteUri
+                },
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(Setup_PopulatesContainingSourceUri_Data))]
+        public void Setup_PopulatesContainingSourceUri(ClippingProcessingStage dummyParentClippingProcessingStage,
+            string dummyParentAbsoluteSourceUri,
+            string dummyGrandparentAbsoluteSourceUri,
+            string expectedContainingSourceUri)
+        {
+            // Arrange
+            FlexiIncludeBlock dummyGrandparentFlexiIncludeBlock = dummyGrandparentAbsoluteSourceUri == null ? null : new FlexiIncludeBlock(null, null)
+            {
+                AbsoluteSourceUri = new Uri(dummyGrandparentAbsoluteSourceUri)
+            };
+            FlexiIncludeBlock dummyParentFlexiIncludeBlock = dummyParentAbsoluteSourceUri == null ? null : new FlexiIncludeBlock(dummyGrandparentFlexiIncludeBlock, null)
+            {
+                ClippingProcessingStage = dummyParentClippingProcessingStage,
+                AbsoluteSourceUri = new Uri(dummyParentAbsoluteSourceUri)
+            };
+            var testSubject = new FlexiIncludeBlock(dummyParentFlexiIncludeBlock, null);
+            testSubject.Setup(new FlexiIncludeBlockOptions("C:/dummy"), null);
 
             // Act
             string result = testSubject.ContainingSourceUri;
 
             // Assert
-            Assert.Equal(expectedResult, result);
+            Assert.Equal(expectedContainingSourceUri, result);
         }
 
-        public static IEnumerable<object[]> ContainingSourceUri_ReturnsTheUriOfTheSourceThatTheFlexiIncludeBlockIsContainedIn_Data()
+        public static IEnumerable<object[]> Setup_PopulatesContainingSourceUri_Data()
         {
-            const string dummyContainingSourceUri = "dummyContainingSourceUri";
-
             return new object[][]
             {
-                // Root
+                // Parent ClippingProcessingStage is source
                 new object[]
                 {
+                    ClippingProcessingStage.Source,
+                    "C:/parent/absolute/uri",
+                    null,
+                    new Uri("C:/parent/absolute/uri").AbsoluteUri
+                },
+                // Parent ClippingProcessingStage is not BeforeContent and Grandparent exists
+                new object[]
+                {
+                    ClippingProcessingStage.BeforeContent,
+                    "C:/parent/absolute/uri",
+                    "C:/grand/parent/absolute/uri",
+                    new Uri("C:/grand/parent/absolute/uri").AbsoluteUri
+                },
+                // Parent ClippingProcessingStage is not AfterContent and Grandparent exists
+                new object[]
+                {
+                    ClippingProcessingStage.AfterContent,
+                    "C:/parent/absolute/uri",
+                    "C:/grand/parent/absolute/uri",
+                    new Uri("C:/grand/parent/absolute/uri").AbsoluteUri
+                },
+                // No Parent
+                new object[]
+                {
+                    ClippingProcessingStage.Source,
                     null,
                     null,
-                },
-                // Source stage
-                new object[]
-                {
-                    new FlexiIncludeBlock(null)
-                    {
-                        ClippingProcessingStage = ClippingProcessingStage.Source,
-                        FlexiIncludeBlockOptions = new FlexiIncludeBlockOptions(dummyContainingSourceUri)
-                    },
-                    dummyContainingSourceUri
-                },
-                // BeforeContent stage
-                new object[]
-                {
-                    new FlexiIncludeBlock(null)
-                    {
-                        ClippingProcessingStage = ClippingProcessingStage.BeforeContent,
-                        ParentFlexiIncludeBlock = new FlexiIncludeBlock(null)
-                        {
-                            FlexiIncludeBlockOptions = new FlexiIncludeBlockOptions(dummyContainingSourceUri)
-                        }
-                    },
-                    dummyContainingSourceUri
-                },
-                // BeforeContent stage in root
-                new object[]
-                {
-                    new FlexiIncludeBlock(null)
-                    {
-                        ClippingProcessingStage = ClippingProcessingStage.BeforeContent
-                    },
                     null
                 },
-                // AfterContent stage
+                // Parent ClippingProcessingStage is not source and no grandparent
                 new object[]
                 {
-                    new FlexiIncludeBlock(null)
-                    {
-                        ClippingProcessingStage = ClippingProcessingStage.AfterContent,
-                        ParentFlexiIncludeBlock = new FlexiIncludeBlock(null)
-                        {
-                            FlexiIncludeBlockOptions = new FlexiIncludeBlockOptions(dummyContainingSourceUri)
-                        }
-                    },
-                    dummyContainingSourceUri
-                },
-                // AfterContent stage in root
-                new object[]
-                {
-                    new FlexiIncludeBlock(null)
-                    {
-                        ClippingProcessingStage = ClippingProcessingStage.AfterContent,
-                    },
+                    ClippingProcessingStage.AfterContent,
+                    "C:/parent/absolute/uri",
+                    null,
                     null
-                }
+                },
             };
         }
 
         [Fact]
-        public void LineNumberInContainingSource_ReturnsFlexiIncludeBlocksLineNumberInTheSourceThatContainsIt()
+        public void Setup_PopulatesLineNumberInContainingSourceWhenParentFlexiIncludeBlockClippingProcessingStageIsSource()
         {
             // Arrange
-            const int dummyLastProcessedLineLineNumber = 2;
-            var dummyLines = new StringLineGroup(2)
+            var dummyParentFlexiIncludeBlock = new FlexiIncludeBlock(null, null)
             {
-                new StringSlice("dummyLine1"),
-                new StringSlice("dummyLine2")
+                ClippingProcessingStage = ClippingProcessingStage.Source,
+                LastProcessedLineLineNumber = 2, // Arbitrary
+                AbsoluteSourceUri = new Uri("C:/dummy")
             };
-            var dummyParentFlexiIncludeBlock = new FlexiIncludeBlock(null)
+            var testSubject = new FlexiIncludeBlock(dummyParentFlexiIncludeBlock, null)
             {
-                LastProcessedLineLineNumber = dummyLastProcessedLineLineNumber
+                Lines = new StringLineGroup(2)
+                        {
+                            new StringSlice("dummyLine1"),
+                            new StringSlice("dummyLine2")
+                        }
             };
-            var testSubject = new FlexiIncludeBlock(null)
-            {
-                ParentFlexiIncludeBlock = dummyParentFlexiIncludeBlock,
-                Lines = dummyLines
-            };
+            testSubject.Setup(new FlexiIncludeBlockOptions("C:/dummy"), null);
 
             // Act
             int result = testSubject.LineNumberInContainingSource;
 
             // Assert
-            Assert.Equal(dummyLastProcessedLineLineNumber - dummyLines.Count + 1, result);
+            Assert.Equal(1, result);
         }
 
         [Fact]
-        public void ParentFlexiIncludeBlock_ThrowsArgumentExceptionIfSetMoreThanOnceWithDifferentValues()
+        public void Setup_PopulatesLineNumberInContainingSourceWhenParentFlexiIncludeBlockClippingProcessingStageIsNotSource()
         {
             // Arrange
-            var dummyInitialParentFlexiIncludeBlock = new FlexiIncludeBlock(null);
-            var dummyAlternateParentFlexiIncludeBlock = new FlexiIncludeBlock(null);
-            var testSubject = new FlexiIncludeBlock(null) { ParentFlexiIncludeBlock = dummyInitialParentFlexiIncludeBlock };
+            const int dummyParentLineNumberInContainingSource = 2;
+            var dummyGrandparentFlexiIncludeBlock = new FlexiIncludeBlock(null, null)
+            {
+                AbsoluteSourceUri = new Uri("C:/dummy")
+            };
+            var dummyParentFlexiIncludeBlock = new FlexiIncludeBlock(dummyGrandparentFlexiIncludeBlock, null)
+            {
+                ClippingProcessingStage = ClippingProcessingStage.BeforeContent,
+                LineNumberInContainingSource = dummyParentLineNumberInContainingSource
+            };
+            var testSubject = new FlexiIncludeBlock(dummyParentFlexiIncludeBlock, null);
+            testSubject.Setup(new FlexiIncludeBlockOptions("C:/dummy"), null);
 
-            // Act and assert
-            ArgumentException result = Assert.Throws<ArgumentException>(() => testSubject.ParentFlexiIncludeBlock = dummyAlternateParentFlexiIncludeBlock);
-            Assert.Equal(string.Format(Strings.ArgumentException_PropertyAlreadyHasAValue, nameof(FlexiIncludeBlock.ParentFlexiIncludeBlock)), result.Message);
+            // Act
+            int result = testSubject.LineNumberInContainingSource;
+
+            // Assert
+            Assert.Equal(dummyParentLineNumberInContainingSource, result);
         }
 
-        [Theory]
-        [MemberData(nameof(ToString_ReturnsTheStringRepresentationOfTheInstance_Data))]
-        public void ToString_ReturnsTheStringRepresentationOfTheInstance(FlexiIncludeBlock dummyParentFlexiIncludeBlock,
-            string expectedResult)
+        [Fact]
+        public void ToString_ReturnsTheStringRepresentationOfTheInstanceWhenContainingSourceUriIsNull()
         {
             // Arrange
-            var testSubject = new FlexiIncludeBlock(null)
+            const int dummyLineIndex = 2;
+            var testSubject = new FlexiIncludeBlock(null, null)
             {
-                ParentFlexiIncludeBlock = dummyParentFlexiIncludeBlock
+                ContainingSourceUri = null,
+                Line = dummyLineIndex
             };
 
             // Act
             string result = testSubject.ToString();
 
             // Assert
-            Assert.Equal(expectedResult, result);
+            Assert.Equal($"Source: Root, Line: {dummyLineIndex + 1}", result);
         }
 
-        // TODO SerializableWrapper does not work with FlexiIncludeBlocks (test discovery hangs), seems like it has something to do with FlexiIncludeBlock not being 
-        // JSON serializable/deserializable
-        public static IEnumerable<object[]> ToString_ReturnsTheStringRepresentationOfTheInstance_Data()
+        [Fact]
+        public void ToString_ReturnsTheStringRepresentationOfTheInstanceWhenClippingProcessingStageIsSource()
         {
-            const int dummyLastProcessedLineNumber = 2; // Arbitrary
-            const string dummySourceUri = "dummySourceUri";
-
-            return new object[][]
+            // Arrange
+            const string dummyContainingSourceUri = "dummyContainingSource";
+            const int dummyLineNumberInContainingSource = 2;
+            var dummyParentFlexiIncludeBlock = new FlexiIncludeBlock(null, null)
             {
-                // No Parent
-                new object[]
-                {
-                    null,
-                    "Source: Root, Line: 1"
-                },
-                // Parent's ClippingProcessingStage is Source
-                new object[]
-                {
-                    new FlexiIncludeBlock(null)
-                    {
-                        FlexiIncludeBlockOptions = new FlexiIncludeBlockOptions(dummySourceUri),
-                        LastProcessedLineLineNumber = dummyLastProcessedLineNumber,
-                        ClippingProcessingStage = ClippingProcessingStage.Source
-                    },
-                    $"Source URI: {dummySourceUri}, Line: {dummyLastProcessedLineNumber + 1}"
-                },
-                // Parent's ClippingProcessingStage is BeforeContent
-                new object[]
-                {
-                    new FlexiIncludeBlock(null)
-                    {
-                        FlexiIncludeBlockOptions = new FlexiIncludeBlockOptions(dummySourceUri),
-                        LastProcessedLineLineNumber = dummyLastProcessedLineNumber,
-                        ClippingProcessingStage = ClippingProcessingStage.BeforeContent
-                    },
-                    $"{ClippingProcessingStage.BeforeContent}, Line: {dummyLastProcessedLineNumber + 1}"
-                },
-                // Parent's ClippingProcessingStage is AfterContent
-                new object[]
-                {
-                    new FlexiIncludeBlock(null)
-                    {
-                        FlexiIncludeBlockOptions = new FlexiIncludeBlockOptions(dummySourceUri),
-                        LastProcessedLineLineNumber = dummyLastProcessedLineNumber,
-                        ClippingProcessingStage = ClippingProcessingStage.AfterContent
-                    },
-                    $"{ClippingProcessingStage.AfterContent}, Line: {dummyLastProcessedLineNumber + 1}"
-                }
+                ClippingProcessingStage = ClippingProcessingStage.Source,
             };
+            var testSubject = new FlexiIncludeBlock(dummyParentFlexiIncludeBlock, null)
+            {
+                ContainingSourceUri = dummyContainingSourceUri,
+                LineNumberInContainingSource = dummyLineNumberInContainingSource
+            };
+
+            // Act
+            string result = testSubject.ToString();
+
+            // Assert
+            Assert.Equal($"Source URI: {dummyContainingSourceUri}, Line: {dummyLineNumberInContainingSource}", result);
+        }
+
+        [Fact]
+        public void ToString_ReturnsTheStringRepresentationOfTheInstanceWhenClippingProcessingStageIsNotSource()
+        {
+            // Arrange
+            const string dummyContainingSourceUri = "dummyContainingSourceUri";
+            const int dummyLineNumberInContainingSource = 2;
+            var dummyParentFlexiIncludeBlock = new FlexiIncludeBlock(null, null)
+            {
+                ClippingProcessingStage = ClippingProcessingStage.BeforeContent,
+            };
+            var testSubject = new FlexiIncludeBlock(dummyParentFlexiIncludeBlock, null)
+            {
+                ContainingSourceUri = dummyContainingSourceUri,
+                LineNumberInContainingSource = dummyLineNumberInContainingSource
+            };
+
+            // Act
+            string result = testSubject.ToString();
+
+            // Assert
+            Assert.Equal($"Source URI: {dummyContainingSourceUri}, Line: {dummyLineNumberInContainingSource}, {nameof(ClippingProcessingStage.BeforeContent)}", result);
         }
     }
 }

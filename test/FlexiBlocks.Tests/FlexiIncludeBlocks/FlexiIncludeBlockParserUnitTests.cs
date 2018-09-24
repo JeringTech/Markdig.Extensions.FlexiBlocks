@@ -6,6 +6,7 @@ using Markdig.Syntax;
 using Microsoft.Extensions.Options;
 using Moq;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
@@ -13,6 +14,7 @@ using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
+    // Refer to FlexiIncludeBlocksIntegrationTests for thorough testing of Cycle detection
     public class FlexiIncludeBlockParserUnitTests
     {
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
@@ -65,14 +67,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         }
 
         [Fact]
-        public void TryOpenFlexiBlock_CreatesFlexiIncludeBlockSetsColumnAndSpanStartAndReturnsBlockStateIfSuccessful()
+        public void TryOpenFlexiBlock_CreatesFlexiIncludeBlockIfSuccessful()
         {
             // Arrange
             const int dummyColumn = 1;
             var dummyStringSlice = new StringSlice("+{dummy");
+            var dummyParentFlexiIncludeBlock = new FlexiIncludeBlock(null, null);
+            var dummyClosingFlexiIncludeBlocks = new Stack<FlexiIncludeBlock>();
+            dummyClosingFlexiIncludeBlocks.Push(dummyParentFlexiIncludeBlock);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Column = dummyColumn;
             dummyBlockProcessor.Line = dummyStringSlice;
+            dummyBlockProcessor.Document.SetData(FlexiIncludeBlockParser.CLOSING_FLEXI_INCLUDE_BLOCKS_KEY, dummyClosingFlexiIncludeBlocks);
             ExposedFlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser();
 
             // Act
@@ -82,30 +88,32 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             Assert.Equal(1, dummyBlockProcessor.Start); // Advances past +
             Assert.Equal(BlockState.Continue, result);
             Assert.Single(dummyBlockProcessor.NewBlocks);
-            Block block = dummyBlockProcessor.NewBlocks.Peek();
-            Assert.IsType<FlexiIncludeBlock>(block);
-            Assert.Equal(dummyColumn, block.Column);
-            Assert.Equal(0, block.Span.Start); // Includes +
+            var newBlock = dummyBlockProcessor.NewBlocks.Peek() as FlexiIncludeBlock;
+            Assert.NotNull(newBlock);
+            Assert.Equal(dummyColumn, newBlock.Column);
+            Assert.Equal(0, newBlock.Span.Start); // Includes +
+            Assert.Same(dummyParentFlexiIncludeBlock, newBlock.ParentFlexiIncludeBlock);
         }
 
         [Fact]
         public void CloseFlexiBlock_ChecksForCycleIfIncludeTypeIsMarkdown()
         {
             // Arrange
-            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
+            var dummyFlexiIncludeBlockOptions = new FlexiIncludeBlockOptions("C:/dummy", type: IncludeType.Markdown);
+            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null, null);
+            dummyFlexiIncludeBlock.Setup(dummyFlexiIncludeBlockOptions, null); // Sets absolute URI
+            var dummyClosingFlexiIncludeBlocks = new Stack<FlexiIncludeBlock>(new FlexiIncludeBlock[] { dummyFlexiIncludeBlock });
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Document.
-                SetData(FlexiIncludeBlockParser.CLOSING_FLEXI_INCLUDE_BLOCKS_KEY, new Stack<FlexiIncludeBlock>(new FlexiIncludeBlock[] { dummyFlexiIncludeBlock }));
-            var dummyFlexiIncludeBlockOptions = new FlexiIncludeBlockOptions(type: IncludeType.Markdown);
             var dummySource = new ReadOnlyCollection<string>(new List<string>());
             Mock<ISourceRetrieverService> mockSourceRetrieverService = _mockRepository.Create<ISourceRetrieverService>();
             mockSourceRetrieverService.
-                Setup(s => s.GetSource(dummyFlexiIncludeBlockOptions.NormalizedSourceUri, dummyFlexiIncludeBlockOptions.ResolvedDiskCacheDirectory, default)).
+                Setup(s => s.GetSource(dummyFlexiIncludeBlock.AbsoluteSourceUri, dummyFlexiIncludeBlockOptions.ResolvedDiskCacheDirectory, default)).
                 Returns(dummySource);
             Mock<ExposedFlexiIncludeBlockParser> mockTestSubject = CreateMockExposedFlexiIncludeBlockParser(sourceRetrieverService: mockSourceRetrieverService.Object);
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(t => t.CheckForCycle(dummyBlockProcessor, dummyFlexiIncludeBlock));
-            mockTestSubject.Setup(t => t.CreateFlexiIncludeBlockOptions(dummyFlexiIncludeBlock)).Returns(dummyFlexiIncludeBlockOptions);
+            mockTestSubject.Setup(t => t.SetupFlexiIncludeBlock(dummyFlexiIncludeBlock));
+            mockTestSubject.Setup(t => t.GetOrCreateStack(dummyBlockProcessor)).Returns(dummyClosingFlexiIncludeBlocks);
+            mockTestSubject.Setup(t => t.CheckForCycle(dummyClosingFlexiIncludeBlocks, dummyFlexiIncludeBlock));
             mockTestSubject.Setup(t => t.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummySource));
 
             // Act
@@ -114,26 +122,27 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Assert
             _mockRepository.VerifyAll();
             Assert.False(result);
-            Assert.Empty((Stack<FlexiIncludeBlock>)dummyBlockProcessor.Document.GetData(FlexiIncludeBlockParser.CLOSING_FLEXI_INCLUDE_BLOCKS_KEY)); // Removed once the block is replaced
+            Assert.Empty(dummyClosingFlexiIncludeBlocks); // Removed once the block is replaced
         }
 
         [Theory]
         [MemberData(nameof(CloseFlexiBlock_WrapsExceptionsForCompleteContext_Data))]
         public void CloseFlexiBlock_WrapsExceptionsForCompleteContext(FlexiIncludeBlock dummyFlexiIncludeBlock,
-            FlexiIncludeBlockOptions dummyFlexiIncludeBlockOptions,
             string expectedResultMessage)
         {
             // Arrange
+            var dummyFlexiIncludeBlockOptions = new FlexiIncludeBlockOptions();
+            dummyFlexiIncludeBlock.FlexiIncludeBlockOptions = dummyFlexiIncludeBlockOptions;
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var dummySource = new ReadOnlyCollection<string>(new List<string>());
             Mock<ISourceRetrieverService> mockSourceRetrieverService = _mockRepository.Create<ISourceRetrieverService>();
             mockSourceRetrieverService.
-                Setup(s => s.GetSource(dummyFlexiIncludeBlockOptions.NormalizedSourceUri, dummyFlexiIncludeBlockOptions.ResolvedDiskCacheDirectory, default)).
+                Setup(s => s.GetSource(dummyFlexiIncludeBlock.AbsoluteSourceUri, dummyFlexiIncludeBlockOptions.ResolvedDiskCacheDirectory, default)).
                 Returns(dummySource);
             var dummyException = new FlexiBlocksException();
             Mock<ExposedFlexiIncludeBlockParser> mockTestSubject = CreateMockExposedFlexiIncludeBlockParser(sourceRetrieverService: mockSourceRetrieverService.Object);
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(t => t.CreateFlexiIncludeBlockOptions(dummyFlexiIncludeBlock)).Returns(dummyFlexiIncludeBlockOptions);
+            mockTestSubject.Setup(t => t.SetupFlexiIncludeBlock(dummyFlexiIncludeBlock));
             mockTestSubject.Setup(t => t.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummySource)).Throws(dummyException);
 
             // Act and assert
@@ -145,116 +154,148 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
         public static IEnumerable<object[]> CloseFlexiBlock_WrapsExceptionsForCompleteContext_Data()
         {
-            var dummyFlexiIncludeBlockOptions = new FlexiIncludeBlockOptions();
+            var dummyAbsoluteSourceUri = new Uri("C:/dummy");
             var dummyLines = new StringLineGroup(2)
             {
                 new StringSlice("dummyLine1"),
                 new StringSlice("dummyLine2")
             };
-            const int dummyLastProcessedLineLineNumber = 5;
+            const string dummyContainingSource = "dummyContainingSource";
+            const int dummyLineNumberInContainingSource = 5;
 
             return new object[][]
             {
                 new object[]
                 {
-                    new FlexiIncludeBlock(null)
+                    new FlexiIncludeBlock(null, null)
                     {
                         ClippingProcessingStage = ClippingProcessingStage.None,
+                        AbsoluteSourceUri = dummyAbsoluteSourceUri
                     },
-                    dummyFlexiIncludeBlockOptions,
                     string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), 1, 0, Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingBlock)
                 },
                 new object[]{
-                    new FlexiIncludeBlock(null)
+                    new FlexiIncludeBlock(null, null)
                     {
+                        ContainingSourceUri = dummyContainingSource,
+                        LineNumberInContainingSource = dummyLineNumberInContainingSource,
+                        AbsoluteSourceUri = dummyAbsoluteSourceUri,
                         ClippingProcessingStage = ClippingProcessingStage.Source,
-                        ParentFlexiIncludeBlock = new FlexiIncludeBlock(null){LastProcessedLineLineNumber = dummyLastProcessedLineLineNumber},
                         Lines = dummyLines
                     },
-                    dummyFlexiIncludeBlockOptions,
-                    string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyLastProcessedLineLineNumber - dummyLines.Count + 1, 0,
-                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource, dummyFlexiIncludeBlockOptions.NormalizedSourceUri.AbsoluteUri))
+                    string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyLineNumberInContainingSource, 0,
+                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource, dummyAbsoluteSourceUri.AbsoluteUri))
                 },
                 new object[]{
-                    new FlexiIncludeBlock(null)
+                    new FlexiIncludeBlock(null, null)
                     {
                         ClippingProcessingStage = ClippingProcessingStage.BeforeContent,
-                        ParentFlexiIncludeBlock = new FlexiIncludeBlock(null){LastProcessedLineLineNumber = dummyLastProcessedLineLineNumber},
+                        ContainingSourceUri = dummyContainingSource,
+                        LineNumberInContainingSource = dummyLineNumberInContainingSource,
                         Lines = dummyLines
                     },
-                    dummyFlexiIncludeBlockOptions,
-                    string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyLastProcessedLineLineNumber - dummyLines.Count + 1, 0,
+                    string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyLineNumberInContainingSource, 0,
                         string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingContent, nameof(ClippingProcessingStage.BeforeContent)))
                 },
                 new object[]{
-                    new FlexiIncludeBlock(null)
+                    new FlexiIncludeBlock(null, null)
                     {
                         ClippingProcessingStage = ClippingProcessingStage.AfterContent,
-                        ParentFlexiIncludeBlock = new FlexiIncludeBlock(null){LastProcessedLineLineNumber = dummyLastProcessedLineLineNumber},
+                        ContainingSourceUri = dummyContainingSource,
+                        LineNumberInContainingSource = dummyLineNumberInContainingSource,
                         Lines = dummyLines
                     },
-                    dummyFlexiIncludeBlockOptions,
-                    string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyLastProcessedLineLineNumber - dummyLines.Count + 1, 0,
+                    string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyLineNumberInContainingSource, 0,
                         string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingContent, nameof(ClippingProcessingStage.AfterContent)))
-                }
+                },
             };
         }
 
         [Fact]
-        public void CreateFlexiIncludeBlockOptions_ThrowsFlexiBlocksExceptionIfJsonCannotBeDeserialized()
+        public void GetOrCreateStack_GetsFlexiIncludeBlockStackIfOneAlreadyExists()
+        {
+            // Arrange
+            var dummyFlexiIncludeBlockStack = new Stack<FlexiIncludeBlock>();
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            dummyBlockProcessor.Document.SetData(FlexiIncludeBlockParser.CLOSING_FLEXI_INCLUDE_BLOCKS_KEY, dummyFlexiIncludeBlockStack);
+            FlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser();
+
+            // Act
+            Stack<FlexiIncludeBlock> result = testSubject.GetOrCreateStack(dummyBlockProcessor);
+
+            // Assert
+            Assert.Same(dummyFlexiIncludeBlockStack, result);
+        }
+
+        [Fact]
+        public void GetOrCreateStack_CreatesFlexiIncludeBlockStackIfOneDoesntAlreadyExist()
+        {
+            // Arrange
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            FlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser();
+
+            // Act
+            Stack<FlexiIncludeBlock> result = testSubject.GetOrCreateStack(dummyBlockProcessor);
+
+            // Assert
+            Assert.NotNull(result);
+        }
+
+        [Fact]
+        public void SetupFlexiIncludeBlock_ThrowsFlexiBlocksExceptionIfJsonCannotBeDeserialized()
         {
             // Arrange
             const string dummyJson = "dummyJson";
             var dummyJsonException = new JsonException();
             Mock<IJsonSerializerService> mockJsonSerializerService = _mockRepository.Create<IJsonSerializerService>();
             mockJsonSerializerService.Setup(j => j.Populate(It.IsAny<JsonTextReader>(), It.IsAny<FlexiIncludeBlockOptions>())).Throws(dummyJsonException);
-            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null) { Lines = new StringLineGroup(dummyJson) };
+            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null, null) { Lines = new StringLineGroup(dummyJson) };
             FlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser(jsonSerializerService: mockJsonSerializerService.Object);
 
             // Act and assert
             FlexiBlocksException result = Assert.
-                Throws<FlexiBlocksException>(() => testSubject.CreateFlexiIncludeBlockOptions(dummyFlexiIncludeBlock));
+                Throws<FlexiBlocksException>(() => testSubject.SetupFlexiIncludeBlock(dummyFlexiIncludeBlock));
             _mockRepository.VerifyAll();
             Assert.Equal(string.Format(Strings.FlexiBlocksException_UnableToParseJson, dummyJson), result.Message);
             Assert.Same(dummyJsonException, result.InnerException);
         }
 
         [Fact]
-        public void CreateFlexiIncludeBlockOptions_ThrowsFlexiBlocksExceptionIfValidationOfPopulatedObjectFails()
+        public void SetupFlexiIncludeBlock_ThrowsFlexiBlocksExceptionIfValidationOfPopulatedObjectFails()
         {
             // Arrange
             var dummyFlexiBlocksException = new FlexiBlocksException();
             var dummyTargetInvocationException = new TargetInvocationException(dummyFlexiBlocksException);
             Mock<IJsonSerializerService> mockJsonSerializerService = _mockRepository.Create<IJsonSerializerService>();
             mockJsonSerializerService.Setup(j => j.Populate(It.IsAny<JsonTextReader>(), It.IsAny<FlexiIncludeBlockOptions>())).Throws(dummyTargetInvocationException);
-            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
+            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null, null);
             FlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser(jsonSerializerService: mockJsonSerializerService.Object);
 
             // Act and assert
             FlexiBlocksException result = Assert.
-                Throws<FlexiBlocksException>(() => testSubject.CreateFlexiIncludeBlockOptions(dummyFlexiIncludeBlock));
+                Throws<FlexiBlocksException>(() => testSubject.SetupFlexiIncludeBlock(dummyFlexiIncludeBlock));
             _mockRepository.VerifyAll();
             Assert.Same(dummyFlexiBlocksException, result);
         }
 
-
-        // Refer to FlexiIncludeBlocksIntegrationTests for thorough testing of Cycle detection
         [Fact]
-        public void CheckForCycle_CreatesFlexiIncludeBlockStackIfOneDoesntAlreadyExistAndAddsFlexiIncludeBlockToIt()
+        public void SetupFlexiIncludeBlock_SetsUpFlexiIncludeBlock()
         {
             // Arrange
-            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
-            FlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser();
+            const string dummySourceUri = "C:/dummy/source/uri";
+            var dummyFlexiIncludeBlockOptions = new FlexiIncludeBlockOptions(dummySourceUri);
+            Mock<IOptions<FlexiIncludeBlocksExtensionOptions>> mockOptionsAccessor = _mockRepository.Create<IOptions<FlexiIncludeBlocksExtensionOptions>>();
+            mockOptionsAccessor.Setup(o => o.Value).Returns(new FlexiIncludeBlocksExtensionOptions() { DefaultBlockOptions = dummyFlexiIncludeBlockOptions });
+            Mock<IJsonSerializerService> mockJsonSerializerService = _mockRepository.Create<IJsonSerializerService>();
+            mockJsonSerializerService.Setup(j => j.Populate(It.IsAny<JsonTextReader>(), It.IsAny<FlexiIncludeBlockOptions>()));
+            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null, null);
+            FlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser(mockOptionsAccessor.Object, jsonSerializerService: mockJsonSerializerService.Object);
 
             // Act
-            testSubject.CheckForCycle(dummyBlockProcessor, dummyFlexiIncludeBlock);
+            testSubject.SetupFlexiIncludeBlock(dummyFlexiIncludeBlock); // Should set FlexiIncludeBlock's absolute source URI
 
             // Assert
-            var resultStack = dummyBlockProcessor.Document.GetData(FlexiIncludeBlockParser.CLOSING_FLEXI_INCLUDE_BLOCKS_KEY) as Stack<FlexiIncludeBlock>;
-            Assert.NotNull(resultStack);
-            Assert.Single(resultStack);
-            Assert.Same(dummyFlexiIncludeBlock, resultStack.Peek());
+            Assert.Equal(dummySourceUri, dummyFlexiIncludeBlock.AbsoluteSourceUri.OriginalString);
         }
 
         [Fact]
@@ -263,7 +304,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Arrange
             var dummySource = new ReadOnlyCollection<string>(new string[] { "dummy", "source" });
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
+            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null, null);
             dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of FlexiIncludeBlock
             dummyFlexiIncludeBlock.FlexiIncludeBlockOptions = new FlexiIncludeBlockOptions(); // Default content type is Code
             ExposedFlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser();
@@ -284,7 +325,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Arrange
             var dummySource = new ReadOnlyCollection<string>(new string[] { "dummy", "source" });
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
+            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null, null);
             dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of FlexiIncludeBlock
             var dummyClipping = new Clipping(beforeContent: "# dummy before", afterContent: "> dummy\n > after");
             var dummyClippings = new Clipping[] { dummyClipping };
@@ -319,7 +360,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             var dummySource = new ReadOnlyCollection<string>(new string[] { "dummy", "source" });
             const string dummyStartLineSubstring = "dummyStartLineSubstring";
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
+            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null, null);
             var dummyMarkdownDocument = new MarkdownDocument();
             dummyMarkdownDocument.Add(dummyFlexiIncludeBlock); // ReplaceFlexiIncludeBlock uses FlexiIncludeBlock's parent
             var dummyClipping = new Clipping(startDemarcationLineSubstring: dummyStartLineSubstring);
@@ -338,7 +379,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             var dummySource = new ReadOnlyCollection<string>(new string[] { "dummy", "source" });
             const string dummyEndLineSubstring = "dummyEndLineSubstring";
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
+            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null, null);
             var dummyMarkdownDocument = new MarkdownDocument();
             dummyMarkdownDocument.Add(dummyFlexiIncludeBlock); // ReplaceFlexiIncludeBlock uses FlexiIncludeBlock's parent
             var dummyClipping = new Clipping(endDemarcationLineSubstring: dummyEndLineSubstring);
@@ -358,7 +399,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Arrange
             var dummySource = new ReadOnlyCollection<string>(new string[] { "line1", "line2", "line3", "line4", "line5" });
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null);
+            var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null, null);
             dummyBlockProcessor.Document.Add(dummyFlexiIncludeBlock); // Set document as parent of FlexiIncludeBlock
             dummyFlexiIncludeBlock.FlexiIncludeBlockOptions = new FlexiIncludeBlockOptions("dummySource", type: IncludeType.Markdown, clippings: dummyClippingsWrapper.Value);
             ExposedFlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser();

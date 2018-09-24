@@ -1,5 +1,6 @@
-﻿## FlexiIncludeBlocks
-FlexiIncludeBlocks include content from local or remote sources.  
+﻿# FlexiIncludeBlocks
+FlexiIncludeBlocks include content from local or remote sources. Content can be included as markdown or in a code block. Common applications for 
+FlexiIncludeBlocks include avoiding duplicate markdown across `.md` documents and using tested code examples.
 
 The specs in this document use the following dummy sources:
 - exampleInclude.md, with content:
@@ -27,7 +28,7 @@ The specs in this document use the following dummy sources:
   //#endregion utility methods
   ```
 
-### Basic Syntax
+## Basic Syntax
 A FlexiIncludeBlock is a [`FlexiIncludeBlockOptions`](#flexiincludeblockoptions) object in JSON form, prepended with `+`. The following is a FlexiIncludeBlock:
 
 ```````````````````````````````` none
@@ -49,8 +50,8 @@ The JSON can span any number of lines, as long as it is valid:
 <p>This is example markdown.</p>
 ````````````````````````````````
 
-Starting `+` characters must immediately precede opening `{` characters. The following is not a FlexiIncludeBlock because there is a space between 
-the starting `+` and the opening `{`:
+Starting `+` characters must immediately precede opening `{` characters. The following is a [list item](https://spec.commonmark.org/0.28/#list-items)
+because there is a space between the starting `+` and the opening `{`:
 ```````````````````````````````` none
 --------------- Markdown ---------------
 + {
@@ -66,12 +67,60 @@ the starting `+` and the opening `{`:
 </ul>
 ````````````````````````````````
 
-### Options
+## Options
 The FlexiIncludeBlocks extension has the following options types:
 
-#### `FlexiIncludeBlockOptions`
-Options for a FlexiIncludeBlock.
-##### Properties
+### `Clipping`
+Represents a clipping from a sequence of lines. Used by [FlexiIncludeBlockOptions](#flexiincludeblockoptions).
+
+#### Properties
+- `StartLineNumber`
+  - Type: `int`
+  - Description: The line number of the line that this clipping starts at.
+    This value must be greater than 0.
+  - Default: `1`
+- `endLineNumber`
+  - Type: `int`
+  - Description: The line number of the line that this clipping ends at.
+    If this value is -1, this clipping extends to the last line. If it is not -1, it must be greater than or equal to `StartLineNumber`.
+  - Default: `-1`
+- `startDemarcationLineSubstring`
+  - Type: `string`
+  - Description: A substring that the line immediately preceding this clipping contains.
+    If this value is not null, whitespace or an empty string, it takes precedence over `StartLineNumber`.
+  - Default: `null`
+- `endDemarcationLineSubstring`
+  - Type: `string`
+  - Description: A substring that the line immediately after this clipping contains.
+    If this value is not null, whitespace or an empty string, it takes precedence over `EndLineNumber`.
+  - Default: `null`
+- `dedentLength`
+  - Type: `int`
+  - Description: The number of leading whitespace characters to remove from each line in this clipping.
+    This value must not be negative.
+  - Default: `0`
+- `collapseRatio`
+  - Type: `float`
+  - Description: The proportion of leading whitespace characters (after dedenting) to keep.
+    For example, if there are 9 leading whitespace characters after dedenting, and this value is 0.33, the final number of leading whitespace characters will be 3. 
+    This value must be in the range [0, 1].
+  - Default: `1`
+- `beforeContent`
+  - Type: `string`
+  - Description: The content to be prepended to this clipping.
+    This value will be processed as markdown if the FlexiIncludeBlock that this clipping belongs to has Markdown as its content type.
+  - Default: `null`
+- `afterContent`
+  - Type: `string`
+  - Description: The content to be appended to this clipping.
+    This value will be processed as markdown if the FlexiIncludeBlock that this clipping belongs to has Markdown as its content type.
+  - Default: `null`
+
+### `FlexiIncludeBlockOptions`
+Options for a FlexiIncludeBlock. To specify default FlexiIncludeBlockOptions for all FlexiIncludeBlocks,
+use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
+
+#### Properties
 - `SourceUri`
   - Type: `string`
   - Description: The URI of the source.
@@ -87,28 +136,22 @@ Options for a FlexiIncludeBlock.
     --------------- Expected Markup ---------------
     <p>This is example markdown.</p>
     ````````````````````````````````
-    Retrieving remote sources can introduce security issues. One way to mitigate such issues is to 
-    only retrieve from trusted or permanent links. For example, the source URI in the above spec is a [Github permalink](https://help.github.com/articles/getting-permanent-links-to-files/).
-    Additionally, consider sanitizing generated markup.
+    If this value is a relative URI for a FlexiIncludeBlock in the root source, [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).RootBaseUri
+    is used as the base URI. If this value is a relative URI for a FlexiIncludeBlock in an included source, the URI of the source is used as the base URI.
 
-- `BaseUri`
-  - Type: `string`
-  - Description: The base for the source URI.
-    This option is only relevant if the source URI is a relative URI.
-    If this value is null, whitespace or an empty string, the application's current directory is used.
-    Otherwise, it must be an absolute URI with scheme file, http or https.
-  - Default: `null`
-  - Usage: 
-    ```````````````````````````````` none
-    --------------- Markdown ---------------
-    +{
-        "type": "markdown",
-        "baseUri": "https://raw.githubusercontent.com",
-        "sourceUri": "JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md"
-    }
-    --------------- Expected Markup ---------------
-    <p>This is example markdown.</p>
-    ````````````````````````````````
+    For example, consider a typical Markdig usage:
+    ```
+    string markup = Markdown.ToHtml(rootSourceAsAString, myMarkdownPipeline);
+    ```
+    Note how the root source has no associated URI. It is just a string. If the root source contains a FlexiIncludeBlock with `SourceUri` 
+    "../my/path/file1.md", we need a base URI to generate the full path for `file1.md`. [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).RootBaseUri 
+    is used - typically we'd configure it to the URI of `rootSourceAsAString`.
+    If `file1.md` contains a FlexiIncludeBlock with `SourceUri` "../my/path/file2.md", since the absolute path of `file1.md` is known, we 
+    use it to generate the absolute path for `file2.md`.
+
+    Do keep in mind that retrieving remote sources can introduce security issues. As far as possible, retrieve remote content only from trusted or permanent links. For example, 
+    the source URI in the above spec is a [Github permalink](https://help.github.com/articles/getting-permanent-links-to-files/).
+    Additionally, consider sanitizing generated markup.
 
 - `Type`
   - Type: `IncludeType`
@@ -348,56 +391,98 @@ Options for a FlexiIncludeBlock.
     </div>
     ````````````````````````````````
 
-#### `Clipping`
-Represents a clipping from a sequence of lines.
+### `FlexiIncludeBlocksExtensionOptions`
+Global options for FlexiIncludeBlocks. These options can be used to define defaults for all FlexiIncludeBlocks. They have
+lower precedence than block specific options.  
 
-##### Properties
-- `StartLineNumber`
-  - Type: `int`
-  - Description: The line number of the line that this clipping starts at.
-    This value must be greater than 0.
-  - Default: `1`
-- `endLineNumber`
-  - Type: `int`
-  - Description: The line number of the line that this clipping ends at.
-    If this value is -1, this clipping extends to the last line. If it is not -1, it must be greater than or equal to `StartLineNumber`.
-  - Default: `-1`
-- `startDemarcationLineSubstring`
-  - Type: `string`
-  - Description: A substring that the line immediately preceding this clipping contains.
-    If this value is not null, whitespace or an empty string, it takes precedence over `StartLineNumber`.
-  - Default: `null`
-- `endDemarcationLineSubstring`
-  - Type: `string`
-  - Description: A substring that the line immediately after this clipping contains.
-    If this value is not null, whitespace or an empty string, it takes precedence over `EndLineNumber`.
-  - Default: `null`
-- `dedentLength`
-  - Type: `int`
-  - Description: The number of leading whitespace characters to remove from each line in this clipping.
-    This value must not be negative.
-  - Default: `0`
-- `collapseRatio`
-  - Type: `float`
-  - Description: The proportion of leading whitespace characters (after dedenting) to keep.
-    For example, if there are 9 leading whitespace characters after dedenting, and this value is 0.33, the final number of leading whitespace characters will be 3. 
-    This value must be in the range [0, 1].
-  - Default: `1`
-- `beforeContent`
-  - Type: `string`
-  - Description: The content to be prepended to this clipping.
-    This value will be processed as markdown if the FlexiIncludeBlock that this clipping belongs to has Markdown as its content type.
-  - Default: `null`
-- `afterContent`
-  - Type: `string`
-  - Description: The content to be appended to this clipping.
-    This value will be processed as markdown if the FlexiIncludeBlock that this clipping belongs to has Markdown as its content type.
-  - Default: `null`
+FlexiIncludeBlocksExtensionOptions can be specified when enabling the FlexiIncludeBlocks extension:
+``` 
+MyMarkdownPipelineBuilder.UseFlexiIncludeBlocks(myFlexiIncludeBlocksExtensionOptions);
+```
 
-### Mechanics
+#### Properties
+- RootBaseUri
+  - Type: `string`
+  - Description: The base URI for FlexiIncludeBlocks in the root source.
+  - Default: The application's current directory.
+  - Usage:
+    ```````````````````````````````` none
+    --------------- Extension Options ---------------
+    {
+        "flexiIncludeBlocks": {
+            "rootBaseUri": "https://raw.githubusercontent.com"
+        }
+    }
+    --------------- Markdown ---------------
+    +{
+        "type": "markdown",
+        "sourceUri": "JeremyTCD/Markdig.Extensions.FlexiBlocks/390395942467555e47ad3cc575d1c8ebbceead15/test/FlexiBlocks.Tests/exampleInclude.md"
+    }
+    --------------- Expected Markup ---------------
+    <p>This is example markdown.</p>
+    ````````````````````````````````
+  
+- DefaultBlockOptions
+  - Type: `FlexiIncludeBlockOptions`
+  - Description: Default `FlexiIncludeBlockOptions` for all FlexiIncludeBlocks. 
+  - Usage:
+    ```````````````````````````````` none
+    --------------- Extension Options ---------------
+    {
+        "flexiIncludeBlocks": {
+            "defaultBlockOptions": {
+                "type": "markdown"
+            }
+        }
+    }
+    --------------- Markdown ---------------
+    +{
+        "sourceUri": "./exampleInclude.md"
+    }
+
+    +{
+        "sourceUri": "./exampleInclude.md"
+    }
+    --------------- Expected Markup ---------------
+    <p>This is example markdown.</p>
+    <p>This is example markdown.</p>
+    ````````````````````````````````
+
+    Default FlexiIncludeBlockOptions have lower precedence than block specific options:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiCodeBlocks
+    --------------- Extension Options ---------------
+    {
+        "flexiIncludeBlocks": {
+            "defaultBlockOptions": {
+                "type": "markdown"
+            }
+        }
+    }
+    --------------- Markdown ---------------
+    +{
+        "sourceUri": "./exampleInclude.md"
+    }
+
+    +{
+        "type": "code",
+        "sourceUri": "./exampleInclude.md"
+    }
+    --------------- Expected Markup ---------------
+    <p>This is example markdown.</p>
+    <div>
+    <header>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    </header>
+    <pre><code>This is example markdown.</code></pre>
+    </div>
+    ````````````````````````````````
+
+## Mechanics
 A [FlexiOptionsBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md) can be placed before a FlexiIncludeBlock. 
-It will be applied to the first block generated by the FlexiIncludeBlock. For example, a FlexiIncludeBlock with `Type` `IncludeType.Code` generates a single code block -
-if the FlexiCodeBlocks extension is enabled, we can specify FlexiCodeBlockOptions for the generated FlexiCodeBlock.  :
+It will be applied to the first block generated by the FlexiIncludeBlock. For example, a FlexiIncludeBlock with type `IncludeType.Code` generates a single code block -
+if the [FlexiCodeBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiCodeBlocksSpecs.md) extension is enabled, we can specify FlexiCodeBlockOptions for the generated FlexiCodeBlock.  :
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiOptionsBlocks
@@ -432,14 +517,14 @@ FlexiIncludeBlocks can be nested:
 --------------- Markdown ---------------
 +{
     "type": "Markdown",
-    "sourceUri": "./exampleIncludeWithNestedInclude.md"
+    "sourceUri": "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/390395942467555e47ad3cc575d1c8ebbceead15/test/FlexiBlocks.Tests/exampleIncludeWithNestedInclude.md"
 }
 --------------- Expected Markup ---------------
 <p>This is example markdown with an include.</p>
 <p>This is example markdown.</p>
 ````````````````````````````````
 
-FlexiIncludeBlocks can be used anywhere that a typical block can be used. For example, in a list item:
+FlexiIncludeBlocks can be used anywhere a typical block can be used. For example, in a list item:
 ```````````````````````````````` none
 --------------- Markdown ---------------
 - First item.

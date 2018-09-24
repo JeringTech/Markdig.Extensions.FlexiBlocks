@@ -1,6 +1,5 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Xunit;
@@ -22,7 +21,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             FlexiIncludeBlockOptions result = dummyInitialOptionsWrapper.Value;
             FlexiIncludeBlockOptions expectedResult = dummyExpectedOptionsWrapper.Value;
             Assert.Equal(expectedResult.SourceUri, result.SourceUri);
-            Assert.Equal(expectedResult.BaseUri, result.BaseUri);
             Assert.Equal(expectedResult.Type, result.Type);
             Assert.Equal(expectedResult.CacheOnDisk, result.CacheOnDisk);
             Assert.Equal(expectedResult.DiskCacheDirectory, result.DiskCacheDirectory);
@@ -33,7 +31,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         public static IEnumerable<object[]> FlexiIncludeBlockOptions_CanBePopulated_Data()
         {
             const string dummySourceUri = "dummySourceUri";
-            const string dummyBaseUri = "C:/dummy/base/uri";
             const IncludeType dummyType = IncludeType.Markdown;
             const bool dummyCacheOnDisk = false;
             const string dummyDiskCacheDirectory = "dummyDiskCacheDirectory";
@@ -50,14 +47,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                 {
                     new SerializableWrapper<FlexiIncludeBlockOptions>(new FlexiIncludeBlockOptions()),
                     new SerializableWrapper<FlexiIncludeBlockOptions>(new FlexiIncludeBlockOptions(dummySourceUri,
-                        dummyBaseUri,
                         dummyType,
                         dummyCacheOnDisk,
                         dummyDiskCacheDirectory,
                         dummyClippings1)),
                     $@"{{
     ""{nameof(FlexiIncludeBlockOptions.SourceUri)}"": ""{dummySourceUri}"",
-    ""{nameof(FlexiIncludeBlockOptions.BaseUri)}"": ""{dummyBaseUri}"",
     ""{nameof(FlexiIncludeBlockOptions.Type)}"": ""{dummyType}"",
     ""{nameof(FlexiIncludeBlockOptions.CacheOnDisk)}"": ""{dummyCacheOnDisk}"",
     ""{nameof(FlexiIncludeBlockOptions.DiskCacheDirectory)}"": ""{dummyDiskCacheDirectory}"",
@@ -93,126 +88,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new FlexiIncludeBlockOptions(null));
             Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionsMustNotBeNull, nameof(FlexiIncludeBlockOptions.SourceUri)), result.Message);
-        }
-
-        [Theory]
-        [MemberData(nameof(ValidateAndPopulate_ThrowsFlexiBlocksExceptionIfSourceUriSchemeIsUnsupported_Data))]
-        public void ValidateAndPopulate_ThrowsFlexiBlocksExceptionIfSourceUriSchemeIsUnsupported(string dummySourceUri, string expectedScheme)
-        {
-            // Act and assert
-            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new FlexiIncludeBlockOptions(dummySourceUri));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeAUriWithASupportedScheme,
-                    nameof(FlexiIncludeBlockOptions.SourceUri),
-                    dummySourceUri,
-                    expectedScheme),
-                result.Message);
-        }
-
-        public static IEnumerable<object[]> ValidateAndPopulate_ThrowsFlexiBlocksExceptionIfSourceUriSchemeIsUnsupported_Data()
-        {
-            return new object[][]
-            {
-                        new object[]{ "ftp://base/uri", "ftp" },
-                        new object[]{ "mailto:base@uri.com", "mailto" },
-                        new object[]{ "gopher://base.uri.com/", "gopher" }
-            };
-        }
-
-        [Theory]
-        [MemberData(nameof(ValidateAndPopulate_ThrowsFlexiBlocksExceptionIfBaseUriIsNotAnAbsoluteUri_Data))]
-        public void ValidateAndPopulate_ThrowsFlexiBlocksExceptionIfBaseUriIsNotAnAbsoluteUri(string dummyBaseUri)
-        {
-            // Act and assert
-            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new FlexiIncludeBlockOptions(baseUri: dummyBaseUri));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeAnAbsoluteUri, nameof(FlexiIncludeBlockOptions.BaseUri), dummyBaseUri), result.Message);
-        }
-
-        public static IEnumerable<object[]> ValidateAndPopulate_ThrowsFlexiBlocksExceptionIfBaseUriIsNotAnAbsoluteUri_Data()
-        {
-            return new object[][]
-            {
-                // Common relative (non absolute) URIs, see http://www.ietf.org/rfc/rfc3986.txt, section 5.4.1
-                new object[]{ "./relative/uri" },
-                new object[]{ "../relative/uri" },
-                new object[]{ "/relative/uri"  },
-                new object[]{ "relative/uri"  }
-            };
-        }
-
-        [Theory]
-        [MemberData(nameof(ValidateAndPopulate_ThrowsFlexiBlocksExceptionIfBaseUriSchemeIsUnsupported_Data))]
-        public void ValidateAndPopulate_ThrowsFlexiBlocksExceptionIfBaseUriSchemeIsUnsupported(string dummyBaseUri, string expectedScheme)
-        {
-            // Act and assert
-            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new FlexiIncludeBlockOptions(baseUri: dummyBaseUri));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeAUriWithASupportedScheme,
-                    nameof(FlexiIncludeBlockOptions.BaseUri),
-                    dummyBaseUri,
-                    expectedScheme),
-                result.Message);
-        }
-
-        public static IEnumerable<object[]> ValidateAndPopulate_ThrowsFlexiBlocksExceptionIfBaseUriSchemeIsUnsupported_Data()
-        {
-            return new object[][]
-            {
-                        new object[]{ "ftp://base/uri", "ftp" },
-                        new object[]{ "mailto:base@uri.com", "mailto" },
-                        new object[]{ "gopher://base.uri.com/", "gopher" }
-            };
-        }
-
-        [Theory]
-        [MemberData(nameof(ValidateAndPopulate_PopulatesNormalizedSourceUri_Data))]
-        public void ValidateAndPopulate_PopulatesNormalizedSourceUri(string dummySourceUri, string dummyBaseUri, string expectedAbsoluteUri)
-        {
-            // Act
-            var result = new FlexiIncludeBlockOptions(dummySourceUri, dummyBaseUri);
-
-            // Assert
-            Assert.Equal(expectedAbsoluteUri, result.NormalizedSourceUri.AbsoluteUri);
-        }
-
-        public static IEnumerable<object[]> ValidateAndPopulate_PopulatesNormalizedSourceUri_Data()
-        {
-            return new object[][]
-            {
-                // Absolute SourceUri
-                new object[]
-                {
-                    "C:/absolute/source/uri",
-                    null,
-                    "file:///C:/absolute/source/uri"
-                },
-                // Relative SourceUri with specified BaseUri
-                new object[]
-                {
-                    "relative/source/uri",
-                    "http://absolute.base/uri/",
-                    "http://absolute.base/uri/relative/source/uri"
-                },
-                // Relative SourceUri with null BaseUri
-                new object[]
-                {
-                    "relative/source/uri",
-                    null,
-                    $"{new Uri(Directory.GetCurrentDirectory()).AbsoluteUri}/relative/source/uri"
-                },
-                // Relative SourceUri with whitespace BaseUri
-                new object[]
-                {
-                    "relative/source/uri",
-                    " ",
-                    $"{new Uri(Directory.GetCurrentDirectory()).AbsoluteUri}/relative/source/uri"
-                },
-                // Relative SourceUri with empty BaseUri
-                new object[]
-                {
-                    "relative/source/uri",
-                    string.Empty,
-                    $"{new Uri(Directory.GetCurrentDirectory()).AbsoluteUri}/relative/source/uri"
-                },
-            };
         }
 
         [Fact]

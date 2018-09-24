@@ -1028,28 +1028,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         }
 
         [Theory]
-        [InlineData("FlexiIncludeBlocks")]
-        [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec5(string extensions)
-        {
-            //     --------------- Markdown ---------------
-            //     +{
-            //         "type": "markdown",
-            //         "baseUri": "https://raw.githubusercontent.com",
-            //         "sourceUri": "JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md"
-            //     }
-            //     --------------- Expected Markup ---------------
-            //     <p>This is example markdown.</p>
-
-            SpecTestHelper.AssertCompliance("+{\n    \"type\": \"markdown\",\n    \"baseUri\": \"https://raw.githubusercontent.com\",\n    \"sourceUri\": \"JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md\"\n}",
-                "<p>This is example markdown.</p>",
-                extensions);
-        }
-
-        [Theory]
         [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec6(string extensions)
+        public void FlexiIncludeBlocks_Spec5(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiCodeBlocks
@@ -1083,7 +1064,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec7(string extensions)
+        public void FlexiIncludeBlocks_Spec6(string extensions)
         {
             //     --------------- Markdown ---------------
             //     +{
@@ -1102,7 +1083,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec8(string extensions)
+        public void FlexiIncludeBlocks_Spec7(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiCodeBlocks
@@ -1133,7 +1114,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec9(string extensions)
+        public void FlexiIncludeBlocks_Spec8(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiCodeBlocks
@@ -1160,7 +1141,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec10(string extensions)
+        public void FlexiIncludeBlocks_Spec9(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiCodeBlocks
@@ -1187,7 +1168,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec11(string extensions)
+        public void FlexiIncludeBlocks_Spec10(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiCodeBlocks
@@ -1235,7 +1216,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec12(string extensions)
+        public void FlexiIncludeBlocks_Spec11(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiCodeBlocks
@@ -1269,7 +1250,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec13(string extensions)
+        public void FlexiIncludeBlocks_Spec12(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiCodeBlocks
@@ -1301,9 +1282,104 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         }
 
         [Theory]
-        [InlineData("FlexiIncludeBlocks_FlexiOptionsBlocks_FlexiCodeBlocks")]
+        [InlineData("FlexiIncludeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec13(string extensions)
+        {
+            //     --------------- Extension Options ---------------
+            //     {
+            //         "flexiIncludeBlocks": {
+            //             "rootBaseUri": "https://raw.githubusercontent.com"
+            //         }
+            //     }
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "type": "markdown",
+            //         "sourceUri": "JeremyTCD/Markdig.Extensions.FlexiBlocks/390395942467555e47ad3cc575d1c8ebbceead15/test/FlexiBlocks.Tests/exampleInclude.md"
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <p>This is example markdown.</p>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"type\": \"markdown\",\n    \"sourceUri\": \"JeremyTCD/Markdig.Extensions.FlexiBlocks/390395942467555e47ad3cc575d1c8ebbceead15/test/FlexiBlocks.Tests/exampleInclude.md\"\n}",
+                "<p>This is example markdown.</p>",
+                extensions, 
+                "{\n    \"flexiIncludeBlocks\": {\n        \"rootBaseUri\": \"https://raw.githubusercontent.com\"\n    }\n}");
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks")]
         [InlineData("All")]
         public void FlexiIncludeBlocks_Spec14(string extensions)
+        {
+            //     --------------- Extension Options ---------------
+            //     {
+            //         "flexiIncludeBlocks": {
+            //             "defaultBlockOptions": {
+            //                 "type": "markdown"
+            //             }
+            //         }
+            //     }
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "sourceUri": "./exampleInclude.md"
+            //     }
+            //     
+            //     +{
+            //         "sourceUri": "./exampleInclude.md"
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <p>This is example markdown.</p>
+            //     <p>This is example markdown.</p>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"sourceUri\": \"./exampleInclude.md\"\n}\n\n+{\n    \"sourceUri\": \"./exampleInclude.md\"\n}",
+                "<p>This is example markdown.</p>\n<p>This is example markdown.</p>",
+                extensions, 
+                "{\n    \"flexiIncludeBlocks\": {\n        \"defaultBlockOptions\": {\n            \"type\": \"markdown\"\n        }\n    }\n}");
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec15(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiCodeBlocks
+            //     --------------- Extension Options ---------------
+            //     {
+            //         "flexiIncludeBlocks": {
+            //             "defaultBlockOptions": {
+            //                 "type": "markdown"
+            //             }
+            //         }
+            //     }
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "sourceUri": "./exampleInclude.md"
+            //     }
+            //     
+            //     +{
+            //         "type": "code",
+            //         "sourceUri": "./exampleInclude.md"
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <p>This is example markdown.</p>
+            //     <div>
+            //     <header>
+            //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+            //     </header>
+            //     <pre><code>This is example markdown.</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"sourceUri\": \"./exampleInclude.md\"\n}\n\n+{\n    \"type\": \"code\",\n    \"sourceUri\": \"./exampleInclude.md\"\n}",
+                "<p>This is example markdown.</p>\n<div>\n<header>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>\n</header>\n<pre><code>This is example markdown.</code></pre>\n</div>",
+                extensions, 
+                "{\n    \"flexiIncludeBlocks\": {\n        \"defaultBlockOptions\": {\n            \"type\": \"markdown\"\n        }\n    }\n}");
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks_FlexiOptionsBlocks_FlexiCodeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec16(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiOptionsBlocks
@@ -1340,18 +1416,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec15(string extensions)
+        public void FlexiIncludeBlocks_Spec17(string extensions)
         {
             //     --------------- Markdown ---------------
             //     +{
             //         "type": "Markdown",
-            //         "sourceUri": "./exampleIncludeWithNestedInclude.md"
+            //         "sourceUri": "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/390395942467555e47ad3cc575d1c8ebbceead15/test/FlexiBlocks.Tests/exampleIncludeWithNestedInclude.md"
             //     }
             //     --------------- Expected Markup ---------------
             //     <p>This is example markdown with an include.</p>
             //     <p>This is example markdown.</p>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"type\": \"Markdown\",\n    \"sourceUri\": \"./exampleIncludeWithNestedInclude.md\"\n}",
+            SpecTestHelper.AssertCompliance("+{\n    \"type\": \"Markdown\",\n    \"sourceUri\": \"https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/390395942467555e47ad3cc575d1c8ebbceead15/test/FlexiBlocks.Tests/exampleIncludeWithNestedInclude.md\"\n}",
                 "<p>This is example markdown with an include.</p>\n<p>This is example markdown.</p>",
                 extensions);
         }
@@ -1359,7 +1435,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec16(string extensions)
+        public void FlexiIncludeBlocks_Spec18(string extensions)
         {
             //     --------------- Markdown ---------------
             //     - First item.
@@ -1386,7 +1462,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec17(string extensions)
+        public void FlexiIncludeBlocks_Spec19(string extensions)
         {
             //     --------------- Markdown ---------------
             //     > First line.
