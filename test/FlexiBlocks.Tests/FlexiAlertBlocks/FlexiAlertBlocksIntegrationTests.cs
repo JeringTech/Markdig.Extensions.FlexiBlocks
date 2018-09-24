@@ -1,8 +1,6 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig;
 using Markdig.Parsers;
-using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -17,22 +15,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
         {
             // Arrange
             // Need to dispose of services between tests so that DiskCacheService's in memory cache doesn't affect results
-            var services = new ServiceCollection();
-            services.AddFlexiBlocks();
-            IServiceProvider serviceProvider = services.BuildServiceProvider();
-            using ((IDisposable)serviceProvider)
-            {
-                var dummyMarkdownPipelineBuilder = new MarkdownPipelineBuilder();
-                dummyMarkdownPipelineBuilder.
-                    UseFlexiOptionsBlocks(serviceProvider: serviceProvider).
-                    UseFlexiAlertBlocks(serviceProvider: serviceProvider);
-                MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
+            var dummyMarkdownPipelineBuilder = new MarkdownPipelineBuilder();
+            dummyMarkdownPipelineBuilder.
+                UseFlexiOptionsBlocks().
+                UseFlexiAlertBlocks();
+            MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
 
-                // Act and assert
-                FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => MarkdownParser.Parse(dummyMarkdown, dummyMarkdownPipeline));
-                Assert.Equal(expectedExceptionMessage, result.Message);
-                Assert.Equal(expectedInnerExceptionMessage, result.InnerException.Message);
-            }
+            // Act and assert
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => MarkdownParser.Parse(dummyMarkdown, dummyMarkdownPipeline));
+            Assert.Equal(expectedExceptionMessage, result.Message);
+            Assert.Equal(expectedInnerExceptionMessage, result.InnerException.Message);
         }
 
         public static IEnumerable<object[]> FlexiAlertBlockParser_ThrowsFlexiBlocksExceptionsWithBlockContext_Data()

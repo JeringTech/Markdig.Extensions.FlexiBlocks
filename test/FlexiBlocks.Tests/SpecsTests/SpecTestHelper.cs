@@ -47,28 +47,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             string pipelineOptions,
             string extensionOptionsJson = null)
         {
-            // Create service provider (use a fresh ServiceProvider to prevent specs from interfering with one another)
-            var services = new ServiceCollection();
-            services.AddFlexiBlocks();
-            IServiceProvider serviceProvider = null;
+            MarkdownPipeline pipeline = CreatePipeline(pipelineOptions, extensionOptionsJson);
+            string result = Markdown.ToHtml(markdown, pipeline);
+            result = Compact(result);
+            string expectedResult = Compact(expectedHtml);
 
-            try
-            {
-                serviceProvider = services.BuildServiceProvider();
-                MarkdownPipeline pipeline = CreatePipeline(pipelineOptions, extensionOptionsJson, serviceProvider);
-                string result = Markdown.ToHtml(markdown, pipeline);
-                result = Compact(result);
-                string expectedResult = Compact(expectedHtml);
-
-                Assert.Equal(expectedResult, result, ignoreLineEndingDifferences: true);
-            }
-            finally
-            {
-                (serviceProvider as IDisposable)?.Dispose(); // Can't use using block for IServiceProvider since in earlier netcoreapp versions, it does not implement IDisposable directly
-            }
+            Assert.Equal(expectedResult, result, ignoreLineEndingDifferences: true);
         }
 
-        private static MarkdownPipeline CreatePipeline(string pipelineOptions, string extensionOptionsJson, IServiceProvider serviceProvider)
+        private static MarkdownPipeline CreatePipeline(string pipelineOptions, string extensionOptionsJson)
         {
             JObject extensionOptions = null;
 
@@ -99,12 +86,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                 if (ExtensionOptionsTypes.TryGetValue(extension, out Type extensionOptionsType))
                 {
                     args = new object[] { builder,
-                        extensionOptions?.GetValue(extension, StringComparison.OrdinalIgnoreCase)?.ToObject(extensionOptionsType),
-                        serviceProvider };
+                        extensionOptions?.GetValue(extension, StringComparison.OrdinalIgnoreCase)?.ToObject(extensionOptionsType)};
                 }
                 else
                 {
-                    args = new object[] { builder, serviceProvider };
+                    args = new object[] { builder };
                 }
 
                 useExtensionMethod.Invoke(null, args);
