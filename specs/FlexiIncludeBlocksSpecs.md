@@ -1,6 +1,6 @@
 ﻿# FlexiIncludeBlocks
 FlexiIncludeBlocks include content from local or remote sources. Content can be included as markdown or in a code block. Common applications for 
-FlexiIncludeBlocks include avoiding duplicate markdown across `.md` documents and using tested code examples.
+FlexiIncludeBlocks include avoiding duplicate markdown across `.md` documents and using tested code in examples.
 
 The specs in this document use the following dummy sources:
 - exampleInclude.md, with content:
