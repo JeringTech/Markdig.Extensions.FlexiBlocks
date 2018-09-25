@@ -33,7 +33,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <param name="processor">The block processor for the FlexiBlock to try and continue.</param>
         /// <param name="block">The FlexiBlock to try and continue.</param>
         /// <returns>The state of the block.</returns>
-        protected abstract BlockState TryContinueFlexiBlock(BlockProcessor processor, Block block);
+        protected virtual BlockState TryContinueFlexiBlock(BlockProcessor processor, Block block)
+        {
+            // Do nothing by default
+            return BlockState.None;
+        }
 
         /// <summary>
         /// Closes a FlexiBlock.
