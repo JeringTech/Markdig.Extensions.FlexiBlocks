@@ -75,7 +75,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
 
             // Get or create stack
-            Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks = GetOrCreateStack(processor);
+            Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks = GetOrCreateClosingFlexiIncludeBlocks(processor);
 
             var flexiIncludeBlock = new FlexiIncludeBlock(closingFlexiIncludeBlocks.FirstOrDefault(), this)
             {
@@ -147,7 +147,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks = null;
                 if (flexiIncludeBlock.FlexiIncludeBlockOptions.Type == IncludeType.Markdown)
                 {
-                    closingFlexiIncludeBlocks = GetOrCreateStack(processor);
+                    closingFlexiIncludeBlocks = GetOrCreateClosingFlexiIncludeBlocks(processor);
                     CheckForCycle(closingFlexiIncludeBlocks, flexiIncludeBlock);
                 }
 
@@ -193,7 +193,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             return false;
         }
 
-        internal virtual Stack<FlexiIncludeBlock> GetOrCreateStack(BlockProcessor processor)
+        internal virtual Stack<FlexiIncludeBlock> GetOrCreateClosingFlexiIncludeBlocks(BlockProcessor processor)
         {
             if (!(processor.Document.GetData(CLOSING_FLEXI_INCLUDE_BLOCKS_KEY) is Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks))
             {

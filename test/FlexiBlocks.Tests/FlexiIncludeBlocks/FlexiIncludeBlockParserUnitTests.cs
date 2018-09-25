@@ -112,7 +112,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             Mock<ExposedFlexiIncludeBlockParser> mockTestSubject = CreateMockExposedFlexiIncludeBlockParser(sourceRetrieverService: mockSourceRetrieverService.Object);
             mockTestSubject.CallBase = true;
             mockTestSubject.Setup(t => t.SetupFlexiIncludeBlock(dummyFlexiIncludeBlock));
-            mockTestSubject.Setup(t => t.GetOrCreateStack(dummyBlockProcessor)).Returns(dummyClosingFlexiIncludeBlocks);
+            mockTestSubject.Setup(t => t.GetOrCreateClosingFlexiIncludeBlocks(dummyBlockProcessor)).Returns(dummyClosingFlexiIncludeBlocks);
             mockTestSubject.Setup(t => t.CheckForCycle(dummyClosingFlexiIncludeBlocks, dummyFlexiIncludeBlock));
             mockTestSubject.Setup(t => t.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummySource));
 
@@ -221,7 +221,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             FlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser();
 
             // Act
-            Stack<FlexiIncludeBlock> result = testSubject.GetOrCreateStack(dummyBlockProcessor);
+            Stack<FlexiIncludeBlock> result = testSubject.GetOrCreateClosingFlexiIncludeBlocks(dummyBlockProcessor);
 
             // Assert
             Assert.Same(dummyFlexiIncludeBlockStack, result);
@@ -235,7 +235,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             FlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser();
 
             // Act
-            Stack<FlexiIncludeBlock> result = testSubject.GetOrCreateStack(dummyBlockProcessor);
+            Stack<FlexiIncludeBlock> result = testSubject.GetOrCreateClosingFlexiIncludeBlocks(dummyBlockProcessor);
 
             // Assert
             Assert.NotNull(result);
