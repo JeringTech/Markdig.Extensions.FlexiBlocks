@@ -19,7 +19,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     public class FlexiCodeBlocksExtension : FlexiBlocksExtension
     {
         private readonly IFlexiOptionsBlockService _flexiOptionsBlockService;
-        private readonly FlexiCodeBlocksExtensionOptions _options;
+        private readonly FlexiCodeBlocksExtensionOptions _extensionOptions;
         private readonly FlexiCodeBlockRenderer _flexiCodeBlockRenderer;
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             IFlexiOptionsBlockService flexiOptionsBlockService)
         {
             _flexiCodeBlockRenderer = flexiCodeBlockRenderer ?? throw new ArgumentNullException(nameof(FlexiCodeBlockRenderer));
-            _options = extensionOptionsAccessor?.Value ?? throw new ArgumentNullException(nameof(extensionOptionsAccessor));
+            _extensionOptions = extensionOptionsAccessor?.Value ?? throw new ArgumentNullException(nameof(extensionOptionsAccessor));
             _flexiOptionsBlockService = flexiOptionsBlockService ?? throw new ArgumentNullException(nameof(flexiOptionsBlockService));
         }
 
@@ -54,8 +54,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 throw new ArgumentNullException(nameof(pipelineBuilder));
             }
 
-            // FencedCodeBlockParser and IndentedCodeBlockParser are default parsers registered in MarkdownPipelineBuilder's constructor,
-            // only register them again if they've been removed.
+            // FencedCodeBlockParser and IndentedCodeBlockParser are default parsers registered in MarkdownPipelineBuilder's constructor.
             FencedCodeBlockParser fencedCodeBlockParser = pipelineBuilder.BlockParsers.Find<FencedCodeBlockParser>();
             if (fencedCodeBlockParser != null)
             {
@@ -110,7 +109,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 throw new ArgumentNullException(nameof(block));
             }
 
-            FlexiCodeBlockOptions flexiCodeBlockOptions = _options.DefaultBlockOptions.Clone();
+            FlexiCodeBlockOptions flexiCodeBlockOptions = _extensionOptions.DefaultBlockOptions.Clone();
 
             // Apply FlexiOptionsBlock options if they exist
             _flexiOptionsBlockService.TryPopulateOptions(processor, flexiCodeBlockOptions, block.Line);
