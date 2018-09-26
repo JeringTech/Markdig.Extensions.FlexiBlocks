@@ -34,7 +34,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// </summary>
         /// <param name="processor">The block processor for the document that contains a line with first non-white-space character "!".</param>
         /// <returns>
-        /// <see cref="BlockState.None"/> if current line has code indent. 
+        /// <see cref="BlockState.None"/> if the current line has code indent. 
         /// <see cref="BlockState.Continue"/> if a <see cref="FlexiAlertBlock"/> is opened.
         /// </returns>
         protected override BlockState TryOpenFlexiBlock(BlockProcessor processor)

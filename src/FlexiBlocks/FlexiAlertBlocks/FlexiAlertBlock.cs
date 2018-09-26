@@ -17,7 +17,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         }
 
         /// <summary>
-        /// The options for this block.
+        /// Gets or sets the options for this block.
         /// </summary>
         public FlexiAlertBlockOptions FlexiAlertBlockOptions { get; set; }
     }

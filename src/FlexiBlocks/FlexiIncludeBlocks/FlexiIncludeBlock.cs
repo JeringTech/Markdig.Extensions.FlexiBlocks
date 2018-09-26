@@ -23,7 +23,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         }
 
         /// <summary>
-        /// The options for this block.
+        /// Gets or sets the options for this block.
         /// </summary>
         public FlexiIncludeBlockOptions FlexiIncludeBlockOptions { get; internal set; }
 
