@@ -17,7 +17,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     /// </summary>
     public class FlexiCodeBlockOptions : FlexiBlockOptions<FlexiCodeBlockOptions>
     {
-        private const string _defaultCopyIconMarkup = "<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0,0h24v24H0V0z\" fill=\"none\"/><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>";
+        private const string _defaultCopyIconMarkup = "<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>";
         private const string _defaultCodeClassFormat = "language-{0}";
         private const SyntaxHighlighter _defaultSyntaxHighlighter = SyntaxHighlighter.Prism;
         private const string _defaultHighlightJSClassPrefix = "hljs-";

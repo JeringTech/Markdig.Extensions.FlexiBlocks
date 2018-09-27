@@ -171,7 +171,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div>
     <header>
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
     <pre><code>function exampleFunction(arg) {
         // Example comment
@@ -244,7 +244,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div>
     <header>
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
     <pre><code>function exampleFunction(arg) {
         // Example comment
@@ -268,7 +268,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div>
     <header>
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
     <pre><code>function add(a, b) {
         return a + b;
@@ -288,7 +288,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div>
     <header>
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
     <pre><code>function add(a, b) {
         return a + b;
@@ -325,7 +325,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div>
     <header>
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
     <pre><code>function exampleFunction(arg) {
     ...
@@ -349,7 +349,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div>
     <header>
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
     <pre><code>function exampleFunction(arg) {
       // Example comment
@@ -376,7 +376,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div>
     <header>
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
     <pre><code>function exampleFunction(arg) {
       // Example comment
@@ -473,7 +473,7 @@ MyMarkdownPipelineBuilder.UseFlexiIncludeBlocks(myFlexiIncludeBlocksExtensionOpt
     <p>This is example markdown.</p>
     <div>
     <header>
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
     <pre><code>This is example markdown.</code></pre>
     </div>
@@ -497,7 +497,7 @@ FlexiCodeBlocks
 --------------- Expected Markup ---------------
 <div>
 <header>
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h24v24H0V0z" fill="none"/><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
 </header>
 <pre><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">exampleFunction</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment">// Example comment</span>
