@@ -5,11 +5,24 @@
     /// </summary>
     public enum SectioningContentElement
     {
-        Undefined = 0,
-        None,
+        /// <summary>
+        /// https://html.spec.whatwg.org/multipage/sections.html#the-section-element
+        /// </summary>
         Section,
+
+        /// <summary>
+        /// https://html.spec.whatwg.org/multipage/sections.html#the-article-element
+        /// </summary>
         Article,
+
+        /// <summary>
+        /// https://html.spec.whatwg.org/multipage/sections.html#the-aside-element
+        /// </summary>
         Aside,
+
+        /// <summary>
+        /// https://html.spec.whatwg.org/multipage/sections.html#the-nav-element
+        /// </summary>
         Nav
     }
 }

@@ -1,417 +1,424 @@
-﻿## FlexiSectionBlocks
-A typical article is divided into logical sections. Often, the HTML for logical sections are demarcated by heading elements.
+﻿# FlexiSectionBlocks
+Markdown articles are typically divided into logical sections by [ATX heading](https://spec.commonmark.org/0.28/#atx-headings)s. For example:
+```
+# Indoor Herb Gardens
+An introduction..
+
+## Getting Started
+
+### Growing Herbs from Cuttings
+Information on growing herbs from cuttings..
+
+## Caring for Herbs
+
+### Watering Herbs
+Information on watering herbs..
+```
 The [HTML spec](https://html.spec.whatwg.org/multipage/sections.html#headings-and-sections) encourages wrapping of 
-logical sections in [sectioning content elements](https://html.spec.whatwg.org/multipage/dom.html#sectioning-content-2).
-This extension wraps logical sections in `<section>` elements, with nesting dependent on [ATX heading](https://spec.commonmark.org/0.28/#atx-headings)
-levels.
+logical sections in [sectioning content elements](https://html.spec.whatwg.org/multipage/dom.html#sectioning-content-2), like so:
 
-Additionally, this extension wraps heading elements (`<h1>, <h2> etc`) in `<header>` elements and renders icon markup. Wrapping heading elements
-in header elements is standard usage of the `<header>` element, as per MDN's [documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header).
+```
+<article>
+<h1>Indoor Herb Gardens</h1>
+<p>An introduction..</p>
+<section>
+<h2>Getting Started</h2>
+<section>
+<h3>Growing Herbs from Cuttings</h3>
+<p>Information on growing herbs from cuttings..</p>
+</section>
+</section>
+<section>
+<h2>Caring for Herbs</h2>
+<section>
+<h3>Watering</h3>
+<p>Information on watering herbs..</p>
+</section>
+</section>
+</article>
+```
+Wrapping logical sections in sectioning content elements facilitates efficient manipulation of an article's outline (TODO add link to relevant article).
 
-Sequential higher-level sections are nested:
+FlexiSectionBlocks are logical sections of a markdown article. They facilitate wrapping of such sections in sectioning content elements.
 
-```````````````````````````````` example
-# foo
-## foo
-### foo
-#### foo
-.
-<header class="header-level-1">
-<h1>foo</h1>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+## Basic Syntax
+A FlexiSectionBlock consists of an ATX heading and the content between it and
+- The next ATX heading of equal or lower level 
+[that is not a child of a container block](#mechanics) or
+- The end of the article.
+
+Valid [ATX heading](https://spec.commonmark.org/0.28/#atx-headings)s demarcate the start of FlexiSectionBlocks: 
+```````````````````````````````` none
+--------------- Markdown ---------------
+# Indoor Herb Gardens
+An introduction..
+
+## Getting Started
+
+### Growing Herbs from Cuttings
+Information on growing herbs from cuttings..
+
+## Caring for Herbs
+
+### Watering Herbs
+Information on watering herbs..
+--------------- Expected Markup ---------------
+<section class="section-level-1" id="indoor-herb-gardens">
+<header>
+<h1>Indoor Herb Gardens</h1>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
 </header>
-<section id="foo">
-<header class="header-level-2">
-<h2>foo</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+<p>An introduction..</p>
+<section class="section-level-2" id="getting-started">
+<header>
+<h2>Getting Started</h2>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
 </header>
-<section id="foo-1">
-<header class="header-level-3">
-<h3>foo</h3>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+<section class="section-level-3" id="growing-herbs-from-cuttings">
+<header>
+<h3>Growing Herbs from Cuttings</h3>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
 </header>
-<section id="foo-2">
-<header class="header-level-4">
-<h4>foo</h4>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+<p>Information on growing herbs from cuttings..</p>
+</section>
+</section>
+<section class="section-level-2" id="caring-for-herbs">
+<header>
+<h2>Caring for Herbs</h2>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
 </header>
+<section class="section-level-3" id="watering-herbs">
+<header>
+<h3>Watering Herbs</h3>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+</header>
+<p>Information on watering herbs..</p>
 </section>
 </section>
 </section>
 ````````````````````````````````
 
-Sequential lower-level sections are not nested:
+By default, a FlexiSectionBlock's outermost element is assigned a generated class and ID. Also, its heading is nested in a header element with a link
+icon. The class, ID, markup for the link icon and more can be customized or omitted - refer to the [options section](#options) for details.
+ 
+## Options
 
-```````````````````````````````` example
-## foo
+### `FlexiSectionBlockOptions`
+Options for a FlexiSectionBlock. To specify FlexiSectionBlockOptions for a FlexiSectionBlock, the 
+[FlexiOptionsBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled. To specify default FlexiSectionBlockOptions for all FlexiSectionBlocks,
+use [FlexiSectionBlocksExtensionOptions](#flexiSectionblocksextensionoptions).
+
+#### Properties
+- `Element`
+  - Type: `SectioningContentElement`
+  - Description: The sectioning content element used as the outermost element of the FlexiSectionBlock.
+  - Default: `SectioningContentElement.Section`
+  - Usage:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiOptionsBlocks
+    --------------- Markdown ---------------
+    @{
+        "element": "nav"
+    }
+    ## foo
+    --------------- Expected Markup ---------------
+    <nav class="section-level-2" id="foo">
+    <header>
+    <h2>foo</h2>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+    </header>
+    </nav>
+    ````````````````````````````````
+
+- `GenerateIdentifier`
+  - Type: `bool`
+  - Description: The boolean value specifying whether or not an ID should be generated for the FlexiSectionBlock's 
+    outermost element.
+    If this value is true, an ID will be generated from the FlexiSectionBlock's header's content. 
+    Otherwise, no ID will be generated.
+  - Default: `true`
+  - Usage:
+    By default, this value is true, so a kebab-case (lowercase words joined by dashes) ID is generated for the FlexiSectionBlock:
+    ```````````````````````````````` none
+    --------------- Markdown ---------------
+    ## Foo Bar Baz
+    --------------- Expected Markup ---------------
+    <section class="section-level-2" id="foo-bar-baz">
+    <header>
+    <h2>Foo Bar Baz</h2>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+    </header>
+    </section>
+    ````````````````````````````````
+    When this value is false, no ID is generated for the FlexiSectionBlock:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiOptionsBlocks
+    --------------- Markdown ---------------
+    @{
+        "generateIdentifier": false
+    }
+    ## Foo Bar Baz
+    --------------- Expected Markup ---------------
+    <section class="section-level-2">
+    <header>
+    <h2>Foo Bar Baz</h2>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+    </header>
+    </section>
+    ````````````````````````````````
+
+- `AutoLinkable`
+  - Type: `bool`
+  - Description: The boolean value specifying whether or not the FlexiSectionBlock should be linkable to using its
+    header's content (auto-linkable).
+    If this value is true and the FlexiSectionBlock's outermost element has an ID, enables auto-linking for
+    the FlexiSectionBlock. Otherwise, auto-linking will be disabled.
+  - Default: `true`
+  - Usage:
+    By default, this value is true, so the FlexiSectionBlock can be linked to using its heading's content:
+    ```````````````````````````````` none
+    --------------- Markdown ---------------
+    [foo]
+
+    ## foo
+
+    [foo]
+    [Link Text][foo]
+    --------------- Expected Markup ---------------
+    <p><a href="#foo">foo</a></p>
+    <section class="section-level-2" id="foo">
+    <header>
+    <h2>foo</h2>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+    </header>
+    <p><a href="#foo">foo</a>
+    <a href="#foo">Link Text</a></p>
+    </section>
+    ````````````````````````````````
+    When this value is false, the FlexiSectionBlock cannot be linked to using its heading's content:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiOptionsBlocks
+    --------------- Markdown ---------------
+    [foo]
+
+    @{
+        "autoLinkable": false
+    }
+    ## foo
+
+    [foo]
+    [Link Text][foo]
+    --------------- Expected Markup ---------------
+    <p>[foo]</p>
+    <section class="section-level-2" id="foo">
+    <header>
+    <h2>foo</h2>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+    </header>
+    <p>[foo]
+    [Link Text][foo]</p>
+    </section>
+    ````````````````````````````````
+
+- `ClassFormat`
+  - Type: `string`
+  - Description: The format for the FlexiSectionBlock's outermost element's class.
+    The FlexiSectionBlock's level will replace "{0}" in the format. 
+    If this value is null, whitespace or an empty string, no class is assigned.
+  - Default: "section-level-{0}"
+  - Usage: 
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiOptionsBlocks
+    --------------- Markdown ---------------
+    @{
+        "classFormat": "level-{0}"
+    }
+    ## foo
+    --------------- Expected Markup ---------------
+    <section class="level-2" id="foo">
+    <header>
+    <h2>foo</h2>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+    </header>
+    </section>
+    ````````````````````````````````
+
+- `LinkIconMarkup`
+  - Type: `string`
+  - Description: The markup for the FlexiSectionBlock's link icon.
+    If this value is null, whitespace or an empty string, no copy icon is rendered.
+  - Default: [Material Design "File Copy" Icon](https://material.io/tools/icons/?icon=link&style=sharp)
+  - Usage:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiOptionsBlocks
+    --------------- Markdown ---------------
+    @{
+        "linkIconMarkup": "<svg><use xlink:href=\"#material-design-link\"></use></svg>"
+    }
+    ## foo
+    --------------- Expected Markup ---------------
+    <section class="section-level-2" id="foo">
+    <header>
+    <h2>foo</h2>
+    <svg><use xlink:href="#material-design-link"></use></svg>
+    </header>
+    </section>
+    ````````````````````````````````
+
+- `Attributes`
+  - Type: `IDictionary<string, string>`
+  - Description: The HTML attributes for the FlexiSectionBlock's outermost element.
+    If this value is null, no attributes will be assigned to the outermost element.
+  - Default: `null`
+  - Usage:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiOptionsBlocks
+    --------------- Markdown ---------------
+    @{
+        "attributes": {
+            "id" : "section-1",
+            "class" : "block"
+        }
+    }
+    ## foo
+    --------------- Expected Markup ---------------
+    <section id="section-1" class="block section-level-2">
+    <header>
+    <h2>foo</h2>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+    </header>
+    </section>
+    ````````````````````````````````
+    If a value is specified for the class attribute, it will not override the outermost element's generated class. Instead, it will be 
+    prepended to the generated class. In the above example, this results in the outermost element's class attribute having the value 
+    `block secion-level-2`.
+
+### `FlexiSectionBlocksExtensionOptions`
+Global options for FlexiSectionBlocks. These options can be used to define defaults for all FlexiSectionBlocks. They have
+lower precedence than block specific options specified using the FlexiOptionsBlocks extension.  
+
+FlexiSectionBlocksExtensionOptions can be specified when enabling the FlexiSectionBlocks extension:
+``` 
+MyMarkdownPipelineBuilder.UseFlexiSectionBlocks(myFlexiSectionBlocksExtensionOptions);
+```
+
+#### Properties
+- DefaultBlockOptions
+  - Type: `FlexiSectionBlockOptions`
+  - Description: Default `FlexiSectionBlockOptions` for all FlexiSectionBlocks. 
+  - Usage:
+    ```````````````````````````````` none
+    --------------- Extension Options ---------------
+    {
+        "flexiSectionBlocks": {
+            "defaultBlockOptions": {
+                "element": "nav",
+                "classFormat": "level-{0}",
+                "linkIconMarkup": "<svg><use xlink:href=\"#material-design-link\"></use></svg>",
+                "attributes": {
+                    "class": "block"
+                }
+            }
+        }
+    }
+    --------------- Markdown ---------------
+    # foo
+
+    # foo
+    --------------- Expected Markup ---------------
+    <nav class="block level-1" id="foo">
+    <header>
+    <h1>foo</h1>
+    <svg><use xlink:href="#material-design-link"></use></svg>
+    </header>
+    </nav>
+    <nav class="block level-1" id="foo-1">
+    <header>
+    <h1>foo</h1>
+    <svg><use xlink:href="#material-design-link"></use></svg>
+    </header>
+    </nav>
+    ````````````````````````````````
+
+    Default FlexiSectionBlockOptions have lower precedence than block specific options:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiOptionsBlocks
+    --------------- Extension Options ---------------
+    {
+        "flexiSectionBlocks": {
+            "defaultBlockOptions": {
+                "element": "nav"
+            }
+        }
+    }
+    --------------- Markdown ---------------
+    # foo
+
+    @{
+        "element": "article"
+    }
+    # foo
+    --------------- Expected Markup ---------------
+    <nav class="section-level-1" id="foo">
+    <header>
+    <h1>foo</h1>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+    </header>
+    </nav>
+    <article class="section-level-1" id="foo-1">
+    <header>
+    <h1>foo</h1>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+    </header>
+    </article>
+    ````````````````````````````````
+
+## Mechanics
+As per the [HTML spec](https://html.spec.whatwg.org/multipage/sections.html#headings-and-sections), [sectioning roots](https://html.spec.whatwg.org/multipage/sections.html#sectioning-root)
+have their own section trees:
+
+```````````````````````````````` none
+--------------- Markdown ---------------
 # foo
-.
-<section id="foo">
-<header class="header-level-2">
-<h2>foo</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-</section>
-<header class="header-level-1">
+
+> # foo
+> ## foo
+
+## foo
+--------------- Expected Markup ---------------
+<section class="section-level-1" id="foo">
+<header>
 <h1>foo</h1>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-````````````````````````````````
-
-Sequential same-level sections are not nested:
-
-```````````````````````````````` example
-## foo
-## foo
-.
-<section id="foo">
-<header class="header-level-2">
-<h2>foo</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-</section>
-<section id="foo-1">
-<header class="header-level-2">
-<h2>foo</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-</section>
-````````````````````````````````
-
-Mixed sections:
-
-```````````````````````````````` example
-# foo
-## foo
-### foo
-## foo
-.
-<header class="header-level-1">
-<h1>foo</h1>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-<section id="foo">
-<header class="header-level-2">
-<h2>foo</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-<section id="foo-1">
-<header class="header-level-3">
-<h3>foo</h3>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-</section>
-</section>
-<section id="foo-2">
-<header class="header-level-2">
-<h2>foo</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-</section>
-````````````````````````````````
-
-Sections wrap content:
-
-```````````````````````````````` example
-# foo
-Level 1 content.
-## foo
-- Level 2 content line 1.
-- Level 2 content line 2.
-### foo
-> Level 3 content line 1.
-> Level 3 content line 2.
-.
-<header class="header-level-1">
-<h1>foo</h1>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-<p>Level 1 content.</p>
-<section id="foo">
-<header class="header-level-2">
-<h2>foo</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-<ul>
-<li>Level 2 content line 1.</li>
-<li>Level 2 content line 2.</li>
-</ul>
-<section id="foo-1">
-<header class="header-level-3">
-<h3>foo</h3>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
 </header>
 <blockquote>
-<p>Level 3 content line 1.
-Level 3 content line 2.</p>
-</blockquote>
-</section>
-</section>
-````````````````````````````````
-
-To enable wrapping of level 1 headers, set `SectionsExtensionOptions.Level1WrapperElement` to any `SectioningContentElement` value other than `None` and `Undefined`. For example:
-
-```````````````````````````````` extensionOptions
-{
-    "flexisectionblocks": {
-        "level1WrapperElement": "article"
-    }
-}
-```````````````````````````````` example
-# foo
-## foo
-.
-<article id="foo">
-<header class="header-level-1">
-<h1>foo</h1>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-<section id="foo-1">
-<header class="header-level-2">
-<h2>foo</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-</section>
-</article>
-````````````````````````````````
-
-To change the element used to wrap level 2+ headers, set `SectionsExtensionOptions.Level2PlusWrapperElement". For example:
-
-```````````````````````````````` extensionOptions
-{
-    "flexisectionblocks": {
-        "level2PlusWrapperElement": "nav"
-    }
-}
-```````````````````````````````` example
-## foo
-.
-<nav id="foo">
-<header class="header-level-2">
-<h2>foo</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-</nav>
-````````````````````````````````
-
-The icon used for headers can be customized by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.HeaderIconMarkup`. For example:
-
-```````````````````````````````` extensionOptions
-{
-    "flexisectionblocks": {
-        "defaultFlexiSectionBlockOptions": {
-            "headerIconMarkup": "<svg><use xlink:href=\"#custom-link-icon\"></use></svg>"
-        }
-    }
-}
-```````````````````````````````` example
-## foo
-.
-<section id="foo">
-<header class="header-level-2">
-<h2>foo</h2>
-<svg><use xlink:href="#custom-link-icon"></use></svg>
-</header>
-</section>
-````````````````````````````````
-
-The format string for header classes can be customized by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.HeaderClassNameFormat`. For example:
-
-```````````````````````````````` extensionOptions
-{
-    "flexisectionblocks": {
-        "defaultFlexiSectionBlockOptions": {
-            "headerClassNameFormat": "custom-{0}"
-        }
-    }
-}
-```````````````````````````````` example
-## foo
-.
-<section id="foo">
-<header class="custom-2">
-<h2>foo</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-</section>
-````````````````````````````````
-
-Kebab-case (lowercase words joined by dashes) IDs are generated for each section:
-
-```````````````````````````````` example
-## Foo Bar Baz
-.
-<section id="foo-bar-baz">
-<header class="header-level-2">
-<h2>Foo Bar Baz</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-</section>
-````````````````````````````````
-
-Auto generation of IDs can be disabled by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.GenerateIdentifier` to `false`:
-
-```````````````````````````````` extensionOptions
-{
-    "flexisectionblocks": {
-        "defaultFlexiSectionBlockOptions": {
-            "generateIdentifier": false
-        }
-    }
-}
-```````````````````````````````` example
-## Foo Bar Baz
-.
-<section>
-<header class="header-level-2">
-<h2>Foo Bar Baz</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-</section>
-````````````````````````````````
-
-Sections can be linked to by the text content of their headings:
-
-```````````````````````````````` example
-[foo]
-
-## foo
-### foo bar
-[foo bar]
-#### foo bar baz
-
-[Link Text][foo bar baz]
-.
-<p><a href="#foo">foo</a></p>
-<section id="foo">
-<header class="header-level-2">
-<h2>foo</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-<section id="foo-bar">
-<header class="header-level-3">
-<h3>foo bar</h3>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-<p><a href="#foo-bar">foo bar</a></p>
-<section id="foo-bar-baz">
-<header class="header-level-4">
-<h4>foo bar baz</h4>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-<p><a href="#foo-bar-baz">Link Text</a></p>
-</section>
-</section>
-</section>
-````````````````````````````````
-
-Linking to sections by the text content of their headings can be disabled by setting `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.AutoLinkable` to `false` (note 
-that linking to sections is also disabled if `FlexiSectionBlocksExtensionOptions.DefaultFlexiSectionBlockOptions.GenerateIdentifier` is set to `false`):
-
-```````````````````````````````` extensionOptions
-{
-    "flexisectionblocks": {
-        "defaultFlexiSectionBlockOptions": {
-            "autoLinkable": false
-        }
-    }
-}
-```````````````````````````````` example
-[foo]
-
-## foo
-### foo bar
-[foo bar]
-#### foo bar baz
-
-[foo bar baz]
-.
-<p>[foo]</p>
-<section id="foo">
-<header class="header-level-2">
-<h2>foo</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-<section id="foo-bar">
-<header class="header-level-3">
-<h3>foo bar</h3>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-<p>[foo bar]</p>
-<section id="foo-bar-baz">
-<header class="header-level-4">
-<h4>foo bar baz</h4>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-<p>[foo bar baz]</p>
-</section>
-</section>
-</section>
-````````````````````````````````
-
-Per-FlexiSectionBlock options can be specified if the FlexiOptionsBlocks extension is enabled:
-
-```````````````````````````````` extraExtensions
-FlexiOptionsBlocks
-```````````````````````````````` example
-@{
-    "wrapperElement": "article"
-}
-# foo
-@{
-    "headerIconMarkup": "<svg><use xlink:href=\"#custom-link-icon\"></use></svg>"
-}
-## foo
-@{
-    "headerClassNameFormat": "custom-{0}"
-}
-## foo
-.
-<article id="foo">
-<header class="header-level-1">
-<h1>foo</h1>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-<section id="foo-1">
-<header class="header-level-2">
-<h2>foo</h2>
-<svg><use xlink:href="#custom-link-icon"></use></svg>
-</header>
-</section>
-<section id="foo-2">
-<header class="custom-2">
-<h2>foo</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-</section>
-</article>
-````````````````````````````````
-
-Lines beginning with # in code blocks are ignored:
-
-```````````````````````````````` extraExtensions
-FlexiCodeBlocks
-```````````````````````````````` example
-# foo
-## foo
-```
-## foo
-```
-.
-<header class="header-level-1">
-<h1>foo</h1>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-<section id="foo">
-<header class="header-level-2">
-<h2>foo</h2>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-<div class="fcb">
+<section class="section-level-1" id="foo-1">
 <header>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M14,3H6C4.9,3,4,3.9,4,5v11h2V5h8V3z M17,7h-7C8.9,7,8,7.9,8,9v10c0,1.1,0.9,2,2,2h7c1.1,0,2-0.9,2-2V9C19,7.9,18.1,7,17,7zM17,19h-7V9h7V19z"/></svg>
+<h1>foo</h1>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
 </header>
-<pre><code>### foo</code></pre>
-</div>
+<section class="section-level-2" id="foo-2">
+<header>
+<h2>foo</h2>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+</header>
+</section>
+</section>
+</blockquote>
+<section class="section-level-2" id="foo-3">
+<header>
+<h2>foo</h2>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+</header>
+</section>
 </section>
 ````````````````````````````````
+In the above spec, the level 1 ATX heading in the blockquote does not cause its preceding FlexiSectionBlock to close. Instead, it starts
+a new section tree within the blockquote.

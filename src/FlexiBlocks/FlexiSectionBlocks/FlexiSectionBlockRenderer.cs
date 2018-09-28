@@ -1,43 +1,78 @@
 ﻿using Markdig.Renderers;
-using Markdig.Renderers.Html;
+using System;
+using System.Collections.Generic;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
 {
-    public class FlexiSectionBlockRenderer : HtmlObjectRenderer<FlexiSectionBlock>
+    /// <summary>
+    /// A renderer that renders <see cref="FlexiSectionBlock"/>s as HTML.
+    /// </summary>
+    public class FlexiSectionBlockRenderer : FlexiBlockRenderer<FlexiSectionBlock>
     {
-        protected override void Write(HtmlRenderer renderer, FlexiSectionBlock obj)
+        /// <summary>
+        /// Renders a <see cref="FlexiSectionBlock"/> as HTML.
+        /// </summary>
+        /// <param name="renderer">The renderer to write to.</param>
+        /// <param name="obj">The <see cref="FlexiSectionBlock"/> to render.</param>
+        protected override void WriteFlexiBlock(HtmlRenderer renderer, FlexiSectionBlock obj)
         {
-            FlexiSectionBlockOptions flexiSectionBlockOptions = obj.FlexiSectionBlockOptions;
+            if (renderer == null)
+            {
+                throw new ArgumentNullException(nameof(renderer));
+            }
+
+            if (obj == null)
+            {
+                throw new ArgumentNullException(nameof(obj));
+            }
 
             renderer.EnsureLine();
 
-            // Undefined or None
-            if (flexiSectionBlockOptions.WrapperElement.CompareTo(SectioningContentElement.None) <= 0)
+            if (!renderer.EnableHtmlForBlock)
             {
-                renderer.WriteChildren(obj);
+                renderer.WriteChildren(obj, false);
                 return;
             }
 
-            string elementName = flexiSectionBlockOptions.WrapperElement.ToString().ToLower();
+            FlexiSectionBlockOptions flexiSectionBlockOptions = obj.FlexiSectionBlockOptions;
 
-            if (renderer.EnableHtmlForBlock)
+            // Add class to attributes
+            IDictionary<string, string> attributes = new HtmlAttributeDictionary(flexiSectionBlockOptions.Attributes);
+            if (!string.IsNullOrWhiteSpace(flexiSectionBlockOptions.Class))
             {
-                renderer.
-                    Write("<").
-                    Write(elementName).
-                    WriteHtmlAttributeDictionary(flexiSectionBlockOptions.Attributes).
-                    WriteLine(">");
+                attributes.Add("class", flexiSectionBlockOptions.Class);
             }
 
-            renderer.WriteChildren(obj, false);
-
-            if (renderer.EnableHtmlForBlock)
+            // Add id to attributes
+            if (!string.IsNullOrWhiteSpace(obj.ID))
             {
-                renderer.
-                    Write("</").
-                    Write(elementName).
-                    WriteLine(">");
+                attributes.Add("id", obj.ID);
             }
+
+            string elementName = flexiSectionBlockOptions.Element.ToString().ToLower();
+            renderer.
+                Write("<").
+                Write(elementName).
+                WriteAttributes(attributes).
+                WriteLine(">").
+                WriteLine("<header>").
+                Write($"<h{obj.Level}>").
+                Write(obj.HeaderContent).
+                WriteLine($"</h{obj.Level}>");
+
+            // Link icon
+            if (!string.IsNullOrWhiteSpace(flexiSectionBlockOptions.LinkIconMarkup))
+            {
+                renderer.WriteLine(flexiSectionBlockOptions.LinkIconMarkup);
+            }
+
+            renderer.
+                WriteLine("</header>").
+                WriteChildren(obj, false).
+                EnsureLine().
+                Write("</").
+                Write(elementName).
+                WriteLine(">");
         }
     }
 }

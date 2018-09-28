@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks
 {
@@ -71,21 +72,39 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         public static MarkdownPipelineBuilder UseFlexiBlocks(this MarkdownPipelineBuilder pipelineBuilder)
         {
             return pipelineBuilder.
-                UseFlexiOptionsBlocks().
                 UseFlexiAlertBlocks().
                 UseFlexiCodeBlocks().
-                UseFlexiIncludeBlocks();
+                UseFlexiIncludeBlocks().
+                UseFlexiOptionsBlocks().
+                UseFlexiSectionBlocks();
         }
 
-        //public static MarkdownPipelineBuilder UseFlexiSectionBlocks(this MarkdownPipelineBuilder pipelineBuilder, FlexiSectionBlocksExtensionOptions options = null)
-        //{
-        //    if (!pipelineBuilder.Extensions.Contains<FlexiSectionBlocksExtension>())
-        //    {
-        //        pipelineBuilder.Extensions.Add(new FlexiSectionBlocksExtension(options));
-        //    }
+        /// <summary>
+        /// Adds <see cref="FlexiSectionBlocksExtension"/> to the pipeline.
+        /// </summary>
+        /// <param name="pipelineBuilder">The pipeline builder for the pipeline.</param>
+        /// <param name="options">Options for the <see cref="FlexiSectionBlocksExtension"/>.</param>
+        public static MarkdownPipelineBuilder UseFlexiSectionBlocks(this MarkdownPipelineBuilder pipelineBuilder,
+            FlexiSectionBlocksExtensionOptions options = null)
+        {
+            if (!pipelineBuilder.Extensions.Contains<FlexiSectionBlocksExtension>())
+            {
+                lock (_serviceProviderLock)
+                {
+                    if (options != null)
+                    {
+                        SetOptions(options, _serviceProvider);
+                    }
+                    pipelineBuilder.Extensions.Add(_serviceProvider.GetRequiredService<FlexiSectionBlocksExtension>());
+                    if (options != null)
+                    {
+                        SetOptions<FlexiSectionBlocksExtensionOptions>(null, _serviceProvider);
+                    }
+                }
+            }
 
-        //    return pipelineBuilder;
-        //}
+            return pipelineBuilder;
+        }
 
         /// <summary>
         /// Adds <see cref="FlexiAlertBlocksExtension"/> to the pipeline.

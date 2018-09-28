@@ -1,65 +1,76 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
-using Markdig;
+﻿using Markdig;
 using Markdig.Parsers;
 using Markdig.Renderers;
-using Markdig.Renderers.Html;
+using Microsoft.Extensions.Options;
+using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
 {
     /// <summary>
-    /// Wraps sections demarcated by ATX headings in sectioning content elements, as recommended by the HTML spec - https://html.spec.whatwg.org/multipage/sections.html#headings-and-sections.
+    /// <para>A markdig extension for <see cref="FlexiSectionBlock"/>s.</para>
+    /// <para>This extension uses ATX headings as section demarcators, wrapping each section in a sectioning content element, as recommended by the HTML spec - https://html.spec.whatwg.org/multipage/sections.html#headings-and-sections.</para>
     /// </summary>
-    public class FlexiSectionBlocksExtension : IMarkdownExtension
+    public class FlexiSectionBlocksExtension : FlexiBlocksExtension
     {
-        private readonly FlexiSectionBlocksExtensionOptions _options;
+        private readonly FlexiSectionBlocksExtensionOptions _extensionOptions;
+        private readonly FlexiSectionBlockRenderer _flexiSectionBlockRenderer;
+        private readonly FlexiSectionBlockParser _flexiSectionBlockParser;
 
-        public FlexiSectionBlocksExtension(FlexiSectionBlocksExtensionOptions options)
+        /// <summary>
+        /// Creates a <see cref="FlexiSectionBlocksExtension"/> instance.
+        /// </summary>
+        /// <param name="extensionOptionsAccessor">Thw accessor for <see cref="FlexiSectionBlocksExtensionOptions"/>.</param>
+        /// <param name="flexiSectionBlockParser">The parser for creating <see cref="FlexiSectionBlock"/>s from markdown.</param>
+        /// <param name="flexiSectionBlockRenderer">The renderer for rendering <see cref="FlexiSectionBlock"/>s as HTML.</param>
+        public FlexiSectionBlocksExtension(IOptions<FlexiSectionBlocksExtensionOptions> extensionOptionsAccessor,
+            FlexiSectionBlockParser flexiSectionBlockParser,
+            FlexiSectionBlockRenderer flexiSectionBlockRenderer)
         {
-            _options = options ?? new FlexiSectionBlocksExtensionOptions();
+            _extensionOptions = extensionOptionsAccessor?.Value ?? throw new ArgumentNullException(nameof(extensionOptionsAccessor));
+            _flexiSectionBlockRenderer = flexiSectionBlockRenderer ?? throw new ArgumentNullException(nameof(flexiSectionBlockRenderer));
+            _flexiSectionBlockParser = flexiSectionBlockParser ?? throw new ArgumentNullException(nameof(flexiSectionBlockParser));
         }
 
-        public void Setup(MarkdownPipelineBuilder pipeline)
+        /// <summary>
+        /// Registers a <see cref="FlexiSectionBlock"/> parser if one isn't already registered.
+        /// </summary>
+        /// <param name="pipelineBuilder">The pipeline builder to register the parser for.</param>
+        public override void Setup(MarkdownPipelineBuilder pipelineBuilder)
         {
-            if (!pipeline.BlockParsers.Contains<FlexiSectionBlockParser>())
+            if (pipelineBuilder == null)
             {
-                HeadingBlockParser headingBlockParser = pipeline.BlockParsers.Find<HeadingBlockParser>();
-                if (headingBlockParser != null)
-                {
-                    pipeline.BlockParsers.Remove(headingBlockParser);
-                }
-                else
-                {
-                    headingBlockParser = new HeadingBlockParser();
-                }
+                throw new ArgumentNullException(nameof(pipelineBuilder));
+            }
 
-                // TODO For testability - could improve IOC infrastructure, measure impact on performance
-                var autoLinkService = new AutoLinkService();
-                var identifierService = new IdentifierService();
-                var flexiOptionsBlockService = new FlexiOptionsBlockService();
-                var flexiSectionBlockParser = new FlexiSectionBlockParser(_options, headingBlockParser, autoLinkService, identifierService, flexiOptionsBlockService);
-                pipeline.BlockParsers.Insert(0, flexiSectionBlockParser);
+            // HeadingBlockParser is a default parser registered in MarkdownPipelineBuilder's constructor.
+            // FlexiSectionBlockParser makes it redundant.
+            HeadingBlockParser headingBlockParser = pipelineBuilder.BlockParsers.Find<HeadingBlockParser>();
+            if (headingBlockParser != null)
+            {
+                pipelineBuilder.BlockParsers.Remove(headingBlockParser);
+            }
+
+            if (!pipelineBuilder.BlockParsers.Contains<FlexiSectionBlockParser>())
+            {
+                pipelineBuilder.BlockParsers.Insert(0, _flexiSectionBlockParser);
             }
         }
 
-        public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
+        /// <summary>
+        /// Registers a <see cref="FlexiSectionBlock"/> renderer if one isn't already registered.
+        /// </summary>
+        /// <param name="pipeline">Unused.</param>
+        /// <param name="renderer">The root renderer to register the renderer for.</param>
+        public override void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
-            if (renderer is HtmlRenderer htmlRenderer)
+            if (renderer == null)
             {
-                if (!htmlRenderer.ObjectRenderers.Contains<FlexiSectionBlockRenderer>())
-                {
-                    htmlRenderer.ObjectRenderers.Insert(0, new FlexiSectionBlockRenderer());
-                }
+                throw new ArgumentNullException(nameof(renderer));
+            }
 
-                if (!htmlRenderer.ObjectRenderers.Contains<FlexiSectionHeaderBlockRenderer>())
-                {
-                    HeadingRenderer headingRenderer = htmlRenderer.ObjectRenderers.Find<HeadingRenderer>();
-                    if(headingRenderer != null)
-                    {
-                        htmlRenderer.ObjectRenderers.Remove(headingRenderer);
-                    }
-
-                    htmlRenderer.ObjectRenderers.Insert(0, new FlexiSectionHeaderBlockRenderer());
-                }
+            if (renderer is HtmlRenderer htmlRenderer && !htmlRenderer.ObjectRenderers.Contains<FlexiSectionBlockRenderer>())
+            {
+                htmlRenderer.ObjectRenderers.Insert(0, _flexiSectionBlockRenderer);
             }
         }
     }

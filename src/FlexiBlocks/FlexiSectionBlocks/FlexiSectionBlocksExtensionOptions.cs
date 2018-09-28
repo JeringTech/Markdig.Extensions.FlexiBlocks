@@ -1,20 +1,13 @@
 ﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
 {
-    public class FlexiSectionBlocksExtensionOptions
+    /// <summary>
+    /// Represents options for the <see cref="FlexiSectionBlocksExtension"/>.
+    /// </summary>
+    public class FlexiSectionBlocksExtensionOptions : IFlexiBlocksExtensionOptions<FlexiSectionBlockOptions>
     {
         /// <summary>
-        /// Used if <see cref="FlexiSectionBlock"/>'s level is 1.
+        /// Gets or sets the default <see cref="FlexiSectionBlockOptions"/>.
         /// </summary>
-        public SectioningContentElement Level1WrapperElement { get; set; } = SectioningContentElement.None;
-
-        /// <summary>
-        /// Used if <see cref="FlexiSectionBlock"/>'s level is greater than or equal to 2.
-        /// </summary>
-        public SectioningContentElement Level2PlusWrapperElement { get; set; } = SectioningContentElement.Section;
-
-        /// <summary>
-        /// Default <see cref="FlexiSectionBlockOptions"/>.
-        /// </summary>
-        public FlexiSectionBlockOptions DefaultFlexiSectionBlockOptions { get; set; } = new FlexiSectionBlockOptions();
+        public FlexiSectionBlockOptions DefaultBlockOptions { get; set; } = new FlexiSectionBlockOptions();
     }
 }
