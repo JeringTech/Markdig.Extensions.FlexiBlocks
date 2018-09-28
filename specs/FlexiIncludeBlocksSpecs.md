@@ -401,7 +401,7 @@ MyMarkdownPipelineBuilder.UseFlexiIncludeBlocks(myFlexiIncludeBlocksExtensionOpt
 ```
 
 #### Properties
-- RootBaseUri
+- `RootBaseUri`
   - Type: `string`
   - Description: The base URI for FlexiIncludeBlocks in the root source.
   - Default: The application's current directory.
@@ -422,7 +422,7 @@ MyMarkdownPipelineBuilder.UseFlexiIncludeBlocks(myFlexiIncludeBlocksExtensionOpt
     <p>This is example markdown.</p>
     ````````````````````````````````
   
-- DefaultBlockOptions
+- `DefaultBlockOptions`
   - Type: `FlexiIncludeBlockOptions`
   - Description: Default `FlexiIncludeBlockOptions` for all FlexiIncludeBlocks. 
   - Usage:

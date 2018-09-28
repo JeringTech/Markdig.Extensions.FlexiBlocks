@@ -30,7 +30,6 @@ public string ExampleFunction(string arg)
 By default, a FlexiCodeBlock is rendered with a "copy code" icon. The icon markup and more can be customized or omitted - refer to the [options section](#options) for details.
 
 The following is an indented FlexiCodeBlock:
-
 ```````````````````````````````` none
 --------------- Markdown ---------------
     public string ExampleFunction(string arg)
@@ -510,7 +509,7 @@ MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
 ```
 
 #### Properties
-- DefaultBlockOptions
+- `DefaultBlockOptions`
   - Type: `FlexiCodeBlockOptions`
   - Description: Default `FlexiCodeBlockOptions` for all FlexiCodeBlocks. 
   - Usage:

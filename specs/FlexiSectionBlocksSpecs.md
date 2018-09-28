@@ -106,7 +106,7 @@ icon. The class, ID, markup for the link icon and more can be customized or omit
 ### `FlexiSectionBlockOptions`
 Options for a FlexiSectionBlock. To specify FlexiSectionBlockOptions for a FlexiSectionBlock, the 
 [FlexiOptionsBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled. To specify default FlexiSectionBlockOptions for all FlexiSectionBlocks,
-use [FlexiSectionBlocksExtensionOptions](#flexiSectionblocksextensionoptions).
+use [FlexiSectionBlocksExtensionOptions](#flexisectionblocksextensionoptions).
 
 #### Properties
 - `Element`
@@ -309,7 +309,7 @@ MyMarkdownPipelineBuilder.UseFlexiSectionBlocks(myFlexiSectionBlocksExtensionOpt
 ```
 
 #### Properties
-- DefaultBlockOptions
+- `DefaultBlockOptions`
   - Type: `FlexiSectionBlockOptions`
   - Description: Default `FlexiSectionBlockOptions` for all FlexiSectionBlocks. 
   - Usage:

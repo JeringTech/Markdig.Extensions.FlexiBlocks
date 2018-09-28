@@ -239,7 +239,7 @@ MyMarkdownPipelineBuilder.UseFlexiAlertBlocks(myFlexiAlertBlocksExtensionOptions
 ```
 
 #### Properties
-- IconMarkups
+- `IconMarkups`
   - Type: `Dictionary<string, string>`
   - Description: A map of FlexiAlertBlock types to icon markups. Add markups for custom FlexiAlertBlock types to this dictionary.
   - Default: Contains icon markups for types "info", 
@@ -278,7 +278,7 @@ MyMarkdownPipelineBuilder.UseFlexiAlertBlocks(myFlexiAlertBlocksExtensionOptions
     </div>
     ````````````````````````````````
 
-- DefaultBlockOptions
+- `DefaultBlockOptions`
   - Type: `FlexiAlertBlockOptions`
   - Description: Default `FlexiAlertBlockOptions` for all FlexiAlertBlocks.
   - Usage:
