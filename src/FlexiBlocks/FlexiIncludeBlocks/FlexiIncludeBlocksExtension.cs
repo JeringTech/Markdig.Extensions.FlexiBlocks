@@ -20,7 +20,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         }
 
         /// <summary>
-        /// Registers a <see cref="FlexiIncludeBlock"/> parser if one isn't already registered.
+        /// Registers a <see cref="FlexiIncludeBlockParser"/> if one isn't already registered.
         /// </summary>
         /// <param name="pipelineBuilder">The pipeline builder to register the parser for.</param>
         public override void Setup(MarkdownPipelineBuilder pipelineBuilder)

@@ -37,7 +37,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             IOptions<FlexiCodeBlocksExtensionOptions> extensionOptionsAccessor,
             IFlexiOptionsBlockService flexiOptionsBlockService)
         {
-            _flexiCodeBlockRenderer = flexiCodeBlockRenderer ?? throw new ArgumentNullException(nameof(FlexiCodeBlockRenderer));
+            _flexiCodeBlockRenderer = flexiCodeBlockRenderer ?? throw new ArgumentNullException(nameof(flexiCodeBlockRenderer));
             _extensionOptions = extensionOptionsAccessor?.Value ?? throw new ArgumentNullException(nameof(extensionOptionsAccessor));
             _flexiOptionsBlockService = flexiOptionsBlockService ?? throw new ArgumentNullException(nameof(flexiOptionsBlockService));
         }
@@ -69,7 +69,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         }
 
         /// <summary>
-        /// Registers a FlexiCodeBlock renderer if one isn't already registered.
+        /// Registers a <see cref="FlexiCodeBlockRenderer"/> if one isn't already registered.
         /// </summary>
         /// <param name="pipeline">Unused.</param>
         /// <param name="renderer">The root renderer to register the renderer for.</param>

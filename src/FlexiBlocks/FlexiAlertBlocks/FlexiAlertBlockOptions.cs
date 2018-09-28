@@ -11,7 +11,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
     /// <para>This class is primarily used through the <see cref="FlexiOptionsBlocksExtension"/>. To that end, this class is designed to be populated from JSON.
     /// This class may occasionally be created manually for use as the default <see cref="FlexiAlertBlock" /> options, so it accomodates manual creation as well.</para>
     /// 
-    /// <para>Markdig is designed to be extensible, as a result, any third party extension can access a FlexiCodeBlock's options. To prevent inconsistent state, 
+    /// <para>Markdig is designed to be extensible, as a result, any third party extension can access a FlexiAlertBlock's options. To prevent inconsistent state, 
     /// this class is immutable.</para>
     /// </summary>
     public class FlexiAlertBlockOptions : FlexiBlockOptions<FlexiAlertBlockOptions>

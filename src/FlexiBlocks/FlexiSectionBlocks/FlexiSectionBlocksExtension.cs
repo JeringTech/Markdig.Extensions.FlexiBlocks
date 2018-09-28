@@ -32,7 +32,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         }
 
         /// <summary>
-        /// Registers a <see cref="FlexiSectionBlock"/> parser if one isn't already registered.
+        /// Registers a <see cref="FlexiSectionBlockParser"/> if one isn't already registered.
         /// </summary>
         /// <param name="pipelineBuilder">The pipeline builder to register the parser for.</param>
         public override void Setup(MarkdownPipelineBuilder pipelineBuilder)
@@ -57,7 +57,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         }
 
         /// <summary>
-        /// Registers a <see cref="FlexiSectionBlock"/> renderer if one isn't already registered.
+        /// Registers a <see cref="FlexiSectionBlockRenderer"/> if one isn't already registered.
         /// </summary>
         /// <param name="pipeline">Unused.</param>
         /// <param name="renderer">The root renderer to register the renderer for.</param>
