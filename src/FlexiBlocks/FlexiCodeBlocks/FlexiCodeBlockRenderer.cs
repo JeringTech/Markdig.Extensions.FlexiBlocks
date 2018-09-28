@@ -12,6 +12,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     /// </summary>
     public class FlexiCodeBlockRenderer : FlexiBlockRenderer<CodeBlock>
     {
+        private readonly StringWriter _stringWriter;
+        private readonly HtmlRenderer _codeRenderer;
+
         private readonly IPrismService _prismService;
         private readonly IHighlightJSService _highlightJSService;
         private readonly ILineEmbellisherService _lineEmbellisherService;
@@ -29,6 +32,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             _prismService = prismService ?? throw new ArgumentNullException(nameof(prismService));
             _highlightJSService = highlightJSService ?? throw new ArgumentNullException(nameof(highlightJSService));
             _lineEmbellisherService = lineEmbellisherService ?? throw new ArgumentNullException(nameof(lineEmbellisherService));
+
+            _stringWriter = new StringWriter();
+            _codeRenderer = new HtmlRenderer(_stringWriter);
         }
 
         /// <summary>
@@ -88,16 +94,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 
             renderer.Write(">");
 
-            var stringWriter = new StringWriter();
-            var codeRenderer = new HtmlRenderer(stringWriter);
-
             // Syntax highlighting
             string code = null;
             if (!string.IsNullOrWhiteSpace(flexiCodeBlockOptions.Language) && flexiCodeBlockOptions.SyntaxHighlighter != SyntaxHighlighter.None)
             {
-                codeRenderer.WriteLeafRawLines(obj, false, false); // Don't escape, prism can't deal with escaped chars
-                code = stringWriter.ToString();
-                stringWriter.GetStringBuilder().Length = 0; // In case we need to use it again
+                _codeRenderer.WriteLeafRawLines(obj, false, false); // Don't escape, prism can't deal with escaped chars
+                code = _stringWriter.ToString();
+                _stringWriter.GetStringBuilder().Length = 0;
 
                 // All code up the stack from HighlightAsync calls ConfigureAwait(false), so there is no need to run this calls in the thread pool.
                 // Use GetAwaiter and GetResult to avoid an AggregateException - https://blog.stephencleary.com/2014/12/a-tour-of-task-part-6-results.html
@@ -120,8 +123,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 // Code still null since syntax highlighting wasn't done
                 if (code == null)
                 {
-                    codeRenderer.WriteLeafRawLines(obj, false, true); // Escape
-                    code = stringWriter.ToString();
+                    _codeRenderer.WriteLeafRawLines(obj, false, true); // Escape
+                    code = _stringWriter.ToString();
+                    _stringWriter.GetStringBuilder().Length = 0;
                 }
 
                 code = _lineEmbellisherService.EmbellishLines(code,
