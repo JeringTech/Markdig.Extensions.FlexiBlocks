@@ -69,6 +69,37 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     ),
                     $"<section class=\"{dummyClass}\">\n<header>\n<h0></h0>\n</header>\n</section>\n"
                 },
+                // Does not write class if Class is null, whitespace or an empty string
+                new object[]
+                {
+                    new SerializableWrapper<FlexiSectionBlock>(
+                        new FlexiSectionBlock(null)
+                        {
+                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null){ Class = null }
+                        }
+                    ),
+                    "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                },
+                new object[]
+                {
+                    new SerializableWrapper<FlexiSectionBlock>(
+                        new FlexiSectionBlock(null)
+                        {
+                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null){ Class = " " }
+                        }
+                    ),
+                    "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                },
+                new object[]
+                {
+                    new SerializableWrapper<FlexiSectionBlock>(
+                        new FlexiSectionBlock(null)
+                        {
+                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null){ Class = string.Empty }
+                        }
+                    ),
+                    "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                },
                 // Writes id if specified
                 new object[]
                 {
@@ -81,6 +112,40 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     ),
                     $"<section id=\"{dummyID}\">\n<header>\n<h0></h0>\n</header>\n</section>\n"
                 },
+                // Does not write id if ID is null, whitespace or an empty string
+                new object[]
+                {
+                    new SerializableWrapper<FlexiSectionBlock>(
+                        new FlexiSectionBlock(null)
+                        {
+                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null),
+                            ID = null
+                        }
+                    ),
+                    "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                },
+                new object[]
+                {
+                    new SerializableWrapper<FlexiSectionBlock>(
+                        new FlexiSectionBlock(null)
+                        {
+                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null),
+                            ID = " "
+                        }
+                    ),
+                    "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                },
+                new object[]
+                {
+                    new SerializableWrapper<FlexiSectionBlock>(
+                        new FlexiSectionBlock(null)
+                        {
+                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null),
+                            ID = string.Empty
+                        }
+                    ),
+                    "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                },
                 // Renders expected SectioningContentElement
                 new object[]
                 {
@@ -90,7 +155,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                             FlexiSectionBlockOptions = new FlexiSectionBlockOptions(SectioningContentElement.Article, linkIconMarkup: null)
                         }
                     ),
-                    $"<article>\n<header>\n<h0></h0>\n</header>\n</article>\n"
+                    "<article>\n<header>\n<h0></h0>\n</header>\n</article>\n"
                 },
                 // Renders header content
                 new object[]
@@ -126,7 +191,38 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                         }
                     ),
                     $"<section>\n<header>\n<h0></h0>\n{dummyIconMarkup}\n</header>\n</section>\n"
-                }
+                },
+                // Does not render link icon markup if LinkIconMarkup is null, whitespace or an empty string
+                new object[]
+                {
+                    new SerializableWrapper<FlexiSectionBlock>(
+                        new FlexiSectionBlock(null)
+                        {
+                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null)
+                        }
+                    ),
+                    $"<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                },
+                new object[]
+                {
+                    new SerializableWrapper<FlexiSectionBlock>(
+                        new FlexiSectionBlock(null)
+                        {
+                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: " ")
+                        }
+                    ),
+                    $"<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                },
+                new object[]
+                {
+                    new SerializableWrapper<FlexiSectionBlock>(
+                        new FlexiSectionBlock(null)
+                        {
+                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: string.Empty)
+                        }
+                    ),
+                    $"<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                },
             };
         }
 
