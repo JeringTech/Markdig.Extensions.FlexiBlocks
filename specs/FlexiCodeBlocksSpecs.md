@@ -89,7 +89,7 @@ Represents a range of line numbers for a range of lines. Used by [FlexiCodeBlock
 
 ### `FlexiCodeBlockOptions`
 Options for a FlexiCodeBlock. To specify FlexiCodeBlockOptions for a FlexiCodeBlock, the 
-[FlexiOptionsBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled. To specify default FlexiCodeBlockOptions for all FlexiCodeBlocks,
+[FlexiOptionsBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled. To specify default FlexiCodeBlockOptions for all FlexiCodeBlocks,
 use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
 
 #### Properties

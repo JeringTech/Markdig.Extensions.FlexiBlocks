@@ -101,7 +101,7 @@ A blank line closes a FlexiAlertBlock:
 
 ### `FlexiAlertBlockOptions`
 Options for a FlexiAlertBlock. To specify FlexiAlertBlockOptions for a FlexiAlertBlock, the 
-[FlexiOptionsBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled. To specify default FlexiAlertBlockOptions for all FlexiAlertBlocks,
+[FlexiOptionsBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled. To specify default FlexiAlertBlockOptions for all FlexiAlertBlocks,
 use [FlexiAlertBlocksExtensionOptions](#flexialertblocksextensionoptions).
 
 #### Properties
