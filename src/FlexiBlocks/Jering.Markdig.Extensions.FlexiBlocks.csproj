@@ -5,9 +5,7 @@
         <PackageId>Jering.Markdig.Extensions.FlexiBlocks</PackageId>
         <Authors>JeremyTCD</Authors>
         <Title>Flexible Markdig Extensions.</Title>
-        <Description>FlexiBlocks is a collection of flexible Markdig extensions - these extensions define configurable markdown blocks.
-        Highlights include the FlexiCodeBlocks extension, which defines code blocks with configurable syntax highlighting, line numbers and more,
-        and the FlexiIncludeBlocks extension, which allows for inclusion of content from both local and remote sources.</Description>
+        <Description>FlexiBlocks is a collection of flexible Markdig extensions - extensions that define configurable markdown blocks. Highlights include the FlexiCodeBlocks extension, which defines code blocks with configurable syntax highlighting, line numbers and more, and the FlexiIncludeBlocks extension, which allows for inclusion of content from both local and remote sources.</Description>
         <Copyright>© JeremyTCD. All rights reserved.</Copyright>
         <PackageProjectUrl>https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks</PackageProjectUrl>
         <PackageLicenseUrl>$(PackageProjectUrl)/blob/master/License.txt</PackageLicenseUrl>
