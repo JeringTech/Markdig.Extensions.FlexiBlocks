@@ -1,13 +1,13 @@
 ﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
 {
     /// <summary>
-    /// Options for <see cref="FlexiTableBlocksExtension"/>.
+    /// Represents options for the <see cref="FlexiTableBlocksExtension"/>.
     /// </summary>
-    public class FlexiTableBlocksExtensionOptions
+    public class FlexiTableBlocksExtensionOptions : IFlexiBlocksExtensionOptions<FlexiTableBlockOptions>
     {
         /// <summary>
-        /// Default <see cref="FlexiTableBlockOptions"/>.
+        /// Gets or sets the default <see cref="FlexiTableBlockOptions"/>.
         /// </summary>
-        public FlexiTableBlockOptions DefaultFlexiTableBlockOptions { get; set; } = new FlexiTableBlockOptions();
+        public FlexiTableBlockOptions DefaultBlockOptions { get; set; } = new FlexiTableBlockOptions();
     }
 }

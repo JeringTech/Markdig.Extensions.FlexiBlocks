@@ -5,82 +5,124 @@ using Markdig.Parsers;
 using Markdig.Parsers.Inlines;
 using Markdig.Renderers;
 using Markdig.Syntax;
+using Microsoft.Extensions.Options;
+using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
 {
-    public class FlexiTableBlocksExtension : IMarkdownExtension
+    /// <summary>
+    /// <para>A markdig extension for FlexiTableBlocks.</para>
+    /// 
+    /// <para>This extension uses the default <see cref="Table"/> parsers. What makes the generated <see cref="Table"/>s "FlexiTableBlocks" is the
+    /// addition of <see cref="FlexiTableBlockOptions"/> to them.</para>
+    /// </summary>
+    public class FlexiTableBlocksExtension : FlexiBlocksExtension
     {
-        public const string FLEXI_TABLE_BLOCK_OPTIONS_KEY = "flexiTableBlockOptions";
-        private readonly FlexiTableBlocksExtensionOptions _options;
-        private readonly FlexiOptionsBlockService _flexiOptionsBlockService;
+        private readonly FlexiTableBlocksExtensionOptions _extensionOptions;
+        private readonly IFlexiOptionsBlockService _flexiOptionsBlockService;
+        private readonly FlexiTableBlockRenderer _flexiTableBlockRenderer;
 
-        public FlexiTableBlocksExtension(FlexiTableBlocksExtensionOptions options)
+        /// <summary>
+        /// The key used for storing <see cref="FlexiTableBlockOptions"/>.
+        /// </summary>
+        public const string FLEXI_TABLE_BLOCK_OPTIONS_KEY = "flexiTableBlockOptions";
+
+        /// <summary>
+        /// Creates a <see cref="FlexiTableBlocksExtension"/> instance.
+        /// </summary>
+        /// <param name="flexiTableBlockRenderer">The renderer for rendering FlexiTableBlocks as HTML.</param>
+        /// <param name="extensionOptionsAccessor">The accessor for <see cref="FlexiTableBlocksExtensionOptions"/>.</param>
+        /// <param name="flexiOptionsBlockService">The service that will handle populating of <see cref="FlexiTableBlockOptions"/>.</param>
+        public FlexiTableBlocksExtension(FlexiTableBlockRenderer flexiTableBlockRenderer,
+            IOptions<FlexiTableBlocksExtensionOptions> extensionOptionsAccessor,
+            IFlexiOptionsBlockService flexiOptionsBlockService)
         {
-            _options = options ?? new FlexiTableBlocksExtensionOptions();
-            _flexiOptionsBlockService = new FlexiOptionsBlockService();
+            _flexiTableBlockRenderer = flexiTableBlockRenderer ?? throw new ArgumentNullException(nameof(flexiTableBlockRenderer));
+            _extensionOptions = extensionOptionsAccessor?.Value ?? throw new ArgumentNullException(nameof(extensionOptionsAccessor));
+            _flexiOptionsBlockService = flexiOptionsBlockService ?? throw new ArgumentNullException(nameof(flexiOptionsBlockService));
         }
 
         /// <summary>
-        /// Adds grid tables and pipe tables if they haven't already been added.
+        /// Registers a <see cref="GridTableParser"/> if one isn't already registered.
         /// </summary>
-        /// <param name="pipeline"></param>
-        public void Setup(MarkdownPipelineBuilder pipeline)
+        /// <param name="pipelineBuilder">The pipeline builder to register the parsers for.</param>
+        public override void Setup(MarkdownPipelineBuilder pipelineBuilder)
         {
+            if (pipelineBuilder == null)
+            {
+                throw new ArgumentNullException(nameof(pipelineBuilder));
+            }
+
             // If GridTableParser hasn't been added to parsers, add it
-            GridTableParser gridTableParser = pipeline.BlockParsers.Find<GridTableParser>();
+            GridTableParser gridTableParser = pipelineBuilder.BlockParsers.Find<GridTableParser>();
             if (gridTableParser == null)
             {
                 gridTableParser = new GridTableParser();
-                pipeline.BlockParsers.Insert(0, gridTableParser);
+                pipelineBuilder.BlockParsers.Insert(0, gridTableParser);
             }
-            gridTableParser.Closed += TableBlockOnClosed;
+            gridTableParser.Closed += OnFlexiBlockClosed;
 
             // If PipeTable parsers have not been added, add them.
-            // Note PipeTableParser is an inline parser and equivalent to the Closed delegate, so FlexiOptionsBlock only works
+            // Note PipeTableParser is an inline parser with no equivalent to the BlockParser.Closed event, so FlexiOptionsBlock only works
             // for grid tables.
-            pipeline.PreciseSourceLocation = true;
-            if (!pipeline.BlockParsers.Contains<PipeTableBlockParser>())
+            pipelineBuilder.PreciseSourceLocation = true; // PipeTables require this, refer to PipeTableExtension
+            if (!pipelineBuilder.BlockParsers.Contains<PipeTableBlockParser>())
             {
-                pipeline.BlockParsers.Insert(0, new PipeTableBlockParser());
+                pipelineBuilder.BlockParsers.Insert(0, new PipeTableBlockParser());
             }
-            LineBreakInlineParser lineBreakParser = pipeline.InlineParsers.FindExact<LineBreakInlineParser>();
-            if (!pipeline.InlineParsers.Contains<PipeTableParser>())
+            if (!pipelineBuilder.InlineParsers.Contains<PipeTableParser>())
             {
-                pipeline.InlineParsers.InsertBefore<EmphasisInlineParser>(new PipeTableParser(lineBreakParser));
+                LineBreakInlineParser lineBreakParser = pipelineBuilder.InlineParsers.FindExact<LineBreakInlineParser>();
+                pipelineBuilder.InlineParsers.InsertBefore<EmphasisInlineParser>(new PipeTableParser(lineBreakParser));
             }
         }
 
-        public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
+        /// <summary>
+        /// Registers a <see cref="FlexiTableBlockRenderer"/> if one isn't already registered.
+        /// </summary>
+        /// <param name="pipeline">Unused.</param>
+        /// <param name="renderer">The root renderer to register the renderer for.</param>
+        public override void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
+            if (renderer == null)
+            {
+                throw new ArgumentNullException(nameof(renderer));
+            }
+
             if (renderer is HtmlRenderer htmlRenderer)
             {
                 if (!htmlRenderer.ObjectRenderers.Contains<FlexiTableBlockRenderer>())
                 {
-                    HtmlTableRenderer htmlTableRenderer = htmlRenderer.ObjectRenderers.Find<HtmlTableRenderer>();
-                    if (htmlTableRenderer != null)
-                    {
-                        htmlRenderer.ObjectRenderers.Remove(htmlTableRenderer);
-                    }
+                    htmlRenderer.ObjectRenderers.Insert(0, _flexiTableBlockRenderer);
+                }
 
-                    htmlRenderer.ObjectRenderers.Insert(0, new FlexiTableBlockRenderer(_options.DefaultFlexiTableBlockOptions));
+                HtmlTableRenderer htmlTableRenderer = htmlRenderer.ObjectRenderers.Find<HtmlTableRenderer>();
+                if (htmlTableRenderer != null)
+                {
+                    htmlRenderer.ObjectRenderers.Remove(htmlTableRenderer);
                 }
             }
         }
 
         /// <summary>
-        /// Called when a <see cref="Table"/> is closed. Creates the <see cref="FlexiTableBlockOptions"/> for <paramref name="block"/>.
+        /// Called when a FlexiTableBlock is closed. Creates the <see cref="FlexiTableBlockOptions"/> for the block.
         /// </summary>
-        /// <param name="processor"></param>
-        /// <param name="block"></param>
-        internal virtual void TableBlockOnClosed(BlockProcessor processor, Block block)
+        /// <param name="processor">The block processor for the FlexiTableBlock that has been closed.</param>
+        /// <param name="block">The FlexiTableBlock that has been closed.</param>
+        protected override void OnFlexiBlockClosed(BlockProcessor processor, Block block)
         {
+            if (block == null)
+            {
+                throw new ArgumentNullException(nameof(block));
+            }
+
             // A Table has child TableCellBlocks, this delegate is invoked each time one of them is closed. Ignore all such invocations.
-            if(!(block is Table))
+            if (!(block is Table))
             {
                 return;
             }
 
-            FlexiTableBlockOptions flexiTableBlockOptions = _options.DefaultFlexiTableBlockOptions.Clone();
+            FlexiTableBlockOptions flexiTableBlockOptions = _extensionOptions.DefaultBlockOptions.Clone();
 
             // Apply FlexiOptionsBlock options if they exist
             _flexiOptionsBlockService.TryPopulateOptions(processor, flexiTableBlockOptions, block.Line);

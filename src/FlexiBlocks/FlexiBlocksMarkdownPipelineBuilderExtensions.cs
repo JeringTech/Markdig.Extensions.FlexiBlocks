@@ -1,14 +1,13 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
-//using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
-//using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
 using Markdig;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks
 {
@@ -77,33 +76,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 UseFlexiIncludeBlocks().
                 UseFlexiOptionsBlocks().
                 UseFlexiSectionBlocks();
-        }
-
-        /// <summary>
-        /// Adds <see cref="FlexiSectionBlocksExtension"/> to the pipeline.
-        /// </summary>
-        /// <param name="pipelineBuilder">The pipeline builder for the pipeline.</param>
-        /// <param name="options">Options for the <see cref="FlexiSectionBlocksExtension"/>.</param>
-        public static MarkdownPipelineBuilder UseFlexiSectionBlocks(this MarkdownPipelineBuilder pipelineBuilder,
-            FlexiSectionBlocksExtensionOptions options = null)
-        {
-            if (!pipelineBuilder.Extensions.Contains<FlexiSectionBlocksExtension>())
-            {
-                lock (_serviceProviderLock)
-                {
-                    if (options != null)
-                    {
-                        SetOptions(options, _serviceProvider);
-                    }
-                    pipelineBuilder.Extensions.Add(_serviceProvider.GetRequiredService<FlexiSectionBlocksExtension>());
-                    if (options != null)
-                    {
-                        SetOptions<FlexiSectionBlocksExtensionOptions>(null, _serviceProvider);
-                    }
-                }
-            }
-
-            return pipelineBuilder;
         }
 
         /// <summary>
@@ -202,15 +174,59 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             return pipelineBuilder;
         }
 
-        //public static MarkdownPipelineBuilder UseFlexiTableBlocks(this MarkdownPipelineBuilder pipelineBuilder, FlexiTableBlocksExtensionOptions options = null)
-        //{
-        //    if (!pipelineBuilder.Extensions.Contains<FlexiTableBlocksExtension>())
-        //    {
-        //        pipelineBuilder.Extensions.Add(new FlexiTableBlocksExtension(options));
-        //    }
+        /// <summary>
+        /// Adds <see cref="FlexiSectionBlocksExtension"/> to the pipeline.
+        /// </summary>
+        /// <param name="pipelineBuilder">The pipeline builder for the pipeline.</param>
+        /// <param name="options">Options for the <see cref="FlexiSectionBlocksExtension"/>.</param>
+        public static MarkdownPipelineBuilder UseFlexiSectionBlocks(this MarkdownPipelineBuilder pipelineBuilder,
+            FlexiSectionBlocksExtensionOptions options = null)
+        {
+            if (!pipelineBuilder.Extensions.Contains<FlexiSectionBlocksExtension>())
+            {
+                lock (_serviceProviderLock)
+                {
+                    if (options != null)
+                    {
+                        SetOptions(options, _serviceProvider);
+                    }
+                    pipelineBuilder.Extensions.Add(_serviceProvider.GetRequiredService<FlexiSectionBlocksExtension>());
+                    if (options != null)
+                    {
+                        SetOptions<FlexiSectionBlocksExtensionOptions>(null, _serviceProvider);
+                    }
+                }
+            }
 
-        //    return pipelineBuilder;
-        //}
+            return pipelineBuilder;
+        }
+
+        /// <summary>
+        /// Adds <see cref="FlexiTableBlocksExtension"/> to the pipeline.
+        /// </summary>
+        /// <param name="pipelineBuilder">The pipeline builder for the pipeline.</param>
+        /// <param name="options">Options for the <see cref="FlexiTableBlocksExtension"/>.</param>
+        public static MarkdownPipelineBuilder UseFlexiTableBlocks(this MarkdownPipelineBuilder pipelineBuilder,
+            FlexiTableBlocksExtensionOptions options = null)
+        {
+            if (!pipelineBuilder.Extensions.Contains<FlexiTableBlocksExtension>())
+            {
+                lock (_serviceProviderLock)
+                {
+                    if (options != null)
+                    {
+                        SetOptions(options, _serviceProvider);
+                    }
+                    pipelineBuilder.Extensions.Add(_serviceProvider.GetRequiredService<FlexiTableBlocksExtension>());
+                    if (options != null)
+                    {
+                        SetOptions<FlexiTableBlocksExtensionOptions>(null, _serviceProvider);
+                    }
+                }
+            }
+
+            return pipelineBuilder;
+        }
 
         internal static void SetOptions<T>(T extensionOptions, IServiceProvider serviceProvider) where T : class, new()
         {

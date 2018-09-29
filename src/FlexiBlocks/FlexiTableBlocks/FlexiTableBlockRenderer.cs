@@ -1,7 +1,7 @@
 ﻿using Markdig.Extensions.Tables;
 using Markdig.Renderers;
-using Markdig.Renderers.Html;
 using Markdig.Syntax;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,19 +10,21 @@ using System.IO;
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
 {
     /// <summary>
-    /// A HTML renderer for a <see cref="Table"/>. Based on <see cref="HtmlTableRenderer"/>. This renderer wraps the contents of td elements and adds
-    /// a label attribute to each td element.
+    /// A renderer that renders FlexiTableBlocks as HTML.
     /// </summary>
-    public class FlexiTableBlockRenderer : HtmlObjectRenderer<Table>
+    public class FlexiTableBlockRenderer : FlexiBlockRenderer<Table>
     {
+        private readonly FlexiTableBlockOptions _defaultFlexiTableBlockOptions;
         private readonly HtmlRenderer _stripRenderer;
         private readonly StringWriter _stringWriter;
-        private readonly FlexiTableBlockOptions _defaultFlexiTableBlockOptions;
 
-        public FlexiTableBlockRenderer(FlexiTableBlockOptions defaultFlexiTableBlockOptions)
+        /// <summary>
+        /// Creates a <see cref="FlexiTableBlockRenderer"/> instance.
+        /// </summary>
+        /// <param name="extensionOptionsAccessor">The accessor for <see cref="FlexiTableBlocksExtensionOptions"/>.</param>
+        public FlexiTableBlockRenderer(IOptions<FlexiTableBlocksExtensionOptions> extensionOptionsAccessor)
         {
-            _defaultFlexiTableBlockOptions = defaultFlexiTableBlockOptions;
-
+            _defaultFlexiTableBlockOptions = extensionOptionsAccessor?.Value.DefaultBlockOptions ?? throw new ArgumentNullException(nameof(extensionOptionsAccessor));
             _stringWriter = new StringWriter();
             _stripRenderer = new HtmlRenderer(_stringWriter)
             {
@@ -31,18 +33,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
             };
         }
 
-        protected override void Write(HtmlRenderer renderer, Table obj)
+        /// <summary>
+        /// Renders a FlexiTableBlock as HTML.
+        /// </summary>
+        /// <param name="renderer">The renderer to write to.</param>
+        /// <param name="obj">The FlexiTableBlock to render.</param>
+        protected override void WriteFlexiBlock(HtmlRenderer renderer, Table obj)
         {
             // Table's created using the pipe table syntax do not have their own FlexiTableOptions. This is because PipeTableParser is an inline parser and so does not work 
             // with FlexiOptionsBlocks.
             FlexiTableBlockOptions flexiTableBlockOptions = (FlexiTableBlockOptions)obj.GetData(FlexiTableBlocksExtension.FLEXI_TABLE_BLOCK_OPTIONS_KEY) ?? _defaultFlexiTableBlockOptions;
-            bool renderWrapper = !string.IsNullOrWhiteSpace(flexiTableBlockOptions.WrapperElementName);
-            bool renderLabelAttribute = !string.IsNullOrWhiteSpace(flexiTableBlockOptions.LabelAttributeName);
+            bool renderWrapper = !string.IsNullOrWhiteSpace(flexiTableBlockOptions.WrapperElement);
+            bool renderLabelAttribute = !string.IsNullOrWhiteSpace(flexiTableBlockOptions.LabelAttribute);
 
             renderer.EnsureLine();
             // TODO merge attributes? - ideally, PipeTableParser should be converted to a BlockParser so that the GenericAttributes extension is not required
             renderer.Write("<table").
-                WriteHtmlAttributeDictionary(flexiTableBlockOptions.Attributes).
+                WriteAttributes(flexiTableBlockOptions.Attributes).
                 WriteAttributes(obj).
                 WriteLine(">");
 
@@ -115,11 +122,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
                         _stringWriter.GetStringBuilder().Length = 0;
                     }
 
-                    renderer.EnsureLine();
-                    renderer.Write(row.IsHeader ? "<th" : "<td");
+                    renderer.
+                        EnsureLine().
+                        Write(row.IsHeader ? "<th" : "<td");
+
                     if (!row.IsHeader && renderLabelAttribute && i < labels.Count)
                     {
-                        renderer.Write($" {flexiTableBlockOptions.LabelAttributeName}=\"{labels[i]}\"");
+                        renderer.Write($" {flexiTableBlockOptions.LabelAttribute}=\"{labels[i]}\"");
                     }
                     if (cell.ColumnSpan != 1)
                     {
@@ -152,12 +161,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
                             }
                         }
                     }
-                    renderer.WriteAttributes(cell);
-                    renderer.Write(">");
+                    renderer.
+                        WriteAttributes(cell).
+                        Write(">");
 
                     if (!row.IsHeader && renderWrapper)
                     {
-                        renderer.Write($"<{flexiTableBlockOptions.WrapperElementName}>");
+                        renderer.Write($"<{flexiTableBlockOptions.WrapperElement}>");
                     }
 
                     bool previousImplicitParagraph = renderer.ImplicitParagraph;
@@ -171,7 +181,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
 
                     if (!row.IsHeader && renderWrapper)
                     {
-                        renderer.Write($"</{flexiTableBlockOptions.WrapperElementName}>");
+                        renderer.Write($"</{flexiTableBlockOptions.WrapperElement}>");
                     }
                     renderer.WriteLine(row.IsHeader ? "</th>" : "</td>");
                 }
