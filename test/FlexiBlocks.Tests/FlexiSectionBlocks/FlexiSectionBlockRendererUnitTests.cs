@@ -10,9 +10,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
 {
     public class FlexiSectionBlockRendererUnitTests
     {
+        // Can't use SerializableWrapper for FlexiSectionBlock - "null, whitespace or empty string" tests get serialized into the same parameters, which causes
+        // xUnit to skip them.
         [Theory]
         [MemberData(nameof(WriteFlexiBlock_RendersFlexiSectionBlock_Data))]
-        public void WriteFlexiBlock_RendersFlexiSectionBlock(SerializableWrapper<FlexiSectionBlock> dummyFlexiSectionBlockWrapper, string expectedResult)
+        public void WriteFlexiBlock_RendersFlexiSectionBlock(FlexiSectionBlock dummyFlexiSectionBlock, string expectedResult)
         {
             // Arrange
             string result = null;
@@ -22,7 +24,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                 var flexiSectionBlockRenderer = new FlexiSectionBlockRenderer();
 
                 // Act
-                flexiSectionBlockRenderer.Write(dummyHtmlRenderer, dummyFlexiSectionBlockWrapper.Value);
+                flexiSectionBlockRenderer.Write(dummyHtmlRenderer, dummyFlexiSectionBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -45,182 +47,150 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                 // Writes attributes if specified
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
-                        {
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null, attributes: new Dictionary<string, string>{
-                                { dummyAttribute, dummyAttributeValue }
-                            }),
-                        }
-                    ),
+                    new FlexiSectionBlock(null)
+                    {
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null, attributes: new Dictionary<string, string>{
+                            { dummyAttribute, dummyAttributeValue }
+                        }),
+                    },
                     $"<section {dummyAttribute}=\"{dummyAttributeValue}\">\n<header>\n<h0></h0>\n</header>\n</section>\n"
                 },
                 // Writes class if specified
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
+                    new FlexiSectionBlock(null)
+                    {
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null)
                         {
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null)
-                            {
-                                Class = dummyClass
-                            }
+                            Class = dummyClass
                         }
-                    ),
+                    },
                     $"<section class=\"{dummyClass}\">\n<header>\n<h0></h0>\n</header>\n</section>\n"
                 },
                 // Does not write class if Class is null, whitespace or an empty string
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
-                        {
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null){ Class = null }
-                        }
-                    ),
+                    new FlexiSectionBlock(null)
+                    {
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null){ Class = null }
+                    },
                     "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
                 },
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
-                        {
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null){ Class = " " }
-                        }
-                    ),
+                    new FlexiSectionBlock(null)
+                    {
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null){ Class = " " }
+                    },
                     "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
                 },
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
-                        {
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null){ Class = string.Empty }
-                        }
-                    ),
+                    new FlexiSectionBlock(null)
+                    {
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null){ Class = string.Empty }
+                    },
                     "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
                 },
                 // Writes id if specified
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
-                        {
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null),
-                            ID = dummyID
-                        }
-                    ),
+                    new FlexiSectionBlock(null)
+                    {
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null),
+                        ID = dummyID
+                    },
                     $"<section id=\"{dummyID}\">\n<header>\n<h0></h0>\n</header>\n</section>\n"
                 },
                 // Does not write id if ID is null, whitespace or an empty string
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
-                        {
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null),
-                            ID = null
-                        }
-                    ),
+                    new FlexiSectionBlock(null)
+                    {
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null),
+                        ID = null
+                    },
                     "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
                 },
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
-                        {
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null),
-                            ID = " "
-                        }
-                    ),
+                    new FlexiSectionBlock(null)
+                    {
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null),
+                        ID = " "
+                    },
                     "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
                 },
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
-                        {
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null),
-                            ID = string.Empty
-                        }
-                    ),
+                    new FlexiSectionBlock(null)
+                    {
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null),
+                        ID = string.Empty
+                    },
                     "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
                 },
                 // Renders expected SectioningContentElement
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
-                        {
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(SectioningContentElement.Article, linkIconMarkup: null)
-                        }
-                    ),
+                    new FlexiSectionBlock(null)
+                    {
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(SectioningContentElement.Article, linkIconMarkup: null)
+                    },
                     "<article>\n<header>\n<h0></h0>\n</header>\n</article>\n"
                 },
                 // Renders header content
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
-                        {
-                            HeaderContent = dummyHeaderContent,
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null)
-                        }
-                    ),
+                    new FlexiSectionBlock(null)
+                    {
+                        HeaderContent = dummyHeaderContent,
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null)
+                    },
                     $"<section>\n<header>\n<h0>{dummyHeaderContent}</h0>\n</header>\n</section>\n"
                 },
                 // Renders expected level 
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
-                        {
-                            Level = dummyLevel,
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null)
-                        }
-                    ),
+                    new FlexiSectionBlock(null)
+                    {
+                        Level = dummyLevel,
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null)
+                    },
                     $"<section>\n<header>\n<h{dummyLevel}></h{dummyLevel}>\n</header>\n</section>\n"
                 },
                 // Renders link icon markup if specified
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
-                        {
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: dummyIconMarkup)
-                        }
-                    ),
+                    new FlexiSectionBlock(null)
+                    {
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: dummyIconMarkup)
+                    },
                     $"<section>\n<header>\n<h0></h0>\n{dummyIconMarkup}\n</header>\n</section>\n"
                 },
                 // Does not render link icon markup if LinkIconMarkup is null, whitespace or an empty string
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
-                        {
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null)
-                        }
-                    ),
+                    new FlexiSectionBlock(null)
+                    {
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null)
+                    },
                     "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
                 },
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
-                        {
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: " ")
-                        }
-                    ),
+                    new FlexiSectionBlock(null)
+                    {
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: " ")
+                    },
                     "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
                 },
                 new object[]
                 {
-                    new SerializableWrapper<FlexiSectionBlock>(
-                        new FlexiSectionBlock(null)
-                        {
-                            FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: string.Empty)
-                        }
-                    ),
+                    new FlexiSectionBlock(null)
+                    {
+                        FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: string.Empty)
+                    },
                     "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
                 },
             };

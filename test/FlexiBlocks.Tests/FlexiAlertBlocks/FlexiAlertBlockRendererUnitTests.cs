@@ -10,9 +10,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
 {
     public class FlexiAlertBlockRendererUnitTests
     {
+        // Can't use SerializableWrapper for FlexiAlertBlock - "null, whitespace or empty string" tests get serialized into the same parameters, which causes
+        // xUnit to skip them.
         [Theory]
         [MemberData(nameof(WriteFlexiBlock_RendersFlexiAlertBlock_Data))]
-        public void WriteFlexiBlock_RendersFlexiAlertBlock(SerializableWrapper<FlexiAlertBlock> dummyFlexiAlertBlockWrapper, string expectedResult)
+        public void WriteFlexiBlock_RendersFlexiAlertBlock(FlexiAlertBlock dummyFlexiAlertBlock, string expectedResult)
         {
             // Arrange
             string result = null;
@@ -22,7 +24,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                 var flexiAlertBlockRenderer = new FlexiAlertBlockRenderer();
 
                 // Act
-                flexiAlertBlockRenderer.Write(dummyHtmlRenderer, dummyFlexiAlertBlockWrapper.Value);
+                flexiAlertBlockRenderer.Write(dummyHtmlRenderer, dummyFlexiAlertBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -42,80 +44,66 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                 // Writes attributes if specified
                 new object[]
                 {
-                    new SerializableWrapper<FlexiAlertBlock>(
-                        new FlexiAlertBlock(null)
-                        {
-                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions(attributes: new Dictionary<string, string>{
-                                { dummyAttribute, dummyAttributeValue }
-                            })
-                        }
-                    ),
+                    new FlexiAlertBlock(null)
+                    {
+                        FlexiAlertBlockOptions = new FlexiAlertBlockOptions(attributes: new Dictionary<string, string>{
+                            { dummyAttribute, dummyAttributeValue }
+                        })
+                    },
                     $"<div {dummyAttribute}=\"{dummyAttributeValue}\" class=\"fab-info\">\n<div class=\"fab-content\">\n</div>\n</div>\n"
                 },
                 // Any value for the class attribute is prepended to the default class value
                 new object[]
                 {
-                    new SerializableWrapper<FlexiAlertBlock>(
-                        new FlexiAlertBlock(null)
-                        {
-                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions(attributes: new Dictionary<string, string>{
-                                { "class", dummyClass }
-                            })
-                        }
-                    ),
+                    new FlexiAlertBlock(null)
+                    {
+                        FlexiAlertBlockOptions = new FlexiAlertBlockOptions(attributes: new Dictionary<string, string>{
+                            { "class", dummyClass }
+                        })
+                    },
                     $"<div class=\"{dummyClass} fab-info\">\n<div class=\"fab-content\">\n</div>\n</div>\n"
                 },
                 // Does not render default class if Class is null
                 new object[]
                 {
-                    new SerializableWrapper<FlexiAlertBlock>(
-                        new FlexiAlertBlock(null)
-                        {
-                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions(classFormat: null)
-                        }
-                    ),
+                    new FlexiAlertBlock(null)
+                    {
+                        FlexiAlertBlockOptions = new FlexiAlertBlockOptions(classFormat: null)
+                    },
                     "<div>\n<div class=\"fab-content\">\n</div>\n</div>\n"
                 },
                 // Writes icon markup if specified
                 new object[]
                 {
-                    new SerializableWrapper<FlexiAlertBlock>(
-                        new FlexiAlertBlock(null)
-                        {
-                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions(){IconMarkup = dummyIconMarkup}
-                        }
-                    ),
+                    new FlexiAlertBlock(null)
+                    {
+                        FlexiAlertBlockOptions = new FlexiAlertBlockOptions(){IconMarkup = dummyIconMarkup}
+                    },
                     $"<div class=\"fab-info\">\n{dummyIconMarkup}\n<div class=\"fab-content\">\n</div>\n</div>\n"
                 },
                 // Does not render content class if ContentClass is null, whitespace or an empty string
                 new object[]
                 {
-                    new SerializableWrapper<FlexiAlertBlock>(
-                        new FlexiAlertBlock(null)
-                        {
-                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions(contentClass: null)
-                        }
-                    ),
+                    new FlexiAlertBlock(null)
+                    {
+                        FlexiAlertBlockOptions = new FlexiAlertBlockOptions(contentClass: null)
+                    },
                     "<div class=\"fab-info\">\n<div>\n</div>\n</div>\n"
                 },
                 new object[]
                 {
-                    new SerializableWrapper<FlexiAlertBlock>(
-                        new FlexiAlertBlock(null)
-                        {
-                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions(contentClass: " ")
-                        }
-                    ),
+                    new FlexiAlertBlock(null)
+                    {
+                        FlexiAlertBlockOptions = new FlexiAlertBlockOptions(contentClass: " ")
+                    },
                     "<div class=\"fab-info\">\n<div>\n</div>\n</div>\n"
                 },
                 new object[]
                 {
-                    new SerializableWrapper<FlexiAlertBlock>(
-                        new FlexiAlertBlock(null)
-                        {
-                            FlexiAlertBlockOptions = new FlexiAlertBlockOptions(contentClass: string.Empty)
-                        }
-                    ),
+                    new FlexiAlertBlock(null)
+                    {
+                        FlexiAlertBlockOptions = new FlexiAlertBlockOptions(contentClass: string.Empty)
+                    },
                     "<div class=\"fab-info\">\n<div>\n</div>\n</div>\n"
                 },
             };
