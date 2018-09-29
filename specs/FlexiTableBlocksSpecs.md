@@ -73,7 +73,7 @@ To specify default FlexiTableBlockOptions for all FlexiTableBlocks, use [FlexiTa
 
 #### Properties
 - `WrapperElement`
-  - Type: ``
+  - Type: `string`
   - Description: The element that will wrap td contents.
     If this value is null, whitespace or an empty string, no wrapper element is rendered.
   - Default: "span", for ARIA compatibility - https://www.w3.org/TR/2017/NOTE-wai-aria-practices-1.1-20171214/examples/table/table.html
@@ -115,7 +115,7 @@ To specify default FlexiTableBlockOptions for all FlexiTableBlocks, use [FlexiTa
     ````````````````````````````````
 
 - `LabelAttribute`
-  - Type: ``
+  - Type: `string`
   - Description: The td attribute used to store its corresponding th's contents.
     If this value is null, whitespace or an empty string, no attribute is rendered.
   - Default: "data-label"
@@ -157,7 +157,7 @@ To specify default FlexiTableBlockOptions for all FlexiTableBlocks, use [FlexiTa
     ````````````````````````````````
 
 - `Attributes`
-  - Type: ``
+  - Type: `IDictionary<string, string>`
   - Description: The HTML attributes for the FlexiTableBlock's outermost element.
     If this value is null, no attributes will be assigned to the outermost element.
   - Default: `null`
