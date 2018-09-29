@@ -24,7 +24,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\src\FlexiBlocks\Jering.Markdig.Extensions.FlexiBlocks.csproj" />
-        <Compile Remove=".\FlexiSectionBlocks\**\*;.\FlexiTableBlocks\**\*;" />
     </ItemGroup>
 
     <ItemGroup>

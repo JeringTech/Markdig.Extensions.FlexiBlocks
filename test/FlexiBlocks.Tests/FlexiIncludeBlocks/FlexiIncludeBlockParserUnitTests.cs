@@ -361,8 +361,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             const string dummyStartLineSubstring = "dummyStartLineSubstring";
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null, null);
-            var dummyMarkdownDocument = new MarkdownDocument();
-            dummyMarkdownDocument.Add(dummyFlexiIncludeBlock); // ReplaceFlexiIncludeBlock uses FlexiIncludeBlock's parent
+            var dummyMarkdownDocument = new MarkdownDocument
+            {
+                dummyFlexiIncludeBlock // ReplaceFlexiIncludeBlock uses FlexiIncludeBlock's parent
+            };
             var dummyClipping = new Clipping(startDemarcationLineSubstring: dummyStartLineSubstring);
             dummyFlexiIncludeBlock.FlexiIncludeBlockOptions = new FlexiIncludeBlockOptions("dummySource", clippings: new Clipping[] { dummyClipping });
             ExposedFlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser();
@@ -380,8 +382,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             const string dummyEndLineSubstring = "dummyEndLineSubstring";
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null, null);
-            var dummyMarkdownDocument = new MarkdownDocument();
-            dummyMarkdownDocument.Add(dummyFlexiIncludeBlock); // ReplaceFlexiIncludeBlock uses FlexiIncludeBlock's parent
+            var dummyMarkdownDocument = new MarkdownDocument
+            {
+                dummyFlexiIncludeBlock // ReplaceFlexiIncludeBlock uses FlexiIncludeBlock's parent
+            };
             var dummyClipping = new Clipping(endDemarcationLineSubstring: dummyEndLineSubstring);
             dummyFlexiIncludeBlock.FlexiIncludeBlockOptions = new FlexiIncludeBlockOptions("dummySource", clippings: new Clipping[] { dummyClipping });
             ExposedFlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser();

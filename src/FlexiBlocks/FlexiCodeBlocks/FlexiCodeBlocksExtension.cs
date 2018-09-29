@@ -42,26 +42,25 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             _flexiOptionsBlockService = flexiOptionsBlockService ?? throw new ArgumentNullException(nameof(flexiOptionsBlockService));
         }
 
-
         /// <summary>
         /// Registers <see cref="CodeBlock"/> parsers if they are't already registered.
         /// </summary>
-        /// <param name="pipelineBuilder">The pipeline builder to register the parsers for.</param>
-        public override void Setup(MarkdownPipelineBuilder pipelineBuilder)
+        /// <param name="pipeline">The pipeline builder to register the parsers for.</param>
+        public override void Setup(MarkdownPipelineBuilder pipeline)
         {
-            if (pipelineBuilder == null)
+            if (pipeline == null)
             {
-                throw new ArgumentNullException(nameof(pipelineBuilder));
+                throw new ArgumentNullException(nameof(pipeline));
             }
 
             // FencedCodeBlockParser and IndentedCodeBlockParser are default parsers registered in MarkdownPipelineBuilder's constructor.
-            FencedCodeBlockParser fencedCodeBlockParser = pipelineBuilder.BlockParsers.Find<FencedCodeBlockParser>();
+            FencedCodeBlockParser fencedCodeBlockParser = pipeline.BlockParsers.Find<FencedCodeBlockParser>();
             if (fencedCodeBlockParser != null)
             {
                 fencedCodeBlockParser.Closed += OnClosed;
             }
 
-            IndentedCodeBlockParser indentedCodeBlockParser = pipelineBuilder.BlockParsers.Find<IndentedCodeBlockParser>();
+            IndentedCodeBlockParser indentedCodeBlockParser = pipeline.BlockParsers.Find<IndentedCodeBlockParser>();
             if (indentedCodeBlockParser != null)
             {
                 indentedCodeBlockParser.Closed += OnClosed;

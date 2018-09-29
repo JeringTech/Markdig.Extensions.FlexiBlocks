@@ -74,7 +74,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                             FlexiAlertBlockOptions = new FlexiAlertBlockOptions(classFormat: null)
                         }
                     ),
-                    $"<div>\n<div class=\"fab-content\">\n</div>\n</div>\n"
+                    "<div>\n<div class=\"fab-content\">\n</div>\n</div>\n"
                 },
                 // Writes icon markup if specified
                 new object[]

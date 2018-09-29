@@ -45,35 +45,35 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
         /// <summary>
         /// Registers a <see cref="GridTableParser"/> if one isn't already registered.
         /// </summary>
-        /// <param name="pipelineBuilder">The pipeline builder to register the parsers for.</param>
-        public override void Setup(MarkdownPipelineBuilder pipelineBuilder)
+        /// <param name="pipeline">The pipeline builder to register the parsers for.</param>
+        public override void Setup(MarkdownPipelineBuilder pipeline)
         {
-            if (pipelineBuilder == null)
+            if (pipeline == null)
             {
-                throw new ArgumentNullException(nameof(pipelineBuilder));
+                throw new ArgumentNullException(nameof(pipeline));
             }
 
             // If GridTableParser hasn't been added to parsers, add it
-            GridTableParser gridTableParser = pipelineBuilder.BlockParsers.Find<GridTableParser>();
+            GridTableParser gridTableParser = pipeline.BlockParsers.Find<GridTableParser>();
             if (gridTableParser == null)
             {
                 gridTableParser = new GridTableParser();
-                pipelineBuilder.BlockParsers.Insert(0, gridTableParser);
+                pipeline.BlockParsers.Insert(0, gridTableParser);
             }
             gridTableParser.Closed += OnFlexiBlockClosed;
 
             // If PipeTable parsers have not been added, add them.
             // Note PipeTableParser is an inline parser with no equivalent to the BlockParser.Closed event, so FlexiOptionsBlock only works
             // for grid tables.
-            pipelineBuilder.PreciseSourceLocation = true; // PipeTables require this, refer to PipeTableExtension
-            if (!pipelineBuilder.BlockParsers.Contains<PipeTableBlockParser>())
+            pipeline.PreciseSourceLocation = true; // PipeTables require this, refer to PipeTableExtension
+            if (!pipeline.BlockParsers.Contains<PipeTableBlockParser>())
             {
-                pipelineBuilder.BlockParsers.Insert(0, new PipeTableBlockParser());
+                pipeline.BlockParsers.Insert(0, new PipeTableBlockParser());
             }
-            if (!pipelineBuilder.InlineParsers.Contains<PipeTableParser>())
+            if (!pipeline.InlineParsers.Contains<PipeTableParser>())
             {
-                LineBreakInlineParser lineBreakParser = pipelineBuilder.InlineParsers.FindExact<LineBreakInlineParser>();
-                pipelineBuilder.InlineParsers.InsertBefore<EmphasisInlineParser>(new PipeTableParser(lineBreakParser));
+                LineBreakInlineParser lineBreakParser = pipeline.InlineParsers.FindExact<LineBreakInlineParser>();
+                pipeline.InlineParsers.InsertBefore<EmphasisInlineParser>(new PipeTableParser(lineBreakParser));
             }
         }
 

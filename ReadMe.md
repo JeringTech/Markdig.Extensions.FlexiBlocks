@@ -5,9 +5,8 @@
 <!-- TODO tests badge, this service should work - https://github.com/monkey3310/appveyor-shields-badges/blob/master/README.md -->
 
 ## Overview
-FlexiBlocks is a collection of [Markdig](https://github.com/lunet-io/markdig) extensions. It is a work in progress undergoing a final cleanup.
+FlexiBlocks is a collection of [Markdig](https://github.com/lunet-io/markdig) extensions: 
 
-These extensions are ready for the initial release:
 - [FlexiOptionsBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md)
 - [FlexiAlertBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiAlertBlocksSpecs.md)
 - [FlexiCodeBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiCodeBlocksSpecs.md)
@@ -15,7 +14,7 @@ These extensions are ready for the initial release:
 - [FlexiSectionBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiSectionBlocksSpecs.md)
 - [FlexiTableBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiTableBlocksSpecs.md)
 
-The nuget package is not up to date at this point in time.
+A documentation site is being built for this project.
 
 ## About
 Follow [@JeremyTCD](https://twitter.com/JeremyTCD) for updates.

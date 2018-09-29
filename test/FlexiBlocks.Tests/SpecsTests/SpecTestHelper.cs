@@ -105,8 +105,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             html = html.Replace("\r\n", "\n").Replace(@"\r", @"\n").Trim();
             html = Regex.Replace(html, @"\s+</li>", "</li>");
             html = Regex.Replace(html, @"<li>\s+", "<li>");
-            html = html.Normalize(NormalizationForm.FormKD);
-            return html;
+            return html.Normalize(NormalizationForm.FormKD);
         }
     }
 }

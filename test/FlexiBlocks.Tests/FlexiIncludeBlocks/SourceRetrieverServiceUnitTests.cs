@@ -144,7 +144,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             Assert.Same(dummySource, result);
         }
 
-
         [Fact]
         public void GetRemoteSource_RetrievesSourceFromDiskCacheIfCacheDirectoryIsDefinedAndSourceExistsInDiskCache()
         {

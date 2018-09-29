@@ -101,5 +101,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 
             return StartLineNumber == otherLineRange.StartLineNumber && EndLineNumber == otherLineRange.EndLineNumber;
         }
+
+        /// <summary>
+        /// Returns the hash code for this object.
+        /// </summary>
+        /// <returns>The hash code for this object.</returns>
+        public override int GetHashCode()
+        {
+            int hashCode = -1779710799;
+            hashCode = hashCode * -1521134295 + StartLineNumber.GetHashCode();
+            return hashCode * -1521134295 + EndLineNumber.GetHashCode();
+        }
     }
 }

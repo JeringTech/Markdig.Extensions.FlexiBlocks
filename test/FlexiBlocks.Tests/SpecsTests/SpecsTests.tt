@@ -48,7 +48,7 @@ foreach (KeyValuePair<string, string> specFileItem in specFiles)
                 "<#= spec.ExpectedMarkup #>",
                 extensions<# if(!string.IsNullOrWhiteSpace(spec.ExtensionOptions))
                 {
-#>, 
+#>,
                 "<#= spec.ExtensionOptions #>"<#
                 }
 #>);

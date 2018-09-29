@@ -1,4 +1,5 @@
 ﻿using Markdig.Renderers;
+using System.Collections.ObjectModel;
 using System.IO;
 using Xunit;
 
@@ -25,7 +26,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
                 var htmlRenderer = new HtmlRenderer(stringWriter);
 
                 // Act
-                htmlRenderer.WriteHtmlAttributeDictionary(dummyAttributes);
+                htmlRenderer.WriteAttributes(new ReadOnlyDictionary<string, string>(dummyAttributes));
                 result = stringWriter.ToString();
             }
 

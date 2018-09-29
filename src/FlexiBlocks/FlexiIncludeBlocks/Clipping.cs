@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
@@ -159,6 +160,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 CollapseRatio == otherClipping.CollapseRatio &&
                 BeforeContent == otherClipping.BeforeContent &&
                 AfterContent == otherClipping.AfterContent;
+        }
+
+        /// <summary>
+        /// Returns the hash code for this object.
+        /// </summary>
+        /// <returns>The hash code for this object.</returns>
+        public override int GetHashCode()
+        {
+            int hashCode = -417293665;
+            hashCode = hashCode * -1521134295 + StartLineNumber.GetHashCode();
+            hashCode = hashCode * -1521134295 + EndLineNumber.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(StartDemarcationLineSubstring);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(EndDemarcationLineSubstring);
+            hashCode = hashCode * -1521134295 + DedentLength.GetHashCode();
+            hashCode = hashCode * -1521134295 + CollapseRatio.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(BeforeContent);
+            return hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(AfterContent);
         }
     }
 }

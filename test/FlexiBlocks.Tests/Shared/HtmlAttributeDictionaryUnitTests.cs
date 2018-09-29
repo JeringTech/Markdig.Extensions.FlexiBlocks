@@ -43,9 +43,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             HtmlAttributeDictionary dummyExpectedResult)
         {
             // Act
-            foreach((string key, string value) kvp in dummyKvpsToAdd)
+            foreach((string key, string value) in dummyKvpsToAdd)
             {
-                dummyAttributes.Add(kvp.key, kvp.value);
+                dummyAttributes.Add(key, value);
             }
 
             // Assert
@@ -122,9 +122,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             HtmlAttributeDictionary dummyExpectedResult)
         {
             // Act
-            foreach ((string key, string value) kvp in dummyKvpsToAdd)
+            foreach ((string key, string value) in dummyKvpsToAdd)
             {
-                dummyAttributes[kvp.key] = kvp.value;
+                dummyAttributes[key] = value;
             }
 
             // Assert

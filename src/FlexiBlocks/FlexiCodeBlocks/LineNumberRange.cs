@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
@@ -38,6 +39,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             {
                 throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(FirstLineNumber), firstLineNumber));
             }
+
+            // We need to define these two properties for JSON population to work
+            StartLineNumber = startLineNumber;
+            EndLineNumber = endLineNumber;
 
             LineRange = new LineRange(startLineNumber, endLineNumber);
             FirstLineNumber = firstLineNumber;
@@ -92,6 +97,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             }
 
             return FirstLineNumber == otherLineNumberRange.FirstLineNumber && LineRange.Equals(otherLineNumberRange.LineRange);
+        }
+
+        /// <summary>
+        /// Returns the hash code for this object.
+        /// </summary>
+        /// <returns>The hash code for this object.</returns>
+        public override int GetHashCode()
+        {
+            int hashCode = -1329750522;
+            hashCode = hashCode * -1521134295 + FirstLineNumber.GetHashCode();
+            return hashCode * -1521134295 + EqualityComparer<LineRange>.Default.GetHashCode(LineRange);
         }
     }
 }

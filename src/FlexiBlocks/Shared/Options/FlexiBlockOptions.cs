@@ -46,6 +46,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <para>This method is defined here because virtual methods cannot be marked with the <see cref="OnDeserializedAttribute"/> and
         /// implementations of abstract methods (or interface members) are always virtual.</para>
         /// </summary>
+        /// <param name="_">Unused.</param>
         [OnDeserialized]
         private void ValidateAndPopulateWrapper(StreamingContext _)
         {

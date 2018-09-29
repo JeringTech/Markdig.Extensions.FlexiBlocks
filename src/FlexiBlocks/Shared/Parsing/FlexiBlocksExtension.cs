@@ -30,8 +30,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <summary>
         /// Registers FlexiBlock parsers.
         /// </summary>
-        /// <param name="pipelineBuilder">The pipeline builder to register the parsers for.</param>
-        public abstract void Setup(MarkdownPipelineBuilder pipelineBuilder);
+        /// <param name="pipeline">The pipeline builder to register the parsers for.</param>
+        public abstract void Setup(MarkdownPipelineBuilder pipeline);
 
         /// <summary>
         /// Registers FlexiBlock renderers. Extensions whose blocks aren't rendered do not need to override this method.

@@ -22,6 +22,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             {0, '0' }, {1, '1' }, {2, '2' }, {3, '3' }, {4, '4' }, {5, '5' }, {6, '6' }, {7, '7' },
             {8, '8' }, {9, '9' }, { 10, 'A' }, {11, 'B'}, {12, 'C'}, {13, 'D'}, {14, 'E'}, {15, 'F'}
         };
+
         private readonly MD5 _mD5 = MD5.Create();
         private readonly ILogger<DiskCacheService> _logger;
         private readonly IFileService _fileService;

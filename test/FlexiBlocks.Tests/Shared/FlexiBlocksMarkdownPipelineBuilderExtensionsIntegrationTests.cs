@@ -20,7 +20,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             _serviceProvider = dummyServices.BuildServiceProvider();
 
             // Act
-            FlexiBlocksMarkdownPipelineBuilderExtensions.SetOptions(dummyExtensionOptions, _serviceProvider);
+            dummyExtensionOptions.SetOptions(_serviceProvider);
 
             // Assert 
             Assert.Same(dummyExtensionOptions, _serviceProvider.GetRequiredService<IOptions<DummyExtensionOptions>>().Value);
@@ -37,7 +37,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             IServiceProvider dummyServiceProvider = dummyServices.BuildServiceProvider();
 
             // Act and assert
-            FlexiBlocksException result =Assert.Throws<FlexiBlocksException>(() => FlexiBlocksMarkdownPipelineBuilderExtensions.SetOptions(dummyExtensionOptions, dummyServiceProvider));
+            FlexiBlocksException result =Assert.Throws<FlexiBlocksException>(() => dummyExtensionOptions.SetOptions(dummyServiceProvider));
             Assert.Equal(string.Format(Strings.FlexiBlocksException_UnableToSetOptions, nameof(DummyExtensionOptions)), result.Message);
         }
 

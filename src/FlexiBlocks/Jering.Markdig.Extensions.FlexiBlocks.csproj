@@ -45,11 +45,6 @@
     </ItemGroup>
     
     <ItemGroup>
-        <Compile Remove=".\FlexiSectionBlocks\**\*;.\FlexiTableBlocks\**\*" />
-    </ItemGroup>
-
-
-    <ItemGroup>
         <Compile Update="Strings.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>

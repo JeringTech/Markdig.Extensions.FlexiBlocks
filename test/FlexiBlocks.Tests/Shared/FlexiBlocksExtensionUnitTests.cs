@@ -56,7 +56,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
 
         public class ExposedFlexiBlocksExtension : FlexiBlocksExtension
         {
-            public override void Setup(MarkdownPipelineBuilder pipelineBuilder)
+            public override void Setup(MarkdownPipelineBuilder pipeline)
             {
             }
 

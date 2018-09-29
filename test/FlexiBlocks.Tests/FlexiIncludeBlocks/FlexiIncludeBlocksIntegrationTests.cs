@@ -220,7 +220,7 @@ Source URI: {0}, Line: 6"
                     }]
 }";
             const string dummyMarkdown3 = "This is a line.";
-            string expectedCycleDescription = @"Source URI: {0}, Line: 1 >
+            const string expectedCycleDescription = @"Source URI: {0}, Line: 1 >
 Source URI: {0}, Line: 1, BeforeContent >
 Source URI: {1}, Line: 1 >
 Source URI: {1}, Line: 1, AfterContent >

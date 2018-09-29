@@ -15,8 +15,15 @@ using Microsoft.Extensions.Options;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks
 {
+    /// <summary>
+    /// <see cref="IServiceCollection"/> extensions for FlexiBlocks.
+    /// </summary>
     public static class FlexiBlocksServiceCollectionExtentions
     {
+        /// <summary>
+        /// Registers services for FlexiBlocks.
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection"/> to register services to.</param>
         public static void AddFlexiBlocks(this IServiceCollection services)
         {
             // Shared
