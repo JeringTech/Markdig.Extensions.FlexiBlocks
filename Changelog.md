@@ -3,7 +3,14 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.3.0...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.4.0...HEAD)
+
+## [0.4.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.3.0...0.4.0) - Sep 29, 2018
+### Fixes
+- Fixed inherited intellisense comments not appearing when using the netstandard1.3 assembly.
+- Fixed some tests getting skipped.
+### Changes
+- Improved Nuget package description, added a title for the package.
 
 ## [0.3.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.2.0...0.3.0) - Sep 29, 2018
 ### Changes
