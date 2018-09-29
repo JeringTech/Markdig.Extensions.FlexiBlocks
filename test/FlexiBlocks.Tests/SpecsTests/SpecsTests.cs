@@ -2323,5 +2323,151 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
                 extensions);
         }
     }
+
+    public class FlexiOptionsBlocksSpecs
+    {
+        [Theory]
+        [InlineData("All")]
+        public void FlexiOptionsBlocks_Spec1(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiCodeBlocks
+            //     --------------- Markdown ---------------
+            //     @{ "title": "ExampleDocument.cs" }
+            //     ```
+            //     public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + "dummyString";
+            //     }
+            //     ```
+            //     --------------- Expected Markup ---------------
+            //     <div>
+            //     <header>
+            //     <span>ExampleDocument.cs</span>
+            //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+            //     </header>
+            //     <pre><code>public string ExampleFunction(string arg)
+            //     {
+            //         // Example comment
+            //         return arg + &quot;dummyString&quot;;
+            //     }</code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{ \"title\": \"ExampleDocument.cs\" }\n```\npublic string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + \"dummyString\";\n}\n```",
+                "<div>\n<header>\n<span>ExampleDocument.cs</span>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>\n</header>\n<pre><code>public string ExampleFunction(string arg)\n{\n    // Example comment\n    return arg + &quot;dummyString&quot;;\n}</code></pre>\n</div>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("All")]
+        public void FlexiOptionsBlocks_Spec2(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiAlertBlocks
+            //     --------------- Markdown ---------------
+            //     @{
+            //         "type": "warning"
+            //     }
+            //     ! This is a FlexiAlertBlock.
+            //     --------------- Expected Markup ---------------
+            //     <div class="fab-warning">
+            //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m1 21h22l-11-19-11 19zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+            //     <div class="fab-content">
+            //     <p>This is a FlexiAlertBlock.</p>
+            //     </div>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"type\": \"warning\"\n}\n! This is a FlexiAlertBlock.",
+                "<div class=\"fab-warning\">\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"m1 21h22l-11-19-11 19zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"/></svg>\n<div class=\"fab-content\">\n<p>This is a FlexiAlertBlock.</p>\n</div>\n</div>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("All")]
+        public void FlexiOptionsBlocks_Spec3(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiTableBlocks
+            //     --------------- Markdown ---------------
+            //     @{
+            //         "attributes": {
+            //             "id" : "table-1"
+            //         }
+            //     }
+            //     +---+---+
+            //     | a | b |
+            //     +===+===+
+            //     | 0 | 1 |
+            //     +---+---+
+            //     | 2 | 3 |
+            //     --------------- Expected Markup ---------------
+            //     <table id="table-1">
+            //     <col style="width:50%">
+            //     <col style="width:50%">
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="a"><span>0</span></td>
+            //     <td data-label="b"><span>1</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="a"><span>2</span></td>
+            //     <td data-label="b"><span>3</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"attributes\": {\n        \"id\" : \"table-1\"\n    }\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |",
+                "<table id=\"table-1\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("All")]
+        public void FlexiOptionsBlocks_Spec4(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiSectionBlocks
+            //     --------------- Extension Options ---------------
+            //     {
+            //         "flexiSectionBlocks": {
+            //             "defaultBlockOptions": {
+            //                 "element": "nav"
+            //             }
+            //         }
+            //     }
+            //     --------------- Markdown ---------------
+            //     # foo
+            //     
+            //     @{
+            //         "element": "article"
+            //     }
+            //     # foo
+            //     --------------- Expected Markup ---------------
+            //     <nav class="section-level-1" id="foo">
+            //     <header>
+            //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+            //     </header>
+            //     </nav>
+            //     <article class="section-level-1" id="foo-1">
+            //     <header>
+            //     <h1>foo</h1>
+            //     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+            //     </header>
+            //     </article>
+
+            SpecTestHelper.AssertCompliance("# foo\n\n@{\n    \"element\": \"article\"\n}\n# foo",
+                "<nav class=\"section-level-1\" id=\"foo\">\n<header>\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z\"/></svg>\n</header>\n</nav>\n<article class=\"section-level-1\" id=\"foo-1\">\n<header>\n<h1>foo</h1>\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z\"/></svg>\n</header>\n</article>",
+                extensions, 
+                "{\n    \"flexiSectionBlocks\": {\n        \"defaultBlockOptions\": {\n            \"element\": \"nav\"\n        }\n    }\n}");
+        }
+    }
 }
 

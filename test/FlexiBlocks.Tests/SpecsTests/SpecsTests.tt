@@ -11,7 +11,7 @@ import namespace="System.Threading" #><#
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiIncludeBlocksSpecs.md"), "FlexiIncludeBlocks|All"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiSectionBlocksSpecs.md"), "FlexiSectionBlocks|All"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiTableBlocksSpecs.md"), "FlexiTableBlocks|All"),
-		// new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiOptionsBlocksSpecs.md"), "All")
+		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiOptionsBlocksSpecs.md"), "All")
 	};
 #>using Xunit;
 

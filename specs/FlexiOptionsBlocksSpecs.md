@@ -1,53 +1,163 @@
-﻿## FlexiOptionsBlocks
-Per-block options are useful for many extensions. For example, per-block options would allow a code extension to add line-numbers to select code blocks. 
-Json options facilitates per-block options, using a simple and consistent syntax.
+﻿# FlexiOptionsBlocks
+FlexiOptionsBlocks contain options for other blocks.  
 
-Json options are specified as a string above the block they apply to. The first line must begin with `@{`:
+When working with markdown, there is often a need for per-block options.
+There are solutions for doing so, such as using 
+a [query string](https://github.com/middleman/middleman-syntax#markdown) like syntax:
 
-```````````````````````````````` example
-@{"wrapperElement": "Aside"}
-# foo
-.
-<aside id="foo">
-<header class="header-level-1">
-<h1>foo</h1>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+````
+``` javascript?line_numbers=false
+function exampleFunction(arg) {
+    return arg + 'dummyString';
+}
+```
+````
+
+or a [custom syntax](https://michelf.ca/projects/php-markdown/extra/#spe-attr) like:
+```
+## Le Site ##    {.main .shine #the-site lang=fr}
+```
+
+These solutions work, but they require custom syntax parsing logic and aren't straightforward to 
+apply to different kinds of blocks.  
+
+The FlexiOptionsBlocks extension provides a consistent way to specify per-block options for all kinds of blocks. It is designed with the following goals:
+
+- Easy to learn and remember: Syntactically, a FlexiOptionsBlock is simply JSON prepended with `@`.
+- Easy to add to existing markdown extensions: Enabling FlexiOptionBlocks for an extension requires little more than defining a
+  simple options type to deserialize the JSON to.
+
+## Basic Syntax
+A FlexiOptionsBlock is simply JSON prepended with `@`. A FlexiOptionsBlock must immediately precede the block it applies to.
+Its first line must begin with `@{`.
+
+The following is a FlexiOptionsBlock for a 
+[FlexiCodeBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiCodeBlocksSpecs.md):
+```````````````````````````````` none
+--------------- Extra Extensions ---------------
+FlexiCodeBlocks
+--------------- Markdown ---------------
+@{ "title": "ExampleDocument.cs" }
+```
+public string ExampleFunction(string arg)
+{
+    // Example comment
+    return arg + "dummyString";
+}
+```
+--------------- Expected Markup ---------------
+<div>
+<header>
+<span>ExampleDocument.cs</span>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
 </header>
-</aside>
+<pre><code>public string ExampleFunction(string arg)
+{
+    // Example comment
+    return arg + &quot;dummyString&quot;;
+}</code></pre>
+</div>
 ````````````````````````````````
 
-Options can be specified across several lines:
-
-```````````````````````````````` example
+The JSON can span any number of lines, as long as it is valid. The following is a FlexiOptionsBlock for a
+[FlexiAlertBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiAlertBlocksSpecs.md): 
+```````````````````````````````` none
+--------------- Extra Extensions ---------------
+FlexiAlertBlocks
+--------------- Markdown ---------------
 @{
-    "wrapperElement": "Aside"
+    "type": "warning"
 }
-# foo
-.
-<aside id="foo">
-<header class="header-level-1">
-<h1>foo</h1>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
-</header>
-</aside>
+! This is a FlexiAlertBlock.
+--------------- Expected Markup ---------------
+<div class="fab-warning">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m1 21h22l-11-19-11 19zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+<div class="fab-content">
+<p>This is a FlexiAlertBlock.</p>
+</div>
+</div>
 ````````````````````````````````
 
-If the first line does not begin with `@{`, the string becomes a paragraph:
+All FlexiBlocks options types have an `Attributes` property of type `IDictionary<string, string>`. Key-value
+pairs in this dictionary are assigned to outermost elements as attributes. The following is a FlexiOptionsBlock for a
+[FlexiTableBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiTableBlocksSpecs.md): 
+```````````````````````````````` none
+--------------- Extra Extensions ---------------
+FlexiTableBlocks
+--------------- Markdown ---------------
+@{
+    "attributes": {
+        "id" : "table-1"
+    }
+}
++---+---+
+| a | b |
++===+===+
+| 0 | 1 |
++---+---+
+| 2 | 3 |
+--------------- Expected Markup ---------------
+<table id="table-1">
+<col style="width:50%">
+<col style="width:50%">
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="a"><span>0</span></td>
+<td data-label="b"><span>1</span></td>
+</tr>
+<tr>
+<td data-label="a"><span>2</span></td>
+<td data-label="b"><span>3</span></td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
 
-```````````````````````````````` example
-@
+All FlexiBlocks extensions allow for default per-block options. These can be specified when registering extensions.
+For example, when registering the FlexiSectionsBlocks extension, you can specify a [FlexiSectionBlocksExtensionOptions](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiSectionBlocksSpecs.md#flexisectionblocksextensionoptions)
+instance:
+
+``` 
+MyMarkdownPipelineBuilder.UseFlexiSectionBlocks(myFlexiSectionBlocksExtensionOptions);
+```
+This instance contains a default FlexiSectionBlockOptions instance.
+The following is a FlexiOptionsBlock for a
+[FlexiSectionBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiSectionBlocksSpecs.md): 
+```````````````````````````````` none
+--------------- Extra Extensions ---------------
+FlexiSectionBlocks
+--------------- Extension Options ---------------
 {
-    "wrapperElement": "Aside"
+    "flexiSectionBlocks": {
+        "defaultBlockOptions": {
+            "element": "nav"
+        }
+    }
+}
+--------------- Markdown ---------------
+# foo
+
+@{
+    "element": "article"
 }
 # foo
-.
-<p>@
-{
-&quot;wrapperElement&quot;: &quot;Aside&quot;
-}</p>
-<header class="header-level-1">
+--------------- Expected Markup ---------------
+<nav class="section-level-1" id="foo">
+<header>
 <h1>foo</h1>
-<svg viewBox="0 0 24 24" width="24" height="24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
 </header>
-
+</nav>
+<article class="section-level-1" id="foo-1">
+<header>
+<h1>foo</h1>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+</header>
+</article>
 ````````````````````````````````
