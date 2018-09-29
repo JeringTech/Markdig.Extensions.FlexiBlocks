@@ -1,6 +1,6 @@
 ﻿# FlexiAlertBlocks
-FlexiAlertBlocks contain tangential content, such as extra information and warnings. They facilitate consistent presentation of
-different types of tangential content. For example, warnings may be rendered in red boxes with exclamation marks as icons.
+FlexiAlertBlocks contain tangential content, such as extra information and warnings. They facilitate consistent presentation for
+different types of tangential content. For example, warnings can be rendered in red boxes with exclamation marks as icons.
 
 ## Basic Syntax
 A FlexiAlertBlock is a sequence of lines that each start with`!`. The following is a FlexiAlertBlock:

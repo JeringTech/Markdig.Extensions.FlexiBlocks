@@ -2,7 +2,7 @@
 FlexiOptionsBlocks contain options for other blocks.  
 
 When working with markdown, there is often a need for per-block options.
-There are solutions for doing so, such as using 
+Attempts have been made to facilitate this, such as using 
 a [query string](https://github.com/middleman/middleman-syntax#markdown) like syntax:
 
 ````
@@ -13,13 +13,12 @@ function exampleFunction(arg) {
 ```
 ````
 
-or a [custom syntax](https://michelf.ca/projects/php-markdown/extra/#spe-attr) like:
+or a [custom syntax](https://michelf.ca/projects/php-markdown/extra/#spe-attr):
 ```
 ## Le Site ##    {.main .shine #the-site lang=fr}
 ```
 
-These solutions work, but they require custom syntax parsing logic and aren't straightforward to 
-apply to different kinds of blocks.  
+Existing solutions work, but they require custom parsing logic and are typically specific to one kind of block.
 
 The FlexiOptionsBlocks extension provides a consistent way to specify per-block options for all kinds of blocks. It is designed with the following goals:
 
@@ -28,8 +27,8 @@ The FlexiOptionsBlocks extension provides a consistent way to specify per-block 
   simple options type to deserialize the JSON to.
 
 ## Basic Syntax
-A FlexiOptionsBlock is simply JSON prepended with `@`. A FlexiOptionsBlock must immediately precede the block it applies to.
-Its first line must begin with `@{`.
+A FlexiOptionsBlock is simply JSON prepended with `@`. It must immediately precede the block it applies to and
+its first line must begin with `@{`.
 
 The following is a FlexiOptionsBlock for a 
 [FlexiCodeBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiCodeBlocksSpecs.md):
@@ -126,7 +125,7 @@ instance:
 ``` 
 MyMarkdownPipelineBuilder.UseFlexiSectionBlocks(myFlexiSectionBlocksExtensionOptions);
 ```
-This instance contains a default FlexiSectionBlockOptions instance.
+The extension options instance contains a default FlexiSectionBlockOptions instance.
 The following is a FlexiOptionsBlock for a
 [FlexiSectionBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiSectionBlocksSpecs.md): 
 ```````````````````````````````` none
