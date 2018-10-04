@@ -3,7 +3,14 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.4.0...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.5.0...HEAD)
+
+## [0.5.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.4.0...0.5.0) - Oct 4, 2018
+### Fixes
+- Fixed Nuget package description formatting.
+### Changes
+- Bumped `Jering.Web.SyntaxHighlighters.HighlightJS` and `Jering.Web.SyntaxHighlighters.HighlightJS`.
+
 
 ## [0.4.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.3.0...0.4.0) - Sep 29, 2018
 ### Fixes
