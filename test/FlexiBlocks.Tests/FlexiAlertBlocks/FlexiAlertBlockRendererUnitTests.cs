@@ -63,7 +63,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                     },
                     $"<div class=\"{dummyClass} fab-info\">\n<div class=\"fab-content\">\n</div>\n</div>\n"
                 },
-                // Does not render default class if Class is null
+                // Does not render default class if ClassFormat is null
                 new object[]
                 {
                     new FlexiAlertBlock(null)
