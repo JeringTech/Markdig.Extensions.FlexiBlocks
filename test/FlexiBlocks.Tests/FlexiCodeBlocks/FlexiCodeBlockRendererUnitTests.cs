@@ -16,6 +16,65 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
 
         [Theory]
+        [MemberData(nameof(WriteFlexiBlock_RendersOutermostElementsClassIfClassIsNotNullWhitespaceOrAnEmptyString_Data))]
+        public void WriteFlexiBlock_RendersOutermostElementsClassIfClassIsNotNullWhitespaceOrAnEmptyString(string @class, string expectedResult)
+        {
+            // Arrange
+            var dummyCodeBlock = new CodeBlock(null);
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: @class, copyIconMarkup: null);
+            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
+            FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer();
+
+            // Act
+            string result = null;
+            using (var dummyStringWriter = new StringWriter())
+            {
+                var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter);
+                testSubject.Write(dummyHtmlRenderer, dummyCodeBlock);
+                result = dummyStringWriter.ToString();
+            }
+
+            // Assert
+            Assert.Equal(expectedResult, result, ignoreLineEndingDifferences: true);
+        }
+
+        public static IEnumerable<object[]> WriteFlexiBlock_RendersOutermostElementsClassIfClassIsNotNullWhitespaceOrAnEmptyString_Data()
+        {
+            const string dummyClass = "dummyClass";
+            const string noClassExpectedResult = @"<div>
+<header>
+</header>
+<pre><code></code></pre>
+</div>
+";
+
+            return new object[][]
+            {
+                new object[]{
+                    dummyClass,
+                    $@"<div class=""{dummyClass}"">
+<header>
+</header>
+<pre><code></code></pre>
+</div>
+"
+                },
+                // Null
+                new object[]{
+                    null, noClassExpectedResult
+                },
+                // Whitespace
+                new object[]{
+                    " ", noClassExpectedResult
+                },
+                // Empty
+                new object[]{
+                    string.Empty, noClassExpectedResult
+                }
+            };
+        }
+
+        [Theory]
         [MemberData(nameof(WriteFlexiBlock_RendersAttributesIfAnyAreSpecified_Data))]
         public void WriteFlexiBlock_RendersAttributesIfAnyAreSpecified(SerializableWrapper<Dictionary<string, string>> dummyAttributesWrapper,
             string expectedDivStartTag)
@@ -48,6 +107,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         {
             const string dummyAttribute = "dummyAttribute";
             const string dummyAttributeValue = "dummyAttributeValue";
+            const string dummyClass = "dummyClass";
 
             return new object[][]
             {
@@ -55,21 +115,28 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     new SerializableWrapper<Dictionary<string, string>>(
                         new Dictionary<string, string>() {{ dummyAttribute, dummyAttributeValue }}
                     ),
-                    $"<div {dummyAttribute}=\"{dummyAttributeValue}\">"
+                    $"<div {dummyAttribute}=\"{dummyAttributeValue}\" class=\"fcb\">"
+                },
+                // Class specified
+                new object[]{
+                    new SerializableWrapper<Dictionary<string, string>>(
+                        new Dictionary<string, string>() {{ "class", dummyClass}}
+                    ),
+                    $"<div class=\"{dummyClass} fcb\">"
                 },
                 // Empty
                 new object[]{
                     new SerializableWrapper<Dictionary<string, string>>(
                         new Dictionary<string, string>()
                     ),
-                    "<div>"
+                    "<div class=\"fcb\">"
                 },
                 // Null
                 new object[]{
                     new SerializableWrapper<Dictionary<string, string>>(
                         null
                     ),
-                    "<div>"
+                    "<div class=\"fcb\">"
                 }
             };
         }
@@ -80,7 +147,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Arrange
             var dummyCodeBlock = new CodeBlock(null);
-            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(title: dummyTitle, copyIconMarkup: null);
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null, title: dummyTitle, copyIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
             FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer();
 
@@ -135,7 +202,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Arrange
             var dummyCodeBlock = new CodeBlock(null);
-            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(copyIconMarkup: dummyCopyIconMarkup);
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null, copyIconMarkup: dummyCopyIconMarkup);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
             FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer();
 
@@ -192,7 +259,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Arrange
             var dummyCodeBlock = new CodeBlock(null);
-            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(language: dummyLanguage, codeClassFormat: dummyCodeLanguageClassFormat,
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null, language: dummyLanguage, codeClassFormat: dummyCodeLanguageClassFormat,
                 syntaxHighlighter: SyntaxHighlighter.None, copyIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
             FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer();
@@ -236,7 +303,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             };
         }
 
-        // TODO ensure that code is not escaped when using syntax highlighters
         [Fact]
         public void WriteFlexiBlock_HighlightsSyntaxUsingHighlightJSIfLanguageIsNotNullWhitespaceOrAnEmptyStringAndSyntaxHighlighterIsHighlightJS()
         {
@@ -247,7 +313,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             const string dummyHighlightedCode = "dummyHighlightedCode";
             var dummyLines = new StringLineGroup(dummyCode);
             var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
-            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(syntaxHighlighter: SyntaxHighlighter.HighlightJS,
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null, syntaxHighlighter: SyntaxHighlighter.HighlightJS,
                 language: dummyLanguage, highlightJSClassPrefix: dummyHighlightJSClassPrefix, copyIconMarkup: null, codeClassFormat: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
             Mock<IHighlightJSService> mockHighlightJSService = _mockRepository.Create<IHighlightJSService>();
@@ -282,7 +348,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             const string dummyHighlightedCode = "dummyHighlightedCode";
             var dummyLines = new StringLineGroup(dummyCode);
             var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
-            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(syntaxHighlighter: SyntaxHighlighter.Prism,
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null, syntaxHighlighter: SyntaxHighlighter.Prism,
                 language: dummyLanguage, copyIconMarkup: null, codeClassFormat: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
             Mock<IPrismService> mockPrismService = _mockRepository.Create<IPrismService>();
@@ -317,7 +383,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             const string dummyCode = "dummyCode";
             var dummyLines = new StringLineGroup(dummyCode);
             var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
-            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(syntaxHighlighter: dummySyntaxHighlighter,
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null, syntaxHighlighter: dummySyntaxHighlighter,
                 language: dummyLanguage, copyIconMarkup: null, codeClassFormat: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
             // Don't provide any syntax highlighting services to FlexiCodeBlockRenderer. As long as Renderer.Write does not throw, the test has passed.
@@ -362,7 +428,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             const string dummyEmbellishedCode = "dummyEmbellishedCode";
             var dummyLines = new StringLineGroup("dummyCode\"&<>");
             var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
-            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(lineNumberRanges: dummyLineNumberRangesWrapper.Value,
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null, lineNumberRanges: dummyLineNumberRangesWrapper.Value,
                 highlightLineRanges: dummyHighlightLineRangesWrapper.Value,
                 lineEmbellishmentClassesPrefix: dummyLineEmbellishmentClassesPrefix,
                 copyIconMarkup: null);
@@ -433,7 +499,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             const string dummyCode = "dummyCode";
             var dummyLines = new StringLineGroup(dummyCode);
             var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
-            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(lineNumberRanges: dummyLineNumberRangesWrapper.Value,
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null, lineNumberRanges: dummyLineNumberRangesWrapper.Value,
                 highlightLineRanges: dummyHighlightLineRangesWrapper.Value,
                 copyIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
@@ -487,7 +553,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             // Arrange
             var dummyLines = new StringLineGroup("dummyCode\"&<>");
             var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
-            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(copyIconMarkup: null);
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null, copyIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
             FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer();
 

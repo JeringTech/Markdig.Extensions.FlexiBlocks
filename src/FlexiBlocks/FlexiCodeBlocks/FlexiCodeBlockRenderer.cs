@@ -3,6 +3,7 @@ using Jering.Web.SyntaxHighlighters.Prism;
 using Markdig.Renderers;
 using Markdig.Syntax;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
@@ -64,9 +65,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 
             var flexiCodeBlockOptions = (FlexiCodeBlockOptions)obj.GetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY);
 
+            // Add class to attributes
+            IDictionary<string, string> attributes = flexiCodeBlockOptions.Attributes;
+            if (!string.IsNullOrWhiteSpace(flexiCodeBlockOptions.Class))
+            {
+                attributes = new HtmlAttributeDictionary(attributes)
+                {
+                    { "class", flexiCodeBlockOptions.Class }
+                };
+            }
+
             renderer.
                 Write("<div").
-                WriteAttributes(flexiCodeBlockOptions.Attributes).
+                WriteAttributes(attributes).
                 WriteLine(">").
                 WriteLine("<header>");
 

@@ -16,7 +16,7 @@ public string ExampleFunction(string arg)
 }
 ```
 --------------- Expected Markup ---------------
-<div>
+<div class="fcb">
 <header>
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
 </header>
@@ -38,7 +38,7 @@ The following is an indented FlexiCodeBlock:
         return arg + "dummyString";
     }
 --------------- Expected Markup ---------------
-<div>
+<div class="fcb">
 <header>
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
 </header>
@@ -93,6 +93,38 @@ Options for a FlexiCodeBlock. To specify FlexiCodeBlockOptions for a FlexiCodeBl
 use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
 
 #### Properties
+- `Class`
+  - Type: `string`
+  - Description: The FlexiCodeBlock's outermost element's class. If this value is null, whitespace or an empty string, no class is assigned.
+  - Default: "fcb"
+  - Usage:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiOptionsBlocks
+    --------------- Markdown ---------------
+    @{
+        "class": "alternative-class"
+    }
+    ```
+    public string ExampleFunction(string arg)
+    {
+        // Example comment
+        return arg + "dummyString";
+    }
+    ```
+    --------------- Expected Markup ---------------
+    <div class="alternative-class">
+    <header>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
+    </header>
+    <pre><code>public string ExampleFunction(string arg)
+    {
+        // Example comment
+        return arg + &quot;dummyString&quot;;
+    }</code></pre>
+    </div>
+    ````````````````````````````````
+
 - `CopyIconMarkup`
   - Type: `string`
   - Description: The markup for the FlexiCodeBlock's copy icon.
@@ -114,7 +146,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div>
+    <div class="fcb">
     <header>
     <svg><use xlink:href="#material-design-copy"></use></svg>
     </header>
@@ -147,7 +179,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div>
+    <div class="fcb">
     <header>
     <span>ExampleDocument.cs</span>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
@@ -185,7 +217,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div>
+    <div class="fcb">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -221,7 +253,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div>
+    <div class="fcb">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -255,7 +287,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div>
+    <div class="fcb">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -291,7 +323,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div>
+    <div class="fcb">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -347,7 +379,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div>
+    <div class="fcb">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -409,7 +441,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div>
+    <div class="fcb">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -451,7 +483,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div>
+    <div class="fcb">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -476,7 +508,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     @{
         "attributes": {
             "id" : "code-1",
-            "class" : "fcb"
+            "class" : "block"
         }
     }
     ```
@@ -487,7 +519,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div id="code-1" class="fcb">
+    <div id="code-1" class="block fcb">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -498,6 +530,10 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }</code></pre>
     </div>
     ````````````````````````````````
+    If a value is specified for the class attribute, it will not override the outermost element's generated class. Instead, it will be 
+    prepended to the generated class. In the above example, this results in the outermost element's class attribute having the value 
+    `block fcb`.
+
 
 ### `FlexiCodeBlocksExtensionOptions`
 Global options for FlexiCodeBlocks. These options can be used to define defaults for all FlexiCodeBlocks. They have
@@ -518,6 +554,7 @@ MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
     {
         "flexiCodeBlocks": {
             "defaultBlockOptions": {
+                "class": "alternative-class",
                 "copyIconMarkup": "<svg><use xlink:href=\"#material-design-copy\"></use></svg>",
                 "title": "ExampleDocument.cs",
                 "language": "csharp",
@@ -538,7 +575,7 @@ MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
     }
     ```
     --------------- Expected Markup ---------------
-    <div>
+    <div class="alternative-class">
     <header>
     <span>ExampleDocument.cs</span>
     <svg><use xlink:href="#material-design-copy"></use></svg>
@@ -587,7 +624,7 @@ MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
     }
     ```
     --------------- Expected Markup ---------------
-    <div>
+    <div class="fcb">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -597,7 +634,7 @@ MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
     <span class="line"><span class="line-number">4</span><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
     <span class="line"><span class="line-number">5</span><span class="line-text">}</span></span></code></pre>
     </div>
-    <div>
+    <div class="fcb">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>

@@ -20,6 +20,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             // Assert
             FlexiCodeBlockOptions result = dummyInitialOptionsWrapper.Value;
             FlexiCodeBlockOptions expectedResult = dummyExpectedOptionsWrapper.Value;
+            Assert.Equal(expectedResult.Class, result.Class);
             Assert.Equal(expectedResult.CopyIconMarkup, result.CopyIconMarkup);
             Assert.Equal(expectedResult.Title, result.Title);
             Assert.Equal(expectedResult.Language, result.Language);
@@ -34,6 +35,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 
         public static IEnumerable<object[]> FlexiCodeBlockOptions_CanBePopulated_Data()
         {
+            const string dummyClass = "dummyClass";
             const string dummyCopyIconMarkup = "dummyCopyIconMarkup";
             const string dummyTitle = "dummyTitle";
             const string dummyLanguage = "dummyLanguage";
@@ -66,7 +68,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                 new object[]
                 {
                     new SerializableWrapper<FlexiCodeBlockOptions>(new FlexiCodeBlockOptions()),
-                    new SerializableWrapper<FlexiCodeBlockOptions>(new FlexiCodeBlockOptions(dummyCopyIconMarkup,
+                    new SerializableWrapper<FlexiCodeBlockOptions>(new FlexiCodeBlockOptions(
+                        dummyClass,
+                        dummyCopyIconMarkup,
                         dummyTitle,
                         dummyLanguage,
                         dummyCodeClassFormat,
@@ -77,6 +81,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                         dummyLineEmbellishementClassesPrefix,
                         dummyAttributes1)),
                     $@"{{
+    ""{nameof(FlexiCodeBlockOptions.Class)}"": ""{dummyClass}"",
     ""{nameof(FlexiCodeBlockOptions.CopyIconMarkup)}"": ""{dummyCopyIconMarkup}"",
     ""{nameof(FlexiCodeBlockOptions.Title)}"": ""{dummyTitle}"",
     ""{nameof(FlexiCodeBlockOptions.Language)}"": ""{dummyLanguage}"",

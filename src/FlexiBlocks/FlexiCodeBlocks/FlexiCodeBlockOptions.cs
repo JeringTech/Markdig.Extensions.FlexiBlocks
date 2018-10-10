@@ -21,10 +21,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         private const string _defaultCodeClassFormat = "language-{0}";
         private const SyntaxHighlighter _defaultSyntaxHighlighter = SyntaxHighlighter.Prism;
         private const string _defaultHighlightJSClassPrefix = "hljs-";
+        private const string _defaultDivClass = "fcb";
 
         /// <summary>
         /// Creates a <see cref="FlexiCodeBlockOptions"/> instance.
         /// </summary>
+        /// <param name="class">
+        /// <para>The FlexiCodeBlock's outermost element's class.</para>
+        /// <para>If this value is null, whitespace or an empty string, no class is assigned.</para>
+        /// <para>Defaults to "fcb".</para>
+        /// </param>
         /// <param name="copyIconMarkup">
         /// <para>The markup for the FlexiCodeBlock's copy icon.</para>
         /// <para>If this value is null, whitespace or an empty string, no copy icon is rendered.</para>
@@ -87,6 +93,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="HighlightLineRanges"/> line ranges are not sequential or overlap.</exception>
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="LineNumberRanges"/> line ranges are not sequential or overlap.</exception>
         public FlexiCodeBlockOptions(
+            string @class = _defaultDivClass,
             string copyIconMarkup = _defaultCopyIconMarkup,
             string title = default,
             string language = default,
@@ -98,6 +105,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             string lineEmbellishmentClassesPrefix = default,
             IDictionary<string, string> attributes = default) : base(attributes)
         {
+            Class = @class;
             CopyIconMarkup = copyIconMarkup;
             Title = title;
             Language = language;
@@ -110,6 +118,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 
             ValidateAndPopulate();
         }
+
+        /// <summary>
+        /// Gets or sets the FlexiCodeBlock's outermost element's class.
+        /// </summary>
+        [JsonProperty]
+        public string Class { get; private set; }
 
         /// <summary>
         /// Gets or sets the markup for the FlexiCodeBlock's copy icon.
