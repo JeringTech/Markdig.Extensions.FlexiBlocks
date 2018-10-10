@@ -39,6 +39,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             _serviceProvider = services.BuildServiceProvider();
         }
 
+        public static IServiceProvider GetServiceProvider()
+        {
+            return _serviceProvider;
+        }
+
         /// <summary>
         /// Adds all FlexiBlocks extensions to the specified <see cref="MarkdownPipelineBuilder"/>.
         /// </summary>
