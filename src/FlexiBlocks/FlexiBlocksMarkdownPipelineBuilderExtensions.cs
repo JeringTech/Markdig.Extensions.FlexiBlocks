@@ -39,6 +39,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             _serviceProvider = services.BuildServiceProvider();
         }
 
+        /// <summary>
+        /// Gets the <see cref="IServiceProvider"/> used to resolve FlexiBlocks services.
+        /// </summary>
         public static IServiceProvider GetServiceProvider()
         {
             return _serviceProvider;
