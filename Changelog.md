@@ -3,7 +3,19 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.6.0...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.8.0...HEAD)
+
+## [0.8.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.7.0...0.8.0) - Oct 11, 2018
+### Additions
+- FlexiTableBlocks now have a default class, "flexi-table-block", assigned to their outermost elements.
+### Changes
+- Replaced "fab" with "flexi-alert-block" in FlexiAlertBlock class names.
+- Replaced "fcb" with "flexi-code-block" in FlexiCodeBlock class names.
+- Replaced "section-level" with "flexi-section-block" in FlexiSectionBlock class names.
+
+## [0.7.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.6.0...0.7.0) - Oct 10, 2018
+### Additions
+- FlexiCodeBlocks now have a default class, "flexi-code-block", assigned to their outermost elements.
 
 ## [0.6.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.5.0...0.6.0) - Oct 10, 2018
 ### Additions
