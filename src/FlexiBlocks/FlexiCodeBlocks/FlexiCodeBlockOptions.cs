@@ -21,7 +21,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         private const string _defaultCodeClassFormat = "language-{0}";
         private const SyntaxHighlighter _defaultSyntaxHighlighter = SyntaxHighlighter.Prism;
         private const string _defaultHighlightJSClassPrefix = "hljs-";
-        private const string _defaultDivClass = "fcb";
+        private const string _defaultDivClass = "flexi-code-block";
 
         /// <summary>
         /// Creates a <see cref="FlexiCodeBlockOptions"/> instance.
@@ -29,7 +29,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <param name="class">
         /// <para>The FlexiCodeBlock's outermost element's class.</para>
         /// <para>If this value is null, whitespace or an empty string, no class is assigned.</para>
-        /// <para>Defaults to "fcb".</para>
+        /// <para>Defaults to "flexi-code-block".</para>
         /// </param>
         /// <param name="copyIconMarkup">
         /// <para>The markup for the FlexiCodeBlock's copy icon.</para>

@@ -169,7 +169,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
         "sourceUri": "./exampleInclude.js"
     }
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -242,7 +242,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
         "clippings":[{"endLineNumber": 4}, {"startLineNumber": 7, "endLineNumber": 9}]
     }
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -266,7 +266,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
         "clippings":[{"startDemarcationLineSubstring": "#region utility methods", "endDemarcationLineSubstring": "#endregion utility methods"}]
     }
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -286,7 +286,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
         "clippings":[{"startLineNumber": 7, "endDemarcationLineSubstring": "#endregion utility methods"}]
     }
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -323,7 +323,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
         }]
     }
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -347,7 +347,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
         "clippings":[{"dedentLength": 2}],
     }
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -374,7 +374,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
         "clippings":[{"collapseRatio": 0.5}]
     }
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -471,7 +471,7 @@ MyMarkdownPipelineBuilder.UseFlexiIncludeBlocks(myFlexiIncludeBlocksExtensionOpt
     }
     --------------- Expected Markup ---------------
     <p>This is example markdown.</p>
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -495,7 +495,7 @@ FlexiCodeBlocks
     "sourceUri": "./exampleInclude.js"
 }
 --------------- Expected Markup ---------------
-<div class="fcb">
+<div class="flexi-code-block">
 <header>
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
 </header>

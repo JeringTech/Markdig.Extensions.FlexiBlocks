@@ -16,7 +16,7 @@ public string ExampleFunction(string arg)
 }
 ```
 --------------- Expected Markup ---------------
-<div class="fcb">
+<div class="flexi-code-block">
 <header>
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
 </header>
@@ -38,7 +38,7 @@ The following is an indented FlexiCodeBlock:
         return arg + "dummyString";
     }
 --------------- Expected Markup ---------------
-<div class="fcb">
+<div class="flexi-code-block">
 <header>
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
 </header>
@@ -96,7 +96,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
 - `Class`
   - Type: `string`
   - Description: The FlexiCodeBlock's outermost element's class. If this value is null, whitespace or an empty string, no class is assigned.
-  - Default: "fcb"
+  - Default: "flexi-code-block"
   - Usage:
     ```````````````````````````````` none
     --------------- Extra Extensions ---------------
@@ -146,7 +146,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg><use xlink:href="#material-design-copy"></use></svg>
     </header>
@@ -179,7 +179,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <span>ExampleDocument.cs</span>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
@@ -217,7 +217,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -253,7 +253,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -287,7 +287,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -323,7 +323,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -379,7 +379,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -441,7 +441,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -483,7 +483,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -519,7 +519,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     }
     ```
     --------------- Expected Markup ---------------
-    <div id="code-1" class="block fcb">
+    <div id="code-1" class="block flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -532,7 +532,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     ````````````````````````````````
     If a value is specified for the class attribute, it will not override the outermost element's generated class. Instead, it will be 
     prepended to the generated class. In the above example, this results in the outermost element's class attribute having the value 
-    `block fcb`.
+    `block flexi-code-block`.
 
 
 ### `FlexiCodeBlocksExtensionOptions`
@@ -624,7 +624,7 @@ MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
     }
     ```
     --------------- Expected Markup ---------------
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>
@@ -634,7 +634,7 @@ MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
     <span class="line"><span class="line-number">4</span><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
     <span class="line"><span class="line-number">5</span><span class="line-text">}</span></span></code></pre>
     </div>
-    <div class="fcb">
+    <div class="flexi-code-block">
     <header>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z"/></svg>
     </header>

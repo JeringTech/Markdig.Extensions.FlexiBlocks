@@ -115,28 +115,28 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     new SerializableWrapper<Dictionary<string, string>>(
                         new Dictionary<string, string>() {{ dummyAttribute, dummyAttributeValue }}
                     ),
-                    $"<div {dummyAttribute}=\"{dummyAttributeValue}\" class=\"fcb\">"
+                    $"<div {dummyAttribute}=\"{dummyAttributeValue}\" class=\"flexi-code-block\">"
                 },
                 // Class specified
                 new object[]{
                     new SerializableWrapper<Dictionary<string, string>>(
                         new Dictionary<string, string>() {{ "class", dummyClass}}
                     ),
-                    $"<div class=\"{dummyClass} fcb\">"
+                    $"<div class=\"{dummyClass} flexi-code-block\">"
                 },
                 // Empty
                 new object[]{
                     new SerializableWrapper<Dictionary<string, string>>(
                         new Dictionary<string, string>()
                     ),
-                    "<div class=\"fcb\">"
+                    "<div class=\"flexi-code-block\">"
                 },
                 // Null
                 new object[]{
                     new SerializableWrapper<Dictionary<string, string>>(
                         null
                     ),
-                    "<div class=\"fcb\">"
+                    "<div class=\"flexi-code-block\">"
                 }
             };
         }
