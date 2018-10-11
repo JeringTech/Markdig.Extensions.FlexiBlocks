@@ -69,9 +69,9 @@ FlexiAlertBlocks
 }
 ! This is a FlexiAlertBlock.
 --------------- Expected Markup ---------------
-<div class="fab-warning">
+<div class="flexi-alert-block-warning">
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m1 21h22l-11-19-11 19zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
-<div class="fab-content">
+<div class="flexi-alert-block-content">
 <p>This is a FlexiAlertBlock.</p>
 </div>
 </div>

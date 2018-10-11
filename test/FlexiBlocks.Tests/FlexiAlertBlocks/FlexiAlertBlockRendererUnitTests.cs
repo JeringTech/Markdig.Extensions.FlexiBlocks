@@ -50,7 +50,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                             { dummyAttribute, dummyAttributeValue }
                         })
                     },
-                    $"<div {dummyAttribute}=\"{dummyAttributeValue}\" class=\"fab-info\">\n<div class=\"fab-content\">\n</div>\n</div>\n"
+                    $"<div {dummyAttribute}=\"{dummyAttributeValue}\" class=\"flexi-alert-block-info\">\n<div class=\"flexi-alert-block-content\">\n</div>\n</div>\n"
                 },
                 // Any value for the class attribute is prepended to the default class value
                 new object[]
@@ -61,7 +61,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                             { "class", dummyClass }
                         })
                     },
-                    $"<div class=\"{dummyClass} fab-info\">\n<div class=\"fab-content\">\n</div>\n</div>\n"
+                    $"<div class=\"{dummyClass} flexi-alert-block-info\">\n<div class=\"flexi-alert-block-content\">\n</div>\n</div>\n"
                 },
                 // Does not render default class if ClassFormat is null
                 new object[]
@@ -70,7 +70,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                     {
                         FlexiAlertBlockOptions = new FlexiAlertBlockOptions(classFormat: null)
                     },
-                    "<div>\n<div class=\"fab-content\">\n</div>\n</div>\n"
+                    "<div>\n<div class=\"flexi-alert-block-content\">\n</div>\n</div>\n"
                 },
                 // Writes icon markup if specified
                 new object[]
@@ -79,7 +79,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                     {
                         FlexiAlertBlockOptions = new FlexiAlertBlockOptions(){IconMarkup = dummyIconMarkup}
                     },
-                    $"<div class=\"fab-info\">\n{dummyIconMarkup}\n<div class=\"fab-content\">\n</div>\n</div>\n"
+                    $"<div class=\"flexi-alert-block-info\">\n{dummyIconMarkup}\n<div class=\"flexi-alert-block-content\">\n</div>\n</div>\n"
                 },
                 // Does not render content class if ContentClass is null, whitespace or an empty string
                 new object[]
@@ -88,7 +88,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                     {
                         FlexiAlertBlockOptions = new FlexiAlertBlockOptions(contentClass: null)
                     },
-                    "<div class=\"fab-info\">\n<div>\n</div>\n</div>\n"
+                    "<div class=\"flexi-alert-block-info\">\n<div>\n</div>\n</div>\n"
                 },
                 new object[]
                 {
@@ -96,7 +96,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                     {
                         FlexiAlertBlockOptions = new FlexiAlertBlockOptions(contentClass: " ")
                     },
-                    "<div class=\"fab-info\">\n<div>\n</div>\n</div>\n"
+                    "<div class=\"flexi-alert-block-info\">\n<div>\n</div>\n</div>\n"
                 },
                 new object[]
                 {
@@ -104,7 +104,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                     {
                         FlexiAlertBlockOptions = new FlexiAlertBlockOptions(contentClass: string.Empty)
                     },
-                    "<div class=\"fab-info\">\n<div>\n</div>\n</div>\n"
+                    "<div class=\"flexi-alert-block-info\">\n<div>\n</div>\n</div>\n"
                 },
             };
         }
@@ -138,7 +138,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             }
 
             // Assert
-            Assert.Equal($"<div class=\"fab-info\">\n<div class=\"fab-content\">\n<p>{dummyChildText}</p>\n</div>\n</div>\n", result);
+            Assert.Equal($"<div class=\"flexi-alert-block-info\">\n<div class=\"flexi-alert-block-content\">\n<p>{dummyChildText}</p>\n</div>\n</div>\n", result);
         }
     }
 }

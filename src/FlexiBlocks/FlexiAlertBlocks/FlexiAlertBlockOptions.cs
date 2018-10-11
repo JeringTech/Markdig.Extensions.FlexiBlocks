@@ -16,8 +16,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
     /// </summary>
     public class FlexiAlertBlockOptions : FlexiBlockOptions<FlexiAlertBlockOptions>
     {
-        private const string _defaultClassFormat = "fab-{0}";
-        private const string _defaultContentClass = "fab-content";
+        private const string _defaultClassFormat = "flexi-alert-block-{0}";
+        private const string _defaultContentClass = "flexi-alert-block-content";
         private const string _defaultType = "info";
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <para>The format for the <see cref="FlexiAlertBlock" />'s outermost element's class.</para>
         /// <para>The <see cref="FlexiAlertBlock" />'s type will replace "{0}" in the format.</para> 
         /// <para>If this value is null, whitespace or an empty string, no class is assigned.</para>
-        /// <para>Defaults to "fab-{0}".</para>
+        /// <para>Defaults to "flexi-alert-block-{0}".</para>
         /// </param>
         /// <param name="iconMarkup">
         /// <para>The markup for the <see cref="FlexiAlertBlock" />'s icon.</para>
@@ -43,7 +43,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <param name="contentClass">
         /// <para>The class of the <see cref="FlexiAlertBlock" />'s content wrapper.</para>  
         /// <para>If this value is null, whitespace or an empty string, no class is assigned.</para>
-        /// <para>Defaults to "fab-content".</para>
+        /// <para>Defaults to "flexi-alert-block-content".</para>
         /// </param>
         /// <param name="attributes">
         /// <para>The HTML attributes for the <see cref="FlexiAlertBlock"/>'s outermost element.</para>
