@@ -17,7 +17,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
     public class FlexiSectionBlockOptions : FlexiBlockOptions<FlexiSectionBlockOptions>
     {
         private const string _defaultLinkIconMarkup = "<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z\"/></svg>";
-        private const string _defaultClassFormat = "section-level-{0}";
+        private const string _defaultClassFormat = "flexi-section-block-{0}";
         private const bool _defaultGenerateIdentifier = true;
         private const bool _defaultAutoLinkable = true;
         private const SectioningContentElement _defaultWrapperElement = SectioningContentElement.Section;
@@ -47,7 +47,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// <para>The format for the <see cref="FlexiSectionBlock" />'s outermost element's class.</para>
         /// <para>The <see cref="FlexiSectionBlock" />'s level will replace "{0}" in the format.</para> 
         /// <para>If this value is null, whitespace or an empty string, no class is assigned.</para>
-        /// <para>Defaults to "section-level-{0}".</para> 
+        /// <para>Defaults to "flexi-section-block-{0}".</para> 
         /// </param>
         /// <param name="linkIconMarkup">
         /// <para>The markup for the <see cref="FlexiSectionBlock"/>'s link icon.</para>

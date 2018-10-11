@@ -63,18 +63,18 @@ Information on growing herbs from cuttings..
 ### Watering Herbs
 Information on watering herbs..
 --------------- Expected Markup ---------------
-<section class="section-level-1" id="indoor-herb-gardens">
+<section class="flexi-section-block-1" id="indoor-herb-gardens">
 <header>
 <h1>Indoor Herb Gardens</h1>
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
 </header>
 <p>An introduction..</p>
-<section class="section-level-2" id="getting-started">
+<section class="flexi-section-block-2" id="getting-started">
 <header>
 <h2>Getting Started</h2>
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
 </header>
-<section class="section-level-3" id="growing-herbs-from-cuttings">
+<section class="flexi-section-block-3" id="growing-herbs-from-cuttings">
 <header>
 <h3>Growing Herbs from Cuttings</h3>
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
@@ -82,12 +82,12 @@ Information on watering herbs..
 <p>Information on growing herbs from cuttings..</p>
 </section>
 </section>
-<section class="section-level-2" id="caring-for-herbs">
+<section class="flexi-section-block-2" id="caring-for-herbs">
 <header>
 <h2>Caring for Herbs</h2>
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
 </header>
-<section class="section-level-3" id="watering-herbs">
+<section class="flexi-section-block-3" id="watering-herbs">
 <header>
 <h3>Watering Herbs</h3>
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
@@ -123,7 +123,7 @@ use [FlexiSectionBlocksExtensionOptions](#flexisectionblocksextensionoptions).
     }
     ## foo
     --------------- Expected Markup ---------------
-    <nav class="section-level-2" id="foo">
+    <nav class="flexi-section-block-2" id="foo">
     <header>
     <h2>foo</h2>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
@@ -144,7 +144,7 @@ use [FlexiSectionBlocksExtensionOptions](#flexisectionblocksextensionoptions).
     --------------- Markdown ---------------
     ## Foo Bar Baz
     --------------- Expected Markup ---------------
-    <section class="section-level-2" id="foo-bar-baz">
+    <section class="flexi-section-block-2" id="foo-bar-baz">
     <header>
     <h2>Foo Bar Baz</h2>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
@@ -161,7 +161,7 @@ use [FlexiSectionBlocksExtensionOptions](#flexisectionblocksextensionoptions).
     }
     ## Foo Bar Baz
     --------------- Expected Markup ---------------
-    <section class="section-level-2">
+    <section class="flexi-section-block-2">
     <header>
     <h2>Foo Bar Baz</h2>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
@@ -188,7 +188,7 @@ use [FlexiSectionBlocksExtensionOptions](#flexisectionblocksextensionoptions).
     [Link Text][foo]
     --------------- Expected Markup ---------------
     <p><a href="#foo">foo</a></p>
-    <section class="section-level-2" id="foo">
+    <section class="flexi-section-block-2" id="foo">
     <header>
     <h2>foo</h2>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
@@ -213,7 +213,7 @@ use [FlexiSectionBlocksExtensionOptions](#flexisectionblocksextensionoptions).
     [Link Text][foo]
     --------------- Expected Markup ---------------
     <p>[foo]</p>
-    <section class="section-level-2" id="foo">
+    <section class="flexi-section-block-2" id="foo">
     <header>
     <h2>foo</h2>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
@@ -228,7 +228,7 @@ use [FlexiSectionBlocksExtensionOptions](#flexisectionblocksextensionoptions).
   - Description: The format for the FlexiSectionBlock's outermost element's class.
     The FlexiSectionBlock's level will replace "{0}" in the format. 
     If this value is null, whitespace or an empty string, no class is assigned.
-  - Default: "section-level-{0}"
+  - Default: "flexi-section-block-{0}"
   - Usage: 
     ```````````````````````````````` none
     --------------- Extra Extensions ---------------
@@ -262,7 +262,7 @@ use [FlexiSectionBlocksExtensionOptions](#flexisectionblocksextensionoptions).
     }
     ## foo
     --------------- Expected Markup ---------------
-    <section class="section-level-2" id="foo">
+    <section class="flexi-section-block-2" id="foo">
     <header>
     <h2>foo</h2>
     <svg><use xlink:href="#material-design-link"></use></svg>
@@ -288,7 +288,7 @@ use [FlexiSectionBlocksExtensionOptions](#flexisectionblocksextensionoptions).
     }
     ## foo
     --------------- Expected Markup ---------------
-    <section id="section-1" class="block section-level-2">
+    <section id="section-1" class="block flexi-section-block-2">
     <header>
     <h2>foo</h2>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
@@ -366,13 +366,13 @@ MyMarkdownPipelineBuilder.UseFlexiSectionBlocks(myFlexiSectionBlocksExtensionOpt
     }
     # foo
     --------------- Expected Markup ---------------
-    <nav class="section-level-1" id="foo">
+    <nav class="flexi-section-block-1" id="foo">
     <header>
     <h1>foo</h1>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
     </header>
     </nav>
-    <article class="section-level-1" id="foo-1">
+    <article class="flexi-section-block-1" id="foo-1">
     <header>
     <h1>foo</h1>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
@@ -393,18 +393,18 @@ have their own section trees:
 
 ## foo
 --------------- Expected Markup ---------------
-<section class="section-level-1" id="foo">
+<section class="flexi-section-block-1" id="foo">
 <header>
 <h1>foo</h1>
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
 </header>
 <blockquote>
-<section class="section-level-1" id="foo-1">
+<section class="flexi-section-block-1" id="foo-1">
 <header>
 <h1>foo</h1>
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
 </header>
-<section class="section-level-2" id="foo-2">
+<section class="flexi-section-block-2" id="foo-2">
 <header>
 <h2>foo</h2>
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
@@ -412,7 +412,7 @@ have their own section trees:
 </section>
 </section>
 </blockquote>
-<section class="section-level-2" id="foo-3">
+<section class="flexi-section-block-2" id="foo-3">
 <header>
 <h2>foo</h2>
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
