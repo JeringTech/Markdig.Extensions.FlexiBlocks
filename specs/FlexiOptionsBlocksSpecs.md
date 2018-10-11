@@ -96,7 +96,7 @@ FlexiTableBlocks
 +---+---+
 | 2 | 3 |
 --------------- Expected Markup ---------------
-<table id="table-1">
+<table id="table-1" class="flexi-table-block">
 <col style="width:50%">
 <col style="width:50%">
 <thead>

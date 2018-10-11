@@ -17,7 +17,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
 
         [Theory]
         [MemberData(nameof(WriteFlexiBlock_RendersFlexiTableBlock_Data))]
-         public void WriteFlexiBlock_RendersFlexiTableBlock(SerializableWrapper<FlexiTableBlockOptions> dummyFlexiTableBlockOptionsWrapper, string expectedResult)
+        public void WriteFlexiBlock_RendersFlexiTableBlock(SerializableWrapper<FlexiTableBlockOptions> dummyFlexiTableBlockOptionsWrapper, string expectedResult)
         {
             // Arrange
             Table dummyTable = CreateTable();
@@ -70,6 +70,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
 </tbody>
 </table>
 ";
+            const string dummyClass = "dummyClass";
             const string dummyWrapperElement = "dummyWrapperElement";
             const string dummyLabelAttribute = "dummyLabelAttribute";
             const string dummyAttribute = "dummyAttribute";
@@ -77,13 +78,92 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
 
             return new object[][]
             {
-                // Writes attributes if specified
+                // Renders class
+                new object[]
+                {
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(dummyClass)),
+                    $@"<table class=""{dummyClass}"">
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label=""a""><span>0</span></td>
+<td data-label=""b""><span>1</span></td>
+</tr>
+</tbody>
+</table>
+"
+                },
+                // Does not render class if Class is null, whitespace or an empty string
+                new object[]
+                {
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null)),
+                    $@"<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label=""a""><span>0</span></td>
+<td data-label=""b""><span>1</span></td>
+</tr>
+</tbody>
+</table>
+"
+                },
+                new object[]
+                {
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(" ")),
+                    $@"<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label=""a""><span>0</span></td>
+<td data-label=""b""><span>1</span></td>
+</tr>
+</tbody>
+</table>
+"
+                },
+                new object[]
+                {
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(string.Empty)),
+                    $@"<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label=""a""><span>0</span></td>
+<td data-label=""b""><span>1</span></td>
+</tr>
+</tbody>
+</table>
+"
+                },
+                // Writes attributes if specified, if a value for the class attribute is specified, it is prepended to the default class
                 new object[]
                 {
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(attributes: new Dictionary<string, string>{
-                                { dummyAttribute, dummyAttributeValue }
+                                { dummyAttribute, dummyAttributeValue },
+                                {"class", dummyClass }
                             })),
-                    $@"<table {dummyAttribute}=""{dummyAttributeValue}"">
+                    $@"<table {dummyAttribute}=""{dummyAttributeValue}"" class=""{dummyClass} flexi-table-block"">
 <thead>
 <tr>
 <th>a</th>
@@ -102,7 +182,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 // Renders wrapper elements
                 new object[]
                 {
-                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(dummyWrapperElement)),
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, dummyWrapperElement)),
                     $@"<table>
 <thead>
 <tr>
@@ -122,23 +202,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 // Does not renders wrapper elements if WrapperElement is null, whitespace or an empty string
                 new object[]
                 {
-                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null)),
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, null)),
                     expectedNoWrapperElementTable
                 },
                 new object[]
                 {
-                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(" ")),
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, " ")),
                     expectedNoWrapperElementTable
                 },
                 new object[]
                 {
-                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(string.Empty)),
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, string.Empty)),
                     expectedNoWrapperElementTable
                 },
                 // Renders wrapper elements
                 new object[]
                 {
-                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(labelAttribute: dummyLabelAttribute)),
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, labelAttribute: dummyLabelAttribute)),
                     $@"<table>
 <thead>
 <tr>
@@ -158,17 +238,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 // Does not renders label attributes if LabelAttribute is null, whitespace or an empty string
                 new object[]
                 {
-                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(labelAttribute: null)),
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, labelAttribute: null)),
                     expectedNoLabelAttributeTable
                 },
                 new object[]
                 {
-                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(labelAttribute: " ")),
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, labelAttribute: " ")),
                     expectedNoLabelAttributeTable
                 },
                 new object[]
                 {
-                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(labelAttribute: string.Empty)),
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, labelAttribute: string.Empty)),
                     expectedNoLabelAttributeTable
                 }
             };

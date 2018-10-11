@@ -19,6 +19,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
             // Assert
             FlexiTableBlockOptions result = dummyInitialOptionsWrapper.Value;
             FlexiTableBlockOptions expectedResult = dummyExpectedOptionsWrapper.Value;
+            Assert.Equal(expectedResult.Class, result.Class);
             Assert.Equal(expectedResult.WrapperElement, result.WrapperElement);
             Assert.Equal(expectedResult.LabelAttribute, result.LabelAttribute);
             Assert.Equal(expectedResult.Attributes, result.Attributes);
@@ -26,6 +27,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
 
         public static IEnumerable<object[]> FlexiTableBlockOptions_CanBePopulated_Data()
         {
+            const string dummyClass = "dummyClass";
             const string dummyWrapperElement = "dummyWrapperElement";
             const string dummyLabelAttribute = "dummyLabelAttribute";
             const string dummyAttribute1 = "dummyAttribute1";
@@ -41,10 +43,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 new object[]
                 {
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions()),
-                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(dummyWrapperElement,
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(
+                        dummyClass,
+                        dummyWrapperElement,
                         dummyLabelAttribute,
                         dummyAttributes1)),
                     $@"{{
+    ""{nameof(FlexiTableBlockOptions.Class)}"": ""{dummyClass}"",
     ""{nameof(FlexiTableBlockOptions.WrapperElement)}"": ""{dummyWrapperElement}"",
     ""{nameof(FlexiTableBlockOptions.LabelAttribute)}"": ""{dummyLabelAttribute}"",
     ""{nameof(FlexiTableBlockOptions.Attributes)}"": {{

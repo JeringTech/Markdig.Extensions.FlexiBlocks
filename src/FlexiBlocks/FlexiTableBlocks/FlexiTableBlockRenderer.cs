@@ -43,13 +43,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
             // Table's created using the pipe table syntax do not have their own FlexiTableOptions. This is because PipeTableParser is an inline parser and so does not work 
             // with FlexiOptionsBlocks.
             FlexiTableBlockOptions flexiTableBlockOptions = (FlexiTableBlockOptions)obj.GetData(FlexiTableBlocksExtension.FLEXI_TABLE_BLOCK_OPTIONS_KEY) ?? _defaultFlexiTableBlockOptions;
-            bool renderWrapper = !string.IsNullOrWhiteSpace(flexiTableBlockOptions.WrapperElement);
-            bool renderLabelAttribute = !string.IsNullOrWhiteSpace(flexiTableBlockOptions.LabelAttribute);
+
+            // Add class to attributes
+            IDictionary<string, string> attributes = flexiTableBlockOptions.Attributes;
+            if (!string.IsNullOrWhiteSpace(flexiTableBlockOptions.Class))
+            {
+                attributes = new HtmlAttributeDictionary(attributes)
+                {
+                    { "class", flexiTableBlockOptions.Class }
+                };
+            }
 
             renderer.EnsureLine();
             // TODO merge attributes? - ideally, PipeTableParser should be converted to a BlockParser so that the GenericAttributes extension is not required
             renderer.Write("<table").
-                WriteAttributes(flexiTableBlockOptions.Attributes).
+                WriteAttributes(attributes).
                 WriteAttributes(obj).
                 WriteLine(">");
 
@@ -76,6 +84,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
                     renderer.WriteLine($"<col style=\"width:{widthValue}%\">");
                 }
             }
+
+            // Determine whether wrapper and label attributes should be rendered
+            bool renderWrapper = !string.IsNullOrWhiteSpace(flexiTableBlockOptions.WrapperElement);
+            bool renderLabelAttribute = !string.IsNullOrWhiteSpace(flexiTableBlockOptions.LabelAttribute);
 
             // Store th contents
             List<string> labels = null;

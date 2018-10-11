@@ -1932,7 +1932,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     0 | 1
             //     2 | 3
             //     --------------- Expected Markup ---------------
-            //     <table>
+            //     <table class="flexi-table-block">
             //     <thead>
             //     <tr>
             //     <th>a</th>
@@ -1952,7 +1952,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     </table>
 
             SpecTestHelper.AssertCompliance("a | b\n- | -\n0 | 1\n2 | 3",
-                "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
+                "<table class=\"flexi-table-block\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
                 extensions);
         }
 
@@ -1969,7 +1969,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     +---+---+
             //     | 2 | 3 |
             //     --------------- Expected Markup ---------------
-            //     <table>
+            //     <table class="flexi-table-block">
             //     <col style="width:50%">
             //     <col style="width:50%">
             //     <thead>
@@ -1991,7 +1991,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     </table>
 
             SpecTestHelper.AssertCompliance("+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |",
-                "<table>\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
+                "<table class=\"flexi-table-block\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
                 extensions);
         }
 
@@ -1999,6 +1999,50 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [InlineData("FlexiTableBlocks_FlexiOptionsBlocks")]
         [InlineData("All")]
         public void FlexiTableBlocks_Spec3(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiOptionsBlocks
+            //     --------------- Markdown ---------------
+            //     @{
+            //         "class": "alternative-class"
+            //     }
+            //     +---+---+
+            //     | a | b |
+            //     +===+===+
+            //     | 0 | 1 |
+            //     +---+---+
+            //     | 2 | 3 |
+            //     --------------- Expected Markup ---------------
+            //     <table class="alternative-class">
+            //     <col style="width:50%">
+            //     <col style="width:50%">
+            //     <thead>
+            //     <tr>
+            //     <th>a</th>
+            //     <th>b</th>
+            //     </tr>
+            //     </thead>
+            //     <tbody>
+            //     <tr>
+            //     <td data-label="a"><span>0</span></td>
+            //     <td data-label="b"><span>1</span></td>
+            //     </tr>
+            //     <tr>
+            //     <td data-label="a"><span>2</span></td>
+            //     <td data-label="b"><span>3</span></td>
+            //     </tr>
+            //     </tbody>
+            //     </table>
+
+            SpecTestHelper.AssertCompliance("@{\n    \"class\": \"alternative-class\"\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |",
+                "<table class=\"alternative-class\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiTableBlocks_FlexiOptionsBlocks")]
+        [InlineData("All")]
+        public void FlexiTableBlocks_Spec4(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiOptionsBlocks
@@ -2013,7 +2057,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     +---+---+
             //     | 2 | 3 |
             //     --------------- Expected Markup ---------------
-            //     <table>
+            //     <table class="flexi-table-block">
             //     <col style="width:50%">
             //     <col style="width:50%">
             //     <thead>
@@ -2035,14 +2079,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     </table>
 
             SpecTestHelper.AssertCompliance("@{\n    \"wrapperElement\": \"div\"\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |",
-                "<table>\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><div>0</div></td>\n<td data-label=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-label=\"a\"><div>2</div></td>\n<td data-label=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>",
+                "<table class=\"flexi-table-block\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><div>0</div></td>\n<td data-label=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-label=\"a\"><div>2</div></td>\n<td data-label=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>",
                 extensions);
         }
 
         [Theory]
         [InlineData("FlexiTableBlocks_FlexiOptionsBlocks")]
         [InlineData("All")]
-        public void FlexiTableBlocks_Spec4(string extensions)
+        public void FlexiTableBlocks_Spec5(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiOptionsBlocks
@@ -2057,7 +2101,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     +---+---+
             //     | 2 | 3 |
             //     --------------- Expected Markup ---------------
-            //     <table>
+            //     <table class="flexi-table-block">
             //     <col style="width:50%">
             //     <col style="width:50%">
             //     <thead>
@@ -2079,14 +2123,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     </table>
 
             SpecTestHelper.AssertCompliance("@{\n    \"labelAttribute\": \"data-header-content\"\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |",
-                "<table>\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-header-content=\"a\"><span>0</span></td>\n<td data-header-content=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-header-content=\"a\"><span>2</span></td>\n<td data-header-content=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
+                "<table class=\"flexi-table-block\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-header-content=\"a\"><span>0</span></td>\n<td data-header-content=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-header-content=\"a\"><span>2</span></td>\n<td data-header-content=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
                 extensions);
         }
 
         [Theory]
         [InlineData("FlexiTableBlocks_FlexiOptionsBlocks")]
         [InlineData("All")]
-        public void FlexiTableBlocks_Spec5(string extensions)
+        public void FlexiTableBlocks_Spec6(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiOptionsBlocks
@@ -2104,7 +2148,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     +---+---+
             //     | 2 | 3 |
             //     --------------- Expected Markup ---------------
-            //     <table id="table-1" class="block">
+            //     <table id="table-1" class="block flexi-table-block">
             //     <col style="width:50%">
             //     <col style="width:50%">
             //     <thead>
@@ -2126,19 +2170,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     </table>
 
             SpecTestHelper.AssertCompliance("@{\n    \"attributes\": {\n        \"id\" : \"table-1\",\n        \"class\" : \"block\"\n    }\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |",
-                "<table id=\"table-1\" class=\"block\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
+                "<table id=\"table-1\" class=\"block flexi-table-block\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
                 extensions);
         }
 
         [Theory]
         [InlineData("FlexiTableBlocks")]
         [InlineData("All")]
-        public void FlexiTableBlocks_Spec6(string extensions)
+        public void FlexiTableBlocks_Spec7(string extensions)
         {
             //     --------------- Extension Options ---------------
             //     {
             //         "flexiTableBlocks": {
             //             "defaultBlockOptions": {
+            //                 "class": "alternative-class",
             //                 "wrapperElement": "div",
             //                 "labelAttribute": "data-header-content",
             //                 "attributes": {
@@ -2160,7 +2205,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     0 | 1
             //     2 | 3
             //     --------------- Expected Markup ---------------
-            //     <table class="block">
+            //     <table class="block alternative-class">
             //     <col style="width:50%">
             //     <col style="width:50%">
             //     <thead>
@@ -2180,7 +2225,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     </tr>
             //     </tbody>
             //     </table>
-            //     <table class="block">
+            //     <table class="block alternative-class">
             //     <thead>
             //     <tr>
             //     <th>a</th>
@@ -2200,15 +2245,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     </table>
 
             SpecTestHelper.AssertCompliance("+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |  \n\na | b\n- | -\n0 | 1\n2 | 3",
-                "<table class=\"block\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-header-content=\"a\"><div>0</div></td>\n<td data-header-content=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-header-content=\"a\"><div>2</div></td>\n<td data-header-content=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>\n<table class=\"block\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-header-content=\"a\"><div>0</div></td>\n<td data-header-content=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-header-content=\"a\"><div>2</div></td>\n<td data-header-content=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>",
+                "<table class=\"block alternative-class\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-header-content=\"a\"><div>0</div></td>\n<td data-header-content=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-header-content=\"a\"><div>2</div></td>\n<td data-header-content=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>\n<table class=\"block alternative-class\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-header-content=\"a\"><div>0</div></td>\n<td data-header-content=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-header-content=\"a\"><div>2</div></td>\n<td data-header-content=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>",
                 extensions,
-                "{\n    \"flexiTableBlocks\": {\n        \"defaultBlockOptions\": {\n            \"wrapperElement\": \"div\",\n            \"labelAttribute\": \"data-header-content\",\n            \"attributes\": {\n                \"class\": \"block\"\n            }\n        }\n    }\n}");
+                "{\n    \"flexiTableBlocks\": {\n        \"defaultBlockOptions\": {\n            \"class\": \"alternative-class\",\n            \"wrapperElement\": \"div\",\n            \"labelAttribute\": \"data-header-content\",\n            \"attributes\": {\n                \"class\": \"block\"\n            }\n        }\n    }\n}");
         }
 
         [Theory]
         [InlineData("FlexiTableBlocks_FlexiOptionsBlocks")]
         [InlineData("All")]
-        public void FlexiTableBlocks_Spec7(string extensions)
+        public void FlexiTableBlocks_Spec8(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiOptionsBlocks
@@ -2236,7 +2281,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     +---+---+
             //     | 2 | 3 |  
             //     --------------- Expected Markup ---------------
-            //     <table>
+            //     <table class="flexi-table-block">
             //     <thead>
             //     <tr>
             //     <th>a</th>
@@ -2254,7 +2299,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     </tr>
             //     </tbody>
             //     </table>
-            //     <table>
+            //     <table class="flexi-table-block">
             //     <col style="width:50%">
             //     <col style="width:50%">
             //     <thead>
@@ -2276,7 +2321,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     </table>
 
             SpecTestHelper.AssertCompliance("a | b\n- | -\n0 | 1\n2 | 3\n\n@{\n    \"wrapperElement\": \"span\"\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |  ",
-                "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><div>0</div></td>\n<td data-label=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-label=\"a\"><div>2</div></td>\n<td data-label=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>\n<table>\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
+                "<table class=\"flexi-table-block\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><div>0</div></td>\n<td data-label=\"b\"><div>1</div></td>\n</tr>\n<tr>\n<td data-label=\"a\"><div>2</div></td>\n<td data-label=\"b\"><div>3</div></td>\n</tr>\n</tbody>\n</table>\n<table class=\"flexi-table-block\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
                 extensions,
                 "{\n    \"flexiTableBlocks\": {\n        \"defaultBlockOptions\": {\n            \"wrapperElement\": \"div\"\n        }\n    }\n}");
         }
@@ -2284,7 +2329,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiTableBlocks")]
         [InlineData("All")]
-        public void FlexiTableBlocks_Spec8(string extensions)
+        public void FlexiTableBlocks_Spec9(string extensions)
         {
             //     --------------- Markdown ---------------
             //     "a" | &b&
@@ -2292,7 +2337,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     0 | 1 
             //     2 | 3 
             //     --------------- Expected Markup ---------------
-            //     <table>
+            //     <table class="flexi-table-block">
             //     <thead>
             //     <tr>
             //     <th>&quot;a&quot;</th>
@@ -2312,14 +2357,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     </table>
 
             SpecTestHelper.AssertCompliance("\"a\" | &b&\n- | - \n0 | 1 \n2 | 3 ",
-                "<table>\n<thead>\n<tr>\n<th>&quot;a&quot;</th>\n<th>&amp;b&amp;</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"&quot;a&quot;\"><span>0</span></td>\n<td data-label=\"&amp;b&amp;\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"&quot;a&quot;\"><span>2</span></td>\n<td data-label=\"&amp;b&amp;\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
+                "<table class=\"flexi-table-block\">\n<thead>\n<tr>\n<th>&quot;a&quot;</th>\n<th>&amp;b&amp;</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"&quot;a&quot;\"><span>0</span></td>\n<td data-label=\"&amp;b&amp;\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"&quot;a&quot;\"><span>2</span></td>\n<td data-label=\"&amp;b&amp;\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
                 extensions);
         }
 
         [Theory]
         [InlineData("FlexiTableBlocks")]
         [InlineData("All")]
-        public void FlexiTableBlocks_Spec9(string extensions)
+        public void FlexiTableBlocks_Spec10(string extensions)
         {
             //     --------------- Markdown ---------------
             //     +---+---+
@@ -2331,7 +2376,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     +---+---+
             //     | 2 | 3 |
             //     --------------- Expected Markup ---------------
-            //     <table>
+            //     <table class="flexi-table-block">
             //     <col style="width:50%">
             //     <col style="width:50%">
             //     <thead>
@@ -2355,7 +2400,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     </table>
 
             SpecTestHelper.AssertCompliance("+---+---+\n| a | b |\n|   |   |\n| a |   |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |",
-                "<table>\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th><p>a</p>\n<p>a</p>\n</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"aa\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"aa\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
+                "<table class=\"flexi-table-block\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th><p>a</p>\n<p>a</p>\n</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"aa\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"aa\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
                 extensions);
         }
     }
@@ -2438,7 +2483,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     +---+---+
             //     | 2 | 3 |
             //     --------------- Expected Markup ---------------
-            //     <table id="table-1">
+            //     <table id="table-1" class="flexi-table-block">
             //     <col style="width:50%">
             //     <col style="width:50%">
             //     <thead>
@@ -2460,7 +2505,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     </table>
 
             SpecTestHelper.AssertCompliance("@{\n    \"attributes\": {\n        \"id\" : \"table-1\"\n    }\n}\n+---+---+\n| a | b |\n+===+===+\n| 0 | 1 |\n+---+---+\n| 2 | 3 |",
-                "<table id=\"table-1\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
+                "<table id=\"table-1\" class=\"flexi-table-block\">\n<col style=\"width:50%\">\n<col style=\"width:50%\">\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td data-label=\"a\"><span>0</span></td>\n<td data-label=\"b\"><span>1</span></td>\n</tr>\n<tr>\n<td data-label=\"a\"><span>2</span></td>\n<td data-label=\"b\"><span>3</span></td>\n</tr>\n</tbody>\n</table>",
                 extensions);
         }
 

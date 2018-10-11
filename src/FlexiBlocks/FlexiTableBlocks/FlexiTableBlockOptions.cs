@@ -17,10 +17,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
     {
         private const string _defaultWrapperElement = "span";
         private const string _defaultLabelAttribute = "data-label";
+        private const string _defaultClass = "flexi-table-block";
 
         /// <summary>
         /// Creates a <see cref="FlexiTableBlockOptions"/> instance.
         /// </summary>
+        /// <param name="class">
+        /// <para>The FlexiTableBlock's outermost element's class.</para>
+        /// <para>If this value is null, whitespace or an empty string, no class is assigned.</para>
+        /// <para>Defaults to "flexi-table-block".</para>
+        /// </param>
         /// <param name="wrapperElement">
         /// <para>The element that will wrap td contents.</para>
         /// <para>If this value is null, whitespace or an empty string, no wrapper element is rendered.</para>
@@ -37,13 +43,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
         /// <para>Defaults to null.</para>
         /// </param>
         public FlexiTableBlockOptions(
+            string @class = _defaultClass,
             string wrapperElement = _defaultWrapperElement,
             string labelAttribute = _defaultLabelAttribute,
             IDictionary<string, string> attributes = default) : base(attributes)
         {
+            Class = @class;
             WrapperElement = wrapperElement;
             LabelAttribute = labelAttribute;
         }
+
+        /// <summary>
+        /// Gets or sets the FlexiTableBlock's outermost element's class.
+        /// </summary>
+        [JsonProperty]
+        public string Class { get; private set; }
 
         /// <summary>
         /// Gets or set the element that will wrap td contents.
