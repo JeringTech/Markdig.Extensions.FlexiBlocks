@@ -15,10 +15,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
     /// </summary>
     public class FlexiTableBlockOptions : FlexiBlockOptions<FlexiTableBlockOptions>
     {
-        private const string _defaultWrapperElement = "span";
-        private const string _defaultLabelAttribute = "data-label";
-        private const string _defaultClass = "flexi-table-block";
-
         /// <summary>
         /// Creates a <see cref="FlexiTableBlockOptions"/> instance.
         /// </summary>
@@ -43,9 +39,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
         /// <para>Defaults to null.</para>
         /// </param>
         public FlexiTableBlockOptions(
-            string @class = _defaultClass,
-            string wrapperElement = _defaultWrapperElement,
-            string labelAttribute = _defaultLabelAttribute,
+            string @class = "flexi-table-block",
+            string wrapperElement = "span",
+            string labelAttribute = "data-label",
             IDictionary<string, string> attributes = default) : base(attributes)
         {
             Class = @class;

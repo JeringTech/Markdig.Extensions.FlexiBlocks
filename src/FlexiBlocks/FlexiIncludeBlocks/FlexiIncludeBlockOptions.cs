@@ -11,10 +11,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
     /// </summary>
     public class FlexiIncludeBlockOptions : FlexiBlockOptions<FlexiIncludeBlockOptions>
     {
-        private const string _defaultSourceUri = "";
-        private const IncludeType _defaultIncludeType = IncludeType.Code;
-        private const bool _defaultCacheOnDisk = true;
-
         /// <summary>
         /// Creates a <see cref="FlexiIncludeBlockOptions"/> instance. 
         /// </summary>
@@ -46,9 +42,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <para>If this value is null or empty, the entire source is included.</para>
         /// <para>Defaults to null.</para>
         /// </param>
-        public FlexiIncludeBlockOptions(string sourceUri = _defaultSourceUri,
-            IncludeType type = _defaultIncludeType,
-            bool cacheOnDisk = _defaultCacheOnDisk,
+        public FlexiIncludeBlockOptions(string sourceUri = "",
+            IncludeType type = IncludeType.Code,
+            bool cacheOnDisk = true,
             string diskCacheDirectory = default,
             IList<Clipping> clippings = default) : base(null)
         {

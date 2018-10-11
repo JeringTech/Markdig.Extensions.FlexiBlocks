@@ -46,6 +46,15 @@
     </ItemGroup>
     
     <ItemGroup>
+        <Compile Update="Shared\Icons\Icons.cs">
+          <DependentUpon>Icons.tt</DependentUpon>
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+        </Compile>
+        <None Update="Shared\Icons\Icons.tt">
+            <LastGenOutput>Icons.cs</LastGenOutput>
+            <Generator>TextTemplatingFileGenerator</Generator>
+        </None>
         <Compile Update="Strings.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
@@ -55,6 +64,10 @@
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>Strings.Designer.cs</LastGenOutput>
         </EmbeddedResource>
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
     </ItemGroup>
 
 </Project>

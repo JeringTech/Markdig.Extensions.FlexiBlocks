@@ -16,12 +16,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
     /// </summary>
     public class FlexiSectionBlockOptions : FlexiBlockOptions<FlexiSectionBlockOptions>
     {
-        private const string _defaultLinkIconMarkup = "<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8zm9-4h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z\"/></svg>";
-        private const string _defaultClassFormat = "flexi-section-block-{0}";
-        private const bool _defaultGenerateIdentifier = true;
-        private const bool _defaultAutoLinkable = true;
-        private const SectioningContentElement _defaultWrapperElement = SectioningContentElement.Section;
-
         /// <summary>
         /// Creates a <see cref="FlexiSectionBlockOptions"/> instance.
         /// </summary>
@@ -51,8 +45,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// </param>
         /// <param name="linkIconMarkup">
         /// <para>The markup for the <see cref="FlexiSectionBlock"/>'s link icon.</para>
-        /// <para>If this value is null, whitespace or an empty string, no copy icon is rendered.</para>
-        /// <para>Defaults to https://material.io/tools/icons/?icon=link&amp;style=sharp, licensed under an Apache License Version 2 license - https://www.apache.org/licenses/LICENSE-2.0.html.</para>
+        /// <para>If this value is null, whitespace or an empty string, no link icon is rendered.</para>
+        /// <para>Defaults to the material design link icon - https://material.io/tools/icons/?icon=link&amp;style=baseline.</para>
         /// </param>
         /// <param name="attributes">
         /// <para>The HTML attributes for the <see cref="FlexiSectionBlock"/>'s outermost element.</para>
@@ -60,11 +54,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// <para>Defaults to null.</para>
         /// </param>
         public FlexiSectionBlockOptions(
-            SectioningContentElement element = _defaultWrapperElement,
-            bool generateIdentifier = _defaultGenerateIdentifier,
-            bool autoLinkable = _defaultAutoLinkable,
-            string classFormat = _defaultClassFormat,
-            string linkIconMarkup = _defaultLinkIconMarkup,
+            SectioningContentElement element = SectioningContentElement.Section,
+            bool generateIdentifier = true,
+            bool autoLinkable = true,
+            string classFormat = "flexi-section-block-{0}",
+            string linkIconMarkup = Icons.MATERIAL_DESIGN_LINK,
             IDictionary<string, string> attributes = default) : base(attributes)
         {
             LinkIconMarkup = linkIconMarkup;

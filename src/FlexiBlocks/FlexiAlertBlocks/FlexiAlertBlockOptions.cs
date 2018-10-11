@@ -16,10 +16,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
     /// </summary>
     public class FlexiAlertBlockOptions : FlexiBlockOptions<FlexiAlertBlockOptions>
     {
-        private const string _defaultClassFormat = "flexi-alert-block-{0}";
-        private const string _defaultContentClass = "flexi-alert-block-content";
-        private const string _defaultType = "info";
-
         /// <summary>
         /// Creates a <see cref="FlexiAlertBlockOptions"/> instance.
         /// </summary>
@@ -51,10 +47,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <para>Defaults to null.</para>
         /// </param>
         public FlexiAlertBlockOptions(
-            string type = _defaultType,
-            string classFormat = _defaultClassFormat,
+            string type = "info",
+            string classFormat = "flexi-alert-block-{0}",
             string iconMarkup = default,
-            string contentClass = _defaultContentClass,
+            string contentClass = "flexi-alert-block-content",
             IDictionary<string, string> attributes = default) : base(attributes)
         {
             IconMarkup = iconMarkup;

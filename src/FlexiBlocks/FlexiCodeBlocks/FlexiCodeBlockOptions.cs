@@ -17,12 +17,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     /// </summary>
     public class FlexiCodeBlockOptions : FlexiBlockOptions<FlexiCodeBlockOptions>
     {
-        private const string _defaultCopyIconMarkup = "<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M16,1H2v16h2V3h12V1z M15,5l6,6v12H6V5H15z M14,12h5.5L14,6.5V12z\"/></svg>";
-        private const string _defaultCodeClassFormat = "language-{0}";
-        private const SyntaxHighlighter _defaultSyntaxHighlighter = SyntaxHighlighter.Prism;
-        private const string _defaultHighlightJSClassPrefix = "hljs-";
-        private const string _defaultClass = "flexi-code-block";
-
         /// <summary>
         /// Creates a <see cref="FlexiCodeBlockOptions"/> instance.
         /// </summary>
@@ -34,7 +28,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <param name="copyIconMarkup">
         /// <para>The markup for the FlexiCodeBlock's copy icon.</para>
         /// <para>If this value is null, whitespace or an empty string, no copy icon is rendered.</para>
-        /// <para>Defaults to https://material.io/tools/icons/?icon=file_copy&amp;style=sharp, licensed under an Apache License Version 2 license - https://www.apache.org/licenses/LICENSE-2.0.html.</para>
+        /// <para>Defaults to the material design file copy icon - https://material.io/tools/icons/?icon=file_copy&amp;style=baseline.</para>
         /// </param>
         /// <param name="title">
         /// <para>The FlexiCodeBlock's title.</para>
@@ -93,13 +87,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="HighlightLineRanges"/> line ranges are not sequential or overlap.</exception>
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="LineNumberRanges"/> line ranges are not sequential or overlap.</exception>
         public FlexiCodeBlockOptions(
-            string @class = _defaultClass,
-            string copyIconMarkup = _defaultCopyIconMarkup,
+            string @class = "flexi-code-block",
+            string copyIconMarkup = Icons.MATERIAL_DESIGN_FILE_COPY,
             string title = default,
             string language = default,
-            string codeClassFormat = _defaultCodeClassFormat,
-            SyntaxHighlighter syntaxHighlighter = _defaultSyntaxHighlighter,
-            string highlightJSClassPrefix = _defaultHighlightJSClassPrefix,
+            string codeClassFormat = "language-{0}",
+            SyntaxHighlighter syntaxHighlighter = SyntaxHighlighter.Prism,
+            string highlightJSClassPrefix = "hljs-",
             IList<LineNumberRange> lineNumberRanges = default,
             IList<LineRange> highlightLineRanges = default,
             string lineEmbellishmentClassesPrefix = default,

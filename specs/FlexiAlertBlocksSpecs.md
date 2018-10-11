@@ -11,7 +11,7 @@ A FlexiAlertBlock is a sequence of lines that each start with`!`. The following 
 ! This is tangential content.
 --------------- Expected Markup ---------------
 <div class="flexi-alert-block-info">
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
 <div class="flexi-alert-block-content">
 <p>This is a FlexiAlertBlock.
 This is tangential content.</p>
@@ -29,7 +29,7 @@ The first space after the starting `!` of each line is optional:
 ! This line will render identically to the previous line.
 --------------- Expected Markup ---------------
 <div class="flexi-alert-block-info">
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
 <div class="flexi-alert-block-content">
 <p>This line will render identically to the next line.
 This line will render identically to the previous line.</p>
@@ -47,7 +47,7 @@ Starting `!`s can be preceded by up to three spaces:
    ! These lines belong to the same FlexiAlertBlock.
 --------------- Expected Markup ---------------
 <div class="flexi-alert-block-info">
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
 <div class="flexi-alert-block-content">
 <p>These lines belong to the same FlexiAlertBlock.
 These lines belong to the same FlexiAlertBlock.
@@ -66,7 +66,7 @@ contains multiple
 lazy continuation lines.
 --------------- Expected Markup ---------------
 <div class="flexi-alert-block-info">
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
 <div class="flexi-alert-block-content">
 <p>This FlexiAlertBlock
 contains multiple
@@ -84,13 +84,13 @@ A blank line closes a FlexiAlertBlock:
 ! This is another FlexiAlertBlock.
 --------------- Expected Markup ---------------
 <div class="flexi-alert-block-info">
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
 <div class="flexi-alert-block-content">
 <p>This is a FlexiAlertBlock.</p>
 </div>
 </div>
 <div class="flexi-alert-block-info">
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
 <div class="flexi-alert-block-content">
 <p>This is another FlexiAlertBlock.</p>
 </div>
@@ -120,7 +120,7 @@ use [FlexiAlertBlocksExtensionOptions](#flexialertblocksextensionoptions).
     ! This is a FlexiAlertBlock.
     --------------- Expected Markup ---------------
     <div class="flexi-alert-block-warning">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m1 21h22l-11-19-11 19zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
     <div class="flexi-alert-block-content">
     <p>This is a FlexiAlertBlock.</p>
     </div>
@@ -170,7 +170,7 @@ use [FlexiAlertBlocksExtensionOptions](#flexialertblocksextensionoptions).
     ! This is a FlexiAlertBlock.
     --------------- Expected Markup ---------------
     <div class="alert-info">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
     <div class="flexi-alert-block-content">
     <p>This is a FlexiAlertBlock.</p>
     </div>
@@ -193,7 +193,7 @@ use [FlexiAlertBlocksExtensionOptions](#flexialertblocksextensionoptions).
     ! This is a FlexiAlertBlock.
     --------------- Expected Markup ---------------
     <div class="flexi-alert-block-info">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
     <div class="alert-content">
     <p>This is a FlexiAlertBlock.</p>
     </div>
@@ -219,7 +219,7 @@ use [FlexiAlertBlocksExtensionOptions](#flexialertblocksextensionoptions).
     ! This is a FlexiAlertBlock.
     --------------- Expected Markup ---------------
     <div id="info-1" class="block flexi-alert-block-info">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
     <div class="flexi-alert-block-content">
     <p>This is a FlexiAlertBlock.</p>
     </div>
@@ -242,8 +242,7 @@ MyMarkdownPipelineBuilder.UseFlexiAlertBlocks(myFlexiAlertBlocksExtensionOptions
 - `IconMarkups`
   - Type: `Dictionary<string, string>`
   - Description: A map of FlexiAlertBlock types to icon markups. Add markups for custom FlexiAlertBlock types to this dictionary.
-  - Default: Contains icon markups for types "info", 
-    "warning" and "critical-warning".
+  - Default: Contains icon markups for types "info", "warning" and "critical-warning".
   - Usage:
     ```````````````````````````````` none
     --------------- Extra Extensions ---------------
@@ -328,13 +327,13 @@ MyMarkdownPipelineBuilder.UseFlexiAlertBlocks(myFlexiAlertBlocksExtensionOptions
     ! This is a FlexiAlertBlock with block specific options.
     --------------- Expected Markup ---------------
     <div class="alert-info">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
     <div class="flexi-alert-block-content">
     <p>This is a FlexiAlertBlock</p>
     </div>
     </div>
     <div class="special-alert-info">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
     <div class="flexi-alert-block-content">
     <p>This is a FlexiAlertBlock with block specific options.</p>
     </div>
