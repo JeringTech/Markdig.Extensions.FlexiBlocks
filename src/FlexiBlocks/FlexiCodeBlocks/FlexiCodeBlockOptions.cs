@@ -21,7 +21,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         private const string _defaultCodeClassFormat = "language-{0}";
         private const SyntaxHighlighter _defaultSyntaxHighlighter = SyntaxHighlighter.Prism;
         private const string _defaultHighlightJSClassPrefix = "hljs-";
-        private const string _defaultDivClass = "flexi-code-block";
+        private const string _defaultClass = "flexi-code-block";
 
         /// <summary>
         /// Creates a <see cref="FlexiCodeBlockOptions"/> instance.
@@ -93,7 +93,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="HighlightLineRanges"/> line ranges are not sequential or overlap.</exception>
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="LineNumberRanges"/> line ranges are not sequential or overlap.</exception>
         public FlexiCodeBlockOptions(
-            string @class = _defaultDivClass,
+            string @class = _defaultClass,
             string copyIconMarkup = _defaultCopyIconMarkup,
             string title = default,
             string language = default,
