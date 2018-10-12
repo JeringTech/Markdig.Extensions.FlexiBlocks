@@ -83,7 +83,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// </returns>
         protected override BlockState TryContinueFlexiBlock(BlockProcessor processor, Block block)
         {
-            return BlockState.Continue;
+            // If BlockState.Skip is returned, this parser ignores the line, allowing other blocks to see if they can be continued. Note that returning BlockState.Skip 
+            // will result in the block being closed by default, so we have to manually set IsOpen to true. 
+            // 
+            // It is important that BlockState.Continue isn't returned, otherwise, Markdig calls BlockProcessor.RestartIndext(), effectively consuming
+            // this line's leading whitespace. This messes up blocks that require the leading whitespace, like code blocks.
+            block.IsOpen = true;
+
+            return BlockState.Skip;
         }
 
         // Returns null if a FlexiSectionBlock can't be created
