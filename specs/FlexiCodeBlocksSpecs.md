@@ -20,11 +20,11 @@ public string ExampleFunction(string arg)
 <header>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
 </header>
-<pre><code>public string ExampleFunction(string arg)
-{
-    // Example comment
-    return arg + &quot;dummyString&quot;;
-}</code></pre>
+<pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
+<span class="line"><span class="line-text">{</span></span>
+<span class="line"><span class="line-text">    // Example comment</span></span>
+<span class="line"><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
+<span class="line"><span class="line-text">}</span></span></code></pre>
 </div>
 ````````````````````````````````
 By default, a FlexiCodeBlock is rendered with a "copy code" icon. The icon markup and more can be customized or omitted - refer to the [options section](#options) for details.
@@ -42,11 +42,11 @@ The following is an indented FlexiCodeBlock:
 <header>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
 </header>
-<pre><code>public string ExampleFunction(string arg)
-{
-    // Example comment
-    return arg + &quot;dummyString&quot;;
-}</code></pre>
+<pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
+<span class="line"><span class="line-text">{</span></span>
+<span class="line"><span class="line-text">    // Example comment</span></span>
+<span class="line"><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
+<span class="line"><span class="line-text">}</span></span></code></pre>
 </div>
 ````````````````````````````````
 
@@ -117,11 +117,11 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <header>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </header>
-    <pre><code>public string ExampleFunction(string arg)
-    {
-        // Example comment
-        return arg + &quot;dummyString&quot;;
-    }</code></pre>
+    <pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
+    <span class="line"><span class="line-text">{</span></span>
+    <span class="line"><span class="line-text">    // Example comment</span></span>
+    <span class="line"><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
+    <span class="line"><span class="line-text">}</span></span></code></pre>
     </div>
     ````````````````````````````````
 
@@ -150,11 +150,11 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <header>
     <svg><use xlink:href="#material-design-copy"></use></svg>
     </header>
-    <pre><code>public string ExampleFunction(string arg)
-    {
-        // Example comment
-        return arg + &quot;dummyString&quot;;
-    }</code></pre>
+    <pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
+    <span class="line"><span class="line-text">{</span></span>
+    <span class="line"><span class="line-text">    // Example comment</span></span>
+    <span class="line"><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
+    <span class="line"><span class="line-text">}</span></span></code></pre>
     </div>
     ````````````````````````````````
 
@@ -184,11 +184,11 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <span>ExampleDocument.cs</span>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </header>
-    <pre><code>public string ExampleFunction(string arg)
-    {
-        // Example comment
-        return arg + &quot;dummyString&quot;;
-    }</code></pre>
+    <pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
+    <span class="line"><span class="line-text">{</span></span>
+    <span class="line"><span class="line-text">    // Example comment</span></span>
+    <span class="line"><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
+    <span class="line"><span class="line-text">}</span></span></code></pre>
     </div>
     ````````````````````````````````
 
@@ -221,11 +221,11 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <header>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </header>
-    <pre><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token comment">// Example comment</span>
-        <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">"dummyString"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span></code></pre>
+    <pre><code class="language-csharp"><span class="line"><span class="line-text"><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span></span></span>
+    <span class="line"><span class="line-text"><span class="token punctuation">{</span></span></span>
+    <span class="line"><span class="line-text">    <span class="token comment">// Example comment</span></span></span>
+    <span class="line"><span class="line-text">    <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">"dummyString"</span><span class="token punctuation">;</span></span></span>
+    <span class="line"><span class="line-text"><span class="token punctuation">}</span></span></span></code></pre>
     </div>
     ````````````````````````````````
     By default, if a language is specified for a FlexiCodeBlock, a language class is assigned to the code element and syntax highlighting is performed.
@@ -257,11 +257,11 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <header>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </header>
-    <pre><code class="lang-csharp"><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token comment">// Example comment</span>
-        <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">"dummyString"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span></code></pre>
+    <pre><code class="lang-csharp"><span class="line"><span class="line-text"><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span></span></span>
+    <span class="line"><span class="line-text"><span class="token punctuation">{</span></span></span>
+    <span class="line"><span class="line-text">    <span class="token comment">// Example comment</span></span></span>
+    <span class="line"><span class="line-text">    <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">"dummyString"</span><span class="token punctuation">;</span></span></span>
+    <span class="line"><span class="line-text"><span class="token punctuation">}</span></span></span></code></pre>
     </div>
     ````````````````````````````````
 
@@ -291,11 +291,11 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <header>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </header>
-    <pre><code class="language-csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">ExampleFunction</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> arg</span>)
-    </span>{
-        <span class="hljs-comment">// Example comment</span>
-        <span class="hljs-keyword">return</span> arg + <span class="hljs-string">"dummyString"</span>;
-    }</code></pre>
+    <pre><code class="language-csharp"><span class="line"><span class="line-text"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">ExampleFunction</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> arg</span>)</span></span>
+    <span class="line"><span class="line-text"></span>{</span></span>
+    <span class="line"><span class="line-text">    <span class="hljs-comment">// Example comment</span></span></span>
+    <span class="line"><span class="line-text">    <span class="hljs-keyword">return</span> arg + <span class="hljs-string">"dummyString"</span>;</span></span>
+    <span class="line"><span class="line-text">}</span></span></code></pre>
     </div>
     ````````````````````````````````
   
@@ -327,11 +327,11 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <header>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </header>
-    <pre><code class="language-csharp"><span class="highlightjs-function"><span class="highlightjs-keyword">public</span> <span class="highlightjs-keyword">string</span> <span class="highlightjs-title">ExampleFunction</span>(<span class="highlightjs-params"><span class="highlightjs-keyword">string</span> arg</span>)
-    </span>{
-        <span class="highlightjs-comment">// Example comment</span>
-        <span class="highlightjs-keyword">return</span> arg + <span class="highlightjs-string">"dummyString"</span>;
-    }</code></pre>
+    <pre><code class="language-csharp"><span class="line"><span class="line-text"><span class="highlightjs-function"><span class="highlightjs-keyword">public</span> <span class="highlightjs-keyword">string</span> <span class="highlightjs-title">ExampleFunction</span>(<span class="highlightjs-params"><span class="highlightjs-keyword">string</span> arg</span>)</span></span>
+    <span class="line"><span class="line-text"></span>{</span></span>
+    <span class="line"><span class="line-text">    <span class="highlightjs-comment">// Example comment</span></span></span>
+    <span class="line"><span class="line-text">    <span class="highlightjs-keyword">return</span> arg + <span class="highlightjs-string">"dummyString"</span>;</span></span>
+    <span class="line"><span class="line-text">}</span></span></code></pre>
     </div>
     ````````````````````````````````
 
@@ -391,8 +391,8 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <span class="line"><span class="line-number">6</span><span class="line-text">        return arg + &quot;dummyString&quot;;</span></span>
     <span class="line"><span class="line-number">7</span><span class="line-text">    }</span></span>
     <span class="line"><span class="line-number">8</span><span class="line-text"></span></span>
-    <span class="line"><span class="line-text">    // Some functions omitted for brevity</span></span>
-    <span class="line"><span class="line-text">    ...</span></span>
+    <span class="line"><span class="line-number"></span><span class="line-text">    // Some functions omitted for brevity</span></span>
+    <span class="line"><span class="line-number"></span><span class="line-text">    ...</span></span>
     <span class="line"><span class="line-number">32</span><span class="line-text"></span></span>
     <span class="line"><span class="line-number">33</span><span class="line-text">    public string ExampleFunction3(string arg)</span></span>
     <span class="line"><span class="line-number">34</span><span class="line-text">    {</span></span>
@@ -462,7 +462,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
 
 - `LineEmbellishmentClassesPrefix`
   - Type: `string`
-  - Description: The prefix for line number and line highlighting classes (line embellishment classes).
+  - Description: The prefix for line embellishment classes (line embellishments are markup elements added to facilitate per-line styling).
     If this value is null, whitespace or an empty string, no prefix is added to line embellishment classes.
   - Default: `null`
   - Usage:
@@ -523,11 +523,11 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <header>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </header>
-    <pre><code>public string ExampleFunction(string arg)
-    {
-        // Example comment
-        return arg + &quot;dummyString&quot;;
-    }</code></pre>
+    <pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
+    <span class="line"><span class="line-text">{</span></span>
+    <span class="line"><span class="line-text">    // Example comment</span></span>
+    <span class="line"><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
+    <span class="line"><span class="line-text">}</span></span></code></pre>
     </div>
     ````````````````````````````````
     If a value is specified for the class attribute, it will not override the outermost element's generated class. Instead, it will be 

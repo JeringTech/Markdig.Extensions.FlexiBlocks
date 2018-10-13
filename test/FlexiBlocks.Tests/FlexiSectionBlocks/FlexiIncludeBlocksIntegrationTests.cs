@@ -1,17 +1,9 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
-using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
-using Markdig;
-using Markdig.Parsers;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using Markdig;
 using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
 {
-    // Integration tests that do not fit in amonst specs for this extension
+    // Integration tests that do not fit in amongst specs for this extension
     public class FlexiSectionBlocksIntegrationTests
     {
         [Fact]
@@ -37,7 +29,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
 <header>
 <svg xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path fill=""none"" d=""M0 0h24v24H0V0z""/><path d=""M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z""/></svg>
 </header>
-<pre><code>    Code with leading spaces</code></pre>
+<pre><code><span class=""line""><span class=""line-text"">    Code with leading spaces</span></span></code></pre>
 </div>
 </section>
 ";

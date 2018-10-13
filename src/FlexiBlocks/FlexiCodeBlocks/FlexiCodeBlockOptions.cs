@@ -73,7 +73,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <para>Defaults to null.</para>
         /// </param>
         /// <param name="lineEmbellishmentClassesPrefix">
-        /// <para>The prefix for line number and line highlighting classes (line embellishment classes).</para>
+        /// <para>The prefix for line embellishment classes (line embellishments are markup elements added to facilitate per-line styling).</para>
         /// <para>If this value is null, whitespace or an empty string, no prefix is added to line embellishment classes.</para>
         /// <para>Defaults to null.</para>
         /// </param>
@@ -173,7 +173,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         public ReadOnlyCollection<LineRange> HighlightLineRanges { get; private set; }
 
         /// <summary>
-        /// Gets or sets the prefix for line number and line highlighting classes (line embellishment classes).
+        /// Gets or sets the prefix for line embellishment classes (line embellishments are markup elements added to facilitate per-line styling).
         /// </summary>
         [JsonProperty]
         public string LineEmbellishmentClassesPrefix { get; private set; }

@@ -19,7 +19,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             IEnumerable<LineRange> highlightLineRanges,
             string prefixForClasses = null)
         {
-            if (!(lineNumberRanges?.Count() > 0 || highlightLineRanges?.Count() > 0) || string.IsNullOrEmpty(text))
+            if (string.IsNullOrEmpty(text))
             {
                 return text; // Nothing to do
             }
@@ -37,8 +37,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             // Embellish lines
             var result = new StringBuilder();
             int currentLineNumber = 0;
-            LineNumberRange currentLineNumberRange = lineNumberRanges?.FirstOrDefault();
-            int currentLineNumberRangeIndex = 0, currentLineNumberToRender = currentLineNumberRange?.FirstLineNumber ?? 0;
+            bool lineNumbersEnabled = lineNumberRanges?.Count() > 0; // If line numbers are enabled, we render a line number element for every line to facilitate table styles
+            LineNumberRange currentLineNumberRange = lineNumbersEnabled ? lineNumberRanges.First() : null;
+            int currentLineNumberRangeIndex = 0, currentLineNumberToRender = lineNumbersEnabled ? currentLineNumberRange.FirstLineNumber : 0;
             LineRange currentHighlightLineRange = highlightLineRanges?.FirstOrDefault();
             int currentHighlightLineRangeIndex = 0;
 
@@ -68,9 +69,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 result.Append(currentHighlightLineRange?.Contains(currentLineNumber) == true ? highlightedLineStartTag : lineStartTag);
 
                 // If within line number range, add line number
-                if (currentLineNumberRange?.LineRange.Contains(currentLineNumber) == true)
+                if (lineNumbersEnabled)
                 {
-                    result.Append(lineNumberStartTag).Append(currentLineNumberToRender++).Append(_spanEndTag);
+                    result.Append(lineNumberStartTag);
+                    if (currentLineNumberRange?.LineRange.Contains(currentLineNumber) == true)
+                    {
+                        result.Append(currentLineNumberToRender++);
+                    }
+                    result.Append(_spanEndTag);
                 }
 
                 // Add line text

@@ -127,23 +127,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 }
             }
 
-            // Line embellishments (line highlighting and line numbers)
-            if (flexiCodeBlockOptions.LineNumberRanges?.Count > 0 ||
-                flexiCodeBlockOptions.HighlightLineRanges?.Count > 0)
+            if (code == null) // Code may still be null if syntax highlighting is disabled
             {
-                // Code still null since syntax highlighting wasn't done
-                if (code == null)
-                {
-                    _codeRenderer.WriteLeafRawLines(obj, false, true); // Escape
-                    code = _stringWriter.ToString();
-                    _stringWriter.GetStringBuilder().Length = 0;
-                }
-
-                code = _lineEmbellisherService.EmbellishLines(code,
-                    flexiCodeBlockOptions.LineNumberRanges,
-                    flexiCodeBlockOptions.HighlightLineRanges,
-                    flexiCodeBlockOptions.LineEmbellishmentClassesPrefix);
+                _codeRenderer.WriteLeafRawLines(obj, false, true); // Escape
+                code = _stringWriter.ToString();
+                _stringWriter.GetStringBuilder().Length = 0;
             }
+
+            // Line embellishments
+            code = _lineEmbellisherService.EmbellishLines(code,
+                flexiCodeBlockOptions.LineNumberRanges,
+                flexiCodeBlockOptions.HighlightLineRanges,
+                flexiCodeBlockOptions.LineEmbellishmentClassesPrefix);
 
             if (code != null)
             {

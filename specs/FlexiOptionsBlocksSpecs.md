@@ -50,11 +50,11 @@ public string ExampleFunction(string arg)
 <span>ExampleDocument.cs</span>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
 </header>
-<pre><code>public string ExampleFunction(string arg)
-{
-    // Example comment
-    return arg + &quot;dummyString&quot;;
-}</code></pre>
+<pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
+<span class="line"><span class="line-text">{</span></span>
+<span class="line"><span class="line-text">    // Example comment</span></span>
+<span class="line"><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
+<span class="line"><span class="line-text">}</span></span></code></pre>
 </div>
 ````````````````````````````````
 

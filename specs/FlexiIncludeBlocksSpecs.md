@@ -173,16 +173,16 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     <header>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </header>
-    <pre><code>function exampleFunction(arg) {
-        // Example comment
-        return arg + 'dummyString';
-    }
-
-    //#region utility methods
-    function add(a, b) {
-        return a + b;
-    }
-    //#endregion utility methods</code></pre>
+    <pre><code><span class="line"><span class="line-text">function exampleFunction(arg) {</span></span>
+    <span class="line"><span class="line-text">    // Example comment</span></span>
+    <span class="line"><span class="line-text">    return arg + 'dummyString';</span></span>
+    <span class="line"><span class="line-text">}</span></span>
+    <span class="line"><span class="line-text"></span></span>
+    <span class="line"><span class="line-text">//#region utility methods</span></span>
+    <span class="line"><span class="line-text">function add(a, b) {</span></span>
+    <span class="line"><span class="line-text">    return a + b;</span></span>
+    <span class="line"><span class="line-text">}</span></span>
+    <span class="line"><span class="line-text">//#endregion utility methods</span></span></code></pre>
     </div>
     ````````````````````````````````
     By default, `Type` is `IncludeType.Code`, so the markdown in the above spec can be simplified to:
@@ -246,13 +246,13 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     <header>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </header>
-    <pre><code>function exampleFunction(arg) {
-        // Example comment
-        return arg + 'dummyString';
-    }
-    function add(a, b) {
-        return a + b;
-    }</code></pre>
+    <pre><code><span class="line"><span class="line-text">function exampleFunction(arg) {</span></span>
+    <span class="line"><span class="line-text">    // Example comment</span></span>
+    <span class="line"><span class="line-text">    return arg + 'dummyString';</span></span>
+    <span class="line"><span class="line-text">}</span></span>
+    <span class="line"><span class="line-text">function add(a, b) {</span></span>
+    <span class="line"><span class="line-text">    return a + b;</span></span>
+    <span class="line"><span class="line-text">}</span></span></code></pre>
     </div>
     ````````````````````````````````
 
@@ -270,9 +270,9 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     <header>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </header>
-    <pre><code>function add(a, b) {
-        return a + b;
-    }</code></pre>
+    <pre><code><span class="line"><span class="line-text">function add(a, b) {</span></span>
+    <span class="line"><span class="line-text">    return a + b;</span></span>
+    <span class="line"><span class="line-text">}</span></span></code></pre>
     </div>
     ````````````````````````````````
 
@@ -290,9 +290,9 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     <header>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </header>
-    <pre><code>function add(a, b) {
-        return a + b;
-    }</code></pre>
+    <pre><code><span class="line"><span class="line-text">function add(a, b) {</span></span>
+    <span class="line"><span class="line-text">    return a + b;</span></span>
+    <span class="line"><span class="line-text">}</span></span></code></pre>
     </div>
     ````````````````````````````````
 
@@ -327,13 +327,13 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     <header>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </header>
-    <pre><code>function exampleFunction(arg) {
-    ...
-    }
-
-    function add(a, b) {
-    ...
-    }</code></pre>
+    <pre><code><span class="line"><span class="line-text">function exampleFunction(arg) {</span></span>
+    <span class="line"><span class="line-text">...</span></span>
+    <span class="line"><span class="line-text">}</span></span>
+    <span class="line"><span class="line-text"></span></span>
+    <span class="line"><span class="line-text">function add(a, b) {</span></span>
+    <span class="line"><span class="line-text">...</span></span>
+    <span class="line"><span class="line-text">}</span></span></code></pre>
     </div>
     ````````````````````````````````
 
@@ -351,16 +351,16 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     <header>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </header>
-    <pre><code>function exampleFunction(arg) {
-      // Example comment
-      return arg + 'dummyString';
-    }
-
-    //#region utility methods
-    function add(a, b) {
-      return a + b;
-    }
-    //#endregion utility methods</code></pre>
+    <pre><code><span class="line"><span class="line-text">function exampleFunction(arg) {</span></span>
+    <span class="line"><span class="line-text">  // Example comment</span></span>
+    <span class="line"><span class="line-text">  return arg + 'dummyString';</span></span>
+    <span class="line"><span class="line-text">}</span></span>
+    <span class="line"><span class="line-text"></span></span>
+    <span class="line"><span class="line-text">//#region utility methods</span></span>
+    <span class="line"><span class="line-text">function add(a, b) {</span></span>
+    <span class="line"><span class="line-text">  return a + b;</span></span>
+    <span class="line"><span class="line-text">}</span></span>
+    <span class="line"><span class="line-text">//#endregion utility methods</span></span></code></pre>
     </div>
     ````````````````````````````````
 
@@ -378,16 +378,16 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     <header>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </header>
-    <pre><code>function exampleFunction(arg) {
-      // Example comment
-      return arg + 'dummyString';
-    }
-
-    //#region utility methods
-    function add(a, b) {
-      return a + b;
-    }
-    //#endregion utility methods</code></pre>
+    <pre><code><span class="line"><span class="line-text">function exampleFunction(arg) {</span></span>
+    <span class="line"><span class="line-text">  // Example comment</span></span>
+    <span class="line"><span class="line-text">  return arg + 'dummyString';</span></span>
+    <span class="line"><span class="line-text">}</span></span>
+    <span class="line"><span class="line-text"></span></span>
+    <span class="line"><span class="line-text">//#region utility methods</span></span>
+    <span class="line"><span class="line-text">function add(a, b) {</span></span>
+    <span class="line"><span class="line-text">  return a + b;</span></span>
+    <span class="line"><span class="line-text">}</span></span>
+    <span class="line"><span class="line-text">//#endregion utility methods</span></span></code></pre>
     </div>
     ````````````````````````````````
 
@@ -475,7 +475,7 @@ MyMarkdownPipelineBuilder.UseFlexiIncludeBlocks(myFlexiIncludeBlocksExtensionOpt
     <header>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </header>
-    <pre><code>This is example markdown.</code></pre>
+    <pre><code><span class="line"><span class="line-text">This is example markdown.</span></span></code></pre>
     </div>
     ````````````````````````````````
 
@@ -499,16 +499,16 @@ FlexiCodeBlocks
 <header>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
 </header>
-<pre><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">exampleFunction</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment">// Example comment</span>
-    <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">'dummyString'</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">//#region utility methods</span>
-<span class="token keyword">function</span> <span class="token function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token comment">//#endregion utility methods</span></code></pre>
+<pre><code class="language-javascript"><span class="line"><span class="line-text"><span class="token keyword">function</span> <span class="token function">exampleFunction</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span> <span class="token punctuation">{</span></span></span>
+<span class="line"><span class="line-text">    <span class="token comment">// Example comment</span></span></span>
+<span class="line"><span class="line-text">    <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">'dummyString'</span><span class="token punctuation">;</span></span></span>
+<span class="line"><span class="line-text"><span class="token punctuation">}</span></span></span>
+<span class="line"><span class="line-text"></span></span>
+<span class="line"><span class="line-text"><span class="token comment">//#region utility methods</span></span></span>
+<span class="line"><span class="line-text"><span class="token keyword">function</span> <span class="token function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span></span></span>
+<span class="line"><span class="line-text">    <span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span></span></span>
+<span class="line"><span class="line-text"><span class="token punctuation">}</span></span></span>
+<span class="line"><span class="line-text"><span class="token comment">//#endregion utility methods</span></span></span></code></pre>
 </div>
 ````````````````````````````````
 

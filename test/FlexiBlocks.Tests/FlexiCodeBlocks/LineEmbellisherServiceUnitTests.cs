@@ -32,49 +32,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         }
 
         [Theory]
-        [MemberData(nameof(EmbellishLines_ReturnsTextIfBothListsOfRangesAreNullOrEmpty_Data))]
-        public void EmbellishLines_ReturnsTextIfBothListsOfRangesAreNullOrEmpty(SerializableWrapper<List<LineNumberRange>> dummyLineNumberRangesWrapper, SerializableWrapper<List<LineRange>> dummyLineRangesWrapper)
-        {
-            // Arrange
-            const string dummyText = "dummyText";
-            var testSubject = new LineEmbellisherService();
-
-            // Act  
-            string result = testSubject.EmbellishLines(dummyText, dummyLineNumberRangesWrapper?.Value, dummyLineRangesWrapper?.Value);
-
-            // Assert
-            Assert.Equal(dummyText, result);
-        }
-
-        public static IEnumerable<object[]> EmbellishLines_ReturnsTextIfBothListsOfRangesAreNullOrEmpty_Data()
-        {
-            return new object[][]
-            {
-                        new object[]{null, null},
-                        new object[]{
-                            new SerializableWrapper<List<LineNumberRange>>(
-                                new List<LineNumberRange>()
-                            ),
-                            null
-                        },
-                        new object[]{
-                            null,
-                            new SerializableWrapper<List<LineRange>>(
-                                new List<LineRange>()
-                            )
-                        },
-                        new object[]{
-                            new SerializableWrapper<List<LineNumberRange>>(
-                                new List<LineNumberRange>()
-                            ),
-                            new SerializableWrapper<List<LineRange>>(
-                                new List<LineRange>()
-                            )
-                        }
-            };
-        }
-
-        [Theory]
         [MemberData(nameof(EmbellishLines_EmbellishesLines_Data))]
         public void EmbellishLines_EmbellishesLines(SerializableWrapper<List<LineNumberRange>> dummyLineNumberRanges,
             SerializableWrapper<List<LineRange>> dummyHighlightLineRanges,
@@ -118,8 +75,8 @@ line 10";
 <span class=""line highlight""><span class=""line-number"">2</span><span class=""line-text"">line 2</span></span>
 <span class=""line""><span class=""line-number"">3</span><span class=""line-text"">line 3</span></span>
 <span class=""line""><span class=""line-number"">4</span><span class=""line-text"">line 4</span></span>
-<span class=""line""><span class=""line-text"">line 5</span></span>
-<span class=""line""><span class=""line-text"">line 6</span></span>
+<span class=""line""><span class=""line-number""></span><span class=""line-text"">line 5</span></span>
+<span class=""line""><span class=""line-number""></span><span class=""line-text"">line 6</span></span>
 <span class=""line""><span class=""line-number"">7</span><span class=""line-text"">line 7</span></span>
 <span class=""line highlight""><span class=""line-number"">8</span><span class=""line-text"">line 8</span></span>
 <span class=""line highlight""><span class=""line-number"">9</span><span class=""line-text"">line 9</span></span>
@@ -138,8 +95,8 @@ line 10";
 <span class=""line highlight""><span class=""line-number"">2</span><span class=""line-text"">line 2</span></span>
 <span class=""line""><span class=""line-number"">3</span><span class=""line-text"">line 3</span></span>
 <span class=""line""><span class=""line-number"">4</span><span class=""line-text"">line 4</span></span>
-<span class=""line""><span class=""line-text"">line 5</span></span>
-<span class=""line""><span class=""line-text"">line 6</span></span>
+<span class=""line""><span class=""line-number""></span><span class=""line-text"">line 5</span></span>
+<span class=""line""><span class=""line-number""></span><span class=""line-text"">line 6</span></span>
 <span class=""line""><span class=""line-number"">7</span><span class=""line-text"">line 7</span></span>
 <span class=""line""><span class=""line-number"">8</span><span class=""line-text"">line 8</span></span>
 <span class=""line highlight""><span class=""line-number"">9</span><span class=""line-text"">line 9</span></span>
@@ -158,8 +115,8 @@ line 10";
 <span class=""line""><span class=""line-number"">3</span><span class=""line-text"">line 2</span></span>
 <span class=""line""><span class=""line-number"">4</span><span class=""line-text"">line 3</span></span>
 <span class=""line""><span class=""line-number"">5</span><span class=""line-text"">line 4</span></span>
-<span class=""line""><span class=""line-text"">line 5</span></span>
-<span class=""line""><span class=""line-text"">line 6</span></span>
+<span class=""line""><span class=""line-number""></span><span class=""line-text"">line 5</span></span>
+<span class=""line""><span class=""line-number""></span><span class=""line-text"">line 6</span></span>
 <span class=""line""><span class=""line-number"">7</span><span class=""line-text"">line 7</span></span>
 <span class=""line""><span class=""line-number"">8</span><span class=""line-text"">line 8</span></span>
 <span class=""line""><span class=""line-number"">9</span><span class=""line-text"">line 9</span></span>
@@ -176,12 +133,12 @@ line 10";
 <span class=""line""><span class=""line-number"">2</span><span class=""line-text"">line 2</span></span>
 <span class=""line""><span class=""line-number"">3</span><span class=""line-text"">line 3</span></span>
 <span class=""line""><span class=""line-number"">4</span><span class=""line-text"">line 4</span></span>
-<span class=""line""><span class=""line-text"">line 5</span></span>
-<span class=""line""><span class=""line-text"">line 6</span></span>
+<span class=""line""><span class=""line-number""></span><span class=""line-text"">line 5</span></span>
+<span class=""line""><span class=""line-number""></span><span class=""line-text"">line 6</span></span>
 <span class=""line""><span class=""line-number"">7</span><span class=""line-text"">line 7</span></span>
 <span class=""line""><span class=""line-number"">8</span><span class=""line-text"">line 8</span></span>
-<span class=""line""><span class=""line-text"">line 9</span></span>
-<span class=""line""><span class=""line-text"">line 10</span></span>"
+<span class=""line""><span class=""line-number""></span><span class=""line-text"">line 9</span></span>
+<span class=""line""><span class=""line-number""></span><span class=""line-text"">line 10</span></span>"
                 },
                 // Only highlighting (null list of line number line ranges)
                 new object[]{
@@ -234,8 +191,8 @@ line 10";
 <span class=""dummy-prefix-line dummy-prefix-highlight""><span class=""dummy-prefix-line-number"">2</span><span class=""dummy-prefix-line-text"">line 2</span></span>
 <span class=""dummy-prefix-line""><span class=""dummy-prefix-line-number"">3</span><span class=""dummy-prefix-line-text"">line 3</span></span>
 <span class=""dummy-prefix-line""><span class=""dummy-prefix-line-number"">4</span><span class=""dummy-prefix-line-text"">line 4</span></span>
-<span class=""dummy-prefix-line""><span class=""dummy-prefix-line-text"">line 5</span></span>
-<span class=""dummy-prefix-line""><span class=""dummy-prefix-line-text"">line 6</span></span>
+<span class=""dummy-prefix-line""><span class=""dummy-prefix-line-number""></span><span class=""dummy-prefix-line-text"">line 5</span></span>
+<span class=""dummy-prefix-line""><span class=""dummy-prefix-line-number""></span><span class=""dummy-prefix-line-text"">line 6</span></span>
 <span class=""dummy-prefix-line""><span class=""dummy-prefix-line-number"">7</span><span class=""dummy-prefix-line-text"">line 7</span></span>
 <span class=""dummy-prefix-line dummy-prefix-highlight""><span class=""dummy-prefix-line-number"">8</span><span class=""dummy-prefix-line-text"">line 8</span></span>
 <span class=""dummy-prefix-line dummy-prefix-highlight""><span class=""dummy-prefix-line-number"">9</span><span class=""dummy-prefix-line-text"">line 9</span></span>
