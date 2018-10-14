@@ -3,7 +3,11 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.8.0...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.9.0...HEAD)
+
+## [0.9.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.8.0...0.9.0) - Oct 12, 2018
+### Fixes
+- Fixed a FlexiSectionBlockParser bug that was causing it to consume the leading whitespace of every line.
 
 ## [0.8.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.7.0...0.8.0) - Oct 11, 2018
 ### Additions
@@ -19,7 +23,7 @@ for an overview of semantic versioning.
 
 ## [0.6.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.5.0...0.6.0) - Oct 10, 2018
 ### Additions
-- Exposed `ServiceProvider` used by `FlexiBlocksMarkdownPipelineBuilderExtensions`.
+- Exposed the `ServiceProvider` used by `FlexiBlocksMarkdownPipelineBuilderExtensions`.
 
 ## [0.5.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.4.0...0.5.0) - Oct 4, 2018
 ### Fixes
