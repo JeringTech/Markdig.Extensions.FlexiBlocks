@@ -3,7 +3,20 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.9.0...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.10.0...HEAD)
+
+## [0.10.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.9.0...0.10.0) - Oct 15, 2018
+### Additions
+- FlexiCodeBlocks now always renders at least two `<span>`s for each line of code. One with class `line` and
+one with class `line-text`.
+- FlexiCodeBlocks now renders an icon to represent hidden lines when line numbers aren't contiguous.
+- FlexiCodeBlocks now renders copy icon within a `<button>` element.
+- FlexSectionBlocks now renders link icon within a `<button>` element.
+
+### Changes
+- Renamed `FlexiCodeBlockOptions.LineNumberRanges` to `FlexiCodeBlockOptions.LineNumberLineRanges`. This
+reflects under the hood changes to the type that the list contains.
+- FlexiBlocksException no longer appends "Flexi" to block type names that do not begin with "Flexi".
 
 ## [0.9.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.8.0...0.9.0) - Oct 12, 2018
 ### Fixes
