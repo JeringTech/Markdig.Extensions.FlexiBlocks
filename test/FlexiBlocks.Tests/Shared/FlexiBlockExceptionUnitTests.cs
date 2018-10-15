@@ -39,7 +39,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             Assert.Equal(dummyLineIndex + 1, result.LineNumber);
             Assert.Equal(dummyColumn, result.Column);
             Assert.Equal(dummyDescription, result.Description);
-            Assert.Equal($"Flexi{nameof(DummyBlock)}", result.BlockTypeName);
+            Assert.Equal(nameof(DummyBlock), result.BlockTypeName);
         }
 #endif
 
@@ -61,7 +61,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             string result = testSubject.Message;
 
             // Assert
-            Assert.Equal($@"The FlexiDummyBlock starting at line ""6"", column ""2"", is invalid:
+            Assert.Equal($@"The DummyBlock starting at line ""6"", column ""2"", is invalid:
 {dummyExpectedDescription}", result, ignoreLineEndingDifferences: true);
         }
 

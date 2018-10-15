@@ -46,7 +46,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.Write(dummyRenderer, dummyBlock));
             _mockRepository.VerifyAll();
             Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
-                    $"Flexi{nameof(DummyBlock)}",
+                    nameof(DummyBlock),
                     dummyBlock.Line + 1,
                     dummyBlock.Column,
                     Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
