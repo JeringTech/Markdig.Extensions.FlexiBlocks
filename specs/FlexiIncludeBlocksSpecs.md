@@ -171,7 +171,9 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-text">function exampleFunction(arg) {</span></span>
     <span class="line"><span class="line-text">    // Example comment</span></span>
@@ -244,7 +246,9 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-text">function exampleFunction(arg) {</span></span>
     <span class="line"><span class="line-text">    // Example comment</span></span>
@@ -268,7 +272,9 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-text">function add(a, b) {</span></span>
     <span class="line"><span class="line-text">    return a + b;</span></span>
@@ -288,7 +294,9 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-text">function add(a, b) {</span></span>
     <span class="line"><span class="line-text">    return a + b;</span></span>
@@ -325,7 +333,9 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-text">function exampleFunction(arg) {</span></span>
     <span class="line"><span class="line-text">...</span></span>
@@ -349,7 +359,9 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-text">function exampleFunction(arg) {</span></span>
     <span class="line"><span class="line-text">  // Example comment</span></span>
@@ -376,7 +388,9 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-text">function exampleFunction(arg) {</span></span>
     <span class="line"><span class="line-text">  // Example comment</span></span>
@@ -473,7 +487,9 @@ MyMarkdownPipelineBuilder.UseFlexiIncludeBlocks(myFlexiIncludeBlocksExtensionOpt
     <p>This is example markdown.</p>
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-text">This is example markdown.</span></span></code></pre>
     </div>
@@ -497,7 +513,9 @@ FlexiCodeBlocks
 --------------- Expected Markup ---------------
 <div class="flexi-code-block">
 <header>
+<button>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+</button>
 </header>
 <pre><code class="language-javascript"><span class="line"><span class="line-text"><span class="token keyword">function</span> <span class="token function">exampleFunction</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span> <span class="token punctuation">{</span></span></span>
 <span class="line"><span class="line-text">    <span class="token comment">// Example comment</span></span></span>

@@ -87,6 +87,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 renderer.WriteLine($"<span>{flexiCodeBlockOptions.Title}</span>");
             }
 
+            renderer.WriteLine("<button>");
+
             // Copy icon
             if (!string.IsNullOrWhiteSpace(flexiCodeBlockOptions.CopyIconMarkup))
             {
@@ -94,6 +96,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             }
 
             renderer.
+                WriteLine("</button>").
                 WriteLine("</header>").
                 Write("<pre><code");
 

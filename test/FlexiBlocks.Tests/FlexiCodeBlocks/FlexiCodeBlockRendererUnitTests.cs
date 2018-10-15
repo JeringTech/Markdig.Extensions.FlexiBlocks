@@ -43,6 +43,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             const string dummyClass = "dummyClass";
             const string noClassExpectedResult = @"<div>
 <header>
+<button>
+</button>
 </header>
 <pre><code></code></pre>
 </div>
@@ -54,6 +56,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     dummyClass,
                     $@"<div class=""{dummyClass}"">
 <header>
+<button>
+</button>
 </header>
 <pre><code></code></pre>
 </div>
@@ -97,6 +101,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             // Assert
             Assert.Equal($@"{expectedDivStartTag}
 <header>
+<button>
+</button>
 </header>
 <pre><code></code></pre>
 </div>
@@ -176,22 +182,22 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             {
                 new object[]{
                     dummyTitle,
-                    $"<header>\n<span>{dummyTitle}</span>\n</header>"
+                    $"<header>\n<span>{dummyTitle}</span>\n<button>\n</button>\n</header>"
                 },
                 // Empty
                 new object[]{
                     string.Empty,
-                    "<header>\n</header>"
+                    "<header>\n<button>\n</button>\n</header>"
                 },
                 // Null
                 new object[]{
                     null,
-                    "<header>\n</header>"
+                    "<header>\n<button>\n</button>\n</header>"
                 },
                 // Whitespace
                 new object[]{
                     " ",
-                    "<header>\n</header>"
+                    "<header>\n<button>\n</button>\n</header>"
                 }
             };
         }
@@ -231,22 +237,22 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             {
                 new object[]{
                     dummyCopyIconMarkup,
-                    $"<header>\n{dummyCopyIconMarkup}\n</header>"
+                    $"<header>\n<button>\n{dummyCopyIconMarkup}\n</button>\n</header>"
                 },
                 // Empty
                 new object[]{
                     string.Empty,
-                    "<header>\n</header>"
+                    "<header>\n<button>\n</button>\n</header>"
                 },
                 // Null
                 new object[]{
                     null,
-                    "<header>\n</header>"
+                    "<header>\n<button>\n</button>\n</header>"
                 },
                 // Whitespace
                 new object[]{
                     " ",
-                    "<header>\n</header>"
+                    "<header>\n<button>\n</button>\n</header>"
                 }
             };
         }
@@ -276,6 +282,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             // Assert
             Assert.Equal($@"<div>
 <header>
+<button>
+</button>
 </header>
 <pre>{expectedCodeElement}</pre>
 </div>
@@ -336,6 +344,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             _mockRepository.VerifyAll();
             Assert.Equal($@"<div>
 <header>
+<button>
+</button>
 </header>
 <pre><code>{dummyEmbellishedCode}</code></pre>
 </div>
@@ -374,6 +384,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             _mockRepository.VerifyAll();
             Assert.Equal($@"<div>
 <header>
+<button>
+</button>
 </header>
 <pre><code>{dummyEmbellishedCode}</code></pre>
 </div>
@@ -414,6 +426,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             mockPrismService.Verify(h => h.HighlightAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
             Assert.Equal($@"<div>
 <header>
+<button>
+</button>
 </header>
 <pre><code>{dummyEmbellishedCode}</code></pre>
 </div>
@@ -471,6 +485,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             _mockRepository.VerifyAll();
             Assert.Equal($@"<div>
 <header>
+<button>
+</button>
 </header>
 <pre><code>{dummyEmbellishedCode}</code></pre>
 </div>
@@ -499,6 +515,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             // Assert
             Assert.Equal(@"<div>
 <header>
+<button>
+</button>
 </header>
 <pre><code>dummyCode&quot;&amp;&lt;&gt;</code></pre>
 </div>

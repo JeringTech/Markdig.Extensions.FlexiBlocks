@@ -18,7 +18,9 @@ public string ExampleFunction(string arg)
 --------------- Expected Markup ---------------
 <div class="flexi-code-block">
 <header>
+<button>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+</button>
 </header>
 <pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
 <span class="line"><span class="line-text">{</span></span>
@@ -40,7 +42,9 @@ The following is an indented FlexiCodeBlock:
 --------------- Expected Markup ---------------
 <div class="flexi-code-block">
 <header>
+<button>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+</button>
 </header>
 <pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
 <span class="line"><span class="line-text">{</span></span>
@@ -115,7 +119,9 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="alternative-class">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
     <span class="line"><span class="line-text">{</span></span>
@@ -148,7 +154,9 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg><use xlink:href="#material-design-copy"></use></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
     <span class="line"><span class="line-text">{</span></span>
@@ -182,7 +190,9 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <div class="flexi-code-block">
     <header>
     <span>ExampleDocument.cs</span>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
     <span class="line"><span class="line-text">{</span></span>
@@ -219,7 +229,9 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code class="language-csharp"><span class="line"><span class="line-text"><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span></span></span>
     <span class="line"><span class="line-text"><span class="token punctuation">{</span></span></span>
@@ -255,7 +267,9 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code class="lang-csharp"><span class="line"><span class="line-text"><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span></span></span>
     <span class="line"><span class="line-text"><span class="token punctuation">{</span></span></span>
@@ -289,7 +303,9 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code class="language-csharp"><span class="line"><span class="line-text"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">ExampleFunction</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> arg</span>)</span></span>
     <span class="line"><span class="line-text"></span>{</span></span>
@@ -325,7 +341,9 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code class="language-csharp"><span class="line"><span class="line-text"><span class="highlightjs-function"><span class="highlightjs-keyword">public</span> <span class="highlightjs-keyword">string</span> <span class="highlightjs-title">ExampleFunction</span>(<span class="highlightjs-params"><span class="highlightjs-keyword">string</span> arg</span>)</span></span>
     <span class="line"><span class="line-text"></span>{</span></span>
@@ -381,7 +399,9 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-number">1</span><span class="line-text">public class ExampleClass</span></span>
     <span class="line"><span class="line-number">2</span><span class="line-text">{</span></span>
@@ -443,7 +463,9 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line highlight"><span class="line-text">public string ExampleFunction(string arg)</span></span>
     <span class="line"><span class="line-text">{</span></span>
@@ -485,7 +507,9 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="le-line le-highlight"><span class="le-line-number">1</span><span class="le-line-text">public string ExampleFunction(string arg)</span></span>
     <span class="le-line le-highlight"><span class="le-line-number">2</span><span class="le-line-text">{</span></span>
@@ -520,7 +544,9 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-number">1</span><span class="line-text">public string ExampleFunction(string arg)</span></span>
     <span class="line"><span class="line-number">2</span><span class="line-text">{</span></span>
@@ -557,7 +583,9 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     --------------- Expected Markup ---------------
     <div id="code-1" class="block flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
     <span class="line"><span class="line-text">{</span></span>
@@ -614,7 +642,9 @@ MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
     <div class="alternative-class">
     <header>
     <span>ExampleDocument.cs</span>
+    <button>
     <svg><use xlink:href="#material-design-copy"></use></svg>
+    </button>
     </header>
     <pre><code class="lang-csharp"><span class="line highlight"><span class="line-number">1</span><span class="line-text"><span class="highlightjs-function"><span class="highlightjs-keyword">public</span> <span class="highlightjs-keyword">string</span> <span class="highlightjs-title">ExampleFunction</span>(<span class="highlightjs-params"><span class="highlightjs-keyword">string</span> arg</span>)</span></span>
     <span class="line highlight"><span class="line-number">2</span><span class="line-text"></span>{</span></span>
@@ -662,7 +692,9 @@ MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
     --------------- Expected Markup ---------------
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-number">1</span><span class="line-text">public string ExampleFunction1(string arg)</span></span>
     <span class="line"><span class="line-number">2</span><span class="line-text">{</span></span>
@@ -672,7 +704,9 @@ MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
     </div>
     <div class="flexi-code-block">
     <header>
+    <button>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
     </header>
     <pre><code><span class="line"><span class="line-number">6</span><span class="line-text">public string ExampleFunction2(string arg)</span></span>
     <span class="line"><span class="line-number">7</span><span class="line-text">{</span></span>
