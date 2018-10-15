@@ -36,6 +36,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         public void EmbellishLines_EmbellishesLines(SerializableWrapper<List<LineNumberRange>> dummyLineNumberRanges,
             SerializableWrapper<List<LineRange>> dummyHighlightLineRanges,
             string dummyPrefixForClasses,
+            string dummyHiddenLinesIconMarkup,
             string expectedResult)
         {
             // Arrange
@@ -52,7 +53,7 @@ line 10";
             var testSubject = new LineEmbellisherService();
 
             // Act
-            string result = testSubject.EmbellishLines(dummyText, dummyLineNumberRanges?.Value, dummyHighlightLineRanges?.Value, dummyPrefixForClasses);
+            string result = testSubject.EmbellishLines(dummyText, dummyLineNumberRanges?.Value, dummyHighlightLineRanges?.Value, dummyPrefixForClasses, dummyHiddenLinesIconMarkup);
 
             // Assert
             Assert.Equal(expectedResult, result, ignoreLineEndingDifferences: true);
@@ -70,6 +71,7 @@ line 10";
                     new SerializableWrapper<List<LineRange>>(
                         new List<LineRange> { new LineRange(2, 2), new LineRange(8, 9) }
                     ),
+                    null,
                     null,
                     @"<span class=""line""><span class=""line-number"">1</span><span class=""line-text"">line 1</span></span>
 <span class=""line highlight""><span class=""line-number"">2</span><span class=""line-text"">line 2</span></span>
@@ -91,6 +93,7 @@ line 10";
                         new List<LineRange> { new LineRange(2, 2), new LineRange(9, -1) }
                     ),
                     null,
+                    null,
                     @"<span class=""line""><span class=""line-number"">1</span><span class=""line-text"">line 1</span></span>
 <span class=""line highlight""><span class=""line-number"">2</span><span class=""line-text"">line 2</span></span>
 <span class=""line""><span class=""line-number"">3</span><span class=""line-text"">line 3</span></span>
@@ -111,6 +114,7 @@ line 10";
                         new List<LineRange>()
                     ),
                     null,
+                    null,
                     @"<span class=""line""><span class=""line-number"">2</span><span class=""line-text"">line 1</span></span>
 <span class=""line""><span class=""line-number"">3</span><span class=""line-text"">line 2</span></span>
 <span class=""line""><span class=""line-number"">4</span><span class=""line-text"">line 3</span></span>
@@ -129,6 +133,7 @@ line 10";
                     ),
                     null,
                     null,
+                    null,
                     @"<span class=""line""><span class=""line-number"">1</span><span class=""line-text"">line 1</span></span>
 <span class=""line""><span class=""line-number"">2</span><span class=""line-text"">line 2</span></span>
 <span class=""line""><span class=""line-number"">3</span><span class=""line-text"">line 3</span></span>
@@ -140,6 +145,25 @@ line 10";
 <span class=""line""><span class=""line-number""></span><span class=""line-text"">line 9</span></span>
 <span class=""line""><span class=""line-number""></span><span class=""line-text"">line 10</span></span>"
                 },
+                // Hidden lines icon markup specified
+                new object[]{
+                    new SerializableWrapper<List<LineNumberRange>>(
+                        new List<LineNumberRange> { new LineNumberRange(1, 4, 1), new LineNumberRange(7, 8, 7) }
+                    ),
+                    null,
+                    null,
+                    "dummyHiddenLinesIconMarkup",
+                    @"<span class=""line""><span class=""line-number"">1</span><span class=""line-text"">line 1</span></span>
+<span class=""line""><span class=""line-number"">2</span><span class=""line-text"">line 2</span></span>
+<span class=""line""><span class=""line-number"">3</span><span class=""line-text"">line 3</span></span>
+<span class=""line""><span class=""line-number"">4</span><span class=""line-text"">line 4</span></span>
+<span class=""line""><span class=""line-number"">dummyHiddenLinesIconMarkup</span><span class=""line-text"">line 5</span></span>
+<span class=""line""><span class=""line-number"">dummyHiddenLinesIconMarkup</span><span class=""line-text"">line 6</span></span>
+<span class=""line""><span class=""line-number"">7</span><span class=""line-text"">line 7</span></span>
+<span class=""line""><span class=""line-number"">8</span><span class=""line-text"">line 8</span></span>
+<span class=""line""><span class=""line-number"">dummyHiddenLinesIconMarkup</span><span class=""line-text"">line 9</span></span>
+<span class=""line""><span class=""line-number"">dummyHiddenLinesIconMarkup</span><span class=""line-text"">line 10</span></span>"
+                },
                 // Only highlighting (null list of line number line ranges)
                 new object[]{
                     new SerializableWrapper<List<LineNumberRange>>(
@@ -148,6 +172,7 @@ line 10";
                     new SerializableWrapper<List<LineRange>>(
                         new List<LineRange> { new LineRange(2, 2), new LineRange(9, -1) }
                     ),
+                    null,
                     null,
                     @"<span class=""line""><span class=""line-text"">line 1</span></span>
 <span class=""line highlight""><span class=""line-text"">line 2</span></span>
@@ -166,6 +191,7 @@ line 10";
                     new SerializableWrapper<List<LineRange>>(
                         new List<LineRange> { new LineRange(2, 2), new LineRange(4, 5) }
                     ),
+                    null,
                     null,
                     @"<span class=""line""><span class=""line-text"">line 1</span></span>
 <span class=""line highlight""><span class=""line-text"">line 2</span></span>
@@ -187,6 +213,7 @@ line 10";
                         new List<LineRange> { new LineRange(2, 2), new LineRange(8, 9) }
                     ),
                     "dummy-prefix-",
+                    null,
                     @"<span class=""dummy-prefix-line""><span class=""dummy-prefix-line-number"">1</span><span class=""dummy-prefix-line-text"">line 1</span></span>
 <span class=""dummy-prefix-line dummy-prefix-highlight""><span class=""dummy-prefix-line-number"">2</span><span class=""dummy-prefix-line-text"">line 2</span></span>
 <span class=""dummy-prefix-line""><span class=""dummy-prefix-line-number"">3</span><span class=""dummy-prefix-line-text"">line 3</span></span>

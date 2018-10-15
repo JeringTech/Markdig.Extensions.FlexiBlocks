@@ -15,7 +15,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// If null, line numbers will not be added.</param>
         /// <param name="highlightLineRanges">Ranges of lines to highlight. If null, no lines will be highlighted.</param>
         /// <param name="prefixForClasses">Optional prefix for classes.</param>
+        /// <param name="hiddenLinesIconMarkup">The markup for the icon representing hidden lines.</param>
         /// <returns><paramref name="text"/> with embellished lines.</returns>
-        string EmbellishLines(string text, IEnumerable<LineNumberRange> lineNumberRanges, IEnumerable<LineRange> highlightLineRanges, string prefixForClasses = null);
+        string EmbellishLines(string text, IEnumerable<LineNumberRange> lineNumberRanges, IEnumerable<LineRange> highlightLineRanges, string prefixForClasses = null, string hiddenLinesIconMarkup = null);
     }
 }

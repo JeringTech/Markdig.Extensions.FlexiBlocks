@@ -17,7 +17,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         public string EmbellishLines(string text,
             IEnumerable<LineNumberRange> lineNumberRanges,
             IEnumerable<LineRange> highlightLineRanges,
-            string prefixForClasses = null)
+            string prefixForClasses = null,
+            string hiddenLinesIconMarkup = null)
         {
             if (string.IsNullOrEmpty(text))
             {
@@ -42,6 +43,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             int currentLineNumberRangeIndex = 0, currentLineNumberToRender = lineNumbersEnabled ? currentLineNumberRange.FirstLineNumber : 0;
             LineRange currentHighlightLineRange = highlightLineRanges?.FirstOrDefault();
             int currentHighlightLineRangeIndex = 0;
+            bool renderHiddenLinesIcon = !string.IsNullOrWhiteSpace(hiddenLinesIconMarkup);
 
             var stringReader = new StringReader(text);
             string line = null;
@@ -75,6 +77,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                     if (currentLineNumberRange?.LineRange.Contains(currentLineNumber) == true)
                     {
                         result.Append(currentLineNumberToRender++);
+                    }
+                    else if(renderHiddenLinesIcon)
+                    {
+                        result.Append(hiddenLinesIconMarkup);
                     }
                     result.Append(_spanEndTag);
                 }

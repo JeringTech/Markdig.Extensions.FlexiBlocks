@@ -8,7 +8,8 @@ import namespace="System.Collections.Generic" #><#
         new Icon { Name = "warning", Style = "baseline" },
         new Icon { Name = "error", Style = "baseline" }, 
         new Icon { Name = "file_copy", Style = "sharp" }, 
-        new Icon { Name = "link", Style = "baseline" } 
+        new Icon { Name = "link", Style = "baseline" },
+        new Icon { Name = "more_vert", Style = "baseline" }
     };   
 #>namespace Jering.Markdig.Extensions.FlexiBlocks
 {

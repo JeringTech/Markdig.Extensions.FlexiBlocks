@@ -391,8 +391,8 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <span class="line"><span class="line-number">6</span><span class="line-text">        return arg + &quot;dummyString&quot;;</span></span>
     <span class="line"><span class="line-number">7</span><span class="line-text">    }</span></span>
     <span class="line"><span class="line-number">8</span><span class="line-text"></span></span>
-    <span class="line"><span class="line-number"></span><span class="line-text">    // Some functions omitted for brevity</span></span>
-    <span class="line"><span class="line-number"></span><span class="line-text">    ...</span></span>
+    <span class="line"><span class="line-number"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span><span class="line-text">    // Some functions omitted for brevity</span></span>
+    <span class="line"><span class="line-number"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span><span class="line-text">    ...</span></span>
     <span class="line"><span class="line-number">32</span><span class="line-text"></span></span>
     <span class="line"><span class="line-number">33</span><span class="line-text">    public string ExampleFunction3(string arg)</span></span>
     <span class="line"><span class="line-number">34</span><span class="line-text">    {</span></span>
@@ -492,6 +492,42 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <span class="le-line le-highlight"><span class="le-line-number">3</span><span class="le-line-text">    // Example comment</span></span>
     <span class="le-line le-highlight"><span class="le-line-number">4</span><span class="le-line-text">    return arg + &quot;dummyString&quot;;</span></span>
     <span class="le-line le-highlight"><span class="le-line-number">5</span><span class="le-line-text">}</span></span></code></pre>
+    </div>
+    ````````````````````````````````
+
+- `HiddenLinesIconMarkup`
+  - Type: `string`
+  - Description: The markup for the icon that represents hidden lines.
+    If this value is null, whitespace or an empty string, no hidden lines icons are rendered.
+  - Default: [Material Design "More Vert" Icon](https://material.io/tools/icons/?search=vert&icon=more_vert&style=baseline)
+  - Usage:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiOptionsBlocks
+    --------------- Markdown ---------------
+    @{
+        "hiddenLinesIconMarkup": "<svg><use xlink:href=\"#material-design-more-vert\"></use></svg>",
+        "lineNumberRanges": [{"startLineNumber": 1, "endLineNumber": 2, "firstLineNumber": 1}, {"startLineNumber": 4, "firstLineNumber":10}]
+    }
+    ```
+    public string ExampleFunction(string arg)
+    {
+    // Omitted for brevity
+        // Example comment
+        return arg + "dummyString";
+    }
+    ```
+    --------------- Expected Markup ---------------
+    <div class="flexi-code-block">
+    <header>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </header>
+    <pre><code><span class="line"><span class="line-number">1</span><span class="line-text">public string ExampleFunction(string arg)</span></span>
+    <span class="line"><span class="line-number">2</span><span class="line-text">{</span></span>
+    <span class="line"><span class="line-number"><svg><use xlink:href="#material-design-more-vert"></use></svg></span><span class="line-text">// Omitted for brevity</span></span>
+    <span class="line"><span class="line-number">10</span><span class="line-text">    // Example comment</span></span>
+    <span class="line"><span class="line-number">11</span><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
+    <span class="line"><span class="line-number">12</span><span class="line-text">}</span></span></code></pre>
     </div>
     ````````````````````````````````
 

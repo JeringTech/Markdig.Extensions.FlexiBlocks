@@ -31,6 +31,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             Assert.Equal(expectedResult.LineNumberRanges, result.LineNumberRanges);
             Assert.Equal(expectedResult.HighlightLineRanges, result.HighlightLineRanges);
             Assert.Equal(expectedResult.LineEmbellishmentClassesPrefix, result.LineEmbellishmentClassesPrefix);
+            Assert.Equal(expectedResult.HiddenLinesIconMarkup, result.HiddenLinesIconMarkup);
         }
 
         public static IEnumerable<object[]> FlexiCodeBlockOptions_CanBePopulated_Data()
@@ -42,6 +43,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             const string dummyCodeClassFormat = "dummy-{0}";
             const SyntaxHighlighter dummySyntaxHighlighter = SyntaxHighlighter.HighlightJS;
             const string dummyHighlightJSClassPrefix = "dummyHighlightJSClassPrefix";
+            const string dummyHiddenLinesIconMarkup = "dummyHiddenLinesIconMarkup";
 
             var dummyLineNumberRange1 = new LineNumberRange(1, -1, 1);
             var dummyLineNumberRanges1 = new List<LineNumberRange> { dummyLineNumberRange1 };
@@ -79,6 +81,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                         dummyLineNumberRanges1,
                         dummyHighlightLineRanges1,
                         dummyLineEmbellishementClassesPrefix,
+                        dummyHiddenLinesIconMarkup,
                         dummyAttributes1)),
                     $@"{{
     ""{nameof(FlexiCodeBlockOptions.Class)}"": ""{dummyClass}"",
@@ -88,6 +91,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
     ""{nameof(FlexiCodeBlockOptions.CodeClassFormat)}"": ""{dummyCodeClassFormat}"",
     ""{nameof(FlexiCodeBlockOptions.SyntaxHighlighter)}"": ""{dummySyntaxHighlighter}"",
     ""{nameof(FlexiCodeBlockOptions.HighlightJSClassPrefix)}"": ""{dummyHighlightJSClassPrefix}"",
+    ""{nameof(FlexiCodeBlockOptions.HiddenLinesIconMarkup)}"": ""{dummyHiddenLinesIconMarkup}"",
     ""{nameof(FlexiCodeBlockOptions.LineNumberRanges)}"": [
         {{ 
             ""{nameof(LineRange.StartLineNumber)}"": {dummyLineNumberRange1.LineRange.StartLineNumber},

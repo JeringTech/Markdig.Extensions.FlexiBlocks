@@ -138,7 +138,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             code = _lineEmbellisherService.EmbellishLines(code,
                 flexiCodeBlockOptions.LineNumberRanges,
                 flexiCodeBlockOptions.HighlightLineRanges,
-                flexiCodeBlockOptions.LineEmbellishmentClassesPrefix);
+                flexiCodeBlockOptions.LineEmbellishmentClassesPrefix,
+                flexiCodeBlockOptions.HiddenLinesIconMarkup);
 
             if (code != null)
             {

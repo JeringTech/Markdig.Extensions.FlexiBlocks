@@ -77,6 +77,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <para>If this value is null, whitespace or an empty string, no prefix is added to line embellishment classes.</para>
         /// <para>Defaults to null.</para>
         /// </param>
+        /// <param name="hiddenLinesIconMarkup">
+        /// <para>The markup for the icon that represents hidden lines.</para>
+        /// <para>If this value is null, whitespace or an empty string, no hidden lines icons are rendered.</para>
+        /// <para>Defaults to the material design more vert icon - https://material.io/tools/icons/?search=vert&amp;icon=more_vert&amp;style=baseline.</para>
+        /// </param>
         /// <param name="attributes">
         /// <para>The HTML attributes for the outermost element of the FlexiCodeBlock.</para>
         /// <para>If this value is null, no attributes will be assigned to the outermost element.</para>
@@ -97,6 +102,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             IList<LineNumberRange> lineNumberRanges = default,
             IList<LineRange> highlightLineRanges = default,
             string lineEmbellishmentClassesPrefix = default,
+            string hiddenLinesIconMarkup = Icons.MATERIAL_DESIGN_MORE_VERT,
             IDictionary<string, string> attributes = default) : base(attributes)
         {
             Class = @class;
@@ -109,6 +115,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             LineNumberRanges = lineNumberRanges == null ? null : new ReadOnlyCollection<LineNumberRange>(lineNumberRanges);
             HighlightLineRanges = highlightLineRanges == null ? null : new ReadOnlyCollection<LineRange>(highlightLineRanges);
             LineEmbellishmentClassesPrefix = lineEmbellishmentClassesPrefix;
+            HiddenLinesIconMarkup = hiddenLinesIconMarkup;
 
             ValidateAndPopulate();
         }
@@ -177,6 +184,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// </summary>
         [JsonProperty]
         public string LineEmbellishmentClassesPrefix { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the markup for the icon that represents hidden lines.
+        /// </summary>
+        [JsonProperty]
+        public string HiddenLinesIconMarkup { get; private set; }
 
         /// <summary>
         /// Validates options and populates generated properties.

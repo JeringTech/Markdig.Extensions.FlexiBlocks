@@ -315,12 +315,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             var dummyLines = new StringLineGroup(dummyCode);
             var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
             var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null, syntaxHighlighter: SyntaxHighlighter.HighlightJS,
-                language: dummyLanguage, highlightJSClassPrefix: dummyHighlightJSClassPrefix, copyIconMarkup: null, codeClassFormat: null);
+                language: dummyLanguage, highlightJSClassPrefix: dummyHighlightJSClassPrefix, copyIconMarkup: null, codeClassFormat: null, hiddenLinesIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
             Mock<IHighlightJSService> mockHighlightJSService = _mockRepository.Create<IHighlightJSService>();
             mockHighlightJSService.Setup(h => h.HighlightAsync(dummyCode, dummyLanguage, dummyHighlightJSClassPrefix)).ReturnsAsync(dummyHighlightedCode);
             Mock<ILineEmbellisherService> mockLineEmbellisherService = _mockRepository.Create<ILineEmbellisherService>();
-            mockLineEmbellisherService.Setup(l => l.EmbellishLines(dummyHighlightedCode, null, null, null)).Returns(dummyEmbellishedCode);
+            mockLineEmbellisherService.Setup(l => l.EmbellishLines(dummyHighlightedCode, null, null, null, null)).Returns(dummyEmbellishedCode);
             FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer(highlightJSService: mockHighlightJSService.Object, lineEmbellisherService: mockLineEmbellisherService.Object);
 
             // Act
@@ -353,12 +353,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             var dummyLines = new StringLineGroup(dummyCode);
             var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
             var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null, syntaxHighlighter: SyntaxHighlighter.Prism,
-                language: dummyLanguage, copyIconMarkup: null, codeClassFormat: null);
+                language: dummyLanguage, copyIconMarkup: null, codeClassFormat: null, hiddenLinesIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
             Mock<IPrismService> mockPrismService = _mockRepository.Create<IPrismService>();
             mockPrismService.Setup(h => h.HighlightAsync(dummyCode, dummyLanguage)).ReturnsAsync(dummyHighlightedCode);
             Mock<ILineEmbellisherService> mockLineEmbellisherService = _mockRepository.Create<ILineEmbellisherService>();
-            mockLineEmbellisherService.Setup(l => l.EmbellishLines(dummyHighlightedCode, null, null, null)).Returns(dummyEmbellishedCode);
+            mockLineEmbellisherService.Setup(l => l.EmbellishLines(dummyHighlightedCode, null, null, null, null)).Returns(dummyEmbellishedCode);
             FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer(prismService: mockPrismService.Object, lineEmbellisherService: mockLineEmbellisherService.Object);
 
             // Act
@@ -391,10 +391,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             var dummyLines = new StringLineGroup(dummyCode);
             var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
             var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null, syntaxHighlighter: dummySyntaxHighlighter,
-                language: dummyLanguage, copyIconMarkup: null, codeClassFormat: null);
+                language: dummyLanguage, copyIconMarkup: null, codeClassFormat: null, hiddenLinesIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
             Mock<ILineEmbellisherService> mockLineEmbellisherService = _mockRepository.Create<ILineEmbellisherService>();
-            mockLineEmbellisherService.Setup(l => l.EmbellishLines(dummyCode, null, null, null)).Returns(dummyEmbellishedCode);
+            mockLineEmbellisherService.Setup(l => l.EmbellishLines(dummyCode, null, null, null, null)).Returns(dummyEmbellishedCode);
             Mock<IHighlightJSService> mockHighlightJSService = _mockRepository.Create<IHighlightJSService>();
             Mock<IPrismService> mockPrismService = _mockRepository.Create<IPrismService>();
             FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer(mockPrismService.Object, mockHighlightJSService.Object, mockLineEmbellisherService.Object);
@@ -431,26 +431,30 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             };
         }
 
-        [Theory]
-        [MemberData(nameof(WriteFlexiBlock_EmbellishesLines_Data))]
-        public void WriteFlexiBlock_EmbellishesLines(SerializableWrapper<List<LineNumberRange>> dummyLineNumberRangesWrapper,
-            SerializableWrapper<List<LineRange>> dummyHighlightLineRangesWrapper)
+        [Fact]
+        public void WriteFlexiBlock_EmbellishesLines()
         {
             // Arrange
             const string dummyLineEmbellishmentClassesPrefix = "dummyLineEmbellishmentClassesPrefix";
+            const string dummyHiddenLinesIconMarkup = "dummyHiddenLinesIconMarkup";
             const string dummyEmbellishedCode = "dummyEmbellishedCode";
+            var dummyHighlightLineRanges = new List<LineRange>();
+            var dummyLineNumberRanges = new List<LineNumberRange>();
             var dummyLines = new StringLineGroup("dummyCode\"&<>");
             var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
-            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null, lineNumberRanges: dummyLineNumberRangesWrapper.Value,
-                highlightLineRanges: dummyHighlightLineRangesWrapper.Value,
+            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null,
+                lineNumberRanges: dummyLineNumberRanges,
+                highlightLineRanges: dummyHighlightLineRanges,
                 lineEmbellishmentClassesPrefix: dummyLineEmbellishmentClassesPrefix,
+                hiddenLinesIconMarkup: dummyHiddenLinesIconMarkup,
                 copyIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
             Mock<ILineEmbellisherService> mockLineEmbellisherService = _mockRepository.Create<ILineEmbellisherService>();
             mockLineEmbellisherService.Setup(l => l.EmbellishLines("dummyCode&quot;&amp;&lt;&gt;", // Code gets escaped before embellishing
-                    dummyLineNumberRangesWrapper.Value,
-                    dummyHighlightLineRangesWrapper.Value,
-                    dummyLineEmbellishmentClassesPrefix)).
+                    dummyLineNumberRanges,
+                    dummyHighlightLineRanges,
+                    dummyLineEmbellishmentClassesPrefix,
+                    dummyHiddenLinesIconMarkup)).
                 Returns(dummyEmbellishedCode);
             FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer(lineEmbellisherService: mockLineEmbellisherService.Object);
 
@@ -471,37 +475,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 <pre><code>{dummyEmbellishedCode}</code></pre>
 </div>
 ", result, ignoreLineEndingDifferences: true);
-        }
-
-        public static IEnumerable<object[]> WriteFlexiBlock_EmbellishesLines_Data()
-        {
-            return new object[][]
-            {
-                new object[]{
-                    new SerializableWrapper<List<LineNumberRange>>(
-                        null
-                    ),
-                    new SerializableWrapper<List<LineRange>>(
-                        new List<LineRange>{ new LineRange() }
-                    )
-                },
-                new object[]{
-                    new SerializableWrapper<List<LineNumberRange>>(
-                        new List<LineNumberRange>{new LineNumberRange()}
-                    ),
-                    new SerializableWrapper<List<LineRange>>(
-                        null
-                    )
-                },
-                new object[]{
-                    new SerializableWrapper<List<LineNumberRange>>(
-                        new List<LineNumberRange>{new LineNumberRange()}
-                    ),
-                    new SerializableWrapper<List<LineRange>>(
-                        new List<LineRange>{ new LineRange() }
-                    )
-                }
-            };
         }
 
         [Fact]
