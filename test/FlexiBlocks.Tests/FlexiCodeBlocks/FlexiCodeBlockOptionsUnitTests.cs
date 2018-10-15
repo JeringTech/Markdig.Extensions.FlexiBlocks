@@ -28,7 +28,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             Assert.Equal(expectedResult.CodeClass, result.CodeClass);
             Assert.Equal(expectedResult.SyntaxHighlighter, result.SyntaxHighlighter);
             Assert.Equal(expectedResult.HighlightJSClassPrefix, result.HighlightJSClassPrefix);
-            Assert.Equal(expectedResult.LineNumberRanges, result.LineNumberRanges);
+            Assert.Equal(expectedResult.LineNumberLineRanges, result.LineNumberLineRanges);
             Assert.Equal(expectedResult.HighlightLineRanges, result.HighlightLineRanges);
             Assert.Equal(expectedResult.LineEmbellishmentClassesPrefix, result.LineEmbellishmentClassesPrefix);
             Assert.Equal(expectedResult.HiddenLinesIconMarkup, result.HiddenLinesIconMarkup);
@@ -45,10 +45,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             const string dummyHighlightJSClassPrefix = "dummyHighlightJSClassPrefix";
             const string dummyHiddenLinesIconMarkup = "dummyHiddenLinesIconMarkup";
 
-            var dummyLineNumberRange1 = new LineNumberRange(1, -1, 1);
-            var dummyLineNumberRanges1 = new List<LineNumberRange> { dummyLineNumberRange1 };
-            var dummyLineNumberRange2 = new LineNumberRange(10, 15, 8);
-            var dummyLineNumberRanges2 = new List<LineNumberRange> { dummyLineNumberRange2 };
+            var dummyLineNumberLineRange1 = new NumberedLineRange(1, -1, 1);
+            var dummyLineNumberLineRanges1 = new List<NumberedLineRange> { dummyLineNumberLineRange1 };
+            var dummyLineNumberLineRange2 = new NumberedLineRange(10, 15, 8);
+            var dummyLineNumberLineRanges2 = new List<NumberedLineRange> { dummyLineNumberLineRange2 };
 
             var dummyHighlightLineRange1 = new LineRange(1, -1);
             var dummyHighlightLineRanges1 = new List<LineRange> { dummyHighlightLineRange1 };
@@ -78,7 +78,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                         dummyCodeClassFormat,
                         dummySyntaxHighlighter,
                         dummyHighlightJSClassPrefix,
-                        dummyLineNumberRanges1,
+                        dummyLineNumberLineRanges1,
                         dummyHighlightLineRanges1,
                         dummyLineEmbellishementClassesPrefix,
                         dummyHiddenLinesIconMarkup,
@@ -92,11 +92,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
     ""{nameof(FlexiCodeBlockOptions.SyntaxHighlighter)}"": ""{dummySyntaxHighlighter}"",
     ""{nameof(FlexiCodeBlockOptions.HighlightJSClassPrefix)}"": ""{dummyHighlightJSClassPrefix}"",
     ""{nameof(FlexiCodeBlockOptions.HiddenLinesIconMarkup)}"": ""{dummyHiddenLinesIconMarkup}"",
-    ""{nameof(FlexiCodeBlockOptions.LineNumberRanges)}"": [
+    ""{nameof(FlexiCodeBlockOptions.LineNumberLineRanges)}"": [
         {{ 
-            ""{nameof(LineRange.StartLineNumber)}"": {dummyLineNumberRange1.LineRange.StartLineNumber},
-            ""{nameof(LineRange.EndLineNumber)}"": {dummyLineNumberRange1.LineRange.EndLineNumber},
-            ""{nameof(LineNumberRange.FirstLineNumber)}"": {dummyLineNumberRange1.FirstLineNumber}
+            ""{nameof(LineRange.StartLineNumber)}"": {dummyLineNumberLineRange1.LineRange.StartLineNumber},
+            ""{nameof(LineRange.EndLineNumber)}"": {dummyLineNumberLineRange1.LineRange.EndLineNumber},
+            ""{nameof(NumberedLineRange.FirstNumber)}"": {dummyLineNumberLineRange1.FirstNumber}
         }}
     ],
     ""{nameof(FlexiCodeBlockOptions.HighlightLineRanges)}"": [
@@ -115,16 +115,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                 // Populating FlexiCodeBlockOptions with an existing attributes collection (should be replaced instead of appended to)
                 new object[]
                 {
-                    new SerializableWrapper<FlexiCodeBlockOptions>(new FlexiCodeBlockOptions(lineNumberRanges: dummyLineNumberRanges1,
+                    new SerializableWrapper<FlexiCodeBlockOptions>(new FlexiCodeBlockOptions(lineNumberLineRanges: dummyLineNumberLineRanges1,
                         highlightLineRanges: dummyHighlightLineRanges1, attributes: dummyAttributes1)),
-                    new SerializableWrapper<FlexiCodeBlockOptions>(new FlexiCodeBlockOptions(lineNumberRanges: dummyLineNumberRanges2,
+                    new SerializableWrapper<FlexiCodeBlockOptions>(new FlexiCodeBlockOptions(lineNumberLineRanges: dummyLineNumberLineRanges2,
                         highlightLineRanges: dummyHighlightLineRanges2, attributes: dummyAttributes2)),
                     $@"{{
-    ""{nameof(FlexiCodeBlockOptions.LineNumberRanges)}"": [
+    ""{nameof(FlexiCodeBlockOptions.LineNumberLineRanges)}"": [
         {{ 
-            ""{nameof(LineRange.StartLineNumber)}"": {dummyLineNumberRange2.LineRange.StartLineNumber},
-            ""{nameof(LineRange.EndLineNumber)}"": {dummyLineNumberRange2.LineRange.EndLineNumber},
-            ""{nameof(LineNumberRange.FirstLineNumber)}"": {dummyLineNumberRange2.FirstLineNumber}
+            ""{nameof(LineRange.StartLineNumber)}"": {dummyLineNumberLineRange2.LineRange.StartLineNumber},
+            ""{nameof(LineRange.EndLineNumber)}"": {dummyLineNumberLineRange2.LineRange.EndLineNumber},
+            ""{nameof(NumberedLineRange.FirstNumber)}"": {dummyLineNumberLineRange2.FirstNumber}
         }}
     ],
     ""{nameof(FlexiCodeBlockOptions.HighlightLineRanges)}"": [
@@ -149,13 +149,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 }}"
                 },
 
-                // Defaults for LineNumberRanges in LineNumberRanges work
+                // Defaults for NumberedLineRanges in NumberedLineRanges work
                 new object[]
                 {
                     new SerializableWrapper<FlexiCodeBlockOptions>(new FlexiCodeBlockOptions()),
-                    new SerializableWrapper<FlexiCodeBlockOptions>(new FlexiCodeBlockOptions(lineNumberRanges: dummyLineNumberRanges1)),
+                    new SerializableWrapper<FlexiCodeBlockOptions>(new FlexiCodeBlockOptions(lineNumberLineRanges: dummyLineNumberLineRanges1)),
                     $@"{{
-    ""{nameof(FlexiCodeBlockOptions.LineNumberRanges)}"": [{{ }}]
+    ""{nameof(FlexiCodeBlockOptions.LineNumberLineRanges)}"": [{{ }}]
 }}"
                 },
             };
@@ -237,12 +237,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 
         [Theory]
         [MemberData(nameof(ValidateAndPopulate_ThrowsFlexiBlocksExceptionIfLineNumberLineRangesAreInvalid_Data))]
-        public void ValidateAndPopulate_ThrowsFlexiBlocksExceptionIfLineNumberLineRangesAreInvalid(SerializableWrapper<List<LineNumberRange>> dummyLineNumberLineRangesWrapper,
+        public void ValidateAndPopulate_ThrowsFlexiBlocksExceptionIfLineNumberLineRangesAreInvalid(SerializableWrapper<List<NumberedLineRange>> dummyLineNumberLineRangesWrapper,
             string expectedExceptionMessage)
         {
             // Act and assert
             FlexiBlocksException result = Assert.
-                Throws<FlexiBlocksException>(() => new FlexiCodeBlockOptions(lineNumberRanges: dummyLineNumberLineRangesWrapper.Value));
+                Throws<FlexiBlocksException>(() => new FlexiCodeBlockOptions(lineNumberLineRanges: dummyLineNumberLineRangesWrapper.Value));
             Assert.Equal(expectedExceptionMessage, result.Message);
         }
 
@@ -252,27 +252,27 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             {
                 // Overlapping line ranges
                 new object[]{
-                    new SerializableWrapper<List<LineNumberRange>>(new List<LineNumberRange>{
-                        new LineNumberRange(2), // End line number is -1 by default
-                        new LineNumberRange(5)
+                    new SerializableWrapper<List<NumberedLineRange>>(new List<NumberedLineRange>{
+                        new NumberedLineRange(2), // End line number is -1 by default
+                        new NumberedLineRange(5)
                     }),
-                    string.Format(Strings.FlexiBlocksException_OptionLineRangesCannotOverlap, nameof(FlexiCodeBlockOptions.LineNumberRanges), "[2, -1]", "[5, -1]")
+                    string.Format(Strings.FlexiBlocksException_OptionLineRangesCannotOverlap, nameof(FlexiCodeBlockOptions.LineNumberLineRanges), "[2, -1]", "[5, -1]")
                 },
                 // Overlapping line ranges
                 new object[]{
-                    new SerializableWrapper<List<LineNumberRange>>(new List<LineNumberRange>{
-                        new LineNumberRange(2, 5),
-                        new LineNumberRange(5, 11)
+                    new SerializableWrapper<List<NumberedLineRange>>(new List<NumberedLineRange>{
+                        new NumberedLineRange(2, 5),
+                        new NumberedLineRange(5, 11)
                     }),
-                    string.Format(Strings.FlexiBlocksException_OptionLineRangesCannotOverlap, nameof(FlexiCodeBlockOptions.LineNumberRanges), "[2, 5]", "[5, 11]")
+                    string.Format(Strings.FlexiBlocksException_OptionLineRangesCannotOverlap, nameof(FlexiCodeBlockOptions.LineNumberLineRanges), "[2, 5]", "[5, 11]")
                 },
                 // Line ranges not in sequential order
                 new object[]{
-                    new SerializableWrapper<List<LineNumberRange>>(new List<LineNumberRange>{
-                        new LineNumberRange(6, 13),
-                        new LineNumberRange(2, 4)
+                    new SerializableWrapper<List<NumberedLineRange>>(new List<NumberedLineRange>{
+                        new NumberedLineRange(6, 13),
+                        new NumberedLineRange(2, 4)
                     }),
-                    string.Format(Strings.FlexiBlocksException_OptionLineRangesMustBeSequential, nameof(FlexiCodeBlockOptions.LineNumberRanges), "[6, 13]", "[2, 4]")
+                    string.Format(Strings.FlexiBlocksException_OptionLineRangesMustBeSequential, nameof(FlexiCodeBlockOptions.LineNumberLineRanges), "[6, 13]", "[2, 4]")
                 }
             };
         }

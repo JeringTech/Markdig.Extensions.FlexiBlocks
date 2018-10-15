@@ -51,16 +51,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
         {
             return Markdown.ToHtml(@"@{
     ""language"": ""csharp"",
-    ""lineNumberRanges"": [
+    ""lineNumberLineRanges"": [
         {
             ""startLineNumber"": 1,
             ""endLineNumber"": 8,
-            ""firstLineNumber"": 1
+            ""firstNumber"": 1
         },
         {
             ""startLineNumber"": 11,
             ""endLineNumber"": -1,
-            ""firstLineNumber"": 32
+            ""firstNumber"": 32
         }
     ],
     ""highlightLineRanges"": [

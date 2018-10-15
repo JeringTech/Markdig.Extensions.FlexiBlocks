@@ -120,9 +120,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 ValidateLineRange(flexiCodeBlockOptions.HighlightLineRanges.Last(), numLines, nameof(FlexiCodeBlockOptions.HighlightLineRanges));
             }
 
-            if (flexiCodeBlockOptions.LineNumberRanges?.Count > 0)
+            if (flexiCodeBlockOptions.LineNumberLineRanges?.Count > 0)
             {
-                ValidateLineRange(flexiCodeBlockOptions.LineNumberRanges.Last().LineRange, numLines, nameof(FlexiCodeBlockOptions.LineNumberRanges));
+                ValidateLineRange(flexiCodeBlockOptions.LineNumberLineRanges.Last().LineRange, numLines, nameof(FlexiCodeBlockOptions.LineNumberLineRanges));
             }
 
             block.SetData(FLEXI_CODE_BLOCK_OPTIONS_KEY, flexiCodeBlockOptions);

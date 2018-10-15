@@ -453,11 +453,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             const string dummyHiddenLinesIconMarkup = "dummyHiddenLinesIconMarkup";
             const string dummyEmbellishedCode = "dummyEmbellishedCode";
             var dummyHighlightLineRanges = new List<LineRange>();
-            var dummyLineNumberRanges = new List<LineNumberRange>();
+            var dummyLineNumberLineRanges = new List<NumberedLineRange>();
             var dummyLines = new StringLineGroup("dummyCode\"&<>");
             var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
             var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null,
-                lineNumberRanges: dummyLineNumberRanges,
+                lineNumberLineRanges: dummyLineNumberLineRanges,
                 highlightLineRanges: dummyHighlightLineRanges,
                 lineEmbellishmentClassesPrefix: dummyLineEmbellishmentClassesPrefix,
                 hiddenLinesIconMarkup: dummyHiddenLinesIconMarkup,
@@ -465,7 +465,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
             Mock<ILineEmbellisherService> mockLineEmbellisherService = _mockRepository.Create<ILineEmbellisherService>();
             mockLineEmbellisherService.Setup(l => l.EmbellishLines("dummyCode&quot;&amp;&lt;&gt;", // Code gets escaped before embellishing
-                    dummyLineNumberRanges,
+                    dummyLineNumberLineRanges,
                     dummyHighlightLineRanges,
                     dummyLineEmbellishmentClassesPrefix,
                     dummyHiddenLinesIconMarkup)).

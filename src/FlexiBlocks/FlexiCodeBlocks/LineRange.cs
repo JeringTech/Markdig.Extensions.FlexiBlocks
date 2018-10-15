@@ -12,12 +12,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// Creates a <see cref="LineRange"/> instance.
         /// </summary>
         /// <param name="startLineNumber">
-        /// <para>Start line number of this range.</para>
+        /// <para>The line number of this <see cref="LineRange"/>'s start line.</para>
         /// <para>This value must be greater than 0.</para>
         /// <para>Defaults to 1.</para>
         /// </param>
         /// <param name="endLineNumber">
-        /// <para>End line number of this range.</para>
+        /// <para>The line number of this <see cref="LineRange"/>'s end line.</para>
         /// <para>If this value is -1, this range extends to the last line. If it is not -1, it must be greater than or equal to <paramref name="startLineNumber"/></para>
         /// <para>Defaults to -1.</para>
         /// </param>
@@ -43,13 +43,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         }
 
         /// <summary>
-        /// Gets the start line number of this range.
+        /// Gets the line number of this <see cref="LineRange"/>'s start line.
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(1)]
         public int StartLineNumber { get; }
 
         /// <summary>
-        /// Gets the end line number of this range.
+        /// Gets the line number of this <see cref="LineRange"/>'s end line.
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(-1)]
         public int EndLineNumber { get; }

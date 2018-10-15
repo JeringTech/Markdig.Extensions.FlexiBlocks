@@ -62,32 +62,33 @@ Represents a range of lines. Used by [FlexiCodeBlockOptions](#flexicodeblockopti
 #### Properties
 - `StartLineNumber`
   - Type: `int`
-  - Description: Start line number of this range.
+  - Description: The line number of this LineRange's start line.
     This value must be greater than 0.
   - Default: `1`
 - `EndLineNumber`
   - Type: `int`
-  - Description: End line number of this range.
+  - Description: The line number of this LineRange's end line..
     If this value is -1, this range extends to the last line. If it is not -1, it must be greater than or equal to `StartLineNumber`.
   - Default: `-1`
 
-### `LineNumberRange`
-Represents a range of line numbers for a range of lines. Used by [FlexiCodeBlockOptions](#flexicodeblockoptions).
+### `NumberedLineRange`
+Represents a range of lines with an associated sequence of numbers. Used by [FlexiCodeBlockOptions](#flexicodeblockoptions).
 
 #### Properties
 - `StartLineNumber`
   - Type: `int`
-  - Description: Start line number of the range of lines that this `LineNumberRange` applies to.
+  - Description: The line number of this NumberedLineRange's start line.
     This value must be greater than 0.
   - Default: `1`
 - `EndLineNumber`
   - Type: `int`
-  - Description: End line number of the range of lines that this `LineNumberRange` applies to.
+  - Description: The line number of this NumberedLineRange's end line.
     If this value is -1, this range extends to the last line. If it is not -1, it must be greater than or equal to `StartLineNumber`.
   - Default: `-1`
-- `FirstLineNumber`
+- `FirstNumber`
   - Type: `int`
-  - Description: Line number of the first line in the range of lines that this `LineNumberRange` applies to..
+  - Description: The number associated with this NumberedLineRange's start line.
+    The number associated with each subsequent line is incremented by 1.
     This value must be greater than 0.
   - Default: `1`
 
@@ -353,9 +354,9 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     </div>
     ````````````````````````````````
 
-- `LineNumberRanges`
-  - Type: `IList<LineNumberRange>`
-  - Description: The `LineNumberRange`s that specify the line number for each line of code.
+- `LineNumberLineRanges`
+  - Type: `IList<NumberedLineRange>`
+  - Description: The `NumberedLineRange`s that specify the line number to render for each line of code.
     If this value is null, no line numbers will be rendered.
   - Default: `null`
   - Usage:
@@ -364,16 +365,16 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     FlexiOptionsBlocks
     --------------- Markdown ---------------
     @{
-        "lineNumberRanges": [
+        "lineNumberLineRanges": [
             {
                 "startLineNumber": 1,
                 "endLineNumber": 8,
-                "firstLineNumber": 1
+                "firstNumber": 1
             },
             {
                 "startLineNumber": 11,
                 "endLineNumber": -1,
-                "firstLineNumber": 32
+                "firstNumber": 32
             }
         ]
     }
@@ -422,7 +423,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <span class="line"><span class="line-number">38</span><span class="line-text">}</span></span></code></pre>
     </div>
     ````````````````````````````````
-    The markdown in the above spec can be simplified by ommitting [`LineNumberRange`](#linenumberrange) properties that were set to their default values. For example, the first `LineNumberRange` can be
+    The markdown in the above spec can be simplified by ommitting [`NumberedLineRange`](#numberedlinerange) properties that were set to their default values. For example, the first `NumberedLineRange` can be
     specified as:
     ```
     {
@@ -495,7 +496,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     @{
         "lineEmbellishmentClassesPrefix": "le-",
         "highlightLineRanges": [{}],
-        "lineNumberRanges": [{}]
+        "lineNumberLineRanges": [{}]
     }
     ```
     public string ExampleFunction(string arg)
@@ -531,7 +532,7 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     --------------- Markdown ---------------
     @{
         "hiddenLinesIconMarkup": "<svg><use xlink:href=\"#material-design-more-vert\"></use></svg>",
-        "lineNumberRanges": [{"startLineNumber": 1, "endLineNumber": 2, "firstLineNumber": 1}, {"startLineNumber": 4, "firstLineNumber":10}]
+        "lineNumberLineRanges": [{"startLineNumber": 1, "endLineNumber": 2, "firstNumber": 1}, {"startLineNumber": 4, "firstNumber":10}]
     }
     ```
     public string ExampleFunction(string arg)
@@ -625,7 +626,7 @@ MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
                 "codeClassFormat": "lang-{0}",
                 "syntaxHighlighter": "highlightJS",
                 "highlightJSClassPrefix": "highlightjs-",
-                "lineNumberRanges": [{}],
+                "lineNumberLineRanges": [{}],
                 "highlightLineRanges": [{}]
             }
         }
@@ -662,7 +663,7 @@ MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
     {
         "flexiCodeBlocks": {
             "defaultBlockOptions": {
-                "lineNumberRanges": [{}]
+                "lineNumberLineRanges": [{}]
             }
         }
     }
@@ -676,9 +677,9 @@ MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
     ```
 
     @{
-        "lineNumberRanges": [
+        "lineNumberLineRanges": [
             {
-                "firstLineNumber": 6
+                "firstNumber": 6
             }
         ]
     }

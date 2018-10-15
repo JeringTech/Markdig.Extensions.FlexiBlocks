@@ -60,8 +60,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <para>If this value is null, whitespace or an empty string, no prefix is prepended to HighlightJS classes.</para>
         /// <para>Defaults to "hljs-".</para>
         /// </param>
-        /// <param name="lineNumberRanges">
-        /// <para>The <see cref="LineNumberRange"/>s that specify the line number for each line of code.</para>
+        /// <param name="lineNumberLineRanges">
+        /// <para>The <see cref="NumberedLineRange"/>s that specify the line number to render for each line of code.</para>
         /// <para>If this value is null, no line numbers will be rendered.</para>
         /// <para>Defaults to null.</para>
         /// </param>
@@ -89,8 +89,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// </param>
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="CodeClassFormat"/> is an invalid format.</exception>
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="SyntaxHighlighter"/> is not within the range of valid vales for the num <see cref="SyntaxHighlighter"/>.</exception>
-        /// <exception cref="FlexiBlocksException">Thrown if <see cref="HighlightLineRanges"/> line ranges are not sequential or overlap.</exception>
-        /// <exception cref="FlexiBlocksException">Thrown if <see cref="LineNumberRanges"/> line ranges are not sequential or overlap.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <see cref="HighlightLineRanges"/> are not sequential or overlap.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <see cref="LineNumberLineRanges"/> are not sequential or overlap.</exception>
         public FlexiCodeBlockOptions(
             string @class = "flexi-code-block",
             string copyIconMarkup = Icons.MATERIAL_DESIGN_FILE_COPY,
@@ -99,7 +99,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             string codeClassFormat = "language-{0}",
             SyntaxHighlighter syntaxHighlighter = SyntaxHighlighter.Prism,
             string highlightJSClassPrefix = "hljs-",
-            IList<LineNumberRange> lineNumberRanges = default,
+            IList<NumberedLineRange> lineNumberLineRanges = default,
             IList<LineRange> highlightLineRanges = default,
             string lineEmbellishmentClassesPrefix = default,
             string hiddenLinesIconMarkup = Icons.MATERIAL_DESIGN_MORE_VERT,
@@ -112,7 +112,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             CodeClassFormat = codeClassFormat;
             SyntaxHighlighter = syntaxHighlighter;
             HighlightJSClassPrefix = highlightJSClassPrefix;
-            LineNumberRanges = lineNumberRanges == null ? null : new ReadOnlyCollection<LineNumberRange>(lineNumberRanges);
+            LineNumberLineRanges = lineNumberLineRanges == null ? null : new ReadOnlyCollection<NumberedLineRange>(lineNumberLineRanges);
             HighlightLineRanges = highlightLineRanges == null ? null : new ReadOnlyCollection<LineRange>(highlightLineRanges);
             LineEmbellishmentClassesPrefix = lineEmbellishmentClassesPrefix;
             HiddenLinesIconMarkup = hiddenLinesIconMarkup;
@@ -168,10 +168,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         public string HighlightJSClassPrefix { get; private set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="LineNumberRange"/>s that specify the line number to render for each line of code.
+        /// Gets or sets the <see cref="NumberedLineRange"/>s that specify the line number to render for each line of code.
         /// </summary>
         [JsonProperty]
-        public ReadOnlyCollection<LineNumberRange> LineNumberRanges { get; private set; }
+        public ReadOnlyCollection<NumberedLineRange> LineNumberLineRanges { get; private set; }
 
         /// <summary>
         /// Gets or sets the <see cref="LineRange"/>s that specify which lines of code to highlight.
@@ -196,8 +196,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// </summary>
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="CodeClassFormat"/> is an invalid format.</exception>
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="SyntaxHighlighter"/> is not within the range of valid vales for the enum <see cref="SyntaxHighlighter"/>.</exception>
-        /// <exception cref="FlexiBlocksException">Thrown if <see cref="HighlightLineRanges"/>'s line ranges are not sequential or overlap.</exception>
-        /// <exception cref="FlexiBlocksException">Thrown if <see cref="LineNumberRanges"/>'s line ranges are not sequential or overlap.</exception>        
+        /// <exception cref="FlexiBlocksException">Thrown if <see cref="HighlightLineRanges"/>'s are not sequential or overlap.</exception>
+        /// <exception cref="FlexiBlocksException">Thrown if <see cref="LineNumberLineRanges"/>'s are not sequential or overlap.</exception>        
         protected override void ValidateAndPopulate()
         {
             if (!string.IsNullOrWhiteSpace(Language) &&
@@ -238,14 +238,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 }
             }
 
-            if (LineNumberRanges?.Count > 0)
+            if (LineNumberLineRanges?.Count > 0)
             {
-                // Line number ranges must be in sequential order and must not overlap (overlapping line number line ranges does not make sense).
+                // Line number line ranges must be in sequential order and must not overlap (overlapping Line number line ranges does not make sense).
                 LineRange lastLineRange = null;
-                foreach (LineNumberRange lineNumberRange in LineNumberRanges)
+                foreach (NumberedLineRange numberedLineRange in LineNumberLineRanges)
                 {
-                    ValidateLineRanges(lineNumberRange.LineRange, lastLineRange, nameof(LineNumberRanges));
-                    lastLineRange = lineNumberRange.LineRange;
+                    ValidateLineRanges(numberedLineRange.LineRange, lastLineRange, nameof(LineNumberLineRanges));
+                    lastLineRange = numberedLineRange.LineRange;
                 }
             }
         }

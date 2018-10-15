@@ -15,7 +15,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 
         /// <inheritdoc />
         public string EmbellishLines(string text,
-            IEnumerable<LineNumberRange> lineNumberRanges,
+            IEnumerable<NumberedLineRange> lineNumberLineRanges,
             IEnumerable<LineRange> highlightLineRanges,
             string prefixForClasses = null,
             string hiddenLinesIconMarkup = null)
@@ -38,9 +38,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             // Embellish lines
             var result = new StringBuilder();
             int currentLineNumber = 0;
-            bool lineNumbersEnabled = lineNumberRanges?.Count() > 0; // If line numbers are enabled, we render a line number element for every line to facilitate table styles
-            LineNumberRange currentLineNumberRange = lineNumbersEnabled ? lineNumberRanges.First() : null;
-            int currentLineNumberRangeIndex = 0, currentLineNumberToRender = lineNumbersEnabled ? currentLineNumberRange.FirstLineNumber : 0;
+            bool lineNumbersEnabled = lineNumberLineRanges?.Count() > 0; // If line numbers are enabled, we render a line number element for every line to facilitate table styles
+            NumberedLineRange currentLineNumberLineRange = lineNumbersEnabled ? lineNumberLineRanges.First() : null;
+            int currentLineNumberLineRangeIndex = 0, currentLineNumberToRender = lineNumbersEnabled ? currentLineNumberLineRange.FirstNumber : 0;
             LineRange currentHighlightLineRange = highlightLineRanges?.FirstOrDefault();
             int currentHighlightLineRangeIndex = 0;
             bool renderHiddenLinesIcon = !string.IsNullOrWhiteSpace(hiddenLinesIconMarkup);
@@ -52,12 +52,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 currentLineNumber++;
 
                 // Set current line number range
-                if (currentLineNumberRange?.LineRange.Before(currentLineNumber) == true)
+                if (currentLineNumberLineRange?.LineRange.Before(currentLineNumber) == true)
                 {
-                    currentLineNumberRange = lineNumberRanges.ElementAtOrDefault(++currentLineNumberRangeIndex);
-                    if (currentLineNumberRange != null)
+                    currentLineNumberLineRange = lineNumberLineRanges.ElementAtOrDefault(++currentLineNumberLineRangeIndex);
+                    if (currentLineNumberLineRange != null)
                     {
-                        currentLineNumberToRender = currentLineNumberRange.FirstLineNumber;
+                        currentLineNumberToRender = currentLineNumberLineRange.FirstNumber;
                     }
                 }
 
@@ -74,7 +74,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 if (lineNumbersEnabled)
                 {
                     result.Append(lineNumberStartTag);
-                    if (currentLineNumberRange?.LineRange.Contains(currentLineNumber) == true)
+                    if (currentLineNumberLineRange?.LineRange.Contains(currentLineNumber) == true)
                     {
                         result.Append(currentLineNumberToRender++);
                     }

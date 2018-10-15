@@ -4,20 +4,20 @@ using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 {
-    public class LineNumberRangeUnitTests
+    public class NumberedLineRangeUnitTests
     {
         [Theory]
-        [MemberData(nameof(Constructor_ThrowsFlexiBlocksExceptionIfFirstLineNumberIsInvalid_Data))]
-        public void Constructor_ThrowsFlexiBlocksExceptionIfFirstLineNumberIsInvalid(int firstLineNumber)
+        [MemberData(nameof(Constructor_ThrowsFlexiBlocksExceptionIfFirstNumberIsInvalid_Data))]
+        public void Constructor_ThrowsFlexiBlocksExceptionIfFirstNumberIsInvalid(int firstNumber)
         {
             // Act and assert
-            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new LineNumberRange(1, 1, firstLineNumber));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(LineNumberRange.FirstLineNumber), firstLineNumber),
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new NumberedLineRange(1, 1, firstNumber));
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(NumberedLineRange.FirstNumber), firstNumber),
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
 
-        public static IEnumerable<object[]> Constructor_ThrowsFlexiBlocksExceptionIfFirstLineNumberIsInvalid_Data()
+        public static IEnumerable<object[]> Constructor_ThrowsFlexiBlocksExceptionIfFirstNumberIsInvalid_Data()
         {
             return new object[][]
             {
@@ -32,15 +32,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             // Arrange
             const int dummyStartLineNumber = 1;
             const int dummyEndLineNumber = 2;
-            const int dummyFirstLineNumber = 3;
+            const int dummyFirstNumber = 3;
 
             // Act
-            var result = new LineNumberRange(dummyStartLineNumber, dummyEndLineNumber, dummyFirstLineNumber);
+            var result = new NumberedLineRange(dummyStartLineNumber, dummyEndLineNumber, dummyFirstNumber);
 
             // Assert
             Assert.Equal(dummyStartLineNumber, result.LineRange.StartLineNumber);
             Assert.Equal(dummyEndLineNumber, result.LineRange.EndLineNumber);
-            Assert.Equal(dummyFirstLineNumber, result.FirstLineNumber);
+            Assert.Equal(dummyFirstNumber, result.FirstNumber);
         }
 
         [Theory]
@@ -48,10 +48,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         public void LastLineNumber_ReturnsLastLineNumber(int dummyStartLine, int dummyEndLine, int dummyStartLineNumber, int expectedLastLineNumber)
         {
             // Arrange
-            var lineNumberRange = new LineNumberRange(dummyStartLine, dummyEndLine, dummyStartLineNumber);
+            var numberedLineRange = new NumberedLineRange(dummyStartLine, dummyEndLine, dummyStartLineNumber);
 
             // Act and assert
-            Assert.Equal(expectedLastLineNumber, lineNumberRange.LastLineNumber);
+            Assert.Equal(expectedLastLineNumber, numberedLineRange.LastLineNumber);
         }
 
         public static IEnumerable<object[]> LastLineNumber_ReturnsLastLineNumber_Data()
@@ -64,13 +64,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         }
 
         [Fact]
-        public void ToString_ReturnsLineNumberRangeAsString()
+        public void ToString_ReturnsNumberedLineRangeAsString()
         {
             // Arrange
-            var lineNumberRange = new LineNumberRange(1, 5, 10);
+            var numberedLineRange = new NumberedLineRange(1, 5, 10);
 
             // Act
-            string result = lineNumberRange.ToString();
+            string result = numberedLineRange.ToString();
 
             // Assert
             Assert.Equal("Lines: [1, 5], Line numbers: [10, 14]", result);

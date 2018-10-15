@@ -15,7 +15,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 
             // Act  
             string result = testSubject.EmbellishLines(dummyText,
-                new List<LineNumberRange> { new LineNumberRange() },
+                new List<NumberedLineRange> { new NumberedLineRange() },
                 new List<LineRange> { new LineRange() });
 
             // Assert
@@ -33,7 +33,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 
         [Theory]
         [MemberData(nameof(EmbellishLines_EmbellishesLines_Data))]
-        public void EmbellishLines_EmbellishesLines(SerializableWrapper<List<LineNumberRange>> dummyLineNumberRanges,
+        public void EmbellishLines_EmbellishesLines(SerializableWrapper<List<NumberedLineRange>> dummyLineNumberLineRanges,
             SerializableWrapper<List<LineRange>> dummyHighlightLineRanges,
             string dummyPrefixForClasses,
             string dummyHiddenLinesIconMarkup,
@@ -53,7 +53,7 @@ line 10";
             var testSubject = new LineEmbellisherService();
 
             // Act
-            string result = testSubject.EmbellishLines(dummyText, dummyLineNumberRanges?.Value, dummyHighlightLineRanges?.Value, dummyPrefixForClasses, dummyHiddenLinesIconMarkup);
+            string result = testSubject.EmbellishLines(dummyText, dummyLineNumberLineRanges?.Value, dummyHighlightLineRanges?.Value, dummyPrefixForClasses, dummyHiddenLinesIconMarkup);
 
             // Assert
             Assert.Equal(expectedResult, result, ignoreLineEndingDifferences: true);
@@ -65,8 +65,8 @@ line 10";
             {
                 // Both line numbers and highlighting
                 new object[]{
-                    new SerializableWrapper<List<LineNumberRange>>(
-                        new List<LineNumberRange> { new LineNumberRange(1, 4, 1), new LineNumberRange(7, 10, 7) }
+                    new SerializableWrapper<List<NumberedLineRange>>(
+                        new List<NumberedLineRange> { new NumberedLineRange(1, 4, 1), new NumberedLineRange(7, 10, 7) }
                     ),
                     new SerializableWrapper<List<LineRange>>(
                         new List<LineRange> { new LineRange(2, 2), new LineRange(8, 9) }
@@ -86,8 +86,8 @@ line 10";
                 },
                 // Both line numbers and highlighting using -1 to specify end lines
                 new object[]{
-                    new SerializableWrapper<List<LineNumberRange>>(
-                        new List<LineNumberRange> { new LineNumberRange(1, 4, 1), new LineNumberRange(7, -1, 7) }
+                    new SerializableWrapper<List<NumberedLineRange>>(
+                        new List<NumberedLineRange> { new NumberedLineRange(1, 4, 1), new NumberedLineRange(7, -1, 7) }
                     ),
                     new SerializableWrapper<List<LineRange>>(
                         new List<LineRange> { new LineRange(2, 2), new LineRange(9, -1) }
@@ -107,8 +107,8 @@ line 10";
                 },
                 // Only line numbers (empty list of highlight line ranges) 
                 new object[]{
-                    new SerializableWrapper<List<LineNumberRange>>(
-                        new List<LineNumberRange> { new LineNumberRange(1, 4, 2), new LineNumberRange(7, -1, 7) }
+                    new SerializableWrapper<List<NumberedLineRange>>(
+                        new List<NumberedLineRange> { new NumberedLineRange(1, 4, 2), new NumberedLineRange(7, -1, 7) }
                     ),
                     new SerializableWrapper<List<LineRange>>(
                         new List<LineRange>()
@@ -128,8 +128,8 @@ line 10";
                 },
                 // Only line numbers (null list of highlight line ranges)
                 new object[]{
-                    new SerializableWrapper<List<LineNumberRange>>(
-                        new List<LineNumberRange> { new LineNumberRange(1, 4, 1), new LineNumberRange(7, 8, 7) }
+                    new SerializableWrapper<List<NumberedLineRange>>(
+                        new List<NumberedLineRange> { new NumberedLineRange(1, 4, 1), new NumberedLineRange(7, 8, 7) }
                     ),
                     null,
                     null,
@@ -147,8 +147,8 @@ line 10";
                 },
                 // Hidden lines icon markup specified
                 new object[]{
-                    new SerializableWrapper<List<LineNumberRange>>(
-                        new List<LineNumberRange> { new LineNumberRange(1, 4, 1), new LineNumberRange(7, 8, 7) }
+                    new SerializableWrapper<List<NumberedLineRange>>(
+                        new List<NumberedLineRange> { new NumberedLineRange(1, 4, 1), new NumberedLineRange(7, 8, 7) }
                     ),
                     null,
                     null,
@@ -166,8 +166,8 @@ line 10";
                 },
                 // Only highlighting (null list of line number line ranges)
                 new object[]{
-                    new SerializableWrapper<List<LineNumberRange>>(
-                        new List<LineNumberRange>()
+                    new SerializableWrapper<List<NumberedLineRange>>(
+                        new List<NumberedLineRange>()
                     ),
                     new SerializableWrapper<List<LineRange>>(
                         new List<LineRange> { new LineRange(2, 2), new LineRange(9, -1) }
@@ -206,8 +206,8 @@ line 10";
                 },
                 // Prefix specified
                 new object[]{
-                    new SerializableWrapper<List<LineNumberRange>>(
-                        new List<LineNumberRange> { new LineNumberRange(1, 4, 1), new LineNumberRange(7, 10, 7) }
+                    new SerializableWrapper<List<NumberedLineRange>>(
+                        new List<NumberedLineRange> { new NumberedLineRange(1, 4, 1), new NumberedLineRange(7, 10, 7) }
                     ),
                     new SerializableWrapper<List<LineRange>>(
                         new List<LineRange> { new LineRange(2, 2), new LineRange(8, 9) }

@@ -98,14 +98,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                 { new LineRange(1, 5) },
                 { new LineRange(6, -1) },
             };
-            var dummyLineNumberRanges = new List<LineNumberRange>
+            var dummyLineNumberLineRanges = new List<NumberedLineRange>
             {
-                { new LineNumberRange(1, 5) },
-                { new LineNumberRange(6, -1) },
+                { new NumberedLineRange(1, 5) },
+                { new NumberedLineRange(6, -1) },
             };
             var dummyFlexiCodeBlocksExtensionOptions = new FlexiCodeBlocksExtensionOptions
             {
-                DefaultBlockOptions = new FlexiCodeBlockOptions(highlightLineRanges: dummyHighlightLineRanges, lineNumberRanges: dummyLineNumberRanges)
+                DefaultBlockOptions = new FlexiCodeBlockOptions(highlightLineRanges: dummyHighlightLineRanges, lineNumberLineRanges: dummyLineNumberLineRanges)
             };
             Mock<IOptions<FlexiCodeBlocksExtensionOptions>> mockOptionsAccessor = _mockRepository.Create<IOptions<FlexiCodeBlocksExtensionOptions>>();
             mockOptionsAccessor.Setup(o => o.Value).Returns(dummyFlexiCodeBlocksExtensionOptions);
@@ -127,7 +127,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             mockTestSubject.
                 Setup(t => t.ValidateLineRange(dummyHighlightLineRanges.Last(), dummyLines.Count, nameof(FlexiCodeBlockOptions.HighlightLineRanges)));
             mockTestSubject.
-                Setup(t => t.ValidateLineRange(dummyLineNumberRanges.Last().LineRange, dummyLines.Count, nameof(FlexiCodeBlockOptions.LineNumberRanges)));
+                Setup(t => t.ValidateLineRange(dummyLineNumberLineRanges.Last().LineRange, dummyLines.Count, nameof(FlexiCodeBlockOptions.LineNumberLineRanges)));
 
             // Act
             mockTestSubject.Object.ExposedOnFlexiBlockClosed(dummyBlockProcessor, dummyBlock);
