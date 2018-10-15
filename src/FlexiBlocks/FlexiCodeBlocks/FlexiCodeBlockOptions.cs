@@ -244,8 +244,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 LineRange lastLineRange = null;
                 foreach (NumberedLineRange numberedLineRange in LineNumberLineRanges)
                 {
-                    ValidateLineRanges(numberedLineRange.LineRange, lastLineRange, nameof(LineNumberLineRanges));
-                    lastLineRange = numberedLineRange.LineRange;
+                    ValidateLineRanges(numberedLineRange, lastLineRange, nameof(LineNumberLineRanges));
+                    lastLineRange = numberedLineRange;
                 }
             }
         }

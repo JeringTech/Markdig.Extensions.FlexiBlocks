@@ -52,7 +52,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 currentLineNumber++;
 
                 // Set current line number range
-                if (currentLineNumberLineRange?.LineRange.Before(currentLineNumber) == true)
+                if (currentLineNumberLineRange?.Before(currentLineNumber) == true)
                 {
                     currentLineNumberLineRange = lineNumberLineRanges.ElementAtOrDefault(++currentLineNumberLineRangeIndex);
                     if (currentLineNumberLineRange != null)
@@ -74,7 +74,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 if (lineNumbersEnabled)
                 {
                     result.Append(lineNumberStartTag);
-                    if (currentLineNumberLineRange?.LineRange.Contains(currentLineNumber) == true)
+                    if (currentLineNumberLineRange?.Contains(currentLineNumber) == true)
                     {
                         result.Append(currentLineNumberToRender++);
                     }

@@ -127,7 +127,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             mockTestSubject.
                 Setup(t => t.ValidateLineRange(dummyHighlightLineRanges.Last(), dummyLines.Count, nameof(FlexiCodeBlockOptions.HighlightLineRanges)));
             mockTestSubject.
-                Setup(t => t.ValidateLineRange(dummyLineNumberLineRanges.Last().LineRange, dummyLines.Count, nameof(FlexiCodeBlockOptions.LineNumberLineRanges)));
+                Setup(t => t.ValidateLineRange(dummyLineNumberLineRanges.Last(), dummyLines.Count, nameof(FlexiCodeBlockOptions.LineNumberLineRanges)));
 
             // Act
             mockTestSubject.Object.ExposedOnFlexiBlockClosed(dummyBlockProcessor, dummyBlock);

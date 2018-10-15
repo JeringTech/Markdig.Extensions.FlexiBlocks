@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
@@ -7,7 +6,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     /// <summary>
     /// Represents a range of lines with an associated sequence of numbers.
     /// </summary>
-    public class NumberedLineRange
+    public class NumberedLineRange : LineRange
     {
         /// <summary>
         /// Creates a <see cref="NumberedLineRange"/> instance.
@@ -34,32 +33,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         public NumberedLineRange(
             int startLineNumber = 1,
             int endLineNumber = -1,
-            int firstNumber = 1)
+            int firstNumber = 1) : base(startLineNumber, endLineNumber)
         {
             if (firstNumber < 1)
             {
                 throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(FirstNumber), firstNumber));
             }
 
-            // We need to define these two properties for JSON population to work
-            StartLineNumber = startLineNumber;
-            EndLineNumber = endLineNumber;
-
-            LineRange = new LineRange(startLineNumber, endLineNumber);
             FirstNumber = firstNumber;
         }
-
-        /// <summary>
-        /// Gets the line number of this <see cref="NumberedLineRange"/>'s start line.
-        /// </summary>
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(1)]
-        public int StartLineNumber { get; }
-
-        /// <summary>
-        /// Gets the line number of this <see cref="NumberedLineRange"/>'s end line.
-        /// </summary>
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(-1)]
-        public int EndLineNumber { get; }
 
         /// <summary>
         /// Gets the number associated with this <see cref="NumberedLineRange"/>'s start line.
@@ -70,19 +52,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <summary>
         /// Gets the number associated with this <see cref="NumberedLineRange"/>'s end line.
         /// </summary>
-        public int LastLineNumber => LineRange.NumLines == -1 ? -1 : FirstNumber + LineRange.NumLines - 1;
-
-        /// <summary>
-        /// Gets the <see cref="LineRange"/> representing the range of lines that this instance applies to.
-        /// </summary>
-        public LineRange LineRange { get; }
+        public int LastLineNumber => NumLines == -1 ? -1 : FirstNumber + NumLines - 1;
 
         /// <summary>
         /// Returns the string representation of this instance.
         /// </summary>
         public override string ToString()
         {
-            return $"Lines: {LineRange}, Line numbers: [{FirstNumber}, {LastLineNumber}]";
+            return $"Lines: {base.ToString()}, Line numbers: [{FirstNumber}, {LastLineNumber}]";
         }
 
         /// <summary>
@@ -97,7 +74,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 return false;
             }
 
-            return FirstNumber == otherNumberedLineRange.FirstNumber && LineRange.Equals(otherNumberedLineRange.LineRange);
+            return FirstNumber == otherNumberedLineRange.FirstNumber && base.Equals(otherNumberedLineRange);
         }
 
         /// <summary>
@@ -106,9 +83,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <returns>The hash code for this object.</returns>
         public override int GetHashCode()
         {
-            int hashCode = -1329750522;
-            hashCode = hashCode * -1521134295 + FirstNumber.GetHashCode();
-            return hashCode * -1521134295 + EqualityComparer<LineRange>.Default.GetHashCode(LineRange);
+            int hashCode = 1089264258;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            return hashCode * -1521134295 + FirstNumber.GetHashCode();
         }
     }
 }

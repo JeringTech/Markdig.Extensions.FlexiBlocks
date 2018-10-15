@@ -122,7 +122,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 
             if (flexiCodeBlockOptions.LineNumberLineRanges?.Count > 0)
             {
-                ValidateLineRange(flexiCodeBlockOptions.LineNumberLineRanges.Last().LineRange, numLines, nameof(FlexiCodeBlockOptions.LineNumberLineRanges));
+                ValidateLineRange(flexiCodeBlockOptions.LineNumberLineRanges.Last(), numLines, nameof(FlexiCodeBlockOptions.LineNumberLineRanges));
             }
 
             block.SetData(FLEXI_CODE_BLOCK_OPTIONS_KEY, flexiCodeBlockOptions);

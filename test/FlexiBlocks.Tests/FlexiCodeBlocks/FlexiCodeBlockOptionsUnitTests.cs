@@ -94,8 +94,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
     ""{nameof(FlexiCodeBlockOptions.HiddenLinesIconMarkup)}"": ""{dummyHiddenLinesIconMarkup}"",
     ""{nameof(FlexiCodeBlockOptions.LineNumberLineRanges)}"": [
         {{ 
-            ""{nameof(LineRange.StartLineNumber)}"": {dummyLineNumberLineRange1.LineRange.StartLineNumber},
-            ""{nameof(LineRange.EndLineNumber)}"": {dummyLineNumberLineRange1.LineRange.EndLineNumber},
+            ""{nameof(LineRange.StartLineNumber)}"": {dummyLineNumberLineRange1.StartLineNumber},
+            ""{nameof(LineRange.EndLineNumber)}"": {dummyLineNumberLineRange1.EndLineNumber},
             ""{nameof(NumberedLineRange.FirstNumber)}"": {dummyLineNumberLineRange1.FirstNumber}
         }}
     ],
@@ -122,8 +122,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     $@"{{
     ""{nameof(FlexiCodeBlockOptions.LineNumberLineRanges)}"": [
         {{ 
-            ""{nameof(LineRange.StartLineNumber)}"": {dummyLineNumberLineRange2.LineRange.StartLineNumber},
-            ""{nameof(LineRange.EndLineNumber)}"": {dummyLineNumberLineRange2.LineRange.EndLineNumber},
+            ""{nameof(LineRange.StartLineNumber)}"": {dummyLineNumberLineRange2.StartLineNumber},
+            ""{nameof(LineRange.EndLineNumber)}"": {dummyLineNumberLineRange2.EndLineNumber},
             ""{nameof(NumberedLineRange.FirstNumber)}"": {dummyLineNumberLineRange2.FirstNumber}
         }}
     ],
@@ -248,31 +248,47 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 
         public static IEnumerable<object[]> ValidateAndPopulate_ThrowsFlexiBlocksExceptionIfLineNumberLineRangesAreInvalid_Data()
         {
+            var dummyNumberedLineRange2_Minus1 = new NumberedLineRange(2); // End line number is -1 by default
+            var dummyNumberedLineRange5_Minus1 = new NumberedLineRange(5);
+            var dummyNumberedLineRange2_5 = new NumberedLineRange(2, 5);
+            var dummyNumberedLineRange5_11 = new NumberedLineRange(5, 11);
+            var dummyNumberedLineRange6_13 = new NumberedLineRange(6, 13);
+            var dummyNumberedLineRange2_4 = new NumberedLineRange(2, 4);
+
             return new object[][]
             {
                 // Overlapping line ranges
                 new object[]{
                     new SerializableWrapper<List<NumberedLineRange>>(new List<NumberedLineRange>{
-                        new NumberedLineRange(2), // End line number is -1 by default
-                        new NumberedLineRange(5)
+                        dummyNumberedLineRange2_Minus1,
+                        dummyNumberedLineRange5_Minus1
                     }),
-                    string.Format(Strings.FlexiBlocksException_OptionLineRangesCannotOverlap, nameof(FlexiCodeBlockOptions.LineNumberLineRanges), "[2, -1]", "[5, -1]")
+                    string.Format(Strings.FlexiBlocksException_OptionLineRangesCannotOverlap,
+                        nameof(FlexiCodeBlockOptions.LineNumberLineRanges),
+                        dummyNumberedLineRange2_Minus1.ToString(),
+                        dummyNumberedLineRange5_Minus1)
                 },
                 // Overlapping line ranges
                 new object[]{
                     new SerializableWrapper<List<NumberedLineRange>>(new List<NumberedLineRange>{
-                        new NumberedLineRange(2, 5),
-                        new NumberedLineRange(5, 11)
+                        dummyNumberedLineRange2_5,
+                        dummyNumberedLineRange5_11
                     }),
-                    string.Format(Strings.FlexiBlocksException_OptionLineRangesCannotOverlap, nameof(FlexiCodeBlockOptions.LineNumberLineRanges), "[2, 5]", "[5, 11]")
+                    string.Format(Strings.FlexiBlocksException_OptionLineRangesCannotOverlap,
+                        nameof(FlexiCodeBlockOptions.LineNumberLineRanges),
+                        dummyNumberedLineRange2_5.ToString(),
+                        dummyNumberedLineRange5_11)
                 },
                 // Line ranges not in sequential order
                 new object[]{
                     new SerializableWrapper<List<NumberedLineRange>>(new List<NumberedLineRange>{
-                        new NumberedLineRange(6, 13),
-                        new NumberedLineRange(2, 4)
+                        dummyNumberedLineRange6_13,
+                        dummyNumberedLineRange2_4
                     }),
-                    string.Format(Strings.FlexiBlocksException_OptionLineRangesMustBeSequential, nameof(FlexiCodeBlockOptions.LineNumberLineRanges), "[6, 13]", "[2, 4]")
+                    string.Format(Strings.FlexiBlocksException_OptionLineRangesMustBeSequential,
+                        nameof(FlexiCodeBlockOptions.LineNumberLineRanges),
+                        dummyNumberedLineRange6_13,
+                        dummyNumberedLineRange2_4)
                 }
             };
         }
