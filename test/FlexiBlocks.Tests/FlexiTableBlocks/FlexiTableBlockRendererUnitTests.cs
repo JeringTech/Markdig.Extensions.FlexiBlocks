@@ -102,7 +102,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 new object[]
                 {
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null)),
-                    $@"<table>
+                    @"<table>
 <thead>
 <tr>
 <th>a</th>
@@ -121,7 +121,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 new object[]
                 {
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(" ")),
-                    $@"<table>
+                    @"<table>
 <thead>
 <tr>
 <th>a</th>
@@ -140,7 +140,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 new object[]
                 {
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(string.Empty)),
-                    $@"<table>
+                    @"<table>
 <thead>
 <tr>
 <th>a</th>
