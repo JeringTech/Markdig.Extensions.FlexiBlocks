@@ -53,7 +53,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                             { dummyAttribute, dummyAttributeValue }
                         }),
                     },
-                    $"<section {dummyAttribute}=\"{dummyAttributeValue}\">\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                    $"<section {dummyAttribute}=\"{dummyAttributeValue}\">\n<header>\n<h0></h0>\n<button>\n</button>\n</header>\n</section>\n"
                 },
                 // Writes class if specified
                 new object[]
@@ -65,7 +65,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                             Class = dummyClass
                         }
                     },
-                    $"<section class=\"{dummyClass}\">\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                    $"<section class=\"{dummyClass}\">\n<header>\n<h0></h0>\n<button>\n</button>\n</header>\n</section>\n"
                 },
                 // Does not write class if Class is null, whitespace or an empty string
                 new object[]
@@ -74,7 +74,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     {
                         FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null){ Class = null }
                     },
-                    "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                    "<section>\n<header>\n<h0></h0>\n<button>\n</button>\n</header>\n</section>\n"
                 },
                 new object[]
                 {
@@ -82,7 +82,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     {
                         FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null){ Class = " " }
                     },
-                    "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                    "<section>\n<header>\n<h0></h0>\n<button>\n</button>\n</header>\n</section>\n"
                 },
                 new object[]
                 {
@@ -90,7 +90,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     {
                         FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null){ Class = string.Empty }
                     },
-                    "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                    "<section>\n<header>\n<h0></h0>\n<button>\n</button>\n</header>\n</section>\n"
                 },
                 // Writes id if specified
                 new object[]
@@ -100,7 +100,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                         FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null),
                         ID = dummyID
                     },
-                    $"<section id=\"{dummyID}\">\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                    $"<section id=\"{dummyID}\">\n<header>\n<h0></h0>\n<button>\n</button>\n</header>\n</section>\n"
                 },
                 // Does not write id if ID is null, whitespace or an empty string
                 new object[]
@@ -110,7 +110,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                         FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null),
                         ID = null
                     },
-                    "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                    "<section>\n<header>\n<h0></h0>\n<button>\n</button>\n</header>\n</section>\n"
                 },
                 new object[]
                 {
@@ -119,7 +119,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                         FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null),
                         ID = " "
                     },
-                    "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                    "<section>\n<header>\n<h0></h0>\n<button>\n</button>\n</header>\n</section>\n"
                 },
                 new object[]
                 {
@@ -128,7 +128,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                         FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null),
                         ID = string.Empty
                     },
-                    "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                    "<section>\n<header>\n<h0></h0>\n<button>\n</button>\n</header>\n</section>\n"
                 },
                 // Renders expected SectioningContentElement
                 new object[]
@@ -137,7 +137,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     {
                         FlexiSectionBlockOptions = new FlexiSectionBlockOptions(SectioningContentElement.Article, linkIconMarkup: null)
                     },
-                    "<article>\n<header>\n<h0></h0>\n</header>\n</article>\n"
+                    "<article>\n<header>\n<h0></h0>\n<button>\n</button>\n</header>\n</article>\n"
                 },
                 // Renders header content
                 new object[]
@@ -147,7 +147,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                         HeaderContent = dummyHeaderContent,
                         FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null)
                     },
-                    $"<section>\n<header>\n<h0>{dummyHeaderContent}</h0>\n</header>\n</section>\n"
+                    $"<section>\n<header>\n<h0>{dummyHeaderContent}</h0>\n<button>\n</button>\n</header>\n</section>\n"
                 },
                 // Renders expected level 
                 new object[]
@@ -157,7 +157,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                         Level = dummyLevel,
                         FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null)
                     },
-                    $"<section>\n<header>\n<h{dummyLevel}></h{dummyLevel}>\n</header>\n</section>\n"
+                    $"<section>\n<header>\n<h{dummyLevel}></h{dummyLevel}>\n<button>\n</button>\n</header>\n</section>\n"
                 },
                 // Renders link icon markup if specified
                 new object[]
@@ -166,7 +166,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     {
                         FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: dummyIconMarkup)
                     },
-                    $"<section>\n<header>\n<h0></h0>\n{dummyIconMarkup}\n</header>\n</section>\n"
+                    $"<section>\n<header>\n<h0></h0>\n<button>\n{dummyIconMarkup}\n</button>\n</header>\n</section>\n"
                 },
                 // Does not render link icon markup if LinkIconMarkup is null, whitespace or an empty string
                 new object[]
@@ -175,7 +175,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     {
                         FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null)
                     },
-                    "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                    "<section>\n<header>\n<h0></h0>\n<button>\n</button>\n</header>\n</section>\n"
                 },
                 new object[]
                 {
@@ -183,7 +183,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     {
                         FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: " ")
                     },
-                    "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                    "<section>\n<header>\n<h0></h0>\n<button>\n</button>\n</header>\n</section>\n"
                 },
                 new object[]
                 {
@@ -191,7 +191,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     {
                         FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: string.Empty)
                     },
-                    "<section>\n<header>\n<h0></h0>\n</header>\n</section>\n"
+                    "<section>\n<header>\n<h0></h0>\n<button>\n</button>\n</header>\n</section>\n"
                 },
             };
         }
@@ -225,7 +225,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             }
 
             // Assert
-            Assert.Equal($"<section>\n<header>\n<h0></h0>\n</header>\n<p>{dummyChildText}</p>\n</section>\n", result);
+            Assert.Equal($"<section>\n<header>\n<h0></h0>\n<button>\n</button>\n</header>\n<p>{dummyChildText}</p>\n</section>\n", result);
         }
     }
 }

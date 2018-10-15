@@ -58,7 +58,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
                 WriteLine("<header>").
                 Write($"<h{obj.Level}>").
                 Write(obj.HeaderContent).
-                WriteLine($"</h{obj.Level}>");
+                WriteLine($"</h{obj.Level}>").
+                WriteLine("<button>");
 
             // Link icon
             if (!string.IsNullOrWhiteSpace(flexiSectionBlockOptions.LinkIconMarkup))
@@ -67,6 +68,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
             }
 
             renderer.
+                WriteLine("</button>").
                 WriteLine("</header>").
                 WriteChildren(obj, false).
                 EnsureLine().
