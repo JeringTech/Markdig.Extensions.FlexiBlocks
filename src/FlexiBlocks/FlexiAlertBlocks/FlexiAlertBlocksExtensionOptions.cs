@@ -9,7 +9,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
     public class FlexiAlertBlocksExtensionOptions : IFlexiBlocksExtensionOptions<FlexiAlertBlockOptions>
     {
         /// <summary>
-        /// Gets or sets a map of <see cref="FlexiAlertBlock" /> types to icon markups.
+        /// <para>Gets or sets a map of <see cref="FlexiAlertBlock" /> types to icon markups.</para>
+        /// <para>By default, contains icon markups for types "info", "warning" and "critical-warning".</para>
         /// </summary>
         public Dictionary<string, string> IconMarkups { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {

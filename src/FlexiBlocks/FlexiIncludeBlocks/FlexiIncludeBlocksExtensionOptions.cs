@@ -8,7 +8,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
     public class FlexiIncludeBlocksExtensionOptions : IFlexiBlocksExtensionOptions<FlexiIncludeBlockOptions>
     {
         /// <summary>
-        /// Gets the base URI for <see cref="FlexiIncludeBlock"/>s in the root source.
+        /// <para>Gets the base URI for <see cref="FlexiIncludeBlock"/>s in the root source.</para>
+        /// <para>Defaults to the application's current directory.</para>
         /// </summary>
         public string RootBaseUri { get; set; } = Directory.GetCurrentDirectory() + "/";
 
