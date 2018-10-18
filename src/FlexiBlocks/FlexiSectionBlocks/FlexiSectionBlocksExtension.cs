@@ -12,21 +12,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
     /// </summary>
     public class FlexiSectionBlocksExtension : FlexiBlocksExtension
     {
-        private readonly FlexiSectionBlocksExtensionOptions _extensionOptions;
         private readonly FlexiSectionBlockRenderer _flexiSectionBlockRenderer;
         private readonly FlexiSectionBlockParser _flexiSectionBlockParser;
 
         /// <summary>
         /// Creates a <see cref="FlexiSectionBlocksExtension"/> instance.
         /// </summary>
-        /// <param name="extensionOptionsAccessor">Thw accessor for <see cref="FlexiSectionBlocksExtensionOptions"/>.</param>
         /// <param name="flexiSectionBlockParser">The parser for creating <see cref="FlexiSectionBlock"/>s from markdown.</param>
         /// <param name="flexiSectionBlockRenderer">The renderer for rendering <see cref="FlexiSectionBlock"/>s as HTML.</param>
-        public FlexiSectionBlocksExtension(IOptions<FlexiSectionBlocksExtensionOptions> extensionOptionsAccessor,
-            FlexiSectionBlockParser flexiSectionBlockParser,
+        public FlexiSectionBlocksExtension(FlexiSectionBlockParser flexiSectionBlockParser,
             FlexiSectionBlockRenderer flexiSectionBlockRenderer)
         {
-            _extensionOptions = extensionOptionsAccessor?.Value ?? throw new ArgumentNullException(nameof(extensionOptionsAccessor));
             _flexiSectionBlockRenderer = flexiSectionBlockRenderer ?? throw new ArgumentNullException(nameof(flexiSectionBlockRenderer));
             _flexiSectionBlockParser = flexiSectionBlockParser ?? throw new ArgumentNullException(nameof(flexiSectionBlockParser));
         }
