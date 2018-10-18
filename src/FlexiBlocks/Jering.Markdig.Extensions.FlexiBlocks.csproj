@@ -3,9 +3,15 @@
     <PropertyGroup>
         <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
         <PackageId>Jering.Markdig.Extensions.FlexiBlocks</PackageId>
-        <Title>Markdig Extensions for Configurable Markdown Blocks</Title>
+        <Title>Markdig Extensions for Configurable Markdown</Title>
         <Authors>JeremyTCD</Authors>
-        <Description>Highlights include FlexiCodeBlocks: code blocks with configurable syntax highlighting, line numbers and more, and FlexiIncludeBlocks: blocks that include content from both local and remote sources.</Description>
+        <Description>FlexiBlocks is a collection of Markdig extensions:
+  - FlexiAlertBlocks: Render alerts with configurable icons and more.
+  - FlexiCodeBlocks: Render code with configurable syntax highlighting, line numbers and more.
+  - FlexiIncludeBlocks: Include content from both local and remote sources.
+  - FlexiOptionsBlocks: Create your own configurable markdown blocks.
+  - FlexiSectionsBlocks: Split articles into sections demarcated by ATX headings and render headings with configurable icons.
+  - FlexiTableBlocks: Render responsive tables.</Description>
         <Copyright>© JeremyTCD. All rights reserved.</Copyright>
         <PackageProjectUrl>https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks</PackageProjectUrl>
         <PackageLicenseUrl>$(PackageProjectUrl)/blob/master/License.txt</PackageLicenseUrl>
