@@ -66,6 +66,44 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             };
         }
 
+        [Theory]
+        [MemberData(nameof(TryOpenFlexiBlock_AddsFlexiIncludeBlockToFlexiIncludeBlockTreesIfItIsARootBlock_Data))]
+        public void TryOpenFlexiBlock_AddsFlexiIncludeBlockToFlexiIncludeBlockTreesIfItIsARootBlock(FlexiIncludeBlock dummyParentFlexiIncludeBlock,
+            int expectedNumFlexiIncludeBlockTrees)
+        {
+            // Arrange
+            var dummyStringSlice = new StringSlice("+{dummy");
+            var dummyClosingFlexiIncludeBlocks = new Stack<FlexiIncludeBlock>();
+            dummyClosingFlexiIncludeBlocks.Push(dummyParentFlexiIncludeBlock);
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            dummyBlockProcessor.Line = dummyStringSlice;
+            dummyBlockProcessor.Document.SetData(FlexiIncludeBlockParser.CLOSING_FLEXI_INCLUDE_BLOCKS_KEY, dummyClosingFlexiIncludeBlocks);
+            ExposedFlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser();
+
+            // Act
+            testSubject.ExposedTryOpenFlexiBlock(dummyBlockProcessor);
+            List<FlexiIncludeBlock> result = testSubject.GetFlexiIncludeBlockTrees();
+
+            // Assert
+            Assert.Equal(expectedNumFlexiIncludeBlockTrees, result.Count);
+        }
+
+        public static IEnumerable<object[]> TryOpenFlexiBlock_AddsFlexiIncludeBlockToFlexiIncludeBlockTreesIfItIsARootBlock_Data()
+        {
+            return new object[][]
+            {
+                new object[]
+                {
+                    new FlexiIncludeBlock(null, null), 0
+                },
+                // No parent, so new block is a root block
+                new object[]
+                {
+                    null, 1
+                }
+            };
+        }
+
         [Fact]
         public void TryOpenFlexiBlock_CreatesFlexiIncludeBlockIfSuccessful()
         {

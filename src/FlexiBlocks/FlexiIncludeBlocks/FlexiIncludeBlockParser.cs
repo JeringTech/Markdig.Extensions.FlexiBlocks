@@ -26,6 +26,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         private readonly ISourceRetrieverService _sourceRetrieverService;
         private readonly IJsonSerializerService _jsonSerializerService;
         private readonly ILeadingWhitespaceEditorService _leadingWhitespaceEditorService;
+        private readonly List<FlexiIncludeBlock> _flexiIncludeBlockTrees;
 
         /// <summary>
         /// Creates a <see cref="FlexiIncludeBlockParser"/> instance.
@@ -45,6 +46,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             _leadingWhitespaceEditorService = leadingWhitespaceEditorService ?? throw new ArgumentNullException(nameof(leadingWhitespaceEditorService));
 
             OpeningCharacters = new[] { '+' };
+            _flexiIncludeBlockTrees = new List<FlexiIncludeBlock>();
         }
 
         /// <summary>
@@ -77,12 +79,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             // Get or create stack
             Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks = GetOrCreateClosingFlexiIncludeBlocks(processor);
 
-            var flexiIncludeBlock = new FlexiIncludeBlock(closingFlexiIncludeBlocks.FirstOrDefault(), this)
+            // Create FlexiIncludeBlock
+            FlexiIncludeBlock parentFlexiIncludeBlock = closingFlexiIncludeBlocks.FirstOrDefault();
+            var flexiIncludeBlock = new FlexiIncludeBlock(parentFlexiIncludeBlock, this)
             {
                 Column = processor.Column,
                 Span = { Start = processor.Start } // FlexiOptionsBlock.ParseLine will update the span's end
             };
             processor.NewBlocks.Push(flexiIncludeBlock);
+
+            // Add to trees if FlexiIncludeBlock is a root block
+            if(parentFlexiIncludeBlock == null)
+            {
+                _flexiIncludeBlockTrees.Add(flexiIncludeBlock);
+            }
 
             // Dispose of + (JSON starts at the curly bracket)
             processor.NextChar();
@@ -393,6 +403,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             // BlockProcessors are pooled. Once we're done with innerProcessor, we must release it. This also removes all references to
             // tempContainerBlock, which should allow it to be collected quickly.
             childProcessor.ReleaseChild();
+        }
+
+        internal List<FlexiIncludeBlock> GetFlexiIncludeBlockTrees()
+        {
+            return _flexiIncludeBlockTrees;
         }
     }
 }

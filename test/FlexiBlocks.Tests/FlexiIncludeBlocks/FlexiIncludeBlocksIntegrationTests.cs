@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
-    // As far as integration tests for FlexiIncludeBlocks go, success cases are covered in FlexiIncludeBlockSpecs, so here we just test for exceptions.
+    // Integration tests that don't fit in amongst the specs.
     public class FlexiIncludeBlocksIntegrationTests : IClassFixture<FlexiIncludeBlocksIntegrationTestsFixture>
     {
         private readonly FlexiIncludeBlocksIntegrationTestsFixture _fixture;
@@ -20,6 +20,70 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         public FlexiIncludeBlocksIntegrationTests(FlexiIncludeBlocksIntegrationTestsFixture fixture)
         {
             _fixture = fixture;
+        }
+
+        [Fact]
+        public void FlexiIncludeBlocks_ConstructsAndExposesFlexiIncludeBlockTrees()
+        {
+            // Arrange
+            const string dummyMarkdown1SourceUri = "./dummyMarkdown1.md";
+            const string dummyMarkdown2SourceUri = "./dummyMarkdown2.md";
+            const string dummyMarkdown3SourceUri = "./dummyMarkdown3.md";
+            string dummyEntryMarkdown = $@"+{{
+""type"": ""markdown"",
+""sourceUri"": ""{dummyMarkdown1SourceUri}"",
+}}
+
++{{
+""type"": ""markdown"",
+""sourceUri"": ""{dummyMarkdown2SourceUri}""
+}}";
+            const string dummyMarkdown1 = "This is dummy markdown";
+            string dummyMarkdown2 = $@"+{{
+""type"": ""markdown"",
+""sourceUri"": ""{dummyMarkdown3SourceUri}"",
+}}";
+            const string dummyMarkdown3 = "This is dummy markdown";
+            string dummyMarkdown1Path = Path.Combine(_fixture.TempDirectory, $"{nameof(dummyMarkdown1)}.md");
+            string dummyMarkdown2Path = Path.Combine(_fixture.TempDirectory, $"{nameof(dummyMarkdown2)}.md");
+            string dummyMarkdown3Path = Path.Combine(_fixture.TempDirectory, $"{nameof(dummyMarkdown3)}.md");
+            File.WriteAllText(dummyMarkdown1Path, dummyMarkdown1);
+            File.WriteAllText(dummyMarkdown2Path, dummyMarkdown2);
+            File.WriteAllText(dummyMarkdown3Path, dummyMarkdown3);
+
+            // Need to dispose of services after each test so that the in-memory cache doesn't affect results
+            var services = new ServiceCollection();
+            services.AddFlexiBlocks();
+            IServiceProvider serviceProvider = services.BuildServiceProvider();
+            using ((IDisposable)serviceProvider)
+            {
+                var dummyMarkdownPipelineBuilder = new MarkdownPipelineBuilder();
+                FlexiIncludeBlocksExtension flexiIncludeBlocksExtension = serviceProvider.GetRequiredService<FlexiIncludeBlocksExtension>();
+                dummyMarkdownPipelineBuilder.Extensions.Add(flexiIncludeBlocksExtension);
+                FlexiIncludeBlocksExtensionOptions dummyExtensionOptions = serviceProvider.GetRequiredService<IOptions<FlexiIncludeBlocksExtensionOptions>>().Value;
+                dummyExtensionOptions.RootBaseUri = _fixture.TempDirectory + "/";
+                MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
+
+                // Act
+                Markdown.ToHtml(dummyEntryMarkdown, dummyMarkdownPipeline);
+
+                // Assert
+                FlexiIncludeBlocksExtension extension = dummyMarkdownPipeline.Extensions.FindExact<FlexiIncludeBlocksExtension>();
+                List<FlexiIncludeBlock> trees = extension.GetFlexiIncludeBlockTrees();
+                Assert.Equal(2, trees.Count);
+                // First FlexiIncludeBlock just includes markdown 1
+                Assert.Equal(dummyMarkdown1SourceUri, trees[0].FlexiIncludeBlockOptions.SourceUri);
+                // Second FlexiIncludeBlock includes markdown 2, which includes markdown 3
+                Assert.Equal(dummyMarkdown2SourceUri, trees[1].FlexiIncludeBlockOptions.SourceUri);
+                Assert.Single(trees[1].ChildFlexiIncludeBlocks);
+                Assert.Equal(dummyMarkdown3SourceUri, trees[1].ChildFlexiIncludeBlocks[0].FlexiIncludeBlockOptions.SourceUri);
+                Assert.Equal(trees[1], trees[1].ChildFlexiIncludeBlocks[0].ParentFlexiIncludeBlock);
+                // Convenience method collates source absolute URIs
+                HashSet<string> includedSourceAbsoluteURIs = extension.GetIncludedSourcesAbsoluteUris();
+                Assert.Contains(new Uri(dummyMarkdown1Path).AbsoluteUri, includedSourceAbsoluteURIs);
+                Assert.Contains(new Uri(dummyMarkdown2Path).AbsoluteUri, includedSourceAbsoluteURIs);
+                Assert.Contains(new Uri(dummyMarkdown3Path).AbsoluteUri, includedSourceAbsoluteURIs);
+            }
         }
 
         [Theory]
@@ -35,7 +99,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             File.WriteAllText(Path.Combine(_fixture.TempDirectory, $"{nameof(dummyMarkdown2)}.md"), dummyMarkdown2);
             File.WriteAllText(Path.Combine(_fixture.TempDirectory, $"{nameof(dummyMarkdown3)}.md"), dummyMarkdown3);
 
-            // Need to dispose of services between tests so that DiskCacheService's in memory cache doesn't affect results
+            // Need to dispose of services after each test so that the in-memory cache doesn't affect results
             var services = new ServiceCollection();
             services.AddFlexiBlocks();
             IServiceProvider serviceProvider = services.BuildServiceProvider();
@@ -229,7 +293,7 @@ Source URI: {0}, Line: 1";
             File.WriteAllText(Path.Combine(_fixture.TempDirectory, $"{nameof(dummyMarkdown2)}.md"), dummyMarkdown2);
             File.WriteAllText(Path.Combine(_fixture.TempDirectory, $"{nameof(dummyMarkdown3)}.md"), dummyMarkdown3);
 
-            // Need to dispose of services between tests so that DiskCacheService's in memory cache doesn't affect results
+            // Need to dispose of services after each test so that the in-memory cache doesn't affect results
             var services = new ServiceCollection();
             services.AddFlexiBlocks();
             IServiceProvider serviceProvider = services.BuildServiceProvider();
@@ -289,32 +353,38 @@ Source URI: {0}, Line: 1";
 }}
 ! This is a FlexiAlertBlock.
 ";
-            var dummyFlexiIncludeBlocksExtensionOptions = new FlexiIncludeBlocksExtensionOptions
+            // Need to dispose of services after each test so that the in-memory cache doesn't affect results
+            var services = new ServiceCollection();
+            services.AddFlexiBlocks();
+            IServiceProvider serviceProvider = services.BuildServiceProvider();
+            using ((IDisposable)serviceProvider)
             {
-                RootBaseUri = _fixture.TempDirectory + "/"
-            };
-            var dummyRootBaseUri = new Uri(dummyFlexiIncludeBlocksExtensionOptions.RootBaseUri);
-            File.WriteAllText(Path.Combine(dummyRootBaseUri.AbsolutePath, $"{nameof(dummyMarkdown1)}.md"), dummyMarkdown1);
-            var dummyMarkdownPipelineBuilder = new MarkdownPipelineBuilder();
-            dummyMarkdownPipelineBuilder.
-                UseFlexiIncludeBlocks(dummyFlexiIncludeBlocksExtensionOptions).
-                UseFlexiAlertBlocks().
-                UseFlexiOptionsBlocks();
-            MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
+                var dummyMarkdownPipelineBuilder = new MarkdownPipelineBuilder();
+                FlexiIncludeBlocksExtension flexiIncludeBlocksExtension = serviceProvider.GetRequiredService<FlexiIncludeBlocksExtension>();
+                dummyMarkdownPipelineBuilder.Extensions.Add(flexiIncludeBlocksExtension);
+                FlexiIncludeBlocksExtensionOptions dummyExtensionOptions = serviceProvider.GetRequiredService<IOptions<FlexiIncludeBlocksExtensionOptions>>().Value;
+                dummyExtensionOptions.RootBaseUri = _fixture.TempDirectory + "/";
+                var dummyRootBaseUri = new Uri(dummyExtensionOptions.RootBaseUri);
+                File.WriteAllText(Path.Combine(dummyRootBaseUri.AbsolutePath, $"{nameof(dummyMarkdown1)}.md"), dummyMarkdown1);
+                dummyMarkdownPipelineBuilder.
+                    UseFlexiAlertBlocks().
+                    UseFlexiOptionsBlocks();
+                MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
 
-            // Act and assert
-            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => MarkdownParser.Parse(dummyEntryMarkdown, dummyMarkdownPipeline));
-            // From bottom to top, this is the exception chain:
-            // FormatException > FlexiBlocksException for invalid option > FlexiBlocksException for invalid FlexiOptionsBlock > FlexiBlocksException for invalid FlexiIncludeBlock
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), 1, 0,
-                    string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource,
-                        dummyRootBaseUri + $"{nameof(dummyMarkdown1)}.md")),
-                result.Message);
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiOptionsBlock), 1, 0, Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
-                result.InnerException.Message);
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionIsAnInvalidFormat, nameof(FlexiAlertBlockOptions.ClassFormat), dummyClassFormat),
-                result.InnerException.InnerException.Message);
-            Assert.IsType<FormatException>(result.InnerException.InnerException.InnerException);
+                // Act and assert
+                FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => MarkdownParser.Parse(dummyEntryMarkdown, dummyMarkdownPipeline));
+                // From bottom to top, this is the exception chain: 
+                // FormatException > FlexiBlocksException for invalid option > FlexiBlocksException for invalid FlexiOptionsBlock > FlexiBlocksException for invalid FlexiIncludeBlock
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), 1, 0,
+                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource,
+                            dummyRootBaseUri + $"{nameof(dummyMarkdown1)}.md")),
+                    result.Message);
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiOptionsBlock), 1, 0, Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
+                    result.InnerException.Message);
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionIsAnInvalidFormat, nameof(FlexiAlertBlockOptions.ClassFormat), dummyClassFormat),
+                    result.InnerException.InnerException.Message);
+                Assert.IsType<FormatException>(result.InnerException.InnerException.InnerException);
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using Markdig;
 using System;
+using System.Collections.Generic;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
@@ -33,6 +34,40 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             if (!pipeline.BlockParsers.Contains<FlexiIncludeBlockParser>())
             {
                 pipeline.BlockParsers.Insert(0, _flexiIncludeBlockParser);
+            }
+        }
+
+        /// <summary>
+        /// Gets all <see cref="FlexiIncludeBlock"/> trees processed by this <see cref="FlexiIncludeBlocksExtension"/> instance.
+        /// </summary>
+        public List<FlexiIncludeBlock> GetFlexiIncludeBlockTrees()
+        {
+            return _flexiIncludeBlockParser.GetFlexiIncludeBlockTrees();
+        }
+
+        /// <summary>
+        /// Gets the absolute URIs of all sources included by this <see cref="FlexiIncludeBlocksExtension"/> instance.
+        /// </summary>
+        public HashSet<string> GetIncludedSourcesAbsoluteUris()
+        {
+            List<FlexiIncludeBlock> flexiIncludeBlockTrees = GetFlexiIncludeBlockTrees();
+            var includedSourcesAbsoluteUris = new HashSet<string>();
+
+            foreach(FlexiIncludeBlock flexiIncludeBlock in flexiIncludeBlockTrees)
+            {
+                GetIncludedSourcesAbsoluteUrisCore(flexiIncludeBlock, includedSourcesAbsoluteUris);
+            }
+
+            return includedSourcesAbsoluteUris;
+        }
+
+        private void GetIncludedSourcesAbsoluteUrisCore(FlexiIncludeBlock flexiIncludeBlock, HashSet<string> includedSourcesAbsoluteUris)
+        {
+            includedSourcesAbsoluteUris.Add(flexiIncludeBlock.AbsoluteSourceUri.AbsoluteUri);
+
+            foreach(FlexiIncludeBlock childFlexiIncludeBlock in flexiIncludeBlock.ChildFlexiIncludeBlocks)
+            {
+                GetIncludedSourcesAbsoluteUrisCore(childFlexiIncludeBlock, includedSourcesAbsoluteUris);
             }
         }
     }

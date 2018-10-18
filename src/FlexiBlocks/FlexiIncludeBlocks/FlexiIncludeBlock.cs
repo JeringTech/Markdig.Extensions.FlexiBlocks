@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
@@ -19,7 +20,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <param name="parser">The parser for this block.</param>
         public FlexiIncludeBlock(FlexiIncludeBlock parentFlexiIncludeBlock, FlexiIncludeBlockParser parser) : base(parser)
         {
-            ParentFlexiIncludeBlock = parentFlexiIncludeBlock;
+            if (parentFlexiIncludeBlock != null)
+            {
+                ParentFlexiIncludeBlock = parentFlexiIncludeBlock;
+                parentFlexiIncludeBlock.ChildFlexiIncludeBlocks.Add(this);
+            }
+            ChildFlexiIncludeBlocks = new List<FlexiIncludeBlock>();
         }
 
         /// <summary>
@@ -28,20 +34,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         public FlexiIncludeBlockOptions FlexiIncludeBlockOptions { get; internal set; }
 
         /// <summary>
-        /// Gets or sets the current clipping's processing stage.
-        /// </summary>
-        public ClippingProcessingStage ClippingProcessingStage { get; set; }
-
-        /// <summary>
         /// The absolute URI of this <see cref="FlexiIncludeBlock"/>'s source.
         /// </summary>
         public Uri AbsoluteSourceUri { get { return _absoluteSourceUri; } internal set { _absoluteSourceUri = value; } }
-
-        /// <summary>
-        /// <para>Gets or sets the line number of the last processed line.</para>
-        /// <para>This value allows child <see cref="FlexiIncludeBlock"/>s to determine their line numbers.</para>
-        /// </summary>
-        public int LastProcessedLineLineNumber { get; set; }
 
         /// <summary>
         /// Gets the URI of the source that contains this <see cref="FlexiIncludeBlock"/>.
@@ -59,13 +54,29 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         public FlexiIncludeBlock ParentFlexiIncludeBlock { get; }
 
         /// <summary>
+        /// Gets or sets this <see cref="FlexiIncludeBlock"/>'s child <see cref="FlexiIncludeBlock"/>s.
+        /// </summary>
+        public List<FlexiIncludeBlock> ChildFlexiIncludeBlocks { get; }
+
+        /// <summary>
+        /// Gets or sets the current clipping's processing stage.
+        /// </summary>
+        internal ClippingProcessingStage ClippingProcessingStage { get; set; }
+
+        /// <summary>
+        /// <para>Gets or sets the line number of the last processed line.</para>
+        /// <para>This value allows child <see cref="FlexiIncludeBlock"/>s to determine their line numbers.</para>
+        /// </summary>
+        internal int LastProcessedLineLineNumber { get; set; }
+
+        /// <summary>
         /// <para>Populates generated properties.</para>
         /// <para>The <see cref="FlexiIncludeBlockOptions"/> for a <see cref="FlexiIncludeBlock"/> aren't available at instantiation. This method
         /// is a systematic way to specify <see cref="FlexiIncludeBlockOptions"/> for <see cref="FlexiIncludeBlock"/>s.</para>
         /// </summary>
         /// <param name="flexiIncludeBlockOptions">The <see cref="FlexiIncludeBlockOptions"/> for this <see cref="FlexiIncludeBlock"/>.</param>
         /// <param name="rootBaseUri">A base URI for generating this <see cref="FlexiIncludeBlock"/>'s <see cref="AbsoluteSourceUri"/>.</param>
-        public void Setup(FlexiIncludeBlockOptions flexiIncludeBlockOptions, string rootBaseUri)
+        internal void Setup(FlexiIncludeBlockOptions flexiIncludeBlockOptions, string rootBaseUri)
         {
             FlexiIncludeBlockOptions = flexiIncludeBlockOptions ?? throw new ArgumentNullException(nameof(flexiIncludeBlockOptions));
 

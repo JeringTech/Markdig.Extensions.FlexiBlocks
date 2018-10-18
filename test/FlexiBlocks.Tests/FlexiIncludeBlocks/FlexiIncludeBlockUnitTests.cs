@@ -10,6 +10,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
     // JSON serializable/deserializable
     public class FlexiIncludeBlockUnitTests
     {
+        [Fact]
+        public void Constructor_AddsFlexiIncludeBlockToTreeIfItIsNotARootBlock()
+        {
+            // Arrange
+            var dummyParentFlexiIncludeBlock = new FlexiIncludeBlock(null, null);
+
+            // Act
+            var result = new FlexiIncludeBlock(dummyParentFlexiIncludeBlock, null);
+
+            // Assert
+            Assert.Single(dummyParentFlexiIncludeBlock.ChildFlexiIncludeBlocks);
+            Assert.Same(result, dummyParentFlexiIncludeBlock.ChildFlexiIncludeBlocks[0]);
+            Assert.Same(dummyParentFlexiIncludeBlock, result.ParentFlexiIncludeBlock);
+        }
+
         [Theory]
         [MemberData(nameof(Setup_ThrowsFlexiBlocksExceptionIfSourceUriSchemeIsUnsupported_Data))]
         public void Setup_ThrowsFlexiBlocksExceptionIfSourceUriSchemeIsUnsupported(string dummySourceUri, string expectedScheme)
