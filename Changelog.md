@@ -3,7 +3,16 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.10.0...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.11.0...HEAD)
+
+## [0.11.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.10.0...0.11.0) - Oct 18, 2018
+### Additions
+- Added methods `FlexiIncludeBlocksExtension.GetFlexiIncludeBlockTrees` and `FlexiIncludeBlocksExtension.GetIncludedSourcesAbsoluteUris`.
+These methods report the depedencies of a processed markdown document.
+
+### Changes
+- Cleaned up architecture for extension options. 
+- Minor changes to Nuget package title and description.
 
 ## [0.10.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.9.0...0.10.0) - Oct 15, 2018
 ### Additions
