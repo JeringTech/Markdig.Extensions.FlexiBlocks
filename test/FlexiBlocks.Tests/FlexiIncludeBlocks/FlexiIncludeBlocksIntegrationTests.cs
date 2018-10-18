@@ -4,7 +4,6 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig;
 using Markdig.Parsers;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -57,11 +56,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             IServiceProvider serviceProvider = services.BuildServiceProvider();
             using ((IDisposable)serviceProvider)
             {
+                var dummyExtensionOptions = new FlexiIncludeBlocksExtensionOptions { RootBaseUri = _fixture.TempDirectory + "/" };
+                IFlexiBlocksExtensionFactory<FlexiIncludeBlocksExtension, FlexiIncludeBlocksExtensionOptions> extensionFactory =
+                    serviceProvider.GetRequiredService<IFlexiBlocksExtensionFactory<FlexiIncludeBlocksExtension, FlexiIncludeBlocksExtensionOptions>>();
                 var dummyMarkdownPipelineBuilder = new MarkdownPipelineBuilder();
-                FlexiIncludeBlocksExtension flexiIncludeBlocksExtension = serviceProvider.GetRequiredService<FlexiIncludeBlocksExtension>();
-                dummyMarkdownPipelineBuilder.Extensions.Add(flexiIncludeBlocksExtension);
-                FlexiIncludeBlocksExtensionOptions dummyExtensionOptions = serviceProvider.GetRequiredService<IOptions<FlexiIncludeBlocksExtensionOptions>>().Value;
-                dummyExtensionOptions.RootBaseUri = _fixture.TempDirectory + "/";
+                dummyMarkdownPipelineBuilder.Extensions.Add(extensionFactory.Build(dummyExtensionOptions));
                 MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
 
                 // Act
@@ -105,15 +104,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             IServiceProvider serviceProvider = services.BuildServiceProvider();
             using ((IDisposable)serviceProvider)
             {
+                var dummyExtensionOptions = new FlexiIncludeBlocksExtensionOptions { RootBaseUri = _fixture.TempDirectory + "/" };
+                IFlexiBlocksExtensionFactory<FlexiIncludeBlocksExtension, FlexiIncludeBlocksExtensionOptions> extensionFactory =
+                    serviceProvider.GetRequiredService<IFlexiBlocksExtensionFactory<FlexiIncludeBlocksExtension, FlexiIncludeBlocksExtensionOptions>>();
                 var dummyMarkdownPipelineBuilder = new MarkdownPipelineBuilder();
-                FlexiIncludeBlocksExtension flexiIncludeBlocksExtension = serviceProvider.GetRequiredService<FlexiIncludeBlocksExtension>();
-                dummyMarkdownPipelineBuilder.Extensions.Add(flexiIncludeBlocksExtension);
-                FlexiIncludeBlocksExtensionOptions dummyExtensionOptions = serviceProvider.GetRequiredService<IOptions<FlexiIncludeBlocksExtensionOptions>>().Value;
-                dummyExtensionOptions.RootBaseUri = _fixture.TempDirectory + "/";
+                dummyMarkdownPipelineBuilder.Extensions.Add(extensionFactory.Build(dummyExtensionOptions));
+                MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
                 var dummyRootBaseUri = new Uri(dummyExtensionOptions.RootBaseUri);
                 string dummyMarkdown1SourceUri = dummyRootBaseUri + $"{nameof(dummyMarkdown1)}.md";
                 string dummyMarkdown2SourceUri = dummyRootBaseUri + $"{nameof(dummyMarkdown2)}.md";
-                MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
 
                 // Act and assert
                 FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => MarkdownParser.Parse(dummyEntryMarkdown, dummyMarkdownPipeline));
@@ -299,15 +298,15 @@ Source URI: {0}, Line: 1";
             IServiceProvider serviceProvider = services.BuildServiceProvider();
             using ((IDisposable)serviceProvider)
             {
+                var dummyExtensionOptions = new FlexiIncludeBlocksExtensionOptions { RootBaseUri = _fixture.TempDirectory + "/" };
+                IFlexiBlocksExtensionFactory<FlexiIncludeBlocksExtension, FlexiIncludeBlocksExtensionOptions> extensionFactory =
+                    serviceProvider.GetRequiredService<IFlexiBlocksExtensionFactory<FlexiIncludeBlocksExtension, FlexiIncludeBlocksExtensionOptions>>();
                 var dummyMarkdownPipelineBuilder = new MarkdownPipelineBuilder();
-                FlexiIncludeBlocksExtension flexiIncludeBlocksExtension = serviceProvider.GetRequiredService<FlexiIncludeBlocksExtension>();
-                dummyMarkdownPipelineBuilder.Extensions.Add(flexiIncludeBlocksExtension);
-                FlexiIncludeBlocksExtensionOptions dummyExtensionOptions = serviceProvider.GetRequiredService<IOptions<FlexiIncludeBlocksExtensionOptions>>().Value;
-                dummyExtensionOptions.RootBaseUri = _fixture.TempDirectory + "/";
+                dummyMarkdownPipelineBuilder.Extensions.Add(extensionFactory.Build(dummyExtensionOptions));
+                MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
                 var dummyRootBaseUri = new Uri(dummyExtensionOptions.RootBaseUri);
                 string dummyMarkdown1SourceUri = dummyRootBaseUri + $"{nameof(dummyMarkdown1)}.md";
                 string dummyMarkdown2SourceUri = dummyRootBaseUri + $"{nameof(dummyMarkdown2)}.md";
-                MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
 
                 // Act and assert
                 FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => MarkdownParser.Parse(dummyEntryMarkdown, dummyMarkdownPipeline));
@@ -359,17 +358,17 @@ Source URI: {0}, Line: 1";
             IServiceProvider serviceProvider = services.BuildServiceProvider();
             using ((IDisposable)serviceProvider)
             {
+                var dummyExtensionOptions = new FlexiIncludeBlocksExtensionOptions { RootBaseUri = _fixture.TempDirectory + "/" };
+                IFlexiBlocksExtensionFactory<FlexiIncludeBlocksExtension, FlexiIncludeBlocksExtensionOptions> extensionFactory =
+                    serviceProvider.GetRequiredService<IFlexiBlocksExtensionFactory<FlexiIncludeBlocksExtension, FlexiIncludeBlocksExtensionOptions>>();
                 var dummyMarkdownPipelineBuilder = new MarkdownPipelineBuilder();
-                FlexiIncludeBlocksExtension flexiIncludeBlocksExtension = serviceProvider.GetRequiredService<FlexiIncludeBlocksExtension>();
-                dummyMarkdownPipelineBuilder.Extensions.Add(flexiIncludeBlocksExtension);
-                FlexiIncludeBlocksExtensionOptions dummyExtensionOptions = serviceProvider.GetRequiredService<IOptions<FlexiIncludeBlocksExtensionOptions>>().Value;
-                dummyExtensionOptions.RootBaseUri = _fixture.TempDirectory + "/";
-                var dummyRootBaseUri = new Uri(dummyExtensionOptions.RootBaseUri);
-                File.WriteAllText(Path.Combine(dummyRootBaseUri.AbsolutePath, $"{nameof(dummyMarkdown1)}.md"), dummyMarkdown1);
+                dummyMarkdownPipelineBuilder.Extensions.Add(extensionFactory.Build(dummyExtensionOptions));
                 dummyMarkdownPipelineBuilder.
                     UseFlexiAlertBlocks().
                     UseFlexiOptionsBlocks();
                 MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
+                var dummyRootBaseUri = new Uri(dummyExtensionOptions.RootBaseUri);
+                File.WriteAllText(Path.Combine(dummyRootBaseUri.AbsolutePath, $"{nameof(dummyMarkdown1)}.md"), dummyMarkdown1);
 
                 // Act and assert
                 FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => MarkdownParser.Parse(dummyEntryMarkdown, dummyMarkdownPipeline));

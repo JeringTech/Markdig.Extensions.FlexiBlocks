@@ -5,7 +5,6 @@ using Markdig.Parsers;
 using Markdig.Parsers.Inlines;
 using Markdig.Renderers;
 using Markdig.Syntax;
-using Microsoft.Extensions.Options;
 using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
@@ -31,14 +30,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
         /// Creates a <see cref="FlexiTableBlocksExtension"/> instance.
         /// </summary>
         /// <param name="flexiTableBlockRenderer">The renderer for rendering FlexiTableBlocks as HTML.</param>
-        /// <param name="extensionOptionsAccessor">The accessor for <see cref="FlexiTableBlocksExtensionOptions"/>.</param>
         /// <param name="flexiOptionsBlockService">The service that will handle populating of <see cref="FlexiTableBlockOptions"/>.</param>
+        /// <param name="extensionOptions">The options for the instance.</param>
         public FlexiTableBlocksExtension(FlexiTableBlockRenderer flexiTableBlockRenderer,
-            IOptions<FlexiTableBlocksExtensionOptions> extensionOptionsAccessor,
-            IFlexiOptionsBlockService flexiOptionsBlockService)
+            IFlexiOptionsBlockService flexiOptionsBlockService,
+            FlexiTableBlocksExtensionOptions extensionOptions)
         {
             _flexiTableBlockRenderer = flexiTableBlockRenderer ?? throw new ArgumentNullException(nameof(flexiTableBlockRenderer));
-            _extensionOptions = extensionOptionsAccessor?.Value ?? throw new ArgumentNullException(nameof(extensionOptionsAccessor));
+            _extensionOptions = extensionOptions ?? throw new ArgumentNullException(nameof(extensionOptions));
             _flexiOptionsBlockService = flexiOptionsBlockService ?? throw new ArgumentNullException(nameof(flexiOptionsBlockService));
         }
 

@@ -3,7 +3,6 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
-using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
 
@@ -136,9 +135,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             mockFlexiOptionsBlockService.Setup(j => j.TryPopulateOptions(dummyBlockProcessor, It.IsAny<FlexiAlertBlockOptions>(), dummyLineIndex));
             var dummyExtensionOptions = new FlexiAlertBlocksExtensionOptions { DefaultBlockOptions = new FlexiAlertBlockOptions(type: dummyAlertType) };
             dummyExtensionOptions.IconMarkups[dummyAlertType] = dummyIconMarkup;
-            Mock<IOptions<FlexiAlertBlocksExtensionOptions>> mockExtensionOptionsAccessor = _mockRepository.Create<IOptions<FlexiAlertBlocksExtensionOptions>>();
-            mockExtensionOptionsAccessor.Setup(e => e.Value).Returns(dummyExtensionOptions);
-            ExposedFlexiAlertBlockParser testSubject = CreateExposedFlexiAlertBlockParser(mockExtensionOptionsAccessor.Object, mockFlexiOptionsBlockService.Object);
+            ExposedFlexiAlertBlockParser testSubject = CreateExposedFlexiAlertBlockParser(dummyExtensionOptions, mockFlexiOptionsBlockService.Object);
 
             // Act
             FlexiAlertBlockOptions result = testSubject.CreateFlexiAlertBlockOptions(dummyBlockProcessor);
@@ -157,8 +154,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
 
         public class ExposedFlexiAlertBlockParser : FlexiAlertBlockParser
         {
-            public ExposedFlexiAlertBlockParser(IOptions<FlexiAlertBlocksExtensionOptions> extensionOptionsAccessor, IFlexiOptionsBlockService flexiOptionsBlockService) :
-                base(extensionOptionsAccessor, flexiOptionsBlockService)
+            public ExposedFlexiAlertBlockParser(FlexiAlertBlocksExtensionOptions extensionOptions, IFlexiOptionsBlockService flexiOptionsBlockService) :
+                base(flexiOptionsBlockService, extensionOptions)
             {
             }
 
@@ -173,29 +170,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             }
         }
 
-        private ExposedFlexiAlertBlockParser CreateExposedFlexiAlertBlockParser(IOptions<FlexiAlertBlocksExtensionOptions> extensionOptionsAccessor = null,
+        private ExposedFlexiAlertBlockParser CreateExposedFlexiAlertBlockParser(FlexiAlertBlocksExtensionOptions extensionOptions = null,
             IFlexiOptionsBlockService flexiOptionsBlockService = null)
         {
             return new ExposedFlexiAlertBlockParser(
-                extensionOptionsAccessor ?? CreateExtensionOptionsAccessor(),
+                extensionOptions ?? new FlexiAlertBlocksExtensionOptions(),
                 flexiOptionsBlockService ?? _mockRepository.Create<IFlexiOptionsBlockService>().Object);
         }
 
-        private Mock<ExposedFlexiAlertBlockParser> CreateMockExposedFlexiAlertBlockParser(IOptions<FlexiAlertBlocksExtensionOptions> extensionOptionsAccessor = null,
+        private Mock<ExposedFlexiAlertBlockParser> CreateMockExposedFlexiAlertBlockParser(FlexiAlertBlocksExtensionOptions extensionOptions = null,
             IFlexiOptionsBlockService flexiOptionsBlockService = null)
         {
             return _mockRepository.Create<ExposedFlexiAlertBlockParser>(
-                extensionOptionsAccessor ?? CreateExtensionOptionsAccessor(),
+                extensionOptions ?? new FlexiAlertBlocksExtensionOptions(),
                 flexiOptionsBlockService ?? _mockRepository.Create<IFlexiOptionsBlockService>().Object);
-        }
-
-        private IOptions<FlexiAlertBlocksExtensionOptions> CreateExtensionOptionsAccessor()
-        {
-            var dummyExtensionOptions = new FlexiAlertBlocksExtensionOptions();
-            Mock<IOptions<FlexiAlertBlocksExtensionOptions>> mockExtensionOptionsAccessor = _mockRepository.Create<IOptions<FlexiAlertBlocksExtensionOptions>>();
-            mockExtensionOptionsAccessor.Setup(e => e.Value).Returns(dummyExtensionOptions);
-
-            return mockExtensionOptionsAccessor.Object;
         }
     }
 }

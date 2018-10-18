@@ -4,7 +4,6 @@ using Markdig.Parsers;
 using Markdig.Renderers;
 using Markdig.Renderers.Html;
 using Markdig.Syntax;
-using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 
@@ -31,14 +30,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// Creates a <see cref="FlexiCodeBlocksExtension"/> instance.
         /// </summary>
         /// <param name="flexiCodeBlockRenderer">The renderer for rendering FlexiCodeBlocks as HTML.</param>
-        /// <param name="extensionOptionsAccessor">The accessor for <see cref="FlexiCodeBlocksExtensionOptions"/>.</param>
         /// <param name="flexiOptionsBlockService">The service that will handle populating of <see cref="FlexiCodeBlockOptions"/>.</param>
+        /// <param name="extensionOptions">The options for the instance.</param>
         public FlexiCodeBlocksExtension(FlexiCodeBlockRenderer flexiCodeBlockRenderer,
-            IOptions<FlexiCodeBlocksExtensionOptions> extensionOptionsAccessor,
-            IFlexiOptionsBlockService flexiOptionsBlockService)
+            IFlexiOptionsBlockService flexiOptionsBlockService,
+            FlexiCodeBlocksExtensionOptions extensionOptions)
         {
             _flexiCodeBlockRenderer = flexiCodeBlockRenderer ?? throw new ArgumentNullException(nameof(flexiCodeBlockRenderer));
-            _extensionOptions = extensionOptionsAccessor?.Value ?? throw new ArgumentNullException(nameof(extensionOptionsAccessor));
+            _extensionOptions = extensionOptions ?? throw new ArgumentNullException(nameof(extensionOptions));
             _flexiOptionsBlockService = flexiOptionsBlockService ?? throw new ArgumentNullException(nameof(flexiOptionsBlockService));
         }
 

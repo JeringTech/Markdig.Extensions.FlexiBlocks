@@ -1,7 +1,6 @@
 ﻿using Markdig;
 using Markdig.Parsers;
 using Markdig.Renderers;
-using Microsoft.Extensions.Options;
 using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks

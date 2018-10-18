@@ -33,40 +33,35 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             services.TryAddSingleton<IDirectoryService, DirectoryService>();
             services.TryAddSingleton<IHttpClientService, HttpClientService>();
             services.TryAddSingleton<IJsonSerializerService, JsonSerializerService>();
-            services.AddSingleton(typeof(IOptions<>), typeof(ExposedOptionsManager<>));
 
             // FlexAlertBlocks
-            services.TryAddTransient<FlexiAlertBlockParser>();
-            services.TryAddTransient<FlexiAlertBlockRenderer>();
-            services.TryAddTransient<FlexiAlertBlocksExtension>();
+            services.TryAddSingleton<IFlexiBlocksExtensionFactory<FlexiAlertBlocksExtension, FlexiAlertBlocksExtensionOptions>, FlexiAlertBlocksExtensionFactory>();
+            services.TryAddSingleton<FlexiAlertBlockRenderer>();
 
             // FlexiCodeBlocks
-            services.AddPrism();
-            services.AddHighlightJS();
+            services.TryAddSingleton<IFlexiBlocksExtensionFactory<FlexiCodeBlocksExtension, FlexiCodeBlocksExtensionOptions>, FlexiCodeBlocksExtensionFactory>();
+            services.TryAddSingleton<FlexiCodeBlockRenderer>();
             services.TryAddSingleton<ILineEmbellisherService, LineEmbellisherService>();
-            services.TryAddTransient<FlexiCodeBlockRenderer>();
-            services.TryAddTransient<FlexiCodeBlocksExtension>();
+            services.AddHighlightJS();
+            services.AddPrism();
 
             // FlexiIncludeBlocks
+            services.TryAddSingleton<IFlexiBlocksExtensionFactory<FlexiIncludeBlocksExtension, FlexiIncludeBlocksExtensionOptions>, FlexiIncludeBlocksExtensionFactory>();
             services.TryAddSingleton<IDiskCacheService, DiskCacheService>();
             services.TryAddSingleton<ISourceRetrieverService, SourceRetrieverService>();
             services.TryAddSingleton<ILeadingWhitespaceEditorService, LeadingWhitespaceEditorService>();
-            services.TryAddTransient<FlexiIncludeBlockParser>();
-            services.TryAddTransient<FlexiIncludeBlocksExtension>();
 
             // FlexiOptionsBlocks
             services.TryAddSingleton<IFlexiOptionsBlockService, FlexiOptionsBlockService>();
-            services.TryAddTransient<FlexiOptionsBlockParser>();
-            services.TryAddTransient<FlexiOptionsBlocksExtension>();
+            services.TryAddSingleton<FlexiOptionsBlockParser>();
+            services.TryAddSingleton<FlexiOptionsBlocksExtension>();
 
             // FlexiSectionBlocks
-            services.TryAddTransient<FlexiSectionBlockParser>();
+            services.TryAddSingleton<IFlexiBlocksExtensionFactory<FlexiSectionBlocksExtension, FlexiSectionBlocksExtensionOptions>, FlexiSectionBlocksExtensionFactory>();
             services.TryAddTransient<FlexiSectionBlockRenderer>();
-            services.TryAddTransient<FlexiSectionBlocksExtension>();
 
             // FlexiTableBlocks
-            services.TryAddTransient<FlexiTableBlockRenderer>();
-            services.TryAddTransient<FlexiTableBlocksExtension>();
+            services.TryAddSingleton<IFlexiBlocksExtensionFactory<FlexiTableBlocksExtension, FlexiTableBlocksExtensionOptions>, FlexiTableBlocksExtensionFactory>();
         }
     }
 }

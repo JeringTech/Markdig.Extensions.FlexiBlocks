@@ -3,7 +3,6 @@ using Markdig.Extensions.Tables;
 using Markdig.Renderers;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
-using Microsoft.Extensions.Options;
 using Moq;
 using System.Collections.Generic;
 using System.IO;
@@ -13,8 +12,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
 {
     public class FlexiTableBlockRendererUnitTests
     {
-        private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
-
         [Theory]
         [MemberData(nameof(WriteFlexiBlock_RendersFlexiTableBlock_Data))]
         public void WriteFlexiBlock_RendersFlexiTableBlock(SerializableWrapper<FlexiTableBlockOptions> dummyFlexiTableBlockOptionsWrapper, string expectedResult)
@@ -254,18 +251,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
             };
         }
 
-        private FlexiTableBlockRenderer CreateFlexiTableBlockRenderer(IOptions<FlexiTableBlocksExtensionOptions> extensionOptionsAccessor = null)
+        private FlexiTableBlockRenderer CreateFlexiTableBlockRenderer(FlexiTableBlocksExtensionOptions extensionOptions = null)
         {
-            return new FlexiTableBlockRenderer(extensionOptionsAccessor ?? CreateExtensionOptionsAccessor());
-        }
-
-        private IOptions<FlexiTableBlocksExtensionOptions> CreateExtensionOptionsAccessor()
-        {
-            var dummyExtensionOptions = new FlexiTableBlocksExtensionOptions();
-            Mock<IOptions<FlexiTableBlocksExtensionOptions>> mockExtensionOptionsAccessor = _mockRepository.Create<IOptions<FlexiTableBlocksExtensionOptions>>();
-            mockExtensionOptionsAccessor.Setup(e => e.Value).Returns(dummyExtensionOptions);
-
-            return mockExtensionOptionsAccessor.Object;
+            return new FlexiTableBlockRenderer(extensionOptions ?? new FlexiTableBlocksExtensionOptions());
         }
 
         private Table CreateTable()

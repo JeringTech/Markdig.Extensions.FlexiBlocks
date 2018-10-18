@@ -2,7 +2,6 @@
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -31,16 +30,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <summary>
         /// Creates a <see cref="FlexiIncludeBlockParser"/> instance.
         /// </summary>
-        /// <param name="extensionOptionsAccessor">The accessor for <see cref="FlexiIncludeBlocksExtensionOptions"/>.</param>
         /// <param name="sourceRetrieverService">The service that will handle content retrieval.</param>
         /// <param name="jsonSerializerService">The service that will handle JSON deserialization.</param>
         /// <param name="leadingWhitespaceEditorService">The service that will handle editing of leading whitespace.</param>
-        public FlexiIncludeBlockParser(IOptions<FlexiIncludeBlocksExtensionOptions> extensionOptionsAccessor,
-            ISourceRetrieverService sourceRetrieverService,
+        /// <param name="extensionOptions">Extension options.</param>
+        public FlexiIncludeBlockParser(ISourceRetrieverService sourceRetrieverService,
             IJsonSerializerService jsonSerializerService,
-            ILeadingWhitespaceEditorService leadingWhitespaceEditorService)
+            ILeadingWhitespaceEditorService leadingWhitespaceEditorService,
+            FlexiIncludeBlocksExtensionOptions extensionOptions)
         {
-            _extensionOptions = extensionOptionsAccessor?.Value ?? throw new ArgumentNullException(nameof(extensionOptionsAccessor));
+            _extensionOptions = extensionOptions ?? throw new ArgumentNullException(nameof(extensionOptions));
             _sourceRetrieverService = sourceRetrieverService ?? throw new ArgumentNullException(nameof(sourceRetrieverService));
             _jsonSerializerService = jsonSerializerService ?? throw new ArgumentNullException(nameof(jsonSerializerService));
             _leadingWhitespaceEditorService = leadingWhitespaceEditorService ?? throw new ArgumentNullException(nameof(leadingWhitespaceEditorService));

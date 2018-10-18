@@ -5,7 +5,6 @@ using Jering.Web.SyntaxHighlighters.Prism;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
-using Microsoft.Extensions.Options;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
@@ -107,8 +106,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             {
                 DefaultBlockOptions = new FlexiCodeBlockOptions(highlightLineRanges: dummyHighlightLineRanges, lineNumberLineRanges: dummyLineNumberLineRanges)
             };
-            Mock<IOptions<FlexiCodeBlocksExtensionOptions>> mockOptionsAccessor = _mockRepository.Create<IOptions<FlexiCodeBlocksExtensionOptions>>();
-            mockOptionsAccessor.Setup(o => o.Value).Returns(dummyFlexiCodeBlocksExtensionOptions);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var dummyLine1 = new StringSlice("dummyLine1");
             var dummyLine2 = new StringSlice("dummyLine2");
@@ -121,7 +118,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             var dummyBlock = new CodeBlock(null) { Line = dummyLineIndex, Lines = dummyLines };
             Mock<IFlexiOptionsBlockService> mockFlexiOptionsBlockService = _mockRepository.Create<IFlexiOptionsBlockService>();
             mockFlexiOptionsBlockService.Setup(f => f.TryPopulateOptions(dummyBlockProcessor, It.IsAny<FlexiCodeBlockOptions>(), dummyLineIndex));
-            Mock<ExposedFlexiCodeBlocksExtension> mockTestSubject = CreateMockExposedFlexiCodeBlocksExtension(extensionOptionsAccessor: mockOptionsAccessor.Object,
+            Mock<ExposedFlexiCodeBlocksExtension> mockTestSubject = CreateMockExposedFlexiCodeBlocksExtension(extensionOptions: dummyFlexiCodeBlocksExtensionOptions,
                flexiOptionsBlockService: mockFlexiOptionsBlockService.Object);
             mockTestSubject.CallBase = true;
             mockTestSubject.
@@ -141,8 +138,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         public class ExposedFlexiCodeBlocksExtension : FlexiCodeBlocksExtension
         {
             public ExposedFlexiCodeBlocksExtension(FlexiCodeBlockRenderer flexiCodeBlockRenderer,
-                IOptions<FlexiCodeBlocksExtensionOptions> extensionOptionsAccessor,
-                IFlexiOptionsBlockService flexiOptionsBlockService) : base(flexiCodeBlockRenderer, extensionOptionsAccessor, flexiOptionsBlockService)
+                IFlexiOptionsBlockService flexiOptionsBlockService,
+                FlexiCodeBlocksExtensionOptions extensionOptions) : base(flexiCodeBlockRenderer, flexiOptionsBlockService, extensionOptions)
             {
             }
 
@@ -153,21 +150,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         }
 
         private Mock<ExposedFlexiCodeBlocksExtension> CreateMockExposedFlexiCodeBlocksExtension(FlexiCodeBlockRenderer flexiCodeBlockRenderer = null,
-            IOptions<FlexiCodeBlocksExtensionOptions> extensionOptionsAccessor = null,
+            FlexiCodeBlocksExtensionOptions extensionOptions = null,
             IFlexiOptionsBlockService flexiOptionsBlockService = null)
         {
             return _mockRepository.Create<ExposedFlexiCodeBlocksExtension>(flexiCodeBlockRenderer ?? CreateFlexiCodeBlockRenderer(),
-                extensionOptionsAccessor ?? CreateExtensionOptionsAccessor(),
-                flexiOptionsBlockService ?? _mockRepository.Create<IFlexiOptionsBlockService>().Object);
+                flexiOptionsBlockService ?? _mockRepository.Create<IFlexiOptionsBlockService>().Object,
+                extensionOptions ?? new FlexiCodeBlocksExtensionOptions());
         }
 
         private FlexiCodeBlocksExtension CreateFlexiCodeBlocksExtension(FlexiCodeBlockRenderer flexiCodeBlockRenderer = null,
-            IOptions<FlexiCodeBlocksExtensionOptions> extensionOptionsAccessor = null,
-            IFlexiOptionsBlockService flexiOptionsBlockService = null)
+            IFlexiOptionsBlockService flexiOptionsBlockService = null,
+            FlexiCodeBlocksExtensionOptions extensionOptions = null)
         {
             return new FlexiCodeBlocksExtension(flexiCodeBlockRenderer ?? CreateFlexiCodeBlockRenderer(),
-                extensionOptionsAccessor ?? CreateExtensionOptionsAccessor(),
-                flexiOptionsBlockService ?? _mockRepository.Create<IFlexiOptionsBlockService>().Object);
+                flexiOptionsBlockService ?? _mockRepository.Create<IFlexiOptionsBlockService>().Object,
+                extensionOptions ?? new FlexiCodeBlocksExtensionOptions());
         }
 
         private FlexiCodeBlockRenderer CreateFlexiCodeBlockRenderer()
@@ -175,15 +172,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             return new FlexiCodeBlockRenderer(_mockRepository.Create<IPrismService>().Object,
                 _mockRepository.Create<IHighlightJSService>().Object,
                 _mockRepository.Create<ILineEmbellisherService>().Object);
-        }
-
-        private IOptions<FlexiCodeBlocksExtensionOptions> CreateExtensionOptionsAccessor()
-        {
-            var dummyExtensionOptions = new FlexiCodeBlocksExtensionOptions();
-            Mock<IOptions<FlexiCodeBlocksExtensionOptions>> mockExtensionOptionsAccessor = _mockRepository.Create<IOptions<FlexiCodeBlocksExtensionOptions>>();
-            mockExtensionOptionsAccessor.Setup(e => e.Value).Returns(dummyExtensionOptions);
-
-            return mockExtensionOptionsAccessor.Object;
         }
     }
 }

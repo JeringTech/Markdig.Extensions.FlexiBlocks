@@ -3,7 +3,6 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
-using Microsoft.Extensions.Options;
 using Moq;
 using Newtonsoft.Json;
 using System;
@@ -322,12 +321,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Arrange
             const string dummySourceUri = "C:/dummy/source/uri";
             var dummyFlexiIncludeBlockOptions = new FlexiIncludeBlockOptions(dummySourceUri);
-            Mock<IOptions<FlexiIncludeBlocksExtensionOptions>> mockOptionsAccessor = _mockRepository.Create<IOptions<FlexiIncludeBlocksExtensionOptions>>();
-            mockOptionsAccessor.Setup(o => o.Value).Returns(new FlexiIncludeBlocksExtensionOptions() { DefaultBlockOptions = dummyFlexiIncludeBlockOptions });
             Mock<IJsonSerializerService> mockJsonSerializerService = _mockRepository.Create<IJsonSerializerService>();
             mockJsonSerializerService.Setup(j => j.Populate(It.IsAny<JsonTextReader>(), It.IsAny<FlexiIncludeBlockOptions>()));
             var dummyFlexiIncludeBlock = new FlexiIncludeBlock(null, null);
-            FlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser(mockOptionsAccessor.Object, jsonSerializerService: mockJsonSerializerService.Object);
+            FlexiIncludeBlockParser testSubject = CreateExposedFlexiIncludBlockParser(new FlexiIncludeBlocksExtensionOptions() { DefaultBlockOptions = dummyFlexiIncludeBlockOptions },
+                jsonSerializerService: mockJsonSerializerService.Object);
 
             // Act
             testSubject.SetupFlexiIncludeBlock(dummyFlexiIncludeBlock); // Should set FlexiIncludeBlock's absolute source URI
@@ -533,8 +531,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
         public class ExposedFlexiIncludeBlockParser : FlexiIncludeBlockParser
         {
-            public ExposedFlexiIncludeBlockParser(IOptions<FlexiIncludeBlocksExtensionOptions> extensionOptionsAccessor, ISourceRetrieverService sourceRetrieverService, IJsonSerializerService jsonSerializerService, ILeadingWhitespaceEditorService leadingWhitespaceEditorService) :
-                base(extensionOptionsAccessor, sourceRetrieverService, jsonSerializerService, leadingWhitespaceEditorService)
+            public ExposedFlexiIncludeBlockParser(FlexiIncludeBlocksExtensionOptions extensionOptions, ISourceRetrieverService sourceRetrieverService, IJsonSerializerService jsonSerializerService, ILeadingWhitespaceEditorService leadingWhitespaceEditorService) :
+                base(sourceRetrieverService, jsonSerializerService, leadingWhitespaceEditorService, extensionOptions)
             {
             }
 
@@ -554,35 +552,26 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             }
         }
 
-        private Mock<ExposedFlexiIncludeBlockParser> CreateMockExposedFlexiIncludeBlockParser(IOptions<FlexiIncludeBlocksExtensionOptions> extensionOptionsAccessor = null,
+        private Mock<ExposedFlexiIncludeBlockParser> CreateMockExposedFlexiIncludeBlockParser(FlexiIncludeBlocksExtensionOptions extensionOptions = null,
             ISourceRetrieverService sourceRetrieverService = null,
             IJsonSerializerService jsonSerializerService = null,
             ILeadingWhitespaceEditorService leadingWhitespaceEditorService = null)
         {
-            return _mockRepository.Create<ExposedFlexiIncludeBlockParser>(extensionOptionsAccessor ?? CreateExtensionOptionsAccessor(),
+            return _mockRepository.Create<ExposedFlexiIncludeBlockParser>(extensionOptions ?? new FlexiIncludeBlocksExtensionOptions(),
                 sourceRetrieverService ?? _mockRepository.Create<ISourceRetrieverService>().Object,
                 jsonSerializerService ?? _mockRepository.Create<IJsonSerializerService>().Object,
                 leadingWhitespaceEditorService ?? _mockRepository.Create<ILeadingWhitespaceEditorService>().Object);
         }
 
-        private ExposedFlexiIncludeBlockParser CreateExposedFlexiIncludBlockParser(IOptions<FlexiIncludeBlocksExtensionOptions> extensionOptionsAccessor = null,
+        private ExposedFlexiIncludeBlockParser CreateExposedFlexiIncludBlockParser(FlexiIncludeBlocksExtensionOptions extensionOptions = null,
             ISourceRetrieverService sourceRetrieverService = null,
             IJsonSerializerService jsonSerializerService = null,
             ILeadingWhitespaceEditorService leadingWhitespaceEditorService = null)
         {
-            return new ExposedFlexiIncludeBlockParser(extensionOptionsAccessor ?? CreateExtensionOptionsAccessor(),
+            return new ExposedFlexiIncludeBlockParser(extensionOptions ?? new FlexiIncludeBlocksExtensionOptions(),
                 sourceRetrieverService ?? _mockRepository.Create<ISourceRetrieverService>().Object,
                 jsonSerializerService ?? _mockRepository.Create<IJsonSerializerService>().Object,
                 leadingWhitespaceEditorService ?? _mockRepository.Create<ILeadingWhitespaceEditorService>().Object);
-        }
-
-        private IOptions<FlexiIncludeBlocksExtensionOptions> CreateExtensionOptionsAccessor()
-        {
-            var dummyExtensionOptions = new FlexiIncludeBlocksExtensionOptions();
-            Mock<IOptions<FlexiIncludeBlocksExtensionOptions>> mockExtensionOptionsAccessor = _mockRepository.Create<IOptions<FlexiIncludeBlocksExtensionOptions>>();
-            mockExtensionOptionsAccessor.Setup(e => e.Value).Returns(dummyExtensionOptions);
-
-            return mockExtensionOptionsAccessor.Object;
         }
     }
 }

@@ -3,7 +3,6 @@ using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 
@@ -23,14 +22,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// <summary>
         /// Creates a <see cref="FlexiSectionBlockParser"/> instance.
         /// </summary>
-        /// <param name="extensionOptionsAccessor">The accessor for <see cref="FlexiSectionBlocksExtensionOptions"/>.</param>
         /// <param name="flexiOptionsBlockService">The service that will handle populating of <see cref="FlexiSectionBlockOptions"/>.</param>
-        public FlexiSectionBlockParser(IOptions<FlexiSectionBlocksExtensionOptions> extensionOptionsAccessor,
-            IFlexiOptionsBlockService flexiOptionsBlockService)
+        /// <param name="extensionOptions">Extension options.</param>
+        public FlexiSectionBlockParser(IFlexiOptionsBlockService flexiOptionsBlockService,
+            FlexiSectionBlocksExtensionOptions extensionOptions)
         {
             OpeningCharacters = new[] { '#' };
 
-            _extensionOptions = extensionOptionsAccessor?.Value ?? throw new ArgumentNullException(nameof(extensionOptionsAccessor));
+            _extensionOptions = extensionOptions ?? throw new ArgumentNullException(nameof(extensionOptions));
             _flexiOptionsBlockService = flexiOptionsBlockService ?? throw new ArgumentNullException(nameof(flexiOptionsBlockService));
         }
 

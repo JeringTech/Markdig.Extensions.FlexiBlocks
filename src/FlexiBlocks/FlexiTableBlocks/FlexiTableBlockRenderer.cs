@@ -1,7 +1,6 @@
 ﻿using Markdig.Extensions.Tables;
 using Markdig.Renderers;
 using Markdig.Syntax;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -21,10 +20,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
         /// <summary>
         /// Creates a <see cref="FlexiTableBlockRenderer"/> instance.
         /// </summary>
-        /// <param name="extensionOptionsAccessor">The accessor for <see cref="FlexiTableBlocksExtensionOptions"/>.</param>
-        public FlexiTableBlockRenderer(IOptions<FlexiTableBlocksExtensionOptions> extensionOptionsAccessor)
+        /// <param name="extensionOptions">Extension options.</param>
+        public FlexiTableBlockRenderer(FlexiTableBlocksExtensionOptions extensionOptions)
         {
-            _defaultFlexiTableBlockOptions = extensionOptionsAccessor?.Value.DefaultBlockOptions ?? throw new ArgumentNullException(nameof(extensionOptionsAccessor));
+            _defaultFlexiTableBlockOptions = extensionOptions?.DefaultBlockOptions ?? throw new ArgumentNullException(nameof(extensionOptions));
             _stringWriter = new StringWriter();
             _stripRenderer = new HtmlRenderer(_stringWriter)
             {

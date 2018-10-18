@@ -2,7 +2,6 @@
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
-using Microsoft.Extensions.Options;
 using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
@@ -18,14 +17,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <summary>
         /// Creates a <see cref="FlexiAlertBlockParser"/> instance.
         /// </summary>
-        /// <param name="extensionOptionsAccessor">The accessor for <see cref="FlexiAlertBlocksExtensionOptions"/>.</param>
         /// <param name="flexiOptionsBlockService">The service that will handle populating of <see cref="FlexiAlertBlockOptions"/>.</param>
-        public FlexiAlertBlockParser(IOptions<FlexiAlertBlocksExtensionOptions> extensionOptionsAccessor,
-            IFlexiOptionsBlockService flexiOptionsBlockService)
+        /// <param name="extensionOptions">Extension options.</param>
+        public FlexiAlertBlockParser(IFlexiOptionsBlockService flexiOptionsBlockService,
+            FlexiAlertBlocksExtensionOptions extensionOptions)
         {
             OpeningCharacters = new[] { '!' };
 
-            _extensionOptions = extensionOptionsAccessor?.Value ?? throw new ArgumentNullException(nameof(extensionOptionsAccessor));
+            _extensionOptions = extensionOptions ?? throw new ArgumentNullException(nameof(extensionOptions));
             _flexiOptionsBlockService = flexiOptionsBlockService ?? throw new ArgumentNullException(nameof(flexiOptionsBlockService));
         }
 
