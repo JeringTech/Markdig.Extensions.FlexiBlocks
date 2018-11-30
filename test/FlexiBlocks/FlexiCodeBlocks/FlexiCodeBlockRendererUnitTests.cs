@@ -7,6 +7,7 @@ using Markdig.Syntax;
 using Moq;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
@@ -326,7 +327,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                 language: dummyLanguage, highlightJSClassPrefix: dummyHighlightJSClassPrefix, copyIconMarkup: null, codeClassFormat: null, hiddenLinesIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
             Mock<IHighlightJSService> mockHighlightJSService = _mockRepository.Create<IHighlightJSService>();
-            mockHighlightJSService.Setup(h => h.HighlightAsync(dummyCode, dummyLanguage, dummyHighlightJSClassPrefix)).ReturnsAsync(dummyHighlightedCode);
+            mockHighlightJSService.Setup(h => h.HighlightAsync(dummyCode, dummyLanguage, dummyHighlightJSClassPrefix, default)).ReturnsAsync(dummyHighlightedCode);
             Mock<ILineEmbellisherService> mockLineEmbellisherService = _mockRepository.Create<ILineEmbellisherService>();
             mockLineEmbellisherService.Setup(l => l.EmbellishLines(dummyHighlightedCode, null, null, null, null)).Returns(dummyEmbellishedCode);
             FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer(highlightJSService: mockHighlightJSService.Object, lineEmbellisherService: mockLineEmbellisherService.Object);
@@ -366,7 +367,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                 language: dummyLanguage, copyIconMarkup: null, codeClassFormat: null, hiddenLinesIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
             Mock<IPrismService> mockPrismService = _mockRepository.Create<IPrismService>();
-            mockPrismService.Setup(h => h.HighlightAsync(dummyCode, dummyLanguage)).ReturnsAsync(dummyHighlightedCode);
+            mockPrismService.Setup(h => h.HighlightAsync(dummyCode, dummyLanguage, default)).ReturnsAsync(dummyHighlightedCode);
             Mock<ILineEmbellisherService> mockLineEmbellisherService = _mockRepository.Create<ILineEmbellisherService>();
             mockLineEmbellisherService.Setup(l => l.EmbellishLines(dummyHighlightedCode, null, null, null, null)).Returns(dummyEmbellishedCode);
             FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer(prismService: mockPrismService.Object, lineEmbellisherService: mockLineEmbellisherService.Object);
@@ -422,8 +423,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 
             // Assert
             _mockRepository.VerifyAll();
-            mockHighlightJSService.Verify(h => h.HighlightAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-            mockPrismService.Verify(h => h.HighlightAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+            mockHighlightJSService.Verify(h => h.HighlightAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), default), Times.Never);
+            mockPrismService.Verify(h => h.HighlightAsync(It.IsAny<string>(), It.IsAny<string>(), default), Times.Never);
             Assert.Equal($@"<div>
 <header>
 <button>
