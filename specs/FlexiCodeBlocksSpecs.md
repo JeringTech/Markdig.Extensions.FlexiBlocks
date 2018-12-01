@@ -308,8 +308,8 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </button>
     </header>
-    <pre><code class="language-csharp"><span class="line"><span class="line-text"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">ExampleFunction</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> arg</span>)</span></span>
-    <span class="line"><span class="line-text"></span>{</span></span>
+    <pre><code class="language-csharp"><span class="line"><span class="line-text"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">ExampleFunction</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> arg</span>)</span></span></span>
+    <span class="line"><span class="line-text">{</span></span>
     <span class="line"><span class="line-text">    <span class="hljs-comment">// Example comment</span></span></span>
     <span class="line"><span class="line-text">    <span class="hljs-keyword">return</span> arg + <span class="hljs-string">"dummyString"</span>;</span></span>
     <span class="line"><span class="line-text">}</span></span></code></pre>
@@ -346,8 +346,8 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
     </button>
     </header>
-    <pre><code class="language-csharp"><span class="line"><span class="line-text"><span class="highlightjs-function"><span class="highlightjs-keyword">public</span> <span class="highlightjs-keyword">string</span> <span class="highlightjs-title">ExampleFunction</span>(<span class="highlightjs-params"><span class="highlightjs-keyword">string</span> arg</span>)</span></span>
-    <span class="line"><span class="line-text"></span>{</span></span>
+    <pre><code class="language-csharp"><span class="line"><span class="line-text"><span class="highlightjs-function"><span class="highlightjs-keyword">public</span> <span class="highlightjs-keyword">string</span> <span class="highlightjs-title">ExampleFunction</span>(<span class="highlightjs-params"><span class="highlightjs-keyword">string</span> arg</span>)</span></span></span>
+    <span class="line"><span class="line-text">{</span></span>
     <span class="line"><span class="line-text">    <span class="highlightjs-comment">// Example comment</span></span></span>
     <span class="line"><span class="line-text">    <span class="highlightjs-keyword">return</span> arg + <span class="highlightjs-string">"dummyString"</span>;</span></span>
     <span class="line"><span class="line-text">}</span></span></code></pre>
@@ -647,8 +647,8 @@ MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
     <svg><use xlink:href="#material-design-copy"></use></svg>
     </button>
     </header>
-    <pre><code class="lang-csharp"><span class="line highlight"><span class="line-number">1</span><span class="line-text"><span class="highlightjs-function"><span class="highlightjs-keyword">public</span> <span class="highlightjs-keyword">string</span> <span class="highlightjs-title">ExampleFunction</span>(<span class="highlightjs-params"><span class="highlightjs-keyword">string</span> arg</span>)</span></span>
-    <span class="line highlight"><span class="line-number">2</span><span class="line-text"></span>{</span></span>
+    <pre><code class="lang-csharp"><span class="line highlight"><span class="line-number">1</span><span class="line-text"><span class="highlightjs-function"><span class="highlightjs-keyword">public</span> <span class="highlightjs-keyword">string</span> <span class="highlightjs-title">ExampleFunction</span>(<span class="highlightjs-params"><span class="highlightjs-keyword">string</span> arg</span>)</span></span></span>
+    <span class="line highlight"><span class="line-number">2</span><span class="line-text">{</span></span>
     <span class="line highlight"><span class="line-number">3</span><span class="line-text">    <span class="highlightjs-comment">// Example comment</span></span></span>
     <span class="line highlight"><span class="line-number">4</span><span class="line-text">    <span class="highlightjs-keyword">return</span> arg + <span class="highlightjs-string">"dummyString"</span>;</span></span>
     <span class="line highlight"><span class="line-number">5</span><span class="line-text">}</span></span></code></pre>

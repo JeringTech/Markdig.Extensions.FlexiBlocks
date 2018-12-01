@@ -1,6 +1,6 @@
 # Third Party Licenses
 
-## Markdig
+## [Markdig](https://github.com/lunet-io/markdig)
 
 Copyright (c) 2016, Alexandre Mutel
 All rights reserved.
