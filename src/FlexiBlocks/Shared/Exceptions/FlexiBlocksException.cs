@@ -1,17 +1,13 @@
 ﻿using Markdig.Syntax;
 using System;
-#if NETSTANDARD2_0
 using System.Runtime.Serialization;
-#endif
 
 namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     /// <summary>
     /// Represents an unrecoverable situation encountered within FlexiBlocks.
     /// </summary>
-#if NETSTANDARD2_0
     [Serializable]
-#endif
     public class FlexiBlocksException : Exception
     {
         /// <summary>
@@ -102,7 +98,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             Context = Context.Block;
         }
 
-#if NETSTANDARD2_0
         /// <summary>
         /// Creates a <see cref="FlexiBlocksException"/> instance.
         /// </summary>
@@ -132,7 +127,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             info.AddValue(nameof(Column), Column, typeof(int));
             info.AddValue(nameof(BlockTypeName), BlockTypeName, typeof(string));
         }
-#endif
 
         /// <summary>
         /// Gets the message that describes the problem.
