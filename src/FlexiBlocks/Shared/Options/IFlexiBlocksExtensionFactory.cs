@@ -9,12 +9,14 @@
     /// </summary>
     /// <typeparam name="TExtension">The extension's type.</typeparam>
     /// <typeparam name="TExtensionOptions">The extension's options type.</typeparam>
-    public interface IFlexiBlocksExtensionFactory<TExtension, TExtensionOptions> where TExtension : FlexiBlocksExtension
+    public interface IFlexiBlocksExtensionFactory<TExtension, TExtensionOptions>
+        where TExtension : FlexiBlocksExtension
+        where TExtensionOptions : class
     {
         /// <summary>
         /// Creates an instance of the extension.
         /// </summary>
         /// <param name="extensionOptions">The options for the extension.</param>
-        TExtension Build(TExtensionOptions extensionOptions);
+        TExtension Build(TExtensionOptions extensionOptions = null);
     }
 }

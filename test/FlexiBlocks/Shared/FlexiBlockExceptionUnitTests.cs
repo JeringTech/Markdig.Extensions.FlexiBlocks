@@ -2,17 +2,14 @@
 using Markdig.Syntax;
 using System.Collections.Generic;
 using Xunit;
-#if NETCOREAPP2_1
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-#endif
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
 {
     public class FlexiBlockExceptionUnitTests
     {
-#if NETCOREAPP2_1
         [Fact]
         public void FlexiBlockException_CanBeSerialized()
         {
@@ -41,7 +38,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             Assert.Equal(dummyDescription, result.Description);
             Assert.Equal(nameof(DummyBlock), result.BlockTypeName);
         }
-#endif
 
         [Theory]
         [MemberData(nameof(Message_ReturnsInvalidFlexiBlockMessageIfBlockTypeNameIsNotNull_Data))]

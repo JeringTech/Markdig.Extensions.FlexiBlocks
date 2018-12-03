@@ -68,9 +68,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             return new object[][]
             {
                 // Common relative (non absolute) URIs, see http://www.ietf.org/rfc/rfc3986.txt, section 5.4.1
+                // Note: "/relative/uri" is considered a relative URI on Windows but it is considered an absolute URI on 
+                // Linux/macOS, so we can't include a test for it.
                 new object[]{ "./relative/uri" },
                 new object[]{ "../relative/uri" },
-                new object[]{ "/relative/uri"  },
                 new object[]{ "relative/uri"  }
             };
         }

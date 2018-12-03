@@ -105,6 +105,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             else // SourceUri is relative and root base URI should be used as base
             {
                 // Normalize the base URI. A base URI must be absolute, see http://www.ietf.org/rfc/rfc3986.txt, section 5.1
+                //
+                // Note: On Windows, "/**/*" is not considered an absolute URI, absolute URIs must start with "<drive letter>:/" or "file:///".
+                // On Linux and MacOS, "/**/*" is considered an absolute URI, in some cases, it can be an absolute URI ("/<drive letter>/**/*"), but 
+                // it can also be a path relative to a root. This means that relative URIs could pass through this check on Linux and macOS.
+                // That isn't a huge issue though, an exception will be thrown if we try to retrieve anything from a URI that has a relative URI as its base.
+                // The difference in behaviour between Windows and Linux/macOS is documented here - https://github.com/dotnet/corefx/issues/22098.
                 if (!Uri.TryCreate(rootBaseUri, UriKind.Absolute, out Uri baseUri))
                 {
                     throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeAnAbsoluteUri, nameof(FlexiIncludeBlocksExtensionOptions.RootBaseUri), rootBaseUri));
