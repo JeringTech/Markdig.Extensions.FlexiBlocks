@@ -3,13 +3,22 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.11.1...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.12.0...HEAD)
 
-## [0.11.1](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.11.0...0.11.1) - Dec 1, 2018
+## [0.12.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.11.0...0.12.0) - Dec 3, 2018
+### Fixes
+- Made `FlexiCodeBlockRenderer` thread safe.
 ### Changes
+- `FlexiSectionBlockRenderer` is now a singleton service.
+- Bumped bumped `Jering.Web.SyntaxHighlighters.HighlightJS` and `Jering.Web.SyntaxHighlighters.Prism`.
 - Nuget package now includes source-linked symbols.
 - Changed target frameworks from `netstandard2.0` and `netstandard1.3` to `netstandard2.0` and `net461`.
 - Updated Nuget package metadata.
+- Improved `FlexiBlocksMarkdownPipelineBuilderExtensions`
+  - Removed its constructor and members `GetServiceProvider` and `SetDefaultServiceProvider`.
+  - Added members `GetOrCreateServiceProvider`, `DisposeServiceProvider` and `Configure<TOptions>`.
+- FlexiBlocksException constructor no longer throws an `ArgumentNullException`.
+
 
 ## [0.11.0](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/compare/0.10.0...0.11.0) - Oct 18, 2018
 ### Additions
