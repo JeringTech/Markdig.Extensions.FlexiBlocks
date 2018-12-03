@@ -11,34 +11,39 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
 namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     /// <summary>
-    /// <see cref="MarkdownPipelineBuilder"/> extensions for adding FlexiBlocks extensions.
+    /// <para><see cref="MarkdownPipelineBuilder"/> extensions for adding FlexiBlocks extensions.</para>
     /// </summary>
     public static class FlexiBlocksMarkdownPipelineBuilderExtensions
     {
-        private static IServiceCollection _services;
-        private static ServiceProvider _serviceProvider;
+        private static volatile IServiceCollection _services;
+        private static volatile ServiceProvider _serviceProvider;
+        private static readonly object _createLock = new object();
 
         private static ServiceProvider GetOrCreateServiceProvider()
         {
-            if (_serviceProvider != null && _services == null)
+            if (_serviceProvider == null || _services != null)
             {
-                // _serviceProvider already exists and no configuration pending
-                return _serviceProvider;
+                lock (_createLock)
+                {
+                    if (_serviceProvider == null || _services != null)
+                    {
+                        // Dispose of service provider
+                        _serviceProvider?.Dispose();
+
+                        // Create new service provider
+                        (_services ?? (_services = new ServiceCollection())).AddFlexiBlocks();
+                        _serviceProvider = _services.BuildServiceProvider();
+                        _services = null;
+                    }
+                }
             }
-
-            // Dispose of service provider
-            _serviceProvider?.Dispose();
-
-            // Create new service provider
-            (_services ?? (_services = new ServiceCollection())).AddFlexiBlocks();
-            _serviceProvider = _services.BuildServiceProvider();
-            _services = null;
 
             return _serviceProvider;
         }
 
         /// <summary>
-        /// Disposes the underlying <see cref="IServiceProvider"/> used to resolve FlexiBlocks services.
+        /// <para>Disposes the underlying <see cref="IServiceProvider"/> used to resolve FlexiBlocks services.</para>
+        /// <para>This method is not thread safe.</para>
         /// </summary>
         public static void DisposeServiceProvider()
         {
@@ -47,7 +52,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
-        /// Configures options.
+        /// <para>Configures options.</para>
+        /// <para>This method is not thread safe.</para>
         /// </summary>
         /// <typeparam name="T">The type of options to configure.</typeparam>
         /// <param name="configureOptions">The action that configures the options.</param>
