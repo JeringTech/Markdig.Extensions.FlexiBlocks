@@ -15,29 +15,45 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
     /// </summary>
     public static class FlexiBlocksMarkdownPipelineBuilderExtensions
     {
-        private static IServiceProvider _serviceProvider;
+        private static IServiceCollection _services;
+        private static ServiceProvider _serviceProvider;
 
-        static FlexiBlocksMarkdownPipelineBuilderExtensions()
+        private static ServiceProvider GetOrCreateServiceProvider()
         {
-            SetDefaultServiceProvider();
-        }
+            if (_serviceProvider != null && _services == null)
+            {
+                // _serviceProvider already exists and no configuration pending
+                return _serviceProvider;
+            }
 
-        /// <summary>
-        /// Gets the <see cref="IServiceProvider"/> used to resolve FlexiBlocks services.
-        /// </summary>
-        public static IServiceProvider GetServiceProvider()
-        {
+            // Dispose of service provider
+            _serviceProvider?.Dispose();
+
+            // Create new service provider
+            (_services ?? (_services = new ServiceCollection())).AddFlexiBlocks();
+            _serviceProvider = _services.BuildServiceProvider();
+            _services = null;
+
             return _serviceProvider;
         }
 
         /// <summary>
-        /// Sets the <see cref="IServiceProvider"/> used to resolve FlexiBlocks services to the default service provider.
+        /// Disposes the underlying <see cref="IServiceProvider"/> used to resolve FlexiBlocks services.
         /// </summary>
-        public static void SetDefaultServiceProvider()
+        public static void DisposeServiceProvider()
         {
-            var services = new ServiceCollection();
-            services.AddFlexiBlocks();
-            _serviceProvider = services.BuildServiceProvider();
+            _serviceProvider?.Dispose();
+            _serviceProvider = null;
+        }
+
+        /// <summary>
+        /// Configures options.
+        /// </summary>
+        /// <typeparam name="T">The type of options to configure.</typeparam>
+        /// <param name="configureOptions">The action that configures the options.</param>
+        public static void Configure<T>(Action<T> configureOptions) where T : class
+        {
+            (_services ?? (_services = new ServiceCollection())).Configure(configureOptions);
         }
 
         /// <summary>
@@ -73,7 +89,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         {
             if (!pipelineBuilder.Extensions.Contains<FlexiOptionsBlocksExtension>())
             {
-                pipelineBuilder.Extensions.Add(_serviceProvider.GetRequiredService<FlexiOptionsBlocksExtension>());
+                pipelineBuilder.Extensions.Add(GetOrCreateServiceProvider().GetRequiredService<FlexiOptionsBlocksExtension>());
             }
 
             return pipelineBuilder;
@@ -90,7 +106,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             if (!pipelineBuilder.Extensions.Contains<FlexiAlertBlocksExtension>())
             {
                 IFlexiBlocksExtensionFactory<FlexiAlertBlocksExtension, FlexiAlertBlocksExtensionOptions> extensionFactory =
-                    _serviceProvider.GetRequiredService<IFlexiBlocksExtensionFactory<FlexiAlertBlocksExtension, FlexiAlertBlocksExtensionOptions>>();
+                    GetOrCreateServiceProvider().GetRequiredService<IFlexiBlocksExtensionFactory<FlexiAlertBlocksExtension, FlexiAlertBlocksExtensionOptions>>();
                 pipelineBuilder.Extensions.Add(extensionFactory.Build(options));
             }
 
@@ -108,7 +124,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             if (!pipelineBuilder.Extensions.Contains<FlexiCodeBlocksExtension>())
             {
                 IFlexiBlocksExtensionFactory<FlexiCodeBlocksExtension, FlexiCodeBlocksExtensionOptions> extensionFactory =
-                    _serviceProvider.GetRequiredService<IFlexiBlocksExtensionFactory<FlexiCodeBlocksExtension, FlexiCodeBlocksExtensionOptions>>();
+                    GetOrCreateServiceProvider().GetRequiredService<IFlexiBlocksExtensionFactory<FlexiCodeBlocksExtension, FlexiCodeBlocksExtensionOptions>>();
                 pipelineBuilder.Extensions.Add(extensionFactory.Build(options));
             }
 
@@ -126,7 +142,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             if (!pipelineBuilder.Extensions.Contains<FlexiIncludeBlocksExtension>())
             {
                 IFlexiBlocksExtensionFactory<FlexiIncludeBlocksExtension, FlexiIncludeBlocksExtensionOptions> extensionFactory =
-                    _serviceProvider.GetRequiredService<IFlexiBlocksExtensionFactory<FlexiIncludeBlocksExtension, FlexiIncludeBlocksExtensionOptions>>();
+                    GetOrCreateServiceProvider().GetRequiredService<IFlexiBlocksExtensionFactory<FlexiIncludeBlocksExtension, FlexiIncludeBlocksExtensionOptions>>();
                 pipelineBuilder.Extensions.Add(extensionFactory.Build(options));
             }
 
@@ -144,7 +160,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             if (!pipelineBuilder.Extensions.Contains<FlexiSectionBlocksExtension>())
             {
                 IFlexiBlocksExtensionFactory<FlexiSectionBlocksExtension, FlexiSectionBlocksExtensionOptions> extensionFactory =
-                    _serviceProvider.GetRequiredService<IFlexiBlocksExtensionFactory<FlexiSectionBlocksExtension, FlexiSectionBlocksExtensionOptions>>();
+                    GetOrCreateServiceProvider().GetRequiredService<IFlexiBlocksExtensionFactory<FlexiSectionBlocksExtension, FlexiSectionBlocksExtensionOptions>>();
                 pipelineBuilder.Extensions.Add(extensionFactory.Build(options));
             }
 
@@ -162,7 +178,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             if (!pipelineBuilder.Extensions.Contains<FlexiTableBlocksExtension>())
             {
                 IFlexiBlocksExtensionFactory<FlexiTableBlocksExtension, FlexiTableBlocksExtensionOptions> extensionFactory =
-                    _serviceProvider.GetRequiredService<IFlexiBlocksExtensionFactory<FlexiTableBlocksExtension, FlexiTableBlocksExtensionOptions>>();
+                    GetOrCreateServiceProvider().GetRequiredService<IFlexiBlocksExtensionFactory<FlexiTableBlocksExtension, FlexiTableBlocksExtensionOptions>>();
                 pipelineBuilder.Extensions.Add(extensionFactory.Build(options));
             }
 
