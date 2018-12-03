@@ -84,18 +84,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <param name="description">A description of the problem.</param>
         /// <param name="innerException">This exception's inner exception.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="invalidFlexiBlock"/> is null.</exception>
-        public FlexiBlocksException(Block invalidFlexiBlock, string description = null, Exception innerException = null, int? lineNumber = null, int? column = null) : base(null, innerException)
+        public FlexiBlocksException(Block invalidFlexiBlock, string description = null, Exception innerException = null, int? lineNumber = null, int? column = null) : base(description, innerException)
         {
-            if (invalidFlexiBlock == null)
+            if (invalidFlexiBlock != null)
             {
-                throw new ArgumentNullException(nameof(invalidFlexiBlock));
+                Description = description;
+                LineNumber = lineNumber ?? invalidFlexiBlock.Line + 1;
+                Column = column ?? invalidFlexiBlock.Column;
+                BlockTypeName = invalidFlexiBlock.GetType().Name;
+                Context = Context.Block;
             }
-
-            Description = description;
-            LineNumber = lineNumber ?? invalidFlexiBlock.Line + 1;
-            Column = column ?? invalidFlexiBlock.Column;
-            BlockTypeName = invalidFlexiBlock.GetType().Name;
-            Context = Context.Block;
         }
 
         /// <summary>
