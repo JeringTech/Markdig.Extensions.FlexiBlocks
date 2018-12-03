@@ -11,7 +11,6 @@ using Jering.Web.SyntaxHighlighters.HighlightJS;
 using Jering.Web.SyntaxHighlighters.Prism;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks
 {
@@ -58,7 +57,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
 
             // FlexiSectionBlocks
             services.TryAddSingleton<IFlexiBlocksExtensionFactory<FlexiSectionBlocksExtension, FlexiSectionBlocksExtensionOptions>, FlexiSectionBlocksExtensionFactory>();
-            services.TryAddTransient<FlexiSectionBlockRenderer>();
+            services.TryAddSingleton<FlexiSectionBlockRenderer>();
 
             // FlexiTableBlocks
             services.TryAddSingleton<IFlexiBlocksExtensionFactory<FlexiTableBlocksExtension, FlexiTableBlocksExtensionOptions>, FlexiTableBlocksExtensionFactory>();
