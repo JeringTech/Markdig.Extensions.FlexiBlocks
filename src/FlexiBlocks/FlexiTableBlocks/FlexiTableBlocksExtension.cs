@@ -44,35 +44,30 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
         /// <summary>
         /// Registers a <see cref="GridTableParser"/> if one isn't already registered.
         /// </summary>
-        /// <param name="pipeline">The pipeline builder to register the parsers for.</param>
-        public override void Setup(MarkdownPipelineBuilder pipeline)
+        /// <param name="pipelineBuilder">The pipeline builder to register the parsers for.</param>
+        public override void SetupParsers(MarkdownPipelineBuilder pipelineBuilder)
         {
-            if (pipeline == null)
-            {
-                throw new ArgumentNullException(nameof(pipeline));
-            }
-
             // If GridTableParser hasn't been added to parsers, add it
-            GridTableParser gridTableParser = pipeline.BlockParsers.Find<GridTableParser>();
+            GridTableParser gridTableParser = pipelineBuilder.BlockParsers.Find<GridTableParser>();
             if (gridTableParser == null)
             {
                 gridTableParser = new GridTableParser();
-                pipeline.BlockParsers.Insert(0, gridTableParser);
+                pipelineBuilder.BlockParsers.Insert(0, gridTableParser);
             }
             gridTableParser.Closed += OnFlexiBlockClosed;
 
             // If PipeTable parsers have not been added, add them.
             // Note PipeTableParser is an inline parser with no equivalent to the BlockParser.Closed event, so FlexiOptionsBlock only works
             // for grid tables.
-            pipeline.PreciseSourceLocation = true; // PipeTables require this, refer to PipeTableExtension
-            if (!pipeline.BlockParsers.Contains<PipeTableBlockParser>())
+            pipelineBuilder.PreciseSourceLocation = true; // PipeTables require this, refer to PipeTableExtension
+            if (!pipelineBuilder.BlockParsers.Contains<PipeTableBlockParser>())
             {
-                pipeline.BlockParsers.Insert(0, new PipeTableBlockParser());
+                pipelineBuilder.BlockParsers.Insert(0, new PipeTableBlockParser());
             }
-            if (!pipeline.InlineParsers.Contains<PipeTableParser>())
+            if (!pipelineBuilder.InlineParsers.Contains<PipeTableParser>())
             {
-                LineBreakInlineParser lineBreakParser = pipeline.InlineParsers.FindExact<LineBreakInlineParser>();
-                pipeline.InlineParsers.InsertBefore<EmphasisInlineParser>(new PipeTableParser(lineBreakParser));
+                LineBreakInlineParser lineBreakParser = pipelineBuilder.InlineParsers.FindExact<LineBreakInlineParser>();
+                pipelineBuilder.InlineParsers.InsertBefore<EmphasisInlineParser>(new PipeTableParser(lineBreakParser));
             }
         }
 
@@ -81,13 +76,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
         /// </summary>
         /// <param name="pipeline">Unused.</param>
         /// <param name="renderer">The root renderer to register the renderer for.</param>
-        public override void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
+        public override void SetupRenderers(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
-            if (renderer == null)
-            {
-                throw new ArgumentNullException(nameof(renderer));
-            }
-
             if (renderer is HtmlRenderer htmlRenderer)
             {
                 if (!htmlRenderer.ObjectRenderers.Contains<FlexiTableBlockRenderer>())
@@ -110,11 +100,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
         /// <param name="block">The FlexiTableBlock that has been closed.</param>
         protected override void OnFlexiBlockClosed(BlockProcessor processor, Block block)
         {
-            if (block == null)
-            {
-                throw new ArgumentNullException(nameof(block));
-            }
-
             // A Table has child TableCellBlocks, this delegate is invoked each time one of them is closed. Ignore all such invocations.
             if (!(block is Table))
             {
