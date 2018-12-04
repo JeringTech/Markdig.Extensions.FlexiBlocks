@@ -10,6 +10,41 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
 {
     public class FlexiAlertBlockRendererUnitTests
     {
+        [Fact]
+        public void WriteFlexiBlock_OnlyWritesChildrenIfEnableHtmlForBlockIsFalse()
+        {
+            // Arrange
+            const string dummyChildText = "dummyChildText";
+            var dummyContainerInline = new ContainerInline();
+            dummyContainerInline.AppendChild(new LiteralInline(dummyChildText));
+            var dummyParagraphBlock = new ParagraphBlock()
+            {
+                Inline = dummyContainerInline
+            };
+            var dummyFlexiAlertBlock = new FlexiAlertBlock(null)
+            {
+                FlexiAlertBlockOptions = new FlexiAlertBlockOptions()
+            };
+            dummyFlexiAlertBlock.Add(dummyParagraphBlock);
+
+            string result = null;
+            using (var dummyStringWriter = new StringWriter())
+            {
+                var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter)
+                {
+                    EnableHtmlForBlock = false
+                };
+                var testSubject = new FlexiAlertBlockRenderer();
+
+                // Act
+                testSubject.Write(dummyHtmlRenderer, dummyFlexiAlertBlock);
+                result = dummyStringWriter.ToString();
+            }
+
+            // Assert
+            Assert.Equal(dummyChildText, result);
+        }
+
         // Can't use SerializableWrapper for FlexiAlertBlock - "null, whitespace or empty string" tests get serialized into the same parameters, which causes
         // xUnit to skip them.
         [Theory]
@@ -21,10 +56,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                var flexiAlertBlockRenderer = new FlexiAlertBlockRenderer();
+                var testSubject = new FlexiAlertBlockRenderer();
 
                 // Act
-                flexiAlertBlockRenderer.Write(dummyHtmlRenderer, dummyFlexiAlertBlock);
+                testSubject.Write(dummyHtmlRenderer, dummyFlexiAlertBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -130,10 +165,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                var flexiAlertBlockRenderer = new FlexiAlertBlockRenderer();
+                var testSubject = new FlexiAlertBlockRenderer();
 
                 // Act
-                flexiAlertBlockRenderer.Write(dummyHtmlRenderer, dummyFlexiAlertBlock);
+                testSubject.Write(dummyHtmlRenderer, dummyFlexiAlertBlock);
                 result = dummyStringWriter.ToString();
             }
 
