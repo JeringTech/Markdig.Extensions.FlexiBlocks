@@ -16,18 +16,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// <param name="obj">The <see cref="FlexiSectionBlock"/> to render.</param>
         protected override void WriteFlexiBlock(HtmlRenderer renderer, FlexiSectionBlock obj)
         {
-            if (renderer == null)
-            {
-                throw new ArgumentNullException(nameof(renderer));
-            }
-
-            if (obj == null)
-            {
-                throw new ArgumentNullException(nameof(obj));
-            }
-
-            renderer.EnsureLine();
-
             if (!renderer.EnableHtmlForBlock)
             {
                 renderer.WriteChildren(obj, false);

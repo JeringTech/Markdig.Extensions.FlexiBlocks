@@ -1,5 +1,4 @@
-﻿using Markdig.Parsers;
-using Markdig.Renderers;
+﻿using Markdig.Renderers;
 using Markdig.Syntax;
 using Moq;
 using Moq.Protected;
@@ -12,6 +11,30 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
     public class FlexiBlockRendererUnitTests
     {
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
+
+        [Fact]
+        public void Write_ThrowsArgumentNullExceptionIfRendererIsNull()
+        {
+            // Arrange
+            Mock<Block> dummyBlock = _mockRepository.Create<Block>(null);
+            Mock<FlexiBlockRenderer<Block>> mockTestSubject = _mockRepository.Create<FlexiBlockRenderer<Block>>();
+            mockTestSubject.CallBase = true;
+
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => mockTestSubject.Object.Write(null, dummyBlock.Object));
+        }
+
+        [Fact]
+        public void Write_ThrowsArgumentNullExceptionIfObjIsNull()
+        {
+            // Arrange
+            Mock<Block> dummyBlock = _mockRepository.Create<Block>(null);
+            Mock<FlexiBlockRenderer<Block>> mockTestSubject = _mockRepository.Create<FlexiBlockRenderer<Block>>();
+            mockTestSubject.CallBase = true;
+
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => mockTestSubject.Object.Write(new HtmlRenderer(new StringWriter()), null));
+        }
 
         [Fact]
         public void Write_DoesNotInterfereWithFlexiBlocksExceptionsWithBlockContext()

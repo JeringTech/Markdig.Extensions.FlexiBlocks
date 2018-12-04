@@ -35,8 +35,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <param name="obj">The FlexiBlock to render.</param>
         protected sealed override void Write(HtmlRenderer renderer, T obj)
         {
+            if (renderer == null)
+            {
+                throw new ArgumentNullException(nameof(renderer));
+            }
+
+            if (obj == null)
+            {
+                throw new ArgumentNullException(nameof(obj));
+            }
+
             try
             {
+                renderer.EnsureLine();
+
                 WriteFlexiBlock(renderer, obj);
             }
             catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)

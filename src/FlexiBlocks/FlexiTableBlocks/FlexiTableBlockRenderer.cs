@@ -53,7 +53,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
                 };
             }
 
-            renderer.EnsureLine();
             // TODO merge attributes? - ideally, PipeTableParser should be converted to a BlockParser so that the GenericAttributes extension is not required
             renderer.Write("<table").
                 WriteAttributes(attributes).
