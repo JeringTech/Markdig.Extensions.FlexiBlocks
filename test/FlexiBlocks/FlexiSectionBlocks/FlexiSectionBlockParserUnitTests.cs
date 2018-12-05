@@ -16,6 +16,22 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
 
         [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfFlexiOptionsBlockServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiSectionBlockParser(null, new FlexiSectionBlocksExtensionOptions()));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfExtensionOptionsIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiSectionBlockParser(
+                _mockRepository.Create<IFlexiOptionsBlockService>().Object,
+                null));
+        }
+
+        [Fact]
         public void TryOpenFlexiBlock_ReturnsBlockStateNoneIfCurrentLineHasCodeIndent()
         {
             // Arrange
