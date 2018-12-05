@@ -28,16 +28,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
         }
 
         [Fact]
-        public void TryOpenFlexiBlock_ThrowsArgumentNullExceptionIfProcessorIsNull()
-        {
-            // Arrange
-            ExposedFlexiAlertBlockParser testSubject = CreateExposedFlexiAlertBlockParser();
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(() => testSubject.ExposedTryOpenFlexiBlock(null));
-        }
-
-        [Fact]
         public void TryOpenFlexiBlock_ReturnsBlockStateNoneIfCurrentLineHasCodeIndent()
         {
             // Arrange
@@ -81,27 +71,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             Assert.Equal(dummyInitialColumn, resultFlexiAlertBlock.Column); // Includes '!'
             Assert.Equal(dummyInitialStart, resultFlexiAlertBlock.Span.Start); // Includes '!'
             Assert.Equal(dummyStringSlice.End, resultFlexiAlertBlock.Span.End);
-        }
-
-        [Fact]
-        public void TryContinueFlexiBlock_ThrowsArgumentNullExceptionIfProcessorIsNull()
-        {
-            // Arrange
-            ExposedFlexiAlertBlockParser testSubject = CreateExposedFlexiAlertBlockParser();
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(() => testSubject.ExposedTryContinueFlexiBlock(null, _mockRepository.Create<Block>(null).Object));
-        }
-
-        [Fact]
-        public void TryContinueFlexiBlock_ThrowsArgumentNullExceptionIfBlockIsNull()
-        {
-            // Arrange
-            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            ExposedFlexiAlertBlockParser testSubject = CreateExposedFlexiAlertBlockParser();
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(() => testSubject.ExposedTryContinueFlexiBlock(dummyBlockProcessor, null));
         }
 
         [Fact]

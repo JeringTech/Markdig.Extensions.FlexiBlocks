@@ -13,6 +13,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
 
         [Fact]
+        public void TryOpen_ThrowsArgumentNullExceptionIfProcessorIsNull()
+        {
+            // Arrange
+            Mock<FlexiBlockParser> mockTestSubject = _mockRepository.Create<FlexiBlockParser>();
+            mockTestSubject.CallBase = true;
+
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => mockTestSubject.Object.TryOpen(null));
+        }
+
+        [Fact]
         public void TryOpen_DoesNotInterfereWithFlexiBlocksExceptionsWithBlockContextIfAFlexiBlockIsCreated()
         {
             // Arrange
@@ -113,6 +124,28 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
         }
 
         [Fact]
+        public void TryContinue_ThrowsArgumentNullExceptionIfProcessorIsNull()
+        {
+            // Arrange
+            Mock<FlexiBlockParser> mockTestSubject = _mockRepository.Create<FlexiBlockParser>();
+            mockTestSubject.CallBase = true;
+
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => mockTestSubject.Object.TryContinue(null, _mockRepository.Create<Block>(null).Object));
+        }
+
+        [Fact]
+        public void TryContinue_ThrowsArgumentNullExceptionIfBlockIsNull()
+        {
+            // Arrange
+            Mock<FlexiBlockParser> mockTestSubject = _mockRepository.Create<FlexiBlockParser>();
+            mockTestSubject.CallBase = true;
+
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => mockTestSubject.Object.TryContinue(MarkdigTypesFactory.CreateBlockProcessor(), null));
+        }
+
+        [Fact]
         public void TryContinue_DoesNotInterfereWithFlexiBlocksExceptionsWithBlockContext()
         {
             // Arrange
@@ -152,6 +185,28 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
                 result.Message,
                 ignoreLineEndingDifferences: true);
             Assert.Same(dummyException, result.InnerException);
+        }
+
+        [Fact]
+        public void Close_ThrowsArgumentNullExceptionIfProcessorIsNull()
+        {
+            // Arrange
+            Mock<FlexiBlockParser> mockTestSubject = _mockRepository.Create<FlexiBlockParser>();
+            mockTestSubject.CallBase = true;
+
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => mockTestSubject.Object.Close(null, _mockRepository.Create<Block>(null).Object));
+        }
+
+        [Fact]
+        public void CloseThrowsArgumentNullExceptionIfBlockIsNull()
+        {
+            // Arrange
+            Mock<FlexiBlockParser> mockTestSubject = _mockRepository.Create<FlexiBlockParser>();
+            mockTestSubject.CallBase = true;
+
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => mockTestSubject.Object.Close(MarkdigTypesFactory.CreateBlockProcessor(), null));
         }
 
         [Fact]

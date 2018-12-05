@@ -59,11 +59,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// </returns>
         protected override BlockState TryOpenFlexiBlock(BlockProcessor processor)
         {
-            if (processor == null)
-            {
-                throw new ArgumentNullException(nameof(processor));
-            }
-
             if (processor.IsCodeIndent)
             {
                 return BlockState.None;
@@ -110,16 +105,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// </returns>
         protected override BlockState TryContinueFlexiBlock(BlockProcessor processor, Block block)
         {
-            if (processor == null)
-            {
-                throw new ArgumentNullException(nameof(processor));
-            }
-
-            if (block == null)
-            {
-                throw new ArgumentNullException(nameof(block));
-            }
-
             var flexiIncludeBlock = (FlexiIncludeBlock)block;
 
             return flexiIncludeBlock.ParseLine(processor.Line);
@@ -133,16 +118,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <returns>Returns false, indicating that the <see cref="FlexiIncludeBlock"/> should be discarded from the tree of blocks.</returns>
         protected override bool CloseFlexiBlock(BlockProcessor processor, Block block)
         {
-            if (processor == null)
-            {
-                throw new ArgumentNullException(nameof(processor));
-            }
-
-            if (block == null)
-            {
-                throw new ArgumentNullException(nameof(block));
-            }
-
             var flexiIncludeBlock = (FlexiIncludeBlock)block;
 
             // FlexiIncludeBlocks can reference sources other than the entry markdown document. If an exception is thrown while processing content from such sources,

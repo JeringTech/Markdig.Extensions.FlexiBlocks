@@ -38,11 +38,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// </returns>
         protected override BlockState TryOpenFlexiBlock(BlockProcessor processor)
         {
-            if(processor == null)
-            {
-                throw new ArgumentNullException(nameof(processor));
-            }
-
             if (processor.IsCodeIndent)
             {
                 return BlockState.None;
@@ -80,16 +75,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// </returns>
         protected override BlockState TryContinueFlexiBlock(BlockProcessor processor, Block block)
         {
-            if (processor == null)
-            {
-                throw new ArgumentNullException(nameof(processor));
-            }
-
-            if (block == null)
-            {
-                throw new ArgumentNullException(nameof(block));
-            }
-
             if (processor.IsCodeIndent)
             {
                 return BlockState.None;

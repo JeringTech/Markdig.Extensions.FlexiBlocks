@@ -61,6 +61,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <exception cref="FlexiBlocksException">Thrown if an exception is thrown while setting up the newly opened FlexiBlock.</exception>
         public sealed override BlockState TryOpen(BlockProcessor processor)
         {
+            if (processor == null)
+            {
+                throw new ArgumentNullException(nameof(processor));
+            }
+
             try
             {
                 return TryOpenFlexiBlock(processor);
@@ -99,6 +104,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <exception cref="FlexiBlocksException">Thrown if an exception is thrown while attempting to continue the FlexiBlock.</exception>
         public sealed override BlockState TryContinue(BlockProcessor processor, Block block)
         {
+            if (processor == null)
+            {
+                throw new ArgumentNullException(nameof(processor));
+            }
+
+            if (block == null)
+            {
+                throw new ArgumentNullException(nameof(block));
+            }
+
             try
             {
                 return TryContinueFlexiBlock(processor, block);
@@ -118,6 +133,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <exception cref="FlexiBlocksException">Thrown if an exception is thrown while attempting to close the FlexiBlock.</exception>
         public sealed override bool Close(BlockProcessor processor, Block block)
         {
+            if (processor == null)
+            {
+                throw new ArgumentNullException(nameof(processor));
+            }
+
+            if (block == null)
+            {
+                throw new ArgumentNullException(nameof(block));
+            }
+
             try
             {
                 return CloseFlexiBlock(processor, block);
