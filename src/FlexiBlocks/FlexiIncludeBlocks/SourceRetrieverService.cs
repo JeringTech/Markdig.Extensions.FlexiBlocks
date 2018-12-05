@@ -25,7 +25,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         private readonly IHttpClientService _httpClientService;
         private readonly IDiskCacheService _diskCacheService;
         private readonly IFileService _fileService;
-        private readonly ILogger<SourceRetrieverService> _logger;
+        private readonly ILogger _logger;
+        private readonly bool _warningLoggingEnabled;
 
         /// <summary>
         /// Creates a <see cref="SourceRetrieverService"/> instance.
@@ -42,7 +43,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
             _httpClientService = httpClientService ?? throw new ArgumentNullException(nameof(httpClientService));
             _diskCacheService = diskCacheService ?? throw new ArgumentNullException(nameof(diskCacheService));
-            _logger = loggerFactory?.CreateLogger<SourceRetrieverService>();
+            _logger = loggerFactory?.CreateLogger(typeof(SourceRetrieverService)) ?? throw new ArgumentNullException(nameof(loggerFactory));
+
+            _warningLoggingEnabled = _logger.IsEnabled(LogLevel.Warning);
         }
 
         /// <inheritdoc />
@@ -70,7 +73,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 }
                 catch (Exception exception)
                 {
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_InvalidLocalUri, sourceUri.AbsolutePath), exception);
+                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_SourceRetrieverService_InvalidLocalUri, sourceUri.AbsolutePath), exception);
                 }
             }
 
@@ -130,27 +133,32 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                     else if (response.StatusCode == HttpStatusCode.NotFound)
                     {
                         // No point retrying if server is responsive but content does not exist
-                        throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_RemoteUriDoesNotExist, sourceUri.AbsoluteUri));
+                        throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_SourceRetrieverService_RemoteUriDoesNotExist, sourceUri.AbsoluteUri));
                     }
                     else if (response.StatusCode == HttpStatusCode.Forbidden)
                     {
                         // No point retrying if server is responsive but access to the content is forbidden
-                        throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_RemoteUriAccessForbidden, sourceUri.AbsoluteUri));
+                        throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_SourceRetrieverService_RemoteUriAccessForbidden, sourceUri.AbsoluteUri));
                     }
-                    else
+                    else if(_warningLoggingEnabled)
                     {
                         // Might be a random internal server error or some intermittent network issue
-                        _logger?.LogDebug($"Http request to \"{sourceUri.AbsoluteUri} failed with status code \"{response.StatusCode}\".");
+                        _logger.LogWarning(string.Format(Strings.LogWarning_SourceRetrieverService_FailureStatusCode, sourceUri.AbsoluteUri, (int)response.StatusCode, remainingTries));
                     }
                 }
                 catch (OperationCanceledException) // HttpClient.GetAsync throws OperationCanceledException on timeout - https://github.com/dotnet/corefx/blob/25d0f5c20edddbf872d17fa699b4279c0827c320/src/System.Net.Http/src/System/Net/Http/HttpClient.cs#L536
                 {
-                    _logger?.LogDebug($"Attempt to retrieve content from \"{sourceUri.AbsoluteUri}\" timed out, {remainingTries} tries remaining.");
+                    if (_warningLoggingEnabled)
+                    {
+                        _logger.LogWarning(string.Format(Strings.LogWarning_SourceRetrieverService_Timeout, sourceUri.AbsoluteUri, remainingTries));
+                    }
                 }
-                catch (HttpRequestException exception)
+                catch (HttpRequestException exception) // HttpRequestException is the general exception used for several situations, some of which may be intermittent.
                 {
-                    // HttpRequestException is the general exception used for several situations, some of which may be intermittent.
-                    _logger?.LogDebug($"A {nameof(HttpRequestException)} with message \"{exception.Message}\" occurred when attempting to retrieve content from \"{sourceUri.AbsoluteUri}\", {remainingTries} tries remaining.");
+                    if (_warningLoggingEnabled)
+                    {
+                        _logger.LogWarning(string.Format(Strings.LogWarning_SourceRetrieverService_HttpRequestException, exception.Message, sourceUri.AbsoluteUri, remainingTries));
+                    }
                 }
                 finally
                 {
@@ -162,7 +170,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             while (remainingTries > 0);
 
             // remainingTries == 0
-            throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_FailedAfterMultipleAttempts, sourceUri.AbsoluteUri));
+            throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_SourceRetrieverService_FailedAfterMultipleAttempts, sourceUri.AbsoluteUri));
         }
 
         internal virtual ReadOnlyCollection<string> ReadAndNormalizeAllLines(Stream stream)

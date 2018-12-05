@@ -375,5 +375,32 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
                 return ResourceManager.GetString("FlexiBlocksException_SourceRetrieverService_RemoteUriDoesNotExist", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Http request to &quot;{0}&quot; failed with status code &quot;{1}&quot;, {2} tries remaining..
+        /// </summary>
+        internal static string LogWarning_SourceRetrieverService_FailureStatusCode {
+            get {
+                return ResourceManager.GetString("LogWarning_SourceRetrieverService_FailureStatusCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A HttpRequestException with message &quot;{0}&quot; occurred when attempting to retrieve content from &quot;{1}&quot;, {2} tries remaining..
+        /// </summary>
+        internal static string LogWarning_SourceRetrieverService_HttpRequestException {
+            get {
+                return ResourceManager.GetString("LogWarning_SourceRetrieverService_HttpRequestException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempt to retrieve content from &quot;{0}&quot; timed out, {1} tries remaining..
+        /// </summary>
+        internal static string LogWarning_SourceRetrieverService_Timeout {
+            get {
+                return ResourceManager.GetString("LogWarning_SourceRetrieverService_Timeout", resourceCulture);
+            }
+        }
     }
 }

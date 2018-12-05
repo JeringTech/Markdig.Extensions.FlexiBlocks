@@ -222,4 +222,13 @@
   <data name="FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingBlock" xml:space="preserve">
     <value>An exception occured while processing the FlexiIncludeBlock.</value>
   </data>
+  <data name="LogWarning_SourceRetrieverService_FailureStatusCode" xml:space="preserve">
+    <value>Http request to "{0}" failed with status code "{1}", {2} tries remaining.</value>
+  </data>
+  <data name="LogWarning_SourceRetrieverService_HttpRequestException" xml:space="preserve">
+    <value>A HttpRequestException with message "{0}" occurred when attempting to retrieve content from "{1}", {2} tries remaining.</value>
+  </data>
+  <data name="LogWarning_SourceRetrieverService_Timeout" xml:space="preserve">
+    <value>Attempt to retrieve content from "{0}" timed out, {1} tries remaining.</value>
+  </data>
 </root>
