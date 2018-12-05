@@ -29,7 +29,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             ArgumentException result = Assert.Throws<ArgumentException>(() => testSubject.TryGetCacheFile(dummySourceUri, null));
-            Assert.Equal(string.Format(Strings.ArgumentException_ValueCannotBeNullWhitespaceOrAnEmptyString, "identifier"), result.Message);
+            Assert.Equal(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, "identifier"), result.Message);
         }
 
         public static IEnumerable<object[]> TryGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data()
@@ -52,7 +52,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             ArgumentException result = Assert.Throws<ArgumentException>(() => testSubject.TryGetCacheFile(dummySourceUri, dummyCacheDirectory));
-            Assert.Equal(string.Format(Strings.ArgumentException_ValueCannotBeNullWhitespaceOrAnEmptyString, "cacheDirectory"), result.Message);
+            Assert.Equal(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, "cacheDirectory"), result.Message);
         }
 
         public static IEnumerable<object[]> TryGetCacheFile_ThrowsArgumentExceptionIfCacheDirectoryIsNullWhiteSpaceOrAnEmptyString_Data()
@@ -161,7 +161,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryGetCacheFile(dummySourceUri, dummyCacheDirectory));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_UnexpectedDiskCacheException, dummySourceUri, dummyFilePath), result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_DiskCacheService_UnexpectedDiskCacheException, dummySourceUri, dummyFilePath), result.Message);
             Assert.Same(dummyException, result.InnerException);
         }
 
@@ -174,7 +174,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             ArgumentException result = Assert.Throws<ArgumentException>(() => testSubject.CreateOrGetCacheFile(dummySourceUri, null));
-            Assert.Equal(string.Format(Strings.ArgumentException_ValueCannotBeNullWhitespaceOrAnEmptyString, "identifier"), result.Message);
+            Assert.Equal(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, "identifier"), result.Message);
         }
 
         public static IEnumerable<object[]> CreateOrGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data()
@@ -197,7 +197,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             ArgumentException result = Assert.Throws<ArgumentException>(() => testSubject.CreateOrGetCacheFile(dummySourceUri, dummyCacheDirectory));
-            Assert.Equal(string.Format(Strings.ArgumentException_ValueCannotBeNullWhitespaceOrAnEmptyString, "cacheDirectory"), result.Message);
+            Assert.Equal(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, "cacheDirectory"), result.Message);
         }
 
         public static IEnumerable<object[]> CreateOrGetCacheFile_ThrowsArgumentExceptionIfCacheDirectoryIsNullWhiteSpaceOrAnEmptyString_Data()
@@ -226,7 +226,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Assert
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_InvalidDiskCacheDirectory, dummyCacheDirectory), result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_DiskCacheService_InvalidDiskCacheDirectory, dummyCacheDirectory), result.Message);
             Assert.Same(dummyException, result.InnerException);
         }
 
@@ -275,7 +275,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Assert
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_UnexpectedDiskCacheException, dummySourceUri, dummyFilePath), result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_DiskCacheService_UnexpectedDiskCacheException, dummySourceUri, dummyFilePath), result.Message);
             Assert.Same(dummyException, result.InnerException);
         }
 

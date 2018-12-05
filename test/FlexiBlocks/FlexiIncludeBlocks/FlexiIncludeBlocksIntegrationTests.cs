@@ -116,22 +116,22 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
                 // Act and assert
                 FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => MarkdownParser.Parse(dummyEntryMarkdown, dummyMarkdownPipeline));
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyEntryOffendingFIBLineNum, 0,
-                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource,
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyEntryOffendingFIBLineNum, 0,
+                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSource,
                             dummyMarkdown1SourceUri)),
                     result.Message);
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown1OffendingFIBLineNum, 0,
-                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource,
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown1OffendingFIBLineNum, 0,
+                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSource,
                             dummyMarkdown2SourceUri)),
                     result.InnerException.Message);
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown2OffendingFIBLineNum, 0,
-                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource,
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown2OffendingFIBLineNum, 0,
+                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSource,
                             dummyMarkdown1SourceUri)),
                     result.InnerException.InnerException.Message);
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown1OffendingFIBLineNum, 0,
-                        Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingBlock),
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown1OffendingFIBLineNum, 0,
+                        Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingBlock),
                     result.InnerException.InnerException.InnerException.Message);
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_CycleFound,
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_CycleFound,
                         string.Format(expectedCycleDescription, dummyMarkdown1SourceUri, dummyMarkdown2SourceUri)),
                     result.InnerException.InnerException.InnerException.InnerException.Message,
                     ignoreLineEndingDifferences: true);
@@ -310,28 +310,28 @@ Source URI: {0}, Line: 1";
 
                 // Act and assert
                 FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => MarkdownParser.Parse(dummyEntryMarkdown, dummyMarkdownPipeline));
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyEntryOffendingFIBLineNum, 0,
-                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource,
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyEntryOffendingFIBLineNum, 0,
+                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSource,
                             dummyMarkdown1SourceUri)),
                     result.Message);
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown1OffendingFIBLineNum, 0,
-                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingContent, nameof(ClippingProcessingStage.BeforeContent))),
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown1OffendingFIBLineNum, 0,
+                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingContent, nameof(ClippingProcessingStage.BeforeContent))),
                     result.InnerException.Message);
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown1OffendingFIBLineNum, 0,
-                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource,
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown1OffendingFIBLineNum, 0,
+                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSource,
                             dummyMarkdown2SourceUri)),
                     result.InnerException.InnerException.Message);
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown1OffendingFIBLineNum, 0,
-                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingContent, nameof(ClippingProcessingStage.AfterContent))),
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown1OffendingFIBLineNum, 0,
+                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingContent, nameof(ClippingProcessingStage.AfterContent))),
                     result.InnerException.InnerException.InnerException.Message);
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown1OffendingFIBLineNum, 0,
-                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource,
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown1OffendingFIBLineNum, 0,
+                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSource,
                             dummyMarkdown1SourceUri)),
                     result.InnerException.InnerException.InnerException.InnerException.Message);
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown1OffendingFIBLineNum, 0,
-                        Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingBlock),
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyMarkdown1OffendingFIBLineNum, 0,
+                        Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingBlock),
                     result.InnerException.InnerException.InnerException.InnerException.InnerException.Message);
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_CycleFound,
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_CycleFound,
                         string.Format(expectedCycleDescription, dummyMarkdown1SourceUri, dummyMarkdown2SourceUri)),
                     result.InnerException.InnerException.InnerException.InnerException.InnerException.InnerException.Message,
                     ignoreLineEndingDifferences: true);
@@ -374,13 +374,13 @@ Source URI: {0}, Line: 1";
                 FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => MarkdownParser.Parse(dummyEntryMarkdown, dummyMarkdownPipeline));
                 // From bottom to top, this is the exception chain: 
                 // FormatException > FlexiBlocksException for invalid option > FlexiBlocksException for invalid FlexiOptionsBlock > FlexiBlocksException for invalid FlexiIncludeBlock
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), 1, 0,
-                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource,
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), 1, 0,
+                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSource,
                             dummyRootBaseUri + $"{nameof(dummyMarkdown1)}.md")),
                     result.Message);
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiOptionsBlock), 1, 0, Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiOptionsBlock), 1, 0, Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
                     result.InnerException.Message);
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionIsAnInvalidFormat, nameof(FlexiAlertBlockOptions.ClassFormat), dummyClassFormat),
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_OptionIsAnInvalidFormat, nameof(FlexiAlertBlockOptions.ClassFormat), dummyClassFormat),
                     result.InnerException.InnerException.Message);
                 Assert.IsType<FormatException>(result.InnerException.InnerException.InnerException);
             }

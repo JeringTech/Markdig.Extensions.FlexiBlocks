@@ -46,7 +46,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new LineRange(dummyStartLine, 0));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(LineRange.StartLineNumber), dummyStartLine),
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_OptionMustBeGreaterThan0, nameof(LineRange.StartLineNumber), dummyStartLine),
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
@@ -66,7 +66,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new LineRange(dummyStartLineNumber, dummyEndLineNumber));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, nameof(LineRange.EndLineNumber),
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, nameof(LineRange.EndLineNumber),
                     dummyEndLineNumber, dummyStartLineNumber),
                 result.Message,
                 ignoreLineEndingDifferences: true);

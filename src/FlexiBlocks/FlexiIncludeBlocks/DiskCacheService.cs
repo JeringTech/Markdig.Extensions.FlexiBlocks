@@ -46,12 +46,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         {
             if (string.IsNullOrWhiteSpace(sourceUri))
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_ValueCannotBeNullWhitespaceOrAnEmptyString, nameof(sourceUri)));
+                throw new ArgumentException(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, nameof(sourceUri)));
             }
 
             if (string.IsNullOrWhiteSpace(cacheDirectory))
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_ValueCannotBeNullWhitespaceOrAnEmptyString, nameof(cacheDirectory)));
+                throw new ArgumentException(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, nameof(cacheDirectory)));
             }
 
             string filePath = CreatePath(sourceUri, cacheDirectory);
@@ -75,7 +75,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
             catch (Exception exception)
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_UnexpectedDiskCacheException, sourceUri, filePath), exception);
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_DiskCacheService_UnexpectedDiskCacheException, sourceUri, filePath), exception);
             }
         }
 
@@ -84,12 +84,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         {
             if (string.IsNullOrWhiteSpace(sourceUri))
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_ValueCannotBeNullWhitespaceOrAnEmptyString, nameof(sourceUri)));
+                throw new ArgumentException(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, nameof(sourceUri)));
             }
 
             if (string.IsNullOrWhiteSpace(cacheDirectory))
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_ValueCannotBeNullWhitespaceOrAnEmptyString, nameof(cacheDirectory)));
+                throw new ArgumentException(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, nameof(cacheDirectory)));
             }
 
             // Ensure that cache directory string is valid and that the directory exists
@@ -99,7 +99,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
             catch (Exception exception)
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_InvalidDiskCacheDirectory, cacheDirectory), exception);
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_DiskCacheService_InvalidDiskCacheDirectory, cacheDirectory), exception);
             }
 
             string filePath = CreatePath(sourceUri, cacheDirectory);
@@ -113,7 +113,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
             catch (Exception exception)
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_UnexpectedDiskCacheException, sourceUri, filePath), exception);
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_DiskCacheService_UnexpectedDiskCacheException, sourceUri, filePath), exception);
             }
         }
 

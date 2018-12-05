@@ -52,11 +52,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             FlexiBlocksException result = Assert.
                 Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryExtractOptions<DummyOptions>(dummyBlockProcessor, dummyStartLineNumber));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock,
                     typeof(FlexiOptionsBlock).Name,
                     dummyStartLineNumber,
                     dummyColumn,
-                    string.Format(Strings.FlexiBlocksException_UnableToParseJson, dummyJson)),
+                    string.Format(Strings.FlexiBlocksException_Shared_UnableToParseJson, dummyJson)),
                 result.Message);
             Assert.Same(dummyJsonException, result.InnerException);
         }
@@ -82,11 +82,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             FlexiBlocksException result = Assert.
                 Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryExtractOptions<DummyOptions>(dummyBlockProcessor, dummyStartLineNumber));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock,
                     typeof(FlexiOptionsBlock).Name,
                     dummyStartLineNumber,
                     dummyColumn,
-                    Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
+                    Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
                 result.Message);
             Assert.Same(dummyInnerFlexiBlocksException, result.InnerException);
         }
@@ -142,11 +142,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             FlexiBlocksException result = Assert.
                 Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryPopulateOptions(dummyBlockProcessor, dummyOptions, dummyStartLineNumber));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock,
                     typeof(FlexiOptionsBlock).Name,
                     dummyStartLineNumber,
                     dummyColumn,
-                    string.Format(Strings.FlexiBlocksException_UnableToParseJson, dummyJson)),
+                    string.Format(Strings.FlexiBlocksException_Shared_UnableToParseJson, dummyJson)),
                 result.Message);
             Assert.Same(dummyJsonException, result.InnerException);
         }
@@ -173,11 +173,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             FlexiBlocksException result = Assert.
                 Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryPopulateOptions(dummyBlockProcessor, dummyOptions, dummyStartLineNumber));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock,
                     typeof(FlexiOptionsBlock).Name,
                     dummyStartLineNumber,
                     dummyColumn,
-                    Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
+                    Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
                 result.Message);
             Assert.Same(dummyInnerFlexiBlocksException, result.InnerException);
         }
@@ -228,11 +228,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             // Act and Assert
             FlexiBlocksException result = Assert.
                 Throws<FlexiBlocksException>(() => testSubject.TryGetFlexiOptionsBlock(dummyBlockProcessor, dummyLineIndex + dummyStringLineGroup.Count + 1));  // 1 line gap between options block and current line
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock,
                     typeof(FlexiOptionsBlock).Name,
                     dummyLineIndex + 1,
                     dummyColumn,
-                    Strings.FlexiBlocksException_FlexiOptionsBlocks_MispositionedBlock),
+                    Strings.FlexiBlocksException_FlexiOptionsBlockService_MispositionedBlock),
                 result.Message);
         }
 

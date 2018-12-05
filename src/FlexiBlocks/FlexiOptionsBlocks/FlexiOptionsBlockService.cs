@@ -47,7 +47,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
                 bool innerIsFlexiBlocksException = exception.InnerException is FlexiBlocksException;
 
                 throw new FlexiBlocksException(flexiOptionsBlock,
-                    innerIsFlexiBlocksException ? null : string.Format(Strings.FlexiBlocksException_UnableToParseJson, json), // If we got to validation, deserialization succeeded
+                    innerIsFlexiBlocksException ? null : string.Format(Strings.FlexiBlocksException_Shared_UnableToParseJson, json), // If we got to validation, deserialization succeeded
                     innerIsFlexiBlocksException ? exception.InnerException : exception);
             }
         }
@@ -83,7 +83,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
                 bool innerIsFlexiBlocksException = exception.InnerException is FlexiBlocksException;
 
                 throw new FlexiBlocksException(flexiOptionsBlock,
-                    innerIsFlexiBlocksException ? null : string.Format(Strings.FlexiBlocksException_UnableToParseJson, json), // If we got to validation, deserialization succeeded
+                    innerIsFlexiBlocksException ? null : string.Format(Strings.FlexiBlocksException_Shared_UnableToParseJson, json), // If we got to validation, deserialization succeeded
                     innerIsFlexiBlocksException ? exception.InnerException : exception);
             }
         }
@@ -100,7 +100,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
             {
                 if (flexiOptionsBlock.Line + flexiOptionsBlock.Lines.Count != consumingBlockStartLineNumber)
                 {
-                    throw new FlexiBlocksException(flexiOptionsBlock, Strings.FlexiBlocksException_FlexiOptionsBlocks_MispositionedBlock);
+                    throw new FlexiBlocksException(flexiOptionsBlock, Strings.FlexiBlocksException_FlexiOptionsBlockService_MispositionedBlock);
                 }
 
                 processor.Document.RemoveData(FlexiOptionsBlockParser.PENDING_FLEXI_OPTIONS_BLOCK);

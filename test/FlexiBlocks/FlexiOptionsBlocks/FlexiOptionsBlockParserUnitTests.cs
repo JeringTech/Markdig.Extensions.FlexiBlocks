@@ -96,11 +96,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.ExposedCloseFlexiBlock(dummyBlockProcessor, new DummyBlock(null)));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock,
                     typeof(FlexiOptionsBlock).Name,
                     dummyLineIndex + 1,
                     dummyColumn,
-                    Strings.FlexiBlocksException_FlexiOptionsBlocks_UnconsumedBlock),
+                    Strings.FlexiBlocksException_FlexiOptionsBlockParser_UnconsumedBlock),
                 result.Message);
         }
 

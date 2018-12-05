@@ -122,7 +122,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.GetSourceCore(dummyUri, null, default));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_InvalidLocalUri, dummyUri.AbsolutePath), result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_SourceRetrieverService_InvalidLocalUri, dummyUri.AbsolutePath), result.Message);
         }
 
         [Fact]
@@ -246,7 +246,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.GetRemoteSource(dummyUri, null, default));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_RemoteUriDoesNotExist, dummyUri.AbsoluteUri), result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_SourceRetrieverService_RemoteUriDoesNotExist, dummyUri.AbsoluteUri), result.Message);
         }
 
         [Fact]
@@ -262,7 +262,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.GetRemoteSource(dummyUri, null, default));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_RemoteUriAccessForbidden, dummyUri.AbsoluteUri), result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_SourceRetrieverService_RemoteUriAccessForbidden, dummyUri.AbsoluteUri), result.Message);
         }
 
         [Fact]

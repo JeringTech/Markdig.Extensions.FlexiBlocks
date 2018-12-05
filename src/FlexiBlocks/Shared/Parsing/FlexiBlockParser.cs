@@ -85,7 +85,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
 
                     throw new FlexiBlocksException(processor.LineIndex + 1,
                         processor.Column,
-                        string.Format(Strings.FlexiBlocksException_ExceptionOccurredWhileAttemptingToOpenBlock, GetType().Name),
+                        string.Format(Strings.FlexiBlocksException_FlexiBlockParser_ExceptionOccurredWhileAttemptingToOpenBlock, GetType().Name),
                         exception);
                 }
                 else

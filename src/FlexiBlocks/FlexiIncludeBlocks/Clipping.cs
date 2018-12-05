@@ -68,22 +68,22 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         {
             if(startLineNumber < 1)
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(StartLineNumber), startLineNumber));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Shared_OptionMustBeGreaterThan0, nameof(StartLineNumber), startLineNumber));
             }
 
             if (endLineNumber != -1 && endLineNumber < startLineNumber)
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, nameof(EndLineNumber), endLineNumber, startLineNumber));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Shared_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, nameof(EndLineNumber), endLineNumber, startLineNumber));
             }
 
             if(dedentLength < 0)
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(DedentLength), dedentLength));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Shared_OptionMustBeGreaterThan0, nameof(DedentLength), dedentLength));
             }
 
             if (collapseRatio < 0 || collapseRatio > 1)
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeWithinRange, nameof(CollapseRatio), "[0, 1]", collapseRatio));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Clipping_OptionMustBeWithinRange, nameof(CollapseRatio), "[0, 1]", collapseRatio));
             }
 
             StartLineNumber = startLineNumber;

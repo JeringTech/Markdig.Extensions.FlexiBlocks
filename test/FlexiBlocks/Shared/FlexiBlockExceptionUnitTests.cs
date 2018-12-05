@@ -66,7 +66,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             return new object[][]
             {
                 new object[]{"dummyDescription", "dummyDescription"},
-                new object[]{null, Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock}
+                new object[]{null, Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock}
             };
         }
 
@@ -92,7 +92,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             return new object[][]
             {
                 new object[]{"dummyDescription", "dummyDescription"},
-                new object[]{null, Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock}
+                new object[]{null, Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock}
             };
         }
 

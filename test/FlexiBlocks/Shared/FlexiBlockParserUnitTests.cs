@@ -91,11 +91,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryOpen(dummyBlockProcessor));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock,
                     nameof(DummyBlock),
                     dummyBlock.Line + 1,
                     dummyBlock.Column,
-                    Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
+                    Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
                 result.Message,
                 ignoreLineEndingDifferences: true);
             Assert.Same(dummyException, result.InnerException);
@@ -114,10 +114,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryOpen(dummyBlockProcessor));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidMarkdown,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidMarkdown,
                     dummyBlockProcessor.LineIndex + 1,
                     dummyBlockProcessor.Column,
-                    string.Format(Strings.FlexiBlocksException_ExceptionOccurredWhileAttemptingToOpenBlock, "FlexiBlockParserProxy")),
+                    string.Format(Strings.FlexiBlocksException_FlexiBlockParser_ExceptionOccurredWhileAttemptingToOpenBlock, "FlexiBlockParserProxy")),
                 result.Message,
                 ignoreLineEndingDifferences: true);
             Assert.Same(dummyException, result.InnerException);
@@ -177,11 +177,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryContinue(dummyBlockProcessor, dummyBlock));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock,
                     nameof(DummyBlock),
                     dummyBlock.Line + 1,
                     dummyBlock.Column,
-                    Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
+                    Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
                 result.Message,
                 ignoreLineEndingDifferences: true);
             Assert.Same(dummyException, result.InnerException);
@@ -241,11 +241,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.Close(dummyBlockProcessor, dummyBlock));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock,
                     nameof(DummyBlock),
                     dummyBlock.Line + 1,
                     dummyBlock.Column,
-                    Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
+                    Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
                 result.Message,
                 ignoreLineEndingDifferences: true);
             Assert.Same(dummyException, result.InnerException);

@@ -37,9 +37,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
     ""classFormat"": ""dummy-{0}-{1}"",
 }
 ! This is an alert block.",
-                    string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiOptionsBlock), 1, 0,
-                        Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
-                    string.Format(Strings.FlexiBlocksException_OptionIsAnInvalidFormat, "ClassFormat", "dummy-{0}-{1}")
+                    string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiOptionsBlock), 1, 0,
+                        Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
+                    string.Format(Strings.FlexiBlocksException_Shared_OptionIsAnInvalidFormat, "ClassFormat", "dummy-{0}-{1}")
                 }
             };
         }

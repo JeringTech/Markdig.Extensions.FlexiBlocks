@@ -13,7 +13,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         {
             if(dedentLength < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(dedentLength), string.Format(Strings.ArgumentOutOfRangeException_ValueCannotBeNegative, dedentLength));
+                throw new ArgumentOutOfRangeException(nameof(dedentLength), string.Format(Strings.ArgumentOutOfRangeException_Shared_ValueCannotBeNegative, dedentLength));
             }
 
             if (line.IsEmpty || dedentLength == 0)
@@ -39,7 +39,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             if(collapseRatio < 0 || collapseRatio > 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(collapseRatio),
-                    string.Format(Strings.ArgumentOutOfRangeException_ValueMustBeWithinRange, "[0, 1]", collapseRatio));
+                    string.Format(Strings.ArgumentOutOfRangeException_Shared_ValueMustBeWithinRange, "[0, 1]", collapseRatio));
             }
 
             if(line.IsEmpty || collapseRatio == 1)

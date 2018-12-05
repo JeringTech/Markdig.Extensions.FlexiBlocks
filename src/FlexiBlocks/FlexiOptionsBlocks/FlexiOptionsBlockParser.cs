@@ -86,7 +86,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
             if (processor.Document.GetData(PENDING_FLEXI_OPTIONS_BLOCK) is FlexiOptionsBlock pendingFlexiOptionsBlock)
             {
                 // There is an unconsumed FlexiOptionsBlock
-                throw new FlexiBlocksException(pendingFlexiOptionsBlock, Strings.FlexiBlocksException_FlexiOptionsBlocks_UnconsumedBlock);
+                throw new FlexiBlocksException(pendingFlexiOptionsBlock, Strings.FlexiBlocksException_FlexiOptionsBlockParser_UnconsumedBlock);
             }
 
             // Save the options block to document data. There are two reasons for this. Firstly, it makes it easy to detect if an options block goes unused.

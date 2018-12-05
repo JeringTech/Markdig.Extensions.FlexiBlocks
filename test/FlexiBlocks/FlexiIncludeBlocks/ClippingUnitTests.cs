@@ -12,7 +12,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         {
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new Clipping(dummyStartLineNumber));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(Clipping.StartLineNumber), dummyStartLineNumber),
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_OptionMustBeGreaterThan0, nameof(Clipping.StartLineNumber), dummyStartLineNumber),
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
@@ -32,7 +32,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         {
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new Clipping(dummyStartLineNumber, dummyEndLineNumber));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, nameof(Clipping.EndLineNumber), dummyEndLineNumber, dummyStartLineNumber),
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, nameof(Clipping.EndLineNumber), dummyEndLineNumber, dummyStartLineNumber),
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
@@ -55,7 +55,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new Clipping(dedentLength: dummyDedentLength));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(Clipping.DedentLength), dummyDedentLength),
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_OptionMustBeGreaterThan0, nameof(Clipping.DedentLength), dummyDedentLength),
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
@@ -66,7 +66,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         {
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new Clipping(collapseRatio: dummyCollapseRatio));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeWithinRange, nameof(Clipping.CollapseRatio), "[0, 1]", dummyCollapseRatio),
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_Clipping_OptionMustBeWithinRange, nameof(Clipping.CollapseRatio), "[0, 1]", dummyCollapseRatio),
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }

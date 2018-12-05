@@ -49,7 +49,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.ValidateLineRange(lineRangeWrapper.Value, dummyNumLines, dummyPropertyName));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionLineRangeNotASubset, lineRangeWrapper.Value.ToString(), dummyPropertyName, dummyNumLines),
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiCodeBlocksExtension_OptionLineRangeNotASubset, lineRangeWrapper.Value.ToString(), dummyPropertyName, dummyNumLines),
                 result.Message);
         }
 

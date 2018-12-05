@@ -117,7 +117,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             // Line ranges must be a subset of the full range of lines.
             if (lineRange.StartLineNumber > numLines || lineRange.EndLineNumber > numLines)
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionLineRangeNotASubset, lineRange.ToString(), propertyName, numLines));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiCodeBlocksExtension_OptionLineRangeNotASubset, lineRange.ToString(), propertyName, numLines));
             }
         }
     }

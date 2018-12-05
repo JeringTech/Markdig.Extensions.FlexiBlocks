@@ -27,12 +27,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         {
             if(startLineNumber < 1)
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(StartLineNumber), startLineNumber));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Shared_OptionMustBeGreaterThan0, nameof(StartLineNumber), startLineNumber));
             }
 
             if(endLineNumber != -1 && endLineNumber < startLineNumber)
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber,
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Shared_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber,
                     nameof(EndLineNumber),
                     endLineNumber,
                     startLineNumber));

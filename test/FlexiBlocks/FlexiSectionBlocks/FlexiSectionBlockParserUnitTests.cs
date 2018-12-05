@@ -241,7 +241,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.CreateFlexiSectionBlockOptions(dummyBlockProcessor, 0));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionIsAnInvalidFormat, nameof(FlexiSectionBlockOptions.ClassFormat), dummyClassFormat),
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_OptionIsAnInvalidFormat, nameof(FlexiSectionBlockOptions.ClassFormat), dummyClassFormat),
                 result.Message);
             Assert.IsType<FormatException>(result.InnerException);
         }

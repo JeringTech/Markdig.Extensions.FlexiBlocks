@@ -135,18 +135,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             {
                 if (Context == Context.Block) // The exception represents an unrecoverable situation encountered when processing a FlexiBlock.
                 {
-                    return string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock,
+                    return string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock,
                         BlockTypeName,
                         LineNumber,
                         Column,
-                        Description ?? Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock);
+                        Description ?? Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock);
                 }
                 else if (Context == Context.Line) // The exception represents an unrecoverable situation encountered while parsing markdown.
                 {
-                    return string.Format(Strings.FlexiBlocksException_InvalidMarkdown,
+                    return string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidMarkdown,
                         LineNumber,
                         Column,
-                        Description ?? Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock);
+                        Description ?? Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock);
                 }
 
                 return base.Message;

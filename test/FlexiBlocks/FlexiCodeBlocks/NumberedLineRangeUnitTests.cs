@@ -12,7 +12,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         {
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new NumberedLineRange(1, 1, firstNumber));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(NumberedLineRange.FirstNumber), firstNumber),
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_OptionMustBeGreaterThan0, nameof(NumberedLineRange.FirstNumber), firstNumber),
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }

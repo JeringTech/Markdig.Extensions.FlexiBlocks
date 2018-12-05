@@ -105,7 +105,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
                 }
                 catch (FormatException formatException)
                 {
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionIsAnInvalidFormat, nameof(ClassFormat), ClassFormat),
+                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Shared_OptionIsAnInvalidFormat, nameof(ClassFormat), ClassFormat),
                         formatException);
                 }
             }

@@ -209,7 +209,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                         ClippingProcessingStage = ClippingProcessingStage.None,
                         AbsoluteSourceUri = dummyAbsoluteSourceUri
                     },
-                    string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), 1, 0, Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingBlock)
+                    string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), 1, 0, Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingBlock)
                 },
                 new object[]{
                     new FlexiIncludeBlock(null, null)
@@ -220,8 +220,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                         ClippingProcessingStage = ClippingProcessingStage.Source,
                         Lines = dummyLines
                     },
-                    string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyLineNumberInContainingSource, 0,
-                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource, dummyAbsoluteSourceUri.AbsoluteUri))
+                    string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyLineNumberInContainingSource, 0,
+                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSource, dummyAbsoluteSourceUri.AbsoluteUri))
                 },
                 new object[]{
                     new FlexiIncludeBlock(null, null)
@@ -231,8 +231,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                         LineNumberInContainingSource = dummyLineNumberInContainingSource,
                         Lines = dummyLines
                     },
-                    string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyLineNumberInContainingSource, 0,
-                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingContent, nameof(ClippingProcessingStage.BeforeContent)))
+                    string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyLineNumberInContainingSource, 0,
+                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingContent, nameof(ClippingProcessingStage.BeforeContent)))
                 },
                 new object[]{
                     new FlexiIncludeBlock(null, null)
@@ -242,8 +242,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                         LineNumberInContainingSource = dummyLineNumberInContainingSource,
                         Lines = dummyLines
                     },
-                    string.Format(Strings.FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyLineNumberInContainingSource, 0,
-                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingContent, nameof(ClippingProcessingStage.AfterContent)))
+                    string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiIncludeBlock), dummyLineNumberInContainingSource, 0,
+                        string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingContent, nameof(ClippingProcessingStage.AfterContent)))
                 },
             };
         }
@@ -293,7 +293,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             FlexiBlocksException result = Assert.
                 Throws<FlexiBlocksException>(() => testSubject.SetupFlexiIncludeBlock(dummyFlexiIncludeBlock));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_UnableToParseJson, dummyJson), result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_UnableToParseJson, dummyJson), result.Message);
             Assert.Same(dummyJsonException, result.InnerException);
         }
 
@@ -407,7 +407,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummySource));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_InvalidClippingNoLineContainsStartLineSubstring, dummyStartLineSubstring),
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsStartLineSubstring, dummyStartLineSubstring),
                 result.Message);
         }
 
@@ -428,7 +428,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.ReplaceFlexiIncludeBlock(dummyBlockProcessor, dummyFlexiIncludeBlock, dummySource));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_InvalidClippingNoLineContainsEndLineSubstring, dummyEndLineSubstring),
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsEndLineSubstring, dummyEndLineSubstring),
                 result.Message);
         }
 
