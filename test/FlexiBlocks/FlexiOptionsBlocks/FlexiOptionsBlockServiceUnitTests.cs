@@ -15,6 +15,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Empty };
 
         [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfJsonSerializerServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiOptionsBlockService(null));
+        }
+
+        [Fact]
         public void TryExtractOptions_ReturnsNullIfNoFlexiOptionsBlockExists()
         {
             // Arrange
