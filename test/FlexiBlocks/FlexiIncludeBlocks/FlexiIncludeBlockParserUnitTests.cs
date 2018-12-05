@@ -19,6 +19,50 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
 
         [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfSourceRetrieverServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiIncludeBlockParser(
+                null,
+                _mockRepository.Create<IJsonSerializerService>().Object,
+                _mockRepository.Create<ILeadingWhitespaceEditorService>().Object,
+                new FlexiIncludeBlocksExtensionOptions()));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfJsonSerializerServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiIncludeBlockParser(
+                _mockRepository.Create<ISourceRetrieverService>().Object,
+                null,
+                _mockRepository.Create<ILeadingWhitespaceEditorService>().Object,
+                new FlexiIncludeBlocksExtensionOptions()));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfLeadingWhitespaceEditorServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiIncludeBlockParser(
+                _mockRepository.Create<ISourceRetrieverService>().Object,
+                _mockRepository.Create<IJsonSerializerService>().Object,
+                null,
+                new FlexiIncludeBlocksExtensionOptions()));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfExtensionOptionsIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiIncludeBlockParser(
+                _mockRepository.Create<ISourceRetrieverService>().Object,
+                _mockRepository.Create<IJsonSerializerService>().Object,
+                _mockRepository.Create<ILeadingWhitespaceEditorService>().Object,
+                null));
+        }
+
+        [Fact]
         public void TryOpenFlexiBlock_ReturnsBlockStateNoneIfInCodeIndent()
         {
             // Arrange

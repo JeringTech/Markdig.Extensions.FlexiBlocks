@@ -25,6 +25,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             Assert.Same(dummyParentFlexiIncludeBlock, result.ParentFlexiIncludeBlock);
         }
 
+        [Fact]
+        public void Setup_ThrowsArgumentNullExceptionIfFlexiIncludeBlockOptionsIsNull()
+        {
+            // Arrange
+            var testSubject = new FlexiIncludeBlock(null, null);
+
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => testSubject.Setup(null, null));
+        }
+
         [Theory]
         [MemberData(nameof(Setup_ThrowsFlexiBlocksExceptionIfSourceUriSchemeIsUnsupported_Data))]
         public void Setup_ThrowsFlexiBlocksExceptionIfSourceUriSchemeIsUnsupported(string dummySourceUri, string expectedScheme)

@@ -103,5 +103,157 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                 new object[]{ 3, 4 } // Range of lines
             };
         }
+
+        [Theory]
+        [MemberData(nameof(Equals_ReturnsTrueIfObjIsAnIdenticalClippingOtherwiseReturnsFalse_Data))]
+        public void Equals_ReturnsTrueIfObjIsAnIdenticalClippingOtherwiseReturnsFalse(SerializableWrapper<Clipping> dummyClippingWrapper,
+            SerializableWrapper<object> dummyObjWrapper,
+            bool expectedResult)
+        {
+            // Act
+            bool result = dummyClippingWrapper.Value.Equals(dummyObjWrapper.Value);
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        public static IEnumerable<object[]> Equals_ReturnsTrueIfObjIsAnIdenticalClippingOtherwiseReturnsFalse_Data()
+        {
+            // Arbitrary values
+            const int dummyStartLineNumber = 4; 
+            const int dummyEndLineNumber = 25;
+            const string dummyStartDemarcationLineSubstring = "dummyStartDemarcationLineSubstring";
+            const string dummyEndDemarcationLineSubstring = "dummyEndDemarcationLineSubstring";
+            const int dummyDedentLength = 3;
+            const float dummyCollapseRatio = 0.5F;
+            const string dummyBeforeContent = "dummyBeforeContent";
+            const string dummyAfterContent = "dummyAfterContent";
+
+            return new object[][]
+            {
+                new object[]{new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<object>("not a line range"),
+                    false },
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<object>(new Clipping()),
+                    true
+                },
+                // False if the Clippings differ in any way
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<object>(new Clipping(dummyStartLineNumber)),
+                    false
+                },
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<object>(new Clipping(endLineNumber: dummyEndLineNumber)),
+                    false
+                },
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<object>(new Clipping(startDemarcationLineSubstring: dummyStartDemarcationLineSubstring)),
+                    false
+                },
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<object>(new Clipping(endDemarcationLineSubstring: dummyEndDemarcationLineSubstring)),
+                    false
+                },
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<object>(new Clipping(dedentLength: dummyDedentLength)),
+                    false
+                },
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<object>(new Clipping(collapseRatio: dummyCollapseRatio)),
+                    false
+                },
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<object>(new Clipping(beforeContent: dummyBeforeContent)),
+                    false
+                },
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<object>(new Clipping(afterContent: dummyAfterContent)),
+                    false
+                },
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetHashCode_ReturnsSameHashCodeForIdenticalClippings_Data))]
+        public void GetHashCode_ReturnsSameHashCodeForIdenticalClippings(SerializableWrapper<Clipping> dummyLine1RangeWrapper,
+            SerializableWrapper<Clipping> dummyLine2RangeWrapper,
+            bool identical)
+        {
+            // Act and assert
+            Assert.Equal(identical, dummyLine1RangeWrapper.Value.GetHashCode() == dummyLine2RangeWrapper.Value.GetHashCode());
+        }
+
+        public static IEnumerable<object[]> GetHashCode_ReturnsSameHashCodeForIdenticalClippings_Data()
+        {
+            // Arbitrary values
+            const int dummyStartLineNumber = 4;
+            const int dummyEndLineNumber = 25;
+            const string dummyStartDemarcationLineSubstring = "dummyStartDemarcationLineSubstring";
+            const string dummyEndDemarcationLineSubstring = "dummyEndDemarcationLineSubstring";
+            const int dummyDedentLength = 3;
+            const float dummyCollapseRatio = 0.5F;
+            const string dummyBeforeContent = "dummyBeforeContent";
+            const string dummyAfterContent = "dummyAfterContent";
+
+            return new object[][]
+            {
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    true
+                },
+                // False if the Clippings differ in any way
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<Clipping>(new Clipping(dummyStartLineNumber)),
+                    false
+                },
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<Clipping>(new Clipping(endLineNumber: dummyEndLineNumber)),
+                    false
+                },
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<Clipping>(new Clipping(startDemarcationLineSubstring: dummyStartDemarcationLineSubstring)),
+                    false
+                },
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<Clipping>(new Clipping(endDemarcationLineSubstring: dummyEndDemarcationLineSubstring)),
+                    false
+                },
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<Clipping>(new Clipping(dedentLength: dummyDedentLength)),
+                    false
+                },
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<Clipping>(new Clipping(collapseRatio: dummyCollapseRatio)),
+                    false
+                },
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<Clipping>(new Clipping(beforeContent: dummyBeforeContent)),
+                    false
+                },
+                new object[]{
+                    new SerializableWrapper<Clipping>(new Clipping()),
+                    new SerializableWrapper<Clipping>(new Clipping(afterContent: dummyAfterContent)),
+                    false
+                },
+            };
+        }
     }
 }
