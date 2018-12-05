@@ -75,5 +75,78 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             // Assert
             Assert.Equal("Lines: [1, 5], Line numbers: [10, 14]", result);
         }
+
+        [Theory]
+        [MemberData(nameof(Equals_ReturnsTrueIfObjIsAnIdenticalNumberedLineRangeOtherwiseReturnsFalse_Data))]
+        public void Equals_ReturnsTrueIfObjIsAnIdenticalNumberedLineRangeOtherwiseReturnsFalse(SerializableWrapper<NumberedLineRange> dummyNumberedLineRangeWrapper,
+            SerializableWrapper<object> dummyObjWrapper,
+            bool expectedResult)
+        {
+            // Act
+            bool result = dummyNumberedLineRangeWrapper.Value.Equals(dummyObjWrapper.Value);
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        public static IEnumerable<object[]> Equals_ReturnsTrueIfObjIsAnIdenticalNumberedLineRangeOtherwiseReturnsFalse_Data()
+        {
+            const int dummyStartLineNumber = 4; // Arbitrary
+            const int dummyEndLineNumber = 25; // Arbitrary
+            const int dummyFirstNumber = 123; // Arbitrary
+
+            return new object[][]
+            {
+                new object[]{new SerializableWrapper<NumberedLineRange>(new NumberedLineRange()),
+                    new SerializableWrapper<object>("not a line number range"),
+                    false },
+                new object[]{new SerializableWrapper<NumberedLineRange>(new NumberedLineRange()),
+                    new SerializableWrapper<object>(new NumberedLineRange()),
+                    true },
+                // False if the NumberedLineRanges differ in any way
+                new object[]{new SerializableWrapper<NumberedLineRange>(new NumberedLineRange()),
+                    new SerializableWrapper<object>(new NumberedLineRange(dummyStartLineNumber)),
+                    false },
+                new object[]{new SerializableWrapper<NumberedLineRange>(new NumberedLineRange()),
+                    new SerializableWrapper<object>(new NumberedLineRange(endLineNumber: dummyEndLineNumber)),
+                    false },
+                new object[]{new SerializableWrapper<NumberedLineRange>(new NumberedLineRange()),
+                    new SerializableWrapper<object>(new NumberedLineRange(firstNumber: dummyFirstNumber)),
+                    false },
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetHashCode_ReturnsSameHashCodeForIdenticalNumberedLineRanges_Data))]
+        public void GetHashCode_ReturnsSameHashCodeForIdenticalNumberedLineRanges(SerializableWrapper<NumberedLineRange> dummyLine1RangeWrapper,
+            SerializableWrapper<NumberedLineRange> dummyLine2RangeWrapper,
+            bool identical)
+        {
+            // Act and assert
+            Assert.Equal(identical, dummyLine1RangeWrapper.Value.GetHashCode() == dummyLine2RangeWrapper.Value.GetHashCode());
+        }
+
+        public static IEnumerable<object[]> GetHashCode_ReturnsSameHashCodeForIdenticalNumberedLineRanges_Data()
+        {
+            const int dummyStartLineNumber = 4; // Arbitrary
+            const int dummyEndLineNumber = 25; // Arbitrary
+            const int dummyFirstNumber = 123; // Arbitrary
+
+            return new object[][]
+            {
+                new object[]{new SerializableWrapper<NumberedLineRange>(new NumberedLineRange()),
+                    new SerializableWrapper<NumberedLineRange>(new NumberedLineRange()),
+                    true },
+                new object[]{new SerializableWrapper<NumberedLineRange>(new NumberedLineRange()),
+                    new SerializableWrapper<NumberedLineRange>(new NumberedLineRange(dummyStartLineNumber)),
+                    false },
+                new object[]{new SerializableWrapper<NumberedLineRange>(new NumberedLineRange()),
+                    new SerializableWrapper<NumberedLineRange>(new NumberedLineRange(endLineNumber: dummyEndLineNumber)),
+                    false },
+                new object[]{new SerializableWrapper<NumberedLineRange>(new NumberedLineRange()),
+                    new SerializableWrapper<NumberedLineRange>(new NumberedLineRange(firstNumber: dummyFirstNumber)),
+                    false }
+            };
+        }
     }
 }

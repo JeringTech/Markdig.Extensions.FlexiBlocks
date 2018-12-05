@@ -158,5 +158,70 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                 new object[]{ 2, 5, 2, false}, // Range contains line
             };
         }
+
+        [Theory]
+        [MemberData(nameof(Equals_ReturnsTrueIfObjIsAnIdenticalLineRangeOtherwiseReturnsFalse_Data))]
+        public void Equals_ReturnsTrueIfObjIsAnIdenticalLineRangeOtherwiseReturnsFalse(SerializableWrapper<LineRange> dummyLineRangeWrapper,
+            SerializableWrapper<object> dummyObjWrapper,
+            bool expectedResult)
+        {
+            // Act
+            bool result = dummyLineRangeWrapper.Value.Equals(dummyObjWrapper.Value);
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        public static IEnumerable<object[]> Equals_ReturnsTrueIfObjIsAnIdenticalLineRangeOtherwiseReturnsFalse_Data()
+        {
+            const int dummyStartLineNumber = 4; // Arbitrary
+            const int dummyEndLineNumber = 25; // Arbitrary
+
+            return new object[][]
+            {
+                new object[]{new SerializableWrapper<LineRange>(new LineRange()),
+                    new SerializableWrapper<object>("not a line range"),
+                    false },
+                new object[]{new SerializableWrapper<LineRange>(new LineRange()),
+                    new SerializableWrapper<object>(new LineRange()),
+                    true },
+                // False if the LineRanges differ in any way
+                new object[]{new SerializableWrapper<LineRange>(new LineRange()),
+                    new SerializableWrapper<object>(new LineRange(dummyStartLineNumber)),
+                    false },
+                new object[]{new SerializableWrapper<LineRange>(new LineRange()),
+                    new SerializableWrapper<object>(new LineRange(endLineNumber: dummyEndLineNumber)),
+                    false },
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetHashCode_ReturnsSameHashCodeForIdenticalLineRanges_Data))]
+        public void GetHashCode_ReturnsSameHashCodeForIdenticalLineRanges(SerializableWrapper<LineRange> dummyLine1RangeWrapper,
+            SerializableWrapper<LineRange> dummyLine2RangeWrapper,
+            bool identical)
+        {
+            // Act and assert
+            Assert.Equal(identical, dummyLine1RangeWrapper.Value.GetHashCode() == dummyLine2RangeWrapper.Value.GetHashCode());
+        }
+
+        public static IEnumerable<object[]> GetHashCode_ReturnsSameHashCodeForIdenticalLineRanges_Data()
+        {
+            const int dummyStartLineNumber = 4; // Arbitrary
+            const int dummyEndLineNumber = 25; // Arbitrary
+
+            return new object[][]
+            {
+                new object[]{new SerializableWrapper<LineRange>(new LineRange()),
+                    new SerializableWrapper<LineRange>(new LineRange()),
+                    true },
+                new object[]{new SerializableWrapper<LineRange>(new LineRange()),
+                    new SerializableWrapper<LineRange>(new LineRange(dummyStartLineNumber)),
+                    false },
+                new object[]{new SerializableWrapper<LineRange>(new LineRange()),
+                    new SerializableWrapper<LineRange>(new LineRange(endLineNumber: dummyEndLineNumber)),
+                    false }
+            };
+        }
     }
 }

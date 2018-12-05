@@ -5,9 +5,9 @@ using Markdig.Helpers;
 using Markdig.Renderers;
 using Markdig.Syntax;
 using Moq;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
 using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
@@ -15,6 +15,33 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
     public class FlexiCodeBlockRendererUnitTests
     {
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfPrismServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiCodeBlockRenderer(null,
+                _mockRepository.Create<IHighlightJSService>().Object,
+                _mockRepository.Create<ILineEmbellisherService>().Object));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfHighlightJSServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiCodeBlockRenderer(_mockRepository.Create<IPrismService>().Object,
+                null,
+                _mockRepository.Create<ILineEmbellisherService>().Object));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfLineEmbellisherServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiCodeBlockRenderer(_mockRepository.Create<IPrismService>().Object,
+                _mockRepository.Create<IHighlightJSService>().Object,
+                null));
+        }
 
         [Theory]
         [MemberData(nameof(WriteFlexiBlock_RendersOutermostElementsClassIfClassIsNotNullWhitespaceOrAnEmptyString_Data))]
@@ -522,6 +549,30 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 <pre><code>dummyCode&quot;&amp;&lt;&gt;</code></pre>
 </div>
 ", result, ignoreLineEndingDifferences: true);
+        }
+
+        [Fact]
+        public void WriteFlexiBlock_OnlyWritesRawContentIfEnableHtmlForBlockIsFalse()
+        {
+            // Arrange
+            var dummyLines = new StringLineGroup("dummyCode\"&<>");
+            var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
+            FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer();
+
+            // Act
+            string result = null;
+            using (var dummyStringWriter = new StringWriter())
+            {
+                var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter)
+                {
+                    EnableHtmlForBlock = false
+                };
+                testSubject.Write(dummyHtmlRenderer, dummyCodeBlock);
+                result = dummyStringWriter.ToString();
+            }
+
+            // Assert
+            Assert.Equal("dummyCode&quot;&amp;&lt;&gt;\n", result, ignoreLineEndingDifferences: true);
         }
 
         public FlexiCodeBlockRenderer CreateFlexiCodeBlockRenderer(IPrismService prismService = null,
