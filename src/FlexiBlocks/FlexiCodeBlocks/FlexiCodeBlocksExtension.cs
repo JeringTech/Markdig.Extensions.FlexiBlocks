@@ -45,7 +45,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// Registers <see cref="CodeBlock"/> parsers if they are't already registered.
         /// </summary>
         /// <param name="pipelineBuilder">The pipeline builder to register the parsers for.</param>
-        public override void SetupParsers(MarkdownPipelineBuilder pipelineBuilder)
+        protected override void SetupParsers(MarkdownPipelineBuilder pipelineBuilder)
         {
             // FencedCodeBlockParser and IndentedCodeBlockParser are default parsers registered in MarkdownPipelineBuilder's constructor.
             FencedCodeBlockParser fencedCodeBlockParser = pipelineBuilder.BlockParsers.Find<FencedCodeBlockParser>();
@@ -66,7 +66,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// </summary>
         /// <param name="pipeline">Unused.</param>
         /// <param name="renderer">The root renderer to register the renderer for.</param>
-        public override void SetupRenderers(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
+        protected override void SetupRenderers(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
             if (renderer is HtmlRenderer htmlRenderer)
             {

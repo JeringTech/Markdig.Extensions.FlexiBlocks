@@ -45,7 +45,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
         /// Registers a <see cref="GridTableParser"/> if one isn't already registered.
         /// </summary>
         /// <param name="pipelineBuilder">The pipeline builder to register the parsers for.</param>
-        public override void SetupParsers(MarkdownPipelineBuilder pipelineBuilder)
+        protected override void SetupParsers(MarkdownPipelineBuilder pipelineBuilder)
         {
             // If GridTableParser hasn't been added to parsers, add it
             GridTableParser gridTableParser = pipelineBuilder.BlockParsers.Find<GridTableParser>();
@@ -76,7 +76,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
         /// </summary>
         /// <param name="pipeline">Unused.</param>
         /// <param name="renderer">The root renderer to register the renderer for.</param>
-        public override void SetupRenderers(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
+        protected override void SetupRenderers(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
             if (renderer is HtmlRenderer htmlRenderer)
             {

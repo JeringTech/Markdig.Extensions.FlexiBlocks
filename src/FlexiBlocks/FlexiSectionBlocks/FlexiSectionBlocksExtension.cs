@@ -30,7 +30,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// Registers a <see cref="FlexiSectionBlockParser"/> if one isn't already registered.
         /// </summary>
         /// <param name="pipelineBuilder">The pipeline builder to register the parser for.</param>
-        public override void SetupParsers(MarkdownPipelineBuilder pipelineBuilder)
+        protected override void SetupParsers(MarkdownPipelineBuilder pipelineBuilder)
         {
             // HeadingBlockParser is a default parser registered in MarkdownPipelineBuilder's constructor.
             // FlexiSectionBlockParser makes it redundant.
@@ -51,7 +51,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// </summary>
         /// <param name="pipeline">Unused.</param>
         /// <param name="renderer">The root renderer to register the renderer for.</param>
-        public override void SetupRenderers(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
+        protected override void SetupRenderers(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
             if (renderer is HtmlRenderer htmlRenderer && !htmlRenderer.ObjectRenderers.Contains<FlexiSectionBlockRenderer>())
             {
