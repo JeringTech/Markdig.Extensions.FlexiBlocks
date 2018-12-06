@@ -9,7 +9,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
     /// </summary>
     public class HtmlAttributeDictionary : IDictionary<string, string>
     {
-        private readonly Dictionary<string, string> _map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, string> _map;
 
         /// <summary>
         /// Creates a <see cref="HtmlAttributeDictionary"/> instance.
@@ -42,12 +42,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <summary>
         /// Gets an <see cref="ICollection{T}"/> containing the keys of the <see cref="HtmlAttributeDictionary"/>.
         /// </summary>
-        public ICollection<string> Keys => ((IDictionary<string, string>)_map).Keys;
+        public ICollection<string> Keys => _map.Keys;
 
         /// <summary>
         /// Gets an <see cref="ICollection{T}"/> containing the values of the <see cref="HtmlAttributeDictionary"/>.
         /// </summary>
-        public ICollection<string> Values => ((IDictionary<string, string>)_map).Values;
+        public ICollection<string> Values => _map.Values;
 
         /// <summary>
         /// Gets the number of key-value pairs contained in the <see cref="HtmlAttributeDictionary"/>.
@@ -134,7 +134,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <returns>An <see cref="IEnumerator"/> that can be used to iterate through the collection.</returns>
         public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
         {
-            return ((IDictionary<string, string>)_map).GetEnumerator();
+            return _map.GetEnumerator();
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((IDictionary<string, string>)_map).GetEnumerator();
+            return _map.GetEnumerator();
         }
     }
 }
