@@ -57,7 +57,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             string result = testSubject.Message;
 
             // Assert
-            Assert.Equal($@"The DummyBlock starting at line ""6"", column ""2"", is invalid:
+            Assert.Equal($@"The DummyBlock starting at line ""{dummyLineIndex + 1}"", column ""{dummyColumn}"", is invalid:
 {dummyExpectedDescription}", result, ignoreLineEndingDifferences: true);
         }
 
