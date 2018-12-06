@@ -32,7 +32,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             var result = (FlexiBlocksException)dummyFormatter.Deserialize(dummyStream);
 
             // Assert
-            Assert.Equal(Context.Block, result.Context);
+            Assert.Equal(FlexiBlockExceptionContext.Block, result.Context);
             Assert.Equal(dummyLineIndex + 1, result.LineNumber);
             Assert.Equal(dummyColumn, result.Column);
             Assert.Equal(dummyDescription, result.Description);

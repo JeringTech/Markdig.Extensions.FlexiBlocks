@@ -51,7 +51,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
 
                 WriteFlexiBlock(renderer, obj);
             }
-            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)
+            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != FlexiBlockExceptionContext.Block)
             {
                 throw new FlexiBlocksException(obj as Block, innerException: exception);
             }

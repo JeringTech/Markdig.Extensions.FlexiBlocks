@@ -108,7 +108,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             {
                 OnFlexiBlockClosed(processor, block);
             }
-            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)
+            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != FlexiBlockExceptionContext.Block)
             {
                 throw new FlexiBlocksException(block, innerException: exception);
             }

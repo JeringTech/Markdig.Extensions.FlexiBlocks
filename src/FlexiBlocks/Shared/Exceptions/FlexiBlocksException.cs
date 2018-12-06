@@ -13,7 +13,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <summary>
         /// Gets the context of the unrecoverable situation.
         /// </summary>
-        public Context Context { get; }
+        public FlexiBlockExceptionContext Context { get; }
 
         /// <summary>
         /// Gets the description of the problem causing the FlexiBlock to be invalid.
@@ -72,7 +72,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             Column = column;
             Description = description;
 
-            Context = Context.Line;
+            Context = FlexiBlockExceptionContext.Line;
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 LineNumber = lineNumber ?? invalidFlexiBlock.Line + 1;
                 Column = column ?? invalidFlexiBlock.Column;
                 BlockTypeName = invalidFlexiBlock.GetType().Name;
-                Context = Context.Block;
+                Context = FlexiBlockExceptionContext.Block;
             }
         }
 
@@ -103,7 +103,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <param name="context"></param>
         protected FlexiBlocksException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Context = (Context)info.GetInt32(nameof(Context));
+            Context = (FlexiBlockExceptionContext)info.GetInt32(nameof(Context));
             Description = info.GetString(nameof(Description));
             LineNumber = info.GetInt32(nameof(LineNumber));
             Column = info.GetInt32(nameof(LineNumber));
@@ -133,7 +133,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         {
             get
             {
-                if (Context == Context.Block) // The exception represents an unrecoverable situation encountered when processing a FlexiBlock.
+                if (Context == FlexiBlockExceptionContext.Block) // The exception represents an unrecoverable situation encountered when processing a FlexiBlock.
                 {
                     return string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock,
                         BlockTypeName,
@@ -141,7 +141,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                         Column,
                         Description ?? Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock);
                 }
-                else if (Context == Context.Line) // The exception represents an unrecoverable situation encountered while parsing markdown.
+                else if (Context == FlexiBlockExceptionContext.Line) // The exception represents an unrecoverable situation encountered while parsing markdown.
                 {
                     return string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidMarkdown,
                         LineNumber,

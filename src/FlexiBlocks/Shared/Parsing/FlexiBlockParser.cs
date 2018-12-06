@@ -70,7 +70,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             {
                 return TryOpenFlexiBlock(processor);
             }
-            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)
+            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != FlexiBlockExceptionContext.Block)
             {
                 // The FlexiBlock must always be at the top of the NewBlocks stack
                 Block newBlock = processor.NewBlocks.Count == 0 ? null : processor.NewBlocks.Peek();
@@ -78,7 +78,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 if (newBlock == null)
                 {
                     // Can't add any more specific context
-                    if((exception as FlexiBlocksException)?.Context == Context.Line)
+                    if((exception as FlexiBlocksException)?.Context == FlexiBlockExceptionContext.Line)
                     {
                         throw;
                     }
@@ -118,7 +118,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             {
                 return TryContinueFlexiBlock(processor, block);
             }
-            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)
+            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != FlexiBlockExceptionContext.Block)
             {
                 throw new FlexiBlocksException(block, innerException: exception);
             }
@@ -147,7 +147,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             {
                 return CloseFlexiBlock(processor, block);
             }
-            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)
+            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != FlexiBlockExceptionContext.Block)
             {
                 throw new FlexiBlocksException(block, innerException: exception);
             }
