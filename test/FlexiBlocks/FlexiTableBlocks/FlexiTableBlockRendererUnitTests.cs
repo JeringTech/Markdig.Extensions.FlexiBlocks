@@ -3,7 +3,7 @@ using Markdig.Extensions.Tables;
 using Markdig.Renderers;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
-using Moq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Xunit;
@@ -12,12 +12,35 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
 {
     public class FlexiTableBlockRendererUnitTests
     {
-        [Theory]
-        [MemberData(nameof(WriteFlexiBlock_RendersFlexiTableBlock_Data))]
-        public void WriteFlexiBlock_RendersFlexiTableBlock(SerializableWrapper<FlexiTableBlockOptions> dummyFlexiTableBlockOptionsWrapper, string expectedResult)
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfExtensionOptionsIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiTableBlockRenderer(null));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfDefaultBlockOptionsIsNull()
         {
             // Arrange
-            Table dummyTable = CreateTable();
+            var dummyExtensionOptions = new FlexiTableBlocksExtensionOptions()
+            {
+                DefaultBlockOptions = null
+            };
+
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiTableBlockRenderer(dummyExtensionOptions));
+        }
+
+        // Table can't be serialized
+        [Theory]
+        [MemberData(nameof(WriteFlexiBlock_RendersFlexiTableBlock_Data))]
+        public void WriteFlexiBlock_RendersFlexiTableBlock(
+            Table dummyTable,
+            SerializableWrapper<FlexiTableBlockOptions> dummyFlexiTableBlockOptionsWrapper,
+            string expectedResult)
+        {
+            // Arrange
             dummyTable.SetData(FlexiTableBlocksExtension.FLEXI_TABLE_BLOCK_OPTIONS_KEY, dummyFlexiTableBlockOptionsWrapper.Value);
 
             string result = null;
@@ -72,14 +95,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
             const string dummyLabelAttribute = "dummyLabelAttribute";
             const string dummyAttribute = "dummyAttribute";
             const string dummyAttributeValue = "dummyAttributeValue";
+            Table dummyBasicTable = CreateBasicTable();
 
             return new object[][]
             {
                 // Renders class
                 new object[]
                 {
+                    dummyBasicTable,
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(dummyClass)),
-                    $@"<table class=""{dummyClass}"">
+                        $@"<table class=""{dummyClass}"">
 <thead>
 <tr>
 <th>a</th>
@@ -98,6 +123,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 // Does not render class if Class is null, whitespace or an empty string
                 new object[]
                 {
+                    dummyBasicTable,
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null)),
                     @"<table>
 <thead>
@@ -117,6 +143,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 },
                 new object[]
                 {
+                    dummyBasicTable,
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(" ")),
                     @"<table>
 <thead>
@@ -136,6 +163,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 },
                 new object[]
                 {
+                    dummyBasicTable,
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(string.Empty)),
                     @"<table>
 <thead>
@@ -156,6 +184,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 // Writes attributes if specified, if a value for the class attribute is specified, it is prepended to the default class
                 new object[]
                 {
+                    dummyBasicTable,
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(attributes: new Dictionary<string, string>{
                                 { dummyAttribute, dummyAttributeValue },
                                 {"class", dummyClass }
@@ -179,6 +208,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 // Renders wrapper elements
                 new object[]
                 {
+                    dummyBasicTable,
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, dummyWrapperElement)),
                     $@"<table>
 <thead>
@@ -199,22 +229,26 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 // Does not renders wrapper elements if WrapperElement is null, whitespace or an empty string
                 new object[]
                 {
+                    dummyBasicTable,
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, null)),
                     expectedNoWrapperElementTable
                 },
                 new object[]
                 {
+                    dummyBasicTable,
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, " ")),
                     expectedNoWrapperElementTable
                 },
                 new object[]
                 {
+                    dummyBasicTable,
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, string.Empty)),
                     expectedNoWrapperElementTable
                 },
                 // Renders wrapper elements
                 new object[]
                 {
+                    dummyBasicTable,
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, labelAttribute: dummyLabelAttribute)),
                     $@"<table>
 <thead>
@@ -235,18 +269,66 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 // Does not renders label attributes if LabelAttribute is null, whitespace or an empty string
                 new object[]
                 {
+                    dummyBasicTable,
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, labelAttribute: null)),
                     expectedNoLabelAttributeTable
                 },
                 new object[]
                 {
+                    dummyBasicTable,
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, labelAttribute: " ")),
                     expectedNoLabelAttributeTable
                 },
                 new object[]
                 {
+                    dummyBasicTable,
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(null, labelAttribute: string.Empty)),
                     expectedNoLabelAttributeTable
+                },
+                // Renders colspan and rowspan
+                new object[]
+                {
+                    CreateTableWithColspanAndRowspan(),
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions()),
+                    @"<table class=""flexi-table-block"">
+<tbody>
+<tr>
+<td colspan=""2"" rowspan=""2""><span>0</span></td>
+</tr>
+</tbody>
+</table>
+"
+                },
+                // Renders text-align attributes
+                new object[]
+                {
+                    CreateTableWithTextAlign(),
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions()),
+                    @"<table class=""flexi-table-block"">
+<tbody>
+<tr>
+<td style=""text-align: left;""><span>0</span></td>
+<td style=""text-align: center;""><span>1</span></td>
+<td style=""text-align: right;""><span>2</span></td>
+</tr>
+</tbody>
+</table>
+"
+                },
+                // Renders table with only header row
+                new object[]
+                {
+                    CreateTableWithOnlyHeaderRow(),
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions()),
+                    @"<table class=""flexi-table-block"">
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+</table>
+"
                 }
             };
         }
@@ -256,7 +338,88 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
             return new FlexiTableBlockRenderer(extensionOptions ?? new FlexiTableBlocksExtensionOptions());
         }
 
-        private Table CreateTable()
+        private static Table CreateTableWithOnlyHeaderRow()
+        {
+            var result = new Table();
+            var contents = new string[] { "a", "b"  };
+            var row = new TableRow
+            {
+                IsHeader = true
+            };
+
+            for (int i = 0; i < contents.Length; i++)
+            {
+                var literalInline = new LiteralInline(contents[i]);
+                var containerInline = new ContainerInline();
+                containerInline.AppendChild(literalInline);
+                var paragraphBlock = new ParagraphBlock
+                {
+                    Inline = containerInline
+                };
+                var tableCell = new TableCell
+                {
+                     paragraphBlock
+                };
+
+                row.Add(tableCell);
+            }
+            result.Add(row);
+
+            return result;
+        }
+
+        private static Table CreateTableWithTextAlign()
+        {
+            var result = new Table();
+            var row = new TableRow();
+            for (int i = 0; i < 3; i++)
+            {
+                var literalInline = new LiteralInline(i.ToString());
+                var containerInline = new ContainerInline();
+                containerInline.AppendChild(literalInline);
+                var paragraphBlock = new ParagraphBlock
+                {
+                    Inline = containerInline
+                };
+                var cell = new TableCell { paragraphBlock };
+                row.Add(cell);
+            }
+            result.Add(row);
+
+            result.ColumnDefinitions.Add(new TableColumnDefinition { Alignment = TableColumnAlign.Left });
+            result.ColumnDefinitions.Add(new TableColumnDefinition { Alignment = TableColumnAlign.Center });
+            result.ColumnDefinitions.Add(new TableColumnDefinition { Alignment = TableColumnAlign.Right });
+
+            return result;
+        }
+
+        private static Table CreateTableWithColspanAndRowspan()
+        {
+            var result = new Table();
+            var literalInline = new LiteralInline("0");
+            var containerInline = new ContainerInline();
+            containerInline.AppendChild(literalInline);
+            var paragraphBlock = new ParagraphBlock
+            {
+                Inline = containerInline
+            };
+            var cell = new TableCell
+            {
+                RowSpan = 2,
+                ColumnSpan = 2
+            };
+            cell.Add(paragraphBlock);
+
+            var row = new TableRow
+            {
+                cell
+            };
+            result.Add(row);
+
+            return result;
+        }
+
+        private static Table CreateBasicTable()
         {
             var result = new Table();
             var contents = new string[] { "a", "b", "0", "1", "2", "3" };
@@ -283,7 +446,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 };
                 var tableCell = new TableCell
                 {
-                    paragraphBlock
+                     paragraphBlock
                 };
 
                 currentRow.Add(tableCell);

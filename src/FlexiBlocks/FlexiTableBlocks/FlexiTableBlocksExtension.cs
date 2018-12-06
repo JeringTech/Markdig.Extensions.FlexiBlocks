@@ -85,6 +85,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
                     htmlRenderer.ObjectRenderers.Insert(0, _flexiTableBlockRenderer);
                 }
 
+                // Added by GridTables or PipeTables, interferes with rendering of Tables
                 HtmlTableRenderer htmlTableRenderer = htmlRenderer.ObjectRenderers.Find<HtmlTableRenderer>();
                 if (htmlTableRenderer != null)
                 {
