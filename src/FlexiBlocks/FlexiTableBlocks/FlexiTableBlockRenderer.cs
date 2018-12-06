@@ -136,7 +136,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
                         EnsureLine().
                         Write(row.IsHeader ? "<th" : "<td");
 
-                    if (!row.IsHeader && renderLabelAttribute && i < labels.Count)
+                    if (!row.IsHeader && renderLabelAttribute && labels?.Count > i) // labels may be null if table has no header
                     {
                         renderer.Write($" {flexiTableBlockOptions.LabelAttribute}=\"{labels[i]}\"");
                     }
