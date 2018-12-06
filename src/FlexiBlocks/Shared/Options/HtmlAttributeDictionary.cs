@@ -57,7 +57,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <summary>
         /// Gets a value indicating whether the <see cref="HtmlAttributeDictionary"/> is read-only.
         /// </summary>
-        public bool IsReadOnly => ((IDictionary<string, string>)_map).IsReadOnly;
+        public bool IsReadOnly => false;
 
         /// <summary>
         /// <para>Adds the specified key and value to the dictionary.</para>
