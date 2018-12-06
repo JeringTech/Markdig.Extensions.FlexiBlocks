@@ -95,7 +95,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
             ExposedFlexiOptionsBlockParser testSubject = CreateExposedFlexiOptionsBlockParser();
 
             // Act and assert
-            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.ExposedCloseFlexiBlock(dummyBlockProcessor, new DummyBlock(null)));
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.ExposedCloseFlexiBlock(dummyBlockProcessor, null));
             Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock,
                     typeof(FlexiOptionsBlock).Name,
                     dummyLineIndex + 1,
@@ -141,13 +141,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiOptionsBlocks
         private ExposedFlexiOptionsBlockParser CreateExposedFlexiOptionsBlockParser()
         {
             return new ExposedFlexiOptionsBlockParser();
-        }
-
-        private class DummyBlock : Block
-        {
-            public DummyBlock(BlockParser parser) : base(parser)
-            {
-            }
         }
     }
 }

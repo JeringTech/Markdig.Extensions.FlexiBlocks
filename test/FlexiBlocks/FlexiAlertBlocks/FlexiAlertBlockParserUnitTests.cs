@@ -82,7 +82,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             ExposedFlexiAlertBlockParser testSubject =CreateExposedFlexiAlertBlockParser();
 
             // Act
-            BlockState result = testSubject.ExposedTryContinueFlexiBlock(dummyBlockProcessor, new DummyBlock(null));
+            BlockState result = testSubject.ExposedTryContinueFlexiBlock(dummyBlockProcessor, null);
 
             // Assert
             Assert.Equal(BlockState.None, result);
@@ -97,7 +97,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             ExposedFlexiAlertBlockParser testSubject = CreateExposedFlexiAlertBlockParser();
 
             // Act
-            BlockState result = testSubject.ExposedTryContinueFlexiBlock(dummyBlockProcessor, new DummyBlock(null));
+            BlockState result = testSubject.ExposedTryContinueFlexiBlock(dummyBlockProcessor, null);
 
             // Assert
             Assert.Equal(BlockState.None, result);
@@ -112,7 +112,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             ExposedFlexiAlertBlockParser testSubject = CreateExposedFlexiAlertBlockParser();
 
             // Act
-            BlockState result = testSubject.ExposedTryContinueFlexiBlock(dummyBlockProcessor, new DummyBlock(null));
+            BlockState result = testSubject.ExposedTryContinueFlexiBlock(dummyBlockProcessor, null);
 
             // Assert
             Assert.Equal(BlockState.BreakDiscard, result);
@@ -158,13 +158,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             // Assert
             _mockRepository.VerifyAll();
             Assert.Equal(dummyIconMarkup, result.IconMarkup);
-        }
-
-        private class DummyBlock : Block
-        {
-            public DummyBlock(BlockParser parser) : base(parser)
-            {
-            }
         }
 
         public class ExposedFlexiAlertBlockParser : FlexiAlertBlockParser

@@ -41,14 +41,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
         {
             // Arrange
             var dummyRenderer = new HtmlRenderer(new StringWriter());
-            var dummyBlock = new DummyBlock(null);
-            var dummyFlexiBlocksException = new FlexiBlocksException(new DummyBlock(null));
-            Mock<FlexiBlockRenderer<DummyBlock>> mockTestSubject = _mockRepository.Create<FlexiBlockRenderer<DummyBlock>>();
+            Mock<Block> dummyBlock = _mockRepository.Create<Block>(null);
+            var dummyFlexiBlocksException = new FlexiBlocksException(dummyBlock.Object);
+            Mock<FlexiBlockRenderer<Block>> mockTestSubject = _mockRepository.Create<FlexiBlockRenderer<Block>>();
             mockTestSubject.CallBase = true;
-            mockTestSubject.Protected().Setup("WriteFlexiBlock", dummyRenderer, dummyBlock).Throws(dummyFlexiBlocksException);
+            mockTestSubject.Protected().Setup("WriteFlexiBlock", dummyRenderer, dummyBlock.Object).Throws(dummyFlexiBlocksException);
 
             // Act and assert
-            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.Write(dummyRenderer, dummyBlock));
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.Write(dummyRenderer, dummyBlock.Object));
             _mockRepository.VerifyAll();
             Assert.Same(dummyFlexiBlocksException, result);
             Assert.Null(result.InnerException);
@@ -59,30 +59,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
         {
             // Arrange
             var dummyRenderer = new HtmlRenderer(new StringWriter());
-            var dummyBlock = new DummyBlock(null);
+            Mock<Block> dummyBlock = _mockRepository.Create<Block>(null);
             var dummyException = new ArgumentException(); // Arbitrary type
-            Mock<FlexiBlockRenderer<DummyBlock>> mockTestSubject = _mockRepository.Create<FlexiBlockRenderer<DummyBlock>>();
+            Mock<FlexiBlockRenderer<Block>> mockTestSubject = _mockRepository.Create<FlexiBlockRenderer<Block>>();
             mockTestSubject.CallBase = true;
-            mockTestSubject.Protected().Setup("WriteFlexiBlock", dummyRenderer, dummyBlock).Throws(dummyException);
+            mockTestSubject.Protected().Setup("WriteFlexiBlock", dummyRenderer, dummyBlock.Object).Throws(dummyException);
 
             // Act and assert
-            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.Write(dummyRenderer, dummyBlock));
+            FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.Write(dummyRenderer, dummyBlock.Object));
             _mockRepository.VerifyAll();
             Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock,
-                    nameof(DummyBlock),
-                    dummyBlock.Line + 1,
-                    dummyBlock.Column,
+                    dummyBlock.Object.GetType().Name,
+                    dummyBlock.Object.Line + 1,
+                    dummyBlock.Object.Column,
                     Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
                 result.Message,
                 ignoreLineEndingDifferences: true);
             Assert.Same(dummyException, result.InnerException);
-        }
-
-        public class DummyBlock : Block
-        {
-            public DummyBlock(BlockParser parser) : base(parser)
-            {
-            }
         }
     }
 }
