@@ -24,16 +24,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
             FlexiSectionBlockOptions flexiSectionBlockOptions = obj.FlexiSectionBlockOptions;
 
             // Add class to attributes
-            IDictionary<string, string> attributes = new HtmlAttributeDictionary(flexiSectionBlockOptions.Attributes);
+            IDictionary<string, string> attributes = flexiSectionBlockOptions.Attributes;
             if (!string.IsNullOrWhiteSpace(flexiSectionBlockOptions.Class))
             {
-                attributes.Add("class", flexiSectionBlockOptions.Class);
+                attributes = new HtmlAttributeDictionary(attributes)
+                {
+                    { "class", flexiSectionBlockOptions.Class }
+                };
             }
 
             // Add id to attributes
             if (!string.IsNullOrWhiteSpace(obj.ID))
             {
-                attributes.Add("id", obj.ID);
+                (attributes ?? (attributes = new Dictionary<string, string>())).Add("id", obj.ID);
             }
 
             string elementName = flexiSectionBlockOptions.Element.ToString().ToLower();
