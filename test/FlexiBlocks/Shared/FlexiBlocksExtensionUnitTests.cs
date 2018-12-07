@@ -5,6 +5,7 @@ using Markdig.Syntax;
 using Moq;
 using Moq.Protected;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
@@ -86,13 +87,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             Assert.Null(result.InnerException);
         }
 
-        [Fact]
-        public void OnClosed_WrapsNonFlexiBlocksExceptionsThrownByOnFlexiBlockClosedInFlexiBlocksExceptions()
+        [Theory]
+        [MemberData(nameof(OnClosed_WrapsNonFlexiBlocksExceptionsAndFlexiBlocksExceptionsWithoutBlockContextInFlexiBlocksExceptions_Data))]
+        public void OnClosed_WrapsNonFlexiBlocksExceptionsAndFlexiBlocksExceptionsWithoutBlockContextInFlexiBlocksExceptions(Exception dummyException)
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<Block> mockBlock = _mockRepository.Create<Block>(null);
-            var dummyException = new ArgumentException(); // Arbitrary type
             Mock<ExposedFlexiBlocksExtension> mockTestSubject = _mockRepository.Create<ExposedFlexiBlocksExtension>();
             mockTestSubject.CallBase = true;
             mockTestSubject.Protected().Setup("OnFlexiBlockClosed", dummyBlockProcessor, mockBlock.Object).Throws(dummyException);
@@ -108,6 +109,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
                 result.Message,
                 ignoreLineEndingDifferences: true);
             Assert.Same(dummyException, result.InnerException);
+        }
+
+        public static IEnumerable<object[]> OnClosed_WrapsNonFlexiBlocksExceptionsAndFlexiBlocksExceptionsWithoutBlockContextInFlexiBlocksExceptions_Data()
+        {
+            return new object[][]
+            {
+                // Non FlexiBlocksException
+                new object[]{ new ArgumentException()},
+                // FlexiBlocksException without block context
+                new object[]{ new FlexiBlocksException()},
+            };
         }
 
         public class ExposedFlexiBlocksExtension : FlexiBlocksExtension

@@ -3,6 +3,7 @@ using Markdig.Syntax;
 using Moq;
 using Moq.Protected;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
@@ -54,13 +55,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             Assert.Null(result.InnerException);
         }
 
-        [Fact]
-        public void Write_WrapsExceptionsInFlexiBlocksExceptions()
+        [Theory]
+        [MemberData(nameof(Write_WrapsNonFlexiBlocksExceptionsAndFlexiBlocksExceptionsWithoutBlockContextInFlexiBlocksExceptionsWithBlockContext_Data))]
+        public void Write_WrapsNonFlexiBlocksExceptionsAndFlexiBlocksExceptionsWithoutBlockContextInFlexiBlocksExceptionsWithBlockContext(Exception dummyException)
         {
             // Arrange
             var dummyRenderer = new HtmlRenderer(new StringWriter());
             Mock<Block> dummyBlock = _mockRepository.Create<Block>(null);
-            var dummyException = new ArgumentException(); // Arbitrary type
             Mock<FlexiBlockRenderer<Block>> mockTestSubject = _mockRepository.Create<FlexiBlockRenderer<Block>>();
             mockTestSubject.CallBase = true;
             mockTestSubject.Protected().Setup("WriteFlexiBlock", dummyRenderer, dummyBlock.Object).Throws(dummyException);
@@ -76,6 +77,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
                 result.Message,
                 ignoreLineEndingDifferences: true);
             Assert.Same(dummyException, result.InnerException);
+        }
+
+        public static IEnumerable<object[]> Write_WrapsNonFlexiBlocksExceptionsAndFlexiBlocksExceptionsWithoutBlockContextInFlexiBlocksExceptionsWithBlockContext_Data()
+        {
+            return new object[][]
+            {
+                // Non FlexiBlocksException exception
+                new object[]{new ArgumentException()},
+                // FlexiBlocksException without block context
+                new object[]{new FlexiBlocksException()}
+            };
         }
     }
 }
