@@ -1,7 +1,7 @@
-Copyright (c) 2018 JeremyTCD
-All rights reserved.
-
 # Licenses
+
+Copyright (c) 2018 Jering.  
+All rights reserved.
 
 ## Documentation
 
