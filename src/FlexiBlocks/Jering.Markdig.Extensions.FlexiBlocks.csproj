@@ -5,17 +5,18 @@
         <PackageId>Jering.Markdig.Extensions.FlexiBlocks</PackageId>
         <Title>Markdig Extensions for Configurable Markdown</Title>
         <Authors>JeremyTCD</Authors>
-        <Description>Jering.Markdig.Extensions.FlexiBlocks is a collection of Markdig extensions for configurable markdown:
-  • FlexiAlertBlocks: Render alerts with configurable icons and more.
-  • FlexiCodeBlocks: Render code with configurable syntax highlighting, line numbers and more.
-  • FlexiIncludeBlocks: Include content from both local and remote sources.
-  • FlexiOptionsBlocks: Create your own configurable markdown extensions.
-  • FlexiSectionsBlocks: Split articles into sections demarcated by ATX headings and render headings with configurable icons.
-  • FlexiTableBlocks: Render responsive tables.</Description>
+        <Description>Jering.Markdig.Extensions.FlexiBlocks is a collection of Markdig extensions for configurable markdown.
+
+    • FlexiAlertBlocks: Render alerts with configurable icons and more.
+    • FlexiCodeBlocks: Render code with configurable syntax highlighting, line numbers and more.
+    • FlexiIncludeBlocks: Include content from both local and remote sources.
+    • FlexiOptionsBlocks: Create your own configurable markdown extensions.
+    • FlexiSectionsBlocks: Split articles into sections demarcated by ATX headings and render headings with configurable icons.
+    • FlexiTableBlocks: Render responsive tables.</Description>
         <Copyright>© 2018 Jering. All rights reserved.</Copyright>
         <PackageProjectUrl>https://www.jering.tech/utilities/jering.markdig.extensions.flexiblocks/index</PackageProjectUrl>
         <RepositoryUrl>https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks</RepositoryUrl>
-        <PackageLicenseUrl>$(RepositoryUrl)/blob/master/License.txt</PackageLicenseUrl>
+        <PackageLicenseUrl>$(RepositoryUrl)/blob/master/Licenses.md</PackageLicenseUrl>
         <PackageReleaseNotes>$(RepositoryUrl)/blob/master/Changelog.md</PackageReleaseNotes>
         <PackageTags>markdown markdig extension</PackageTags>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
