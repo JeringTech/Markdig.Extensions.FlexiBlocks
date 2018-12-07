@@ -20,6 +20,36 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             _dummyFile = Path.Combine(fixture.TempDirectory, "dummyFile");
         }
 
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfFileServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new DiskCacheService(
+                null,
+                _mockRepository.Create<IDirectoryService>().Object,
+                _mockRepository.Create<ILoggerFactory>().Object));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfDirectoryServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new DiskCacheService(
+                _mockRepository.Create<IFileService>().Object,
+                null,
+                _mockRepository.Create<ILoggerFactory>().Object));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfLoggerFactoryIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new DiskCacheService(
+                _mockRepository.Create<IFileService>().Object,
+                _mockRepository.Create<IDirectoryService>().Object,
+                null));
+        }
+
         [Theory]
         [MemberData(nameof(TryGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data))]
         public void TryGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString(string dummySourceUri)
@@ -280,7 +310,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         }
 
         [Fact]
-        public void GetStream_ThrowsIOExceptionIfCacheFileExistsButIsInUseAndRemainsInUseOnTheThirdTryToOpenIt()
+        public void GetStream_LogsWarningsThenThrowsIOExceptionIfCacheFileExistsButIsInUseAndRemainsInUseOnTheThirdTryToOpenIt()
         {
             // Arrange
             const string dummyFilePath = "dummyFilePath";
@@ -288,15 +318,29 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             const FileAccess dummyFileAccess = FileAccess.Read;
             const FileShare dummyFileShare = FileShare.Read;
             var dummyIOException = new IOException();
+            Mock<ILogger> mockLogger = _mockRepository.Create<ILogger>();
+            mockLogger.Setup(l => l.IsEnabled(LogLevel.Warning)).Returns(true);
+            Mock<ILoggerFactory> mockLoggerFactory = _mockRepository.Create<ILoggerFactory>();
+            mockLoggerFactory.Setup(l => l.CreateLogger(typeof(DiskCacheService).FullName)).Returns(mockLogger.Object);
             Mock<IFileService> mockFileService = _mockRepository.Create<IFileService>();
             mockFileService.Setup(f => f.Open(dummyFilePath, dummyFileMode, dummyFileAccess, dummyFileShare)).Throws(dummyIOException);
-            DiskCacheService testSubject = CreateDiskCacheService(fileService: mockFileService.Object);
+            DiskCacheService testSubject = CreateDiskCacheService(fileService: mockFileService.Object, loggerFactory: mockLoggerFactory.Object);
 
             // Act and assert
             IOException result = Assert.Throws<IOException>(() => testSubject.GetStream(dummyFilePath, dummyFileMode, dummyFileAccess, dummyFileShare));
             _mockRepository.VerifyAll();
             mockFileService.Verify(f => f.Open(dummyFilePath, dummyFileMode, dummyFileAccess, dummyFileShare), Times.Exactly(3));
             Assert.Same(dummyIOException, result);
+            mockLogger.Verify(l => l.Log(LogLevel.Warning, 0,
+                // object is of type FormattedLogValues
+                It.Is<object>(f => f.ToString() == string.Format(Strings.LogWarning_DiskCacheService_FileInUse, dummyFilePath, 2)),
+                null, It.IsAny<Func<object, Exception, string>>()), Times.Once);
+            mockLogger.Verify(l => l.Log(LogLevel.Warning, 0,
+                  It.Is<object>(f => f.ToString() == string.Format(Strings.LogWarning_DiskCacheService_FileInUse, dummyFilePath, 1)),
+                  null, It.IsAny<Func<object, Exception, string>>()), Times.Once);
+            mockLogger.Verify(l => l.Log(LogLevel.Warning, 0,
+                  It.Is<object>(f => f.ToString() == string.Format(Strings.LogWarning_DiskCacheService_FileInUse, dummyFilePath, 0)),
+                  null, It.IsAny<Func<object, Exception, string>>()), Times.Once);
         }
 
         [Fact]

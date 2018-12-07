@@ -377,6 +377,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file &quot;{0}&quot; is in use. {1} tries remaining..
+        /// </summary>
+        internal static string LogWarning_DiskCacheService_FileInUse {
+            get {
+                return ResourceManager.GetString("LogWarning_DiskCacheService_FileInUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Http request to &quot;{0}&quot; failed with status code &quot;{1}&quot;, {2} tries remaining..
         /// </summary>
         internal static string LogWarning_SourceRetrieverService_FailureStatusCode {

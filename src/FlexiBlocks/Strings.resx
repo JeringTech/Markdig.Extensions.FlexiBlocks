@@ -231,4 +231,7 @@
   <data name="LogWarning_SourceRetrieverService_Timeout" xml:space="preserve">
     <value>Attempt to retrieve content from "{0}" timed out, {1} tries remaining.</value>
   </data>
+  <data name="LogWarning_DiskCacheService_FileInUse" xml:space="preserve">
+    <value>The file "{0}" is in use. {1} tries remaining.</value>
+  </data>
 </root>

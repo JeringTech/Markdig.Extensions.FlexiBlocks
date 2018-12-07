@@ -27,6 +27,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         private readonly ILogger<DiskCacheService> _logger;
         private readonly IFileService _fileService;
         private readonly IDirectoryService _directoryService;
+        private readonly bool _warningLoggingEnabled;
 
         /// <summary>
         /// Creates an <see cref="IDiskCacheService"/> instance.
@@ -36,9 +37,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <param name="loggerFactory">The factory for <see cref="ILogger"/>s.</param>
         public DiskCacheService(IFileService fileService, IDirectoryService directoryService, ILoggerFactory loggerFactory)
         {
-            _logger = loggerFactory?.CreateLogger<DiskCacheService>();
+            _logger = loggerFactory?.CreateLogger<DiskCacheService>() ?? throw new ArgumentNullException(nameof(loggerFactory));
             _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
             _directoryService = directoryService ?? throw new ArgumentNullException(nameof(directoryService));
+
+            _warningLoggingEnabled = _logger.IsEnabled(LogLevel.Warning);
         }
 
         /// <inheritdoc />
@@ -132,7 +135,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 }
                 catch (IOException)
                 {
-                    _logger?.LogDebug($"The file \"{path}\" is in use. {remainingTries} tries remaining.");
+                    if (_warningLoggingEnabled)
+                    {
+                        _logger.LogWarning(string.Format(Strings.LogWarning_DiskCacheService_FileInUse, path, remainingTries));
+                    }
 
                     if (remainingTries == 0)
                     {
