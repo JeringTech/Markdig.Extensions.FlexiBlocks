@@ -2,12 +2,14 @@
 using Jering.IocServices.System.Net.Http;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Internal;
 using Moq;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -24,6 +26,60 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         public SourceRetrieverServiceUnitTests(SourceRetrieverServiceUnitTestsFixture fixture)
         {
             _dummyFile = Path.Combine(fixture.TempDirectory, "dummyFile");
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfHttpClientServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new SourceRetrieverService(
+                null,
+                _mockRepository.Create<IFileService>().Object,
+                _mockRepository.Create<IDiskCacheService>().Object,
+                _mockRepository.Create<ILoggerFactory>().Object));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfFileServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new SourceRetrieverService(
+                _mockRepository.Create<IHttpClientService>().Object,
+                null,
+                _mockRepository.Create<IDiskCacheService>().Object,
+                _mockRepository.Create<ILoggerFactory>().Object));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfDiskCacheServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new SourceRetrieverService(
+                _mockRepository.Create<IHttpClientService>().Object,
+                _mockRepository.Create<IFileService>().Object,
+                null,
+                _mockRepository.Create<ILoggerFactory>().Object));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfLoggerFactoryIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new SourceRetrieverService(
+                _mockRepository.Create<IHttpClientService>().Object,
+                _mockRepository.Create<IFileService>().Object,
+                _mockRepository.Create<IDiskCacheService>().Object,
+                null));
+        }
+
+        [Fact]
+        public void GetSource_ThrowsArgumentNullExceptionIfSourceUriIsNull()
+        {
+            // Arrange
+            SourceRetrieverService testSubject = CreateSourceRetrieverService();
+
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => testSubject.GetSource(null));
         }
 
         [Fact]
@@ -122,7 +178,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.GetSourceCore(dummyUri, null, default));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_InvalidLocalUri, dummyUri.AbsolutePath), result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_SourceRetrieverService_InvalidLocalUri, dummyUri.AbsolutePath), result.Message);
         }
 
         [Fact]
@@ -246,7 +302,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.GetRemoteSource(dummyUri, null, default));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_RemoteUriDoesNotExist, dummyUri.AbsoluteUri), result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_SourceRetrieverService_RemoteUriDoesNotExist, dummyUri.AbsoluteUri), result.Message);
         }
 
         [Fact]
@@ -262,27 +318,44 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.GetRemoteSource(dummyUri, null, default));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_RemoteUriAccessForbidden, dummyUri.AbsoluteUri), result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_SourceRetrieverService_RemoteUriAccessForbidden, dummyUri.AbsoluteUri), result.Message);
         }
 
         [Fact]
-        public void GetRemoteSource_ThrowsFlexiBlocksExceptionIfARemoteSourceCannotBeRetrievedFromAfterThreeAttempts()
+        public void GetRemoteSource_LogsWarningsThenThrowsFlexiBlocksExceptionIfARemoteSourceCannotBeRetrievedFromAfterThreeAttempts()
         {
             // Arrange
             var dummyUri = new Uri("C:/dummy/uri");
             var dummyHttpResponseMessage = new HttpResponseMessage(HttpStatusCode.InternalServerError); // Arbitrary status code that might represent an intermittent issue
+            Mock<ILogger> mockLogger = _mockRepository.Create<ILogger>();
+            mockLogger.Setup(l => l.IsEnabled(LogLevel.Warning)).Returns(true);
+            Mock<ILoggerFactory> mockLoggerFactory = _mockRepository.Create<ILoggerFactory>();
+            mockLoggerFactory.Setup(l => l.CreateLogger(typeof(SourceRetrieverService).FullName)).Returns(mockLogger.Object);
+            var dummyHttpRequestException = new HttpRequestException();
             Mock<IHttpClientService> mockHttpClientService = _mockRepository.Create<IHttpClientService>();
             mockHttpClientService.
                 SetupSequence(h => h.GetAsync(dummyUri, HttpCompletionOption.ResponseHeadersRead, default)).
                 ReturnsAsync(dummyHttpResponseMessage).
                 ThrowsAsync(new OperationCanceledException()).
-                ThrowsAsync(new HttpRequestException());
-            SourceRetrieverService testSubject = CreateSourceRetrieverService(mockHttpClientService.Object);
+                ThrowsAsync(dummyHttpRequestException);
+            SourceRetrieverService testSubject = CreateSourceRetrieverService(mockHttpClientService.Object, loggerFactory: mockLoggerFactory.Object);
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.GetRemoteSource(dummyUri, null, default));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_FailedAfterMultipleAttempts, dummyUri.AbsoluteUri), result.Message);
+            mockLogger.Verify(l => l.Log(LogLevel.Warning, 0,
+                // object is of type FormattedLogValues
+                It.Is<object>(f => f.ToString() == string.Format(Strings.LogWarning_SourceRetrieverService_FailureStatusCode, dummyUri.AbsoluteUri, (int)HttpStatusCode.InternalServerError, 2)),
+                null, It.IsAny<Func<object, Exception, string>>()), Times.Once);
+            mockLogger.Verify(l => l.Log(LogLevel.Warning, 0,
+                // object is of type FormattedLogValues
+                It.Is<object>(f => f.ToString() == string.Format(Strings.LogWarning_SourceRetrieverService_Timeout, dummyUri.AbsoluteUri, 1)),
+                null, It.IsAny<Func<object, Exception, string>>()), Times.Once);
+            mockLogger.Verify(l => l.Log(LogLevel.Warning, 0,
+                // object is of type FormattedLogValues
+                It.Is<object>(f => f.ToString() == string.Format(Strings.LogWarning_SourceRetrieverService_HttpRequestException, dummyHttpRequestException.Message, dummyUri.AbsoluteUri, 0)),
+                null, It.IsAny<Func<object, Exception, string>>()), Times.Once);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_SourceRetrieverService_FailedAfterMultipleAttempts, dummyUri.AbsoluteUri), result.Message);
         }
 
         [Theory]

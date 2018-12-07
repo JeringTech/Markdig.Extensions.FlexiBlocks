@@ -6,6 +6,7 @@ using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using Moq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -15,6 +16,27 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
     public class FlexiCodeBlocksExtensionUnitTests
     {
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfFlexiCodeBlockRendererIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiCodeBlocksExtension(null, _mockRepository.Create<IFlexiOptionsBlockService>().Object, new FlexiCodeBlocksExtensionOptions()));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfFlexiOptionsBlockServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiCodeBlocksExtension(CreateFlexiCodeBlockRenderer(), null, new FlexiCodeBlocksExtensionOptions()));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfFlexiCodeBlocksExtensionOptionsIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiCodeBlocksExtension(CreateFlexiCodeBlockRenderer(), _mockRepository.Create<IFlexiOptionsBlockService>().Object, null));
+        }
 
         [Theory]
         [MemberData(nameof(ValidateLineRange_ThrowsFlexiBlocksExceptionIfLineRangeIsNotASubsetOfTheFullRangeOfLines_Data))]
@@ -27,7 +49,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.ValidateLineRange(lineRangeWrapper.Value, dummyNumLines, dummyPropertyName));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionLineRangeNotASubset, lineRangeWrapper.Value.ToString(), dummyPropertyName, dummyNumLines),
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiCodeBlocksExtension_OptionLineRangeNotASubset, lineRangeWrapper.Value.ToString(), dummyPropertyName, dummyNumLines),
                 result.Message);
         }
 

@@ -88,7 +88,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             // Act and assert
             FlexiBlocksException result = Assert.
                 Throws<FlexiBlocksException>(() => new FlexiSectionBlockOptions(element: dummyElement));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeAValidEnumValue,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_OptionMustBeAValidEnumValue,
                     dummyElement,
                     nameof(FlexiSectionBlockOptions.Element),
                     nameof(SectioningContentElement)),

@@ -44,11 +44,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="FlexiSectionBlockOptions.ClassFormat" /> is not a valid format.</exception>
         protected override BlockState TryOpenFlexiBlock(BlockProcessor processor)
         {
-            if (processor == null)
-            {
-                throw new ArgumentNullException(nameof(processor));
-            }
-
             if (processor.IsCodeIndent)
             {
                 return BlockState.None;
@@ -213,7 +208,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
                 }
                 catch (FormatException formatException)
                 {
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionIsAnInvalidFormat, nameof(result.ClassFormat), result.ClassFormat),
+                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Shared_OptionIsAnInvalidFormat, nameof(result.ClassFormat), result.ClassFormat),
                         formatException);
                 }
             }

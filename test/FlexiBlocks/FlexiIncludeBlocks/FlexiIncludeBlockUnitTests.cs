@@ -25,6 +25,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             Assert.Same(dummyParentFlexiIncludeBlock, result.ParentFlexiIncludeBlock);
         }
 
+        [Fact]
+        public void Setup_ThrowsArgumentNullExceptionIfFlexiIncludeBlockOptionsIsNull()
+        {
+            // Arrange
+            var testSubject = new FlexiIncludeBlock(null, null);
+
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => testSubject.Setup(null, null));
+        }
+
         [Theory]
         [MemberData(nameof(Setup_ThrowsFlexiBlocksExceptionIfSourceUriSchemeIsUnsupported_Data))]
         public void Setup_ThrowsFlexiBlocksExceptionIfSourceUriSchemeIsUnsupported(string dummySourceUri, string expectedScheme)
@@ -34,7 +44,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.Setup(new FlexiIncludeBlockOptions(dummySourceUri), null));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeAUriWithASupportedScheme,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAUriWithASupportedScheme,
                     nameof(FlexiIncludeBlockOptions.SourceUri),
                     dummySourceUri,
                     expectedScheme),
@@ -60,7 +70,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.Setup(new FlexiIncludeBlockOptions("relative/uri"), dummyRootBaseUri));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeAnAbsoluteUri, nameof(FlexiIncludeBlocksExtensionOptions.RootBaseUri), dummyRootBaseUri), result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAnAbsoluteUri, nameof(FlexiIncludeBlocksExtensionOptions.RootBaseUri), dummyRootBaseUri), result.Message);
         }
 
         public static IEnumerable<object[]> Setup_ThrowsFlexiBlocksExceptionIfRootBaseUriIsNotAnAbsoluteUri_Data()
@@ -86,7 +96,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Act and assert
             FlexiBlocksException result = Assert.
                 Throws<FlexiBlocksException>(() => testSubject.Setup(new FlexiIncludeBlockOptions("relative/uri"), dummyRootBaseUri));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeAUriWithASupportedScheme,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAUriWithASupportedScheme,
                     nameof(FlexiIncludeBlocksExtensionOptions.RootBaseUri),
                     dummyRootBaseUri,
                     expectedScheme),

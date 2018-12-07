@@ -37,7 +37,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         {
             if (firstNumber < 1)
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeGreaterThan0, nameof(FirstNumber), firstNumber));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Shared_OptionMustBeGreaterThan0, nameof(FirstNumber), firstNumber));
             }
 
             FirstNumber = firstNumber;

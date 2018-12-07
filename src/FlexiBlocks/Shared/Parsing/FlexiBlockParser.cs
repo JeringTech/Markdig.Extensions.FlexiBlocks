@@ -61,11 +61,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <exception cref="FlexiBlocksException">Thrown if an exception is thrown while setting up the newly opened FlexiBlock.</exception>
         public sealed override BlockState TryOpen(BlockProcessor processor)
         {
+            if (processor == null)
+            {
+                throw new ArgumentNullException(nameof(processor));
+            }
+
             try
             {
                 return TryOpenFlexiBlock(processor);
             }
-            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)
+            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != FlexiBlockExceptionContext.Block)
             {
                 // The FlexiBlock must always be at the top of the NewBlocks stack
                 Block newBlock = processor.NewBlocks.Count == 0 ? null : processor.NewBlocks.Peek();
@@ -73,14 +78,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 if (newBlock == null)
                 {
                     // Can't add any more specific context
-                    if((exception as FlexiBlocksException)?.Context == Context.Line)
+                    if((exception as FlexiBlocksException)?.Context == FlexiBlockExceptionContext.Line)
                     {
                         throw;
                     }
 
                     throw new FlexiBlocksException(processor.LineIndex + 1,
                         processor.Column,
-                        string.Format(Strings.FlexiBlocksException_ExceptionOccurredWhileAttemptingToOpenBlock, GetType().Name),
+                        string.Format(Strings.FlexiBlocksException_FlexiBlockParser_ExceptionOccurredWhileAttemptingToOpenBlock, GetType().Name),
                         exception);
                 }
                 else
@@ -99,11 +104,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <exception cref="FlexiBlocksException">Thrown if an exception is thrown while attempting to continue the FlexiBlock.</exception>
         public sealed override BlockState TryContinue(BlockProcessor processor, Block block)
         {
+            if (processor == null)
+            {
+                throw new ArgumentNullException(nameof(processor));
+            }
+
+            if (block == null)
+            {
+                throw new ArgumentNullException(nameof(block));
+            }
+
             try
             {
                 return TryContinueFlexiBlock(processor, block);
             }
-            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)
+            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != FlexiBlockExceptionContext.Block)
             {
                 throw new FlexiBlocksException(block, innerException: exception);
             }
@@ -118,11 +133,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <exception cref="FlexiBlocksException">Thrown if an exception is thrown while attempting to close the FlexiBlock.</exception>
         public sealed override bool Close(BlockProcessor processor, Block block)
         {
+            if (processor == null)
+            {
+                throw new ArgumentNullException(nameof(processor));
+            }
+
+            if (block == null)
+            {
+                throw new ArgumentNullException(nameof(block));
+            }
+
             try
             {
                 return CloseFlexiBlock(processor, block);
             }
-            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)
+            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != FlexiBlockExceptionContext.Block)
             {
                 throw new FlexiBlocksException(block, innerException: exception);
             }

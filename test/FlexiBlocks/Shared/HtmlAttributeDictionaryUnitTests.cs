@@ -31,7 +31,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             {
                 new object[]{dummyValue, " ", dummyValue}, // Replaces whitespace
                 new object[]{dummyValue, null, dummyValue}, // Replaces null
+                new object[]{null, null, ""}, // Empty string
                 new object[]{dummyValue, dummyExistingValue, $"{dummyExistingValue} {dummyValue}"}, // Gets appended to an existing value
+                new object[]{$" {dummyValue} ", dummyExistingValue, $"{dummyExistingValue} {dummyValue}" } // Leading and trailing whitespace gets trimmed
             };
         }
 

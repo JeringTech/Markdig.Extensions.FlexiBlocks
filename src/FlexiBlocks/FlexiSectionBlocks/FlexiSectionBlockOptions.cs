@@ -115,7 +115,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         {
             if (!Enum.IsDefined(typeof(SectioningContentElement), Element))
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeAValidEnumValue,
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Shared_OptionMustBeAValidEnumValue,
                         Element,
                         nameof(Element),
                         nameof(SectioningContentElement)));

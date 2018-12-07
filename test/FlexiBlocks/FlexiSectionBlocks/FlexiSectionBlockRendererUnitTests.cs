@@ -21,10 +21,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                var flexiSectionBlockRenderer = new FlexiSectionBlockRenderer();
+                var testSubject = new FlexiSectionBlockRenderer();
 
                 // Act
-                flexiSectionBlockRenderer.Write(dummyHtmlRenderer, dummyFlexiSectionBlock);
+                testSubject.Write(dummyHtmlRenderer, dummyFlexiSectionBlock);
                 result = dummyStringWriter.ToString();
             }
 
@@ -217,15 +217,50 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             using (var dummyStringWriter = new StringWriter())
             {
                 var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter); // Note that markdig changes dummyStringWriter.NewLine to '\n'
-                var flexiSectionBlockRenderer = new FlexiSectionBlockRenderer();
+                var testSubject = new FlexiSectionBlockRenderer();
 
                 // Act
-                flexiSectionBlockRenderer.Write(dummyHtmlRenderer, dummyFlexiSectionBlock);
+                testSubject.Write(dummyHtmlRenderer, dummyFlexiSectionBlock);
                 result = dummyStringWriter.ToString();
             }
 
             // Assert
             Assert.Equal($"<section>\n<header>\n<h0></h0>\n<button>\n</button>\n</header>\n<p>{dummyChildText}</p>\n</section>\n", result);
+        }
+
+        [Fact]
+        public void WriteFlexiBlock_OnlyWritesChildrenIfEnableHtmlForBlockIsFalse()
+        {
+            // Arrange
+            const string dummyChildText = "dummyChildText";
+            var dummyContainerInline = new ContainerInline();
+            dummyContainerInline.AppendChild(new LiteralInline(dummyChildText));
+            var dummyParagraphBlock = new ParagraphBlock()
+            {
+                Inline = dummyContainerInline
+            };
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
+            {
+                FlexiSectionBlockOptions = new FlexiSectionBlockOptions(linkIconMarkup: null)
+            };
+            dummyFlexiSectionBlock.Add(dummyParagraphBlock);
+
+            string result = null;
+            using (var dummyStringWriter = new StringWriter())
+            {
+                var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter)
+                {
+                    EnableHtmlForBlock = false
+                };
+                var testSubject = new FlexiSectionBlockRenderer();
+
+                // Act
+                testSubject.Write(dummyHtmlRenderer, dummyFlexiSectionBlock);
+                result = dummyStringWriter.ToString();
+            }
+
+            // Assert
+            Assert.Equal(dummyChildText, result);
         }
     }
 }

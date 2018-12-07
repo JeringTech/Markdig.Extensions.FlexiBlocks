@@ -16,6 +16,22 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
 
         [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfFlexiOptionsBlockServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiSectionBlockParser(null, new FlexiSectionBlocksExtensionOptions()));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfExtensionOptionsIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiSectionBlockParser(
+                _mockRepository.Create<IFlexiOptionsBlockService>().Object,
+                null));
+        }
+
+        [Fact]
         public void TryOpenFlexiBlock_ReturnsBlockStateNoneIfCurrentLineHasCodeIndent()
         {
             // Arrange
@@ -241,7 +257,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => testSubject.CreateFlexiSectionBlockOptions(dummyBlockProcessor, 0));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionIsAnInvalidFormat, nameof(FlexiSectionBlockOptions.ClassFormat), dummyClassFormat),
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_OptionIsAnInvalidFormat, nameof(FlexiSectionBlockOptions.ClassFormat), dummyClassFormat),
                 result.Message);
             Assert.IsType<FormatException>(result.InnerException);
         }

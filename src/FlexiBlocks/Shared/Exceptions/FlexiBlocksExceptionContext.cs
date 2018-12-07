@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents the possible contexts of <see cref="FlexiBlocksException"/>s.
     /// </summary>
-    public enum Context
+    public enum FlexiBlockExceptionContext
     {
         /// <summary>
         /// No context.

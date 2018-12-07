@@ -33,11 +33,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
         /// </returns>
         protected override BlockState TryOpenFlexiBlock(BlockProcessor processor)
         {
-            if (processor == null)
-            {
-                throw new ArgumentNullException(nameof(processor));
-            }
-
             if (processor.IsCodeIndent)
             {
                 return BlockState.None;
@@ -74,16 +69,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
         /// </returns>
         protected override BlockState TryContinueFlexiBlock(BlockProcessor processor, Block block)
         {
-            if (processor == null)
-            {
-                throw new ArgumentNullException(nameof(processor));
-            }
-
-            if (block == null)
-            {
-                throw new ArgumentNullException(nameof(block));
-            }
-
             var flexiOptionsBlock = (FlexiOptionsBlock)block;
 
             return flexiOptionsBlock.ParseLine(processor.Line);
@@ -98,20 +83,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
         /// <exception cref="FlexiBlocksException">Thrown if there is an uncomsumed <see cref="FlexiOptionsBlock"/>.</exception>
         protected override bool CloseFlexiBlock(BlockProcessor processor, Block block)
         {
-            if (processor == null)
-            {
-                throw new ArgumentNullException(nameof(processor));
-            }
-
-            if (block == null)
-            {
-                throw new ArgumentNullException(nameof(block));
-            }
-
             if (processor.Document.GetData(PENDING_FLEXI_OPTIONS_BLOCK) is FlexiOptionsBlock pendingFlexiOptionsBlock)
             {
                 // There is an unconsumed FlexiOptionsBlock
-                throw new FlexiBlocksException(pendingFlexiOptionsBlock, Strings.FlexiBlocksException_FlexiOptionsBlocks_UnconsumedBlock);
+                throw new FlexiBlocksException(pendingFlexiOptionsBlock, Strings.FlexiBlocksException_FlexiOptionsBlockParser_UnconsumedBlock);
             }
 
             // Save the options block to document data. There are two reasons for this. Firstly, it makes it easy to detect if an options block goes unused.

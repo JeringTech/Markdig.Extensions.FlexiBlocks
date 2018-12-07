@@ -102,12 +102,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         {
             if (SourceUri == null)
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionsMustNotBeNull, nameof(SourceUri)));
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Shared_OptionsMustNotBeNull, nameof(SourceUri)));
             }
 
             if (!Enum.IsDefined(typeof(IncludeType), Type))
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeAValidEnumValue,
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Shared_OptionMustBeAValidEnumValue,
                         Type,
                         nameof(Type),
                         nameof(IncludeType)));

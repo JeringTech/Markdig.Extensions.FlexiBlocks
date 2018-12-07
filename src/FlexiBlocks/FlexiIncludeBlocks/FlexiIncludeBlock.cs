@@ -86,7 +86,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 // Invalid scheme
                 if (!_supportedSchemes.Contains(_absoluteSourceUri.Scheme))
                 {
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeAUriWithASupportedScheme,
+                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAUriWithASupportedScheme,
                         nameof(flexiIncludeBlockOptions.SourceUri),
                         flexiIncludeBlockOptions.SourceUri,
                         _absoluteSourceUri.Scheme));
@@ -99,7 +99,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 if (!Uri.TryCreate(ParentFlexiIncludeBlock.AbsoluteSourceUri, flexiIncludeBlockOptions.SourceUri, out _absoluteSourceUri))
                 {
                     // If we get to this point, SourceUri is neither a valid absolute URI nor a valid relative URI
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeAValidUri, nameof(flexiIncludeBlockOptions.SourceUri), flexiIncludeBlockOptions.SourceUri));
+                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAValidUri, nameof(flexiIncludeBlockOptions.SourceUri), flexiIncludeBlockOptions.SourceUri));
                 }
             }
             else // SourceUri is relative and root base URI should be used as base
@@ -113,13 +113,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 // The difference in behaviour between Windows and Linux/macOS is documented here - https://github.com/dotnet/corefx/issues/22098.
                 if (!Uri.TryCreate(rootBaseUri, UriKind.Absolute, out Uri baseUri))
                 {
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeAnAbsoluteUri, nameof(FlexiIncludeBlocksExtensionOptions.RootBaseUri), rootBaseUri));
+                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAnAbsoluteUri, nameof(FlexiIncludeBlocksExtensionOptions.RootBaseUri), rootBaseUri));
                 }
 
                 // Invalid scheme
                 if (!_supportedSchemes.Contains(baseUri.Scheme))
                 {
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeAUriWithASupportedScheme,
+                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAUriWithASupportedScheme,
                         nameof(FlexiIncludeBlocksExtensionOptions.RootBaseUri),
                         rootBaseUri,
                         baseUri.Scheme));
@@ -128,7 +128,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 if (!Uri.TryCreate(baseUri, flexiIncludeBlockOptions.SourceUri, out _absoluteSourceUri))
                 {
                     // If we get to this point, SourceUri is neither a valid absolute URI nor a valid relative URI
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_OptionMustBeAValidUri, nameof(flexiIncludeBlockOptions.SourceUri), flexiIncludeBlockOptions.SourceUri));
+                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAValidUri, nameof(flexiIncludeBlockOptions.SourceUri), flexiIncludeBlockOptions.SourceUri));
                 }
             }
 

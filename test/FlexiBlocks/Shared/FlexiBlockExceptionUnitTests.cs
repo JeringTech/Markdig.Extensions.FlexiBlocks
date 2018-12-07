@@ -32,7 +32,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             var result = (FlexiBlocksException)dummyFormatter.Deserialize(dummyStream);
 
             // Assert
-            Assert.Equal(Context.Block, result.Context);
+            Assert.Equal(FlexiBlockExceptionContext.Block, result.Context);
             Assert.Equal(dummyLineIndex + 1, result.LineNumber);
             Assert.Equal(dummyColumn, result.Column);
             Assert.Equal(dummyDescription, result.Description);
@@ -57,7 +57,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             string result = testSubject.Message;
 
             // Assert
-            Assert.Equal($@"The DummyBlock starting at line ""6"", column ""2"", is invalid:
+            Assert.Equal($@"The DummyBlock starting at line ""{dummyLineIndex + 1}"", column ""{dummyColumn}"", is invalid:
 {dummyExpectedDescription}", result, ignoreLineEndingDifferences: true);
         }
 
@@ -66,7 +66,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             return new object[][]
             {
                 new object[]{"dummyDescription", "dummyDescription"},
-                new object[]{null, Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock}
+                new object[]{null, Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock}
             };
         }
 
@@ -92,7 +92,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Shared
             return new object[][]
             {
                 new object[]{"dummyDescription", "dummyDescription"},
-                new object[]{null, Strings.FlexiBlocksException_ExceptionOccurredWhileProcessingABlock}
+                new object[]{null, Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock}
             };
         }
 

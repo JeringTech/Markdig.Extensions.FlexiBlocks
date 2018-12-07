@@ -4,6 +4,7 @@ using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using Moq;
+using System;
 using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
@@ -11,6 +12,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
     public class FlexiAlertBlockParserUnitTests
     {
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfExtensionOptionsIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiAlertBlockParser(_mockRepository.Create<IFlexiOptionsBlockService>().Object, null));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfFlexiOptionsBlockServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new FlexiAlertBlockParser(null, new FlexiAlertBlocksExtensionOptions()));
+        }
 
         [Fact]
         public void TryOpenFlexiBlock_ReturnsBlockStateNoneIfCurrentLineHasCodeIndent()
@@ -67,7 +82,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             ExposedFlexiAlertBlockParser testSubject =CreateExposedFlexiAlertBlockParser();
 
             // Act
-            BlockState result = testSubject.ExposedTryContinueFlexiBlock(dummyBlockProcessor, new DummyBlock(null));
+            BlockState result = testSubject.ExposedTryContinueFlexiBlock(dummyBlockProcessor, null);
 
             // Assert
             Assert.Equal(BlockState.None, result);
@@ -82,7 +97,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             ExposedFlexiAlertBlockParser testSubject = CreateExposedFlexiAlertBlockParser();
 
             // Act
-            BlockState result = testSubject.ExposedTryContinueFlexiBlock(dummyBlockProcessor, new DummyBlock(null));
+            BlockState result = testSubject.ExposedTryContinueFlexiBlock(dummyBlockProcessor, null);
 
             // Assert
             Assert.Equal(BlockState.None, result);
@@ -97,7 +112,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             ExposedFlexiAlertBlockParser testSubject = CreateExposedFlexiAlertBlockParser();
 
             // Act
-            BlockState result = testSubject.ExposedTryContinueFlexiBlock(dummyBlockProcessor, new DummyBlock(null));
+            BlockState result = testSubject.ExposedTryContinueFlexiBlock(dummyBlockProcessor, null);
 
             // Assert
             Assert.Equal(BlockState.BreakDiscard, result);
@@ -143,13 +158,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             // Assert
             _mockRepository.VerifyAll();
             Assert.Equal(dummyIconMarkup, result.IconMarkup);
-        }
-
-        private class DummyBlock : Block
-        {
-            public DummyBlock(BlockParser parser) : base(parser)
-            {
-            }
         }
 
         public class ExposedFlexiAlertBlockParser : FlexiAlertBlockParser

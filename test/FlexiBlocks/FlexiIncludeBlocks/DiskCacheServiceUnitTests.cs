@@ -20,6 +20,36 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             _dummyFile = Path.Combine(fixture.TempDirectory, "dummyFile");
         }
 
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfFileServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new DiskCacheService(
+                null,
+                _mockRepository.Create<IDirectoryService>().Object,
+                _mockRepository.Create<ILoggerFactory>().Object));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfDirectoryServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new DiskCacheService(
+                _mockRepository.Create<IFileService>().Object,
+                null,
+                _mockRepository.Create<ILoggerFactory>().Object));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfLoggerFactoryIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new DiskCacheService(
+                _mockRepository.Create<IFileService>().Object,
+                _mockRepository.Create<IDirectoryService>().Object,
+                null));
+        }
+
         [Theory]
         [MemberData(nameof(TryGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data))]
         public void TryGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString(string dummySourceUri)
@@ -29,7 +59,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             ArgumentException result = Assert.Throws<ArgumentException>(() => testSubject.TryGetCacheFile(dummySourceUri, null));
-            Assert.Equal(string.Format(Strings.ArgumentException_ValueCannotBeNullWhitespaceOrAnEmptyString, "identifier"), result.Message);
+            Assert.Equal(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, "identifier"), result.Message);
         }
 
         public static IEnumerable<object[]> TryGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data()
@@ -52,7 +82,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             ArgumentException result = Assert.Throws<ArgumentException>(() => testSubject.TryGetCacheFile(dummySourceUri, dummyCacheDirectory));
-            Assert.Equal(string.Format(Strings.ArgumentException_ValueCannotBeNullWhitespaceOrAnEmptyString, "cacheDirectory"), result.Message);
+            Assert.Equal(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, "cacheDirectory"), result.Message);
         }
 
         public static IEnumerable<object[]> TryGetCacheFile_ThrowsArgumentExceptionIfCacheDirectoryIsNullWhiteSpaceOrAnEmptyString_Data()
@@ -161,7 +191,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => mockTestSubject.Object.TryGetCacheFile(dummySourceUri, dummyCacheDirectory));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_UnexpectedDiskCacheException, dummySourceUri, dummyFilePath), result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_DiskCacheService_UnexpectedDiskCacheException, dummySourceUri, dummyFilePath), result.Message);
             Assert.Same(dummyException, result.InnerException);
         }
 
@@ -174,7 +204,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             ArgumentException result = Assert.Throws<ArgumentException>(() => testSubject.CreateOrGetCacheFile(dummySourceUri, null));
-            Assert.Equal(string.Format(Strings.ArgumentException_ValueCannotBeNullWhitespaceOrAnEmptyString, "identifier"), result.Message);
+            Assert.Equal(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, "identifier"), result.Message);
         }
 
         public static IEnumerable<object[]> CreateOrGetCacheFile_ThrowsArgumentExceptionIfIdentifierIsNullWhiteSpaceOrAnEmptyString_Data()
@@ -197,7 +227,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             ArgumentException result = Assert.Throws<ArgumentException>(() => testSubject.CreateOrGetCacheFile(dummySourceUri, dummyCacheDirectory));
-            Assert.Equal(string.Format(Strings.ArgumentException_ValueCannotBeNullWhitespaceOrAnEmptyString, "cacheDirectory"), result.Message);
+            Assert.Equal(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, "cacheDirectory"), result.Message);
         }
 
         public static IEnumerable<object[]> CreateOrGetCacheFile_ThrowsArgumentExceptionIfCacheDirectoryIsNullWhiteSpaceOrAnEmptyString_Data()
@@ -226,7 +256,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Assert
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_InvalidDiskCacheDirectory, dummyCacheDirectory), result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_DiskCacheService_InvalidDiskCacheDirectory, dummyCacheDirectory), result.Message);
             Assert.Same(dummyException, result.InnerException);
         }
 
@@ -275,12 +305,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Assert
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_UnexpectedDiskCacheException, dummySourceUri, dummyFilePath), result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_DiskCacheService_UnexpectedDiskCacheException, dummySourceUri, dummyFilePath), result.Message);
             Assert.Same(dummyException, result.InnerException);
         }
 
         [Fact]
-        public void GetStream_ThrowsIOExceptionIfCacheFileExistsButIsInUseAndRemainsInUseOnTheThirdTryToOpenIt()
+        public void GetStream_LogsWarningsThenThrowsIOExceptionIfCacheFileExistsButIsInUseAndRemainsInUseOnTheThirdTryToOpenIt()
         {
             // Arrange
             const string dummyFilePath = "dummyFilePath";
@@ -288,15 +318,29 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             const FileAccess dummyFileAccess = FileAccess.Read;
             const FileShare dummyFileShare = FileShare.Read;
             var dummyIOException = new IOException();
+            Mock<ILogger> mockLogger = _mockRepository.Create<ILogger>();
+            mockLogger.Setup(l => l.IsEnabled(LogLevel.Warning)).Returns(true);
+            Mock<ILoggerFactory> mockLoggerFactory = _mockRepository.Create<ILoggerFactory>();
+            mockLoggerFactory.Setup(l => l.CreateLogger(typeof(DiskCacheService).FullName)).Returns(mockLogger.Object);
             Mock<IFileService> mockFileService = _mockRepository.Create<IFileService>();
             mockFileService.Setup(f => f.Open(dummyFilePath, dummyFileMode, dummyFileAccess, dummyFileShare)).Throws(dummyIOException);
-            DiskCacheService testSubject = CreateDiskCacheService(fileService: mockFileService.Object);
+            DiskCacheService testSubject = CreateDiskCacheService(fileService: mockFileService.Object, loggerFactory: mockLoggerFactory.Object);
 
             // Act and assert
             IOException result = Assert.Throws<IOException>(() => testSubject.GetStream(dummyFilePath, dummyFileMode, dummyFileAccess, dummyFileShare));
             _mockRepository.VerifyAll();
             mockFileService.Verify(f => f.Open(dummyFilePath, dummyFileMode, dummyFileAccess, dummyFileShare), Times.Exactly(3));
             Assert.Same(dummyIOException, result);
+            mockLogger.Verify(l => l.Log(LogLevel.Warning, 0,
+                // object is of type FormattedLogValues
+                It.Is<object>(f => f.ToString() == string.Format(Strings.LogWarning_DiskCacheService_FileInUse, dummyFilePath, 2)),
+                null, It.IsAny<Func<object, Exception, string>>()), Times.Once);
+            mockLogger.Verify(l => l.Log(LogLevel.Warning, 0,
+                  It.Is<object>(f => f.ToString() == string.Format(Strings.LogWarning_DiskCacheService_FileInUse, dummyFilePath, 1)),
+                  null, It.IsAny<Func<object, Exception, string>>()), Times.Once);
+            mockLogger.Verify(l => l.Log(LogLevel.Warning, 0,
+                  It.Is<object>(f => f.ToString() == string.Format(Strings.LogWarning_DiskCacheService_FileInUse, dummyFilePath, 0)),
+                  null, It.IsAny<Func<object, Exception, string>>()), Times.Once);
         }
 
         [Fact]

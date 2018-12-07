@@ -39,18 +39,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <param name="obj">The FlexiCodeBlock to render.</param>
         protected override void WriteFlexiBlock(HtmlRenderer renderer, CodeBlock obj)
         {
-            if (renderer == null)
-            {
-                throw new ArgumentNullException(nameof(renderer));
-            }
-
-            if (obj == null)
-            {
-                throw new ArgumentNullException(nameof(obj));
-            }
-
-            renderer.EnsureLine();
-
             if (!renderer.EnableHtmlForBlock)
             {
                 renderer.WriteLeafRawLines(obj, true, true);

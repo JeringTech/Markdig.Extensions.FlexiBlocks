@@ -30,17 +30,51 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <summary>
         /// Registers FlexiBlock parsers.
         /// </summary>
-        /// <param name="pipeline">The pipeline builder to register the parsers for.</param>
-        public abstract void Setup(MarkdownPipelineBuilder pipeline);
+        /// <param name="pipelineBuilder">The pipeline builder to register the parsers for.</param>
+        protected abstract void SetupParsers(MarkdownPipelineBuilder pipelineBuilder);
 
         /// <summary>
         /// Registers FlexiBlock renderers. Extensions whose blocks aren't rendered do not need to override this method.
         /// </summary>
         /// <param name="pipeline">The pipeline to register renderers for.</param>
         /// <param name="renderer">The root renderer to register renderers for.</param>
-        public virtual void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
+        protected virtual void SetupRenderers(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
-            // Do nothing by default
+            // Do nothing (optional to override)
+        }
+
+        /// <summary>
+        /// Registers FlexiBlock parsers.
+        /// </summary>
+        /// <param name="pipeline">The pipeline builder to register the parsers for.</param>
+        public void Setup(MarkdownPipelineBuilder pipeline)
+        {
+            if (pipeline == null)
+            {
+                throw new ArgumentNullException(nameof(pipeline));
+            }
+
+            SetupParsers(pipeline);
+        }
+
+        /// <summary>
+        /// Registers FlexiBlock renderers. Extensions whose blocks aren't rendered do not need to override this method.
+        /// </summary>
+        /// <param name="pipeline">The pipeline to register renderers for.</param>
+        /// <param name="renderer">The root renderer to register renderers for.</param>
+        public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
+        {
+            if (renderer == null)
+            {
+                throw new ArgumentNullException(nameof(renderer));
+            }
+
+            if (pipeline == null)
+            {
+                throw new ArgumentNullException(nameof(pipeline));
+            }
+
+            SetupRenderers(pipeline, renderer);
         }
 
         /// <summary>
@@ -60,11 +94,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <exception cref="FlexiBlocksException">Thrown if an exception is thrown while handling a closed FlexiBlock.</exception>
         protected void OnClosed(BlockProcessor processor, Block block)
         {
+            if (processor == null)
+            {
+                throw new ArgumentNullException(nameof(processor));
+            }
+
+            if (block == null)
+            {
+                throw new ArgumentNullException(nameof(block));
+            }
+
             try
             {
                 OnFlexiBlockClosed(processor, block);
             }
-            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != Context.Block)
+            catch (Exception exception) when ((exception as FlexiBlocksException)?.Context != FlexiBlockExceptionContext.Block)
             {
                 throw new FlexiBlocksException(block, innerException: exception);
             }

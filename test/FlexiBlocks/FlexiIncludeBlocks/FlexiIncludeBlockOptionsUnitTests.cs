@@ -87,7 +87,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         {
             // Act and assert
             FlexiBlocksException result = Assert.Throws<FlexiBlocksException>(() => new FlexiIncludeBlockOptions(null));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionsMustNotBeNull, nameof(FlexiIncludeBlockOptions.SourceUri)), result.Message);
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_OptionsMustNotBeNull, nameof(FlexiIncludeBlockOptions.SourceUri)), result.Message);
         }
 
         [Fact]
@@ -99,7 +99,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             // Act and assert
             FlexiBlocksException result = Assert.
                 Throws<FlexiBlocksException>(() => new FlexiIncludeBlockOptions(type: dummyType));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_OptionMustBeAValidEnumValue,
+            Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_OptionMustBeAValidEnumValue,
                     dummyType,
                     nameof(FlexiIncludeBlockOptions.Type),
                     nameof(IncludeType)),

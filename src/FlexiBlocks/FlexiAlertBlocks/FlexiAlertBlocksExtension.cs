@@ -26,17 +26,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <summary>
         /// Registers a <see cref="FlexiAlertBlockParser"/> if one isn't already registered.
         /// </summary>
-        /// <param name="pipeline">The pipeline builder to register the parser for.</param>
-        public override void Setup(MarkdownPipelineBuilder pipeline)
+        /// <param name="pipelineBuilder">The pipeline builder to register the parser for.</param>
+        protected override void SetupParsers(MarkdownPipelineBuilder pipelineBuilder)
         {
-            if(pipeline == null)
+            if (!pipelineBuilder.BlockParsers.Contains<FlexiAlertBlockParser>())
             {
-                throw new ArgumentNullException(nameof(pipeline));
-            }
-
-            if (!pipeline.BlockParsers.Contains<FlexiAlertBlockParser>())
-            {
-                pipeline.BlockParsers.Insert(0, _flexiAlertBlockParser);
+                pipelineBuilder.BlockParsers.Insert(0, _flexiAlertBlockParser);
             }
         }
 
@@ -45,13 +40,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// </summary>
         /// <param name="pipeline">Unused.</param>
         /// <param name="renderer">The root renderer to register the renderer for.</param>
-        public override void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
+        protected override void SetupRenderers(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
-            if (renderer == null)
-            {
-                throw new ArgumentNullException(nameof(renderer));
-            }
-
             if (renderer is HtmlRenderer htmlRenderer && !htmlRenderer.ObjectRenderers.Contains<FlexiAlertBlockRenderer>())
             {
                 htmlRenderer.ObjectRenderers.Insert(0, _flexiAlertBlockRenderer);

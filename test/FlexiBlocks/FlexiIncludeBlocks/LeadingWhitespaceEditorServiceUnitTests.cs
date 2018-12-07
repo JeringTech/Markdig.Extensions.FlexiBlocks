@@ -18,7 +18,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => testSubject.Dedent(ref dummyStringSlice, dummyDedentLength));
-            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_ValueCannotBeNegative, dummyDedentLength) + "\nParameter name: dedentLength",
+            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_Shared_ValueCannotBeNegative, dummyDedentLength) + "\nParameter name: dedentLength",
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
@@ -62,7 +62,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 
             // Act and assert
             ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => testSubject.Collapse(ref dummyStringSlice, dummyCollapseRatio));
-            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_ValueMustBeWithinRange, "[0, 1]", dummyCollapseRatio) + "\nParameter name: collapseRatio",
+            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_Shared_ValueMustBeWithinRange, "[0, 1]", dummyCollapseRatio) + "\nParameter name: collapseRatio",
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }

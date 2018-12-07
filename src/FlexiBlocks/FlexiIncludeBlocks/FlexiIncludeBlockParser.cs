@@ -59,11 +59,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// </returns>
         protected override BlockState TryOpenFlexiBlock(BlockProcessor processor)
         {
-            if (processor == null)
-            {
-                throw new ArgumentNullException(nameof(processor));
-            }
-
             if (processor.IsCodeIndent)
             {
                 return BlockState.None;
@@ -110,16 +105,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// </returns>
         protected override BlockState TryContinueFlexiBlock(BlockProcessor processor, Block block)
         {
-            if (processor == null)
-            {
-                throw new ArgumentNullException(nameof(processor));
-            }
-
-            if (block == null)
-            {
-                throw new ArgumentNullException(nameof(block));
-            }
-
             var flexiIncludeBlock = (FlexiIncludeBlock)block;
 
             return flexiIncludeBlock.ParseLine(processor.Line);
@@ -133,16 +118,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <returns>Returns false, indicating that the <see cref="FlexiIncludeBlock"/> should be discarded from the tree of blocks.</returns>
         protected override bool CloseFlexiBlock(BlockProcessor processor, Block block)
         {
-            if (processor == null)
-            {
-                throw new ArgumentNullException(nameof(processor));
-            }
-
-            if (block == null)
-            {
-                throw new ArgumentNullException(nameof(block));
-            }
-
             var flexiIncludeBlock = (FlexiIncludeBlock)block;
 
             // FlexiIncludeBlocks can reference sources other than the entry markdown document. If an exception is thrown while processing content from such sources,
@@ -178,15 +153,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 string description = null;
                 if (flexiIncludeBlock.ClippingProcessingStage == ClippingProcessingStage.None)
                 {
-                    description = Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingBlock;
+                    description = Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingBlock;
                 }
                 else if (flexiIncludeBlock.ClippingProcessingStage == ClippingProcessingStage.Source)
                 {
-                    description = string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingSource, flexiIncludeBlock.AbsoluteSourceUri.AbsoluteUri);
+                    description = string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSource, flexiIncludeBlock.AbsoluteSourceUri.AbsoluteUri);
                 }
                 else // Before or after content
                 {
-                    description = string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_ExceptionOccurredWhileProcessingContent, flexiIncludeBlock.ClippingProcessingStage);
+                    description = string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingContent, flexiIncludeBlock.ClippingProcessingStage);
                 }
 
                 throw new FlexiBlocksException(flexiIncludeBlock,
@@ -235,7 +210,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                     ExceptionDispatchInfo.Capture(exception.InnerException).Throw();
                 }
 
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_UnableToParseJson, json), exception);
+                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Shared_UnableToParseJson, json), exception);
             }
 
             // Setup FlexiIncludeBlock
@@ -260,7 +235,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                             cycleDescription += closingFlexiIncludeBlocks.ElementAt(i) + " >\n";
                         }
 
-                        throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_CycleFound, cycleDescription + flexiIncludeBlock));
+                        throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_CycleFound, cycleDescription + flexiIncludeBlock));
                     }
                 }
             }
@@ -341,7 +316,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
                     if (startLineNumber == -1)
                     {
-                        throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_InvalidClippingNoLineContainsStartLineSubstring, clipping.StartDemarcationLineSubstring));
+                        throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsStartLineSubstring, clipping.StartDemarcationLineSubstring));
                     }
                 }
                 else
@@ -368,7 +343,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                     {
                         if (lineNumber == source.Count)
                         {
-                            throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlocks_InvalidClippingNoLineContainsEndLineSubstring, clipping.EndDemarcationLineSubstring));
+                            throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsEndLineSubstring, clipping.EndDemarcationLineSubstring));
                         }
 
                         // Check if next line contains the end line substring

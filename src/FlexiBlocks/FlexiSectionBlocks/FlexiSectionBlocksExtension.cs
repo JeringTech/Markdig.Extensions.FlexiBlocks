@@ -29,25 +29,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// <summary>
         /// Registers a <see cref="FlexiSectionBlockParser"/> if one isn't already registered.
         /// </summary>
-        /// <param name="pipeline">The pipeline builder to register the parser for.</param>
-        public override void Setup(MarkdownPipelineBuilder pipeline)
+        /// <param name="pipelineBuilder">The pipeline builder to register the parser for.</param>
+        protected override void SetupParsers(MarkdownPipelineBuilder pipelineBuilder)
         {
-            if (pipeline == null)
-            {
-                throw new ArgumentNullException(nameof(pipeline));
-            }
-
             // HeadingBlockParser is a default parser registered in MarkdownPipelineBuilder's constructor.
             // FlexiSectionBlockParser makes it redundant.
-            HeadingBlockParser headingBlockParser = pipeline.BlockParsers.Find<HeadingBlockParser>();
+            HeadingBlockParser headingBlockParser = pipelineBuilder.BlockParsers.Find<HeadingBlockParser>();
             if (headingBlockParser != null)
             {
-                pipeline.BlockParsers.Remove(headingBlockParser);
+                pipelineBuilder.BlockParsers.Remove(headingBlockParser);
             }
 
-            if (!pipeline.BlockParsers.Contains<FlexiSectionBlockParser>())
+            if (!pipelineBuilder.BlockParsers.Contains<FlexiSectionBlockParser>())
             {
-                pipeline.BlockParsers.Insert(0, _flexiSectionBlockParser);
+                pipelineBuilder.BlockParsers.Insert(0, _flexiSectionBlockParser);
             }
         }
 
@@ -56,13 +51,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// </summary>
         /// <param name="pipeline">Unused.</param>
         /// <param name="renderer">The root renderer to register the renderer for.</param>
-        public override void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
+        protected override void SetupRenderers(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
-            if (renderer == null)
-            {
-                throw new ArgumentNullException(nameof(renderer));
-            }
-
             if (renderer is HtmlRenderer htmlRenderer && !htmlRenderer.ObjectRenderers.Contains<FlexiSectionBlockRenderer>())
             {
                 htmlRenderer.ObjectRenderers.Insert(0, _flexiSectionBlockRenderer);
