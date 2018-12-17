@@ -120,7 +120,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         public static IEnumerable<object[]> Equals_ReturnsTrueIfObjIsAnIdenticalClippingOtherwiseReturnsFalse_Data()
         {
             // Arbitrary values
-            const int dummyStartLineNumber = 4; 
+            const int dummyStartLineNumber = 4;
             const int dummyEndLineNumber = 25;
             const string dummyStartDemarcationLineSubstring = "dummyStartDemarcationLineSubstring";
             const string dummyEndDemarcationLineSubstring = "dummyEndDemarcationLineSubstring";

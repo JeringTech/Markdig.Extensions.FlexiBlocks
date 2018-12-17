@@ -47,7 +47,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
                 WriteLine(">").
                 WriteLine("<header>").
                 Write($"<h{obj.Level}>").
-                Write(obj.HeaderContent).
+                WriteLeafInline(obj[0] as FlexiSectionHeadingBlock). // First child is always a FlexiSectionHeadingBlock
                 WriteLine($"</h{obj.Level}>").
                 WriteLine("<button>");
 

@@ -1,10 +1,12 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
+using Markdig.Renderers;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
 {
@@ -18,6 +20,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         internal const string SECTION_LINK_REFERENCE_DEFINITIONS_KEY = "sectionLinkReferenceDefinitionsKey";
         private readonly FlexiSectionBlocksExtensionOptions _extensionOptions;
         private readonly IFlexiOptionsBlockService _flexiOptionsBlockService;
+        private readonly HtmlRenderer stripRenderer;
+        private readonly StringWriter headingWriter;
 
         /// <summary>
         /// Creates a <see cref="FlexiSectionBlockParser"/> instance.
@@ -31,6 +35,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
 
             _extensionOptions = extensionOptions ?? throw new ArgumentNullException(nameof(extensionOptions));
             _flexiOptionsBlockService = flexiOptionsBlockService ?? throw new ArgumentNullException(nameof(flexiOptionsBlockService));
+
+            headingWriter = new StringWriter();
+            stripRenderer = new HtmlRenderer(headingWriter)
+            {
+                EnableHtmlForInline = false,
+                EnableHtmlEscape = false
+            };
         }
 
         /// <summary>
@@ -56,15 +67,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
                 return BlockState.None;
             }
 
-            processor.NewBlocks.Push(flexiSectionBlock);
-
-            // Setup
-            SetupFlexiSectionBlock(processor, flexiSectionBlock);
+            // Create options
+            flexiSectionBlock.FlexiSectionBlockOptions = CreateFlexiSectionBlockOptions(processor, flexiSectionBlock.Level);
 
             // Update open FlexiSectionBlocks
             UpdateOpenFlexiSectionBlocks(processor, flexiSectionBlock);
 
-            return BlockState.ContinueDiscard;
+            // Create HeadingBlock
+            FlexiSectionHeadingBlock flexiSectionHeadingBlock = CreateFlexiSectionHeadingBlock(processor, flexiSectionBlock);
+
+            // Add blocks
+            processor.NewBlocks.Push(flexiSectionHeadingBlock);
+            processor.NewBlocks.Push(flexiSectionBlock);
+
+            // Section block remains open, current line must be added to heading block
+            return BlockState.Continue;
         }
 
         /// <summary>
@@ -85,6 +102,39 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
             block.IsOpen = true;
 
             return BlockState.Skip;
+        }
+
+        internal virtual FlexiSectionHeadingBlock CreateFlexiSectionHeadingBlock(BlockProcessor processor, FlexiSectionBlock flexiSectionBlock)
+        {
+            var result = new FlexiSectionHeadingBlock(this)
+            {
+                Column = flexiSectionBlock.Column,
+                Span = flexiSectionBlock.Span
+            };
+
+            // Setup ID generation
+            if (flexiSectionBlock.FlexiSectionBlockOptions.GenerateIdentifier)
+            {
+                string id = null;
+                if (flexiSectionBlock.FlexiSectionBlockOptions.Attributes?.TryGetValue("id", out id) == true)
+                {
+                    flexiSectionBlock.ID = id;
+                }
+                else
+                {
+                    // Section IDs are generated from their header's content. Headers may contain inlines like 
+                    // emphasis (**content**), so we can only generate IDs after inlines have been processed.
+                    result.ProcessInlinesEnd += GenerateSectionID;
+                }
+
+                // Setup auto linking (only possible if section has an ID)
+                if (flexiSectionBlock.FlexiSectionBlockOptions.AutoLinkable)
+                {
+                    SetupAutoLinking(processor, flexiSectionBlock, processor.Line.ToString());
+                }
+            }
+
+            return result;
         }
 
         // Returns null if a FlexiSectionBlock can't be created
@@ -122,36 +172,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
             {
                 Level = level,
                 Column = processor.Column,
-                Span = { Start = processor.Line.Start },
+                Span = { Start = processor.Line.Start, End = processor.Line.End }, // TODO should span include children?
             };
 
-            // Discard redundant start characters
-            processor.Column += numStartCharsToDiscard;
-            processor.Line.Start += numStartCharsToDiscard;
+
+            // Discard redundant characters (the resulting characters will be assigned to the FlexiSectionBlock's child FlexiSectionHeaderBlock)
+            processor.Line.Start += numStartCharsToDiscard; // Move past hashes and first space after hashes
+            processor.Line.TrimStart(out int numTrimmedFromStart); // Trim remaining spaces before first non-space character
+            processor.Column += numStartCharsToDiscard + numTrimmedFromStart;
+
+            TrimClosingHashes(processor);
+            processor.Line.TrimEnd();
 
             return flexiSectionBlock;
-        }
-
-        internal virtual void SetupFlexiSectionBlock(BlockProcessor processor, FlexiSectionBlock flexiSectionBlock)
-        {
-            // Trim closing hashes
-            TrimClosingHashes(processor);
-
-            // Setup the source end position of this element
-            flexiSectionBlock.Span.End = processor.Line.End;
-
-            // Set FlexiSectionBlock header content
-            processor.Line.Trim();
-            flexiSectionBlock.HeaderContent = processor.Line.ToString();
-
-            // Create options
-            flexiSectionBlock.FlexiSectionBlockOptions = CreateFlexiSectionBlockOptions(processor, flexiSectionBlock.Level);
-
-            // Generate ID
-            GenerateID(processor, flexiSectionBlock);
-
-            // Setup auto linking
-            SetupAutoLinking(processor, flexiSectionBlock);
         }
 
         internal virtual void TrimClosingHashes(BlockProcessor processor)
@@ -216,25 +249,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
             return result;
         }
 
-        internal virtual void GenerateID(BlockProcessor processor, FlexiSectionBlock flexiSectionBlock)
+        internal virtual void GenerateSectionID(InlineProcessor processor, Inline inline)
         {
-            if (!flexiSectionBlock.FlexiSectionBlockOptions.GenerateIdentifier)
-            {
-                return;
-            }
-
-            string id = null;
-            if (flexiSectionBlock.FlexiSectionBlockOptions.Attributes?.TryGetValue("id", out id) == true)
-            {
-                flexiSectionBlock.ID = id;
-                return;
-            }
-
             // Get section IDs
-            Dictionary<string, int> sectionIDs = GetOrCreateSectionIDs(processor);
+            Dictionary<string, int> sectionIDs = GetOrCreateSectionIDs(processor.Document);
+
+            // Use a HtmlRenderer with 
+            var flexiSectionHeadingBlock = (FlexiSectionHeadingBlock)processor.Block;
+            stripRenderer.Render(flexiSectionHeadingBlock.Inline);
+            string headingText = headingWriter.ToString();
+            headingWriter.GetStringBuilder().Length = 0;
 
             // If header content is empty or whitespace, use section
-            id = string.IsNullOrWhiteSpace(flexiSectionBlock.HeaderContent) ? "section" : LinkHelper.UrilizeAsGfm(flexiSectionBlock.HeaderContent);
+            string id = string.IsNullOrWhiteSpace(headingText) ? "section" : LinkHelper.UrilizeAsGfm(headingText);
 
             // Check for duplicate ids and append an integer if necessary
             if (sectionIDs.TryGetValue(id, out int numDuplicates))
@@ -247,43 +274,39 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
                 sectionIDs.Add(id, 0);
             }
 
+            var flexiSectionBlock = (FlexiSectionBlock) flexiSectionHeadingBlock.Parent;
             flexiSectionBlock.ID = id;
         }
 
-        internal virtual Dictionary<string, int> GetOrCreateSectionIDs(BlockProcessor processor)
+        internal virtual Dictionary<string, int> GetOrCreateSectionIDs(MarkdownDocument document)
         {
-            if (!(processor.Document.GetData(SECTION_IDS_KEY) is Dictionary<string, int> sectionIDs))
+            if (!(document.GetData(SECTION_IDS_KEY) is Dictionary<string, int> sectionIDs))
             {
                 sectionIDs = new Dictionary<string, int>();
-                processor.Document.SetData(SECTION_IDS_KEY, sectionIDs);
+                document.SetData(SECTION_IDS_KEY, sectionIDs);
             }
 
             return sectionIDs;
         }
 
-        internal virtual void SetupAutoLinking(BlockProcessor processor, FlexiSectionBlock flexiSectionBlock)
+        internal virtual void SetupAutoLinking(BlockProcessor processor, FlexiSectionBlock flexiSectionBlock, string sectionLinkReferenceDefinitionKey)
         {
-            if (flexiSectionBlock.ID == null || !flexiSectionBlock.FlexiSectionBlockOptions.AutoLinkable)
-            {
-                return;
-            }
+            Dictionary<string, SectionLinkReferenceDefinition> sectionLinkReferenceDefinitions = GetOrCreateSectionLinkReferenceDefinitions(processor.Document);
 
-            Dictionary<string, SectionLinkReferenceDefinition> sectionLinkReferenceDefinitions = GetOrCreateSectionLinkReferenceDefinitions(processor);
-
-            sectionLinkReferenceDefinitions[flexiSectionBlock.HeaderContent] = new SectionLinkReferenceDefinition()
+            sectionLinkReferenceDefinitions[sectionLinkReferenceDefinitionKey] = new SectionLinkReferenceDefinition()
             {
                 FlexiSectionBlock = flexiSectionBlock,
                 CreateLinkInline = CreateLinkInline
             };
         }
 
-        internal virtual Dictionary<string, SectionLinkReferenceDefinition> GetOrCreateSectionLinkReferenceDefinitions(BlockProcessor processor)
+        internal virtual Dictionary<string, SectionLinkReferenceDefinition> GetOrCreateSectionLinkReferenceDefinitions(MarkdownDocument document)
         {
-            if (!(processor.Document.GetData(SECTION_LINK_REFERENCE_DEFINITIONS_KEY) is Dictionary<string, SectionLinkReferenceDefinition> sectionLinkReferenceDefinitions))
+            if (!(document.GetData(SECTION_LINK_REFERENCE_DEFINITIONS_KEY) is Dictionary<string, SectionLinkReferenceDefinition> sectionLinkReferenceDefinitions))
             {
                 sectionLinkReferenceDefinitions = new Dictionary<string, SectionLinkReferenceDefinition>();
-                processor.Document.SetData(SECTION_LINK_REFERENCE_DEFINITIONS_KEY, sectionLinkReferenceDefinitions);
-                processor.Document.ProcessInlinesBegin += DocumentOnProcessInlinesBegin;
+                document.SetData(SECTION_LINK_REFERENCE_DEFINITIONS_KEY, sectionLinkReferenceDefinitions);
+                document.ProcessInlinesBegin += DocumentOnProcessInlinesBegin;
             }
 
             return sectionLinkReferenceDefinitions;
@@ -294,7 +317,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
             var sectionLinkReferenceDefinition = (SectionLinkReferenceDefinition)linkReferenceDefinition;
             return new LinkInline()
             {
-                Url = HtmlHelper.Unescape("#" + sectionLinkReferenceDefinition.FlexiSectionBlock.ID),
+                GetDynamicUrl = () => HtmlHelper.Unescape("#" + sectionLinkReferenceDefinition.FlexiSectionBlock.ID),
                 Title = HtmlHelper.Unescape(linkReferenceDefinition.Title)
             };
         }

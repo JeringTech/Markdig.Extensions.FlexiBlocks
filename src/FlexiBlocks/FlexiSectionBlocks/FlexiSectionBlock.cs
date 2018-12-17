@@ -22,11 +22,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         public int Level { get; set; }
 
         /// <summary>
-        /// Gets or sets the content for this <see cref="FlexiSectionBlock"/>'s header element.
-        /// </summary>
-        public string HeaderContent { get; set; }
-
-        /// <summary>
         /// Gets or sets the ID for this <see cref="FlexiSectionBlock"/>'s outermost element.
         /// </summary>
         public string ID { get; set; }

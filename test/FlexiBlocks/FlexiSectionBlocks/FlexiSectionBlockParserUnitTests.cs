@@ -64,25 +64,97 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
         }
 
         [Fact]
-        public void TryOpenFlexiBlock_ReturnsBlockStateContinueDiscardAndAddsNewFlexiSectionBlockToNewBlocksIfSuccessful()
+        public void TryOpenFlexiBlock_ReturnsBlockStateContinueAndAddsAFlexiSectionBlockAndAFlexiSectionHeadingBlockToNewBlocksIfSuccessful()
         {
             // Arrange
+            const int dummyLevel = 1;
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            var dummyFlexiSectionBlock = new FlexiSectionBlock(null);
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null) { Level = dummyLevel };
+            var dummyFlexiSectionBlockOptions = new FlexiSectionBlockOptions();
+            var dummyFlexiSectionHeadingBlock = new FlexiSectionHeadingBlock(null);
             Mock<ExposedFlexiSectionBlockParser> mockTestSubject = CreateMockExposedFlexiSectionBlockParser();
             mockTestSubject.CallBase = true;
             mockTestSubject.Setup(t => t.TryCreateFlexiSectionBlock(dummyBlockProcessor)).Returns(dummyFlexiSectionBlock);
-            mockTestSubject.Setup(t => t.SetupFlexiSectionBlock(dummyBlockProcessor, dummyFlexiSectionBlock));
+            mockTestSubject.Setup(t => t.CreateFlexiSectionBlockOptions(dummyBlockProcessor, dummyFlexiSectionBlock.Level)).Returns(dummyFlexiSectionBlockOptions);
             mockTestSubject.Setup(t => t.UpdateOpenFlexiSectionBlocks(dummyBlockProcessor, dummyFlexiSectionBlock));
+            mockTestSubject.Setup(t => t.CreateFlexiSectionHeadingBlock(dummyBlockProcessor, dummyFlexiSectionBlock)).Returns(dummyFlexiSectionHeadingBlock);
 
             // Act
             BlockState result = mockTestSubject.Object.ExposedTryOpenFlexiBlock(dummyBlockProcessor);
 
             // Assert
             _mockRepository.VerifyAll();
-            Assert.Equal(BlockState.ContinueDiscard, result);
-            Assert.Single(dummyBlockProcessor.NewBlocks);
-            Assert.Same(dummyFlexiSectionBlock, dummyBlockProcessor.NewBlocks.Peek());
+            Assert.Equal(BlockState.Continue, result);
+            Assert.Equal(2, dummyBlockProcessor.NewBlocks.Count);
+            var resultFlexiSectionBlock = (FlexiSectionBlock)dummyBlockProcessor.NewBlocks.Pop();
+            Assert.Same(dummyFlexiSectionBlock, resultFlexiSectionBlock);
+            Assert.Same(dummyFlexiSectionBlockOptions, resultFlexiSectionBlock.FlexiSectionBlockOptions);
+            Assert.Same(dummyFlexiSectionHeadingBlock, dummyBlockProcessor.NewBlocks.Pop());
+        }
+
+        [Fact]
+        public void CreateFlexiSectionHeadingBlock_CreatesFlexiSectionHeadingBlock()
+        {
+            // Arrange
+            const int dummyColumn = 10;
+            var dummySpan = new SourceSpan(3, 4);
+            var dummyFlexiSectionBlockOptions = new FlexiSectionBlockOptions(generateIdentifier: false);
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null) {
+                Column = dummyColumn,
+                Span = dummySpan,
+                FlexiSectionBlockOptions = dummyFlexiSectionBlockOptions
+            };
+            Mock<ExposedFlexiSectionBlockParser> mockTestSubject = CreateMockExposedFlexiSectionBlockParser();
+            mockTestSubject.CallBase = true;
+
+            // Act
+            FlexiSectionHeadingBlock result = mockTestSubject.Object.CreateFlexiSectionHeadingBlock(null, dummyFlexiSectionBlock);
+
+            // Assert
+            Assert.Equal(dummyColumn, result.Column);
+            Assert.Equal(dummySpan, result.Span);
+        }
+
+        [Fact]
+        public void CreateFlexiSectionHeadingBlock_IfAttributesContainsAnIdentifierUsesItAsFlexiSectionBlockID()
+        {
+            // Arrange
+            const string dummyID = "dummyID";
+            var dummyFlexiSectionBlockOptions = new FlexiSectionBlockOptions(autoLinkable: false, attributes: new Dictionary<string, string> { {"id", dummyID } });
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
+            {
+                FlexiSectionBlockOptions = dummyFlexiSectionBlockOptions
+            };
+            ExposedFlexiSectionBlockParser testSubject = CreateExposedFlexiSectionBlockParser();
+
+            // Act
+            testSubject.CreateFlexiSectionHeadingBlock(null, dummyFlexiSectionBlock);
+
+            // Assert
+            Assert.Equal(dummyID, dummyFlexiSectionBlock.ID);
+        }
+
+        [Fact]
+        public void CreateFlexiSectionHeadingBlock_SetsUpAutoLinkingIfFlexiSectionBlockOptionsAutoLinkableIsTrue()
+        {
+            // Arrange
+            var dummyStringSlice = new StringSlice("dummy");
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            dummyBlockProcessor.Line = dummyStringSlice;
+            var dummyFlexiSectionBlockOptions = new FlexiSectionBlockOptions();
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
+            {
+                FlexiSectionBlockOptions = dummyFlexiSectionBlockOptions
+            };
+            Mock<ExposedFlexiSectionBlockParser> mockTestSubject = CreateMockExposedFlexiSectionBlockParser();
+            mockTestSubject.CallBase = true;
+            mockTestSubject.Setup(t => t.SetupAutoLinking(dummyBlockProcessor, dummyFlexiSectionBlock, dummyStringSlice.ToString()));
+
+            // Act
+            mockTestSubject.Object.CreateFlexiSectionHeadingBlock(dummyBlockProcessor, dummyFlexiSectionBlock);
+            
+            // Assert
+            _mockRepository.VerifyAll();
         }
 
         [Theory]
@@ -138,6 +210,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             Assert.Equal(expectedLevel, result.Level);
             Assert.Equal(0, result.Column);
             Assert.Equal(0, result.Span.Start);
+            Assert.Equal(dummyLineText.Length - 1, result.Span.End); // Span is just the entire line
             Assert.Equal(expectedProcessorColumn, dummyBlockProcessor.Column);
             Assert.Equal(expectedLineStart, dummyBlockProcessor.Line.Start);
         }
@@ -160,37 +233,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                 new object[] { "###### Dummy", 6, 7, 7 },
                 // EoL after hashes
                 new object[] { "####", 4, 4, 4 },
-                // Multiple spaces after hashes
-                new object[] { "#####  Dummy", 5, 6, 6 },
+                // Multiple spaces after hashes (leading and trailing spaces are ignored)
+                new object[] { "#####  Dummy", 5, 7, 7 },
             };
-        }
-
-        [Fact]
-        public void SetupFlexiSectionBlock_SetsUpFlexiSectionBlock()
-        {
-            // Arrange
-            const string dummyLineText = "  dummy  ";
-            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Line = new StringSlice(dummyLineText);
-            const int dummyLevel = 2;
-            var dummyFlexiSectionBlock = new FlexiSectionBlock(null) { Level = dummyLevel };
-            var dummyFlexiSectionBlockOptions = new FlexiSectionBlockOptions();
-            Mock<ExposedFlexiSectionBlockParser> mockTestSubject = CreateMockExposedFlexiSectionBlockParser();
-            mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(t => t.TrimClosingHashes(dummyBlockProcessor));
-            mockTestSubject.Setup(t => t.CreateFlexiSectionBlockOptions(dummyBlockProcessor, dummyLevel)).Returns(dummyFlexiSectionBlockOptions);
-            mockTestSubject.Setup(t => t.GenerateID(dummyBlockProcessor, dummyFlexiSectionBlock));
-            mockTestSubject.Setup(t => t.SetupAutoLinking(dummyBlockProcessor, dummyFlexiSectionBlock));
-
-            // Act
-            mockTestSubject.Object.SetupFlexiSectionBlock(dummyBlockProcessor, dummyFlexiSectionBlock);
-
-            // Assert
-            _mockRepository.VerifyAll();
-            Assert.Equal(dummyLineText.Length - 1, dummyFlexiSectionBlock.Span.End);
-            Assert.Equal(dummyLineText.Trim(), dummyBlockProcessor.Line.ToString());
-            Assert.Equal(dummyLineText.Trim(), dummyFlexiSectionBlock.HeaderContent);
-            Assert.Same(dummyFlexiSectionBlockOptions, dummyFlexiSectionBlock.FlexiSectionBlockOptions);
         }
 
         [Theory]
@@ -301,61 +346,33 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             };
         }
 
-        [Fact]
-        public void GenerateID_DoesNotGenerateIDIfGenerateIdentifierIsFalse()
-        {
-            // Arrange
-            var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
-            {
-                FlexiSectionBlockOptions = new FlexiSectionBlockOptions(generateIdentifier: false)
-            };
-            FlexiSectionBlockParser testSubject = CreateExposedFlexiSectionBlockParser();
-
-            // Act
-            testSubject.GenerateID(null, dummyFlexiSectionBlock);
-
-            // Assert
-            Assert.Null(dummyFlexiSectionBlock.ID);
-        }
-
-        [Fact]
-        public void GenerateID_UsesExistingIDIfItExists()
-        {
-            // Arrange
-            const string dummyID = "dummyID";
-            var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
-            {
-                FlexiSectionBlockOptions = new FlexiSectionBlockOptions(attributes: new Dictionary<string, string> { { "id", dummyID } })
-            };
-            FlexiSectionBlockParser testSubject = CreateExposedFlexiSectionBlockParser();
-
-            // Act
-            testSubject.GenerateID(null, dummyFlexiSectionBlock);
-
-            // Assert
-            Assert.Equal(dummyID, dummyFlexiSectionBlock.ID);
-        }
-
         [Theory]
-        [MemberData(nameof(GenerateID_GeneratesID_Data))]
-        public void GenerateID_GeneratesID(string dummyHeaderContent,
+        [MemberData(nameof(GenerateSectionID_GeneratesSectionID_Data))]
+        public void GenerateSectionID_GeneratesSectionID(string dummyHeaderContent,
             SerializableWrapper<Dictionary<string, int>> dummySectionIDsWrapper,
             string expectedID,
             SerializableWrapper<Dictionary<string, int>> expectedSectionIDsWrapper)
         {
             // Arrange
+            var dummyStringSlice = new StringSlice(dummyHeaderContent);
+            var dummyFlexiSectionHeadingBlock = new FlexiSectionHeadingBlock(null)
+            {
+                ProcessInlines = true
+            };
+            dummyFlexiSectionHeadingBlock.AppendLine(ref dummyStringSlice, 0, 0, 0);
             var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
             {
-                FlexiSectionBlockOptions = new FlexiSectionBlockOptions(),
-                HeaderContent = dummyHeaderContent
+                dummyFlexiSectionHeadingBlock
             };
-            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            InlineProcessor dummyInlineProcessor = MarkdigTypesFactory.CreateInlineProcessor();
+            dummyInlineProcessor.ProcessInlineLeaf(dummyFlexiSectionHeadingBlock);
+
             Mock<ExposedFlexiSectionBlockParser> mockTestSubject = CreateMockExposedFlexiSectionBlockParser();
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(t => t.GetOrCreateSectionIDs(dummyBlockProcessor)).Returns(dummySectionIDsWrapper.Value);
+            mockTestSubject.Setup(t => t.GetOrCreateSectionIDs(dummyInlineProcessor.Document)).Returns(dummySectionIDsWrapper.Value);
 
             // Act
-            mockTestSubject.Object.GenerateID(dummyBlockProcessor, dummyFlexiSectionBlock);
+            mockTestSubject.Object.GenerateSectionID(dummyInlineProcessor, null);
 
             // Assert
             _mockRepository.VerifyAll();
@@ -363,7 +380,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             Assert.Equal(expectedSectionIDsWrapper.Value, dummySectionIDsWrapper.Value);
         }
 
-        public static IEnumerable<object[]> GenerateID_GeneratesID_Data()
+        public static IEnumerable<object[]> GenerateSectionID_GeneratesSectionID_Data()
         {
             return new object[][]
             {
@@ -407,12 +424,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
         {
             // Arrange
             var dummySectionIDs = new Dictionary<string, int>();
-            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Document.SetData(FlexiSectionBlockParser.SECTION_IDS_KEY, dummySectionIDs);
+            var dummyMarkdownDocument = new MarkdownDocument();
+            dummyMarkdownDocument.SetData(FlexiSectionBlockParser.SECTION_IDS_KEY, dummySectionIDs);
             FlexiSectionBlockParser testSubject = CreateExposedFlexiSectionBlockParser();
 
             // Act
-            Dictionary<string, int> result = testSubject.GetOrCreateSectionIDs(dummyBlockProcessor);
+            Dictionary<string, int> result = testSubject.GetOrCreateSectionIDs(dummyMarkdownDocument);
 
             // Assert
             Assert.Same(dummySectionIDs, result);
@@ -422,65 +439,35 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
         public void GetOrCreateSectionIDs_CreatesSectionIDsIfItDoesNotAlreadyExist()
         {
             // Arrange
-            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            var dummyMarkdownDocument = new MarkdownDocument();
             FlexiSectionBlockParser testSubject = CreateExposedFlexiSectionBlockParser();
 
             // Act
-            Dictionary<string, int> result = testSubject.GetOrCreateSectionIDs(dummyBlockProcessor);
+            Dictionary<string, int> result = testSubject.GetOrCreateSectionIDs(dummyMarkdownDocument);
 
             // Assert
+            Assert.NotNull(dummyMarkdownDocument.GetData(FlexiSectionBlockParser.SECTION_IDS_KEY));
             Assert.NotNull(result);
-        }
-
-        [Theory]
-        [MemberData(nameof(SetupAutoLinking_DoesNothingIfIDIsNullOrAutoLinkableIsFalse_Data))]
-        public void SetupAutoLinking_DoesNothingIfIDIsNullOrAutoLinkableIsFalse(string dummyID, bool dummyAutoLinkable)
-        {
-            // Arrange
-            var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
-            {
-                ID = dummyID,
-                FlexiSectionBlockOptions = new FlexiSectionBlockOptions(autoLinkable: dummyAutoLinkable)
-            };
-            FlexiSectionBlockParser testSubject = CreateExposedFlexiSectionBlockParser();
-
-            // Act and assert
-            testSubject.SetupAutoLinking(null, dummyFlexiSectionBlock); // As long as this doesn't throw, auto linking has not been setup
-        }
-
-        public static IEnumerable<object[]> SetupAutoLinking_DoesNothingIfIDIsNullOrAutoLinkableIsFalse_Data()
-        {
-            return new object[][]
-            {
-                new object[]{null, true},
-                new object[]{"dummy-id", false},
-                new object[]{null, false}
-            };
         }
 
         [Fact]
         public void SetupAutoLinking_SetsUpAutoLinking()
         {
             // Arrange
-            const string dummyHeaderContent = "dummyHeaderContent";
-            var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
-            {
-                HeaderContent = dummyHeaderContent,
-                ID = "dummy-id",
-                FlexiSectionBlockOptions = new FlexiSectionBlockOptions(autoLinkable: true)
-            };
+            const string dummySectionLinkReferenceDefinitionKey = "dummySectionLinkReferenceDefinitionKey";
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var dummySectionLinkReferenceDefinitions = new Dictionary<string, SectionLinkReferenceDefinition>();
             Mock<ExposedFlexiSectionBlockParser> mockTestSubject = CreateMockExposedFlexiSectionBlockParser();
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(t => t.GetOrCreateSectionLinkReferenceDefinitions(dummyBlockProcessor)).Returns(dummySectionLinkReferenceDefinitions);
+            mockTestSubject.Setup(t => t.GetOrCreateSectionLinkReferenceDefinitions(dummyBlockProcessor.Document)).Returns(dummySectionLinkReferenceDefinitions);
 
             // Act
-            mockTestSubject.Object.SetupAutoLinking(dummyBlockProcessor, dummyFlexiSectionBlock);
+            mockTestSubject.Object.SetupAutoLinking(dummyBlockProcessor, dummyFlexiSectionBlock, dummySectionLinkReferenceDefinitionKey);
 
             // Assert
             _mockRepository.VerifyAll();
-            Assert.True(dummySectionLinkReferenceDefinitions.TryGetValue(dummyHeaderContent, out SectionLinkReferenceDefinition result));
+            Assert.True(dummySectionLinkReferenceDefinitions.TryGetValue(dummySectionLinkReferenceDefinitionKey, out SectionLinkReferenceDefinition result));
             Assert.Same(dummyFlexiSectionBlock, result.FlexiSectionBlock);
             Assert.NotNull(result.CreateLinkInline);
         }
@@ -490,12 +477,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
         {
             // Arrange
             var dummySectionLinkReferenceDefinitions = new Dictionary<string, SectionLinkReferenceDefinition>();
-            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Document.SetData(FlexiSectionBlockParser.SECTION_LINK_REFERENCE_DEFINITIONS_KEY, dummySectionLinkReferenceDefinitions);
+            var dummyMarkdownDocument = new MarkdownDocument();
+            dummyMarkdownDocument.SetData(FlexiSectionBlockParser.SECTION_LINK_REFERENCE_DEFINITIONS_KEY, dummySectionLinkReferenceDefinitions);
             FlexiSectionBlockParser testSubject = CreateExposedFlexiSectionBlockParser();
 
             // Act
-            Dictionary<string, SectionLinkReferenceDefinition> result = testSubject.GetOrCreateSectionLinkReferenceDefinitions(dummyBlockProcessor);
+            Dictionary<string, SectionLinkReferenceDefinition> result = testSubject.GetOrCreateSectionLinkReferenceDefinitions(dummyMarkdownDocument);
 
             // Assert
             Assert.Same(dummySectionLinkReferenceDefinitions, result);
@@ -505,13 +492,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
         public void GetOrCreateSectionLinkReferenceDefinitions_CreatesSectionLinkReferenceDefinitionsIfItDoesNotAlreadyExist()
         {
             // Arrange
-            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            var dummyMarkdownDocument = new MarkdownDocument();
             FlexiSectionBlockParser testSubject = CreateExposedFlexiSectionBlockParser();
 
             // Act
-            Dictionary<string, SectionLinkReferenceDefinition> result = testSubject.GetOrCreateSectionLinkReferenceDefinitions(dummyBlockProcessor);
+            Dictionary<string, SectionLinkReferenceDefinition> result = testSubject.GetOrCreateSectionLinkReferenceDefinitions(dummyMarkdownDocument);
 
             // Assert
+            Assert.NotNull(dummyMarkdownDocument.GetData(FlexiSectionBlockParser.SECTION_LINK_REFERENCE_DEFINITIONS_KEY));
             Assert.NotNull(result);
             // No easy way to check whether a delegate has been added to the Document.ProcessInlinesBegin event here, specs cover this though.
         }
@@ -530,7 +518,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             var result = (LinkInline)testSubject.CreateLinkInline(null, dummySectionLinkReferenceDefinition, null);
 
             // Assert
-            Assert.Equal($"#{dummyID}", result.Url);
+            Assert.Equal($"#{dummyID}", result.GetDynamicUrl());
             Assert.Equal(dummyTitle, result.Title);
         }
 
