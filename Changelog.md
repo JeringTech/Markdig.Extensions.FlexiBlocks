@@ -3,7 +3,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.13.0...HEAD)
+## [Unreleased (0.14.0)](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.13.0...HEAD)
 
 ## [0.13.0](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.12.0...0.13.0) - Dec 7, 2018
 ### Fixes
