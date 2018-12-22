@@ -9,6 +9,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
     /// </summary>
     public class Clipping
     {
+        internal const string REGION_START = "#region {0}";
+        internal const string REGION_END = "#endregion";
+
         /// <summary>
         /// Creates a <see cref="Clipping"/> instance. Validates arguments.
         /// </summary>
@@ -22,14 +25,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <para>If this value is -1, this clipping extends to the last line. If it is not -1, it must be greater than or equal to <paramref name="startLineNumber"/>.</para>
         /// <para>Defaults to -1.</para>
         /// </param>
+        /// <param name="region">
+        /// <para>The name of the region that this clipping contains.</para>
+        /// <para>This option is a shortcut for setting <paramref name="startDemarcationLineSubstring"/> and <paramref name="endDemarcationLineSubstring"/>.</para>
+        /// <para>If this value is not null, whitespace or an empty string, it sets <paramref name="startDemarcationLineSubstring"/> to "#region &lt;region&gt;" and <paramref name="endDemarcationLineSubstring"/> to
+        /// "#endregion".</para>
+        /// <para>Defaults to null.</para>
+        /// </param>
         /// <param name="startDemarcationLineSubstring">
         /// <para>A substring that the line immediately preceding this clipping contains.</para>
-        /// <para>If this value is not null, whitespace or an empty string, it takes precedence over <paramref name="startLineNumber"/>.</para>
+        /// <para>If this value is not null, whitespace or an empty string, it takes precedence over <paramref name="startLineNumber"/> and <paramref name="region"/>.</para>
         /// <para>Defaults to null.</para>
         /// </param>
         /// <param name="endDemarcationLineSubstring">
         /// <para>A substring that the line immediately after this clipping contains.</para>
-        /// <para>If this value is not null, whitespace or an empty string, it takes precedence over <paramref name="endLineNumber"/>.</para>
+        /// <para>If this value is not null, whitespace or an empty string, it takes precedence over <paramref name="endLineNumber"/> and <paramref name="region"/>.</para>
         /// <para>Defaults to null.</para>
         /// </param>
         /// <param name="dedentLength">
@@ -59,6 +69,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <exception cref="FlexiBlocksException">Thrown if <paramref name="collapseRatio"/> is not in the range [0, 1].</exception>
         public Clipping(int startLineNumber = 1,
             int endLineNumber = -1,
+            string region = null,
             string startDemarcationLineSubstring = null,
             string endDemarcationLineSubstring = null,
             int dedentLength = 0,
@@ -66,7 +77,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             string beforeContent = null,
             string afterContent = null)
         {
-            if(startLineNumber < 1)
+            if (startLineNumber < 1)
             {
                 throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Shared_OptionMustBeGreaterThan0, nameof(StartLineNumber), startLineNumber));
             }
@@ -76,7 +87,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Shared_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber, nameof(EndLineNumber), endLineNumber, startLineNumber));
             }
 
-            if(dedentLength < 0)
+            if (dedentLength < 0)
             {
                 throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_Shared_OptionMustBeGreaterThan0, nameof(DedentLength), dedentLength));
             }
@@ -88,8 +99,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 
             StartLineNumber = startLineNumber;
             EndLineNumber = endLineNumber;
-            StartDemarcationLineSubstring = startDemarcationLineSubstring;
-            EndDemarcationLineSubstring = endDemarcationLineSubstring;
+            bool regionIsDefined = !string.IsNullOrWhiteSpace(region);
+            StartDemarcationLineSubstring = startDemarcationLineSubstring ?? (regionIsDefined ? string.Format(REGION_START, region) : null);
+            EndDemarcationLineSubstring = endDemarcationLineSubstring ?? (regionIsDefined ? REGION_END : null);
             DedentLength = dedentLength;
             CollapseRatio = collapseRatio;
             BeforeContent = beforeContent;
@@ -107,6 +119,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(-1)]
         public int EndLineNumber { get; }
+
+        /// <summary>
+        /// Gets the name of the region this clipping contains.
+        /// </summary>
+        public string Region { get; }
 
         /// <summary>
         /// Gets a substring that the line immediately preceding this clipping contains.

@@ -60,6 +60,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                 ignoreLineEndingDifferences: true);
         }
 
+        [Fact]
+        public void Constructor_SetsDemarcationLineSubstringsIfRegionsIsNotNullWhitespaceOrAnEmptyString()
+        {
+            // Arrange
+            const string dummyRegion = "dummyRegion";
+
+            // Act
+            var testSubject = new Clipping(region: dummyRegion);
+
+            // Assert
+            Assert.Equal(string.Format(Clipping.REGION_START, dummyRegion), testSubject.StartDemarcationLineSubstring);
+            Assert.Equal(Clipping.REGION_END, testSubject.EndDemarcationLineSubstring);
+        }
+
         [Theory]
         [MemberData(nameof(Constructor_ThrowsFlexiBlocksExceptionIfCollapseRatioIsNotInTheExpectedRange_Data))]
         public void Constructor_ThrowsFlexiBlocksExceptionIfCollapseRatioIsNotInTheExpectedRange(float dummyCollapseRatio)

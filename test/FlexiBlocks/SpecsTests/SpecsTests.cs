@@ -1233,6 +1233,35 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Markdown ---------------
             //     +{
             //         "sourceUri": "./exampleInclude.js",
+            //         "clippings":[{"region": "utility methods"}]
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <div class="flexi-code-block">
+            //     <header>
+            //     <button>
+            //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+            //     </button>
+            //     </header>
+            //     <pre><code><span class="line"><span class="line-text">function add(a, b) {</span></span>
+            //     <span class="line"><span class="line-text">    return a + b;</span></span>
+            //     <span class="line"><span class="line-text">}</span></span></code></pre>
+            //     </div>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"sourceUri\": \"./exampleInclude.js\",\n    \"clippings\":[{\"region\": \"utility methods\"}]\n}",
+                "<div class=\"flexi-code-block\">\n<header>\n<button>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0 0h24v24H0V0z\"/><path d=\"M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z\"/></svg>\n</button>\n</header>\n<pre><code><span class=\"line\"><span class=\"line-text\">function add(a, b) {</span></span>\n<span class=\"line\"><span class=\"line-text\">    return a + b;</span></span>\n<span class=\"line\"><span class=\"line-text\">}</span></span></code></pre>\n</div>",
+                extensions);
+        }
+
+        [Theory]
+        [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
+        [InlineData("All")]
+        public void FlexiIncludeBlocks_Spec9(string extensions)
+        {
+            //     --------------- Extra Extensions ---------------
+            //     FlexiCodeBlocks
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "sourceUri": "./exampleInclude.js",
             //         "clippings":[{"startDemarcationLineSubstring": "#region utility methods", "endDemarcationLineSubstring": "#endregion utility methods"}]
             //     }
             //     --------------- Expected Markup ---------------
@@ -1255,7 +1284,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec9(string extensions)
+        public void FlexiIncludeBlocks_Spec10(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiCodeBlocks
@@ -1284,7 +1313,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec10(string extensions)
+        public void FlexiIncludeBlocks_Spec11(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiCodeBlocks
@@ -1334,7 +1363,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec11(string extensions)
+        public void FlexiIncludeBlocks_Spec12(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiCodeBlocks
@@ -1370,7 +1399,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec12(string extensions)
+        public void FlexiIncludeBlocks_Spec13(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiCodeBlocks
@@ -1406,7 +1435,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec13(string extensions)
+        public void FlexiIncludeBlocks_Spec14(string extensions)
         {
             //     --------------- Extension Options ---------------
             //     {
@@ -1431,7 +1460,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec14(string extensions)
+        public void FlexiIncludeBlocks_Spec15(string extensions)
         {
             //     --------------- Extension Options ---------------
             //     {
@@ -1462,7 +1491,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec15(string extensions)
+        public void FlexiIncludeBlocks_Spec16(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiCodeBlocks
@@ -1503,7 +1532,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks_FlexiOptionsBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec16(string extensions)
+        public void FlexiIncludeBlocks_Spec17(string extensions)
         {
             //     --------------- Extra Extensions ---------------
             //     FlexiOptionsBlocks
@@ -1542,7 +1571,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec17(string extensions)
+        public void FlexiIncludeBlocks_Spec18(string extensions)
         {
             //     --------------- Markdown ---------------
             //     +{
@@ -1561,7 +1590,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec18(string extensions)
+        public void FlexiIncludeBlocks_Spec19(string extensions)
         {
             //     --------------- Markdown ---------------
             //     - First item.
@@ -1588,7 +1617,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("FlexiIncludeBlocks")]
         [InlineData("All")]
-        public void FlexiIncludeBlocks_Spec19(string extensions)
+        public void FlexiIncludeBlocks_Spec20(string extensions)
         {
             //     --------------- Markdown ---------------
             //     > First line.
