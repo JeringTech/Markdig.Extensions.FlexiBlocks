@@ -79,38 +79,45 @@ Represents a clipping from a sequence of lines. Used by [FlexiIncludeBlockOption
   - Description: The line number of the line that this clipping starts at.
     This value must be greater than 0.
   - Default: `1`
-- `endLineNumber`
+- `EndLineNumber`
   - Type: `int`
   - Description: The line number of the line that this clipping ends at.
     If this value is -1, this clipping extends to the last line. If it is not -1, it must be greater than or equal to `StartLineNumber`.
   - Default: `-1`
-- `startDemarcationLineSubstring`
+- `Region`
+  - Type: `string`
+  - Description: The name of the region that this clipping contains.
+    This option is a shortcut for setting `StartDemarcationLineSubstring` and `EndDemarcationLineSubstring`.
+    If this value is not null, whitespace or an empty string, it sets `StartDemarcationLineSubstring` to "#region &lt;region&gt;" and 
+    `EndDemarcationLineSubstring` to "#endregion".
+  - Default: `null`
+- `StartDemarcationLineSubstring`
   - Type: `string`
   - Description: A substring that the line immediately preceding this clipping contains.
-    If this value is not null, whitespace or an empty string, it takes precedence over `StartLineNumber`.
+    If this value is not null, whitespace or an empty string, it takes precedence over `StartLineNumber` and `Region`.
   - Default: `null`
-- `endDemarcationLineSubstring`
+- `EndDemarcationLineSubstring`
   - Type: `string`
   - Description: A substring that the line immediately after this clipping contains.
-    If this value is not null, whitespace or an empty string, it takes precedence over `EndLineNumber`.
+    If this value is not null, whitespace or an empty string, it takes precedence over `EndLineNumber` and `Region`.
   - Default: `null`
-- `dedentLength`
+- `DedentLength`
   - Type: `int`
   - Description: The number of leading whitespace characters to remove from each line in this clipping.
     This value must not be negative.
   - Default: `0`
-- `collapseRatio`
+- `CollapseRatio`
   - Type: `float`
   - Description: The proportion of leading whitespace characters (after dedenting) to keep.
     For example, if there are 9 leading whitespace characters after dedenting, and this value is 0.33, the final number of leading whitespace characters will be 3. 
     This value must be in the range [0, 1].
   - Default: `1`
-- `beforeContent`
+- `BeforeContent`
   - Type: `string`
   - Description: The content to be prepended to this clipping.
     This value will be processed as markdown if the FlexiIncludeBlock that this clipping belongs to has Markdown as its content type.
   - Default: `null`
-- `afterContent`
+- `AfterContent`
   - Type: `string`
   - Description: The content to be appended to this clipping.
     This value will be processed as markdown if the FlexiIncludeBlock that this clipping belongs to has Markdown as its content type.
@@ -255,6 +262,28 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     <span class="line"><span class="line-text">    return arg + 'dummyString';</span></span>
     <span class="line"><span class="line-text">}</span></span>
     <span class="line"><span class="line-text">function add(a, b) {</span></span>
+    <span class="line"><span class="line-text">    return a + b;</span></span>
+    <span class="line"><span class="line-text">}</span></span></code></pre>
+    </div>
+    ````````````````````````````````
+
+    Clipping using a region:
+    ```````````````````````````````` none
+    --------------- Extra Extensions ---------------
+    FlexiCodeBlocks
+    --------------- Markdown ---------------
+    +{
+        "sourceUri": "./exampleInclude.js",
+        "clippings":[{"region": "utility methods"}]
+    }
+    --------------- Expected Markup ---------------
+    <div class="flexi-code-block">
+    <header>
+    <button>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+    </button>
+    </header>
+    <pre><code><span class="line"><span class="line-text">function add(a, b) {</span></span>
     <span class="line"><span class="line-text">    return a + b;</span></span>
     <span class="line"><span class="line-text">}</span></span></code></pre>
     </div>
