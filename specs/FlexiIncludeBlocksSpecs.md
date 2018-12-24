@@ -186,7 +186,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     <span class="line"><span class="line-text">    // Example comment</span></span>
     <span class="line"><span class="line-text">    return arg + 'dummyString';</span></span>
     <span class="line"><span class="line-text">}</span></span>
-    <span class="line"><span class="line-text"></span></span>
+    <span class="line"><span class="line-text"><br></span></span>
     <span class="line"><span class="line-text">//#region utility methods</span></span>
     <span class="line"><span class="line-text">function add(a, b) {</span></span>
     <span class="line"><span class="line-text">    return a + b;</span></span>
@@ -369,7 +369,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     <pre><code><span class="line"><span class="line-text">function exampleFunction(arg) {</span></span>
     <span class="line"><span class="line-text">...</span></span>
     <span class="line"><span class="line-text">}</span></span>
-    <span class="line"><span class="line-text"></span></span>
+    <span class="line"><span class="line-text"><br></span></span>
     <span class="line"><span class="line-text">function add(a, b) {</span></span>
     <span class="line"><span class="line-text">...</span></span>
     <span class="line"><span class="line-text">}</span></span></code></pre>
@@ -396,7 +396,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     <span class="line"><span class="line-text">  // Example comment</span></span>
     <span class="line"><span class="line-text">  return arg + 'dummyString';</span></span>
     <span class="line"><span class="line-text">}</span></span>
-    <span class="line"><span class="line-text"></span></span>
+    <span class="line"><span class="line-text"><br></span></span>
     <span class="line"><span class="line-text">//#region utility methods</span></span>
     <span class="line"><span class="line-text">function add(a, b) {</span></span>
     <span class="line"><span class="line-text">  return a + b;</span></span>
@@ -425,7 +425,7 @@ use [FlexiIncludeBlocksExtensionOptions](#flexiincludeblocksextensionoptions).
     <span class="line"><span class="line-text">  // Example comment</span></span>
     <span class="line"><span class="line-text">  return arg + 'dummyString';</span></span>
     <span class="line"><span class="line-text">}</span></span>
-    <span class="line"><span class="line-text"></span></span>
+    <span class="line"><span class="line-text"><br></span></span>
     <span class="line"><span class="line-text">//#region utility methods</span></span>
     <span class="line"><span class="line-text">function add(a, b) {</span></span>
     <span class="line"><span class="line-text">  return a + b;</span></span>
@@ -550,7 +550,7 @@ FlexiCodeBlocks
 <span class="line"><span class="line-text">    <span class="token comment">// Example comment</span></span></span>
 <span class="line"><span class="line-text">    <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">'dummyString'</span><span class="token punctuation">;</span></span></span>
 <span class="line"><span class="line-text"><span class="token punctuation">}</span></span></span>
-<span class="line"><span class="line-text"></span></span>
+<span class="line"><span class="line-text"><br></span></span>
 <span class="line"><span class="line-text"><span class="token comment">//#region utility methods</span></span></span>
 <span class="line"><span class="line-text"><span class="token keyword">function</span> <span class="token function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span></span></span>
 <span class="line"><span class="line-text">    <span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span></span></span>

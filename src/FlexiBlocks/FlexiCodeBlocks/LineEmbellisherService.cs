@@ -12,6 +12,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     public class LineEmbellisherService : ILineEmbellisherService
     {
         private const string _spanEndTag = "</span>";
+        private const string _brTag = "<br>";
 
         /// <inheritdoc />
         public string EmbellishLines(string text,
@@ -86,7 +87,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 }
 
                 // Add line text
-                result.Append(lineTextStartTag).Append(line).Append(_spanEndTag);
+                result.Append(lineTextStartTag).
+                    Append(line.Length == 0 ? _brTag : line). // Whitespace around the span elements get collapsed when the spans are table elements, so we must have an explicit line break - https://drafts.csswg.org/css-text-3/#white-space-processing 
+                    Append(_spanEndTag);
 
                 // End tag for line start tag
                 result.AppendLine(_spanEndTag);

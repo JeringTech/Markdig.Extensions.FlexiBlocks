@@ -35,21 +35,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         [MemberData(nameof(EmbellishLines_EmbellishesLines_Data))]
         public void EmbellishLines_EmbellishesLines(SerializableWrapper<List<NumberedLineRange>> dummyLineNumberLineRanges,
             SerializableWrapper<List<LineRange>> dummyHighlightLineRanges,
+            string dummyText,
             string dummyPrefixForClasses,
             string dummyHiddenLinesIconMarkup,
             string expectedResult)
         {
             // Arrange
-            const string dummyText = @"line 1
-line 2
-line 3
-line 4
-line 5
-line 6
-line 7
-line 8
-line 9
-line 10";
             var testSubject = new LineEmbellisherService();
 
             // Act
@@ -61,6 +52,16 @@ line 10";
 
         public static IEnumerable<object[]> EmbellishLines_EmbellishesLines_Data()
         {
+            const string dummyText = @"line 1
+line 2
+line 3
+line 4
+line 5
+line 6
+line 7
+line 8
+line 9
+line 10";
             return new object[][]
             {
                 // Both line numbers and highlighting
@@ -71,6 +72,7 @@ line 10";
                     new SerializableWrapper<List<LineRange>>(
                         new List<LineRange> { new LineRange(2, 2), new LineRange(8, 9) }
                     ),
+                    dummyText,
                     null,
                     null,
                     @"<span class=""line""><span class=""line-number"">1</span><span class=""line-text"">line 1</span></span>
@@ -92,6 +94,7 @@ line 10";
                     new SerializableWrapper<List<LineRange>>(
                         new List<LineRange> { new LineRange(2, 2), new LineRange(9, -1) }
                     ),
+                    dummyText,
                     null,
                     null,
                     @"<span class=""line""><span class=""line-number"">1</span><span class=""line-text"">line 1</span></span>
@@ -113,6 +116,7 @@ line 10";
                     new SerializableWrapper<List<LineRange>>(
                         new List<LineRange>()
                     ),
+                    dummyText,
                     null,
                     null,
                     @"<span class=""line""><span class=""line-number"">2</span><span class=""line-text"">line 1</span></span>
@@ -132,6 +136,7 @@ line 10";
                         new List<NumberedLineRange> { new NumberedLineRange(1, 4, 1), new NumberedLineRange(7, 8, 7) }
                     ),
                     null,
+                    dummyText,
                     null,
                     null,
                     @"<span class=""line""><span class=""line-number"">1</span><span class=""line-text"">line 1</span></span>
@@ -151,6 +156,7 @@ line 10";
                         new List<NumberedLineRange> { new NumberedLineRange(1, 4, 1), new NumberedLineRange(7, 8, 7) }
                     ),
                     null,
+                    dummyText,
                     null,
                     "dummyHiddenLinesIconMarkup",
                     @"<span class=""line""><span class=""line-number"">1</span><span class=""line-text"">line 1</span></span>
@@ -172,6 +178,7 @@ line 10";
                     new SerializableWrapper<List<LineRange>>(
                         new List<LineRange> { new LineRange(2, 2), new LineRange(9, -1) }
                     ),
+                    dummyText,
                     null,
                     null,
                     @"<span class=""line""><span class=""line-text"">line 1</span></span>
@@ -191,6 +198,7 @@ line 10";
                     new SerializableWrapper<List<LineRange>>(
                         new List<LineRange> { new LineRange(2, 2), new LineRange(4, 5) }
                     ),
+                    dummyText,
                     null,
                     null,
                     @"<span class=""line""><span class=""line-text"">line 1</span></span>
@@ -212,6 +220,7 @@ line 10";
                     new SerializableWrapper<List<LineRange>>(
                         new List<LineRange> { new LineRange(2, 2), new LineRange(8, 9) }
                     ),
+                    dummyText,
                     "dummy-prefix-",
                     null,
                     @"<span class=""dummy-prefix-line""><span class=""dummy-prefix-line-number"">1</span><span class=""dummy-prefix-line-text"">line 1</span></span>
@@ -225,6 +234,18 @@ line 10";
 <span class=""dummy-prefix-line dummy-prefix-highlight""><span class=""dummy-prefix-line-number"">9</span><span class=""dummy-prefix-line-text"">line 9</span></span>
 <span class=""dummy-prefix-line""><span class=""dummy-prefix-line-number"">10</span><span class=""dummy-prefix-line-text"">line 10</span></span>"
                 },
+                // Empty lines
+                new object[]{
+                    null,
+                    null,
+                    @"
+
+",
+                    null,
+                    null,
+                    @"<span class=""line""><span class=""line-text""><br></span></span>
+<span class=""line""><span class=""line-text""><br></span></span>"
+                }
             };
         }
     }
