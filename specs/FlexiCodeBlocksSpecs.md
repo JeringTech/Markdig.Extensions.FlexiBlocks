@@ -411,10 +411,10 @@ use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
     <span class="line"><span class="line-number">5</span><span class="line-text">        // Example comment</span></span>
     <span class="line"><span class="line-number">6</span><span class="line-text">        return arg + &quot;dummyString&quot;;</span></span>
     <span class="line"><span class="line-number">7</span><span class="line-text">    }</span></span>
-    <span class="line"><span class="line-number">8</span><span class="line-text"></span></span>
+    <span class="line"><span class="line-number">8</span><span class="line-text"><br></span></span>
     <span class="line"><span class="line-number"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span><span class="line-text">    // Some functions omitted for brevity</span></span>
     <span class="line"><span class="line-number"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span><span class="line-text">    ...</span></span>
-    <span class="line"><span class="line-number">32</span><span class="line-text"></span></span>
+    <span class="line"><span class="line-number">32</span><span class="line-text"><br></span></span>
     <span class="line"><span class="line-number">33</span><span class="line-text">    public string ExampleFunction3(string arg)</span></span>
     <span class="line"><span class="line-number">34</span><span class="line-text">    {</span></span>
     <span class="line"><span class="line-number">35</span><span class="line-text">        // Example comment</span></span>
