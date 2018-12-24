@@ -67,7 +67,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
 
         private class ExposedFlexiTableBlocksExtension : FlexiTableBlocksExtension
         {
-            public ExposedFlexiTableBlocksExtension(FlexiTableBlockRenderer flexiTableBlockRenderer, IFlexiOptionsBlockService flexiOptionsBlockService, FlexiTableBlocksExtensionOptions extensionOptions) : 
+            public ExposedFlexiTableBlocksExtension(FlexiTableBlockRenderer flexiTableBlockRenderer, IFlexiOptionsBlockService flexiOptionsBlockService, FlexiTableBlocksExtensionOptions extensionOptions) :
                 base(flexiTableBlockRenderer, flexiOptionsBlockService, extensionOptions)
             {
             }

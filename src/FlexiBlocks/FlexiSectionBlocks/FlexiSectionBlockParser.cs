@@ -175,7 +175,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
                 Span = { Start = processor.Line.Start, End = processor.Line.End }, // TODO should span include children?
             };
 
-
             // Discard redundant characters (the resulting characters will be assigned to the FlexiSectionBlock's child FlexiSectionHeaderBlock)
             processor.Line.Start += numStartCharsToDiscard; // Move past hashes and first space after hashes
             processor.Line.TrimStart(out int numTrimmedFromStart); // Trim remaining spaces before first non-space character

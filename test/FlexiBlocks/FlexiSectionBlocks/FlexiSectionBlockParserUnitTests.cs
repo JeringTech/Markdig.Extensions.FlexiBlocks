@@ -152,7 +152,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
 
             // Act
             mockTestSubject.Object.CreateFlexiSectionHeadingBlock(dummyBlockProcessor, dummyFlexiSectionBlock);
-            
+
             // Assert
             _mockRepository.VerifyAll();
         }
