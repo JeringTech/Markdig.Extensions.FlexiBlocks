@@ -341,11 +341,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         {
             Stack<Stack<FlexiSectionBlock>> openSectionBlocks = GetOrCreateOpenFlexiSectionBlocks(processor);
 
-            // Discard stacks for closed trees. When a sectioning content root is closed, all of its children are closed, so the last section in its tree
-            // will be closed.
+            // Discard stacks for closed branches.
             while (openSectionBlocks.Count > 0)
             {
-                // Branches will always have at least 1 FlexiSectionBlock
+                // When a sectioning content root is closed, all of its children are closed, so the last section in its branch
+                // will be closed. Under no circumstance will the section at the tip of a branch be closed without its ancestors 
+                // being closed as well.
                 if (openSectionBlocks.Peek().Peek().IsOpen)
                 {
                     break;
@@ -354,8 +355,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
                 openSectionBlocks.Pop();
             }
 
+            // Find parent container block - processor.CurrentContainer may be closed. processor.CurrentContainer is only updated when
+            // BlockProcessor.ProcessNewBlocks calls BlockProcessor.CloseAll, so at this point, processor.CurrentContainer may not be the eventual
+            // parent of our new FlexiSectionBlock.
+            ContainerBlock parentContainerBlock = processor.CurrentContainer;
+            while (!parentContainerBlock.IsOpen) // We will eventually reach the root MarkdownDocument (gauranteed to be open) if all other containers aren't open
+            {
+                parentContainerBlock = parentContainerBlock.Parent;
+            }
+
             // Create a new stack for a new tree
-            if (!(processor.CurrentContainer is FlexiSectionBlock))
+            if (!(parentContainerBlock is FlexiSectionBlock))
             {
                 var newStack = new Stack<FlexiSectionBlock>();
                 newStack.Push(flexiSectionBlock);
@@ -363,7 +373,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
             }
             else
             {
-                Stack<FlexiSectionBlock> currentStack = openSectionBlocks.Peek(); // If CurrentContainer is a FlexiSectionBlock, at least 1 child stack exists
+                Stack<FlexiSectionBlock> currentStack = openSectionBlocks.Peek(); // If parentContainerBlock is a FlexiSectionBlock, at least 1 child stack exists
                 // Close open FlexiSectionBlocks that have the same or higher levels
                 FlexiSectionBlock flexiSectionBlockToClose = null;
                 while (currentStack.Count > 0)
