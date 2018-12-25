@@ -99,7 +99,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             const int dummyColumn = 10;
             var dummySpan = new SourceSpan(3, 4);
             var dummyFlexiSectionBlockOptions = new FlexiSectionBlockOptions(generateIdentifier: false);
-            var dummyFlexiSectionBlock = new FlexiSectionBlock(null) {
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
+            {
                 Column = dummyColumn,
                 Span = dummySpan,
                 FlexiSectionBlockOptions = dummyFlexiSectionBlockOptions
@@ -120,7 +121,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
         {
             // Arrange
             const string dummyID = "dummyID";
-            var dummyFlexiSectionBlockOptions = new FlexiSectionBlockOptions(autoLinkable: false, attributes: new Dictionary<string, string> { {"id", dummyID } });
+            var dummyFlexiSectionBlockOptions = new FlexiSectionBlockOptions(autoLinkable: false, attributes: new Dictionary<string, string> { { "id", dummyID } });
             var dummyFlexiSectionBlock = new FlexiSectionBlock(null)
             {
                 FlexiSectionBlockOptions = dummyFlexiSectionBlockOptions
@@ -552,17 +553,52 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
         }
 
         [Fact]
+        public void UpdateOpenFlexiSectionBlocks_IgnoresPrecedingContainerBlocksThatAreClosed()
+        {
+            // Arrange
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            // Create abitrary closed blocks (ListItemBlock and ListBlock) and set BlockProcessor.CurrentContainer to dummyListItemBlock.
+            // Closed blocks should be ignored so UpdateOpenFlexiSectionBlocks should not create a new stack.
+            Mock<BlockParser> mockBlockParser = _mockRepository.Create<BlockParser>();
+            mockBlockParser.Setup(b => b.TryContinue(dummyBlockProcessor, It.IsAny<Block>())).Returns(BlockState.Continue);
+            var dummyListItemBlock = new ListItemBlock(mockBlockParser.Object);
+            var dummyListBlock = new ListBlock(null) { dummyListItemBlock };
+            var dummyFlexiSectionBlock = new FlexiSectionBlock(null) { dummyListBlock };
+            dummyBlockProcessor.Open(dummyListItemBlock);
+            dummyBlockProcessor.ProcessLine(new StringSlice("")); // This line sets BlockProcessor.CurrentContainer to dummyListItemBlock
+            dummyListItemBlock.IsOpen = false;
+            dummyListBlock.IsOpen = false;
+            var dummyNewFlexiSectionBlock = new FlexiSectionBlock(null);
+            var dummyCurrentStack = new Stack<FlexiSectionBlock>();
+            dummyCurrentStack.Push(dummyFlexiSectionBlock);
+            var dummyOpenSectionBlocks = new Stack<Stack<FlexiSectionBlock>>();
+            dummyOpenSectionBlocks.Push(dummyCurrentStack);
+            Mock<ExposedFlexiSectionBlockParser> mockTestSubject = CreateMockExposedFlexiSectionBlockParser();
+            mockTestSubject.CallBase = true;
+            mockTestSubject.Setup(t => t.GetOrCreateOpenFlexiSectionBlocks(dummyBlockProcessor)).Returns(dummyOpenSectionBlocks);
+
+            // Act
+            mockTestSubject.Object.UpdateOpenFlexiSectionBlocks(dummyBlockProcessor, dummyNewFlexiSectionBlock);
+
+            // Assert
+            _mockRepository.VerifyAll();
+            Assert.Single(dummyCurrentStack);
+            Assert.Equal(dummyNewFlexiSectionBlock, dummyCurrentStack.Peek());
+        }
+
+        [Fact]
         public void UpdateOpenFlexiSectionBlocks_DiscardsStacksForClosedTreesAndCreatesANewStackForANewTree()
         {
             // Arrange
-            var dummyOpenTreeStack = new Stack<FlexiSectionBlock>();
-            dummyOpenTreeStack.Push(new FlexiSectionBlock(null));
-            var dummyClosedTreeStack = new Stack<FlexiSectionBlock>();
-            dummyClosedTreeStack.Push(new FlexiSectionBlock(null) { IsOpen = false });
+            var dummyCurrentStack = new Stack<FlexiSectionBlock>();
+            dummyCurrentStack.Push(new FlexiSectionBlock(null));
+            var dummyClosedBranchStack = new Stack<FlexiSectionBlock>();
+            dummyClosedBranchStack.Push(new FlexiSectionBlock(null) { IsOpen = false });
             var dummyOpenSectionBlocks = new Stack<Stack<FlexiSectionBlock>>();
-            dummyOpenSectionBlocks.Push(dummyOpenTreeStack);
-            dummyOpenSectionBlocks.Push(dummyClosedTreeStack);
+            dummyOpenSectionBlocks.Push(dummyCurrentStack);
+            dummyOpenSectionBlocks.Push(dummyClosedBranchStack);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            dummyBlockProcessor.ProcessLine(new StringSlice("")); // This line sets BlockProcessor.CurrentContainer to a MarkdownDocument
             var dummyNewFlexiSectionBlock = new FlexiSectionBlock(null);
             Mock<ExposedFlexiSectionBlockParser> mockTestSubject = CreateMockExposedFlexiSectionBlockParser();
             mockTestSubject.CallBase = true;
@@ -575,22 +611,22 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             _mockRepository.VerifyAll();
             Assert.Equal(2, dummyOpenSectionBlocks.Count); // Closed tree removed, open tree remains, new tree added
             Assert.Same(dummyNewFlexiSectionBlock, dummyOpenSectionBlocks.Pop().Peek());
-            Assert.Same(dummyOpenTreeStack, dummyOpenSectionBlocks.Peek());
+            Assert.Same(dummyCurrentStack, dummyOpenSectionBlocks.Peek());
         }
 
         [Fact]
-        public void UpdateOpenFlexiSectionBlocks_ClosesFlexiSectionBlocksInCurrentTreesStackWithTheSameOrLowerLevels()
+        public void UpdateOpenFlexiSectionBlocks_ClosesFlexiSectionBlocksInCurrentTreesStackWithTheSameOrLowerHigherLevels()
         {
             // Arrange
-            var dummyOpenTreeStack = new Stack<FlexiSectionBlock>();
-            dummyOpenTreeStack.Push(new FlexiSectionBlock(null) { Level = 1 });
+            var dummyCurrentStack = new Stack<FlexiSectionBlock>();
+            dummyCurrentStack.Push(new FlexiSectionBlock(null) { Level = 1 });
             var dummyFlexiSectionBlockToBeClosed = new FlexiSectionBlock(null) { Level = 2 };
-            dummyOpenTreeStack.Push(dummyFlexiSectionBlockToBeClosed);
-            dummyOpenTreeStack.Push(new FlexiSectionBlock(null) { Level = 3 });
+            dummyCurrentStack.Push(dummyFlexiSectionBlockToBeClosed);
+            dummyCurrentStack.Push(new FlexiSectionBlock(null) { Level = 3 });
             var dummyOpenSectionBlocks = new Stack<Stack<FlexiSectionBlock>>();
-            dummyOpenSectionBlocks.Push(dummyOpenTreeStack);
+            dummyOpenSectionBlocks.Push(dummyCurrentStack);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            // These three lines set BlockProcessor.CurrentContainer to a FlexiSectionBlock
+            // These four lines set BlockProcessor.CurrentContainer to a FlexiSectionBlock
             Mock<BlockParser> mockBlockParser = _mockRepository.Create<BlockParser>();
             mockBlockParser.Setup(b => b.TryContinue(dummyBlockProcessor, It.IsAny<Block>())).Returns(BlockState.Continue);
             dummyBlockProcessor.Open(new FlexiSectionBlock(mockBlockParser.Object));
@@ -605,8 +641,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
 
             // Assert
             _mockRepository.VerifyAll();
-            Assert.Equal(2, dummyOpenTreeStack.Count);
-            Assert.Same(dummyNewFlexiSectionBlock, dummyOpenTreeStack.Peek());
+            Assert.Equal(2, dummyCurrentStack.Count);
+            Assert.Same(dummyNewFlexiSectionBlock, dummyCurrentStack.Peek());
         }
 
         public class ExposedFlexiSectionBlockParser : FlexiSectionBlockParser
