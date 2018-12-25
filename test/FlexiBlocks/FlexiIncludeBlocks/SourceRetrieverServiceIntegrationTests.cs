@@ -72,7 +72,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         {
             // Arrange
             // Arbitrary permalink
-            const string url = "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md";
+            const string url = "https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md";
             var dummyUri = new Uri(url);
             ISourceRetrieverService testSubject = _serviceProvider.GetRequiredService<ISourceRetrieverService>();
             ReadOnlyCollection<string> expectedResult = testSubject.GetSource(dummyUri, _fixture.TempDirectory);

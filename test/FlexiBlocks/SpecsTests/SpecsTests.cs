@@ -1125,12 +1125,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Markdown ---------------
             //     +{
             //         "type": "markdown",
-            //         "sourceUri": "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md"
+            //         "sourceUri": "https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md"
             //     }
             //     --------------- Expected Markup ---------------
             //     <p>This is example markdown.</p>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"type\": \"markdown\",\n    \"sourceUri\": \"https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md\"\n}",
+            SpecTestHelper.AssertCompliance("+{\n    \"type\": \"markdown\",\n    \"sourceUri\": \"https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md\"\n}",
                 "<p>This is example markdown.</p>",
                 extensions);
         }
@@ -1180,12 +1180,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     +{
             //         "cacheOnDisk": false,
             //         "type": "markdown",
-            //         "sourceURI": "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md"
+            //         "sourceURI": "https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md"
             //     }
             //     --------------- Expected Markup ---------------
             //     <p>This is example markdown.</p>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"cacheOnDisk\": false,\n    \"type\": \"markdown\",\n    \"sourceURI\": \"https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md\"\n}",
+            SpecTestHelper.AssertCompliance("+{\n    \"cacheOnDisk\": false,\n    \"type\": \"markdown\",\n    \"sourceURI\": \"https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md\"\n}",
                 "<p>This is example markdown.</p>",
                 extensions);
         }
@@ -1576,13 +1576,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Markdown ---------------
             //     +{
             //         "type": "Markdown",
-            //         "sourceUri": "https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/390395942467555e47ad3cc575d1c8ebbceead15/test/FlexiBlocks.Tests/exampleIncludeWithNestedInclude.md"
+            //         "sourceUri": "https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/390395942467555e47ad3cc575d1c8ebbceead15/test/FlexiBlocks.Tests/exampleIncludeWithNestedInclude.md"
             //     }
             //     --------------- Expected Markup ---------------
             //     <p>This is example markdown with an include.</p>
             //     <p>This is example markdown.</p>
 
-            SpecTestHelper.AssertCompliance("+{\n    \"type\": \"Markdown\",\n    \"sourceUri\": \"https://raw.githubusercontent.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/390395942467555e47ad3cc575d1c8ebbceead15/test/FlexiBlocks.Tests/exampleIncludeWithNestedInclude.md\"\n}",
+            SpecTestHelper.AssertCompliance("+{\n    \"type\": \"Markdown\",\n    \"sourceUri\": \"https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/390395942467555e47ad3cc575d1c8ebbceead15/test/FlexiBlocks.Tests/exampleIncludeWithNestedInclude.md\"\n}",
                 "<p>This is example markdown with an include.</p>\n<p>This is example markdown.</p>",
                 extensions);
         }
