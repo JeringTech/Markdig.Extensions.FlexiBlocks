@@ -2,6 +2,9 @@
 FlexiCodeBlocks contain code. They enhance code with aesthetic and functional features like syntax highlighting,
 line highlighting, line numbering and more.
 
+## Prerequisites
+To use syntax highlighting, [NodeJS](https://nodejs.org/en/) must be installed and node.exe's directory must be added to the `Path` environment variable.
+
 ## Basic Syntax
 A FlexiCodeBlock is a sequence of [fenced](https://spec.commonmark.org/0.28/#fenced-code-blocks) or [indented](https://spec.commonmark.org/0.28/#indented-code-blocks) lines. 
 Basic-syntax-wise, FlexiCodeBlocks are identical to [CommonMark](https://spec.commonmark.org/0.28/) code blocks. The following is a fenced FlexiCodeBlock:
