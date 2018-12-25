@@ -67,7 +67,7 @@ The following is a grid table FlexiTableBlock:
 
 ### `FlexiTableBlockOptions`
 Options for a FlexiTableBlock. To specify FlexiTableBlockOptions for a FlexiTableBlock, the 
-[FlexiOptionsBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled.
+[FlexiOptionsBlocks](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled.
 Specifying FlexiTableBlockOptions using the FlexiOptionsBlocks extension only works for grid table FlexiTableBlocks.
 To specify default FlexiTableBlockOptions for all FlexiTableBlocks, use [FlexiTableBlocksExtensionOptions](#flexitableblocksextensionoptions).
 

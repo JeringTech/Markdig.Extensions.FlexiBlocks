@@ -94,7 +94,7 @@ Represents a range of lines with an associated sequence of numbers. Used by [Fle
 
 ### `FlexiCodeBlockOptions`
 Options for a FlexiCodeBlock. To specify FlexiCodeBlockOptions for a FlexiCodeBlock, the 
-[FlexiOptionsBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled. To specify default FlexiCodeBlockOptions for all FlexiCodeBlocks,
+[FlexiOptionsBlocks](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled. To specify default FlexiCodeBlockOptions for all FlexiCodeBlocks,
 use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
 
 #### Properties

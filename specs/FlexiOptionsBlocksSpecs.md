@@ -31,7 +31,7 @@ A FlexiOptionsBlock is simply JSON prepended with `@`. It must immediately prece
 its first line must begin with `@{`.
 
 The following is a FlexiOptionsBlock for a 
-[FlexiCodeBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiCodeBlocksSpecs.md):
+[FlexiCodeBlock](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiCodeBlocksSpecs.md):
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiCodeBlocks
@@ -61,7 +61,7 @@ public string ExampleFunction(string arg)
 ````````````````````````````````
 
 The JSON can span any number of lines, as long as it is valid. The following is a FlexiOptionsBlock for a
-[FlexiAlertBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiAlertBlocksSpecs.md): 
+[FlexiAlertBlock](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiAlertBlocksSpecs.md): 
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiAlertBlocks
@@ -81,7 +81,7 @@ FlexiAlertBlocks
 
 All FlexiBlocks options types have an `Attributes` property of type `IDictionary<string, string>`. Key-value
 pairs in this dictionary are assigned to outermost elements as attributes. The following is a FlexiOptionsBlock for a
-[FlexiTableBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiTableBlocksSpecs.md): 
+[FlexiTableBlock](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiTableBlocksSpecs.md): 
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiTableBlocks
@@ -121,7 +121,7 @@ FlexiTableBlocks
 ````````````````````````````````
 
 All FlexiBlocks extensions allow for default per-block options. These can be specified when registering extensions.
-For example, when registering the FlexiSectionsBlocks extension, you can specify a [FlexiSectionBlocksExtensionOptions](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiSectionBlocksSpecs.md#flexisectionblocksextensionoptions)
+For example, when registering the FlexiSectionsBlocks extension, you can specify a [FlexiSectionBlocksExtensionOptions](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiSectionBlocksSpecs.md#flexisectionblocksextensionoptions)
 instance:
 
 ``` 
@@ -129,7 +129,7 @@ MyMarkdownPipelineBuilder.UseFlexiSectionBlocks(myFlexiSectionBlocksExtensionOpt
 ```
 The extension options instance contains a default FlexiSectionBlockOptions instance.
 The following is a FlexiOptionsBlock for a
-[FlexiSectionBlock](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiSectionBlocksSpecs.md): 
+[FlexiSectionBlock](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiSectionBlocksSpecs.md): 
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiSectionBlocks
