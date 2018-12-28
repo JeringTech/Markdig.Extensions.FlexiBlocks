@@ -54,10 +54,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
             }
 
             // TODO merge attributes? - ideally, PipeTableParser should be converted to a BlockParser so that the GenericAttributes extension is not required
-            renderer.Write("<table").
+            // Wrap table in a div. Why?
+            // - The "auto" algorithm for determining a table's width basically adds up the minimum content widths (MCW) of each column > https://www.w3.org/TR/CSS2/tables.html#auto-table-layout.
+            // - When using "overflow-wrap: break-word" MCW does not take soft wrap oppurtunities into account > https://www.w3.org/TR/css-text-3/#valdef-overflow-wrap-break-word. 
+            // - The above two points result in long words not wrapping in table cells. Instead, long words cause long cells, in turn causing tables to overflow their parents.
+            // - This will no longer be an issue when "overflow-wrap: anywhere" works.
+            // - For now, <table> elements must be wrapped in <div>s with "overflow: auto". It is possible to set "overflow: auto" on tables themselves but this will not always work because table widths
+            //   are overriden by sum of MCWs of its columns (i.e even if you set a fixed width for a table, it gets overriden in most cases). It is possible to make "overflow: auto" on tables work by 
+            //   setting the table's display to block (Github does this), but this is a hack that just happens to work (that "display: block" doesn't affect rendering of the table, which should have
+            //   "display: table", is a coincidence).
+            renderer.Write("<div").
                 WriteAttributes(attributes).
                 WriteAttributes(obj).
-                WriteLine(">");
+                WriteLine(">").
+                WriteLine("<table>");
 
             bool hasBody = false;
             bool hasAlreadyHeader = false;
@@ -206,7 +216,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
             {
                 renderer.WriteLine("</thead>");
             }
-            renderer.WriteLine("</table>");
+            renderer.
+                WriteLine("</table>").
+                WriteLine("</div>");
         }
     }
 }

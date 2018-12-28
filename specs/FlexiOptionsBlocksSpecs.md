@@ -98,7 +98,8 @@ FlexiTableBlocks
 +---+---+
 | 2 | 3 |
 --------------- Expected Markup ---------------
-<table id="table-1" class="flexi-table-block">
+<div id="table-1" class="flexi-table-block">
+<table>
 <col style="width:50%">
 <col style="width:50%">
 <thead>
@@ -118,6 +119,7 @@ FlexiTableBlocks
 </tr>
 </tbody>
 </table>
+</div>
 ````````````````````````````````
 
 All FlexiBlocks extensions allow for default per-block options. These can be specified when registering extensions.
