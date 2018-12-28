@@ -11,7 +11,8 @@ a | b
 0 | 1
 2 | 3
 --------------- Expected Markup ---------------
-<table class="flexi-table-block">
+<div class="flexi-table-block">
+<table>
 <thead>
 <tr>
 <th>a</th>
@@ -29,6 +30,7 @@ a | b
 </tr>
 </tbody>
 </table>
+</div>
 ````````````````````````````````
 
 The following is a grid table FlexiTableBlock:
@@ -41,7 +43,8 @@ The following is a grid table FlexiTableBlock:
 +---+---+
 | 2 | 3 |
 --------------- Expected Markup ---------------
-<table class="flexi-table-block">
+<div class="flexi-table-block">
+<table>
 <col style="width:50%">
 <col style="width:50%">
 <thead>
@@ -61,6 +64,7 @@ The following is a grid table FlexiTableBlock:
 </tr>
 </tbody>
 </table>
+</div>
 ````````````````````````````````
 
 ## Options
@@ -91,7 +95,8 @@ To specify default FlexiTableBlockOptions for all FlexiTableBlocks, use [FlexiTa
     +---+---+
     | 2 | 3 |
     --------------- Expected Markup ---------------
-    <table class="alternative-class">
+    <div class="alternative-class">
+    <table>
     <col style="width:50%">
     <col style="width:50%">
     <thead>
@@ -111,6 +116,7 @@ To specify default FlexiTableBlockOptions for all FlexiTableBlocks, use [FlexiTa
     </tr>
     </tbody>
     </table>
+    </div>
     ````````````````````````````````
 
 - `WrapperElement`
@@ -133,7 +139,8 @@ To specify default FlexiTableBlockOptions for all FlexiTableBlocks, use [FlexiTa
     +---+---+
     | 2 | 3 |
     --------------- Expected Markup ---------------
-    <table class="flexi-table-block">
+    <div class="flexi-table-block">
+    <table>
     <col style="width:50%">
     <col style="width:50%">
     <thead>
@@ -153,6 +160,7 @@ To specify default FlexiTableBlockOptions for all FlexiTableBlocks, use [FlexiTa
     </tr>
     </tbody>
     </table>
+    </div>
     ````````````````````````````````
 
 - `LabelAttribute`
@@ -175,7 +183,8 @@ To specify default FlexiTableBlockOptions for all FlexiTableBlocks, use [FlexiTa
     +---+---+
     | 2 | 3 |
     --------------- Expected Markup ---------------
-    <table class="flexi-table-block">
+    <div class="flexi-table-block">
+    <table>
     <col style="width:50%">
     <col style="width:50%">
     <thead>
@@ -195,6 +204,7 @@ To specify default FlexiTableBlockOptions for all FlexiTableBlocks, use [FlexiTa
     </tr>
     </tbody>
     </table>
+    </div>
     ````````````````````````````````
 
 - `Attributes`
@@ -220,7 +230,8 @@ To specify default FlexiTableBlockOptions for all FlexiTableBlocks, use [FlexiTa
     +---+---+
     | 2 | 3 |
     --------------- Expected Markup ---------------
-    <table id="table-1" class="block flexi-table-block">
+    <div id="table-1" class="block flexi-table-block">
+    <table>
     <col style="width:50%">
     <col style="width:50%">
     <thead>
@@ -240,6 +251,7 @@ To specify default FlexiTableBlockOptions for all FlexiTableBlocks, use [FlexiTa
     </tr>
     </tbody>
     </table>
+    </div>
     ````````````````````````````````
     If a value is specified for the class attribute, it will not override the outermost element's generated class. Instead, it will be 
     prepended to the generated class. In the above example, this results in the outermost element's class attribute having the value 
@@ -286,7 +298,8 @@ MyMarkdownPipelineBuilder.UseFlexiTableBlocks(myFlexiTableBlocksExtensionOptions
     0 | 1
     2 | 3
     --------------- Expected Markup ---------------
-    <table class="block alternative-class">
+    <div class="block alternative-class">
+    <table>
     <col style="width:50%">
     <col style="width:50%">
     <thead>
@@ -306,7 +319,9 @@ MyMarkdownPipelineBuilder.UseFlexiTableBlocks(myFlexiTableBlocksExtensionOptions
     </tr>
     </tbody>
     </table>
-    <table class="block alternative-class">
+    </div>
+    <div class="block alternative-class">
+    <table>
     <thead>
     <tr>
     <th>a</th>
@@ -324,6 +339,7 @@ MyMarkdownPipelineBuilder.UseFlexiTableBlocks(myFlexiTableBlocksExtensionOptions
     </tr>
     </tbody>
     </table>
+    </div>
     ````````````````````````````````
 
     Default FlexiTableBlockOptions have lower precedence than block specific options:
@@ -354,7 +370,8 @@ MyMarkdownPipelineBuilder.UseFlexiTableBlocks(myFlexiTableBlocksExtensionOptions
     +---+---+
     | 2 | 3 |  
     --------------- Expected Markup ---------------
-    <table class="flexi-table-block">
+    <div class="flexi-table-block">
+    <table>
     <thead>
     <tr>
     <th>a</th>
@@ -372,7 +389,9 @@ MyMarkdownPipelineBuilder.UseFlexiTableBlocks(myFlexiTableBlocksExtensionOptions
     </tr>
     </tbody>
     </table>
-    <table class="flexi-table-block">
+    </div>
+    <div class="flexi-table-block">
+    <table>
     <col style="width:50%">
     <col style="width:50%">
     <thead>
@@ -392,6 +411,7 @@ MyMarkdownPipelineBuilder.UseFlexiTableBlocks(myFlexiTableBlocksExtensionOptions
     </tr>
     </tbody>
     </table>
+    </div>
     ````````````````````````````````
 
 ## Mechanics
@@ -405,7 +425,8 @@ The contents of `<th>` elements are HTML escaped when used as values of label at
 0 | 1 
 2 | 3 
 --------------- Expected Markup ---------------
-<table class="flexi-table-block">
+<div class="flexi-table-block">
+<table>
 <thead>
 <tr>
 <th>&quot;a&quot;</th>
@@ -423,6 +444,7 @@ The contents of `<th>` elements are HTML escaped when used as values of label at
 </tr>
 </tbody>
 </table>
+</div>
 ````````````````````````````````
 
 HTML tags are removed from the contents of `<th>` elements when such contents are used as values of label attributes:
@@ -438,7 +460,8 @@ HTML tags are removed from the contents of `<th>` elements when such contents ar
 +---+---+
 | 2 | 3 |
 --------------- Expected Markup ---------------
-<table class="flexi-table-block">
+<div class="flexi-table-block">
+<table>
 <col style="width:50%">
 <col style="width:50%">
 <thead>
@@ -460,4 +483,5 @@ HTML tags are removed from the contents of `<th>` elements when such contents ar
 </tr>
 </tbody>
 </table>
+</div>
 ````````````````````````````````
