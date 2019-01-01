@@ -377,6 +377,25 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The markup fragment &quot;{0}&quot; is invalid. An exception was thrown while attempting to split multi-line elements within it..
+        /// </summary>
+        internal static string InvalidOperationException_LineEmbellisherService_InvalidMarkupFragment {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_LineEmbellisherService_InvalidMarkupFragment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The markup fragment &quot;{0}&quot; is invalid. An exception was thrown while attempting to split multi-line elements within it. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string InvalidOperationException_LineEmbellisherService_InvalidMarkupFragmentWithInnerException {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_LineEmbellisherService_InvalidMarkupFragmentWithInnerEx" +
+                        "ception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file &quot;{0}&quot; is in use. {1} tries remaining..
         /// </summary>
         internal static string LogWarning_DiskCacheService_FileInUse {
