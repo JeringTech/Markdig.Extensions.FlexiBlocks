@@ -234,4 +234,10 @@
   <data name="LogWarning_DiskCacheService_FileInUse" xml:space="preserve">
     <value>The file "{0}" is in use. {1} tries remaining.</value>
   </data>
+  <data name="InvalidOperationException_LineEmbellisherService_InvalidMarkupFragmentWithInnerException" xml:space="preserve">
+    <value>The markup fragment "{0}" is invalid. An exception was thrown while attempting to split multi-line elements within it. Refer to the inner exception for more details.</value>
+  </data>
+  <data name="InvalidOperationException_LineEmbellisherService_InvalidMarkupFragment" xml:space="preserve">
+    <value>The markup fragment "{0}" is invalid. An exception was thrown while attempting to split multi-line elements within it.</value>
+  </data>
 </root>

@@ -94,12 +94,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             var stringWriter = new StringWriter();
             var codeRenderer = new HtmlRenderer(stringWriter);
             string code = null;
-            if (!string.IsNullOrWhiteSpace(flexiCodeBlockOptions.Language) && flexiCodeBlockOptions.SyntaxHighlighter != SyntaxHighlighter.None)
+            bool performSyntaxHighlighting = !string.IsNullOrWhiteSpace(flexiCodeBlockOptions.Language) && flexiCodeBlockOptions.SyntaxHighlighter != SyntaxHighlighter.None;
+            if (performSyntaxHighlighting)
             {
-                codeRenderer.WriteLeafRawLines(obj, false, false); // Don't escape, prism can't deal with escaped chars
+                codeRenderer.WriteLeafRawLines(obj, false, false); // Don't escape, highlighters can't deal with escaped chars
                 code = stringWriter.ToString();
 
-                // All code up the stack from HighlightAsync calls ConfigureAwait(false), so there is no need to run this calls in the thread pool.
+                // All code up the stack from HighlightAsync calls ConfigureAwait(false), so there is no need to run these calls in the thread pool.
                 // Use GetAwaiter and GetResult to avoid an AggregateException - https://blog.stephencleary.com/2014/12/a-tour-of-task-part-6-results.html
                 if (flexiCodeBlockOptions.SyntaxHighlighter == SyntaxHighlighter.HighlightJS)
                 {
@@ -118,24 +119,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 code = stringWriter.ToString();
             }
 
-            // Line embellishments
             code = _lineEmbellisherService.EmbellishLines(code,
                 flexiCodeBlockOptions.LineNumberLineRanges,
                 flexiCodeBlockOptions.HighlightLineRanges,
                 flexiCodeBlockOptions.LineEmbellishmentClassesPrefix,
-                flexiCodeBlockOptions.HiddenLinesIconMarkup);
-
-            if (code != null)
-            {
-                renderer.Write(code);
-            }
-            else
-            {
-                // No embellishing and no syntax highlighting, write directly to renderer
-                renderer.WriteLeafRawLines(obj, false, true); // Escape
-            }
+                flexiCodeBlockOptions.HiddenLinesIconMarkup,
+                performSyntaxHighlighting);
 
             renderer.
+                Write(code).
                 WriteLine("</code></pre>").
                 WriteLine("</div>");
         }

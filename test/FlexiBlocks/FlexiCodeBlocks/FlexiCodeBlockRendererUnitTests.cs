@@ -356,7 +356,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             Mock<IHighlightJSService> mockHighlightJSService = _mockRepository.Create<IHighlightJSService>();
             mockHighlightJSService.Setup(h => h.HighlightAsync(dummyCode, dummyLanguage, dummyHighlightJSClassPrefix, default)).ReturnsAsync(dummyHighlightedCode);
             Mock<ILineEmbellisherService> mockLineEmbellisherService = _mockRepository.Create<ILineEmbellisherService>();
-            mockLineEmbellisherService.Setup(l => l.EmbellishLines(dummyHighlightedCode, null, null, null, null)).Returns(dummyEmbellishedCode);
+            mockLineEmbellisherService.Setup(l => l.EmbellishLines(dummyHighlightedCode, null, null, null, null, true)).Returns(dummyEmbellishedCode);
             FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer(highlightJSService: mockHighlightJSService.Object, lineEmbellisherService: mockLineEmbellisherService.Object);
 
             // Act
@@ -396,7 +396,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             Mock<IPrismService> mockPrismService = _mockRepository.Create<IPrismService>();
             mockPrismService.Setup(h => h.HighlightAsync(dummyCode, dummyLanguage, default)).ReturnsAsync(dummyHighlightedCode);
             Mock<ILineEmbellisherService> mockLineEmbellisherService = _mockRepository.Create<ILineEmbellisherService>();
-            mockLineEmbellisherService.Setup(l => l.EmbellishLines(dummyHighlightedCode, null, null, null, null)).Returns(dummyEmbellishedCode);
+            mockLineEmbellisherService.Setup(l => l.EmbellishLines(dummyHighlightedCode, null, null, null, null, true)).Returns(dummyEmbellishedCode);
             FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer(prismService: mockPrismService.Object, lineEmbellisherService: mockLineEmbellisherService.Object);
 
             // Act
@@ -434,7 +434,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                 language: dummyLanguage, copyIconMarkup: null, codeClassFormat: null, hiddenLinesIconMarkup: null);
             dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
             Mock<ILineEmbellisherService> mockLineEmbellisherService = _mockRepository.Create<ILineEmbellisherService>();
-            mockLineEmbellisherService.Setup(l => l.EmbellishLines(dummyCode, null, null, null, null)).Returns(dummyEmbellishedCode);
+            mockLineEmbellisherService.Setup(l => l.EmbellishLines(dummyCode, null, null, null, null, false)).Returns(dummyEmbellishedCode);
             Mock<IHighlightJSService> mockHighlightJSService = _mockRepository.Create<IHighlightJSService>();
             Mock<IPrismService> mockPrismService = _mockRepository.Create<IPrismService>();
             FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer(mockPrismService.Object, mockHighlightJSService.Object, mockLineEmbellisherService.Object);
@@ -496,7 +496,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     dummyLineNumberLineRanges,
                     dummyHighlightLineRanges,
                     dummyLineEmbellishmentClassesPrefix,
-                    dummyHiddenLinesIconMarkup)).
+                    dummyHiddenLinesIconMarkup,
+                    false)).
                 Returns(dummyEmbellishedCode);
             FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer(lineEmbellisherService: mockLineEmbellisherService.Object);
 
@@ -517,36 +518,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 </button>
 </header>
 <pre><code>{dummyEmbellishedCode}</code></pre>
-</div>
-", result, ignoreLineEndingDifferences: true);
-        }
-
-        [Fact]
-        public void WriteFlexiBlock_EscapesCodeWrittenDirectlyToTheRenderer()
-        {
-            // Arrange
-            var dummyLines = new StringLineGroup("dummyCode\"&<>");
-            var dummyCodeBlock = new CodeBlock(null) { Lines = dummyLines };
-            var dummyFlexiCodeBlockOptions = new FlexiCodeBlockOptions(@class: null, copyIconMarkup: null);
-            dummyCodeBlock.SetData(FlexiCodeBlocksExtension.FLEXI_CODE_BLOCK_OPTIONS_KEY, dummyFlexiCodeBlockOptions);
-            FlexiCodeBlockRenderer testSubject = CreateFlexiCodeBlockRenderer();
-
-            // Act
-            string result = null;
-            using (var dummyStringWriter = new StringWriter())
-            {
-                var dummyHtmlRenderer = new HtmlRenderer(dummyStringWriter);
-                testSubject.Write(dummyHtmlRenderer, dummyCodeBlock);
-                result = dummyStringWriter.ToString();
-            }
-
-            // Assert
-            Assert.Equal(@"<div>
-<header>
-<button>
-</button>
-</header>
-<pre><code>dummyCode&quot;&amp;&lt;&gt;</code></pre>
 </div>
 ", result, ignoreLineEndingDifferences: true);
         }
