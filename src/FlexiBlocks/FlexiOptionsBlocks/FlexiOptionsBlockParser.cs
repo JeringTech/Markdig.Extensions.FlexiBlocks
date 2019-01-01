@@ -1,6 +1,5 @@
 ﻿using Markdig.Parsers;
 using Markdig.Syntax;
-using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
 {
