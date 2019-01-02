@@ -3,15 +3,26 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased (0.14.0)](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.13.0...HEAD)
+## [Unreleased](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.14.0...HEAD)
+
+## [0.14.0](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.13.0...0.14.0) - Jan 2, 2019
+### Fixes
+- Fixed FlexiSectionBlocks not processing inlines in heading blocks. ([73c013e](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/commit/73c013edd25d66cdc5d55a3425ed0ae35703c578))
+- Fixed FlexiCodeBlocks empty lines not containing anything. ([e8ff3e8](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/commit/e8ff3e868ddf1b2dd3a276a550b2700818010a2f))
+- Fixed FlexiSectionBlocks located immediately after lists being nested in preceding FlexiSectionBlocks regardless of level. ([03816db](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/commit/eab77757c2686525944357550c968539dc7b1946))
+- Fixed line embellishing done by FlexiCodeBlocks for markup fragments with multi-line elements. ([ff1c644](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/commit/ff1c644784820df34ec06c8dbd5ab484cdfb16b4))
+### Additions
+- Added `Region` property to the `Clipping` type. ([f85b9be](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/commit/f85b9be0d6f1aa46b663477262f146e4e4b3dc3a))
+### Changes
+- FlexiTableBlocks now wraps `<table>` elements in `<div>`s. ([9d03887](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/commit/9d038876df2b44feb142132dd841d2639008da53))
 
 ## [0.13.0](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.12.0...0.13.0) - Dec 7, 2018
 ### Fixes
 - Fixed `NullReferenceException` thrown by `FlexiTableBlockRenderer` when a table has no head row. 
 ### Changes
-- **Breaking**: `FlexiBlocksExtension.Setup` overloads are no longer overridable. `FlexiBlocksExtension` implementers should implement
+- `FlexiBlocksExtension.Setup` overloads are no longer overridable. `FlexiBlocksExtension` implementers should implement
 `FlexiBlocksExtension.SetupParsers` and `FlexiBlocksExtension.SetupRenderers` instead.
-- **Breaking**: Renamed `Context` enum to `FlexiBlockExceptionContext`.
+- Renamed `Context` enum to `FlexiBlockExceptionContext`.
 - `SourceRetrieverService.GetSource` now logs warning instead of debug messages when retrieval attempts fail.
 
 ## [0.12.0](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.11.0...0.12.0) - Dec 3, 2018
