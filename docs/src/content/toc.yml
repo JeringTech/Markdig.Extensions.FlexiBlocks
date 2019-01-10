@@ -1,4 +1,8 @@
 - name: Tutorials
   href: tutorials/
-- name: About
-  href: about
+- name: Github
+  href: https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks
+- name: Changelog
+  href: changelog
+- name: Jering
+  href: https://www.jering.tech

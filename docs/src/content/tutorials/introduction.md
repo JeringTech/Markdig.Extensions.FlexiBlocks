@@ -9,6 +9,9 @@ mimo_shareOnTwitter:
     via: JeringTech
 ---
 
+Work in progress. For now, the (incomplete) documentation for this project can be found [here](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks).
+
+<!--
 This article introduces FlexiBlocks from the ground up - It begins with an overview of the technologies that FlexiBlocks builds upon, 
 then, it discusses the problem that FlexiBlocks solves, and finally it explains how FlexiBlocks solves the said problem.
 
@@ -28,3 +31,4 @@ Consider the HTML for
 
 ## The Problem: Configurable Markdown Blocks
 ## The Solution: FlexiBlocks
+-->
