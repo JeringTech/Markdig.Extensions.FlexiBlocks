@@ -1,5 +1,5 @@
 # FlexiBlocks
-[![Build Status](https://dev.azure.com/JeringTech/Markdig.Extensions.FlexiBlocks/_apis/build/status/Jering.Markdig.Extensions.FlexiBlocks-CI)](https://dev.azure.com/JeringTech/Markdig.Extensions.FlexiBlocks/_build/latest?definitionId=5)
+[![Build Status](https://dev.azure.com/JeringTech/Markdig.Extensions.FlexiBlocks/_apis/build/status/Jering.Markdig.Extensions.FlexiBlocks-CI?branchName=master)](https://dev.azure.com/JeringTech/Markdig.Extensions.FlexiBlocks/_build/latest?definitionId=5?branchName=master)
 [![codecov](https://codecov.io/gh/JeringTech/Markdig.Extensions.FlexiBlocks/branch/master/graph/badge.svg)](https://codecov.io/gh/JeringTech/Markdig.Extensions.FlexiBlocks)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/blob/master/LICENSE.md)
 [![NuGet](https://img.shields.io/nuget/vpre/Jering.Markdig.Extensions.FlexiBlocks.svg?label=nuget)](https://www.nuget.org/packages/Jering.Markdig.Extensions.FlexiBlocks/)
