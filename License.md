@@ -1,15 +1,8 @@
-# Licenses
+﻿# Licenses
+Jering.Markdig.Extensions.FlexiBlocks, copyright © 2018-2019 Jering. All rights reserved.
 
-Copyright (c) 2018 Jering.  
-All rights reserved.
-
-## Documentation
-
-Documentation is licensed under a [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
-
-## Source Code
-
-Source code is licensed under the following license:
+## Source Code and Documentation Code-Examples
+Source code and documentation code-examples are licensed under the following license:
 
 Apache License
 Version 2.0, January 2004
@@ -187,3 +180,10 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
     of your accepting any such warranty or additional liability.
 
 END OF TERMS AND CONDITIONS
+
+## Documentation (Excluding Code-Examples)
+Documentation (excluding code-examples), is licensed under a [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
+
+## Brand Assets
+Brand assets such as the Jering logo are not licensed under the above-mentioned licenses. You may not use these assets in
+a manner that might mislead users about the origin of your work. You may use these assets to refer to Jering.
