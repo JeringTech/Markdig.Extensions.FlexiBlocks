@@ -31,7 +31,7 @@
 
     <ItemGroup>
         <PackageReference Include="Markdig" Version="0.15.4" />
-        <PackageReference Include="Jering.IocServices.Newtonsoft.Json" Version="0.2.0" />
+        <PackageReference Include="Jering.IocServices.Newtonsoft.Json" Version="0.3.0" />
         <PackageReference Include="Jering.IocServices.System.IO" Version="0.3.0" />
         <PackageReference Include="Jering.IocServices.System.Net.Http" Version="0.3.0" />
         <PackageReference Include="Jering.Web.SyntaxHighlighters.HighlightJS" Version="3.1.0" />
