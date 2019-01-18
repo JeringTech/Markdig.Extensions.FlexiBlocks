@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
@@ -16,6 +17,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
     /// </summary>
     public class FlexiAlertBlockOptions : FlexiBlockOptions<FlexiAlertBlockOptions>
     {
+        private const string _defaultType = "info";
+        private const string _defaultClassFormat = "flexi-alert-block-{0}";
+        private const string _defaultContentClass = "flexi-alert-block-content";
+
         /// <summary>
         /// Creates a <see cref="FlexiAlertBlockOptions"/> instance.
         /// </summary>
@@ -47,10 +52,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <para>Defaults to null.</para>
         /// </param>
         public FlexiAlertBlockOptions(
-            string type = "info",
-            string classFormat = "flexi-alert-block-{0}",
+            string type = _defaultType,
+            string classFormat = _defaultClassFormat,
             string iconMarkup = default,
-            string contentClass = "flexi-alert-block-content",
+            string contentClass = _defaultContentClass,
             IDictionary<string, string> attributes = default) : base(attributes)
         {
             IconMarkup = iconMarkup;
@@ -64,13 +69,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <summary>
         /// Gets or sets the <see cref="FlexiAlertBlock"/>'s type.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string Type { get; private set; }
 
         /// <summary>
         /// Gets or sets the format for the <see cref="FlexiAlertBlock" />'s outermost element's class.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string ClassFormat { get; private set; }
 
         /// <summary>
@@ -81,13 +86,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <summary>
         /// Gets or sets the markup for the <see cref="FlexiAlertBlock" />'s icon.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string IconMarkup { get; internal set; }
 
         /// <summary>
         /// Gets or sets the class of the <see cref="FlexiAlertBlock" />'s content wrapper.  
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string ContentClass { get; private set; }
 
         /// <summary>

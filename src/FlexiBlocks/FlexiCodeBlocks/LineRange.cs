@@ -9,6 +9,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     public class LineRange
     {
         /// <summary>
+        /// Default start line number.
+        /// </summary>
+        protected const int _defaultStartLineNumber = 1;
+
+        /// <summary>
+        /// Default end line number.
+        /// </summary>
+        protected const int _defaultEndLineNumber = -1;
+
+        /// <summary>
         /// Creates a <see cref="LineRange"/> instance.
         /// </summary>
         /// <param name="startLineNumber">
@@ -23,7 +33,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// </param>
         /// <exception cref="FlexiBlocksException">Thrown if <paramref name="startLineNumber"/> is less than 1.</exception>
         /// <exception cref="FlexiBlocksException">Thrown if <paramref name="endLineNumber"/> is not -1 and is less than <paramref name="startLineNumber"/>.</exception>
-        public LineRange(int startLineNumber = 1, int endLineNumber = -1)
+        public LineRange(int startLineNumber = _defaultStartLineNumber, int endLineNumber = _defaultEndLineNumber)
         {
             if(startLineNumber < 1)
             {
@@ -45,13 +55,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <summary>
         /// Gets the line number of this <see cref="LineRange"/>'s start line.
         /// </summary>
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(_defaultStartLineNumber)]
         public int StartLineNumber { get; }
 
         /// <summary>
         /// Gets the line number of this <see cref="LineRange"/>'s end line.
         /// </summary>
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(_defaultEndLineNumber)]
         public int EndLineNumber { get; }
 
         /// <summary>
