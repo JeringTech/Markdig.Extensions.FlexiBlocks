@@ -16,7 +16,7 @@
         <Copyright>© 2018 Jering. All rights reserved.</Copyright>
         <PackageProjectUrl>https://www.jering.tech/utilities/jering.markdig.extensions.flexiblocks/index</PackageProjectUrl>
         <RepositoryUrl>https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks</RepositoryUrl>
-        <PackageLicenseUrl>$(RepositoryUrl)/blob/master/Licenses.md</PackageLicenseUrl>
+        <PackageLicenseUrl>$(RepositoryUrl)/blob/master/License.md</PackageLicenseUrl>
         <PackageReleaseNotes>$(RepositoryUrl)/blob/master/Changelog.md</PackageReleaseNotes>
         <PackageTags>markdown markdig extension</PackageTags>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
