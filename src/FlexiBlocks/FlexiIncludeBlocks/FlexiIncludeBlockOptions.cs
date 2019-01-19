@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
@@ -11,6 +12,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
     /// </summary>
     public class FlexiIncludeBlockOptions : FlexiBlockOptions<FlexiIncludeBlockOptions>
     {
+        private const string _defaultSourceUri = "";
+        private const IncludeType _defaultType = IncludeType.Code;
+        private const bool _defaultCacheOnDisk = true;
+
         /// <summary>
         /// Creates a <see cref="FlexiIncludeBlockOptions"/> instance. 
         /// </summary>
@@ -42,9 +47,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <para>If this value is null or empty, the entire source is included.</para>
         /// <para>Defaults to null.</para>
         /// </param>
-        public FlexiIncludeBlockOptions(string sourceUri = "",
-            IncludeType type = IncludeType.Code,
-            bool cacheOnDisk = true,
+        public FlexiIncludeBlockOptions(string sourceUri = _defaultSourceUri,
+            IncludeType type = _defaultType,
+            bool cacheOnDisk = _defaultCacheOnDisk,
             string diskCacheDirectory = default,
             IList<Clipping> clippings = default) : base(null)
         {
@@ -60,25 +65,25 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <summary>
         /// Gets the URI of the source.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string SourceUri { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="FlexiIncludeBlock"/>'s type.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public IncludeType Type { get; private set; }
 
         /// <summary>
         /// Gets the boolean value specifying whether or not to cache content on disk.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public bool CacheOnDisk { get; private set; }
 
         /// <summary>
         /// Gets the directory for the on-disk source cache.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string DiskCacheDirectory { get; private set; }
 
         /// <summary>
@@ -90,7 +95,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <summary>
         /// Gets the list of clippings from the source to include.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public ReadOnlyCollection<Clipping> Clippings { get; private set; }
 
         /// <summary>

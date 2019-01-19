@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
@@ -17,6 +18,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     /// </summary>
     public class FlexiCodeBlockOptions : FlexiBlockOptions<FlexiCodeBlockOptions>
     {
+        private const string _defaultClass = "flexi-code-block";
+        private const string _defaultCopyIconMarkup = Icons.MATERIAL_DESIGN_FILE_COPY;
+        private const string _defaultCodeClassFormat = "language-{0}";
+        private const SyntaxHighlighter _defaultSyntaxHighlighter = SyntaxHighlighter.Prism;
+        private const string _defaultHighlightJSClassPrefix = "hljs-";
+        private const string _defaultHiddenLinesIconMarkup = Icons.MATERIAL_DESIGN_MORE_VERT;
+
         /// <summary>
         /// Creates a <see cref="FlexiCodeBlockOptions"/> instance.
         /// </summary>
@@ -92,17 +100,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="HighlightLineRanges"/> are not sequential or overlap.</exception>
         /// <exception cref="FlexiBlocksException">Thrown if <see cref="LineNumberLineRanges"/> are not sequential or overlap.</exception>
         public FlexiCodeBlockOptions(
-            string @class = "flexi-code-block",
-            string copyIconMarkup = Icons.MATERIAL_DESIGN_FILE_COPY,
+            string @class = _defaultClass,
+            string copyIconMarkup = _defaultCopyIconMarkup,
             string title = default,
             string language = default,
-            string codeClassFormat = "language-{0}",
-            SyntaxHighlighter syntaxHighlighter = SyntaxHighlighter.Prism,
-            string highlightJSClassPrefix = "hljs-",
+            string codeClassFormat = _defaultCodeClassFormat,
+            SyntaxHighlighter syntaxHighlighter = _defaultSyntaxHighlighter,
+            string highlightJSClassPrefix = _defaultHighlightJSClassPrefix,
             IList<NumberedLineRange> lineNumberLineRanges = default,
             IList<LineRange> highlightLineRanges = default,
             string lineEmbellishmentClassesPrefix = default,
-            string hiddenLinesIconMarkup = Icons.MATERIAL_DESIGN_MORE_VERT,
+            string hiddenLinesIconMarkup = _defaultHiddenLinesIconMarkup,
             IDictionary<string, string> attributes = default) : base(attributes)
         {
             Class = @class;
@@ -123,31 +131,31 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <summary>
         /// Gets or sets the FlexiCodeBlock's outermost element's class.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string Class { get; private set; }
 
         /// <summary>
         /// Gets or sets the markup for the FlexiCodeBlock's copy icon.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string CopyIconMarkup { get; private set; }
 
         /// <summary>
         /// Gets or sets the FlexiCodeBlock's title.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string Title { get; private set; }
 
         /// <summary>
         /// Gets or sets the language for syntax highlighting.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string Language { get; private set; }
 
         /// <summary>
         /// Gets or sets the format for the FlexiCodeBlock's code element's class.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string CodeClassFormat { get; private set; }
 
         /// <summary>
@@ -158,37 +166,37 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <summary>
         /// Gets or sets the syntax highlighter to use.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public SyntaxHighlighter SyntaxHighlighter { get; private set; }
 
         /// <summary>
         /// Gets or sets the prefix for HighlightJS classes.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string HighlightJSClassPrefix { get; private set; }
 
         /// <summary>
         /// Gets or sets the <see cref="NumberedLineRange"/>s that specify the line number to render for each line of code.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public ReadOnlyCollection<NumberedLineRange> LineNumberLineRanges { get; private set; }
 
         /// <summary>
         /// Gets or sets the <see cref="LineRange"/>s that specify which lines of code to highlight.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public ReadOnlyCollection<LineRange> HighlightLineRanges { get; private set; }
 
         /// <summary>
         /// Gets or sets the prefix for line embellishment classes (line embellishments are markup elements added to facilitate per-line styling).
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string LineEmbellishmentClassesPrefix { get; private set; }
 
         /// <summary>
         /// Gets or sets the markup for the icon that represents hidden lines.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string HiddenLinesIconMarkup { get; private set; }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
 {
@@ -16,6 +17,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
     /// </summary>
     public class FlexiSectionBlockOptions : FlexiBlockOptions<FlexiSectionBlockOptions>
     {
+        private const SectioningContentElement _defaultElement = SectioningContentElement.Section;
+        private const bool _defaultGenerateIdentifier = true;
+        private const bool _defaultAutoLinkable = true;
+        private const string _defaultClassFormat = "flexi-section-block-{0}";
+        private const string _defaultLinkIconMarkup = Icons.MATERIAL_DESIGN_LINK;
+
         /// <summary>
         /// Creates a <see cref="FlexiSectionBlockOptions"/> instance.
         /// </summary>
@@ -54,11 +61,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// <para>Defaults to null.</para>
         /// </param>
         public FlexiSectionBlockOptions(
-            SectioningContentElement element = SectioningContentElement.Section,
-            bool generateIdentifier = true,
-            bool autoLinkable = true,
-            string classFormat = "flexi-section-block-{0}",
-            string linkIconMarkup = Icons.MATERIAL_DESIGN_LINK,
+            SectioningContentElement element = _defaultElement,
+            bool generateIdentifier = _defaultGenerateIdentifier,
+            bool autoLinkable = _defaultAutoLinkable,
+            string classFormat = _defaultClassFormat,
+            string linkIconMarkup = _defaultLinkIconMarkup,
             IDictionary<string, string> attributes = default) : base(attributes)
         {
             LinkIconMarkup = linkIconMarkup;
@@ -73,27 +80,27 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// <summary>
         /// Gets or sets the sectioning content element used as the outermost element of the <see cref="FlexiSectionBlock"/>.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public SectioningContentElement Element { get; private set; }
 
         /// <summary>
         /// Gets or sets the boolean value specifying whether or not an ID should be generated for the <see cref="FlexiSectionBlock"/>'s 
         /// outermost element.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public bool GenerateIdentifier { get; private set; }
 
         /// <summary>
         /// Gets or sets the boolean value specifying whether or not the <see cref="FlexiSectionBlock"/> should be linkable to using its
         /// header's content (auto-linkable).
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public bool AutoLinkable { get; private set; }
 
         /// <summary>
         /// Gets or sets the format for the <see cref="FlexiSectionBlock" />'s outermost element's class.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string ClassFormat { get; private set; }
 
         /// <summary>
@@ -104,7 +111,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// <summary>
         /// Gets or sets the markup for the <see cref="FlexiSectionBlock"/>'s link icon.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string LinkIconMarkup { get; private set; }
 
         /// <summary>

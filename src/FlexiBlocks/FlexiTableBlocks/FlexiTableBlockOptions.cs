@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Newtonsoft.Json;
 
@@ -15,6 +16,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
     /// </summary>
     public class FlexiTableBlockOptions : FlexiBlockOptions<FlexiTableBlockOptions>
     {
+        private const string _defaultClass = "flexi-table-block";
+        private const string _defaultWrapperElement = "span";
+        private const string _defaultLabelAttribute = "data-label";
+
         /// <summary>
         /// Creates a <see cref="FlexiTableBlockOptions"/> instance.
         /// </summary>
@@ -39,9 +44,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
         /// <para>Defaults to null.</para>
         /// </param>
         public FlexiTableBlockOptions(
-            string @class = "flexi-table-block",
-            string wrapperElement = "span",
-            string labelAttribute = "data-label",
+            string @class = _defaultClass,
+            string wrapperElement = _defaultWrapperElement,
+            string labelAttribute = _defaultLabelAttribute,
             IDictionary<string, string> attributes = default) : base(attributes)
         {
             Class = @class;
@@ -52,19 +57,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
         /// <summary>
         /// Gets or sets the FlexiTableBlock's outermost element's class.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string Class { get; private set; }
 
         /// <summary>
         /// Gets or set the element that will wrap td contents.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string WrapperElement { get; private set; }
 
         /// <summary>
         /// Gets or sets the td attribute used to store its corresponding th's contents.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public string LabelAttribute { get; private set; }
     }
 }

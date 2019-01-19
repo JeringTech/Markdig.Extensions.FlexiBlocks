@@ -8,6 +8,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     /// </summary>
     public class NumberedLineRange : LineRange
     {
+        private const int _defaultFirstNumber = 1;
+
         /// <summary>
         /// Creates a <see cref="NumberedLineRange"/> instance.
         /// </summary>
@@ -31,9 +33,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <exception cref="FlexiBlocksException">Thrown if <paramref name="startLineNumber"/> is less than 1.</exception>
         /// <exception cref="FlexiBlocksException">Thrown if <paramref name="endLineNumber"/> is not -1 and is less than <paramref name="startLineNumber"/>.</exception>
         public NumberedLineRange(
-            int startLineNumber = 1,
-            int endLineNumber = -1,
-            int firstNumber = 1) : base(startLineNumber, endLineNumber)
+            int startLineNumber = _defaultStartLineNumber,
+            int endLineNumber = _defaultEndLineNumber,
+            int firstNumber = _defaultFirstNumber) : base(startLineNumber, endLineNumber)
         {
             if (firstNumber < 1)
             {
@@ -46,7 +48,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <summary>
         /// Gets the number associated with this <see cref="NumberedLineRange"/>'s start line.
         /// </summary>
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(_defaultFirstNumber)]
         public int FirstNumber { get; }
 
         /// <summary>
