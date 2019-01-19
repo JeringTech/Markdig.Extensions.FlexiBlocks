@@ -284,19 +284,6 @@ line 10";
 <span class=""dummy-prefix-line dummy-prefix-highlight""><span class=""dummy-prefix-line-number"">9</span><span class=""dummy-prefix-line-text"">line 9</span></span>
 <span class=""dummy-prefix-line""><span class=""dummy-prefix-line-number"">10</span><span class=""dummy-prefix-line-text"">line 10</span></span>"
                 },
-                // Empty lines
-                new object[]{
-                    null,
-                    null,
-                    @"
-
-",
-                    null,
-                    null,
-                    true,
-                    @"<span class=""line""><span class=""line-text""><br></span></span>
-<span class=""line""><span class=""line-text""><br></span></span>"
-                },
                 // Multi-line elements get split up if splitMultilineElements is true
                 new object[]{
                     null,
@@ -316,7 +303,7 @@ Comment</strong>
 <span class=""line""><span class=""line-text""><span class=""token comment"">    This</span></span></span>
 <span class=""line""><span class=""line-text""><span class=""token comment"">    <strong>Is</strong></span></span></span>
 <span class=""line""><span class=""line-text""><span class=""token comment""><strong><em>A</em></strong></span></span></span>
-<span class=""line""><span class=""line-text""><br></span></span>
+<span class=""line""><span class=""line-text""></span></span>
 <span class=""line""><span class=""line-text""><span class=""token comment""><strong><em>    Multi-line</em></strong></span></span></span>
 <span class=""line""><span class=""line-text""><span class=""token comment""><strong>Comment</strong></span></span></span>
 <span class=""line""><span class=""line-text""><span class=""token comment"">*/</span></span></span>"
@@ -340,7 +327,7 @@ Comment</strong>
 <span class=""line""><span class=""line-text"">    This</span></span>
 <span class=""line""><span class=""line-text"">    <strong>Is</span></span>
 <span class=""line""><span class=""line-text""><em>A</span></span>
-<span class=""line""><span class=""line-text""><br></span></span>
+<span class=""line""><span class=""line-text""></span></span>
 <span class=""line""><span class=""line-text"">    Multi-line</em></span></span>
 <span class=""line""><span class=""line-text"">Comment</strong></span></span>
 <span class=""line""><span class=""line-text"">*/</span></span></span>"

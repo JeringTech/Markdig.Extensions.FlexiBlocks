@@ -12,7 +12,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     public class LineEmbellisherService : ILineEmbellisherService
     {
         private const string _spanEndTag = "</span>";
-        private const string _brTag = "<br>";
         private const string _endTagStart = "</";
 
         /// <inheritdoc />
@@ -114,31 +113,30 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 
                 // Add line text
                 result.Append(lineTextStartTag);
-                if (line.Length == 0)
+                if (line.Length > 0)
                 {
-                    result.Append(_brTag); // Whitespace around the span elements get collapsed when the spans are table elements, so we must have an explicit line break - https://drafts.csswg.org/css-text-3/#white-space-processing 
-                }
-                else if (splitMultilineElements)
-                {
-                    foreach (StartTagInfo startTagInfo in pendingRenderStartTagInfos)
+                    if (splitMultilineElements)
                     {
-                        result.
-                            Append('<').
-                            Append(startTagInfo.Line, startTagInfo.StartIndex, startTagInfo.Length).
-                            Append('>');
+                        foreach (StartTagInfo startTagInfo in pendingRenderStartTagInfos)
+                        {
+                            result.
+                                Append('<').
+                                Append(startTagInfo.Line, startTagInfo.StartIndex, startTagInfo.Length).
+                                Append('>');
+                        }
+                        result.Append(line);
+                        foreach (StartTagInfo startTagInfo in openStartTagInfos)
+                        {
+                            result.
+                                Append(_endTagStart).
+                                Append(startTagInfo.Line, startTagInfo.StartIndex, startTagInfo.NameLength).
+                                Append('>');
+                        }
                     }
-                    result.Append(line);
-                    foreach (StartTagInfo startTagInfo in openStartTagInfos)
+                    else
                     {
-                        result.
-                            Append(_endTagStart).
-                            Append(startTagInfo.Line, startTagInfo.StartIndex, startTagInfo.NameLength).
-                            Append('>');
+                        result.Append(line);
                     }
-                }
-                else
-                {
-                    result.Append(line);
                 }
                 result.Append(_spanEndTag);
 
