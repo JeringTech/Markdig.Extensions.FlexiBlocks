@@ -3,7 +3,15 @@ This project uses [semantic versioning](http://semver.org/spec/v2.0.0.html). Ref
 *[Semantic Versioning in Practice](https://www.jering.tech/articles/semantic-versioning-in-practice)*
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.14.0...HEAD)
+## [Unreleased](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.15.0...HEAD)
+
+## [0.15.0](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.14.0...0.15.0) - Jan 19, 2019
+### Changes
+- Reverted injection of `<br>` elements into empty lines in FlexiCodeBlocks. Use the following CSS to ensure empty lines
+are displayed: `.line-text:empty:after { content: "\00a0" }`. ([73ede19](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/commit/73ede19179cd81f91a55b22c9ae0da86fae4929a))
+### Fixes
+- Bumped Jering.IocServices.Newtonsoft.Json, Jering.Web.SyntaxHighlighters.HighlightJS and Jering.Web.SyntaxHighlighters.Prism.
+This fixes some rare concurrency issues.
 
 ## [0.14.0](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.13.0...0.14.0) - Jan 2, 2019
 ### Additions
