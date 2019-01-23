@@ -3,9 +3,10 @@ mimo_pageDescription: Jering.Markdig.Extensions.FlexiBlocks is a collection of M
 mimo_pageTitle: Home
 mimo_pageID: home
 mimo_isDisplay: true
-mimo_fbCardType: website
+mimo_ogType: website
 mimo_cardTitle: Jering.Markdig.Extensions.FlexiBlocks
-mimo_cardDescription: Documentation for Jering.Markdig.Extensions.FlexiBlocks.
+mimo_twitterCardType: summary_large_image
+mimo_twitterCardImageRelPath: /resources/logo_wide.png
 mimo_unneededFontPreloads:
   - /resources/ibm-plex-mono-v3-latin-regular.woff2
 ---
@@ -27,7 +28,7 @@ mimo_unneededFontPreloads:
                 <svg>
                     <use xlink:href="#material-design-library-books" />
                 </svg>
-            </div>
+            </div> 
             <a href="/tutorials/introduction" class="card-body">
                 <header>
                     <h3>Tutorials</h3>
