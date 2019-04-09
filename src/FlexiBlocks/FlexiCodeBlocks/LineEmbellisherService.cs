@@ -48,9 +48,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             bool renderHiddenLinesIcon = !string.IsNullOrWhiteSpace(hiddenLinesIconMarkup);
 
             var stringReader = new StringReader(markupFragment);
-            string line = null;
             Stack<StartTagInfo> openStartTagInfos = splitMultilineElements ? new Stack<StartTagInfo>() : null;
             Stack<StartTagInfo> pendingRenderStartTagInfos = splitMultilineElements ? new Stack<StartTagInfo>() : null;
+            string line;
             while ((line = stringReader.ReadLine()) != null) // TODO this allocation can be avoided
             {
                 currentLineNumber++;

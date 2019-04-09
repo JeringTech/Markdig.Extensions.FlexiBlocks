@@ -74,7 +74,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
             bool isHeaderOpen = false;
 
             bool hasColumnWidth = false;
-            foreach (var tableColumnDefinition in obj.ColumnDefinitions)
+            foreach (TableColumnDefinition tableColumnDefinition in obj.ColumnDefinitions)
             {
                 if (tableColumnDefinition.Width != 0.0f && tableColumnDefinition.Width != 1.0f)
                 {
@@ -85,7 +85,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
 
             if (hasColumnWidth)
             {
-                foreach (var tableColumnDefinition in obj.ColumnDefinitions)
+                foreach (TableColumnDefinition tableColumnDefinition in obj.ColumnDefinitions)
                 {
                     double width = Math.Round(tableColumnDefinition.Width * 100) / 100;
                     string widthValue = string.Format(CultureInfo.InvariantCulture, "{0:0.##}", width);
@@ -100,7 +100,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
             // Store th contents
             List<string> labels = null;
 
-            foreach (var rowObj in obj)
+            foreach (Block rowObj in obj)
             {
                 var row = (TableRow)rowObj;
                 if (row.IsHeader)

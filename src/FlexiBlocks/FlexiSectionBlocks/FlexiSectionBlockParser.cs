@@ -143,7 +143,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
             // An ATX heading consists of a string of characters, parsed as inline content, 
             // between an opening sequence of 1–6 unescaped # characters
             char c;
-            int numStartCharsToDiscard = 0;
             int level = 1;
             while ((c = processor.Line.PeekChar(level)) == '#')
             {
@@ -153,6 +152,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
                 }
             }
 
+            int numStartCharsToDiscard;
             // The opening sequence of # characters must be followed by a space or by the end of line.
             if (c == ' ')
             {

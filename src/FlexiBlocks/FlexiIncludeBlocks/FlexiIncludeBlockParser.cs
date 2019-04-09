@@ -150,7 +150,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
             catch (Exception exception)
             {
-                string description = null;
+                string description;
                 if (flexiIncludeBlock.ClippingProcessingStage == ClippingProcessingStage.None)
                 {
                     description = Strings.FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingBlock;

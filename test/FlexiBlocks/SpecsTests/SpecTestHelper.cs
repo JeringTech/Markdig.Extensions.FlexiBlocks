@@ -81,17 +81,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                     throw new InvalidOperationException($"The extension {extension} does not exist.");
                 }
 
-                object[] args;
-                if (ExtensionOptionsTypes.TryGetValue(extension, out Type extensionOptionsType))
-                {
-                    args = new object[] { builder,
-                        extensionOptions?.GetValue(extension, StringComparison.OrdinalIgnoreCase)?.ToObject(extensionOptionsType)};
-                }
-                else
-                {
-                    args = new object[] { builder };
-                }
-
+                object[] args = ExtensionOptionsTypes.TryGetValue(extension, out Type extensionOptionsType)
+                    ? (new object[] { builder, extensionOptions?.GetValue(extension, StringComparison.OrdinalIgnoreCase)?.ToObject(extensionOptionsType)})
+                    : (new object[] { builder });
                 useExtensionMethod.Invoke(null, args);
             }
 

@@ -104,12 +104,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <returns>True if this <see cref="LineRange"/>'s value is equal to the object's value, false otherwise.</returns>
         public override bool Equals(object obj)
         {
-            if(!(obj is LineRange otherLineRange))
-            {
-                return false;
-            }
-
-            return StartLineNumber == otherLineRange.StartLineNumber && EndLineNumber == otherLineRange.EndLineNumber;
+            return !(obj is LineRange otherLineRange)
+                ? false
+                : StartLineNumber == otherLineRange.StartLineNumber && EndLineNumber == otherLineRange.EndLineNumber;
         }
 
         /// <summary>

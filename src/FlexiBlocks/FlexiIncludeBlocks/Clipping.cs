@@ -169,12 +169,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <returns>True if this <see cref="Clipping"/>'s value is equal to the object's value, false otherwise.</returns>
         public override bool Equals(object obj)
         {
-            if (!(obj is Clipping otherClipping))
-            {
-                return false;
-            }
-
-            return StartLineNumber == otherClipping.StartLineNumber &&
+            return !(obj is Clipping otherClipping)
+                ? false
+                : StartLineNumber == otherClipping.StartLineNumber &&
                 EndLineNumber == otherClipping.EndLineNumber &&
                 StartDemarcationLineSubstring == otherClipping.StartDemarcationLineSubstring &&
                 EndDemarcationLineSubstring == otherClipping.EndDemarcationLineSubstring &&
