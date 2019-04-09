@@ -93,8 +93,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             // Syntax highlighting
             var stringWriter = new StringWriter();
             var codeRenderer = new HtmlRenderer(stringWriter);
-            string code = null;
             bool performSyntaxHighlighting = !string.IsNullOrWhiteSpace(flexiCodeBlockOptions.Language) && flexiCodeBlockOptions.SyntaxHighlighter != SyntaxHighlighter.None;
+            string code;
             if (performSyntaxHighlighting)
             {
                 codeRenderer.WriteLeafRawLines(obj, false, false); // Don't escape, highlighters can't deal with escaped chars

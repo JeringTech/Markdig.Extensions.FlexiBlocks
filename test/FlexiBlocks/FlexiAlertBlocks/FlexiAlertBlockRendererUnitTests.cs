@@ -42,7 +42,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
             }
 
             // Assert
-            Assert.Equal(dummyChildText, result);
+            Assert.Equal(dummyChildText + "\n", result, ignoreLineEndingDifferences: true);
         }
 
         // Can't use SerializableWrapper for FlexiAlertBlock - "null, whitespace or empty string" tests get serialized into the same parameters, which causes

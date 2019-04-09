@@ -71,12 +71,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <returns>True if this <see cref="NumberedLineRange"/>'s value is equal to the object's value, false otherwise.</returns>
         public override bool Equals(object obj)
         {
-            if (!(obj is NumberedLineRange otherNumberedLineRange))
-            {
-                return false;
-            }
-
-            return FirstNumber == otherNumberedLineRange.FirstNumber && base.Equals(otherNumberedLineRange);
+            return !(obj is NumberedLineRange otherNumberedLineRange)
+                ? false
+                : FirstNumber == otherNumberedLineRange.FirstNumber && base.Equals(otherNumberedLineRange);
         }
 
         /// <summary>

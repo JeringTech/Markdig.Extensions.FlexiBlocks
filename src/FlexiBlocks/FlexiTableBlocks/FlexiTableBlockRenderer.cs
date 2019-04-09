@@ -28,8 +28,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
             _stripRenderer = new HtmlRenderer(_stringWriter)
             {
                 EnableHtmlForBlock = false,
-                EnableHtmlForInline = false
+                EnableHtmlForInline = true // TODO escaping of HTML entities only occurs if this is true. Not a permanent fix since we could end up with html elements in attribute values.
             };
+            // TODO at present, we use stripRenderer to render header content that we then add as data-label values. We can't have newline characters in data-label values.
+            // Ultimately, we should use span elements instead of data-label attributes so "headers" in card mode can text with inline elements.
+            _stringWriter.NewLine = "";
         }
 
         /// <summary>
@@ -70,11 +73,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
                 WriteLine("<table>");
 
             bool hasBody = false;
-            bool hasAlreadyHeader = false;
+            bool alreadyHasHeader = false;
             bool isHeaderOpen = false;
 
             bool hasColumnWidth = false;
-            foreach (var tableColumnDefinition in obj.ColumnDefinitions)
+            foreach (TableColumnDefinition tableColumnDefinition in obj.ColumnDefinitions)
             {
                 if (tableColumnDefinition.Width != 0.0f && tableColumnDefinition.Width != 1.0f)
                 {
@@ -85,7 +88,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
 
             if (hasColumnWidth)
             {
-                foreach (var tableColumnDefinition in obj.ColumnDefinitions)
+                foreach (TableColumnDefinition tableColumnDefinition in obj.ColumnDefinitions)
                 {
                     double width = Math.Round(tableColumnDefinition.Width * 100) / 100;
                     string widthValue = string.Format(CultureInfo.InvariantCulture, "{0:0.##}", width);
@@ -100,13 +103,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
             // Store th contents
             List<string> labels = null;
 
-            foreach (var rowObj in obj)
+            foreach (Block rowObj in obj)
             {
                 var row = (TableRow)rowObj;
                 if (row.IsHeader)
                 {
                     // Don't allow more than 1 thead
-                    if (!hasAlreadyHeader)
+                    if (!alreadyHasHeader)
                     {
                         if (renderLabelAttribute)
                         {
@@ -115,7 +118,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
                         renderer.WriteLine("<thead>");
                         isHeaderOpen = true;
                     }
-                    hasAlreadyHeader = true;
+                    alreadyHasHeader = true;
                 }
                 else if (!hasBody)
                 {

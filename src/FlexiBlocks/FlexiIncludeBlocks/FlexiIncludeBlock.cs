@@ -36,7 +36,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <summary>
         /// The absolute URI of this <see cref="FlexiIncludeBlock"/>'s source.
         /// </summary>
-        public Uri AbsoluteSourceUri { get { return _absoluteSourceUri; } internal set { _absoluteSourceUri = value; } }
+        public Uri AbsoluteSourceUri { get => _absoluteSourceUri; internal set => _absoluteSourceUri = value; }
 
         /// <summary>
         /// Gets the URI of the source that contains this <see cref="FlexiIncludeBlock"/>.
