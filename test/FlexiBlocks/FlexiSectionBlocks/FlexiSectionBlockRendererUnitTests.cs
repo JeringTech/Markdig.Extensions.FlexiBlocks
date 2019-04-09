@@ -284,7 +284,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             }
 
             // Assert
-            Assert.Equal(dummyChildText, result);
+            Assert.Equal(dummyChildText + "\n", result, ignoreLineEndingDifferences: true);
         }
     }
 }

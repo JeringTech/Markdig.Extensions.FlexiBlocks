@@ -28,8 +28,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
             _stripRenderer = new HtmlRenderer(_stringWriter)
             {
                 EnableHtmlForBlock = false,
-                EnableHtmlForInline = false
+                EnableHtmlForInline = true // TODO escaping of HTML entities only occurs if this is true. Not a permanent fix since we could end up with html elements in attribute values.
             };
+            // TODO at present, we use stripRenderer to render header content that we then add as data-label values. We can't have newline characters in data-label values.
+            // Ultimately, we should use span elements instead of data-label attributes so "headers" in card mode can text with inline elements.
+            _stringWriter.NewLine = "";
         }
 
         /// <summary>
@@ -70,7 +73,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
                 WriteLine("<table>");
 
             bool hasBody = false;
-            bool hasAlreadyHeader = false;
+            bool alreadyHasHeader = false;
             bool isHeaderOpen = false;
 
             bool hasColumnWidth = false;
@@ -106,7 +109,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
                 if (row.IsHeader)
                 {
                     // Don't allow more than 1 thead
-                    if (!hasAlreadyHeader)
+                    if (!alreadyHasHeader)
                     {
                         if (renderLabelAttribute)
                         {
@@ -115,7 +118,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
                         renderer.WriteLine("<thead>");
                         isHeaderOpen = true;
                     }
-                    hasAlreadyHeader = true;
+                    alreadyHasHeader = true;
                 }
                 else if (!hasBody)
                 {

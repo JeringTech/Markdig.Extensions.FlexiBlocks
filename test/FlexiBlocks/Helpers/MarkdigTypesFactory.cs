@@ -17,7 +17,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                 stringBuilderCache ?? new StringBuilderCache(),
                 markdownDocument ?? new MarkdownDocument(),
                 inlineParsers ?? new InlineParserList(new InlineParser[0]),
-                preciseSourceLocation);
+                preciseSourceLocation,
+                null);
         }
 
         // BlockProcessor can't be mocked since its members aren't virtual. Markdig does not apply IOC conventions either, so there is not interface to mock.
@@ -41,7 +42,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                         new IndentedCodeBlockParser(),
                         new ParagraphBlockParser(),
                     }
-                ));
+                ),
+                null);
         }
     }
 }
