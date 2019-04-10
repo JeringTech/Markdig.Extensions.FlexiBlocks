@@ -342,13 +342,13 @@ Source URI: {0}, Line: 1";
         public void FlexiIncludeBlocks_ThrowsFlexiIncludeBlocksExceptionIfAnIncludedSourceHasInvalidBlocks()
         {
             // Arrange
-            const string dummyClassFormat = "dummy-{0}-{1}";
+            const string dummyClassesFormat = "dummy-{0}-{1}";
             const string dummyEntryMarkdown = @"+{
     ""type"": ""markdown"",
     ""sourceUri"": ""./dummyMarkdown1.md""
 }";
             string dummyMarkdown1 = $@"@{{
-    ""classFormat"": ""{dummyClassFormat}""
+    ""classesFormat"": ""{dummyClassesFormat}""
 }}
 ! This is a FlexiAlertBlock.
 ";
@@ -380,7 +380,7 @@ Source URI: {0}, Line: 1";
                     result.Message);
                 Assert.Equal(string.Format(Strings.FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock, nameof(FlexiOptionsBlock), 1, 0, Strings.FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock),
                     result.InnerException.Message);
-                Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_OptionIsAnInvalidFormat, nameof(FlexiAlertBlockOptions.ClassFormat), dummyClassFormat),
+                Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_OptionIsAnInvalidFormat, nameof(FlexiAlertBlockOptions.ClassesFormat), dummyClassesFormat),
                     result.InnerException.InnerException.Message);
                 Assert.IsType<FormatException>(result.InnerException.InnerException.InnerException);
             }
