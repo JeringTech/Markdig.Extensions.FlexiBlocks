@@ -1,5 +1,4 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
-using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Moq;
 using System;
 using Xunit;
@@ -14,16 +13,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
         public void Constructor_ThrowsArgumentNullExceptionIfFlexiAlertBlockParserIsNull()
         {
             // Act and assert
-            Assert.Throws<ArgumentNullException>(() => new FlexiAlertBlocksExtension(null, new FlexiAlertBlockRenderer()));
+            Assert.Throws<ArgumentNullException>(() => new FlexiAlertBlocksExtension(null, _mockRepository.Create<BlockRenderer<FlexiAlertBlock>>().Object));
         }
 
         [Fact]
         public void Constructor_ThrowsArgumentNullExceptionIfFlexiAlertBlockRendererIsNull()
         {
             // Act and assert
-            Assert.Throws<ArgumentNullException>(() =>
-                new FlexiAlertBlocksExtension(new FlexiAlertBlockParser(_mockRepository.Create<IFlexiOptionsBlockService>().Object,
-                    new FlexiAlertBlocksExtensionOptions()), null));
+            Assert.Throws<ArgumentNullException>(() => new FlexiAlertBlocksExtension(_mockRepository.Create<BlockParser<FlexiAlertBlock>>().Object, null));
         }
     }
 }

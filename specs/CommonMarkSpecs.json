@@ -4505,7 +4505,7 @@
         "example": 562,
         "start_line": 8374
     },
-    // FlexiAlerts causes this to fail.
+    // FlexiAlertBlocks causes this to fail.
     // This isn't a standard, it describes a way to disable the image syntax.
     //{
     //    "end_line": 8392,
