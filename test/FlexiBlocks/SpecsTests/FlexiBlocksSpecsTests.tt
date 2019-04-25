@@ -7,11 +7,11 @@ import namespace="System.Collections.Generic" #><#@
 import namespace="System.Threading" #><#
     var specFiles = new KeyValuePair<string, string>[] {
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiAlertBlocksSpecs.md"), "FlexiAlertBlocks|All"),
-	    new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiCodeBlocksSpecs.md"), "FlexiCodeBlocks|All"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiIncludeBlocksSpecs.md"), "FlexiIncludeBlocks|All"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiSectionBlocksSpecs.md"), "FlexiSectionBlocks|All"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiTableBlocksSpecs.md"), "FlexiTableBlocks|All"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiOptionsBlocksSpecs.md"), "All")
+	    //new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiCodeBlocksSpecs.md"), "FlexiCodeBlocks|All"),
+		//new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiIncludeBlocksSpecs.md"), "FlexiIncludeBlocks|All"),
+		//new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiSectionBlocksSpecs.md"), "FlexiSectionBlocks|All"),
+		//new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiTableBlocksSpecs.md"), "FlexiTableBlocks|All"),
+		//new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiOptionsBlocksSpecs.md"), "All")
 	};
 #>using Xunit;
 
@@ -46,7 +46,8 @@ foreach (KeyValuePair<string, string> specFileItem in specFiles)
 
             SpecTestHelper.AssertCompliance("<#= spec.Markdown #>",
                 "<#= spec.ExpectedMarkup #>",
-                extensions<# if(!string.IsNullOrWhiteSpace(spec.ExtensionOptions))
+                extensions,
+                false<# if(!string.IsNullOrWhiteSpace(spec.ExtensionOptions))
                 {
 #>,
                 "<#= spec.ExtensionOptions #>"<#
@@ -104,6 +105,7 @@ public class FlexiBlocksSpecsParser
     private static List<string> specLines;
     private static int currentSpecNumber;
     private static int currentLeadingWhitespaceCount;
+    private static int currentStartLineNumber;
 
     public static List<Extension> ParseSpecs(string fileName)
     {
@@ -123,6 +125,7 @@ public class FlexiBlocksSpecsParser
 
         string content = File.ReadAllText(fileName);
         string line;
+        int lineNumber = 1;
 
         using (var reader = new StringReader(content))
         {
@@ -132,7 +135,7 @@ public class FlexiBlocksSpecsParser
 
                 if (stage == ParseStage.PreSpec)
                 {
-                    PreSpecStageHandleLine(line);
+                    PreSpecStageHandleLine(line, lineNumber);
                 }
                 else if (stage == ParseStage.Spec)
                 {
@@ -160,13 +163,14 @@ public class FlexiBlocksSpecsParser
                         }
                     }
                 }
+                lineNumber++;
             }
         }
 
         return result;
     }
 
-    private static void PreSpecStageHandleLine(string line)
+    private static void PreSpecStageHandleLine(string line, int lineNumber)
     {
         if (line.EndsWith("```````````````````````````````` none"))
         {
@@ -180,6 +184,8 @@ public class FlexiBlocksSpecsParser
                 };
                 result.Add(currentExtension);
             }
+
+            currentStartLineNumber = lineNumber + 1;
 
             stage = ParseStage.Spec;
             return;
@@ -213,7 +219,7 @@ public class FlexiBlocksSpecsParser
                 Specs.
                 Add(new Spec()
                 {
-                    SpecAsComment = ToComment(string.Join("\n", specLines.ToArray()), "            ", "     "),
+                    SpecAsComment = ToComment("Start line number: " + currentStartLineNumber + "\n" + string.Join("\n", specLines.ToArray()), "            ", "     "),
                     ExpectedMarkup = Escape(expectedMarkup),
                     Markdown = Escape(markdown),
                     Number = currentSpecNumber,
