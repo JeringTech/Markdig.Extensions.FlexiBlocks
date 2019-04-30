@@ -19,7 +19,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
@@ -88,122 +88,120 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An exception occurred while processing the block. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string BlockException_BlockException_ExceptionOccurredWhileProcessingABlock {
+            get {
+                return ResourceManager.GetString("BlockException_BlockException_ExceptionOccurredWhileProcessingABlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} at line &quot;{1}&quot;, column &quot;{2}&quot;, is invalid:
+        ///{3}.
+        /// </summary>
+        internal static string BlockException_BlockException_InvalidBlock {
+            get {
+                return ResourceManager.GetString("BlockException_BlockException_InvalidBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The option {0} must be within the range &quot;{1}&quot;. The specified value &quot;{2}&quot; is invalid..
         /// </summary>
-        internal static string FlexiBlocksException_Clipping_OptionMustBeWithinRange {
+        internal static string BlockException_Clipping_OptionMustBeWithinRange {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_Clipping_OptionMustBeWithinRange", resourceCulture);
+                return ResourceManager.GetString("BlockException_Clipping_OptionMustBeWithinRange", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The disk cache directory &quot;{0}&quot; is invalid. Refer to the inner exception for more details..
         /// </summary>
-        internal static string FlexiBlocksException_DiskCacheService_InvalidDiskCacheDirectory {
+        internal static string BlockException_DiskCacheService_InvalidDiskCacheDirectory {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_DiskCacheService_InvalidDiskCacheDirectory", resourceCulture);
+                return ResourceManager.GetString("BlockException_DiskCacheService_InvalidDiskCacheDirectory", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An unexpected exception occurred when attempting to retrieve the source for &quot;{0}&quot;, from the disk cache at &quot;{1}&quot;. Refer to the inner exception for more information..
         /// </summary>
-        internal static string FlexiBlocksException_DiskCacheService_UnexpectedDiskCacheException {
+        internal static string BlockException_DiskCacheService_UnexpectedDiskCacheException {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_DiskCacheService_UnexpectedDiskCacheException", resourceCulture);
+                return ResourceManager.GetString("BlockException_DiskCacheService_UnexpectedDiskCacheException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OptionsBlock must immediately precede the block that consumes it..
+        /// </summary>
+        internal static string BlockException_FlexiBlockOptionsFactory_MispositionedBlock {
+            get {
+                return ResourceManager.GetString("BlockException_FlexiBlockOptionsFactory_MispositionedBlock", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An exception occurred in &quot;{0}&quot; while attempting to open a block. Refer to the inner exception for more details..
         /// </summary>
-        internal static string FlexiBlocksException_FlexiBlockParser_ExceptionOccurredWhileAttemptingToOpenBlock {
+        internal static string BlockException_FlexiBlockParser_ExceptionOccurredWhileAttemptingToOpenBlock {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiBlockParser_ExceptionOccurredWhileAttemptingToOpenBlock" +
-                        "", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception occurred while processing the block. Refer to the inner exception for more details..
-        /// </summary>
-        internal static string FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock {
-            get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The {0} starting at line &quot;{1}&quot;, column &quot;{2}&quot;, is invalid:
-        ///{3}.
-        /// </summary>
-        internal static string FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock {
-            get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The markdown at line &quot;{0}&quot;, column &quot;{1}&quot; is invalid:
-        ///{2}.
-        /// </summary>
-        internal static string FlexiBlocksException_FlexiBlocksException_InvalidMarkdown {
-            get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiBlocksException_InvalidMarkdown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The line ranges in option {0} are invalid. These line ranges must not overlap, but the line ranges &quot;{1}&quot; and &quot;{2}&quot; do..
-        /// </summary>
-        internal static string FlexiBlocksException_FlexiCodeBlockOptions_OptionLineRangesCannotOverlap {
-            get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiCodeBlockOptions_OptionLineRangesCannotOverlap", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The line ranges in option {0} are invalid. These line ranges must be sequential, the line range &quot;{1}&quot; must be specified after line range &quot;{2}&quot;..
-        /// </summary>
-        internal static string FlexiBlocksException_FlexiCodeBlockOptions_OptionLineRangesMustBeSequential {
-            get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiCodeBlockOptions_OptionLineRangesMustBeSequential", resourceCulture);
+                return ResourceManager.GetString("BlockException_FlexiBlockParser_ExceptionOccurredWhileAttemptingToOpenBlock", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The line range &quot;{0}&quot; in option {1} is not a subset of the full range of lines, &quot;[1, {2}]&quot;..
         /// </summary>
-        internal static string FlexiBlocksException_FlexiCodeBlocksExtension_OptionLineRangeNotASubset {
+        internal static string BlockException_FlexiCodeBlocksExtension_OptionLineRangeNotASubset {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiCodeBlocksExtension_OptionLineRangeNotASubset", resourceCulture);
+                return ResourceManager.GetString("BlockException_FlexiCodeBlocksExtension_OptionLineRangeNotASubset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The line ranges in option {0} are invalid. These line ranges must not overlap, but the line ranges &quot;{1}&quot; and &quot;{2}&quot; do..
+        /// </summary>
+        internal static string BlockException_FlexiCodeOptionsBlock_OptionLineRangesCannotOverlap {
+            get {
+                return ResourceManager.GetString("BlockException_FlexiCodeOptionsBlock_OptionLineRangesCannotOverlap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The line ranges in option {0} are invalid. These line ranges must be sequential, the line range &quot;{1}&quot; must be specified after line range &quot;{2}&quot;..
+        /// </summary>
+        internal static string BlockException_FlexiCodeOptionsBlock_OptionLineRangesMustBeSequential {
+            get {
+                return ResourceManager.GetString("BlockException_FlexiCodeOptionsBlock_OptionLineRangesMustBeSequential", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The option {0} must be an absolute URI. The specified value &quot;{1}&quot; is invalid..
         /// </summary>
-        internal static string FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAnAbsoluteUri {
+        internal static string BlockException_FlexiIncludeBlock_OptionMustBeAnAbsoluteUri {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAnAbsoluteUri", resourceCulture);
+                return ResourceManager.GetString("BlockException_FlexiIncludeBlock_OptionMustBeAnAbsoluteUri", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The option {0} must be a URI with scheme FILE, HTTP or HTTPS. The specified URI &quot;{1}&quot; has invalid scheme &quot;{2}&quot;..
         /// </summary>
-        internal static string FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAUriWithASupportedScheme {
+        internal static string BlockException_FlexiIncludeBlock_OptionMustBeAUriWithASupportedScheme {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAUriWithASupportedScheme", resourceCulture);
+                return ResourceManager.GetString("BlockException_FlexiIncludeBlock_OptionMustBeAUriWithASupportedScheme", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The option {0} must be a valid URI. The specified value &quot;{1}&quot; is invalid..
         /// </summary>
-        internal static string FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAValidUri {
+        internal static string BlockException_FlexiIncludeBlock_OptionMustBeAValidUri {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAValidUri", resourceCulture);
+                return ResourceManager.GetString("BlockException_FlexiIncludeBlock_OptionMustBeAValidUri", resourceCulture);
             }
         }
         
@@ -211,168 +209,156 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         ///   Looks up a localized string similar to The following cycle was found in the FlexiIncludeBlock tree: 
         ///{0}.
         /// </summary>
-        internal static string FlexiBlocksException_FlexiIncludeBlockParser_CycleFound {
+        internal static string BlockException_FlexiIncludeBlockParser_CycleFound {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlockParser_CycleFound", resourceCulture);
+                return ResourceManager.GetString("BlockException_FlexiIncludeBlockParser_CycleFound", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An exception occured while processing the FlexiIncludeBlock..
         /// </summary>
-        internal static string FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingBlock {
+        internal static string BlockException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingBlock {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingBloc" +
-                        "k", resourceCulture);
+                return ResourceManager.GetString("BlockException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingBlock", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An exception occured while processing the FlexiIncludeBlock&apos;s {0}. Refer to the inner exception for more details..
         /// </summary>
-        internal static string FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingContent {
+        internal static string BlockException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingContent {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingCont" +
-                        "ent", resourceCulture);
+                return ResourceManager.GetString("BlockException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingContent", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An exception occured while processing the FlexiIncludeBlock&apos;s source, &quot;{0}&quot;. Refer to the inner exception for more details..
         /// </summary>
-        internal static string FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSource {
+        internal static string BlockException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSource {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSour" +
-                        "ce", resourceCulture);
+                return ResourceManager.GetString("BlockException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSource", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Invalid clipping, no line contains end line substring &quot;{0}&quot;..
         /// </summary>
-        internal static string FlexiBlocksException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsEndLineSubstring {
+        internal static string BlockException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsEndLineSubstring {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsEndLine" +
-                        "Substring", resourceCulture);
+                return ResourceManager.GetString("BlockException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsEndLineSubstr" +
+                        "ing", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Invalid clipping, no line contains start line substring &quot;{0}&quot;..
         /// </summary>
-        internal static string FlexiBlocksException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsStartLineSubstring {
+        internal static string BlockException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsStartLineSubstring {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsStartLi" +
-                        "neSubstring", resourceCulture);
+                return ResourceManager.GetString("BlockException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsStartLineSubs" +
+                        "tring", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FlexiOptionsBlock must be consumed..
+        ///   Looks up a localized string similar to OptionsBlock must be consumed..
         /// </summary>
-        internal static string FlexiBlocksException_FlexiOptionsBlockParser_UnconsumedBlock {
+        internal static string BlockException_OptionsBlockParser_UnconsumedBlock {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiOptionsBlockParser_UnconsumedBlock", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to FlexiOptionsBlock must immediately precede the block that consumes it..
-        /// </summary>
-        internal static string FlexiBlocksException_FlexiOptionsBlockService_MispositionedBlock {
-            get {
-                return ResourceManager.GetString("FlexiBlocksException_FlexiOptionsBlockService_MispositionedBlock", resourceCulture);
+                return ResourceManager.GetString("BlockException_OptionsBlockParser_UnconsumedBlock", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The option {0} must be  -1 or not less than its associated start line number. The specified value &quot;{1}&quot; with associated start line number &quot;{2}&quot; is invalid. .
         /// </summary>
-        internal static string FlexiBlocksException_Shared_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber {
+        internal static string BlockException_Shared_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_Shared_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartL" +
-                        "ineNumber", resourceCulture);
+                return ResourceManager.GetString("BlockException_Shared_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNum" +
+                        "ber", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The option {0} has invalid value &quot;{1}&quot;. Refer to the inner exception for more details..
         /// </summary>
-        internal static string FlexiBlocksException_Shared_OptionIsAnInvalidFormat {
+        internal static string BlockException_Shared_OptionIsAnInvalidFormat {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_Shared_OptionIsAnInvalidFormat", resourceCulture);
+                return ResourceManager.GetString("BlockException_Shared_OptionIsAnInvalidFormat", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The value &quot;{0}&quot; for option {1} is not within the range of valid values for the enum {2}..
         /// </summary>
-        internal static string FlexiBlocksException_Shared_OptionMustBeAValidEnumValue {
+        internal static string BlockException_Shared_OptionMustBeAValidEnumValue {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_Shared_OptionMustBeAValidEnumValue", resourceCulture);
+                return ResourceManager.GetString("BlockException_Shared_OptionMustBeAValidEnumValue", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The option {0} must be greater than 0. The specified value &quot;{1}&quot; is invalid..
         /// </summary>
-        internal static string FlexiBlocksException_Shared_OptionMustBeGreaterThan0 {
+        internal static string BlockException_Shared_OptionMustBeGreaterThan0 {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_Shared_OptionMustBeGreaterThan0", resourceCulture);
+                return ResourceManager.GetString("BlockException_Shared_OptionMustBeGreaterThan0", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The option {0} cannot be null..
         /// </summary>
-        internal static string FlexiBlocksException_Shared_OptionsMustNotBeNull {
+        internal static string BlockException_Shared_OptionsMustNotBeNull {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_Shared_OptionsMustNotBeNull", resourceCulture);
+                return ResourceManager.GetString("BlockException_Shared_OptionsMustNotBeNull", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Unable to parse JSON &quot;{0}&quot;. Refer to the inner exception for more details..
         /// </summary>
-        internal static string FlexiBlocksException_Shared_UnableToParseJson {
+        internal static string BlockException_Shared_UnableToParseJson {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_Shared_UnableToParseJson", resourceCulture);
+                return ResourceManager.GetString("BlockException_Shared_UnableToParseJson", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Multiple attempts to retrieve content from the remote URI &quot;{0}&quot; have failed. Please ensure that the URI is valid and that your network connection is stable. Enable debug level logging and try again for more information on why requests are failing..
         /// </summary>
-        internal static string FlexiBlocksException_SourceRetrieverService_FailedAfterMultipleAttempts {
+        internal static string BlockException_SourceRetrieverService_FailedAfterMultipleAttempts {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_SourceRetrieverService_FailedAfterMultipleAttempts", resourceCulture);
+                return ResourceManager.GetString("BlockException_SourceRetrieverService_FailedAfterMultipleAttempts", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The local URI &quot;{0}&quot; is invalid. Refer to the inner exception for more details..
         /// </summary>
-        internal static string FlexiBlocksException_SourceRetrieverService_InvalidLocalUri {
+        internal static string BlockException_SourceRetrieverService_InvalidLocalUri {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_SourceRetrieverService_InvalidLocalUri", resourceCulture);
+                return ResourceManager.GetString("BlockException_SourceRetrieverService_InvalidLocalUri", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Access to the remote URI &quot;{0}&quot; is forbidden..
         /// </summary>
-        internal static string FlexiBlocksException_SourceRetrieverService_RemoteUriAccessForbidden {
+        internal static string BlockException_SourceRetrieverService_RemoteUriAccessForbidden {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_SourceRetrieverService_RemoteUriAccessForbidden", resourceCulture);
+                return ResourceManager.GetString("BlockException_SourceRetrieverService_RemoteUriAccessForbidden", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The remote URI &quot;{0}&quot; does not exist..
         /// </summary>
-        internal static string FlexiBlocksException_SourceRetrieverService_RemoteUriDoesNotExist {
+        internal static string BlockException_SourceRetrieverService_RemoteUriDoesNotExist {
             get {
-                return ResourceManager.GetString("FlexiBlocksException_SourceRetrieverService_RemoteUriDoesNotExist", resourceCulture);
+                return ResourceManager.GetString("BlockException_SourceRetrieverService_RemoteUriDoesNotExist", resourceCulture);
             }
         }
         

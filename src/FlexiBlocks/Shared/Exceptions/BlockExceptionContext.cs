@@ -1,9 +1,9 @@
 ﻿namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     /// <summary>
-    /// Represents the possible contexts of <see cref="FlexiBlocksException"/>s.
+    /// Represents possible contexts of a <see cref="BlockException"/>.
     /// </summary>
-    public enum FlexiBlockExceptionContext
+    public enum BlockExceptionContext
     {
         /// <summary>
         /// No context.
@@ -11,12 +11,12 @@
         None = 0,
 
         /// <summary>
-        /// Line that caused the unrecoverable situation is known but the kind of block at the line is unknown.
+        /// Line of offending markdown is known but block at line is unknown.
         /// </summary>
         Line,
 
         /// <summary>
-        /// Block that caused the unrecoverable situation is known.
+        /// Offending block is known.
         /// </summary>
         Block
     }
