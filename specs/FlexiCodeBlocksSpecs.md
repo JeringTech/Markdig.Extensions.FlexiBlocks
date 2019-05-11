@@ -1,13 +1,55 @@
+﻿---
+blockOptions: "../src/FlexiBlocks/Extensions/FlexiCodeBlocks/FlexiCodeBlockOptions.cs"
+utilityTypes: ["../src/FlexiBlocks/Shared/Models/LineRange.cs", "../src/FlexiBlocks/Extensions/FlexiCodeBlocks/NumberedLineRange.cs", "../src/FlexiBlocks/Extensions/FlexiCodeBlocks/PhraseGroup.cs"]
+extensionOptions: "../src/FlexiBlocks/Extensions/FlexiCodeBlocks/FlexiCodeBlocksExtensionOptions.cs"
+---
+
 # FlexiCodeBlocks
-FlexiCodeBlocks contain code. They enhance code with aesthetic and functional features like syntax highlighting,
+FlexiCodeBlocks display code. They enhance code aesthetically and functionally with features like syntax highlighting,
 line highlighting, line numbering and more.
 
 ## Prerequisites
 To use syntax highlighting, [NodeJS](https://nodejs.org/en/) must be installed and node.exe's directory must be added to the `Path` environment variable.
 
-## Basic Syntax
-A FlexiCodeBlock is a sequence of [fenced](https://spec.commonmark.org/0.28/#fenced-code-blocks) or [indented](https://spec.commonmark.org/0.28/#indented-code-blocks) lines. 
-Basic-syntax-wise, FlexiCodeBlocks are identical to [CommonMark](https://spec.commonmark.org/0.28/) code blocks. The following is a fenced FlexiCodeBlock:
+## Usage
+```csharp
+using Markdig;
+using Jering.Markdig.Extensions.FlexiBlocks;
+
+...
+var markdownPipelineBuilder = new MarkdownPipelineBuilder();
+markdownPipelineBuilder.UseFlexiCodeBlocks(/* Optional extension options */);
+
+MarkdownPipeline markdownPipeline = markdownPipelineBuilder.Build();
+
+string markdown = @"```
+public string ExampleFunction(string arg)
+{
+    // Example comment
+    return arg + ""dummyString"";
+}
+```"
+string html = Markdown.ToHtml(markdown, markdownPipeline);
+string expectedHtml = @"<div class=""flexi-code flexi-code_no-title flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases"">
+<header class=""flexi-code__header"">
+<span class=""flexi-code__title""></span>
+<button class=""flexi-code__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<svg class=""flexi-code__copy-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path fill=""none"" d=""M0 0h24v24H0V0z""/><path d=""M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z""/></svg>
+</button>
+</header>
+<pre class=""flexi-code__pre""><code class=""flexi-code__code"">public string ExampleFunction(string arg)
+{
+    // Example comment
+    return arg + &quot;dummyString&quot;;
+}</code></pre>
+</div>";
+
+Assert.Equal(expectedHtml, html)
+```
+
+# Syntax
+In markdown, a FlexiCodeBlock is a sequence of [fenced](https://spec.commonmark.org/0.28/#fenced-code-blocks) or [indented](https://spec.commonmark.org/0.28/#indented-code-blocks) lines - identical to 
+[CommonMark](https://spec.commonmark.org/0.28/) code blocks. For example:
 
 ```````````````````````````````` none
 --------------- Markdown ---------------
@@ -19,703 +61,1082 @@ public string ExampleFunction(string arg)
 }
 ```
 --------------- Expected Markup ---------------
-<div class="flexi-code-block">
-<header>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+<header class="flexi-code__header">
+<span class="flexi-code__title"></span>
+<button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+<svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
 </button>
 </header>
-<pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
-<span class="line"><span class="line-text">{</span></span>
-<span class="line"><span class="line-text">    // Example comment</span></span>
-<span class="line"><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
-<span class="line"><span class="line-text">}</span></span></code></pre>
+<pre class="flexi-code__pre"><code class="flexi-code__code">public string ExampleFunction(string arg)
+{
+    // Example comment
+    return arg + &quot;dummyString&quot;;
+}
+</code></pre>
 </div>
 ````````````````````````````````
-By default, a FlexiCodeBlock is rendered with a "copy code" icon. The icon markup and more can be customized or omitted - refer to the [options section](#options) for details.
+
+! By default, a FlexiCodeBlock has a header, a copy button and more. Each element is assigned a default class. Default classes comply with 
+! [BEM methodology](https://en.bem.info/).  
+!
+! FlexiCodeBlocks can be customized, we'll explain how in [a bit](#options).
+
+Like [CommonMark](https://spec.commonmark.org/0.28/) code blocks, a FlexiCodeBlock's fence can consist of tildes:
+
+```````````````````````````````` none
+--------------- Markdown ---------------
+~~~
+<html>
+    <head>
+        <title>Example Page</title>
+    </head>
+    <body>
+        <p>Example content.</p>
+    </body>
+</html>
+~~~
+--------------- Expected Markup ---------------
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+<header class="flexi-code__header">
+<span class="flexi-code__title"></span>
+<button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+<svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+</button>
+</header>
+<pre class="flexi-code__pre"><code class="flexi-code__code">&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Example Page&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;Example content.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+</div>
+````````````````````````````````
 
 The following is an indented FlexiCodeBlock:
 ```````````````````````````````` none
 --------------- Markdown ---------------
-    public string ExampleFunction(string arg)
-    {
+    public exampleFunction(arg: string): string {
         // Example comment
         return arg + "dummyString";
     }
 --------------- Expected Markup ---------------
-<div class="flexi-code-block">
-<header>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+<header class="flexi-code__header">
+<span class="flexi-code__title"></span>
+<button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+<svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
 </button>
 </header>
-<pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
-<span class="line"><span class="line-text">{</span></span>
-<span class="line"><span class="line-text">    // Example comment</span></span>
-<span class="line"><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
-<span class="line"><span class="line-text">}</span></span></code></pre>
+<pre class="flexi-code__pre"><code class="flexi-code__code">public exampleFunction(arg: string): string {
+    // Example comment
+    return arg + &quot;dummyString&quot;;
+}
+</code></pre>
 </div>
 ````````````````````````````````
 
 ## Options
+### `FlexiCodeBlockOptions`
+Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCodeBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/OptionsBlocksSpecs.md#options) extension must be enabled.
+
+#### Properties
+
+##### `BlockName`
+- Type: `string`
+- Description: The `FlexiCodeBlock`'s [BEM block name](https://en.bem.info/methodology/naming-convention/#block-name).
+  In compliance with [BEM methodology](https://en.bem.info), this value is the `FlexiCodeBlock`'s root element's class as well as the prefix for all other classes in the block.
+  This value should contain only valid [CSS class characters](https://www.w3.org/TR/CSS21/syndata.html#characters).
+  If this value is `null`, whitespace or an empty string, the `FlexiCodeBlock`'s block name is "flexi-code".
+- Default: "flexi-code"
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{
+      "blockName": "code"
+  }
+  ```
+  public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + "dummyString";
+  }
+  ```
+  --------------- Expected Markup ---------------
+  <div class="code code_no-title code_has-copy-icon code_no-syntax-highlights code_no-line-numbers code_has-omitted-lines-icon code_no-highlighted-lines code_no-highlighted-phrases">
+  <header class="code__header">
+  <span class="code__title"></span>
+  <button class="code__copy-button" title="Copy code" aria-label="Copy code">
+  <svg class="code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  </button>
+  </header>
+  <pre class="code__pre"><code class="code__code">public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + &quot;dummyString&quot;;
+  }
+  </code></pre>
+  </div>
+  ````````````````````````````````
+
+##### `Title`
+- Type: `string`
+- Description: The `FlexiCodeBlock`'s title.
+  If this value is `null`, whitespace or an empty string, no title is rendered.
+- Default: `null`
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{ "title" : "ExampleDocument.cs" }
+  ```
+  public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + "dummyString";
+  }
+  ```
+  --------------- Expected Markup ---------------
+  <div class="flexi-code flexi-code_has-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <header class="flexi-code__header">
+  <span class="flexi-code__title">ExampleDocument.cs</span>
+  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  </button>
+  </header>
+  <pre class="flexi-code__pre"><code class="flexi-code__code">public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + &quot;dummyString&quot;;
+  }
+  </code></pre>
+  </div>
+  ````````````````````````````````
+
+##### `CopyIcon`
+- Type: `string`
+- Description: The `FlexiCodeBlock`'s copy button icon as an HTML fragment.
+  The class "<`BlockName`>__copy-icon" is assigned to this fragment's first start tag.
+  If this value is `null`, whitespace or an empty string, no copy icon is rendered.
+- Default: the [Material Design file copy icon](https://material.io/tools/icons/?icon=file_copy&style=baseline)
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{ "copyIcon": "<svg><use xlink:href=\"#material-design-copy\"></use></svg>" }
+  ```
+  public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + "dummyString";
+  }
+  ```
+  --------------- Expected Markup ---------------
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <header class="flexi-code__header">
+  <span class="flexi-code__title"></span>
+  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <svg class="flexi-code__copy-icon"><use xlink:href="#material-design-copy"></use></svg>
+  </button>
+  </header>
+  <pre class="flexi-code__pre"><code class="flexi-code__code">public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + &quot;dummyString&quot;;
+  }
+  </code></pre>
+  </div>
+  ````````````````````````````````
+  No copy icon is are rendered if this value is `null`, whitespace or an empty string:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{ "copyIcon": null }
+  ```
+  public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + "dummyString";
+  }
+  ```
+  --------------- Expected Markup ---------------
+  <div class="flexi-code flexi-code_no-title flexi-code_no-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <header class="flexi-code__header">
+  <span class="flexi-code__title"></span>
+  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  </button>
+  </header>
+  <pre class="flexi-code__pre"><code class="flexi-code__code">public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + &quot;dummyString&quot;;
+  }
+  </code></pre>
+  </div>
+  ````````````````````````````````
+
+##### `Language`
+- Type: `string`
+- Description: The programming language of the `FlexiCodeBlock`'s code.
+  If `SyntaxHighlighter` is not `SyntaxHighlighter.None`, this value is passed to the chosen syntax highlighter.
+  Therefore, this value must be a language alias supported by the chosen syntax highlighter.
+  [Valid language aliases for Prism.](https://prismjs.com/index.html#languages-list)
+  [Valid language aliases for HighlightJS](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases).
+  The class "<`BlockName`>__code_language-<language>" is assigned to the `FlexiCodeBlock`'s root element.
+  If this value is `null`, whitespace or an empty string, syntax highlighting is disabled and no language class is assigned to the root element.
+- Default: `null`
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{ "language": "csharp" }
+  ```
+  public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + "dummyString";
+  }
+  ```
+  --------------- Expected Markup ---------------
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_language-csharp flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <header class="flexi-code__header">
+  <span class="flexi-code__title"></span>
+  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  </button>
+  </header>
+  <pre class="flexi-code__pre"><code class="flexi-code__code"><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+      <span class="token comment">// Example comment</span>
+      <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">"dummyString"</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code></pre>
+  </div>
+  ````````````````````````````````
+
+##### `SyntaxHighlighter`
+- Type: `SyntaxHighlighter`
+- Description: The syntax highlighter to highlight the `FlexiCodeBlock`'s code with.
+  If this value is `SyntaxHighlighter.None`, or `Language` is `null`, whitespace or an empty string,
+  syntax highlighting is disabled.
+- Default: `SyntaxHighlighter.Prism`
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{
+      "syntaxHighlighter": "highlightJS",
+      "language": "typescript"
+  }
+  ```
+  public exampleFunction(arg: string): string {
+      // Example comment
+      return arg + "dummyString";
+  }
+  ```
+  --------------- Expected Markup ---------------
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_language-typescript flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <header class="flexi-code__header">
+  <span class="flexi-code__title"></span>
+  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  </button>
+  </header>
+  <pre class="flexi-code__pre"><code class="flexi-code__code"><span class="hljs-keyword">public</span> exampleFunction(arg: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
+      <span class="hljs-comment">// Example comment</span>
+      <span class="hljs-keyword">return</span> arg + <span class="hljs-string">"dummyString"</span>;
+  }
+  </code></pre>
+  </div>
+  ````````````````````````````````
+
+##### `LineNumbers`
+- Type: `IList<NumberedLineRange>`
+- Description: The `NumberedLineRange`s specifying line numbers to render.
+  If line numbers are specified for some but not all lines, an omitted lines icon is rendered for each line with no line number. You can customize
+  the icon by specifying `OmittedLinesIcon`.
+  If line numbers are specified for some but not all lines, an omitted lines notice is inserted into each empty line with no line number.
+  The notice "line {0} omitted for brevity" is inserted if a single line is omitted and the notice "lines {0} to {1} omitted for brevity",
+  is inserted if multiple lines are omitted.
+  Contained ranges must not overlap.
+  If this value is `null`, no line numbers are rendered.
+- Default: `null`
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{
+      "lineNumbers": [
+          { "start": 2, "end": 8, "startNumber": 4 },
+          { "start": 10, "end": -2, "startNumber": 32 }
+      ]
+  }
+  ```
+
+  public class ExampleClass
+  {
+      public string ExampleFunction1(string arg)
+      {
+          // Example comment
+          return arg + "dummyString";
+      }
+
+      public string ExampleFunction3(string arg)
+      {
+          // Example comment
+          return arg + "dummyString";
+      }
+  }
+
+  ```
+  --------------- Expected Markup ---------------
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_has-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <header class="flexi-code__header">
+  <span class="flexi-code__title"></span>
+  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  </button>
+  </header>
+  <pre class="flexi-code__pre"><code class="flexi-code__code"><span class="flexi-code__line-prefix"><svg class="flexi-code__omitted-lines-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span><span class="flexi-code__line flexi-code__line_omitted-lines">Lines 1 to 3 omitted for brevity</span>
+  <span class="flexi-code__line-prefix">4</span><span class="flexi-code__line">public class ExampleClass</span>
+  <span class="flexi-code__line-prefix">5</span><span class="flexi-code__line">{</span>
+  <span class="flexi-code__line-prefix">6</span><span class="flexi-code__line">    public string ExampleFunction1(string arg)</span>
+  <span class="flexi-code__line-prefix">7</span><span class="flexi-code__line">    {</span>
+  <span class="flexi-code__line-prefix">8</span><span class="flexi-code__line">        // Example comment</span>
+  <span class="flexi-code__line-prefix">9</span><span class="flexi-code__line">        return arg + &quot;dummyString&quot;;</span>
+  <span class="flexi-code__line-prefix">10</span><span class="flexi-code__line">    }</span>
+  <span class="flexi-code__line-prefix"><svg class="flexi-code__omitted-lines-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span><span class="flexi-code__line flexi-code__line_omitted-lines">Lines 11 to 31 omitted for brevity</span>
+  <span class="flexi-code__line-prefix">32</span><span class="flexi-code__line">    public string ExampleFunction3(string arg)</span>
+  <span class="flexi-code__line-prefix">33</span><span class="flexi-code__line">    {</span>
+  <span class="flexi-code__line-prefix">34</span><span class="flexi-code__line">        // Example comment</span>
+  <span class="flexi-code__line-prefix">35</span><span class="flexi-code__line">        return arg + &quot;dummyString&quot;;</span>
+  <span class="flexi-code__line-prefix">36</span><span class="flexi-code__line">    }</span>
+  <span class="flexi-code__line-prefix">37</span><span class="flexi-code__line">}</span>
+  <span class="flexi-code__line-prefix"><svg class="flexi-code__omitted-lines-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span><span class="flexi-code__line flexi-code__line_omitted-lines">Lines 38 to the end omitted for brevity</span>
+  </code></pre>
+  </div>
+  ````````````````````````````````
+
+##### `OmittedLinesIcon`
+- Type: `string`
+- Description: The `FlexiCodeBlock`'s omitted lines icon as an HTML fragment.
+  The class "<`BlockName`>__omitted-lines-icon" is assigned to this fragment's first start tag.
+  If this value is `null`, whitespace or an empty string, no omitted lines icons are rendered.
+- Default: the [Material Design more vert icon](https://material.io/tools/icons/?search=vert&icon=more_vert&style=baseline)
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{
+      "omittedLinesIcon": "<svg><use xlink:href=\"#material-design-more-vert\"></use></svg>",
+      "lineNumbers": [{"end": 2}, {"start": 4, "startNumber":10}]
+  }
+  ```
+  public string ExampleFunction(string arg)
+  {
+
+  }
+  ```
+  --------------- Expected Markup ---------------
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_has-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <header class="flexi-code__header">
+  <span class="flexi-code__title"></span>
+  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  </button>
+  </header>
+  <pre class="flexi-code__pre"><code class="flexi-code__code"><span class="flexi-code__line-prefix">1</span><span class="flexi-code__line">public string ExampleFunction(string arg)</span>
+  <span class="flexi-code__line-prefix">2</span><span class="flexi-code__line">{</span>
+  <span class="flexi-code__line-prefix"><svg class="flexi-code__omitted-lines-icon"><use xlink:href="#material-design-more-vert"></use></svg></span><span class="flexi-code__line flexi-code__line_omitted-lines">Lines 3 to 9 omitted for brevity</span>
+  <span class="flexi-code__line-prefix">10</span><span class="flexi-code__line">}</span>
+  </code></pre>
+  </div>
+  ````````````````````````````````
+  No omitted lines icons are rendered if this value is `null`, white space or an empty string:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{
+      "omittedLinesIcon": null,
+      "lineNumbers": [{"end": 2}, {"start": 4, "startNumber":10}]
+  }
+  ```
+  public string ExampleFunction(string arg)
+  {
+
+  }
+  ```
+  --------------- Expected Markup ---------------
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_has-line-numbers flexi-code_no-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <header class="flexi-code__header">
+  <span class="flexi-code__title"></span>
+  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  </button>
+  </header>
+  <pre class="flexi-code__pre"><code class="flexi-code__code"><span class="flexi-code__line-prefix">1</span><span class="flexi-code__line">public string ExampleFunction(string arg)</span>
+  <span class="flexi-code__line-prefix">2</span><span class="flexi-code__line">{</span>
+  <span class="flexi-code__line-prefix"></span><span class="flexi-code__line flexi-code__line_omitted-lines">Lines 3 to 9 omitted for brevity</span>
+  <span class="flexi-code__line-prefix">10</span><span class="flexi-code__line">}</span>
+  </code></pre>
+  </div>
+  ````````````````````````````````
+
+##### `HighlightedLines`
+- Type: `IList<LineRange>`
+- Description: The `LineRange`s specifying lines to highlight.
+  If this value is `null`, no lines are highlighted.
+- Default: `null`
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{
+      "highlightedLines": [
+          { "end": 1 },
+          { "start": 3, "end": 4 }
+      ]
+  }
+  ```
+  public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + "dummyString";
+  }
+  ```
+  --------------- Expected Markup ---------------
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_has-highlighted-lines flexi-code_no-highlighted-phrases">
+  <header class="flexi-code__header">
+  <span class="flexi-code__title"></span>
+  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  </button>
+  </header>
+  <pre class="flexi-code__pre"><code class="flexi-code__code"><span class="flexi-code__line flexi-code__line_highlighted">public string ExampleFunction(string arg)</span>
+  {
+  <span class="flexi-code__line flexi-code__line_highlighted">    // Example comment</span>
+  <span class="flexi-code__line flexi-code__line_highlighted">    return arg + &quot;dummyString&quot;;</span>
+  }
+  </code></pre>
+  </div>
+  ````````````````````````````````
+
+##### `HighlightedPhrases`
+- Type: `IList<PhraseGroup>`
+- Description: The `PhraseGroup`s specifying phrases to highlight.
+  If the regex expression of a `PhraseGroup` has groups, only groups are highlighted, entire matches are not highlighted.
+  If the regex expression of a `PhraseGroup` has no groups, entire matches are highlighted.
+  If this value is `null`, no phrases are highlighted.
+- Default: `null`
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{
+      "highlightedPhrases": [
+          { "regex": "return (.*?);", "included": [1] },
+          { "regex": "string arg" }
+      ]
+  }
+  ```
+  public class ExampleClass
+  {
+      public string ExampleFunction1(string arg)
+      {
+          // Example comment
+          return arg + "dummyString";
+      }
+
+      public string ExampleFunction2(string arg)
+      {
+          // Example comment
+          return arg + "dummyString";
+      }
+  }
+  ```
+  --------------- Expected Markup ---------------
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_has-highlighted-phrases">
+  <header class="flexi-code__header">
+  <span class="flexi-code__title"></span>
+  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  </button>
+  </header>
+  <pre class="flexi-code__pre"><code class="flexi-code__code">public class ExampleClass
+  {
+      public string ExampleFunction1(<span class="flexi-code__highlighted-phrase">string arg</span>)
+      {
+          // Example comment
+          return arg + &quot;dummyString&quot;;
+      }
+
+      public string ExampleFunction2(<span class="flexi-code__highlighted-phrase">string arg</span>)
+      {
+          // Example comment
+          return <span class="flexi-code__highlighted-phrase">arg + &quot;dummyString&quot;</span>;
+      }
+  }
+  </code></pre>
+  </div>
+  ````````````````````````````````
+
+##### `RenderingMode`
+- Type: `FlexiCodeBlockRenderingMode`
+- Description: The `FlexiCodeBlock`'s rendering mode.
+- Default: `FlexiCodeBlockRenderingMode.Standard`
+- Examples:
+  This value is `FlexiCodeBlockRenderingMode.Standard` by default:
+  ```````````````````````````````` none
+  --------------- Markdown ---------------
+  ```
+  public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + "dummyString";
+  }
+  ```
+  --------------- Expected Markup ---------------
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <header class="flexi-code__header">
+  <span class="flexi-code__title"></span>
+  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  </button>
+  </header>
+  <pre class="flexi-code__pre"><code class="flexi-code__code">public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + &quot;dummyString&quot;;
+  }
+  </code></pre>
+  </div>
+  ````````````````````````````````
+  If this value is `FlexiCodeBlockRenderingMode.Classic`, the `FlexiCodeBlock` is rendered the same way [code blocks](https://spec.commonmark.org/0.28/#indented-code-blocks) are 
+  rendered in CommonMark Spec examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{ "renderingMode": "classic" }
+  ```
+  public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + "dummyString";
+  }
+  ```
+  --------------- Expected Markup ---------------
+  <pre><code>public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + &quot;dummyString&quot;;
+  }
+  </code></pre>
+  ````````````````````````````````
+
+##### `Attributes`
+- Type: `IDictionary<string, string>`
+- Description: The HTML attributes for the `FlexiCodeBlock`'s root element.
+  Attribute names must be lowercase.
+  If classes are specified, they are appended to default classes. This facilitates [BEM mixes](https://en.bem.info/methodology/quick-start/#mix).
+  If this value is `null`, default classes are still assigned to the root element.
+- Default: `null`
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{
+      "attributes": {
+          "id" : "code-1",
+          "class" : "block"
+      }
+  }
+  ```
+  public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + "dummyString";
+  }
+  ```
+  --------------- Expected Markup ---------------
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases block" id="code-1">
+  <header class="flexi-code__header">
+  <span class="flexi-code__title"></span>
+  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  </button>
+  </header>
+  <pre class="flexi-code__pre"><code class="flexi-code__code">public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + &quot;dummyString&quot;;
+  }
+  </code></pre>
+  </div>
+  ````````````````````````````````
 
 ### `LineRange`
-Represents a range of lines. Used by [FlexiCodeBlockOptions](#flexicodeblockoptions).
+Represents a range of lines.
 
 #### Properties
-- `StartLineNumber`
-  - Type: `int`
-  - Description: The line number of this LineRange's start line.
-    This value must be greater than 0.
-  - Default: `1`
-- `EndLineNumber`
-  - Type: `int`
-  - Description: The line number of this LineRange's end line..
-    If this value is -1, this range extends to the last line. If it is not -1, it must be greater than or equal to `StartLineNumber`.
-  - Default: `-1`
 
+##### `Start`
+- Type: `int`
+- Description: The line number of the `LineRange`'s start line.
+  If this value is `-n`, the start line is the nth last line. For example, if this value is `-2`, the start line is the 2nd last line.
+  This value must not be `0`.
+- Default: `1`
+##### `End`
+- Type: `int`
+- Description: The line number of the `LineRange`'s end line.
+  If this value is `-n`, the end line is the nth last line. For example, if this value is `-2`, the end line is the 2nd last line.
+  This value must not be `0` or an integer representing a line before the start line.
+- Default: `-1`
 ### `NumberedLineRange`
-Represents a range of lines with an associated sequence of numbers. Used by [FlexiCodeBlockOptions](#flexicodeblockoptions).
+Represents a range of lines with an associated sequence of numbers.
 
 #### Properties
-- `StartLineNumber`
-  - Type: `int`
-  - Description: The line number of this NumberedLineRange's start line.
-    This value must be greater than 0.
-  - Default: `1`
-- `EndLineNumber`
-  - Type: `int`
-  - Description: The line number of this NumberedLineRange's end line.
-    If this value is -1, this range extends to the last line. If it is not -1, it must be greater than or equal to `StartLineNumber`.
-  - Default: `-1`
-- `FirstNumber`
-  - Type: `int`
-  - Description: The number associated with this NumberedLineRange's start line.
-    The number associated with each subsequent line is incremented by 1.
-    This value must be greater than 0.
-  - Default: `1`
 
-### `FlexiCodeBlockOptions`
-Options for a FlexiCodeBlock. To specify FlexiCodeBlockOptions for a FlexiCodeBlock, the 
-[FlexiOptionsBlocks](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled. To specify default FlexiCodeBlockOptions for all FlexiCodeBlocks,
-use [FlexiCodeBlocksExtensionOptions](#flexicodeblocksextensionoptions).
+##### `Start`
+- Type: `int`
+- Description: The line number of the `NumberedLineRange`'s start line.
+  If this value is `-n`, the start line is the nth last line. For example, if this value is `-2`, the start line is the 2nd last line.
+  This value must not be `0`.
+- Default: `1`
+##### `End`
+- Type: `int`
+- Description: The line number of the `NumberedLineRange`'s end line.
+  If this value is `-n`, the end line is the nth last line. For example, if this value is `-2`, the end line is the 2nd last line.
+  This value must not be `0` or an integer representing a line before the start line.
+- Default: `-1`
+##### `StartNumber`
+- Type: `int`
+- Description: The number associated with this `NumberedLineRange`'s start line.
+  The number associated with each subsequent line is incremented by 1.
+  This value must be greater than 0.
+- Default: `1`
+### `PhraseGroup`
+Represents phrases in a body of text.
 
 #### Properties
-- `Class`
-  - Type: `string`
-  - Description: The FlexiCodeBlock's outermost element's class. If this value is null, whitespace or an empty string, no class is assigned.
-  - Default: "flexi-code-block"
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "class": "alternative-class"
-    }
-    ```
-    public string ExampleFunction(string arg)
-    {
-        // Example comment
-        return arg + "dummyString";
-    }
-    ```
-    --------------- Expected Markup ---------------
-    <div class="alternative-class">
-    <header>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
-    </button>
-    </header>
-    <pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
-    <span class="line"><span class="line-text">{</span></span>
-    <span class="line"><span class="line-text">    // Example comment</span></span>
-    <span class="line"><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
-    <span class="line"><span class="line-text">}</span></span></code></pre>
-    </div>
-    ````````````````````````````````
 
-- `CopyIconMarkup`
-  - Type: `string`
-  - Description: The markup for the FlexiCodeBlock's copy icon.
-    If this value is null, whitespace or an empty string, no copy icon is rendered.
-  - Default: [Material Design "File Copy" Icon](https://material.io/tools/icons/?icon=file_copy&style=baseline)
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "copyIconMarkup": "<svg><use xlink:href=\"#material-design-copy\"></use></svg>"
-    }
-    ```
-    public string ExampleFunction(string arg)
-    {
-        // Example comment
-        return arg + "dummyString";
-    }
-    ```
-    --------------- Expected Markup ---------------
-    <div class="flexi-code-block">
-    <header>
-    <button>
-    <svg><use xlink:href="#material-design-copy"></use></svg>
-    </button>
-    </header>
-    <pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
-    <span class="line"><span class="line-text">{</span></span>
-    <span class="line"><span class="line-text">    // Example comment</span></span>
-    <span class="line"><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
-    <span class="line"><span class="line-text">}</span></span></code></pre>
-    </div>
-    ````````````````````````````````
-
-- `Title`
-  - Type: `string`
-  - Description: The FlexiCodeBlock's title.
-    If this value is null, whitespace or an empty string, no title is rendered.
-  - Default: `null`
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "title": "ExampleDocument.cs"
-    }
-    ```
-    public string ExampleFunction(string arg)
-    {
-        // Example comment
-        return arg + "dummyString";
-    }
-    ```
-    --------------- Expected Markup ---------------
-    <div class="flexi-code-block">
-    <header>
-    <span>ExampleDocument.cs</span>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
-    </button>
-    </header>
-    <pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
-    <span class="line"><span class="line-text">{</span></span>
-    <span class="line"><span class="line-text">    // Example comment</span></span>
-    <span class="line"><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
-    <span class="line"><span class="line-text">}</span></span></code></pre>
-    </div>
-    ````````````````````````````````
-
-- `Language`
-  - Type: `string`
-  - Description: The language for syntax highlighting of the FlexiCodeBlock's code.
-    The value must be a valid language alias for the chosen syntax highlighter (defaults to Prism).
-    - Valid langauge aliases for Prism can be found here: https://prismjs.com/index.html#languages-list.
-    - Valid language aliases for HighlightJS can be found here: http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases.</para>
-    
-    If this value is null, whitespace or an empty string, syntax highlighting is disabled and no class is assigned to the FlexiCodeBlock's code element.
-  - Default: `null`
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "language": "csharp"
-    }
-    ```
-    public string ExampleFunction(string arg)
-    {
-        // Example comment
-        return arg + "dummyString";
-    }
-    ```
-    --------------- Expected Markup ---------------
-    <div class="flexi-code-block">
-    <header>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
-    </button>
-    </header>
-    <pre><code class="language-csharp"><span class="line"><span class="line-text"><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span></span></span>
-    <span class="line"><span class="line-text"><span class="token punctuation">{</span></span></span>
-    <span class="line"><span class="line-text">    <span class="token comment">// Example comment</span></span></span>
-    <span class="line"><span class="line-text">    <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">"dummyString"</span><span class="token punctuation">;</span></span></span>
-    <span class="line"><span class="line-text"><span class="token punctuation">}</span></span></span></code></pre>
-    </div>
-    ````````````````````````````````
-    By default, if a language is specified for a FlexiCodeBlock, a language class is assigned to the code element and syntax highlighting is performed.
-
-- `CodeClassFormat`
-  - Type: `string`
-  - Description: The format for the FlexiCodeBlock's code element's class.
-    The FlexiCodeBlock's language will replace "{0}" in the format.
-    If this value or the FlexiCodeBlock's language are null, whitespace or an empty string, no class is assigned to the code element.
-  - Default: "language-{0}"
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "codeClassFormat": "lang-{0}",
-        "language": "csharp"
-    }
-    ```
-    public string ExampleFunction(string arg)
-    {
-        // Example comment
-        return arg + "dummyString";
-    }
-    ```
-    --------------- Expected Markup ---------------
-    <div class="flexi-code-block">
-    <header>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
-    </button>
-    </header>
-    <pre><code class="lang-csharp"><span class="line"><span class="line-text"><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span></span></span>
-    <span class="line"><span class="line-text"><span class="token punctuation">{</span></span></span>
-    <span class="line"><span class="line-text">    <span class="token comment">// Example comment</span></span></span>
-    <span class="line"><span class="line-text">    <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">"dummyString"</span><span class="token punctuation">;</span></span></span>
-    <span class="line"><span class="line-text"><span class="token punctuation">}</span></span></span></code></pre>
-    </div>
-    ````````````````````````````````
-
-- `SyntaxHighlighter`
-  - Type: `SyntaxHighlighter`
-  - Description: The syntax highlighter to use for syntax highlighting.
-    If this value is `SyntaxHighlighter.None`, syntax highlighting will be disabled.
-  - Default: `SyntaxHighlighter.Prism`
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "syntaxHighlighter": "highlightJS",
-        "language": "csharp",
-    }
-    ```
-    public string ExampleFunction(string arg)
-    {
-        // Example comment
-        return arg + "dummyString";
-    }
-    ```
-    --------------- Expected Markup ---------------
-    <div class="flexi-code-block">
-    <header>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
-    </button>
-    </header>
-    <pre><code class="language-csharp"><span class="line"><span class="line-text"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">ExampleFunction</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> arg</span>)</span></span></span>
-    <span class="line"><span class="line-text">{</span></span>
-    <span class="line"><span class="line-text">    <span class="hljs-comment">// Example comment</span></span></span>
-    <span class="line"><span class="line-text">    <span class="hljs-keyword">return</span> arg + <span class="hljs-string">"dummyString"</span>;</span></span>
-    <span class="line"><span class="line-text">}</span></span></code></pre>
-    </div>
-    ````````````````````````````````
-  
-- `HighlightJSClassPrefix`
-  - Type: `string`
-  - Description: The prefix for HighlightJS classes.
-    This option is only relevant if HighlightJS is the selected syntax highlighter.
-    If this value is null, whitespace or an empty string, no prefix is prepended to HighlightJS classes.
-  - Default: "hljs-"
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "language": "csharp",
-        "syntaxHighlighter": "highlightJS",
-        "highlightJSClassPrefix": "highlightjs-"
-    }
-    ```
-    public string ExampleFunction(string arg)
-    {
-        // Example comment
-        return arg + "dummyString";
-    }
-    ```
-    --------------- Expected Markup ---------------
-    <div class="flexi-code-block">
-    <header>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
-    </button>
-    </header>
-    <pre><code class="language-csharp"><span class="line"><span class="line-text"><span class="highlightjs-function"><span class="highlightjs-keyword">public</span> <span class="highlightjs-keyword">string</span> <span class="highlightjs-title">ExampleFunction</span>(<span class="highlightjs-params"><span class="highlightjs-keyword">string</span> arg</span>)</span></span></span>
-    <span class="line"><span class="line-text">{</span></span>
-    <span class="line"><span class="line-text">    <span class="highlightjs-comment">// Example comment</span></span></span>
-    <span class="line"><span class="line-text">    <span class="highlightjs-keyword">return</span> arg + <span class="highlightjs-string">"dummyString"</span>;</span></span>
-    <span class="line"><span class="line-text">}</span></span></code></pre>
-    </div>
-    ````````````````````````````````
-
-- `LineNumberLineRanges`
-  - Type: `IList<NumberedLineRange>`
-  - Description: The `NumberedLineRange`s that specify the line number to render for each line of code.
-    If this value is null, no line numbers will be rendered.
-  - Default: `null`
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "lineNumberLineRanges": [
-            {
-                "startLineNumber": 1,
-                "endLineNumber": 8,
-                "firstNumber": 1
-            },
-            {
-                "startLineNumber": 11,
-                "endLineNumber": -1,
-                "firstNumber": 32
-            }
-        ]
-    }
-    ```
-    public class ExampleClass
-    {
-        public string ExampleFunction1(string arg)
-        {
-            // Example comment
-            return arg + "dummyString";
-        }
-
-        // Some functions omitted for brevity
-        ...
-
-        public string ExampleFunction3(string arg)
-        {
-            // Example comment
-            return arg + "dummyString";
-        }
-    }
-    ```
-    --------------- Expected Markup ---------------
-    <div class="flexi-code-block">
-    <header>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
-    </button>
-    </header>
-    <pre><code><span class="line"><span class="line-number">1</span><span class="line-text">public class ExampleClass</span></span>
-    <span class="line"><span class="line-number">2</span><span class="line-text">{</span></span>
-    <span class="line"><span class="line-number">3</span><span class="line-text">    public string ExampleFunction1(string arg)</span></span>
-    <span class="line"><span class="line-number">4</span><span class="line-text">    {</span></span>
-    <span class="line"><span class="line-number">5</span><span class="line-text">        // Example comment</span></span>
-    <span class="line"><span class="line-number">6</span><span class="line-text">        return arg + &quot;dummyString&quot;;</span></span>
-    <span class="line"><span class="line-number">7</span><span class="line-text">    }</span></span>
-    <span class="line"><span class="line-number">8</span><span class="line-text"></span></span>
-    <span class="line"><span class="line-number"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span><span class="line-text">    // Some functions omitted for brevity</span></span>
-    <span class="line"><span class="line-number"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span><span class="line-text">    ...</span></span>
-    <span class="line"><span class="line-number">32</span><span class="line-text"></span></span>
-    <span class="line"><span class="line-number">33</span><span class="line-text">    public string ExampleFunction3(string arg)</span></span>
-    <span class="line"><span class="line-number">34</span><span class="line-text">    {</span></span>
-    <span class="line"><span class="line-number">35</span><span class="line-text">        // Example comment</span></span>
-    <span class="line"><span class="line-number">36</span><span class="line-text">        return arg + &quot;dummyString&quot;;</span></span>
-    <span class="line"><span class="line-number">37</span><span class="line-text">    }</span></span>
-    <span class="line"><span class="line-number">38</span><span class="line-text">}</span></span></code></pre>
-    </div>
-    ````````````````````````````````
-    The markdown in the above spec can be simplified by ommitting [`NumberedLineRange`](#numberedlinerange) properties that were set to their default values. For example, the first `NumberedLineRange` can be
-    specified as:
-    ```
-    {
-        "endLineNumber": 8
-    }
-    ```
-
-- `HighlightLineRanges`
-  - Type: `IList<LineRange>`
-  - Description: The `LineRange`s that specify which lines of code to highlight.
-    If this value is null, no lines will be highlighted.
-    Line highlighting should not be confused with syntax highlighting. While syntax highlighting highlights tokens in code, line highlighting highlights entire lines.
-  - Default: `null`
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "highlightLineRanges": [
-            {
-                "startLineNumber": 1,
-                "endLineNumber": 1
-            },
-            {
-                "startLineNumber": 3,
-                "endLineNumber": 4
-            }
-        ]
-    }
-    ```
-    public string ExampleFunction(string arg)
-    {
-        // Example comment
-        return arg + "dummyString";
-    }
-    ```
-    --------------- Expected Markup ---------------
-    <div class="flexi-code-block">
-    <header>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
-    </button>
-    </header>
-    <pre><code><span class="line highlight"><span class="line-text">public string ExampleFunction(string arg)</span></span>
-    <span class="line"><span class="line-text">{</span></span>
-    <span class="line highlight"><span class="line-text">    // Example comment</span></span>
-    <span class="line highlight"><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
-    <span class="line"><span class="line-text">}</span></span></code></pre>
-    </div>
-    ````````````````````````````````
-    The markdown in the above spec can be simplified by omitting [`LineRange`](#linerange) properties that were set to their default values. For example, the first `LineRange` can be
-    specified as:
-    ```
-    {
-        "endLineNumber": 1
-    }
-    ```
-
-- `LineEmbellishmentClassesPrefix`
-  - Type: `string`
-  - Description: The prefix for line embellishment classes (line embellishments are markup elements added to facilitate per-line styling).
-    If this value is null, whitespace or an empty string, no prefix is added to line embellishment classes.
-  - Default: `null`
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "lineEmbellishmentClassesPrefix": "le-",
-        "highlightLineRanges": [{}],
-        "lineNumberLineRanges": [{}]
-    }
-    ```
-    public string ExampleFunction(string arg)
-    {
-        // Example comment
-        return arg + "dummyString";
-    }
-    ```
-    --------------- Expected Markup ---------------
-    <div class="flexi-code-block">
-    <header>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
-    </button>
-    </header>
-    <pre><code><span class="le-line le-highlight"><span class="le-line-number">1</span><span class="le-line-text">public string ExampleFunction(string arg)</span></span>
-    <span class="le-line le-highlight"><span class="le-line-number">2</span><span class="le-line-text">{</span></span>
-    <span class="le-line le-highlight"><span class="le-line-number">3</span><span class="le-line-text">    // Example comment</span></span>
-    <span class="le-line le-highlight"><span class="le-line-number">4</span><span class="le-line-text">    return arg + &quot;dummyString&quot;;</span></span>
-    <span class="le-line le-highlight"><span class="le-line-number">5</span><span class="le-line-text">}</span></span></code></pre>
-    </div>
-    ````````````````````````````````
-
-- `HiddenLinesIconMarkup`
-  - Type: `string`
-  - Description: The markup for the icon that represents hidden lines.
-    If this value is null, whitespace or an empty string, no hidden lines icons are rendered.
-  - Default: [Material Design "More Vert" Icon](https://material.io/tools/icons/?search=vert&icon=more_vert&style=baseline)
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "hiddenLinesIconMarkup": "<svg><use xlink:href=\"#material-design-more-vert\"></use></svg>",
-        "lineNumberLineRanges": [{"startLineNumber": 1, "endLineNumber": 2, "firstNumber": 1}, {"startLineNumber": 4, "firstNumber":10}]
-    }
-    ```
-    public string ExampleFunction(string arg)
-    {
-    // Omitted for brevity
-        // Example comment
-        return arg + "dummyString";
-    }
-    ```
-    --------------- Expected Markup ---------------
-    <div class="flexi-code-block">
-    <header>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
-    </button>
-    </header>
-    <pre><code><span class="line"><span class="line-number">1</span><span class="line-text">public string ExampleFunction(string arg)</span></span>
-    <span class="line"><span class="line-number">2</span><span class="line-text">{</span></span>
-    <span class="line"><span class="line-number"><svg><use xlink:href="#material-design-more-vert"></use></svg></span><span class="line-text">// Omitted for brevity</span></span>
-    <span class="line"><span class="line-number">10</span><span class="line-text">    // Example comment</span></span>
-    <span class="line"><span class="line-number">11</span><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
-    <span class="line"><span class="line-number">12</span><span class="line-text">}</span></span></code></pre>
-    </div>
-    ````````````````````````````````
-
-- `Attributes`
-  - Type: `IDictionary<string, string>`
-  - Description: The HTML attributes for the outermost element of the FlexiCodeBlock.
-    If this value is null, no attributes will be assigned to the outermost element.
-  - Default: `null`
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "attributes": {
-            "id" : "code-1",
-            "class" : "block"
-        }
-    }
-    ```
-    public string ExampleFunction(string arg)
-    {
-        // Example comment
-        return arg + "dummyString";
-    }
-    ```
-    --------------- Expected Markup ---------------
-    <div id="code-1" class="block flexi-code-block">
-    <header>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
-    </button>
-    </header>
-    <pre><code><span class="line"><span class="line-text">public string ExampleFunction(string arg)</span></span>
-    <span class="line"><span class="line-text">{</span></span>
-    <span class="line"><span class="line-text">    // Example comment</span></span>
-    <span class="line"><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
-    <span class="line"><span class="line-text">}</span></span></code></pre>
-    </div>
-    ````````````````````````````````
-    If a value is specified for the class attribute, it will not override the outermost element's generated class. Instead, it will be 
-    prepended to the generated class. In the above example, this results in the outermost element's class attribute having the value 
-    `block flexi-code-block`.
-
-
+##### `Regex`
+- Type: `string`
+- Description: The regex expression for the `PhraseGroup`.
+  This value is required.
+##### `Included`
+- Type: `int[]`
+- Description: The indices of the regex matches included in the `PhraseGroup`.
+  This array can contain negative values. If a value is `-n`, the nth last match is included. For example,
+  if a value is `-2`, the 2nd last match is included.
+  If this value is `null` or empty, all matches are included.
+- Default: `null`
 ### `FlexiCodeBlocksExtensionOptions`
-Global options for FlexiCodeBlocks. These options can be used to define defaults for all FlexiCodeBlocks. They have
-lower precedence than block specific options specified using the FlexiOptionsBlocks extension.  
+Options for the FlexiCodeBlocks extension. There are two ways to specify these options:
+- Pass a `FlexiCodeBlocksExtensionOptions` when calling `MarkdownPipelineBuilderExtensions.UseFlexiCodeBlocks(this MarkdownPipelineBuilder pipelineBuilder, IFlexiCodeBlocksExtensionOptions options)`.
+- Insert a `FlexiCodeBlocksExtensionOptions` into a `MarkdownParserContext.Properties` with key `typeof(IFlexiCodeBlocksExtensionOptions)`. Pass the `MarkdownParserContext` when you call a markdown processing method
+  like `Markdown.ToHtml(markdown, stringWriter, markdownPipeline, yourMarkdownParserContext)`.  
+  This method allows for different extension options when reusing a pipeline. Options specified using this method take precedence.
 
-FlexiCodeBlocksExtensionOptions can be specified when enabling the FlexiCodeBlocks extension:
-``` 
-MyMarkdownPipelineBuilder.UseFlexiCodeBlocks(myFlexiCodeBlocksExtensionOptions);
+#### Constructor Parameters
+
+##### `defaultBlockOptions`
+- Type: `IFlexiCodeBlockOptions`
+- Description: Default `IFlexiCodeBlockOptions` for all `FlexiCodeBlock`s.
+  If this value is `null`, a `FlexiCodeBlockOptions` with default values is used.
+- Default: `null`
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extension Options ---------------
+  {
+      "flexiCodeBlocks": {
+          "defaultBlockOptions": {
+              "blockName": "code",
+              "title": "ExampleDocument.cs",
+              "copyIcon": "<svg><use xlink:href=\"#material-design-copy\"></use></svg>",
+              "language": "html",
+              "syntaxHighlighter": "highlightjs",
+              "lineNumbers": [{}],
+              "omittedLinesIcon": "<svg><use xlink:href=\"#material-design-more-vert\"></use></svg>",
+              "highlightedLines": [{"start": 3, "end": 3}],
+              "highlightedPhrases": [{"regex":"</.*?>"}],
+              "attributes": {"class": "block"}
+          }
+      }
+  }
+  --------------- Markdown ---------------
+  ```
+  <html>
+      <head>
+          <title>Example Page</title>
+      </head>
+      <body>
+          <p>Example content.</p>
+      </body>
+  </html>
+  ```
+  --------------- Expected Markup ---------------
+  <div class="code code_has-title code_has-copy-icon code_language-html code_has-syntax-highlights code_has-line-numbers code_has-omitted-lines-icon code_has-highlighted-lines code_has-highlighted-phrases block">
+  <header class="code__header">
+  <span class="code__title">ExampleDocument.cs</span>
+  <button class="code__copy-button" title="Copy code" aria-label="Copy code">
+  <svg class="code__copy-icon"><use xlink:href="#material-design-copy"></use></svg>
+  </button>
+  </header>
+  <pre class="code__pre"><code class="code__code"><span class="code__line-prefix">1</span><span class="code__line"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span></span>
+  <span class="code__line-prefix">2</span><span class="code__line">    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span>
+  <span class="code__line-prefix">3</span><span class="code__line code__line_highlighted">        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Example Page<span class="code__highlighted-phrase"><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span></span></span>
+  <span class="code__line-prefix">4</span><span class="code__line">    <span class="code__highlighted-phrase"><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span></span>
+  <span class="code__line-prefix">5</span><span class="code__line">    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span></span>
+  <span class="code__line-prefix">6</span><span class="code__line">        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Example content.<span class="code__highlighted-phrase"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span></span>
+  <span class="code__line-prefix">7</span><span class="code__line">    <span class="code__highlighted-phrase"><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span></span>
+  <span class="code__line-prefix">8</span><span class="code__line"><span class="code__highlighted-phrase"><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></span>
+  </code></pre>
+  </div>
+  ````````````````````````````````
+
+  `defaultBlockOptions` has lower precedence than block specific options:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Extension Options ---------------
+  {
+      "flexiCodeBlocks": {
+          "defaultBlockOptions": {
+              "lineNumbers": [{}]
+          }
+      }
+  }
+  --------------- Markdown ---------------
+  ```
+  public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + "dummyString";
+  }
+  ```
+
+  @{
+      "lineNumbers": [
+          {
+              "start": 2, "startNumber": 25
+          }
+      ]
+  }
+  ```
+
+  body {
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+  }
+  ```
+  --------------- Expected Markup ---------------
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_has-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <header class="flexi-code__header">
+  <span class="flexi-code__title"></span>
+  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  </button>
+  </header>
+  <pre class="flexi-code__pre"><code class="flexi-code__code"><span class="flexi-code__line-prefix">1</span><span class="flexi-code__line">public string ExampleFunction(string arg)</span>
+  <span class="flexi-code__line-prefix">2</span><span class="flexi-code__line">{</span>
+  <span class="flexi-code__line-prefix">3</span><span class="flexi-code__line">    // Example comment</span>
+  <span class="flexi-code__line-prefix">4</span><span class="flexi-code__line">    return arg + &quot;dummyString&quot;;</span>
+  <span class="flexi-code__line-prefix">5</span><span class="flexi-code__line">}</span>
+  </code></pre>
+  </div>
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_has-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <header class="flexi-code__header">
+  <span class="flexi-code__title"></span>
+  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  </button>
+  </header>
+  <pre class="flexi-code__pre"><code class="flexi-code__code"><span class="flexi-code__line-prefix"><svg class="flexi-code__omitted-lines-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span><span class="flexi-code__line flexi-code__line_omitted-lines">Lines 1 to 24 omitted for brevity</span>
+  <span class="flexi-code__line-prefix">25</span><span class="flexi-code__line">body {</span>
+  <span class="flexi-code__line-prefix">26</span><span class="flexi-code__line">    display: flex;</span>
+  <span class="flexi-code__line-prefix">27</span><span class="flexi-code__line">    align-items: center;</span>
+  <span class="flexi-code__line-prefix">28</span><span class="flexi-code__line">    font-size: 13px;</span>
+  <span class="flexi-code__line-prefix">29</span><span class="flexi-code__line">}</span>
+  </code></pre>
+  </div>
+  ````````````````````````````````
+
+## Mechanics
+### Intersecting HTML Elements
+Syntax and phrase elements that intersect line elements get split. Order of elements is preserved after splitting:
+
+```````````````````````````````` none
+--------------- Extra Extensions ---------------
+OptionsBlocks
+--------------- Markdown ---------------
+@{
+    "language": "csharp",
+    "highlightedLines": [
+        { "start": 3, "end": 3 },
+        { "start": 8, "end": 8 }
+    ],
+    "highlightedPhrases": [
+        { "regex": "Multiline.*?1" },
+        { "regex": "/.*?/", "included": [1] }
+    ]
+}
 ```
+/* 
+    Multiline
+    comment
+    1
+*/
+/* 
+    Multiline
+    comment
+    2
+*/
+```
+--------------- Expected Markup ---------------
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_language-csharp flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_has-highlighted-lines flexi-code_has-highlighted-phrases">
+<header class="flexi-code__header">
+<span class="flexi-code__title"></span>
+<button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+<svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+</button>
+</header>
+<pre class="flexi-code__pre"><code class="flexi-code__code"><span class="token comment">/* 
+    <span class="flexi-code__highlighted-phrase">Multiline</span></span>
+<span class="flexi-code__line flexi-code__line_highlighted"><span class="token comment"><span class="flexi-code__highlighted-phrase">    comment</span></span></span>
+<span class="token comment"><span class="flexi-code__highlighted-phrase">    1</span>
+*/</span>
+<span class="flexi-code__highlighted-phrase"><span class="token comment">/* 
+    Multiline</span></span>
+<span class="flexi-code__line flexi-code__line_highlighted"><span class="flexi-code__highlighted-phrase"><span class="token comment">    comment</span></span></span>
+<span class="flexi-code__highlighted-phrase"><span class="token comment">    2
+*/</span></span>
+</code></pre>
+</div>
+````````````````````````````````
 
-#### Properties
-- `DefaultBlockOptions`
-  - Type: `FlexiCodeBlockOptions`
-  - Description: Default `FlexiCodeBlockOptions` for all FlexiCodeBlocks. 
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extension Options ---------------
-    {
-        "flexiCodeBlocks": {
-            "defaultBlockOptions": {
-                "class": "alternative-class",
-                "copyIconMarkup": "<svg><use xlink:href=\"#material-design-copy\"></use></svg>",
-                "title": "ExampleDocument.cs",
-                "language": "csharp",
-                "codeClassFormat": "lang-{0}",
-                "syntaxHighlighter": "highlightJS",
-                "highlightJSClassPrefix": "highlightjs-",
-                "lineNumberLineRanges": [{}],
-                "highlightLineRanges": [{}]
-            }
-        }
-    }
-    --------------- Markdown ---------------
-    ```
-    public string ExampleFunction(string arg)
-    {
-        // Example comment
-        return arg + "dummyString";
-    }
-    ```
-    --------------- Expected Markup ---------------
-    <div class="alternative-class">
-    <header>
-    <span>ExampleDocument.cs</span>
-    <button>
-    <svg><use xlink:href="#material-design-copy"></use></svg>
-    </button>
-    </header>
-    <pre><code class="lang-csharp"><span class="line highlight"><span class="line-number">1</span><span class="line-text"><span class="highlightjs-function"><span class="highlightjs-keyword">public</span> <span class="highlightjs-keyword">string</span> <span class="highlightjs-title">ExampleFunction</span>(<span class="highlightjs-params"><span class="highlightjs-keyword">string</span> arg</span>)</span></span></span>
-    <span class="line highlight"><span class="line-number">2</span><span class="line-text">{</span></span>
-    <span class="line highlight"><span class="line-number">3</span><span class="line-text">    <span class="highlightjs-comment">// Example comment</span></span></span>
-    <span class="line highlight"><span class="line-number">4</span><span class="line-text">    <span class="highlightjs-keyword">return</span> arg + <span class="highlightjs-string">"dummyString"</span>;</span></span>
-    <span class="line highlight"><span class="line-number">5</span><span class="line-text">}</span></span></code></pre>
-    </div>
-    ````````````````````````````````
+If a phrase element intersects a syntax element and one isn't contained by the other, the element that starts later gets split:
 
-    Default FlexiCodeBlockOptions have lower precedence than block specific options:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Extension Options ---------------
-    {
-        "flexiCodeBlocks": {
-            "defaultBlockOptions": {
-                "lineNumberLineRanges": [{}]
-            }
-        }
-    }
-    --------------- Markdown ---------------
-    ```
-    public string ExampleFunction1(string arg)
-    {
-        // Example comment
-        return arg + "dummyString";
-    }
-    ```
+```````````````````````````````` none
+--------------- Extra Extensions ---------------
+OptionsBlocks
+--------------- Markdown ---------------
+@{
+    "language": "csharp",
+    "highlightedPhrases": [
+        { "regex": "comment\\s+re" },
+        { "regex": "\\+ \"d" }
+    ]
+}
+```
+public string ExampleFunction(string arg)
+{
+    // Example comment
+    return arg + "dummyString";
+}
+```
+--------------- Expected Markup ---------------
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_language-csharp flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_has-highlighted-phrases">
+<header class="flexi-code__header">
+<span class="flexi-code__title"></span>
+<button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+<svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+</button>
+</header>
+<pre class="flexi-code__pre"><code class="flexi-code__code"><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Example <span class="flexi-code__highlighted-phrase">comment</span></span><span class="flexi-code__highlighted-phrase">
+    <span class="token keyword">re</span></span><span class="token keyword">turn</span> arg <span class="flexi-code__highlighted-phrase"><span class="token operator">+</span> <span class="token string">"d</span></span><span class="token string">ummyString"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div>
+````````````````````````````````
 
-    @{
-        "lineNumberLineRanges": [
-            {
-                "firstNumber": 6
-            }
-        ]
-    }
-    ```
-    public string ExampleFunction2(string arg)
-    {
-        // Example comment
-        return arg + "dummyString";
-    }
-    ```
-    --------------- Expected Markup ---------------
-    <div class="flexi-code-block">
-    <header>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
-    </button>
-    </header>
-    <pre><code><span class="line"><span class="line-number">1</span><span class="line-text">public string ExampleFunction1(string arg)</span></span>
-    <span class="line"><span class="line-number">2</span><span class="line-text">{</span></span>
-    <span class="line"><span class="line-number">3</span><span class="line-text">    // Example comment</span></span>
-    <span class="line"><span class="line-number">4</span><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
-    <span class="line"><span class="line-number">5</span><span class="line-text">}</span></span></code></pre>
-    </div>
-    <div class="flexi-code-block">
-    <header>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
-    </button>
-    </header>
-    <pre><code><span class="line"><span class="line-number">6</span><span class="line-text">public string ExampleFunction2(string arg)</span></span>
-    <span class="line"><span class="line-number">7</span><span class="line-text">{</span></span>
-    <span class="line"><span class="line-number">8</span><span class="line-text">    // Example comment</span></span>
-    <span class="line"><span class="line-number">9</span><span class="line-text">    return arg + &quot;dummyString&quot;;</span></span>
-    <span class="line"><span class="line-number">10</span><span class="line-text">}</span></span></code></pre>
-    </div>
-    ````````````````````````````````
+Intersecting and adjacent phrases are combined:
+
+```````````````````````````````` none
+--------------- Extra Extensions ---------------
+OptionsBlocks
+--------------- Markdown ---------------
+@{
+    "highlightedPhrases": [
+        { "regex": "comment\\s+re" },
+        { "regex": "(return )(arg)" },
+        { "regex": "return" },
+        { "regex": "rg \\+" }
+    ]
+}
+```
+public string ExampleFunction(string arg)
+{
+    // Example comment
+    return arg + "dummyString";
+}
+```
+--------------- Expected Markup ---------------
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_has-highlighted-phrases">
+<header class="flexi-code__header">
+<span class="flexi-code__title"></span>
+<button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+<svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+</button>
+</header>
+<pre class="flexi-code__pre"><code class="flexi-code__code">public string ExampleFunction(string arg)
+{
+    // Example <span class="flexi-code__highlighted-phrase">comment
+    return arg +</span> &quot;dummyString&quot;;
+}
+</code></pre>
+</div>
+````````````````````````````````
+
+Contained elements never get split:
+```````````````````````````````` none
+--------------- Extra Extensions ---------------
+OptionsBlocks
+--------------- Markdown ---------------
+@{
+    "language": "csharp",
+    "highlightedPhrases": [
+        { "regex": "string ExampleFunction" },
+        { "regex": "return" },
+        { "regex": "(\"dum)myStr(ing\")" }
+    ]
+}
+```
+public string ExampleFunction(string arg)
+{
+    // Example comment
+    return arg + "dummyString";
+}
+```
+--------------- Expected Markup ---------------
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_language-csharp flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_has-highlighted-phrases">
+<header class="flexi-code__header">
+<span class="flexi-code__title"></span>
+<button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+<svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+</button>
+</header>
+<pre class="flexi-code__pre"><code class="flexi-code__code"><span class="token keyword">public</span> <span class="flexi-code__highlighted-phrase"><span class="token keyword">string</span> <span class="token function">ExampleFunction</span></span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Example comment</span>
+    <span class="flexi-code__highlighted-phrase"><span class="token keyword">return</span></span> arg <span class="token operator">+</span> <span class="flexi-code__highlighted-phrase"><span class="token string">"dum</span></span><span class="token string">myStr<span class="flexi-code__highlighted-phrase">ing"</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div>
+````````````````````````````````
+
+### HTML Encoding
+If syntax highlighting is enabled, the chosen syntax highlighter performs the encoding. Prism encodes
+'<' and '&' characters:
+
+```````````````````````````````` none
+--------------- Extra Extensions ---------------
+OptionsBlocks
+--------------- Markdown ---------------
+@{
+    "language": "html"
+}
+```
+<div class="my-class">&</div>
+```
+--------------- Expected Markup ---------------
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_language-html flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+<header class="flexi-code__header">
+<span class="flexi-code__title"></span>
+<button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+<svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+</button>
+</header>
+<pre class="flexi-code__pre"><code class="flexi-code__code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>my-class<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>&amp;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+</div>
+````````````````````````````````
+
+HighlightJS encodes '<', '&' and '>' characters:
+```````````````````````````````` none
+--------------- Extra Extensions ---------------
+OptionsBlocks
+--------------- Markdown ---------------
+@{
+    "language": "html",
+    "syntaxHighlighter": "highlightjs"
+}
+```
+<div class="my-class">&</div>
+```
+--------------- Expected Markup ---------------
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_language-html flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+<header class="flexi-code__header">
+<span class="flexi-code__title"></span>
+<button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+<svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+</button>
+</header>
+<pre class="flexi-code__pre"><code class="flexi-code__code"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"my-class"</span>&gt;</span>&amp;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+</div>
+````````````````````````````````
+
+If syntax highlighting is disabled, '<', '&', '"", and '>' characters are encoded:
+```````````````````````````````` none
+--------------- Extra Extensions ---------------
+OptionsBlocks
+--------------- Markdown ---------------
+```
+<div class="my-class">&</div>
+```
+--------------- Expected Markup ---------------
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+<header class="flexi-code__header">
+<span class="flexi-code__title"></span>
+<button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+<svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+</button>
+</header>
+<pre class="flexi-code__pre"><code class="flexi-code__code">&lt;div class=&quot;my-class&quot;&gt;&amp;&lt;/div&gt;
+</code></pre>
+</div>
+````````````````````````````````
+
+Encoding does not affect highlighted phrases (regex expressions are evaluated before encoding):
+```````````````````````````````` none
+--------------- Extra Extensions ---------------
+OptionsBlocks
+--------------- Markdown ---------------
+@{
+    "highlightedPhrases": [{ "regex": "div" }]
+}
+```
+<div class="my-class">&</div>
+```
+--------------- Expected Markup ---------------
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_has-highlighted-phrases">
+<header class="flexi-code__header">
+<span class="flexi-code__title"></span>
+<button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+<svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+</button>
+</header>
+<pre class="flexi-code__pre"><code class="flexi-code__code">&lt;<span class="flexi-code__highlighted-phrase">div</span> class=&quot;my-class&quot;&gt;&amp;&lt;/<span class="flexi-code__highlighted-phrase">div</span>&gt;
+</code></pre>
+</div>
+````````````````````````````````
