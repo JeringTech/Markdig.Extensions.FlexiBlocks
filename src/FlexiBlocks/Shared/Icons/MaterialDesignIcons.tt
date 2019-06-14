@@ -15,7 +15,7 @@ import namespace="System.Collections.Generic" #><#
 {
     // These icons are from the material design icons collection. 
     // They are licensed under an Apache License Version 2 license - https://www.apache.org/licenses/LICENSE-2.0.html.
-    internal static class Icons
+    internal static class MaterialDesignIcons
     {
 <#
 Helper helper = new Helper();
