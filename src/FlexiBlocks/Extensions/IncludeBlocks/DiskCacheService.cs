@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
 {
     /// <summary>
     /// <para>The default implementation of <see cref="IDiskCacheService"/>.</para>
@@ -27,29 +27,35 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         private readonly ILogger<DiskCacheService> _logger;
         private readonly IFileService _fileService;
         private readonly IDirectoryService _directoryService;
+        private readonly ArrayPool<byte> _defaultByteArrayPool;
         private readonly bool _warningLoggingEnabled;
 
         /// <summary>
-        /// Creates an <see cref="IDiskCacheService"/> instance.
+        /// Creates a <see cref="DiskCacheService"/>.
         /// </summary>
         /// <param name="fileService">The service that will handle file operations.</param>
         /// <param name="directoryService">The service that will handle directory operations.</param>
         /// <param name="loggerFactory">The factory for <see cref="ILogger"/>s.</param>
         public DiskCacheService(IFileService fileService, IDirectoryService directoryService, ILoggerFactory loggerFactory)
         {
-            _logger = loggerFactory?.CreateLogger<DiskCacheService>() ?? throw new ArgumentNullException(nameof(loggerFactory));
+            if (loggerFactory == null)
+            {
+                throw new ArgumentNullException(nameof(loggerFactory));
+            }
+
+            _logger = loggerFactory.CreateLogger<DiskCacheService>();
             _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
             _directoryService = directoryService ?? throw new ArgumentNullException(nameof(directoryService));
-
+            _defaultByteArrayPool = ArrayPool<byte>.Shared;
             _warningLoggingEnabled = _logger.IsEnabled(LogLevel.Warning);
         }
 
         /// <inheritdoc />
-        public FileStream TryGetCacheFile(string sourceUri, string cacheDirectory)
+        public FileStream TryGetCacheFile(string source, string cacheDirectory)
         {
-            if (string.IsNullOrWhiteSpace(sourceUri))
+            if (string.IsNullOrWhiteSpace(source))
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, nameof(sourceUri)));
+                throw new ArgumentException(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, nameof(source)));
             }
 
             if (string.IsNullOrWhiteSpace(cacheDirectory))
@@ -57,7 +63,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 throw new ArgumentException(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, nameof(cacheDirectory)));
             }
 
-            string filePath = CreatePath(sourceUri, cacheDirectory);
+            string filePath = CreatePath(source, cacheDirectory);
 
             if (!_fileService.Exists(filePath))
             {
@@ -78,16 +84,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
             catch (Exception exception)
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_DiskCacheService_UnexpectedDiskCacheException, sourceUri, filePath), exception);
+                throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_DiskCacheService_UnexpectedDiskCacheException, source, filePath), exception);
             }
         }
 
         /// <inheritdoc />
-        public FileStream CreateOrGetCacheFile(string sourceUri, string cacheDirectory)
+        public FileStream CreateOrGetCacheFile(string source, string cacheDirectory)
         {
-            if (string.IsNullOrWhiteSpace(sourceUri))
+            if (string.IsNullOrWhiteSpace(source))
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, nameof(sourceUri)));
+                throw new ArgumentException(string.Format(Strings.ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString, nameof(source)));
             }
 
             if (string.IsNullOrWhiteSpace(cacheDirectory))
@@ -102,10 +108,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
             catch (Exception exception)
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_DiskCacheService_InvalidDiskCacheDirectory, cacheDirectory), exception);
+                throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_DiskCacheService_InvalidDiskCacheDirectory, cacheDirectory), exception);
             }
 
-            string filePath = CreatePath(sourceUri, cacheDirectory);
+            string filePath = CreatePath(source, cacheDirectory);
 
             try
             {
@@ -116,7 +122,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             }
             catch (Exception exception)
             {
-                throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_DiskCacheService_UnexpectedDiskCacheException, sourceUri, filePath), exception);
+                throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_DiskCacheService_UnexpectedDiskCacheException, source, filePath), exception);
             }
         }
 
@@ -165,7 +171,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             byte[] bytes = null;
             try
             {
-                bytes = ArrayPool<byte>.Shared.Rent(byteCount);
+                bytes = _defaultByteArrayPool.Rent(byteCount);
                 Encoding.UTF8.GetBytes(sourceUri, 0, sourceUri.Length, bytes, 0);
                 byte[] hashBytes = _mD5.ComputeHash(bytes, 0, byteCount);
 
@@ -182,7 +188,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             {
                 if (bytes != null)
                 {
-                    ArrayPool<byte>.Shared.Return(bytes);
+                    _defaultByteArrayPool.Return(bytes);
                 }
             }
         }

@@ -1,7 +1,7 @@
 ﻿using Markdig.Helpers;
 using System;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
 {
     /// <summary>
     /// The default implementation of <see cref="ILeadingWhitespaceEditorService"/>.
@@ -9,9 +9,26 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
     public class LeadingWhitespaceEditorService : ILeadingWhitespaceEditorService
     {
         /// <inheritdoc />
+        public virtual StringSlice Indent(StringSlice line, int indentLength)
+        {
+            if (indentLength < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(indentLength), string.Format(Strings.ArgumentOutOfRangeException_Shared_ValueCannotBeNegative, indentLength));
+            }
+
+            if (indentLength == 0)
+            {
+                return line;
+            }
+
+            // TODO difficult to avoid these allocations without changes to Markdig. While this implementation isn't efficient, it is very useful.
+            return new StringSlice(new string(' ', indentLength) + line.ToString());
+        }
+
+        /// <inheritdoc />
         public virtual void Dedent(ref StringSlice line, int dedentLength)
         {
-            if(dedentLength < 0)
+            if (dedentLength < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(dedentLength), string.Format(Strings.ArgumentOutOfRangeException_Shared_ValueCannotBeNegative, dedentLength));
             }
@@ -36,13 +53,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         /// <inheritdoc />
         public virtual void Collapse(ref StringSlice line, float collapseRatio)
         {
-            if(collapseRatio < 0 || collapseRatio > 1)
+            if (collapseRatio < 0 || collapseRatio > 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(collapseRatio),
                     string.Format(Strings.ArgumentOutOfRangeException_Shared_ValueMustBeWithinRange, "[0, 1]", collapseRatio));
             }
 
-            if(line.IsEmpty || collapseRatio == 1)
+            if (line.IsEmpty || collapseRatio == 1)
             {
                 return;
             }

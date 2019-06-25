@@ -1,4 +1,4 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
+﻿namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
 {
     /// <summary>
     /// Include types.

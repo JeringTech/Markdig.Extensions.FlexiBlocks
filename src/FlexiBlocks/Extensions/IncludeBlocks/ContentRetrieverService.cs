@@ -10,16 +10,17 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
 {
     /// <summary>
-    /// <para>The default implementation of <see cref="ISourceRetrieverService"/>.</para>
+    /// <para>The default implementation of <see cref="IContentRetrieverService"/>.</para>
     /// <para>This service caches all retrieved content in memory. Additionally, it caches content retrieved from remote sources on disk.</para>
     /// </summary>
-    public class SourceRetrieverService : ISourceRetrieverService
+    public class ContentRetrieverService : IContentRetrieverService
     {
         /// <summary>
-        /// Thread safe, in-memory content cache - https://andrewlock.net/making-getoradd-on-concurrentdictionary-thread-safe-using-lazy/
+        /// Thread safe, in-memory content cache - https://andrewlock.net/making-getoradd-on-concurrentdictionary-thread-safe-using-lazy/,
+        /// https://docs.microsoft.com/en-us/dotnet/standard/collections/thread-safe/how-to-add-and-remove-items.
         /// </summary>
         private readonly ConcurrentDictionary<string, Lazy<ReadOnlyCollection<string>>> _cache = new ConcurrentDictionary<string, Lazy<ReadOnlyCollection<string>>>();
         private readonly IHttpClientService _httpClientService;
@@ -29,13 +30,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
         private readonly bool _warningLoggingEnabled;
 
         /// <summary>
-        /// Creates a <see cref="SourceRetrieverService"/> instance.
+        /// Creates a <see cref="ContentRetrieverService"/>.
         /// </summary>
         /// <param name="httpClientService">The service that will handle HTTP requests.</param>
         /// <param name="fileService">The service that will handle file operations.</param>
         /// <param name="diskCacheService">The service that will handle the disk cache.</param>
         /// <param name="loggerFactory">The factory for <see cref="ILogger"/>s.</param>
-        public SourceRetrieverService(IHttpClientService httpClientService,
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="httpClientService"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="fileService"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="diskCacheService"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="loggerFactory"/> is <c>null</c>.</exception>
+        public ContentRetrieverService(IHttpClientService httpClientService,
             IFileService fileService,
             IDiskCacheService diskCacheService,
             ILoggerFactory loggerFactory)
@@ -43,50 +48,68 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
             _httpClientService = httpClientService ?? throw new ArgumentNullException(nameof(httpClientService));
             _diskCacheService = diskCacheService ?? throw new ArgumentNullException(nameof(diskCacheService));
-            _logger = loggerFactory?.CreateLogger(typeof(SourceRetrieverService)) ?? throw new ArgumentNullException(nameof(loggerFactory));
 
+            if (loggerFactory == null)
+            {
+                throw new ArgumentNullException(nameof(loggerFactory));
+            }
+
+            _logger = loggerFactory?.CreateLogger(typeof(ContentRetrieverService));
             _warningLoggingEnabled = _logger.IsEnabled(LogLevel.Warning);
         }
 
         /// <inheritdoc />
-        public virtual ReadOnlyCollection<string> GetSource(Uri sourceUri, string cacheDirectory = null, CancellationToken cancellationToken = default)
+        public virtual ReadOnlyCollection<string> GetContent(Uri source, string cacheDirectory = null, CancellationToken cancellationToken = default)
         {
-            if (sourceUri == null)
+            if (source == null)
             {
-                throw new ArgumentNullException(nameof(sourceUri));
+                throw new ArgumentNullException(nameof(source));
             }
 
-            return _cache.GetOrAdd(sourceUri.AbsoluteUri, _ => new Lazy<ReadOnlyCollection<string>>(() => GetSourceCore(sourceUri, cacheDirectory, cancellationToken))).Value;
+            // TODO this is thread safe, but it causes unecessary allocations
+            return _cache.GetOrAdd(source.AbsoluteUri, _ => new Lazy<ReadOnlyCollection<string>>(() => GetContentCore(source, cacheDirectory, cancellationToken))).Value;
         }
 
-        internal virtual ReadOnlyCollection<string> GetSourceCore(Uri sourceUri, string cacheDirectory, CancellationToken cancellationToken)
+        internal virtual ReadOnlyCollection<string> GetContentCore(Uri source, string cacheDirectory, CancellationToken cancellationToken)
         {
-            if (sourceUri.Scheme == "file")
+            string scheme = source.Scheme;
+
+            if (scheme == "file")
             {
-                // Local source
-                try
-                {
-                    using (FileStream fileStream = _fileService.Open(sourceUri.AbsolutePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                    {
-                        return ReadAndNormalizeAllLines(fileStream);
-                    }
-                }
-                catch (Exception exception)
-                {
-                    throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_SourceRetrieverService_InvalidLocalUri, sourceUri.AbsolutePath), exception);
-                }
+                return GetContentFromLocalSource(source);
             }
 
             // Remote source
-            return GetRemoteSource(sourceUri, cacheDirectory, cancellationToken);
+            if (scheme == "http" || scheme == "https")
+            {
+                return TryGetContentFromDiskCache(source, cacheDirectory) ?? GetContentFromRemoteSource(source, cacheDirectory, cancellationToken);
+            }
+
+            throw new ArgumentException(string.Format(Strings.ArgumentException_ContentRetrieverService_UnsupportedScheme, source.AbsoluteUri, scheme),
+                nameof(source));
         }
 
-        internal virtual ReadOnlyCollection<string> GetRemoteSource(Uri sourceUri, string cacheDirectory, CancellationToken cancellationToken)
+        internal virtual ReadOnlyCollection<string> GetContentFromLocalSource(Uri source)
         {
-            bool cacheOnDisk = !string.IsNullOrWhiteSpace(cacheDirectory);
-            if (cacheOnDisk) // Don't try to retrieve from file cache if no cache directoy is specified
+            // Local source
+            try
             {
-                FileStream readOnlyFileStream = _diskCacheService.TryGetCacheFile(sourceUri.AbsoluteUri, cacheDirectory);
+                using (FileStream fileStream = _fileService.Open(source.AbsolutePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    return ReadAndNormalizeAllLines(fileStream);
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new ArgumentException(string.Format(Strings.ArgumentException_ContentRetrieverService_InvalidLocalUri, source.AbsolutePath), nameof(source), exception);
+            }
+        }
+
+        internal virtual ReadOnlyCollection<string> TryGetContentFromDiskCache(Uri source, string cacheDirectory)
+        {
+            if (!string.IsNullOrWhiteSpace(cacheDirectory))
+            {
+                FileStream readOnlyFileStream = _diskCacheService.TryGetCacheFile(source.AbsoluteUri, cacheDirectory);
                 if (readOnlyFileStream != null)
                 {
                     using (readOnlyFileStream)
@@ -96,6 +119,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 }
             }
 
+            return null;
+        }
+
+        internal virtual ReadOnlyCollection<string> GetContentFromRemoteSource(Uri source, string cacheDirectory, CancellationToken cancellationToken)
+        {
             int remainingTries = 3;
             do
             {
@@ -104,14 +132,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                 HttpResponseMessage response = null;
                 try
                 {
-                    response = _httpClientService.GetAsync(sourceUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken).GetAwaiter().GetResult();
+                    response = _httpClientService.GetAsync(source, HttpCompletionOption.ResponseHeadersRead, cancellationToken).GetAwaiter().GetResult();
 
                     if (response.IsSuccessStatusCode)
                     {
                         Stream contentStream = null;
-                        if (cacheOnDisk) // If file caching is requested
+                        if (!string.IsNullOrWhiteSpace(cacheDirectory)) // If file caching is requested
                         {
-                            contentStream = _diskCacheService.CreateOrGetCacheFile(sourceUri.AbsoluteUri, cacheDirectory);
+                            contentStream = _diskCacheService.CreateOrGetCacheFile(source.AbsoluteUri, cacheDirectory);
 
                             // If contentStream.Length > 0, file was created between TryGetCacheFile and GetOrCreateCacheFile calls, no need to write to it
                             if (contentStream.Length == 0)
@@ -133,31 +161,31 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
                     else if (response.StatusCode == HttpStatusCode.NotFound)
                     {
                         // No point retrying if server is responsive but content does not exist
-                        throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_SourceRetrieverService_RemoteUriDoesNotExist, sourceUri.AbsoluteUri));
+                        throw new ArgumentException(string.Format(Strings.ArgumentException_ContentRetrieverService_RemoteUriDoesNotExist, source.AbsoluteUri), nameof(source));
                     }
                     else if (response.StatusCode == HttpStatusCode.Forbidden)
                     {
                         // No point retrying if server is responsive but access to the content is forbidden
-                        throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_SourceRetrieverService_RemoteUriAccessForbidden, sourceUri.AbsoluteUri));
+                        throw new ArgumentException(string.Format(Strings.ArgumentException_ContentRetrieverService_RemoteUriAccessForbidden, source.AbsoluteUri), nameof(source));
                     }
-                    else if(_warningLoggingEnabled)
+                    else if (_warningLoggingEnabled)
                     {
                         // Might be a random internal server error or some intermittent network issue
-                        _logger.LogWarning(string.Format(Strings.LogWarning_SourceRetrieverService_FailureStatusCode, sourceUri.AbsoluteUri, (int)response.StatusCode, remainingTries));
+                        _logger.LogWarning(string.Format(Strings.LogWarning_ContentRetrieverService_FailureStatusCode, source.AbsoluteUri, (int)response.StatusCode, remainingTries));
                     }
                 }
                 catch (OperationCanceledException) // HttpClient.GetAsync throws OperationCanceledException on timeout - https://github.com/dotnet/corefx/blob/25d0f5c20edddbf872d17fa699b4279c0827c320/src/System.Net.Http/src/System/Net/Http/HttpClient.cs#L536
                 {
                     if (_warningLoggingEnabled)
                     {
-                        _logger.LogWarning(string.Format(Strings.LogWarning_SourceRetrieverService_Timeout, sourceUri.AbsoluteUri, remainingTries));
+                        _logger.LogWarning(string.Format(Strings.LogWarning_ContentRetrieverService_Timeout, source.AbsoluteUri, remainingTries));
                     }
                 }
                 catch (HttpRequestException exception) // HttpRequestException is the general exception used for several situations, some of which may be intermittent.
                 {
                     if (_warningLoggingEnabled)
                     {
-                        _logger.LogWarning(string.Format(Strings.LogWarning_SourceRetrieverService_HttpRequestException, exception.Message, sourceUri.AbsoluteUri, remainingTries));
+                        _logger.LogWarning(string.Format(Strings.LogWarning_ContentRetrieverService_HttpRequestException, exception.Message, source.AbsoluteUri, remainingTries));
                     }
                 }
                 finally
@@ -170,7 +198,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
             while (remainingTries > 0);
 
             // remainingTries == 0
-            throw new FlexiBlocksException(string.Format(Strings.FlexiBlocksException_SourceRetrieverService_FailedAfterMultipleAttempts, sourceUri.AbsoluteUri));
+            throw new ArgumentException(string.Format(Strings.ArgumentException_ContentRetrieverService_FailedAfterMultipleAttempts, source.AbsoluteUri), nameof(source));
         }
 
         internal virtual ReadOnlyCollection<string> ReadAndNormalizeAllLines(Stream stream)

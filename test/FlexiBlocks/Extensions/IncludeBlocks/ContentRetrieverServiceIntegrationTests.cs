@@ -1,5 +1,5 @@
 ﻿using Jering.IocServices.System.Net.Http;
-using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
@@ -12,17 +12,17 @@ using System.Text;
 using System.Threading;
 using Xunit;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
 {
-    // These integration tests ensure that SourceRetrieverService utilizes its dependencies correctly, with an emphasis on caching of sources
-    public class SourceRetrieverServiceIntegrationTests : IClassFixture<SourceRetrieverServiceIntegrationTestsFixture>, IDisposable
+    //These integration tests ensure that ContentRetrieverService utilizes its dependencies correctly, with an emphasis on caching of sources
+    public class ContentRetrieverServiceIntegrationTests : IClassFixture<ContentRetrieverServiceIntegrationTestsFixture>, IDisposable
     {
-        private readonly SourceRetrieverServiceIntegrationTestsFixture _fixture;
+        private readonly ContentRetrieverServiceIntegrationTestsFixture _fixture;
         private readonly string _dummyFile;
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default);
         private IServiceProvider _serviceProvider;
 
-        public SourceRetrieverServiceIntegrationTests(SourceRetrieverServiceIntegrationTestsFixture fixture)
+        public ContentRetrieverServiceIntegrationTests(ContentRetrieverServiceIntegrationTestsFixture fixture)
         {
             _fixture = fixture;
             _dummyFile = Path.Combine(fixture.TempDirectory, "dummyFile");
@@ -33,7 +33,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         }
 
         [Fact]
-        public void GetSource_CachesSourcesInMemory()
+        public void GetContent_CachesSourcesInMemory()
         {
             // Arrange
             const string dummySource = "this\nis\na\ndummy\nsource";
@@ -43,14 +43,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
                 byte[] bytes = Encoding.UTF8.GetBytes(dummySource);
                 fileStream.Write(bytes, 0, bytes.Length);
             }
-            ISourceRetrieverService testSubject = _serviceProvider.GetRequiredService<ISourceRetrieverService>();
+            IContentRetrieverService testSubject = _serviceProvider.GetRequiredService<IContentRetrieverService>();
 
             // Act
             var threads = new List<Thread>();
             var results = new ConcurrentBag<ReadOnlyCollection<string>>();
             for (int i = 0; i < 3; i++)
             {
-                var thread = new Thread(() => results.Add(testSubject.GetSource(dummyUri)));
+                var thread = new Thread(() => results.Add(testSubject.GetContent(dummyUri)));
                 thread.Start();
                 threads.Add(thread);
             }
@@ -68,14 +68,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         }
 
         [Fact]
-        public void GetSource_CachesRemoteSourcesInFiles()
+        public void GetContent_CachesRemoteSourcesInFiles()
         {
             // Arrange
             // Arbitrary permalink
             const string url = "https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md";
             var dummyUri = new Uri(url);
-            ISourceRetrieverService testSubject = _serviceProvider.GetRequiredService<ISourceRetrieverService>();
-            ReadOnlyCollection<string> expectedResult = testSubject.GetSource(dummyUri, _fixture.TempDirectory);
+            IContentRetrieverService testSubject = _serviceProvider.GetRequiredService<IContentRetrieverService>();
+            ReadOnlyCollection<string> expectedResult = testSubject.GetContent(dummyUri, _fixture.TempDirectory);
             ((IDisposable)_serviceProvider).Dispose(); // Avoid retrieving from in-memory cache
 
             Mock<IHttpClientService> mockHttpClientService = _mockRepository.Create<IHttpClientService>();
@@ -83,10 +83,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             services.AddFlexiBlocks();
             services.AddSingleton(mockHttpClientService.Object);
             _serviceProvider = services.BuildServiceProvider();
-            testSubject = _serviceProvider.GetRequiredService<ISourceRetrieverService>();
+            testSubject = _serviceProvider.GetRequiredService<IContentRetrieverService>();
 
             // Act
-            ReadOnlyCollection<string> result = testSubject.GetSource(dummyUri, _fixture.TempDirectory);
+            ReadOnlyCollection<string> result = testSubject.GetContent(dummyUri, _fixture.TempDirectory);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -99,11 +99,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
         }
     }
 
-    public class SourceRetrieverServiceIntegrationTestsFixture : IDisposable
+    public class ContentRetrieverServiceIntegrationTestsFixture : IDisposable
     {
-        public string TempDirectory { get; } = Path.Combine(Path.GetTempPath(), nameof(SourceRetrieverServiceIntegrationTests)); // Dummy file for creating dummy file streams
+        public string TempDirectory { get; } = Path.Combine(Path.GetTempPath(), nameof(ContentRetrieverServiceIntegrationTests)); // Dummy file for creating dummy file streams
 
-        public SourceRetrieverServiceIntegrationTestsFixture()
+        public ContentRetrieverServiceIntegrationTestsFixture()
         {
             TryDeleteDirectory(); // Delete directory if it already exists so that pre-existing files don't mess up tests
             Directory.CreateDirectory(TempDirectory);

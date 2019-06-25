@@ -1,13 +1,54 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
 using Markdig.Helpers;
 using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
 {
     public class LeadingWhitespaceEditorServiceUnitTests
     {
+        [Fact]
+        public void Indent_ThrowsArgumentOutOfRangeExceptionIfIndentLengthIsNegative()
+        {
+            // Arrange
+            var testSubject = new LeadingWhitespaceEditorService();
+            var dummyStringSlice = new StringSlice();
+            const int dummyIndentLength = -1;
+
+            // Act and assert
+            ArgumentOutOfRangeException result = Assert.Throws<ArgumentOutOfRangeException>(() => testSubject.Indent(dummyStringSlice, dummyIndentLength));
+            Assert.Equal(string.Format(Strings.ArgumentOutOfRangeException_Shared_ValueCannotBeNegative, dummyIndentLength) + "\nParameter name: indentLength",
+                result.Message,
+                ignoreLineEndingDifferences: true);
+        }
+
+        [Theory]
+        [MemberData(nameof(Indent_IndentsStringSlice_Data))]
+        public void Indent_IndentsStringSlice(string dummyLine, int dummyIndentLength, string expectedResult)
+        {
+            // Arrange
+            var testSubject = new LeadingWhitespaceEditorService();
+            var dummyStringSlice = new StringSlice(dummyLine);
+
+            // Act
+            StringSlice result = testSubject.Indent(dummyStringSlice, dummyIndentLength);
+
+            // Assert
+            Assert.Equal(expectedResult, result.ToString());
+        }
+
+        public static IEnumerable<object[]> Indent_IndentsStringSlice_Data()
+        {
+            return new object[][]
+            {
+                new object[]{"    dummyLine", 2, "      dummyLine"}, // Indent
+                new object[]{"", 3, "   " }, // Indent empty string
+                new object[]{"  dummyLine", 0, "  dummyLine" }, // Indent length 0
+                new object[]{"    ", 2, "      " } // White space only string
+            };
+        }
+
         [Fact]
         public void Dedent_ThrowsArgumentOutOfRangeExceptionIfDedentLengthIsNegative()
         {
