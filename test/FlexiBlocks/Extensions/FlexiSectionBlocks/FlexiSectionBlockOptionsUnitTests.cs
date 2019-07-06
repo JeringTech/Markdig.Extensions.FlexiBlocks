@@ -19,21 +19,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             // Assert
             FlexiSectionBlockOptions result = dummyInitialOptionsWrapper.Value;
             FlexiSectionBlockOptions expectedResult = dummyExpectedOptionsWrapper.Value;
+            Assert.Equal(expectedResult.BlockName, result.BlockName);
             Assert.Equal(expectedResult.Element, result.Element);
-            Assert.Equal(expectedResult.GenerateIdentifier, result.GenerateIdentifier);
+            Assert.Equal(expectedResult.GenerateID, result.GenerateID);
+            Assert.Equal(expectedResult.LinkIcon, result.LinkIcon);
             Assert.Equal(expectedResult.AutoLinkable, result.AutoLinkable);
-            Assert.Equal(expectedResult.ClassFormat, result.ClassFormat);
-            Assert.Equal(expectedResult.LinkIconMarkup, result.LinkIconMarkup);
+            Assert.Equal(expectedResult.RenderingMode, result.RenderingMode);
             Assert.Equal(expectedResult.Attributes, result.Attributes);
         }
 
         public static IEnumerable<object[]> FlexiSectionBlockOptions_CanBePopulated_Data()
         {
+            const string dummyBlockName = "dummyBlockName";
             const SectioningContentElement dummyElement = SectioningContentElement.Aside;
-            const bool dummyGenerateIdentifier = false;
+            const bool dummyGenerateID = false;
+            const string dummyLinkIcon = "dummyLinkIcon";
             const bool dummyAutoLinkable = false;
-            const string dummyClassFormat = "dummy-{0}";
-            const string dummyLinkIconMarkdup = "dummyLinkIconMarkup";
+            const FlexiSectionBlockRenderingMode dummyRenderingMode = FlexiSectionBlockRenderingMode.Classic;
             const string dummyAttribute1 = "dummyAttribute1";
             const string dummyAttributeValue1 = "dummyAttributeValue1";
             var dummyAttributes1 = new Dictionary<string, string> { { dummyAttribute1, dummyAttributeValue1 } };
@@ -47,18 +49,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                 new object[]
                 {
                     new SerializableWrapper<FlexiSectionBlockOptions>(new FlexiSectionBlockOptions()),
-                    new SerializableWrapper<FlexiSectionBlockOptions>(new FlexiSectionBlockOptions(dummyElement,
-                        dummyGenerateIdentifier,
+                    new SerializableWrapper<FlexiSectionBlockOptions>(new FlexiSectionBlockOptions(dummyBlockName,
+                        dummyElement,
+                        dummyGenerateID,
+                        dummyLinkIcon,
                         dummyAutoLinkable,
-                        dummyClassFormat,
-                        dummyLinkIconMarkdup,
+                        dummyRenderingMode,
                         dummyAttributes1)),
                     $@"{{
+    ""{nameof(FlexiSectionBlockOptions.BlockName)}"": ""{dummyBlockName}"",
     ""{nameof(FlexiSectionBlockOptions.Element)}"": ""{dummyElement}"",
-    ""{nameof(FlexiSectionBlockOptions.GenerateIdentifier)}"": ""{dummyGenerateIdentifier}"",
+    ""{nameof(FlexiSectionBlockOptions.GenerateID)}"": ""{dummyGenerateID}"",
+    ""{nameof(FlexiSectionBlockOptions.LinkIcon)}"": ""{dummyLinkIcon}"",
     ""{nameof(FlexiSectionBlockOptions.AutoLinkable)}"": ""{dummyAutoLinkable}"",
-    ""{nameof(FlexiSectionBlockOptions.ClassFormat)}"": ""{dummyClassFormat}"",
-    ""{nameof(FlexiSectionBlockOptions.LinkIconMarkup)}"": ""{dummyLinkIconMarkdup}"",
+    ""{nameof(FlexiSectionBlockOptions.RenderingMode)}"": ""{dummyRenderingMode}"",
     ""{nameof(FlexiSectionBlockOptions.Attributes)}"": {{
         ""{dummyAttribute1}"": ""{dummyAttributeValue1}""
     }}
@@ -77,22 +81,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
 }}"
                 }
             };
-        }
-
-        [Fact]
-        public void ValidateAndPopulate_ThrowsFlexiBlocksExceptionIfSectioningContentElementIsNotWithinTheRangeOfValidValuesForTheEnumSectioningContentElement()
-        {
-            // Arrange
-            const SectioningContentElement dummyElement = (SectioningContentElement)100; // Arbitrary int that is unlikely to ever be used in the enum
-
-            // Act and assert
-            FlexiBlocksException result = Assert.
-                Throws<FlexiBlocksException>(() => new FlexiSectionBlockOptions(element: dummyElement));
-            Assert.Equal(string.Format(Strings.FlexiBlocksException_Shared_OptionMustBeAValidEnumValue,
-                    dummyElement,
-                    nameof(FlexiSectionBlockOptions.Element),
-                    nameof(SectioningContentElement)),
-                result.Message);
         }
     }
 }
