@@ -19,17 +19,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
             // Assert
             FlexiTableBlockOptions result = dummyInitialOptionsWrapper.Value;
             FlexiTableBlockOptions expectedResult = dummyExpectedOptionsWrapper.Value;
-            Assert.Equal(expectedResult.Class, result.Class);
-            Assert.Equal(expectedResult.WrapperElement, result.WrapperElement);
-            Assert.Equal(expectedResult.LabelAttribute, result.LabelAttribute);
+            Assert.Equal(expectedResult.Type, result.Type);
             Assert.Equal(expectedResult.Attributes, result.Attributes);
         }
 
         public static IEnumerable<object[]> FlexiTableBlockOptions_CanBePopulated_Data()
         {
-            const string dummyClass = "dummyClass";
-            const string dummyWrapperElement = "dummyWrapperElement";
-            const string dummyLabelAttribute = "dummyLabelAttribute";
+            const string dummyBlockName = "dummyBlockName";
+            const FlexiTableType dummyType = FlexiTableType.FixedTitles;
             const string dummyAttribute1 = "dummyAttribute1";
             const string dummyAttributeValue1 = "dummyAttributeValue1";
             var dummyAttributes1 = new Dictionary<string, string> { { dummyAttribute1, dummyAttributeValue1 } };
@@ -43,15 +40,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 new object[]
                 {
                     new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions()),
-                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(
-                        dummyClass,
-                        dummyWrapperElement,
-                        dummyLabelAttribute,
+                    new SerializableWrapper<FlexiTableBlockOptions>(new FlexiTableBlockOptions(dummyBlockName,
+                        dummyType,
                         dummyAttributes1)),
                     $@"{{
-    ""{nameof(FlexiTableBlockOptions.Class)}"": ""{dummyClass}"",
-    ""{nameof(FlexiTableBlockOptions.WrapperElement)}"": ""{dummyWrapperElement}"",
-    ""{nameof(FlexiTableBlockOptions.LabelAttribute)}"": ""{dummyLabelAttribute}"",
+    ""{nameof(FlexiTableBlockOptions.BlockName)}"": ""{dummyBlockName}"",
+    ""{nameof(FlexiTableBlockOptions.Type)}"": ""{dummyType}"",
     ""{nameof(FlexiTableBlockOptions.Attributes)}"": {{
         ""{dummyAttribute1}"": ""{dummyAttributeValue1}""
     }}
