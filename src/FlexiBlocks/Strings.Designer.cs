@@ -61,11 +61,83 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multiple attempts to retrieve content from the remote URI &quot;{0}&quot; have failed. Please ensure that the URI is valid and that your network connection is stable. Enable debug level logging and try again for more information on why requests are failing..
+        /// </summary>
+        internal static string ArgumentException_ContentRetrieverService_FailedAfterMultipleAttempts {
+            get {
+                return ResourceManager.GetString("ArgumentException_ContentRetrieverService_FailedAfterMultipleAttempts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The local URI &quot;{0}&quot; is invalid. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string ArgumentException_ContentRetrieverService_InvalidLocalUri {
+            get {
+                return ResourceManager.GetString("ArgumentException_ContentRetrieverService_InvalidLocalUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access to the remote URI &quot;{0}&quot; is forbidden..
+        /// </summary>
+        internal static string ArgumentException_ContentRetrieverService_RemoteUriAccessForbidden {
+            get {
+                return ResourceManager.GetString("ArgumentException_ContentRetrieverService_RemoteUriAccessForbidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The remote URI &quot;{0}&quot; does not exist..
+        /// </summary>
+        internal static string ArgumentException_ContentRetrieverService_RemoteUriDoesNotExist {
+            get {
+                return ResourceManager.GetString("ArgumentException_ContentRetrieverService_RemoteUriDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The URI &quot;{0}&quot; has unsupported scheme &quot;{1}&quot;..
+        /// </summary>
+        internal static string ArgumentException_ContentRetrieverService_UnsupportedScheme {
+            get {
+                return ResourceManager.GetString("ArgumentException_ContentRetrieverService_UnsupportedScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection..
+        /// </summary>
+        internal static string ArgumentException_Shared_InvalidOffLen {
+            get {
+                return ResourceManager.GetString("ArgumentException_Shared_InvalidOffLen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Value cannot be null, whitespace or an empty string..
         /// </summary>
         internal static string ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString {
             get {
                 return ResourceManager.GetString("ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The parameter &quot;{0}&quot; must be of type &quot;{1}&quot;. A value of type &quot;{2}&quot; was specified..
+        /// </summary>
+        internal static string ArgumentException_Shared_ValueMustBeOfExpectedType {
+            get {
+                return ResourceManager.GetString("ArgumentException_Shared_ValueMustBeOfExpectedType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buffer cannot be null..
+        /// </summary>
+        internal static string ArgumentNullException_Shared_Buffer {
+            get {
+                return ResourceManager.GetString("ArgumentNullException_Shared_Buffer", resourceCulture);
             }
         }
         
@@ -79,6 +151,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid because it is not greater than the &quot;{1}&quot; value &quot;{2}&quot;..
+        /// </summary>
+        internal static string ArgumentOutOfRangeException_Shared_ValueMustBeGreaterThanOtherValue {
+            get {
+                return ResourceManager.GetString("ArgumentOutOfRangeException_Shared_ValueMustBeGreaterThanOtherValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Value must be within range {0}. The specified value &quot;{1}&quot; is invalid..
         /// </summary>
         internal static string ArgumentOutOfRangeException_Shared_ValueMustBeWithinRange {
@@ -88,11 +169,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid because it is less than the &quot;{1}&quot; value &quot;{2}&quot;..
+        /// </summary>
+        internal static string ArgumentOutOfRangeException_Shared_ValueMustNotBeLessThanOtherValue {
+            get {
+                return ResourceManager.GetString("ArgumentOutOfRangeException_Shared_ValueMustNotBeLessThanOtherValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An exception occurred while processing the block. Refer to the inner exception for more details..
         /// </summary>
-        internal static string BlockException_BlockException_ExceptionOccurredWhileProcessingABlock {
+        internal static string BlockException_BlockException_ExceptionOccurredWhileProcessingBlock {
             get {
-                return ResourceManager.GetString("BlockException_BlockException_ExceptionOccurredWhileProcessingABlock", resourceCulture);
+                return ResourceManager.GetString("BlockException_BlockException_ExceptionOccurredWhileProcessingBlock", resourceCulture);
             }
         }
         
@@ -107,158 +197,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The option {0} must be within the range &quot;{1}&quot;. The specified value &quot;{2}&quot; is invalid..
-        /// </summary>
-        internal static string BlockException_Clipping_OptionMustBeWithinRange {
-            get {
-                return ResourceManager.GetString("BlockException_Clipping_OptionMustBeWithinRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The disk cache directory &quot;{0}&quot; is invalid. Refer to the inner exception for more details..
-        /// </summary>
-        internal static string BlockException_DiskCacheService_InvalidDiskCacheDirectory {
-            get {
-                return ResourceManager.GetString("BlockException_DiskCacheService_InvalidDiskCacheDirectory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An unexpected exception occurred when attempting to retrieve the source for &quot;{0}&quot;, from the disk cache at &quot;{1}&quot;. Refer to the inner exception for more information..
-        /// </summary>
-        internal static string BlockException_DiskCacheService_UnexpectedDiskCacheException {
-            get {
-                return ResourceManager.GetString("BlockException_DiskCacheService_UnexpectedDiskCacheException", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to OptionsBlock must immediately precede the block that consumes it..
-        /// </summary>
-        internal static string BlockException_FlexiBlockOptionsFactory_MispositionedBlock {
-            get {
-                return ResourceManager.GetString("BlockException_FlexiBlockOptionsFactory_MispositionedBlock", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An exception occurred in &quot;{0}&quot; while attempting to open a block. Refer to the inner exception for more details..
         /// </summary>
-        internal static string BlockException_FlexiBlockParser_ExceptionOccurredWhileAttemptingToOpenBlock {
+        internal static string BlockException_BlockParser_ExceptionOccurredWhileAttemptingToOpenBlock {
             get {
-                return ResourceManager.GetString("BlockException_FlexiBlockParser_ExceptionOccurredWhileAttemptingToOpenBlock", resourceCulture);
+                return ResourceManager.GetString("BlockException_BlockParser_ExceptionOccurredWhileAttemptingToOpenBlock", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The line range &quot;{0}&quot; in option {1} is not a subset of the full range of lines, &quot;[1, {2}]&quot;..
+        ///   Looks up a localized string similar to An exception occurred while processing content from the IncludeBlock&apos;s source, &quot;{0}&quot;. Refer to the inner exception for more details..
         /// </summary>
-        internal static string BlockException_FlexiCodeBlocksExtension_OptionLineRangeNotASubset {
+        internal static string BlockException_IncludeBlockFactory_ExceptionOccurredWhileProcessingContent {
             get {
-                return ResourceManager.GetString("BlockException_FlexiCodeBlocksExtension_OptionLineRangeNotASubset", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The line ranges in option {0} are invalid. These line ranges must not overlap, but the line ranges &quot;{1}&quot; and &quot;{2}&quot; do..
-        /// </summary>
-        internal static string BlockException_FlexiCodeOptionsBlock_OptionLineRangesCannotOverlap {
-            get {
-                return ResourceManager.GetString("BlockException_FlexiCodeOptionsBlock_OptionLineRangesCannotOverlap", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The line ranges in option {0} are invalid. These line ranges must be sequential, the line range &quot;{1}&quot; must be specified after line range &quot;{2}&quot;..
-        /// </summary>
-        internal static string BlockException_FlexiCodeOptionsBlock_OptionLineRangesMustBeSequential {
-            get {
-                return ResourceManager.GetString("BlockException_FlexiCodeOptionsBlock_OptionLineRangesMustBeSequential", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The option {0} must be an absolute URI. The specified value &quot;{1}&quot; is invalid..
-        /// </summary>
-        internal static string BlockException_FlexiIncludeBlock_OptionMustBeAnAbsoluteUri {
-            get {
-                return ResourceManager.GetString("BlockException_FlexiIncludeBlock_OptionMustBeAnAbsoluteUri", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The option {0} must be a URI with scheme FILE, HTTP or HTTPS. The specified URI &quot;{1}&quot; has invalid scheme &quot;{2}&quot;..
-        /// </summary>
-        internal static string BlockException_FlexiIncludeBlock_OptionMustBeAUriWithASupportedScheme {
-            get {
-                return ResourceManager.GetString("BlockException_FlexiIncludeBlock_OptionMustBeAUriWithASupportedScheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The option {0} must be a valid URI. The specified value &quot;{1}&quot; is invalid..
-        /// </summary>
-        internal static string BlockException_FlexiIncludeBlock_OptionMustBeAValidUri {
-            get {
-                return ResourceManager.GetString("BlockException_FlexiIncludeBlock_OptionMustBeAValidUri", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The following cycle was found in the FlexiIncludeBlock tree: 
-        ///{0}.
-        /// </summary>
-        internal static string BlockException_FlexiIncludeBlockParser_CycleFound {
-            get {
-                return ResourceManager.GetString("BlockException_FlexiIncludeBlockParser_CycleFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception occured while processing the FlexiIncludeBlock..
-        /// </summary>
-        internal static string BlockException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingBlock {
-            get {
-                return ResourceManager.GetString("BlockException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingBlock", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception occured while processing the FlexiIncludeBlock&apos;s {0}. Refer to the inner exception for more details..
-        /// </summary>
-        internal static string BlockException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingContent {
-            get {
-                return ResourceManager.GetString("BlockException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception occured while processing the FlexiIncludeBlock&apos;s source, &quot;{0}&quot;. Refer to the inner exception for more details..
-        /// </summary>
-        internal static string BlockException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSource {
-            get {
-                return ResourceManager.GetString("BlockException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSource", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid clipping, no line contains end line substring &quot;{0}&quot;..
-        /// </summary>
-        internal static string BlockException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsEndLineSubstring {
-            get {
-                return ResourceManager.GetString("BlockException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsEndLineSubstr" +
-                        "ing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid clipping, no line contains start line substring &quot;{0}&quot;..
-        /// </summary>
-        internal static string BlockException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsStartLineSubstring {
-            get {
-                return ResourceManager.GetString("BlockException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsStartLineSubs" +
-                        "tring", resourceCulture);
+                return ResourceManager.GetString("BlockException_IncludeBlockFactory_ExceptionOccurredWhileProcessingContent", resourceCulture);
             }
         }
         
@@ -272,112 +224,75 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The option {0} must be  -1 or not less than its associated start line number. The specified value &quot;{1}&quot; with associated start line number &quot;{2}&quot; is invalid. .
+        ///   Looks up a localized string similar to An exception occurred while creating the block. Refer to the inner exception for more details..
         /// </summary>
-        internal static string BlockException_Shared_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber {
+        internal static string BlockException_Shared_ExceptionOccurredWhileCreatingBlock {
             get {
-                return ResourceManager.GetString("BlockException_Shared_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNum" +
-                        "ber", resourceCulture);
+                return ResourceManager.GetString("BlockException_Shared_ExceptionOccurredWhileCreatingBlock", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The option {0} has invalid value &quot;{1}&quot;. Refer to the inner exception for more details..
+        ///   Looks up a localized string similar to The disk cache directory &quot;{0}&quot; is invalid. Refer to the inner exception for more details..
         /// </summary>
-        internal static string BlockException_Shared_OptionIsAnInvalidFormat {
+        internal static string InvalidOperationException_DiskCacheService_InvalidDiskCacheDirectory {
             get {
-                return ResourceManager.GetString("BlockException_Shared_OptionIsAnInvalidFormat", resourceCulture);
+                return ResourceManager.GetString("InvalidOperationException_DiskCacheService_InvalidDiskCacheDirectory", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value &quot;{0}&quot; for option {1} is not within the range of valid values for the enum {2}..
+        ///   Looks up a localized string similar to An unexpected exception occurred when attempting to retrieve the source for &quot;{0}&quot;, from the disk cache at &quot;{1}&quot;. Refer to the inner exception for more information..
         /// </summary>
-        internal static string BlockException_Shared_OptionMustBeAValidEnumValue {
+        internal static string InvalidOperationException_DiskCacheService_UnexpectedDiskCacheException {
             get {
-                return ResourceManager.GetString("BlockException_Shared_OptionMustBeAValidEnumValue", resourceCulture);
+                return ResourceManager.GetString("InvalidOperationException_DiskCacheService_UnexpectedDiskCacheException", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The option {0} must be greater than 0. The specified value &quot;{1}&quot; is invalid..
+        ///   Looks up a localized string similar to The following IncludeBlocks cycle was found: 
+        ///{0}.
         /// </summary>
-        internal static string BlockException_Shared_OptionMustBeGreaterThan0 {
+        internal static string InvalidOperationException_IncludeBlockFactory_CycleFound {
             get {
-                return ResourceManager.GetString("BlockException_Shared_OptionMustBeGreaterThan0", resourceCulture);
+                return ResourceManager.GetString("InvalidOperationException_IncludeBlockFactory_CycleFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The option {0} cannot be null..
+        ///   Looks up a localized string similar to Invalid JSON &quot;{0}&quot;..
         /// </summary>
-        internal static string BlockException_Shared_OptionsMustNotBeNull {
+        internal static string JsonException_Shared_InvalidJson {
             get {
-                return ResourceManager.GetString("BlockException_Shared_OptionsMustNotBeNull", resourceCulture);
+                return ResourceManager.GetString("JsonException_Shared_InvalidJson", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to parse JSON &quot;{0}&quot;. Refer to the inner exception for more details..
+        ///   Looks up a localized string similar to Http request to &quot;{0}&quot; failed with status code &quot;{1}&quot;, {2} tries remaining..
         /// </summary>
-        internal static string BlockException_Shared_UnableToParseJson {
+        internal static string LogWarning_ContentRetrieverService_FailureStatusCode {
             get {
-                return ResourceManager.GetString("BlockException_Shared_UnableToParseJson", resourceCulture);
+                return ResourceManager.GetString("LogWarning_ContentRetrieverService_FailureStatusCode", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Multiple attempts to retrieve content from the remote URI &quot;{0}&quot; have failed. Please ensure that the URI is valid and that your network connection is stable. Enable debug level logging and try again for more information on why requests are failing..
+        ///   Looks up a localized string similar to A HttpRequestException with message &quot;{0}&quot; occurred when attempting to retrieve content from &quot;{1}&quot;, {2} tries remaining..
         /// </summary>
-        internal static string BlockException_SourceRetrieverService_FailedAfterMultipleAttempts {
+        internal static string LogWarning_ContentRetrieverService_HttpRequestException {
             get {
-                return ResourceManager.GetString("BlockException_SourceRetrieverService_FailedAfterMultipleAttempts", resourceCulture);
+                return ResourceManager.GetString("LogWarning_ContentRetrieverService_HttpRequestException", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The local URI &quot;{0}&quot; is invalid. Refer to the inner exception for more details..
+        ///   Looks up a localized string similar to Attempt to retrieve content from &quot;{0}&quot; timed out, {1} tries remaining..
         /// </summary>
-        internal static string BlockException_SourceRetrieverService_InvalidLocalUri {
+        internal static string LogWarning_ContentRetrieverService_Timeout {
             get {
-                return ResourceManager.GetString("BlockException_SourceRetrieverService_InvalidLocalUri", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Access to the remote URI &quot;{0}&quot; is forbidden..
-        /// </summary>
-        internal static string BlockException_SourceRetrieverService_RemoteUriAccessForbidden {
-            get {
-                return ResourceManager.GetString("BlockException_SourceRetrieverService_RemoteUriAccessForbidden", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The remote URI &quot;{0}&quot; does not exist..
-        /// </summary>
-        internal static string BlockException_SourceRetrieverService_RemoteUriDoesNotExist {
-            get {
-                return ResourceManager.GetString("BlockException_SourceRetrieverService_RemoteUriDoesNotExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The markup fragment &quot;{0}&quot; is invalid. An exception was thrown while attempting to split multi-line elements within it..
-        /// </summary>
-        internal static string InvalidOperationException_LineEmbellisherService_InvalidMarkupFragment {
-            get {
-                return ResourceManager.GetString("InvalidOperationException_LineEmbellisherService_InvalidMarkupFragment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The markup fragment &quot;{0}&quot; is invalid. An exception was thrown while attempting to split multi-line elements within it. Refer to the inner exception for more details..
-        /// </summary>
-        internal static string InvalidOperationException_LineEmbellisherService_InvalidMarkupFragmentWithInnerException {
-            get {
-                return ResourceManager.GetString("InvalidOperationException_LineEmbellisherService_InvalidMarkupFragmentWithInnerEx" +
-                        "ception", resourceCulture);
+                return ResourceManager.GetString("LogWarning_ContentRetrieverService_Timeout", resourceCulture);
             }
         }
         
@@ -391,29 +306,193 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Http request to &quot;{0}&quot; failed with status code &quot;{1}&quot;, {2} tries remaining..
+        ///   Looks up a localized string similar to Cannot read from a closed TextReader..
         /// </summary>
-        internal static string LogWarning_SourceRetrieverService_FailureStatusCode {
+        internal static string ObjectDisposedException_Shared_ReaderClosed {
             get {
-                return ResourceManager.GetString("LogWarning_SourceRetrieverService_FailureStatusCode", resourceCulture);
+                return ResourceManager.GetString("ObjectDisposedException_Shared_ReaderClosed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A HttpRequestException with message &quot;{0}&quot; occurred when attempting to retrieve content from &quot;{1}&quot;, {2} tries remaining..
+        ///   Looks up a localized string similar to Invalid JSON &quot;{0}&quot;. Refer to the inner exception for more details..
         /// </summary>
-        internal static string LogWarning_SourceRetrieverService_HttpRequestException {
+        internal static string OptionsException_BlockOptionsFactory_InvalidJson {
             get {
-                return ResourceManager.GetString("LogWarning_SourceRetrieverService_HttpRequestException", resourceCulture);
+                return ResourceManager.GetString("OptionsException_BlockOptionsFactory_InvalidJson", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attempt to retrieve content from &quot;{0}&quot; timed out, {1} tries remaining..
+        ///   Looks up a localized string similar to The line number ranges &quot;{0}&quot; and &quot;{1}&quot; overlap..
         /// </summary>
-        internal static string LogWarning_SourceRetrieverService_Timeout {
+        internal static string OptionsException_FlexiCodeBlocks_OverlappingLineNumbers {
             get {
-                return ResourceManager.GetString("LogWarning_SourceRetrieverService_Timeout", resourceCulture);
+                return ResourceManager.GetString("OptionsException_FlexiCodeBlocks_OverlappingLineNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid for tables with cells that have rowspan or colspan..
+        /// </summary>
+        internal static string OptionsException_FlexiTableBlockFactory_TypeInvalidForTablesWithCellsThatHaveRowspanOrColspan {
+            get {
+                return ResourceManager.GetString("OptionsException_FlexiTableBlockFactory_TypeInvalidForTablesWithCellsThatHaveRows" +
+                        "panOrColspan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid for tables with multiple header rows..
+        /// </summary>
+        internal static string OptionsException_FlexiTableBlockFactory_TypeInvalidForTablesWithMultipleHeaderRows {
+            get {
+                return ResourceManager.GetString("OptionsException_FlexiTableBlockFactory_TypeInvalidForTablesWithMultipleHeaderRow" +
+                        "s", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No line after the start line contains the string &quot;{0}&quot;..
+        /// </summary>
+        internal static string OptionsException_IncludeBlockFactory_NoLineContainsEndString {
+            get {
+                return ResourceManager.GetString("OptionsException_IncludeBlockFactory_NoLineContainsEndString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No line contains the string &quot;{0}&quot;..
+        /// </summary>
+        internal static string OptionsException_IncludeBlockFactory_NoLineContainsStartString {
+            get {
+                return ResourceManager.GetString("OptionsException_IncludeBlockFactory_NoLineContainsStartString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid, expected an absolute URI..
+        /// </summary>
+        internal static string OptionsException_IncludeBlockFactory_ValueMustBeAnAbsoluteUri {
+            get {
+                return ResourceManager.GetString("OptionsException_IncludeBlockFactory_ValueMustBeAnAbsoluteUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; with scheme &quot;{1}&quot; is invalid. Expected a URI with scheme FILE, HTTP or HTTPS..
+        /// </summary>
+        internal static string OptionsException_IncludeBlockFactory_ValueMustBeAUriWithASupportedScheme {
+            get {
+                return ResourceManager.GetString("OptionsException_IncludeBlockFactory_ValueMustBeAUriWithASupportedScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid, expected a valid URI..
+        /// </summary>
+        internal static string OptionsException_IncludeBlockFactory_ValueMustBeAValidUri {
+            get {
+                return ResourceManager.GetString("OptionsException_IncludeBlockFactory_ValueMustBeAValidUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The options &quot;Start&quot; and &quot;End&quot; are invalid: The end line cannot occur before the start line. The combination of start &quot;{0}&quot; and end &quot;{1}&quot; is invalid. .
+        /// </summary>
+        internal static string OptionsException_LineRange_EndLineBeStartLineOrALineAfterIt {
+            get {
+                return ResourceManager.GetString("OptionsException_LineRange_EndLineBeStartLineOrALineAfterIt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The options &quot;Start&quot; and &quot;End&quot; are invalid: Unable to normalize &quot;{0}&quot; for {1} lines. After normalization, start is &quot;{2}&quot; and end is &quot;{3}&quot;, which is invalid. .
+        /// </summary>
+        internal static string OptionsException_LineRange_UnableToNormalize {
+            get {
+                return ResourceManager.GetString("OptionsException_LineRange_UnableToNormalize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid value for option &quot;{0}&quot;: {1}.
+        /// </summary>
+        internal static string OptionsException_OptionsException_InvalidOption {
+            get {
+                return ResourceManager.GetString("OptionsException_OptionsException_InvalidOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The &quot;Included&quot; array for phrase group &quot;{0}&quot; is invalid. Only {1} matches were found for the regex expression, the included index &quot;{2}&quot; is out of range..
+        /// </summary>
+        internal static string OptionsException_PhraseGroup_IncludedMatchIndexOutOfRange {
+            get {
+                return ResourceManager.GetString("OptionsException_PhraseGroup_IncludedMatchIndexOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The directory &quot;{0}&quot; does not exist..
+        /// </summary>
+        internal static string OptionsException_Shared_DirectoryDoesNotExist {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_DirectoryDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid..
+        /// </summary>
+        internal static string OptionsException_Shared_InvalidValue {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_InvalidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; is not within the range of valid values for the enum {1}..
+        /// </summary>
+        internal static string OptionsException_Shared_ValueMustBeAValidEnumValue {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_ValueMustBeAValidEnumValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid, expected an integer greater than 0..
+        /// </summary>
+        internal static string OptionsException_Shared_ValueMustBeIntegerGreaterThan0 {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_ValueMustBeIntegerGreaterThan0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid, expected a number within the range {1}..
+        /// </summary>
+        internal static string OptionsException_Shared_ValueMustBeWithinRange {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_ValueMustBeWithinRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid, expected a non-negative integer..
+        /// </summary>
+        internal static string OptionsException_Shared_ValueMustNotBeNegative {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_ValueMustNotBeNegative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value must not be null..
+        /// </summary>
+        internal static string OptionsException_Shared_ValueMustNotBeNull {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_ValueMustNotBeNull", resourceCulture);
             }
         }
     }
