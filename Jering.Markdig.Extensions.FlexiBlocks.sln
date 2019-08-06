@@ -9,12 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jering.Markdig.Extensions.F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "specs", "specs", "{F41F9DD0-C122-4F19-9C90-1E5DC00D59F4}"
 	ProjectSection(SolutionItems) = preProject
+		specs\CommonMarkSpecs.json = specs\CommonMarkSpecs.json
 		Specs\FlexiAlertBlocksSpecs.md = Specs\FlexiAlertBlocksSpecs.md
+		specs\FlexiBannerBlocksSpecs.md = specs\FlexiBannerBlocksSpecs.md
 		Specs\FlexiCodeBlocksSpecs.md = Specs\FlexiCodeBlocksSpecs.md
-		specs\FlexiIncludeBlocksSpecs.md = specs\FlexiIncludeBlocksSpecs.md
-		Specs\FlexiOptionsBlocksSpecs.md = Specs\FlexiOptionsBlocksSpecs.md
 		Specs\FlexiSectionBlocksSpecs.md = Specs\FlexiSectionBlocksSpecs.md
 		Specs\FlexiTableBlocksSpecs.md = Specs\FlexiTableBlocksSpecs.md
+		specs\IncludeBlocksSpecs.md = specs\IncludeBlocksSpecs.md
+		specs\OptionsBlocksSpecs.md = specs\OptionsBlocksSpecs.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C050C90B-0201-435F-AADB-F3A329778318}"
@@ -25,6 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		azure-pipelines.yml = azure-pipelines.yml
 		Changelog.md = Changelog.md
 		codecov.yml = codecov.yml
+		specs\CommonMarkSpecs.json = specs\CommonMarkSpecs.json
 		Jering.Markdig.Extensions.FlexiBlocks.ruleset = Jering.Markdig.Extensions.FlexiBlocks.ruleset
 		License.md = License.md
 		ReadMe.md = ReadMe.md
