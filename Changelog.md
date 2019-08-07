@@ -3,7 +3,17 @@ This project uses [semantic versioning](http://semver.org/spec/v2.0.0.html). Ref
 *[Semantic Versioning in Practice](https://www.jering.tech/articles/semantic-versioning-in-practice)*
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.15.0...HEAD)
+## [Unreleased](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/1.0.0-alpha.0...HEAD)
+
+## [1.0.0-alpha.0](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.15.0...1.0.0-alpha.0) - Aug 7, 2019
+### Changes
+- Breaking changes made throughout project. Major changes:
+  - Generated HTML now has classes consistent with [BEM](https://en.bem.info/) for easier block styling.
+  - Block options now have less verbose names. E.g "start" instead of "startNumber".
+  - New features for several blocks.
+  
+  View [specs](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/tree/master/specs) for updated
+usage instructions.
 
 ## [0.15.0](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.14.0...0.15.0) - Jan 19, 2019
 ### Changes
@@ -63,7 +73,7 @@ one with class `line-text`.
 - FlexiCodeBlocks now renders copy icon within a `<button>` element.
 - FlexSectionBlocks now renders link icon within a `<button>` element.
 ### Changes
-- Renamed `FlexiCodeBlockOptions.LineNumberRanges` to `FlexiCodeBlockOptions.LineNumberLineRanges`. This
+- Renamed `FlexiCodeBlockOptions.LineNumbers` to `FlexiCodeBlockOptions.LineNumbers`. This
 reflects under the hood changes to the type that the list contains.
 - FlexiBlocksException no longer appends "Flexi" to block type names that do not begin with "Flexi".
 
