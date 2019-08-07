@@ -4,11 +4,13 @@
 *.cs     diff=csharp
 
 ###############################################################################
+# Convert line endings to lf on checkin and prevent conversion to crlf on 
+# checkout
+###############################################################################
+* eol=lf
+
+###############################################################################
 # https://github.com/alexkaratarakis/gitattributes/blob/master/VisualStudio.gitattributes
-###############################################################################
-# Set default behavior to automatically normalize line endings.
-###############################################################################
-* text=auto
 ###############################################################################
 # Set the merge driver for project and solution files
 #
