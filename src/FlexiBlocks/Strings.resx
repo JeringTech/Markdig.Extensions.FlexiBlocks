@@ -120,11 +120,11 @@
   <data name="ArgumentException_Shared_ValueCannotBeNullWhitespaceOrAnEmptyString" xml:space="preserve">
     <value>Value cannot be null, whitespace or an empty string.</value>
   </data>
-  <data name="FlexiBlocksException_Shared_EndLineNumberMustBeMinus1OrGreaterThanOrEqualToStartLineNumber" xml:space="preserve">
-    <value>The option {0} must be  -1 or not less than its associated start line number. The specified value "{1}" with associated start line number "{2}" is invalid. </value>
+  <data name="OptionsException_LineRange_EndLineBeStartLineOrALineAfterIt" xml:space="preserve">
+    <value>The options "Start" and "End" are invalid: The end line cannot occur before the start line. The combination of start "{0}" and end "{1}" is invalid. </value>
   </data>
-  <data name="FlexiBlocksException_Shared_OptionMustBeGreaterThan0" xml:space="preserve">
-    <value>The option {0} must be greater than 0. The specified value "{1}" is invalid.</value>
+  <data name="OptionsException_Shared_ValueMustBeIntegerGreaterThan0" xml:space="preserve">
+    <value>The value "{0}" is invalid, expected an integer greater than 0.</value>
   </data>
   <data name="ArgumentOutOfRangeException_Shared_ValueCannotBeNegative" xml:space="preserve">
     <value>Value cannot be negative. The specified value "{0}" is invalid.</value>
@@ -132,112 +132,135 @@
   <data name="ArgumentOutOfRangeException_Shared_ValueMustBeWithinRange" xml:space="preserve">
     <value>Value must be within range {0}. The specified value "{1}" is invalid.</value>
   </data>
-  <data name="FlexiBlocksException_SourceRetrieverService_FailedAfterMultipleAttempts" xml:space="preserve">
+  <data name="ArgumentException_ContentRetrieverService_FailedAfterMultipleAttempts" xml:space="preserve">
     <value>Multiple attempts to retrieve content from the remote URI "{0}" have failed. Please ensure that the URI is valid and that your network connection is stable. Enable debug level logging and try again for more information on why requests are failing.</value>
   </data>
-  <data name="FlexiBlocksException_SourceRetrieverService_RemoteUriAccessForbidden" xml:space="preserve">
+  <data name="ArgumentException_ContentRetrieverService_RemoteUriAccessForbidden" xml:space="preserve">
     <value>Access to the remote URI "{0}" is forbidden.</value>
   </data>
-  <data name="FlexiBlocksException_SourceRetrieverService_RemoteUriDoesNotExist" xml:space="preserve">
+  <data name="ArgumentException_ContentRetrieverService_RemoteUriDoesNotExist" xml:space="preserve">
     <value>The remote URI "{0}" does not exist.</value>
   </data>
-  <data name="FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAValidUri" xml:space="preserve">
-    <value>The option {0} must be a valid URI. The specified value "{1}" is invalid.</value>
+  <data name="OptionsException_IncludeBlockFactory_ValueMustBeAValidUri" xml:space="preserve">
+    <value>The value "{0}" is invalid, expected a valid URI.</value>
   </data>
-  <data name="FlexiBlocksException_FlexiBlocksException_InvalidFlexiBlock" xml:space="preserve">
-    <value>The {0} starting at line "{1}", column "{2}", is invalid:
+  <data name="BlockException_BlockException_InvalidBlock" xml:space="preserve">
+    <value>The {0} at line "{1}", column "{2}", is invalid:
 {3}</value>
   </data>
-  <data name="FlexiBlocksException_Shared_OptionIsAnInvalidFormat" xml:space="preserve">
-    <value>The option {0} has invalid value "{1}". Refer to the inner exception for more details.</value>
+  <data name="OptionsException_IncludeBlockFactory_ValueMustBeAnAbsoluteUri" xml:space="preserve">
+    <value>The value "{0}" is invalid, expected an absolute URI.</value>
   </data>
-  <data name="FlexiBlocksException_FlexiBlocksException_InvalidMarkdown" xml:space="preserve">
-    <value>The markdown at line "{0}", column "{1}" is invalid:
-{2}</value>
+  <data name="OptionsException_Shared_ValueMustBeAValidEnumValue" xml:space="preserve">
+    <value>The value "{0}" is not within the range of valid values for the enum {1}.</value>
   </data>
-  <data name="FlexiBlocksException_FlexiOptionsBlockService_MispositionedBlock" xml:space="preserve">
-    <value>FlexiOptionsBlock must immediately precede the block that consumes it.</value>
+  <data name="OptionsException_BlockOptionsFactory_InvalidJson" xml:space="preserve">
+    <value>Invalid JSON "{0}". Refer to the inner exception for more details.</value>
   </data>
-  <data name="FlexiBlocksException_FlexiCodeBlocksExtension_OptionLineRangeNotASubset" xml:space="preserve">
-    <value>The line range "{0}" in option {1} is not a subset of the full range of lines, "[1, {2}]".</value>
+  <data name="BlockException_OptionsBlockParser_UnconsumedBlock" xml:space="preserve">
+    <value>OptionsBlock must be consumed.</value>
   </data>
-  <data name="FlexiBlocksException_FlexiCodeBlockOptions_OptionLineRangesCannotOverlap" xml:space="preserve">
-    <value>The line ranges in option {0} are invalid. These line ranges must not overlap, but the line ranges "{1}" and "{2}" do.</value>
-  </data>
-  <data name="FlexiBlocksException_FlexiCodeBlockOptions_OptionLineRangesMustBeSequential" xml:space="preserve">
-    <value>The line ranges in option {0} are invalid. These line ranges must be sequential, the line range "{1}" must be specified after line range "{2}".</value>
-  </data>
-  <data name="FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAnAbsoluteUri" xml:space="preserve">
-    <value>The option {0} must be an absolute URI. The specified value "{1}" is invalid.</value>
-  </data>
-  <data name="FlexiBlocksException_Shared_OptionMustBeAValidEnumValue" xml:space="preserve">
-    <value>The value "{0}" for option {1} is not within the range of valid values for the enum {2}.</value>
-  </data>
-  <data name="FlexiBlocksException_Shared_UnableToParseJson" xml:space="preserve">
-    <value>Unable to parse JSON "{0}". Refer to the inner exception for more details.</value>
-  </data>
-  <data name="FlexiBlocksException_FlexiOptionsBlockParser_UnconsumedBlock" xml:space="preserve">
-    <value>FlexiOptionsBlock must be consumed.</value>
-  </data>
-  <data name="FlexiBlocksException_FlexiBlocksException_ExceptionOccurredWhileProcessingABlock" xml:space="preserve">
+  <data name="BlockException_BlockException_ExceptionOccurredWhileProcessingBlock" xml:space="preserve">
     <value>An exception occurred while processing the block. Refer to the inner exception for more details.</value>
   </data>
-  <data name="FlexiBlocksException_FlexiBlockParser_ExceptionOccurredWhileAttemptingToOpenBlock" xml:space="preserve">
+  <data name="BlockException_BlockParser_ExceptionOccurredWhileAttemptingToOpenBlock" xml:space="preserve">
     <value>An exception occurred in "{0}" while attempting to open a block. Refer to the inner exception for more details.</value>
   </data>
-  <data name="FlexiBlocksException_FlexiIncludeBlockParser_CycleFound" xml:space="preserve">
-    <value>The following cycle was found in the FlexiIncludeBlock tree: 
+  <data name="InvalidOperationException_IncludeBlockFactory_CycleFound" xml:space="preserve">
+    <value>The following IncludeBlocks cycle was found: 
 {0}</value>
   </data>
-  <data name="FlexiBlocksException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsEndLineSubstring" xml:space="preserve">
-    <value>Invalid clipping, no line contains end line substring "{0}".</value>
+  <data name="OptionsException_IncludeBlockFactory_NoLineContainsEndString" xml:space="preserve">
+    <value>No line after the start line contains the string "{0}".</value>
   </data>
-  <data name="FlexiBlocksException_FlexiIncludeBlockParser_InvalidClippingNoLineContainsStartLineSubstring" xml:space="preserve">
-    <value>Invalid clipping, no line contains start line substring "{0}".</value>
+  <data name="OptionsException_IncludeBlockFactory_NoLineContainsStartString" xml:space="preserve">
+    <value>No line contains the string "{0}".</value>
   </data>
-  <data name="FlexiBlocksException_FlexiIncludeBlock_OptionMustBeAUriWithASupportedScheme" xml:space="preserve">
-    <value>The option {0} must be a URI with scheme FILE, HTTP or HTTPS. The specified URI "{1}" has invalid scheme "{2}".</value>
+  <data name="OptionsException_IncludeBlockFactory_ValueMustBeAUriWithASupportedScheme" xml:space="preserve">
+    <value>The value "{0}" with scheme "{1}" is invalid. Expected a URI with scheme FILE, HTTP or HTTPS.</value>
   </data>
-  <data name="FlexiBlocksException_Clipping_OptionMustBeWithinRange" xml:space="preserve">
-    <value>The option {0} must be within the range "{1}". The specified value "{2}" is invalid.</value>
+  <data name="OptionsException_Shared_ValueMustBeWithinRange" xml:space="preserve">
+    <value>The value "{0}" is invalid, expected a number within the range {1}.</value>
   </data>
-  <data name="FlexiBlocksException_DiskCacheService_InvalidDiskCacheDirectory" xml:space="preserve">
+  <data name="InvalidOperationException_DiskCacheService_InvalidDiskCacheDirectory" xml:space="preserve">
     <value>The disk cache directory "{0}" is invalid. Refer to the inner exception for more details.</value>
   </data>
-  <data name="FlexiBlocksException_DiskCacheService_UnexpectedDiskCacheException" xml:space="preserve">
+  <data name="InvalidOperationException_DiskCacheService_UnexpectedDiskCacheException" xml:space="preserve">
     <value>An unexpected exception occurred when attempting to retrieve the source for "{0}", from the disk cache at "{1}". Refer to the inner exception for more information.</value>
   </data>
-  <data name="FlexiBlocksException_Shared_OptionsMustNotBeNull" xml:space="preserve">
-    <value>The option {0} cannot be null.</value>
-  </data>
-  <data name="FlexiBlocksException_SourceRetrieverService_InvalidLocalUri" xml:space="preserve">
+  <data name="ArgumentException_ContentRetrieverService_InvalidLocalUri" xml:space="preserve">
     <value>The local URI "{0}" is invalid. Refer to the inner exception for more details.</value>
   </data>
-  <data name="FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingSource" xml:space="preserve">
-    <value>An exception occured while processing the FlexiIncludeBlock's source, "{0}". Refer to the inner exception for more details.</value>
+  <data name="BlockException_IncludeBlockFactory_ExceptionOccurredWhileProcessingContent" xml:space="preserve">
+    <value>An exception occurred while processing content from the IncludeBlock's source, "{0}". Refer to the inner exception for more details.</value>
   </data>
-  <data name="FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingContent" xml:space="preserve">
-    <value>An exception occured while processing the FlexiIncludeBlock's {0}. Refer to the inner exception for more details.</value>
-  </data>
-  <data name="FlexiBlocksException_FlexiIncludeBlockParser_ExceptionOccurredWhileProcessingBlock" xml:space="preserve">
-    <value>An exception occured while processing the FlexiIncludeBlock.</value>
-  </data>
-  <data name="LogWarning_SourceRetrieverService_FailureStatusCode" xml:space="preserve">
+  <data name="LogWarning_ContentRetrieverService_FailureStatusCode" xml:space="preserve">
     <value>Http request to "{0}" failed with status code "{1}", {2} tries remaining.</value>
   </data>
-  <data name="LogWarning_SourceRetrieverService_HttpRequestException" xml:space="preserve">
+  <data name="LogWarning_ContentRetrieverService_HttpRequestException" xml:space="preserve">
     <value>A HttpRequestException with message "{0}" occurred when attempting to retrieve content from "{1}", {2} tries remaining.</value>
   </data>
-  <data name="LogWarning_SourceRetrieverService_Timeout" xml:space="preserve">
+  <data name="LogWarning_ContentRetrieverService_Timeout" xml:space="preserve">
     <value>Attempt to retrieve content from "{0}" timed out, {1} tries remaining.</value>
   </data>
   <data name="LogWarning_DiskCacheService_FileInUse" xml:space="preserve">
     <value>The file "{0}" is in use. {1} tries remaining.</value>
   </data>
-  <data name="InvalidOperationException_LineEmbellisherService_InvalidMarkupFragmentWithInnerException" xml:space="preserve">
-    <value>The markup fragment "{0}" is invalid. An exception was thrown while attempting to split multi-line elements within it. Refer to the inner exception for more details.</value>
+  <data name="ArgumentException_Shared_ValueMustBeOfExpectedType" xml:space="preserve">
+    <value>The parameter "{0}" must be of type "{1}". A value of type "{2}" was specified.</value>
   </data>
-  <data name="InvalidOperationException_LineEmbellisherService_InvalidMarkupFragment" xml:space="preserve">
-    <value>The markup fragment "{0}" is invalid. An exception was thrown while attempting to split multi-line elements within it.</value>
+  <data name="OptionsException_Shared_InvalidValue" xml:space="preserve">
+    <value>The value "{0}" is invalid.</value>
+  </data>
+  <data name="OptionsException_PhraseGroup_IncludedMatchIndexOutOfRange" xml:space="preserve">
+    <value>The "Included" array for phrase group "{0}" is invalid. Only {1} matches were found for the regex expression, the included index "{2}" is out of range.</value>
+  </data>
+  <data name="ArgumentException_Shared_InvalidOffLen" xml:space="preserve">
+    <value>Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.</value>
+  </data>
+  <data name="ArgumentNullException_Shared_Buffer" xml:space="preserve">
+    <value>Buffer cannot be null.</value>
+  </data>
+  <data name="ObjectDisposedException_Shared_ReaderClosed" xml:space="preserve">
+    <value>Cannot read from a closed TextReader.</value>
+  </data>
+  <data name="OptionsException_FlexiCodeBlocks_OverlappingLineNumbers" xml:space="preserve">
+    <value>The line number ranges "{0}" and "{1}" overlap.</value>
+  </data>
+  <data name="OptionsException_LineRange_UnableToNormalize" xml:space="preserve">
+    <value>The options "Start" and "End" are invalid: Unable to normalize "{0}" for {1} lines. After normalization, start is "{2}" and end is "{3}", which is invalid. </value>
+  </data>
+  <data name="JsonException_Shared_InvalidJson" xml:space="preserve">
+    <value>Invalid JSON "{0}".</value>
+  </data>
+  <data name="OptionsException_OptionsException_InvalidOption" xml:space="preserve">
+    <value>Invalid value for option "{0}": {1}</value>
+  </data>
+  <data name="ArgumentOutOfRangeException_Shared_ValueMustNotBeLessThanOtherValue" xml:space="preserve">
+    <value>The value "{0}" is invalid because it is less than the "{1}" value "{2}".</value>
+  </data>
+  <data name="OptionsException_Shared_DirectoryDoesNotExist" xml:space="preserve">
+    <value>The directory "{0}" does not exist.</value>
+  </data>
+  <data name="OptionsException_Shared_ValueMustNotBeNull" xml:space="preserve">
+    <value>The value must not be null.</value>
+  </data>
+  <data name="OptionsException_Shared_ValueMustNotBeNegative" xml:space="preserve">
+    <value>The value "{0}" is invalid, expected a non-negative integer.</value>
+  </data>
+  <data name="ArgumentException_ContentRetrieverService_UnsupportedScheme" xml:space="preserve">
+    <value>The URI "{0}" has unsupported scheme "{1}".</value>
+  </data>
+  <data name="OptionsException_FlexiTableBlockFactory_TypeInvalidForTablesWithMultipleHeaderRows" xml:space="preserve">
+    <value>The value "{0}" is invalid for tables with multiple header rows.</value>
+  </data>
+  <data name="ArgumentOutOfRangeException_Shared_ValueMustBeGreaterThanOtherValue" xml:space="preserve">
+    <value>The value "{0}" is invalid because it is not greater than the "{1}" value "{2}".</value>
+  </data>
+  <data name="OptionsException_FlexiTableBlockFactory_TypeInvalidForTablesWithCellsThatHaveRowspanOrColspan" xml:space="preserve">
+    <value>The value "{0}" is invalid for tables with cells that have rowspan or colspan.</value>
+  </data>
+  <data name="BlockException_Shared_ExceptionOccurredWhileCreatingBlock" xml:space="preserve">
+    <value>An exception occurred while creating the block. Refer to the inner exception for more details.</value>
   </data>
 </root>

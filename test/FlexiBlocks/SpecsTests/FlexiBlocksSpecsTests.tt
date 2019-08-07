@@ -1,0 +1,311 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #><#@ output extension=".cs" #><#@ 
+assembly name="System.Core" #><#@ 
+import namespace="System.IO" #><#@ 
+import namespace="System.Linq" #><#@ 
+import namespace="System.Text.RegularExpressions" #><#@ 
+import namespace="System.Collections.Generic" #><#@ 
+import namespace="System.Threading" #><#
+    var specFiles = new KeyValuePair<string, string>[] {
+		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/IncludeBlocksSpecs.md"), "IncludeBlocks|All"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/OptionsBlocksSpecs.md"), "All"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiAlertBlocksSpecs.md"), "FlexiAlertBlocks|All"),
+	    new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiCodeBlocksSpecs.md"), "FlexiCodeBlocks|All"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiSectionBlocksSpecs.md"), "FlexiSectionBlocks|All"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiTableBlocksSpecs.md"), "FlexiTableBlocks|All")
+	};
+#>using Xunit;
+
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
+{
+<#
+    bool firstExtension = true;
+foreach (KeyValuePair<string, string> specFileItem in specFiles)
+{
+	string specFile = specFileItem.Key;
+    string[] pipelines = specFileItem.Value.Split('|');
+    List<Extension> extensions = FlexiBlocksSpecsParser.ParseSpecs(specFile);
+
+    foreach (Extension extension in extensions)
+    {
+        bool firstSpec = true;
+#><#= !firstExtension ? "\n" : string.Empty #>    public class <#= extension.Name #>Specs
+    {
+<#  
+        foreach (Spec spec in extension.Specs)
+        {
+#><#= !firstSpec ? "\n" : string.Empty #>        [Theory]
+<#          foreach (string pipeline in pipelines)
+            {
+                string completePipeline = pipeline + (!string.IsNullOrWhiteSpace(spec.ExtraExtensions) && !pipeline.Equals("All") ? "_" + spec.ExtraExtensions : string.Empty);
+#>        [InlineData("<#= completePipeline #>")]
+<#
+            }
+#>        public void <#= extension.Name #>_Spec<#= spec.Number #>(string extensions)
+        {
+<#= spec.SpecAsComment #>
+
+            SpecTestHelper.AssertCompliance("<#= spec.Markdown #>",
+                "<#= spec.ExpectedMarkup #>",
+                extensions,
+                false<# if(!string.IsNullOrWhiteSpace(spec.ExtensionOptions))
+                {
+#>,
+                "<#= spec.ExtensionOptions #>"<#
+                }
+#>);
+        }
+<#
+            firstSpec = false;
+        }
+        firstExtension = false;
+#>    }
+<#
+    }
+}
+#>}
+
+<#+
+public class Extension
+{
+    public string Name { get; set; }
+    public List<Spec> Specs { get; set; } = new List<Spec>();
+}
+
+public class Spec
+{
+    public string ExtensionOptions { get; set; }
+    public string Markdown { get; set; }
+    public string ExpectedMarkup { get; set; }
+    public string SpecAsComment { get; set; }
+    public string ExtraExtensions { get; set; }
+    public int Number { get; set; }
+}
+
+public class FlexiBlocksSpecsParser
+{
+    private enum ParseStage
+    {
+        PreSpec,
+        ExtraExtensions,
+        ExtensionOptions,
+        Spec,
+        ExpectedMarkup,
+        Markdown
+    }
+
+    private static ParseStage stage;
+    private static Extension currentExtension;
+    private static string closestHeading;
+    private static bool end;
+    private static List<Extension> result;
+    private static List<string> extensionOptionsLines;
+    private static List<string> extraExtensions;
+    private static List<string> markdownLines;
+    private static List<string> expectedMarkupLines;
+    private static List<string> specLines;
+    private static int currentSpecNumber;
+    private static int currentLeadingWhitespaceCount;
+    private static int currentStartLineNumber;
+
+    public static List<Extension> ParseSpecs(string fileName)
+    {
+        // Reset everything (static variable are ugly but efficient, so long as this method is never
+        // called in parallel, in which case a local state object could be used instead)
+        stage = ParseStage.PreSpec;
+        currentExtension = null;
+        closestHeading = null;
+        end = false;
+        result = new List<Extension>();
+        extensionOptionsLines = new List<string>();
+        extraExtensions = new List<string>();
+        markdownLines = new List<string>();
+        expectedMarkupLines = new List<string>();
+        specLines = new List<string>();
+        currentSpecNumber = 1;
+
+        string content = File.ReadAllText(fileName);
+        string line;
+        int lineNumber = 1;
+
+        using (var reader = new StringReader(content))
+        {
+            while (!end && (line = reader.ReadLine()) != null)
+            {
+                line = currentLeadingWhitespaceCount > line.Length - 1 ? line : line.Substring(currentLeadingWhitespaceCount);
+
+                if (stage == ParseStage.PreSpec)
+                {
+                    PreSpecStageHandleLine(line, lineNumber);
+                }
+                else if (stage == ParseStage.Spec)
+                {
+                    SpecHandleLine(line);
+                }
+                else if (!SpecHandleLine(line))
+                {
+                    if (stage == ParseStage.Markdown)
+                    {
+                        markdownLines.Add(line);
+                    }
+                    else if (stage == ParseStage.ExpectedMarkup)
+                    {
+                        expectedMarkupLines.Add(line);
+                    }
+                    else if (!string.IsNullOrWhiteSpace(line)) // Empty lines are ignored for the following extensions
+                    {
+                        if (stage == ParseStage.ExtraExtensions)
+                        {
+                            extraExtensions.Add(line);
+                        }
+                        else if (stage == ParseStage.ExtensionOptions)
+                        {
+                            extensionOptionsLines.Add(line);
+                        }
+                    }
+                }
+                lineNumber++;
+            }
+        }
+
+        return result;
+    }
+
+    private static void PreSpecStageHandleLine(string line, int lineNumber)
+    {
+        if (line.EndsWith("```````````````````````````````` none"))
+        {
+            currentLeadingWhitespaceCount = line.TakeWhile(char.IsWhiteSpace).Count();
+
+            if (currentExtension == null)
+            {
+                currentExtension = new Extension()
+                {
+                    Name = NormalizeHeading(closestHeading),
+                };
+                result.Add(currentExtension);
+            }
+
+            currentStartLineNumber = lineNumber + 1;
+
+            stage = ParseStage.Spec;
+            return;
+        }
+
+        if (line == "<!-- END TESTS -->")
+        {
+            end = true;
+            return;
+        }
+
+        if (closestHeading == null)
+        {
+            Match match = Regex.Match(line, @"^# ([ \w]+)");
+            if (match.Success)
+            {
+                closestHeading = match.Groups[1].Value;
+            }
+        }
+    }
+
+    private static bool SpecHandleLine(string line)
+    {
+        if (line == "````````````````````````````````")
+        {
+            string markdown = string.Join("\n", markdownLines.ToArray());
+            string expectedMarkup = string.Join("\n", expectedMarkupLines.ToArray());
+            string extensionOptions = string.Join("\n", extensionOptionsLines.ToArray());
+
+            currentExtension.
+                Specs.
+                Add(new Spec()
+                {
+                    SpecAsComment = ToComment("Start line number: " + currentStartLineNumber + "\n" + string.Join("\n", specLines.ToArray()), "            ", "     "),
+                    ExpectedMarkup = Escape(expectedMarkup),
+                    Markdown = Escape(markdown),
+                    Number = currentSpecNumber,
+                    ExtensionOptions = Escape(extensionOptions),
+                    ExtraExtensions = string.Join("_", extraExtensions)
+                });
+
+            expectedMarkupLines.Clear();
+            markdownLines.Clear();
+            extraExtensions.Clear();
+            extensionOptionsLines.Clear();
+            specLines.Clear();
+            currentSpecNumber++;
+            currentLeadingWhitespaceCount = 0;
+
+            stage = ParseStage.PreSpec;
+
+            return true;
+        }
+
+        specLines.Add(line);
+
+        if (!line.StartsWith("--------------- "))
+        {
+            return false;
+        }
+
+        if (line == "--------------- Extra Extensions ---------------")
+        {
+            stage = ParseStage.ExtraExtensions;
+        }
+        else if (line == "--------------- Extension Options ---------------")
+        {
+            stage = ParseStage.ExtensionOptions;
+        }
+        else if (line == "--------------- Markdown ---------------")
+        {
+            stage = ParseStage.Markdown;
+        }
+        else if (line == "--------------- Expected Markup ---------------")
+        {
+            stage = ParseStage.ExpectedMarkup;
+        }
+        else
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    private static string ToComment(string text, string commentIndentation = "", string contentIndentation = " ")
+    {
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            return string.Empty;
+        }
+
+        return $"{commentIndentation}//{contentIndentation}" + text.Replace("\n", $"\n{commentIndentation}//{contentIndentation}");
+    }
+
+    private static string NormalizeHeading(string heading)
+    {
+        // If heading consists of multiple words, combine them into a single CamelCase word
+        if (heading.Contains(" "))
+        {
+            return Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(heading).Replace(" ", "");
+        }
+
+        return heading;
+    }
+
+    private static string Escape(string input)
+    {
+        return input
+            .Replace("→", "\t")
+            .Replace("\\", "\\\\")
+            .Replace("\"", "\\\"")
+            .Replace("\0", "\\0")
+            .Replace("\a", "\\a")
+            .Replace("\b", "\\b")
+            .Replace("\f", "\\f")
+            .Replace("\n", "\\n")
+            .Replace("\r", "\\r")
+            .Replace("\t", "\\t")
+            .Replace("\v", "\\v");
+    }
+}
+#>

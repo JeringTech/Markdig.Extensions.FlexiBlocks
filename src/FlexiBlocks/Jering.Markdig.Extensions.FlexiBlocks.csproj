@@ -30,14 +30,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Markdig" Version="0.16.0" />
         <PackageReference Include="Jering.IocServices.Newtonsoft.Json" Version="0.3.0" />
         <PackageReference Include="Jering.IocServices.System.IO" Version="0.3.0" />
         <PackageReference Include="Jering.IocServices.System.Net.Http" Version="0.3.0" />
-        <PackageReference Include="Jering.Web.SyntaxHighlighters.HighlightJS" Version="3.1.1" />
-        <PackageReference Include="Jering.Web.SyntaxHighlighters.Prism" Version="4.1.1" />
+        <PackageReference Include="Jering.Web.SyntaxHighlighters.HighlightJS" Version="3.2.1" />
+        <PackageReference Include="Jering.Web.SyntaxHighlighters.Prism" Version="4.2.1" />
+        <PackageReference Include="Markdig" Version="0.16.0" />
         <!-- Requires libcurl-openssl for build to work on Linux "sudo apt install libcurl3 libcurl-openssl1.0-dev"-->
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02">
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19270-01">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
@@ -47,17 +47,17 @@
         <PackageReference Include="Roslynator.CodeFixes" Version="2.0.0" PrivateAssets="all" ExcludeAssets="Runtime">
           <IncludeAssets>compile; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
+        <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="Shared\Icons\Icons.cs">
-          <DependentUpon>Icons.tt</DependentUpon>
+        <Compile Update="Shared\Icons\MaterialDesignIcons.cs">
+          <DependentUpon>MaterialDesignIcons.tt</DependentUpon>
           <DesignTime>True</DesignTime>
           <AutoGen>True</AutoGen>
         </Compile>
-        <None Update="Shared\Icons\Icons.tt">
-            <LastGenOutput>Icons.cs</LastGenOutput>
+        <None Update="Shared\Icons\MaterialDesignIcons.tt">
+            <LastGenOutput>MaterialDesignIcons.cs</LastGenOutput>
             <Generator>TextTemplatingFileGenerator</Generator>
         </None>
         <Compile Update="Strings.Designer.cs">

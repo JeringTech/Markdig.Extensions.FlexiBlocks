@@ -1,4 +1,5 @@
-﻿using Markdig.Helpers;
+﻿using Markdig;
+using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
 
@@ -25,7 +26,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         public static BlockProcessor CreateBlockProcessor(
             StringBuilderCache stringBuilderCache = null,
             MarkdownDocument markdownDocument = null,
-            BlockParserList blockParsers = null)
+            BlockParserList blockParsers = null,
+            MarkdownParserContext markdownParserContext = null)
         {
             return new BlockProcessor(
                 stringBuilderCache ?? new StringBuilderCache(),
@@ -43,7 +45,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                         new ParagraphBlockParser(),
                     }
                 ),
-                null);
+                markdownParserContext);
         }
     }
 }

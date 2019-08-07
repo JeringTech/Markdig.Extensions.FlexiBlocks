@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
+using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
-using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
 using Markdig;
@@ -10,10 +10,33 @@ using System.IO;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
 {
+    // TODO each block should have its own benchmarks class, every feature of each block should have its own benchmark.
+    // Current benchmarks aren't very useful.
     [MemoryDiagnoser]
     public class Benchmarks
     {
         private MarkdownPipeline _pipeline;
+
+        [GlobalSetup(Target = nameof(IncludeBlock_ParseAndRender))]
+        public void IncludeBlock_ParseAndRender_Setup()
+        {
+            var pipelineBuilder = new MarkdownPipelineBuilder();
+            pipelineBuilder.
+                UseIncludeBlocks().
+                UseOptionsBlocks();
+            _pipeline = pipelineBuilder.Build();
+
+            WritePreview(nameof(IncludeBlocksExtension), IncludeBlock_ParseAndRender());
+        }
+
+        [Benchmark]
+        public string IncludeBlock_ParseAndRender()
+        {
+            return Markdown.ToHtml(@"+{
+    ""source"": ""https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.js"",
+    ""clippings"":[{""start"": 7, ""endString"": ""#endregion utility methods"", ""dedent"": 1, ""collapse"": 0.5}]
+}", _pipeline);
+        }
 
         [GlobalSetup(Target = nameof(FlexiAlertBlock_ParseAndRender))]
         public void FlexiAlertBlock_ParseAndRender_Setup()
@@ -21,7 +44,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiAlertBlocks().
-                UseFlexiOptionsBlocks();
+                UseOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiAlertBlocksExtension), FlexiAlertBlock_ParseAndRender());
@@ -30,8 +53,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
         [Benchmark]
         public string FlexiAlertBlock_ParseAndRender()
         {
-            return Markdown.ToHtml(@"@{ ""type"": ""info"" }
-! This is a critical warning.", _pipeline);
+            return Markdown.ToHtml(@"@{ ""type"": ""warning"" }
+! This is a warning.", _pipeline);
         }
 
         [GlobalSetup(Target = nameof(FlexiCodeBlock_ParseAndRender))]
@@ -40,38 +63,42 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiCodeBlocks().
-                UseFlexiOptionsBlocks();
+                UseOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiCodeBlocksExtension), FlexiCodeBlock_ParseAndRender());
         }
 
+        // TODO slow
         [Benchmark]
         public string FlexiCodeBlock_ParseAndRender()
         {
             return Markdown.ToHtml(@"@{
     ""language"": ""csharp"",
-    ""lineNumberLineRanges"": [
+    ""lineNumbers"": [
         {
-            ""startLineNumber"": 1,
-            ""endLineNumber"": 8,
-            ""firstNumber"": 1
+            ""start"": 1,
+            ""end"": 8,
+            ""startNumber"": 1
         },
         {
-            ""startLineNumber"": 11,
-            ""endLineNumber"": -1,
-            ""firstNumber"": 32
+            ""start"": 11,
+            ""end"": -1,
+            ""startNumber"": 32
         }
     ],
-    ""highlightLineRanges"": [
+    ""highlightedLines"": [
         {
-            ""startLineNumber"": 3,
-            ""endLineNumber"": 7
+            ""start"": 3,
+            ""end"": 7
         },
         {
-            ""startLineNumber"": 12,
-            ""endLineNumber"": 16
+            ""start"": 12,
+            ""end"": 16
         }
+    ],
+    ""highlightedPhrases"": [
+        { ""regex"": ""public .*?\\)"", ""included"": [1] }
     ]
 }
 ```
@@ -95,39 +122,20 @@ public class ExampleClass
 ```", _pipeline);
         }
 
-        [GlobalSetup(Target = nameof(FlexiIncludeBlock_ParseAndRender))]
-        public void FlexiIncludeBlock_ParseAndRender_Setup()
-        {
-            var pipelineBuilder = new MarkdownPipelineBuilder();
-            pipelineBuilder.
-                UseFlexiIncludeBlocks().
-                UseFlexiOptionsBlocks();
-            _pipeline = pipelineBuilder.Build();
-
-            WritePreview(nameof(FlexiIncludeBlocksExtension), FlexiIncludeBlock_ParseAndRender());
-        }
-
-        [Benchmark]
-        public string FlexiIncludeBlock_ParseAndRender()
-        {
-            return Markdown.ToHtml(@"+{
-    ""sourceUri"": ""https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.js"",
-    ""clippings"":[{""startLineNumber"": 7, ""endDemarcationLineSubstring"": ""#endregion utility methods"", ""dedentLength"": 1, ""collapseRatio"": 0.5}]
-}", _pipeline);
-        }
-
         [GlobalSetup(Target = nameof(FlexiSectionBlock_ParseAndRender))]
         public void FlexiSectionBlock_ParseAndRender_Setup()
         {
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiSectionBlocks().
-                UseFlexiOptionsBlocks();
+                UseOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiSectionBlocksExtension), FlexiSectionBlock_ParseAndRender());
         }
 
+        // TODO allocates way more than expected.
+        // Try pooling using ConcurrentBags.
         [Benchmark]
         public string FlexiSectionBlock_ParseAndRender()
         {
@@ -148,7 +156,7 @@ public class ExampleClass
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiTableBlocks().
-                UseFlexiOptionsBlocks();
+                UseOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiTableBlocksExtension), FlexiTableBlock_ParseAndRender());
@@ -157,15 +165,15 @@ public class ExampleClass
         [Benchmark]
         public string FlexiTableBlock_ParseAndRender()
         {
-            return Markdown.ToHtml(@"@{
-    ""wrapperElement"": ""div""
-}
-+---+---+
-| a | b |
-+===+===+
-| 0 | 1 |
-+---+---+
-| 2 | 3 |", _pipeline);
+            return Markdown.ToHtml(@"
++-----+-----+
+| a   | b   |
++=====+=====+
+| `0` | *1* |
++-----+-----+
+| > 2 | ``` |
+|     | 3   |
+|     | ``` |", _pipeline);
         }
 
         private void WritePreview(string extensionName, string preview)

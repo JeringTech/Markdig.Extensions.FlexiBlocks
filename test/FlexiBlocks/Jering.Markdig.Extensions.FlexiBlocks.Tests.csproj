@@ -40,9 +40,13 @@
     </ItemGroup>
     
     <ItemGroup>
-        <None Update="SpecsTests\SpecsTests.tt">
+        <None Update="SpecsTests\CommonMarkSpecsTests.tt">
+          <Generator>TextTemplatingFileGenerator</Generator>
+          <LastGenOutput>CommonMarkSpecsTests.cs</LastGenOutput>
+        </None>
+        <None Update="SpecsTests\FlexiBlocksSpecsTests.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>SpecsTests.cs</LastGenOutput>
+            <LastGenOutput>FlexiBlocksSpecsTests.cs</LastGenOutput>
         </None>
     </ItemGroup>
 
@@ -51,10 +55,15 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="SpecsTests\SpecsTests.cs">
+        <Compile Update="SpecsTests\CommonMarkSpecsTests.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>CommonMarkSpecsTests.tt</DependentUpon>
+        </Compile>
+        <Compile Update="SpecsTests\FlexiBlocksSpecsTests.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>SpecsTests.tt</DependentUpon>
+            <DependentUpon>FlexiBlocksSpecsTests.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 

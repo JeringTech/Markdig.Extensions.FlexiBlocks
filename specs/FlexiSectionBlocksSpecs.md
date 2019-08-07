@@ -1,5 +1,12 @@
-﻿# FlexiSectionBlocks
-Markdown articles are typically divided into logical sections by [ATX heading](https://spec.commonmark.org/0.28/#atx-headings)s. For example:
+﻿---
+blockOptions: "../src/FlexiBlocks/Extensions/FlexiSectionBlocks/FlexiSectionBlockOptions.cs"
+extensionOptions: "../src/FlexiBlocks/Extensions/FlexiSectionBlocks/FlexiSectionBlocksExtensionOptions.cs"
+---
+
+# FlexiSectionBlocks
+`FlexiSectionBlocks` are logical sections of a markdown article.   
+
+Markdown articles are typically divided into logical sections by [ATX headings](https://spec.commonmark.org/0.28/#atx-headings). For example:
 ```
 # Indoor Herb Gardens
 An introduction..
@@ -37,17 +44,50 @@ logical sections in [sectioning content elements](https://html.spec.whatwg.org/m
 </section>
 </article>
 ```
-Wrapping logical sections in sectioning content elements facilitates efficient manipulation of an article's outline (TODO add link to relevant article).
+`FlexiSectionBlocks` facilitates such wrapping, which in turn allows for efficient manipulation of an article's outline (TODO add link to relevant article).
 
-FlexiSectionBlocks are logical sections of a markdown article. They facilitate wrapping of such sections in sectioning content elements.
+## Usage
+```csharp
+using Markdig;
+using Jering.Markdig.Extensions.FlexiBlocks;
 
-## Basic Syntax
-A FlexiSectionBlock consists of an ATX heading and the content between it and
-- The next ATX heading of equal or lower level 
-[that is not a child of a container block](#mechanics) or
+...
+var markdownPipelineBuilder = new MarkdownPipelineBuilder();
+markdownPipelineBuilder.UseFlexiSectionBlocks(/* Optional extension options */);
+
+MarkdownPipeline markdownPipeline = markdownPipelineBuilder.Build();
+
+string markdown = @"# foo
+## bar";
+string html = Markdown.ToHtml(markdown, markdownPipeline);
+string expectedHtml = @"<section class=""flexi-section flexi-section_level_1 flexi-section_has-link-icon"" id=""foo"">
+<header class=""flexi-section__header"">
+<h1 class=""flexi-section__heading"">foo</h1>
+<button class=""flexi-section__link-button"" title=""Copy link"" aria-label=""Copy link"">
+<svg class=""flexi-section__link-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path d=""M0 0h24v24H0z"" fill=""none""/><path d=""M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z""/></svg>
+</button>
+</header>
+<p>Some markdown..</p>
+<section class=""flexi-section flexi-section_level_2 flexi-section_has-link-icon"" id=""bar"">
+<header class=""flexi-section__header"">
+<h2 class=""flexi-section__heading"">bar</h2>
+<button class=""flexi-section__link-button"" title=""Copy link"" aria-label=""Copy link"">
+<svg class=""flexi-section__link-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path d=""M0 0h24v24H0z"" fill=""none""/><path d=""M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z""/></svg>
+</button>
+</header>
+<p>More markdown..</p>
+</section>
+</section>";
+
+Assert.Equal(expectedHtml, html)
+```
+
+# Syntax
+In markdown, a FlexiSectionBlock consists of an ATX heading and the content between it and
+- The next ATX heading of equal or lower level in the same [sectioning root](https://html.spec.whatwg.org/multipage/sections.html#sectioning-root) or
 - The end of the article.
 
-Valid [ATX heading](https://spec.commonmark.org/0.28/#atx-headings)s demarcate the start of FlexiSectionBlocks: 
+An [ATX heading](https://spec.commonmark.org/0.28/#atx-headings) demarcates the start of a FlexiSectionBlock: 
 ```````````````````````````````` none
 --------------- Markdown ---------------
 # Indoor Herb Gardens
@@ -63,43 +103,43 @@ Information on growing herbs from cuttings..
 ### Watering Herbs
 Information on watering herbs..
 --------------- Expected Markup ---------------
-<section class="flexi-section-block-1" id="indoor-herb-gardens">
-<header>
-<h1>Indoor Herb Gardens</h1>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+<section class="flexi-section flexi-section_level_1 flexi-section_has-link-icon" id="indoor-herb-gardens">
+<header class="flexi-section__header">
+<h1 class="flexi-section__heading">Indoor Herb Gardens</h1>
+<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
 <p>An introduction..</p>
-<section class="flexi-section-block-2" id="getting-started">
-<header>
-<h2>Getting Started</h2>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+<section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="getting-started">
+<header class="flexi-section__header">
+<h2 class="flexi-section__heading">Getting Started</h2>
+<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
-<section class="flexi-section-block-3" id="growing-herbs-from-cuttings">
-<header>
-<h3>Growing Herbs from Cuttings</h3>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+<section class="flexi-section flexi-section_level_3 flexi-section_has-link-icon" id="growing-herbs-from-cuttings">
+<header class="flexi-section__header">
+<h3 class="flexi-section__heading">Growing Herbs from Cuttings</h3>
+<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
 <p>Information on growing herbs from cuttings..</p>
 </section>
 </section>
-<section class="flexi-section-block-2" id="caring-for-herbs">
-<header>
-<h2>Caring for Herbs</h2>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+<section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="caring-for-herbs">
+<header class="flexi-section__header">
+<h2 class="flexi-section__heading">Caring for Herbs</h2>
+<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
-<section class="flexi-section-block-3" id="watering-herbs">
-<header>
-<h3>Watering Herbs</h3>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+<section class="flexi-section flexi-section_level_3 flexi-section_has-link-icon" id="watering-herbs">
+<header class="flexi-section__header">
+<h3 class="flexi-section__heading">Watering Herbs</h3>
+<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
 <p>Information on watering herbs..</p>
@@ -108,315 +148,525 @@ Information on watering herbs..
 </section>
 ````````````````````````````````
 
-By default, a FlexiSectionBlock's outermost element is assigned a generated class and ID. Also, its heading is nested in a header element with a link
-icon. The class, ID, markup for the link icon and more can be customized or omitted - refer to the [options section](#options) for details.
- 
-## Options
+! By default, a FlexiSectionBlock has a header with a heading and a link button. These elements, along with a FlexiSectionBlock's root element, are assigned default classes. Default classes comply with 
+! [BEM methodology](https://en.bem.info/).  
+!
+! By default, a FlexiSectionBlock is also assigned an ID generated from its heading content.  
+!
+! FlexiSectionBlocks can be customized, we'll explain how in [a bit](#options).
 
+## Options
 ### `FlexiSectionBlockOptions`
-Options for a FlexiSectionBlock. To specify FlexiSectionBlockOptions for a FlexiSectionBlock, the 
-[FlexiOptionsBlocks](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#flexioptionsblocks) extension must be enabled. To specify default FlexiSectionBlockOptions for all FlexiSectionBlocks,
-use [FlexiSectionBlocksExtensionOptions](#flexisectionblocksextensionoptions).
+Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a FlexiSectionBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/OptionsBlocksSpecs.md#options) extension must be enabled.
 
 #### Properties
-- `Element`
-  - Type: `SectioningContentElement`
-  - Description: The sectioning content element used as the outermost element of the FlexiSectionBlock.
-  - Default: `SectioningContentElement.Section`
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "element": "nav"
-    }
-    ## foo
-    --------------- Expected Markup ---------------
-    <nav class="flexi-section-block-2" id="foo">
-    <header>
-    <h2>foo</h2>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-    </button>
-    </header>
-    </nav>
-    ````````````````````````````````
 
-- `GenerateIdentifier`
-  - Type: `bool`
-  - Description: The boolean value specifying whether or not an ID should be generated for the FlexiSectionBlock's 
-    outermost element.
-    If this value is true, an ID will be generated from the FlexiSectionBlock's header's content. 
-    Otherwise, no ID will be generated.
-  - Default: `true`
-  - Usage:
-    By default, this value is true, so a kebab-case (lowercase words joined by dashes) ID is generated for the FlexiSectionBlock:
-    ```````````````````````````````` none
-    --------------- Markdown ---------------
-    ## Foo Bar Baz
-    --------------- Expected Markup ---------------
-    <section class="flexi-section-block-2" id="foo-bar-baz">
-    <header>
-    <h2>Foo Bar Baz</h2>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-    </button>
-    </header>
-    </section>
-    ````````````````````````````````
-    When this value is false, no ID is generated for the FlexiSectionBlock:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "generateIdentifier": false
-    }
-    ## Foo Bar Baz
-    --------------- Expected Markup ---------------
-    <section class="flexi-section-block-2">
-    <header>
-    <h2>Foo Bar Baz</h2>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-    </button>
-    </header>
-    </section>
-    ````````````````````````````````
+##### `BlockName`
+- Type: `string`
+- Description: The `FlexiSectionBlock`'s [BEM block name](https://en.bem.info/methodology/naming-convention/#block-name).
+  In compliance with [BEM methodology](https://en.bem.info), this value is the `FlexiSectionBlock`'s root element's class as well as the prefix for all other classes in the block.
+  This value should contain only valid [CSS class characters](https://www.w3.org/TR/CSS21/syndata.html#characters).
+  If this value is `null`, whitespace or an empty string, the `FlexiSectionBlock`'s block name is "flexi-section".
+- Default: "flexi-section"
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{ "blockName": "section" }
+  ## foo
+  --------------- Expected Markup ---------------
+  <section class="section section_level_2 section_has-link-icon" id="foo">
+  <header class="section__header">
+  <h2 class="section__heading">foo</h2>
+  <button class="section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  </section>
+  ````````````````````````````````
 
-- `AutoLinkable`
-  - Type: `bool`
-  - Description: The boolean value specifying whether or not the FlexiSectionBlock should be linkable to using its
-    header's content (auto-linkable).
-    If this value is true and the FlexiSectionBlock's outermost element has an ID, enables auto-linking for
-    the FlexiSectionBlock. Otherwise, auto-linking will be disabled.
-  - Default: `true`
-  - Usage:
-    By default, this value is true, so the FlexiSectionBlock can be linked to using its heading's content:
-    ```````````````````````````````` none
-    --------------- Markdown ---------------
-    [foo]
+##### `Element`
+- Type: `SectioningContentElement`
+- Description: The `FlexiSectionBlock`'s root element's type.
+  The element must be a [sectioning content](https://html.spec.whatwg.org/#sectioning-content) element.
+- Default: `SectioningContentElement.Section`
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{ "element": "nav" }
+  ## foo
+  --------------- Expected Markup ---------------
+  <nav class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">foo</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  </nav>
+  ````````````````````````````````
 
-    ## foo
+##### `GenerateID`
+- Type: `bool`
+- Description: The value specifying whether or not to generate an ID for the `FlexiSectionBlock`.
+  The generated ID is assigned to the `FlexiSectionBlock`'s root element.
+  If this value is true, an ID is generated. Otherwise, no ID is generated.
+  The generated ID is the `FlexiSectionBlock`'s heading content in kebab-case (lowercase words joined by dashes).
+  For example, if the heading content is "Foo Bar Baz", the ID generated is "foo-bar-baz".
+  If the generated ID is a duplicate of another `FlexiSectionBlock`'s ID, "-<duplicate index>" is appended.
+  For example, the second `FlexiSectionBlock` with heading content "Foo Bar Baz" will have ID "foo-bar-baz-1".
+  The generated ID precedence over any ID specified in `Attributes`.
+- Default: true
+- Examples:
+  This value is true by default:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  ## Foo Bar Baz
+  --------------- Expected Markup ---------------
+  <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo-bar-baz">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">Foo Bar Baz</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  </section>
+  ````````````````````````````````
+  "-<duplicate index>" is appended if the generated ID is a duplicate:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  ## foo
+  ### `foo`
+  ## foo 1
+  --------------- Expected Markup ---------------
+  <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">foo</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  <section class="flexi-section flexi-section_level_3 flexi-section_has-link-icon" id="foo-1">
+  <header class="flexi-section__header">
+  <h3 class="flexi-section__heading"><code>foo</code></h3>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  </section>
+  </section>
+  <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo-1-1">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">foo 1</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  </section>
+  ````````````````````````````````
+  If this value is false, no ID is generated:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{ "generateID": false }
+  ## Foo Bar Baz
+  --------------- Expected Markup ---------------
+  <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">Foo Bar Baz</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  </section>
+  ````````````````````````````````
+  The generated ID takes precedence over any ID in `Attributes`, :
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{ 
+      "attributes": {
+        "id" : "my-custom-id"
+      }
+  }
+  ## Foo Bar Baz
+  --------------- Expected Markup ---------------
+  <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo-bar-baz">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">Foo Bar Baz</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  </section>
+  ````````````````````````````````
 
-    [foo]
-    [Link Text][foo]
-    --------------- Expected Markup ---------------
-    <p><a href="#foo">foo</a></p>
-    <section class="flexi-section-block-2" id="foo">
-    <header>
-    <h2>foo</h2>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-    </button>
-    </header>
-    <p><a href="#foo">foo</a>
-    <a href="#foo">Link Text</a></p>
-    </section>
-    ````````````````````````````````
-    When this value is false, the FlexiSectionBlock cannot be linked to using its heading's content:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    [foo]
+##### `LinkIcon`
+- Type: `string`
+- Description: The `FlexiSectionBlock`'s link icon as an HTML fragment.
+  A class attribute with value "<`BlockName`>__link-icon" is added to this fragment's first start tag.
+  If this value is `null`, whitespace or an empty string, no link icon is rendered.
+- Default: the [Material Design link icon](https://material.io/tools/icons/?icon=file_copy&style=baseline)
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{
+      "linkIcon": "<svg><use xlink:href=\"#material-design-link\"></use></svg>"
+  }
+  ## foo
+  --------------- Expected Markup ---------------
+  <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">foo</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon"><use xlink:href="#material-design-link"></use></svg>
+  </button>
+  </header>
+  </section>
+  ````````````````````````````````
+  No link icon is are rendered if this value is `null`, whitespace or an empty string:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{ "linkIcon": null }
+  # foo
+  --------------- Expected Markup ---------------
+  <section class="flexi-section flexi-section_level_1 flexi-section_no-link-icon" id="foo">
+  <header class="flexi-section__header">
+  <h1 class="flexi-section__heading">foo</h1>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  </button>
+  </header>
+  </section>
+  ````````````````````````````````
 
-    @{
-        "autoLinkable": false
-    }
-    ## foo
+##### `AutoLinkable`
+- Type: `bool`
+- Description: The value specifying whether or not the `FlexiSectionBlock` is auto-linkable.
+  If this value and `GenerateID` are both true, the `FlexiSectionBlock` is auto-linkable.
+  Otherwise, it isn't.
+  If a `FlexiSectionBlock` is auto-linkable, it can be linked to using its heading content. For example,
+  "## Foo Bar Baz" can be linked to using "[Foo Bar Baz]".
+  If a `FlexiSectionBlock`'s ID has "-<duplicate index>" appended (see `GenerateID`),
+  it can be linked to using "<heading content> <duplicate index>".
+  For example, the second "## Foo Bar baz" can be linked to using "[Foo Bar Baz 1]".
+- Default: true
+- Examples:
+  This value is true by default:
+  ```````````````````````````````` none
+  --------------- Markdown ---------------
+  [foo]
 
-    [foo]
-    [Link Text][foo]
-    --------------- Expected Markup ---------------
-    <p>[foo]</p>
-    <section class="flexi-section-block-2" id="foo">
-    <header>
-    <h2>foo</h2>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-    </button>
-    </header>
-    <p>[foo]
-    [Link Text][foo]</p>
-    </section>
-    ````````````````````````````````
+  ## foo
 
-- `ClassFormat`
-  - Type: `string`
-  - Description: The format for the FlexiSectionBlock's outermost element's class.
-    The FlexiSectionBlock's level will replace "{0}" in the format. 
-    If this value is null, whitespace or an empty string, no class is assigned.
-  - Default: "flexi-section-block-{0}"
-  - Usage: 
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "classFormat": "level-{0}"
-    }
-    ## foo
-    --------------- Expected Markup ---------------
-    <section class="level-2" id="foo">
-    <header>
-    <h2>foo</h2>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-    </button>
-    </header>
-    </section>
-    ````````````````````````````````
+  [foo]
+  [Link Text][foo]
+  --------------- Expected Markup ---------------
+  <p><a href="#foo">foo</a></p>
+  <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">foo</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  <p><a href="#foo">foo</a>
+  <a href="#foo">Link Text</a></p>
+  </section>
+  ````````````````````````````````
+  If this value is false, the `FlexiSectionBlock` is not auto-linkable:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  [foo]
 
-- `LinkIconMarkup`
-  - Type: `string`
-  - Description: The markup for the FlexiSectionBlock's link icon.
-    If this value is null, whitespace or an empty string, no link icon is rendered.
-  - Default: [Material Design "Link" Icon](https://material.io/tools/icons/?icon=link&style=baseline)
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "linkIconMarkup": "<svg><use xlink:href=\"#material-design-link\"></use></svg>"
-    }
-    ## foo
-    --------------- Expected Markup ---------------
-    <section class="flexi-section-block-2" id="foo">
-    <header>
-    <h2>foo</h2>
-    <button>
-    <svg><use xlink:href="#material-design-link"></use></svg>
-    </button>
-    </header>
-    </section>
-    ````````````````````````````````
+  @{ "autoLinkable": false }
+  ## foo
 
-- `Attributes`
-  - Type: `IDictionary<string, string>`
-  - Description: The HTML attributes for the FlexiSectionBlock's outermost element.
-    If this value is null, no attributes will be assigned to the outermost element.
-  - Default: `null`
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Markdown ---------------
-    @{
-        "attributes": {
-            "id" : "section-1",
-            "class" : "block"
-        }
-    }
-    ## foo
-    --------------- Expected Markup ---------------
-    <section id="section-1" class="block flexi-section-block-2">
-    <header>
-    <h2>foo</h2>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-    </button>
-    </header>
-    </section>
-    ````````````````````````````````
-    If a value is specified for the class attribute, it will not override the outermost element's generated class. Instead, it will be 
-    prepended to the generated class. In the above example, this results in the outermost element's class attribute having the value 
-    `block secion-level-2`.
+  [foo]
+  [Link Text][foo]
+  --------------- Expected Markup ---------------
+  <p>[foo]</p>
+  <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">foo</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  <p>[foo]
+  [Link Text][foo]</p>
+  </section>
+  ````````````````````````````````
+  If `GenerateID` is false, the `FlexiSectionBlock` is not auto-linkable:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  [foo]
+
+  @{ "generateID": false }
+  ## foo
+
+  [foo]
+  [Link Text][foo]
+  --------------- Expected Markup ---------------
+  <p>[foo]</p>
+  <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">foo</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  <p>[foo]
+  [Link Text][foo]</p>
+  </section>
+  ````````````````````````````````
+  If the `FlexiSectionBlock`'s generated ID has "-<duplicate index>" appended (see `GenerateID`), 
+  it can be linked to using "<heading content> <duplicate index>":
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  ## Rosemary
+  ### Watering
+  Rosemary watering needs..
+
+  ## Lemon Balm
+  ### Watering
+  Lemon Balm watering needs..
+
+  ## Peppermint
+  ### Watering
+  Similar to [Lemon Balm watering needs][watering 1]...
+  --------------- Expected Markup ---------------
+  <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="rosemary">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">Rosemary</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  <section class="flexi-section flexi-section_level_3 flexi-section_has-link-icon" id="watering">
+  <header class="flexi-section__header">
+  <h3 class="flexi-section__heading">Watering</h3>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  <p>Rosemary watering needs..</p>
+  </section>
+  </section>
+  <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="lemon-balm">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">Lemon Balm</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  <section class="flexi-section flexi-section_level_3 flexi-section_has-link-icon" id="watering-1">
+  <header class="flexi-section__header">
+  <h3 class="flexi-section__heading">Watering</h3>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  <p>Lemon Balm watering needs..</p>
+  </section>
+  </section>
+  <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="peppermint">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">Peppermint</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  <section class="flexi-section flexi-section_level_3 flexi-section_has-link-icon" id="watering-2">
+  <header class="flexi-section__header">
+  <h3 class="flexi-section__heading">Watering</h3>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  <p>Similar to <a href="#watering-1">Lemon Balm watering needs</a>...</p>
+  </section>
+  </section>
+  ````````````````````````````````
+
+##### `RenderingMode`
+- Type: `FlexiSectionBlockRenderingMode`
+- Description: The `FlexiSectionBlock`'s rendering mode.
+- Default: `FlexiSectionBlockRenderingMode.Standard`
+- Examples:
+  This value is `FlexiSectionBlockRenderingMode.Standard` by default:
+  ```````````````````````````````` none
+  --------------- Markdown ---------------
+  ## foo
+  --------------- Expected Markup ---------------
+  <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">foo</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  </section>
+  ````````````````````````````````
+  If this value is `FlexiSectionBlockRenderingMode.Classic`, the `FlexiSectionBlock` is rendered the same way [ATX headings](https://spec.commonmark.org/0.28/#atx-headings) are 
+  rendered in CommonMark Spec examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{ "renderingMode": "classic" }
+  ## foo
+  --------------- Expected Markup ---------------
+  <h2>foo</h2>
+  ````````````````````````````````
+
+##### `Attributes`
+- Type: `IDictionary<string, string>`
+- Description: The HTML attributes for the `FlexiSectionBlock`'s root element.
+  Attribute names must be lowercase.
+  If classes are specified, they are appended to default classes. This facilitates [BEM mixes](https://en.bem.info/methodology/quick-start/#mix).
+  If the `FlexiSectionBlock` has a generated ID, it takes precedence over any ID in this value.
+  If this value is `null`, default classes are still assigned to the root element.
+- Default: `null`
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Markdown ---------------
+  @{
+      "attributes": {
+          "id" : "section-1",
+          "class" : "block"
+      },
+      "generateID": false
+  }
+  ## foo
+  --------------- Expected Markup ---------------
+  <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon block" id="section-1">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">foo</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  </section>
+  ````````````````````````````````
 
 ### `FlexiSectionBlocksExtensionOptions`
-Global options for FlexiSectionBlocks. These options can be used to define defaults for all FlexiSectionBlocks. They have
-lower precedence than block specific options specified using the FlexiOptionsBlocks extension.  
+Options for the FlexiSectionBlocks extension. There are two ways to specify these options:
+- Pass a `FlexiSectionBlocksExtensionOptions` when calling `MarkdownPipelineBuilderExtensions.UseFlexiSectionBlocks(this MarkdownPipelineBuilder pipelineBuilder, IFlexiSectionBlocksExtensionOptions options)`.
+- Insert a `FlexiSectionBlocksExtensionOptions` into a `MarkdownParserContext.Properties` with key `typeof(IFlexiSectionBlocksExtensionOptions)`. Pass the `MarkdownParserContext` when you call a markdown processing method
+  like `Markdown.ToHtml(markdown, stringWriter, markdownPipeline, yourMarkdownParserContext)`.  
+  This method allows for different extension options when reusing a pipeline. Options specified using this method take precedence.
 
-FlexiSectionBlocksExtensionOptions can be specified when enabling the FlexiSectionBlocks extension:
-``` 
-MyMarkdownPipelineBuilder.UseFlexiSectionBlocks(myFlexiSectionBlocksExtensionOptions);
-```
+#### Constructor Parameters
 
-#### Properties
-- `DefaultBlockOptions`
-  - Type: `FlexiSectionBlockOptions`
-  - Description: Default `FlexiSectionBlockOptions` for all FlexiSectionBlocks. 
-  - Usage:
-    ```````````````````````````````` none
-    --------------- Extension Options ---------------
-    {
-        "flexiSectionBlocks": {
-            "defaultBlockOptions": {
-                "element": "nav",
-                "classFormat": "level-{0}",
-                "linkIconMarkup": "<svg><use xlink:href=\"#material-design-link\"></use></svg>",
-                "attributes": {
-                    "class": "block"
-                }
-            }
-        }
-    }
-    --------------- Markdown ---------------
-    # foo
+##### `defaultBlockOptions`
+- Type: `IFlexiSectionBlockOptions`
+- Description: Default `IFlexiSectionBlockOptions` for all `FlexiSectionBlock`s.
+  If this value is `null`, a `FlexiSectionBlockOptions` with default values is used.
+- Default: `null`
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extension Options ---------------
+  {
+      "flexiSectionBlocks": {
+          "defaultBlockOptions": {
+              "blockName": "section",
+              "element": "nav",
+              "generateID": false,
+              "linkIcon": "<svg><use xlink:href=\"#material-design-link\"></use></svg>",
+              "attributes": {
+                  "class": "block"
+              }
+          }
+      }
+  }
+  --------------- Markdown ---------------
+  # foo
+  ## bar
 
-    # foo
-    --------------- Expected Markup ---------------
-    <nav class="block level-1" id="foo">
-    <header>
-    <h1>foo</h1>
-    <button>
-    <svg><use xlink:href="#material-design-link"></use></svg>
-    </button>
-    </header>
-    </nav>
-    <nav class="block level-1" id="foo-1">
-    <header>
-    <h1>foo</h1>
-    <button>
-    <svg><use xlink:href="#material-design-link"></use></svg>
-    </button>
-    </header>
-    </nav>
-    ````````````````````````````````
-
-    Default FlexiSectionBlockOptions have lower precedence than block specific options:
-    ```````````````````````````````` none
-    --------------- Extra Extensions ---------------
-    FlexiOptionsBlocks
-    --------------- Extension Options ---------------
-    {
-        "flexiSectionBlocks": {
-            "defaultBlockOptions": {
-                "element": "nav"
-            }
-        }
-    }
-    --------------- Markdown ---------------
-    # foo
-
-    @{
-        "element": "article"
-    }
-    # foo
-    --------------- Expected Markup ---------------
-    <nav class="flexi-section-block-1" id="foo">
-    <header>
-    <h1>foo</h1>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-    </button>
-    </header>
-    </nav>
-    <article class="flexi-section-block-1" id="foo-1">
-    <header>
-    <h1>foo</h1>
-    <button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-    </button>
-    </header>
-    </article>
-    ````````````````````````````````
+  [foo]
+  [bar]
+  --------------- Expected Markup ---------------
+  <nav class="section section_level_1 section_has-link-icon block">
+  <header class="section__header">
+  <h1 class="section__heading">foo</h1>
+  <button class="section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="section__link-icon"><use xlink:href="#material-design-link"></use></svg>
+  </button>
+  </header>
+  <nav class="section section_level_2 section_has-link-icon block">
+  <header class="section__header">
+  <h2 class="section__heading">bar</h2>
+  <button class="section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="section__link-icon"><use xlink:href="#material-design-link"></use></svg>
+  </button>
+  </header>
+  <p>[foo]
+  [bar]</p>
+  </nav>
+  </nav>
+  ````````````````````````````````
+  Default `FlexiSectionBlockOptions` have lower precedence than block specific options:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  OptionsBlocks
+  --------------- Extension Options ---------------
+  {
+      "flexiSectionBlocks": {
+          "defaultBlockOptions": {
+              "element": "nav"
+          }
+      }
+  }
+  --------------- Markdown ---------------
+  @{
+      "element": "article"
+  }
+  # foo
+  ## bar
+  --------------- Expected Markup ---------------
+  <article class="flexi-section flexi-section_level_1 flexi-section_has-link-icon" id="foo">
+  <header class="flexi-section__header">
+  <h1 class="flexi-section__heading">foo</h1>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  <nav class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="bar">
+  <header class="flexi-section__header">
+  <h2 class="flexi-section__heading">bar</h2>
+  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+  </button>
+  </header>
+  </nav>
+  </article>
+  ````````````````````````````````
 
 ## Mechanics
 As per the [HTML spec](https://html.spec.whatwg.org/multipage/sections.html#headings-and-sections), [sectioning roots](https://html.spec.whatwg.org/multipage/sections.html#sectioning-root)
-have their own section trees:
+have their own logical-section trees. In the following example, the level 1 ATX heading in the blockquote does not cause its preceding FlexiSectionBlock to close. Instead, it starts
+a new logical-section tree within the blockquote:
 
 ```````````````````````````````` none
 --------------- Markdown ---------------
@@ -427,83 +677,38 @@ have their own section trees:
 
 ## foo
 --------------- Expected Markup ---------------
-<section class="flexi-section-block-1" id="foo">
-<header>
-<h1>foo</h1>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+<section class="flexi-section flexi-section_level_1 flexi-section_has-link-icon" id="foo">
+<header class="flexi-section__header">
+<h1 class="flexi-section__heading">foo</h1>
+<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
 <blockquote>
-<section class="flexi-section-block-1" id="foo-1">
-<header>
-<h1>foo</h1>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+<section class="flexi-section flexi-section_level_1 flexi-section_has-link-icon" id="foo-1">
+<header class="flexi-section__header">
+<h1 class="flexi-section__heading">foo</h1>
+<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
-<section class="flexi-section-block-2" id="foo-2">
-<header>
-<h2>foo</h2>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+<section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo-2">
+<header class="flexi-section__header">
+<h2 class="flexi-section__heading">foo</h2>
+<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
 </section>
 </section>
 </blockquote>
-<section class="flexi-section-block-2" id="foo-3">
-<header>
-<h2>foo</h2>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+<section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo-3">
+<header class="flexi-section__header">
+<h2 class="flexi-section__heading">foo</h2>
+<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
-</section>
-</section>
-````````````````````````````````
-In the above spec, the level 1 ATX heading in the blockquote does not cause its preceding FlexiSectionBlock to close. Instead, it starts
-a new section tree within the blockquote.
-
-ATX headings are parsed and rendered as per normal:
-
-```````````````````````````````` none
---------------- Markdown ---------------
-# **Inline Markdown Works**
-## [Jering](https://www.jering.tech)
-### Trailing Hashes are Allowed ###
-####    Leading and Trailing Spaces are Ignored   
---------------- Expected Markup ---------------
-<section class="flexi-section-block-1" id="inline-markdown-works">
-<header>
-<h1><strong>Inline Markdown Works</strong></h1>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-</button>
-</header>
-<section class="flexi-section-block-2" id="jering">
-<header>
-<h2><a href="https://www.jering.tech">Jering</a></h2>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-</button>
-</header>
-<section class="flexi-section-block-3" id="trailing-hashes-are-allowed">
-<header>
-<h3>Trailing Hashes are Allowed</h3>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-</button>
-</header>
-<section class="flexi-section-block-4" id="leading-and-trailing-spaces-are-ignored">
-<header>
-<h4>Leading and Trailing Spaces are Ignored</h4>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-</button>
-</header>
-</section>
-</section>
 </section>
 </section>
 ````````````````````````````````
