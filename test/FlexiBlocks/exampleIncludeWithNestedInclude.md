@@ -2,5 +2,5 @@
 
 +{
     "type": "markdown",
-    "sourceUri": "./exampleInclude.md"    
+    "source": "./exampleInclude.md"    
 }
