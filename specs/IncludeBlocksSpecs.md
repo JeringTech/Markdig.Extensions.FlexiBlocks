@@ -153,11 +153,11 @@ instead of an IncludeBlock because there is a space between `+` and `{`:
   from [Github permalink](https://help.github.com/articles/getting-permanent-links-to-files/)s. Additionally, consider sanitizing generated HTML.
 - Default: `string.Empty`
 - Examples:
-  ```````````````````````````````` // TODO update remote source before enabling this again
+  ```````````````````````````````` none
   --------------- Markdown ---------------
   +{
       "type": "markdown",
-      "source": "https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.md"
+      "source": "https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/bb51313054e8d93ada0c1e779fb4db6eac9bb6f1/test/FlexiBlocks/exampleInclude.md"
   }
   --------------- Expected Markup ---------------
   <p>This is example markdown.</p>
@@ -691,15 +691,21 @@ FlexiCodeBlocks
 
 You can nest IncludeBlocks:
 
-```````````````````````````````` // TODO update remote source before enabling this again
+```````````````````````````````` none
 --------------- Markdown ---------------
 +{
     "type": "markdown",
-    "source": "https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/390395942467555e47ad3cc575d1c8ebbceead15/test/FlexiBlocks.Tests/exampleIncludeWithNestedInclude.md"
+    "source": "https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/bb51313054e8d93ada0c1e779fb4db6eac9bb6f1/test/FlexiBlocks/exampleIncludeWithNestedInclude.md"
 }
 --------------- Expected Markup ---------------
 <p>This is example markdown with an include.</p>
 <p>This is example markdown.</p>
+<ul>
+<li>This is a list item.</li>
+</ul>
+<blockquote>
+<p>This is a blockquote.</p>
+</blockquote>
 ````````````````````````````````
 
 You can use IncludeBlocks anywhere you might use a typical block. For example, in a list item:

@@ -79,9 +79,35 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         }
 
         [Theory]
-        [InlineData("IncludeBlocks_FlexiCodeBlocks")]
+        [InlineData("IncludeBlocks")]
         [InlineData("All")]
         public void IncludeBlocks_Spec4(string extensions)
+        {
+            //     Start line number: 157
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "type": "markdown",
+            //         "source": "https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/bb51313054e8d93ada0c1e779fb4db6eac9bb6f1/test/FlexiBlocks/exampleInclude.md"
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <p>This is example markdown.</p>
+            //     <ul>
+            //     <li>This is a list item.</li>
+            //     </ul>
+            //     <blockquote>
+            //     <p>This is a blockquote.</p>
+            //     </blockquote>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"type\": \"markdown\",\n    \"source\": \"https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/bb51313054e8d93ada0c1e779fb4db6eac9bb6f1/test/FlexiBlocks/exampleInclude.md\"\n}",
+                "<p>This is example markdown.</p>\n<ul>\n<li>This is a list item.</li>\n</ul>\n<blockquote>\n<p>This is a blockquote.</p>\n</blockquote>",
+                extensions,
+                false);
+        }
+
+        [Theory]
+        [InlineData("IncludeBlocks_FlexiCodeBlocks")]
+        [InlineData("All")]
+        public void IncludeBlocks_Spec5(string extensions)
         {
             //     Start line number: 180
             //     --------------- Extra Extensions ---------------
@@ -118,7 +144,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("IncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void IncludeBlocks_Spec5(string extensions)
+        public void IncludeBlocks_Spec6(string extensions)
         {
             //     Start line number: 208
             //     --------------- Extra Extensions ---------------
@@ -151,7 +177,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("IncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void IncludeBlocks_Spec6(string extensions)
+        public void IncludeBlocks_Spec7(string extensions)
         {
             //     Start line number: 232
             //     --------------- Extra Extensions ---------------
@@ -184,7 +210,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("IncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void IncludeBlocks_Spec7(string extensions)
+        public void IncludeBlocks_Spec8(string extensions)
         {
             //     Start line number: 256
             //     --------------- Extra Extensions ---------------
@@ -217,7 +243,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("IncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void IncludeBlocks_Spec8(string extensions)
+        public void IncludeBlocks_Spec9(string extensions)
         {
             //     Start line number: 280
             //     --------------- Extra Extensions ---------------
@@ -271,7 +297,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("IncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void IncludeBlocks_Spec9(string extensions)
+        public void IncludeBlocks_Spec10(string extensions)
         {
             //     Start line number: 325
             //     --------------- Extra Extensions ---------------
@@ -311,7 +337,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("IncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void IncludeBlocks_Spec10(string extensions)
+        public void IncludeBlocks_Spec11(string extensions)
         {
             //     Start line number: 356
             //     --------------- Extra Extensions ---------------
@@ -351,7 +377,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("IncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void IncludeBlocks_Spec11(string extensions)
+        public void IncludeBlocks_Spec12(string extensions)
         {
             //     Start line number: 387
             //     --------------- Extra Extensions ---------------
@@ -391,7 +417,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("IncludeBlocks")]
         [InlineData("All")]
-        public void IncludeBlocks_Spec12(string extensions)
+        public void IncludeBlocks_Spec13(string extensions)
         {
             //     Start line number: 424
             //     --------------- Markdown ---------------
@@ -417,7 +443,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("IncludeBlocks")]
         [InlineData("All")]
-        public void IncludeBlocks_Spec13(string extensions)
+        public void IncludeBlocks_Spec14(string extensions)
         {
             //     Start line number: 455
             //     --------------- Markdown ---------------
@@ -438,7 +464,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("IncludeBlocks")]
         [InlineData("All")]
-        public void IncludeBlocks_Spec14(string extensions)
+        public void IncludeBlocks_Spec15(string extensions)
         {
             //     Start line number: 554
             //     --------------- Extension Options ---------------
@@ -483,7 +509,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("IncludeBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void IncludeBlocks_Spec15(string extensions)
+        public void IncludeBlocks_Spec16(string extensions)
         {
             //     Start line number: 589
             //     --------------- Extra Extensions ---------------
@@ -536,7 +562,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("IncludeBlocks")]
         [InlineData("All")]
-        public void IncludeBlocks_Spec16(string extensions)
+        public void IncludeBlocks_Spec17(string extensions)
         {
             //     Start line number: 638
             //     --------------- Extension Options ---------------
@@ -563,7 +589,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("IncludeBlocks_OptionsBlocks_FlexiCodeBlocks")]
         [InlineData("All")]
-        public void IncludeBlocks_Spec17(string extensions)
+        public void IncludeBlocks_Spec18(string extensions)
         {
             //     Start line number: 660
             //     --------------- Extra Extensions ---------------
@@ -606,9 +632,36 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("IncludeBlocks")]
         [InlineData("All")]
-        public void IncludeBlocks_Spec18(string extensions)
+        public void IncludeBlocks_Spec19(string extensions)
         {
-            //     Start line number: 707
+            //     Start line number: 695
+            //     --------------- Markdown ---------------
+            //     +{
+            //         "type": "markdown",
+            //         "source": "https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/bb51313054e8d93ada0c1e779fb4db6eac9bb6f1/test/FlexiBlocks/exampleIncludeWithNestedInclude.md"
+            //     }
+            //     --------------- Expected Markup ---------------
+            //     <p>This is example markdown with an include.</p>
+            //     <p>This is example markdown.</p>
+            //     <ul>
+            //     <li>This is a list item.</li>
+            //     </ul>
+            //     <blockquote>
+            //     <p>This is a blockquote.</p>
+            //     </blockquote>
+
+            SpecTestHelper.AssertCompliance("+{\n    \"type\": \"markdown\",\n    \"source\": \"https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/bb51313054e8d93ada0c1e779fb4db6eac9bb6f1/test/FlexiBlocks/exampleIncludeWithNestedInclude.md\"\n}",
+                "<p>This is example markdown with an include.</p>\n<p>This is example markdown.</p>\n<ul>\n<li>This is a list item.</li>\n</ul>\n<blockquote>\n<p>This is a blockquote.</p>\n</blockquote>",
+                extensions,
+                false);
+        }
+
+        [Theory]
+        [InlineData("IncludeBlocks")]
+        [InlineData("All")]
+        public void IncludeBlocks_Spec20(string extensions)
+        {
+            //     Start line number: 713
             //     --------------- Markdown ---------------
             //     - First item.
             //     - Second item  
@@ -641,9 +694,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
         [Theory]
         [InlineData("IncludeBlocks")]
         [InlineData("All")]
-        public void IncludeBlocks_Spec19(string extensions)
+        public void IncludeBlocks_Spec21(string extensions)
         {
-            //     Start line number: 733
+            //     Start line number: 739
             //     --------------- Markdown ---------------
             //     > First line.
             //     > +{
