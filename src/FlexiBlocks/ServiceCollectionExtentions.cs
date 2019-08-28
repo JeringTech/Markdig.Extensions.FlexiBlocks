@@ -4,6 +4,7 @@ using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +34,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 AddOptionsBlocks().
                 AddFlexiAlertBlocks().
                 AddFlexiCodeBlocks().
+                AddFlexiQuoteBlocks().
                 AddFlexiSectionBlocks().
                 AddFlexiTableBlocks();
         }
@@ -108,6 +110,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             services.TryAddSingleton<IFlexiCodeBlockFactory, FlexiCodeBlockFactory>();
             services.TryAddSingleton<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>, FencedFlexiCodeBlockParser>();
             services.TryAddSingleton<ProxyBlockParser<FlexiCodeBlock, ProxyLeafBlock>, IndentedFlexiCodeBlockParser>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds services for the <see cref="FlexiQuoteBlocksExtension"/>.
+        /// </summary>
+        public static IServiceCollection AddFlexiQuoteBlocks(this IServiceCollection services)
+        {
+            services.AddOptionsService<IFlexiQuoteBlocksExtensionOptions, FlexiQuoteBlocksExtensionOptions, IFlexiQuoteBlockOptions>();
+            services.TryAddSingleton<IBlockExtension<FlexiQuoteBlock>, FlexiQuoteBlocksExtension>();
+            services.TryAddSingleton<BlockParser<FlexiQuoteBlock>, FlexiQuoteBlockParser>();
+            services.TryAddSingleton<BlockRenderer<FlexiQuoteBlock>, FlexiQuoteBlockRenderer>();
+            services.TryAddSingleton<IMultipartBlockFactory<FlexiQuoteBlock>, FlexiQuoteBlockFactory>();
+            services.TryAddSingleton<PartBlockParser>();
 
             return services;
         }
