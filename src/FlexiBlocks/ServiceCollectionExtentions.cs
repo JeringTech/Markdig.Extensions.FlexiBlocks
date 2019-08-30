@@ -4,6 +4,7 @@ using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
@@ -34,6 +35,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 AddOptionsBlocks().
                 AddFlexiAlertBlocks().
                 AddFlexiCodeBlocks().
+                AddFlexiFigureBlocks().
                 AddFlexiQuoteBlocks().
                 AddFlexiSectionBlocks().
                 AddFlexiTableBlocks();
@@ -110,6 +112,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             services.TryAddSingleton<IFlexiCodeBlockFactory, FlexiCodeBlockFactory>();
             services.TryAddSingleton<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>, FencedFlexiCodeBlockParser>();
             services.TryAddSingleton<ProxyBlockParser<FlexiCodeBlock, ProxyLeafBlock>, IndentedFlexiCodeBlockParser>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds services for the <see cref="FlexiFigureBlocksExtension"/>.
+        /// </summary>
+        public static IServiceCollection AddFlexiFigureBlocks(this IServiceCollection services)
+        {
+            services.AddOptionsService<IFlexiFigureBlocksExtensionOptions, FlexiFigureBlocksExtensionOptions, IFlexiFigureBlockOptions>();
+            services.TryAddSingleton<IBlockExtension<FlexiFigureBlock>, FlexiFigureBlocksExtension>();
+            services.TryAddSingleton<BlockParser<FlexiFigureBlock>, FlexiFigureBlockParser>();
+            services.TryAddSingleton<BlockRenderer<FlexiFigureBlock>, FlexiFigureBlockRenderer>();
+            services.TryAddSingleton<IMultipartBlockFactory<FlexiFigureBlock>, FlexiFigureBlockFactory>();
+            services.TryAddSingleton<PartBlockParser>();
 
             return services;
         }
