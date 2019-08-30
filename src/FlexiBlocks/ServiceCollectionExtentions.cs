@@ -3,6 +3,7 @@ using Jering.Markdig.Extensions.FlexiBlocks.ContextObjects;
 using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
@@ -34,6 +35,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 AddIncludeBlocks().
                 AddOptionsBlocks().
                 AddFlexiAlertBlocks().
+                AddFlexiBannerBlocks().
                 AddFlexiCodeBlocks().
                 AddFlexiFigureBlocks().
                 AddFlexiQuoteBlocks().
@@ -95,6 +97,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             services.TryAddSingleton<BlockParser<FlexiAlertBlock>, FlexiAlertBlockParser>();
             services.TryAddSingleton<BlockRenderer<FlexiAlertBlock>, FlexiAlertBlockRenderer>();
             services.TryAddSingleton<IFlexiAlertBlockFactory, FlexiAlertBlockFactory>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds services for the <see cref="FlexiBannerBlocksExtension"/>.
+        /// </summary>
+        public static IServiceCollection AddFlexiBannerBlocks(this IServiceCollection services)
+        {
+            services.AddOptionsService<IFlexiBannerBlocksExtensionOptions, FlexiBannerBlocksExtensionOptions, IFlexiBannerBlockOptions>();
+            services.TryAddSingleton<IBlockExtension<FlexiBannerBlock>, FlexiBannerBlocksExtension>();
+            services.TryAddSingleton<BlockParser<FlexiBannerBlock>, FlexiBannerBlockParser>();
+            services.TryAddSingleton<BlockRenderer<FlexiBannerBlock>, FlexiBannerBlockRenderer>();
+            services.TryAddSingleton<IMultipartBlockFactory<FlexiBannerBlock>, FlexiBannerBlockFactory>();
+            services.TryAddSingleton<PartBlockParser>();
 
             return services;
         }
