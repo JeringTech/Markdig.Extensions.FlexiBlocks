@@ -4,6 +4,7 @@ using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
@@ -36,6 +37,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 AddOptionsBlocks().
                 AddFlexiAlertBlocks().
                 AddFlexiBannerBlocks().
+                AddFlexiCardsBlocks().
                 AddFlexiCodeBlocks().
                 AddFlexiFigureBlocks().
                 AddFlexiQuoteBlocks().
@@ -111,6 +113,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             services.TryAddSingleton<BlockParser<FlexiBannerBlock>, FlexiBannerBlockParser>();
             services.TryAddSingleton<BlockRenderer<FlexiBannerBlock>, FlexiBannerBlockRenderer>();
             services.TryAddSingleton<IMultipartBlockFactory<FlexiBannerBlock>, FlexiBannerBlockFactory>();
+            services.TryAddSingleton<PartBlockParser>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds services for the <see cref="FlexiCardsBlocksExtension"/>.
+        /// </summary>
+        public static IServiceCollection AddFlexiCardsBlocks(this IServiceCollection services)
+        {
+            services.AddOptionsService<IFlexiCardsBlocksExtensionOptions, FlexiCardsBlocksExtensionOptions, IFlexiCardsBlockOptions>();
+            services.TryAddSingleton<IBlockExtension<FlexiCardsBlock>, FlexiCardsBlocksExtension>();
+            services.TryAddSingleton<ProxyBlockParser<FlexiCardsBlock, ProxyFlexiCardsBlock>, FlexiCardsBlockParser>();
+            services.TryAddSingleton<BlockParser<FlexiCardBlock>, FlexiCardBlockParser>();
+            services.TryAddSingleton<IFencedBlockFactory<FlexiCardsBlock, ProxyFlexiCardsBlock>, FlexiCardsBlockFactory>();
+            services.TryAddSingleton<BlockRenderer<FlexiCardsBlock>, FlexiCardsBlockRenderer>();
+            services.TryAddSingleton<IMultipartBlockFactory<FlexiCardBlock>, FlexiCardBlockFactory>();
             services.TryAddSingleton<PartBlockParser>();
 
             return services;
