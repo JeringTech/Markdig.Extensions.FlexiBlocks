@@ -8,7 +8,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
     public interface IFlexiAlertBlocksExtensionOptions : IExtensionOptions<IFlexiAlertBlockOptions>
     {
         /// <summary>
-        /// Gets a map of <see cref="FlexiAlertBlock" /> types to icon HTML fragments.
+        /// Gets a map of <see cref="FlexiAlertBlock"/> types to icon HTML fragments.
         /// </summary>
         ReadOnlyDictionary<string, string> Icons { get; }
     }

@@ -10,7 +10,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <summary>
         /// Creates a <see cref="FlexiAlertBlocksExtension"/>.
         /// </summary>
-        /// <param name="flexiAlertBlockParser">The <see cref="BlockParser{T}"/> for creating <see cref="FlexiAlertBlock"/>s from markdown.</param>
+        /// <param name="flexiAlertBlockParser">The <see cref="BlockParser{T}"/> for parsing <see cref="FlexiAlertBlock"/>s from markdown.</param>
         /// <param name="flexiAlertBlockRenderer">The <see cref="BlockRenderer{T}"/> for rendering <see cref="FlexiAlertBlock"/>s as HTML.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="flexiAlertBlockParser"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="flexiAlertBlockRenderer"/> is <c>null</c>.</exception>

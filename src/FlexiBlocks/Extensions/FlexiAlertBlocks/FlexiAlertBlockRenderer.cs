@@ -27,21 +27,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
             ReadOnlyDictionary<string, string> attributes = block.Attributes;
 
             // Root element
-            string classValue = null;
             htmlRenderer.
-                Write("<div").
-                Write(" class=\"").
+                Write("<div class=\"").
                 Write(blockName).
                 WriteBlockKeyValueModifierClass(blockName, "type", block.Type).
-                WriteHasOptionClass(renderIcon, blockName, "icon").
-                Write(attributes?.TryGetValue("class", out classValue) == true, ' ', classValue).
+                WriteHasFeatureClass(renderIcon, blockName, "icon").
+                WriteAttributeValue(attributes, "class").
                 Write('"').
-                WriteAttributesExcludingClass(attributes).
+                WriteAttributesExcept(attributes, "class").
                 WriteLine(">");
 
             // Icon
             htmlRenderer.
-                WriteHtmlFragmentWithClass(renderIcon, icon, blockName, "__icon").
+                WriteHtmlFragment(renderIcon, icon, blockName, "icon").
                 EnsureLine();
 
             // Content
