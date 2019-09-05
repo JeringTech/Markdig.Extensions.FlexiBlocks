@@ -12,13 +12,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
     /// 
     /// <para>This class is immutable.</para>
     /// </summary>
-    public class FlexiTableBlockOptions : RenderedBlockOptions<IFlexiTableBlockOptions>, IFlexiTableBlockOptions
+    public class FlexiTableBlockOptions : RenderedRootBlockOptions<IFlexiTableBlockOptions>, IFlexiTableBlockOptions
     {
         /// <summary>
         /// Creates a <see cref="FlexiTableBlockOptions"/>.
         /// </summary>
         /// <param name="blockName">
-        /// <para>The <see cref="FlexiTableBlock" />'s <a href="https://en.bem.info/methodology/naming-convention/#block-name">BEM block name</a>.</para>
+        /// <para>The <see cref="FlexiTableBlock"/>'s <a href="https://en.bem.info/methodology/naming-convention/#block-name">BEM block name</a>.</para>
         /// <para>In compliance with <a href="https://en.bem.info">BEM methodology</a>, this value is the <see cref="FlexiTableBlock"/>'s root element's class as well as the prefix for all other classes in the block.</para>
         /// <para>This value should contain only valid <a href="https://www.w3.org/TR/CSS21/syndata.html#characters">CSS class characters</a>.</para>
         /// <para>If this value is <c>null</c>, whitespace or an empty string, the <see cref="FlexiTableBlock"/>'s block name is "flexi-table".</para>

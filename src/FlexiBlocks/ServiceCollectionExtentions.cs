@@ -216,13 +216,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             Type advancedFlexiTableBlockParserType = typeof(AdvancedFlexiTableBlockParser);
             if (!services.Any(serviceDescriptor => serviceDescriptor.ServiceType == proxyBlockParserType && serviceDescriptor.ImplementationType == advancedFlexiTableBlockParserType))
             {
-                services.AddSingleton<ProxyBlockParser<FlexiTableBlock, ProxyTableBlock>, AdvancedFlexiTableBlockParser>();
+                services.AddSingleton(proxyBlockParserType, advancedFlexiTableBlockParserType);
             }
 
             Type basicFlexiTableBlockParser = typeof(BasicFlexiTableBlockParser);
             if (!services.Any(serviceDescriptor => serviceDescriptor.ServiceType == proxyBlockParserType && serviceDescriptor.ImplementationType == basicFlexiTableBlockParser))
             {
-                services.AddSingleton<ProxyBlockParser<FlexiTableBlock, ProxyTableBlock>, BasicFlexiTableBlockParser>();
+                services.AddSingleton(proxyBlockParserType, basicFlexiTableBlockParser);
             }
 
             return services;

@@ -436,16 +436,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
             const string dummyParagraph = "dummyParagraph";
             const string dummyCode = "dummyCode";
             Cell dummyCell = CreateCell(lineIndex: 6);
-            var stringReader = new StringReader($@"{dummyParagraph}
+            using (var stringReader = new StringReader($@"{dummyParagraph}
 
 ```
 {dummyCode}
 ```
-");
-            string line;
-            while ((line = stringReader.ReadLine()) != null)
+"))
             {
-                dummyCell.Lines.Add(new StringSlice(line));
+                string line;
+                while ((line = stringReader.ReadLine()) != null)
+                {
+                    dummyCell.Lines.Add(new StringSlice(line));
+                }
             }
             // We have to create child so there is no root markdown document block, otherwise BlockProcessor will try to continue FlexiTableCellBlocki
             BlockProcessor dummyChildBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor().CreateChild();

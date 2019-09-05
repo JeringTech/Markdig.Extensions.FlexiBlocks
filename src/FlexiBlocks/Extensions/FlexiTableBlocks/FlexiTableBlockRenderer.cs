@@ -25,8 +25,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
                 return;
             }
 
-            var labelWriter = new StringWriter();
-            var labelRenderer = new HtmlRenderer(labelWriter);
             ReadOnlyDictionary<string, string> attributes = block.Attributes;
             string blockName = block.BlockName;
             FlexiTableType type = block.Type;
@@ -41,15 +39,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
             //   are overriden by sum of MCWs of its columns (i.e even if you set a fixed width for a table, it gets overriden in most cases). It is possible to make "overflow: auto" on tables work by 
             //   setting the table's display to block (Github does this), but this is a hack that just happens to work (that "display: block" doesn't affect rendering of the table, which should have
             //   "display: table", is a coincidence).
-            string classValue = null;
             htmlRenderer.
-                Write("<div").
-                Write(" class=\"").
+                Write("<div class=\"").
                 Write(blockName).
                 WriteBlockKeyValueModifierClass(blockName, "type", _types[(int)type]).
-                Write(attributes?.TryGetValue("class", out classValue) == true, ' ', classValue).
+                WriteAttributeValue(attributes, "class").
                 Write('"').
-                WriteAttributesExcludingClass(attributes).
+                WriteAttributesExcept(attributes, "class").
                 WriteLine(">");
 
             // Table
