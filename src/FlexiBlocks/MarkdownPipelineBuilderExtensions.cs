@@ -7,6 +7,7 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks;
 using Markdig;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -81,6 +82,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <param name="flexiQuoteBlocksExtensionOptions">Options for the <see cref="FlexiQuoteBlocksExtension"/>.</param>
         /// <param name="flexiSectionBlocksExtensionOptions">Options for the <see cref="FlexiSectionBlocksExtension"/>.</param>
         /// <param name="flexiTableBlocksExtensionOptions">Options for the <see cref="FlexiTableBlocksExtension"/>.</param>
+        /// <param name="flexiTabsBlocksExtensionOptions">Options for the <see cref="FlexiTabsBlocksExtension"/>.</param>
         public static MarkdownPipelineBuilder UseFlexiBlocks(this MarkdownPipelineBuilder pipelineBuilder,
             IIncludeBlocksExtensionOptions includeBlocksExtensionOptions = null,
             IFlexiAlertBlocksExtensionOptions flexiAlertBlocksExtensionOptions = null,
@@ -90,7 +92,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             IFlexiFigureBlocksExtensionOptions flexiFigureBlocksExtensionOptions = null,
             IFlexiQuoteBlocksExtensionOptions flexiQuoteBlocksExtensionOptions = null,
             IFlexiSectionBlocksExtensionOptions flexiSectionBlocksExtensionOptions = null,
-            IFlexiTableBlocksExtensionOptions flexiTableBlocksExtensionOptions = null)
+            IFlexiTableBlocksExtensionOptions flexiTableBlocksExtensionOptions = null,
+            IFlexiTabsBlocksExtensionOptions flexiTabsBlocksExtensionOptions = null)
         {
             return pipelineBuilder.
                 UseContextObjects().
@@ -103,7 +106,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 UseFlexiFigureBlocks(flexiFigureBlocksExtensionOptions).
                 UseFlexiQuoteBlocks(flexiQuoteBlocksExtensionOptions).
                 UseFlexiSectionBlocks(flexiSectionBlocksExtensionOptions).
-                UseFlexiTableBlocks(flexiTableBlocksExtensionOptions);
+                UseFlexiTableBlocks(flexiTableBlocksExtensionOptions).
+                UseFlexiTabsBlocks(flexiTabsBlocksExtensionOptions);
         }
 
         /// <summary>
@@ -306,6 +310,26 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             if (!pipelineBuilder.Extensions.Contains<IBlockExtension<FlexiTableBlock>>())
             {
                 pipelineBuilder.Extensions.Add(GetOrCreateServiceProvider().GetRequiredService<IBlockExtension<FlexiTableBlock>>());
+            }
+
+            if (options != null)
+            {
+                AddContextObjectWithTypeAsKey(pipelineBuilder, options);
+            }
+
+            return pipelineBuilder;
+        }
+
+        /// <summary>
+        /// Adds the <see cref="FlexiTabsBlocksExtension"/> to the pipeline.
+        /// </summary>
+        /// <param name="pipelineBuilder">The pipeline builder for the pipeline.</param>
+        /// <param name="options">Options for the <see cref="FlexiTabsBlocksExtension"/>.</param>
+        public static MarkdownPipelineBuilder UseFlexiTabsBlocks(this MarkdownPipelineBuilder pipelineBuilder, IFlexiTabsBlocksExtensionOptions options = null)
+        {
+            if (!pipelineBuilder.Extensions.Contains<IBlockExtension<FlexiTabsBlock>>())
+            {
+                pipelineBuilder.Extensions.Add(GetOrCreateServiceProvider().GetRequiredService<IBlockExtension<FlexiTabsBlock>>());
             }
 
             if (options != null)

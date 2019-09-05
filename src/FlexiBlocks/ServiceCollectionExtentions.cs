@@ -10,6 +10,7 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Jering.Web.SyntaxHighlighters.HighlightJS;
@@ -42,7 +43,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 AddFlexiFigureBlocks().
                 AddFlexiQuoteBlocks().
                 AddFlexiSectionBlocks().
-                AddFlexiTableBlocks();
+                AddFlexiTableBlocks().
+                AddFlexiTabsBlocks();
         }
 
         /// <summary>
@@ -222,6 +224,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             {
                 services.AddSingleton<ProxyBlockParser<FlexiTableBlock, ProxyTableBlock>, BasicFlexiTableBlockParser>();
             }
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds services for the <see cref="FlexiTabsBlocksExtension"/>.
+        /// </summary>
+        public static IServiceCollection AddFlexiTabsBlocks(this IServiceCollection services)
+        {
+            services.AddOptionsService<IFlexiTabsBlocksExtensionOptions, FlexiTabsBlocksExtensionOptions, IFlexiTabsBlockOptions>();
+            services.TryAddSingleton<IBlockExtension<FlexiTabsBlock>, FlexiTabsBlocksExtension>();
+            services.TryAddSingleton<ProxyBlockParser<FlexiTabsBlock, ProxyFlexiTabsBlock>, FlexiTabsBlockParser>();
+            services.TryAddSingleton<BlockParser<FlexiTabBlock>, FlexiTabBlockParser>();
+            services.TryAddSingleton<IFencedBlockFactory<FlexiTabsBlock, ProxyFlexiTabsBlock>, FlexiTabsBlockFactory>();
+            services.TryAddSingleton<BlockRenderer<FlexiTabsBlock>, FlexiTabsBlockRenderer>();
+            services.TryAddSingleton<IMultipartBlockFactory<FlexiTabBlock>, FlexiTabBlockFactory>();
+            services.TryAddSingleton<PartBlockParser>();
 
             return services;
         }

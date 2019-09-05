@@ -9,6 +9,7 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.ContextObjects;
 using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -146,6 +147,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 
             // Act and assert
             serviceProvider.GetRequiredService<IBlockExtension<FlexiTableBlock>>(); // As long as this doesn't throw, all required services have been added
+        }
+
+        [Fact]
+        public void AddFlexiTabsBlocks_AddsServicesForTheFlexiTabsBlocksExtension()
+        {
+            // Arrange
+            var services = new ServiceCollection();
+            services.AddFlexiTabsBlocks();
+            ServiceProvider serviceProvider = services.BuildServiceProvider();
+
+            // Act and assert
+            serviceProvider.GetRequiredService<IBlockExtension<FlexiTabsBlock>>(); // As long as this doesn't throw, all required services have been added
         }
     }
 }
