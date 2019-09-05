@@ -76,8 +76,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         public static IEnumerable<object[]> Equals_ReturnsTrueIfObjIsAnIdenticalClippingOtherwiseReturnsFalse_Data()
         {
             // Arbitrary values
-            const int dummyStart = 4;
-            const int dummyEnd = 25;
+            const int dummyStartLine = 4;
+            const int dummyEndLine = 25;
             const string dummyRegion = "dummyRegion";
             const string dummyStartString = "dummyStartString";
             const string dummyEndString = "dummyEndString";
@@ -100,12 +100,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
                 // False if the Clippings differ in any way
                 new object[]{
                     new Clipping(),
-                    new Clipping(dummyStart),
+                    new Clipping(dummyStartLine),
                     false
                 },
                 new object[]{
                     new Clipping(),
-                    new Clipping(end: dummyEnd),
+                    new Clipping(endLine: dummyEndLine),
                     false
                 },
                 new object[]{
@@ -164,8 +164,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         public static IEnumerable<object[]> GetHashCode_ReturnsSameHashCodeForIdenticalClippings_Data()
         {
             // Arbitrary values
-            const int dummyStart = 4;
-            const int dummyEnd = 25;
+            const int dummyStartLine = 4;
+            const int dummyEndLine = 25;
             const string dummyRegion = "dummyRegion";
             const string dummyStartString = "dummyStartString";
             const string dummyEndString = "dummyEndString";
@@ -185,12 +185,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
                 // False if the Clippings differ in any way
                 new object[]{
                     new Clipping(),
-                    new Clipping(dummyStart),
+                    new Clipping(dummyStartLine),
                     false
                 },
                 new object[]{
                     new Clipping(),
-                    new Clipping(end: dummyEnd),
+                    new Clipping(endLine: dummyEndLine),
                     false
                 },
                 new object[]{

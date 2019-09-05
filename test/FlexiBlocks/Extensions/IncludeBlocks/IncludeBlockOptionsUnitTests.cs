@@ -56,8 +56,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
     ""{nameof(IncludeBlockOptions.CacheDirectory)}"": ""{dummyCacheDirectory}"",
     ""{nameof(IncludeBlockOptions.Clippings)}"": [
         {{
-            ""{nameof(Clipping.Start)}"": ""{dummyClipping1.Start}"",
-            ""{nameof(Clipping.End)}"": ""{dummyClipping1.End}""
+            ""{nameof(Clipping.StartLine)}"": ""{dummyClipping1.StartLine}"",
+            ""{nameof(Clipping.EndLine)}"": ""{dummyClipping1.EndLine}""
         }}
     ]
 }}"
@@ -71,8 +71,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
                     $@"{{
     ""{nameof(IncludeBlockOptions.Clippings)}"": [
         {{
-            ""{nameof(Clipping.Start)}"": ""{dummyClipping2.Start}"",
-            ""{nameof(Clipping.End)}"": ""{dummyClipping2.End}""
+            ""{nameof(Clipping.StartLine)}"": ""{dummyClipping2.StartLine}"",
+            ""{nameof(Clipping.EndLine)}"": ""{dummyClipping2.EndLine}""
         }}
     ]
 }}"

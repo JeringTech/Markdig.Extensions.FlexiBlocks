@@ -11,7 +11,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
     public class IncludeBlocksExtensionOptions : ExtensionOptions<IIncludeBlockOptions>, IIncludeBlocksExtensionOptions
     {
         /// <summary>
-        /// Creates an <see cref="IncludeBlocksExtensionOptions" />.
+        /// Creates an <see cref="IncludeBlocksExtensionOptions"/>.
         /// </summary>
         /// <param name="defaultBlockOptions">
         /// <para>Default <see cref="IIncludeBlockOptions"/> for all <see cref="IncludeBlock"/>s.</para>

@@ -5,8 +5,8 @@ extensionOptions: "../src/FlexiBlocks/Extensions/IncludeBlocks/IncludeBlocksExte
 ---
 
 # IncludeBlocks
-IncludeBlocks include content from local or remote sources. You can include content as markdown or in code blocks. Applications include
-testing example-code and keeping markdown dry.
+An IncludeBlock includes content from a local or remote source. IncludeBlocks can include content as markdown or in code blocks, this facilitates
+testing example code and keeping markdown dry.
 
 In this document, we refer to URIs as *sources*. The data contained in a source is referred to as *content*.
 The specs in this document use the following dummy sources:
@@ -61,11 +61,11 @@ MarkdownPipeline markdownPipeline = markdownPipelineBuilder.Build();
 
 string markdown = "+{ "source": "exampleInclude.js" }"; // Root content
 string html = Markdown.ToHtml(markdown, markdownPipeline);
-string expectedHtml = @"<div class=""flexi-code flexi-code_no-title flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases"">
+string expectedHtml = @"<div class=""flexi-code flexi-code_no_title flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases"">
 <header class=""flexi-code__header"">
 <span class=""flexi-code__title""></span>
 <button class=""flexi-code__copy-button"" title=""Copy code"" aria-label=""Copy code"">
-<svg class=""flexi-code__copy-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path fill=""none"" d=""M0 0h24v24H0V0z""/><path d=""M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z""/></svg>
+<svg class=""flexi-code__copy-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""18px"" height=""18px"" viewBox=""0 0 18 18""><path fill=""none"" d=""M0,0h18v18H0V0z""/><path d=""M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z""/></svg>
 </button>
 </header>
 <pre class=""flexi-code__pre""><code class=""flexi-code__code"">function exampleFunction(arg) {
@@ -77,7 +77,7 @@ string expectedHtml = @"<div class=""flexi-code flexi-code_no-title flexi-code_n
 Assert.Equal(expectedHtml, html)
 ```
 
-# Syntax
+# Basics
 In markdown, an IncludeBlock is an [`IncludeBlockOptions`](#includeblockoptions) object in JSON form, prepended with `+`. The following is an IncludeBlock:
 
 ```````````````````````````````` none
@@ -130,8 +130,7 @@ instead of an IncludeBlock because there is a space between `+` and `{`:
 
 ## Options
 ### `IncludeBlockOptions`
-
-
+Options for an IncludeBlock. To specify `IncludeBlockOptions` for an IncludeBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/OptionsBlocksSpecs.md#options) extension must be enabled.
 
 #### Properties
 
@@ -182,14 +181,14 @@ instead of an IncludeBlock because there is a space between `+` and `{`:
   --------------- Markdown ---------------
   +{
       "source": "exampleInclude.js",
-      "clippings":[{"end": 4}, {"start": 7, "end": -2}]
+      "clippings":[{"endLine": 4}, {"startLine": 7, "endLine": -2}]
   }
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
   <header class="flexi-code__header">
   <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
-  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
   <pre class="flexi-code__pre"><code class="flexi-code__code">function exampleFunction(arg) {
@@ -213,11 +212,11 @@ instead of an IncludeBlock because there is a space between `+` and `{`:
       "clippings":[{"region": "utility methods"}]
   }
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
   <header class="flexi-code__header">
   <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
-  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
   <pre class="flexi-code__pre"><code class="flexi-code__code">function add(a, b) {
@@ -237,11 +236,11 @@ instead of an IncludeBlock because there is a space between `+` and `{`:
       "clippings":[{"startString": "#region utility methods", "endString": "#endregion utility methods"}]
   }
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
   <header class="flexi-code__header">
   <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
-  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
   <pre class="flexi-code__pre"><code class="flexi-code__code">function add(a, b) {
@@ -258,14 +257,14 @@ instead of an IncludeBlock because there is a space between `+` and `{`:
   --------------- Markdown ---------------
   +{
       "source": "exampleInclude.js",
-      "clippings":[{"start": 7, "endString": "#endregion utility methods"}]
+      "clippings":[{"startLine": 7, "endString": "#endregion utility methods"}]
   }
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
   <header class="flexi-code__header">
   <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
-  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
   <pre class="flexi-code__pre"><code class="flexi-code__code">function add(a, b) {
@@ -283,30 +282,30 @@ instead of an IncludeBlock because there is a space between `+` and `{`:
   +{
       "source": "exampleInclude.js",
       "clippings":[{
-          "end": 1,
+          "endLine": 1,
           "after": "..."
       },
       {
-          "start": 4,
-          "end": 4
+          "startLine": 4,
+          "endLine": 4
       },
       {
-          "start": 7, 
-          "end": 7,
+          "startLine": 7, 
+          "endLine": 7,
           "before": ""
       },
       {
-          "start": 9, 
-          "end": 9,
+          "startLine": 9, 
+          "endLine": 9,
           "before": "..."
       }]
   }
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
   <header class="flexi-code__header">
   <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
-  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
   <pre class="flexi-code__pre"><code class="flexi-code__code">function exampleFunction(arg) {
@@ -330,11 +329,11 @@ instead of an IncludeBlock because there is a space between `+` and `{`:
       "clippings":[{"dedent": 2}],
   }
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
   <header class="flexi-code__header">
   <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
-  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
   <pre class="flexi-code__pre"><code class="flexi-code__code">function exampleFunction(arg) {
@@ -361,11 +360,11 @@ instead of an IncludeBlock because there is a space between `+` and `{`:
       "clippings":[{"indent": 2}],
   }
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
   <header class="flexi-code__header">
   <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
-  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
   <pre class="flexi-code__pre"><code class="flexi-code__code">  function exampleFunction(arg) {
@@ -392,11 +391,11 @@ instead of an IncludeBlock because there is a space between `+` and `{`:
       "clippings":[{"collapse": 0.5}]
   }
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
   <header class="flexi-code__header">
   <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
-  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
   <pre class="flexi-code__pre"><code class="flexi-code__code">function exampleFunction(arg) {
@@ -438,8 +437,8 @@ instead of an IncludeBlock because there is a space between `+` and `{`:
 
 ##### `Cache`
 - Type: `bool`
-- Description: The value specifying whether or not to cache the `IncludeBlock`'s content on disk.
-  If this value is true, on-disk caching is enabled, otherwise, it is disabled.
+- Description: The value specifying whether to cache the `IncludeBlock`'s content on disk.
+  If this value is true and the `IncludeBlock`'s source is remote, the source's content is cached on disk.
   Caching-on-disk slows down the first markdown-to-HTML run on a system, but significantly speeds up subsequent runs:
   If on-disk caching is enabled and content from remote source "x" is included, on the first run, all content in "x" is retrieved from a server and
   cached in memory as well as on disk.
@@ -475,43 +474,49 @@ Represents a clipping from a sequence of lines.
 
 #### Properties
 
-##### `Start`
+##### `StartLine`
 - Type: `int`
 - Description: The line number of the `Clipping`'s start line.
   If this value is `-n`, the start line is the nth last line. For example, if this value is `-2`, the start line is the 2nd last line.
   This value must not be `0`.
 - Default: `1`
-##### `End`
+
+##### `EndLine`
 - Type: `int`
 - Description: The line number of the `Clipping`'s end line.
   If this value is `-n`, the end line is the nth last line. For example, if this value is `-2`, the end line is the 2nd last line.
   This value must not be `0` or an integer representing a line before the start line.
 - Default: `-1`
+
 ##### `Region`
 - Type: `string`
 - Description: The name of the region that the `Clipping` contains.
-  This value is an alternative to `Start` and `End` and takes precedence over them.
+  This value is an alternative to `StartLine` and `EndLine` and takes precedence over them.
   It is shorthand for specifying `StartString` and `EndString` -
   if this value is not `null`, whitespace or an empty string, `StartString` is set to "#region <`Region`>" and `EndString` is
   set to "#endregion".
 - Default: `null`
+
 ##### `StartString`
 - Type: `string`
 - Description: The substring that the line immediately preceding the `Clipping` contains.
-  This value is an alternative to `Start`.
-  If this value is not `null`, whitespace or an empty string, it takes precedence over `Start` and `Region`.
+  This value is an alternative to `StartLine`.
+  If this value is not `null`, whitespace or an empty string, it takes precedence over `StartLine` and `Region`.
 - Default: `null`
+
 ##### `EndString`
 - Type: `string`
 - Description: The substring that the line immediately after the `Clipping` contains.
-  This value is an alternative to `End`.
-  If this value is not `null`, whitespace or an empty string, it takes precedence over `End` and `Region`.
+  This value is an alternative to `EndLine`.
+  If this value is not `null`, whitespace or an empty string, it takes precedence over `EndLine` and `Region`.
 - Default: `null`
+
 ##### `Dedent`
 - Type: `int`
 - Description: The number of leading whitespace characters to remove from each line in the `Clipping`.
   This value must not be negative.
 - Default: 0
+
 ##### `Indent`
 - Type: `int`
 - Description: The number of leading whitespace characters to add to each line in the `Clipping`.
@@ -519,22 +524,26 @@ Represents a clipping from a sequence of lines.
   `IncludeType.Markdown`.
   This value must not be negative.
 - Default: 0
+
 ##### `Collapse`
 - Type: `float`
 - Description: The proportion of leading whitespace characters (after dedenting and indenting) to keep.
   For example, if there are 9 leading whitespace characters after dedenting and this value is 0.33, the final number of leading whitespace characters will be 3.
   This value must be in the range [0, 1].
 - Default: 1
+
 ##### `Before`
 - Type: `string`
 - Description: The content to be prepended to the `Clipping`.
   This value is ignored if the `IncludeBlock` this `Clipping` belongs to has `IIncludeBlockOptions.Type` `IncludeType.Markdown`.
 - Default: `null`
+
 ##### `After`
 - Type: `string`
 - Description: The content to be appended to the `Clipping`.
   This value is ignored if the `IncludeBlock` this `Clipping` belongs to has `IIncludeBlockOptions.Type` `IncludeType.Markdown` .
 - Default: `null`
+
 ### `IncludeBlocksExtensionOptions`
 Options for the IncludeBlocks extension. There are two ways to specify these options:
 - Pass an `IncludeBlocksExtensionOptions` when calling `MarkdownPipelineBuilderExtensions.UseIncludeBlocks(this MarkdownPipelineBuilder pipelineBuilder, IIncludeBlocksExtensionOptions options)`.
@@ -613,11 +622,11 @@ Options for the IncludeBlocks extension. There are two ways to specify these opt
   <blockquote>
   <p>This is a blockquote.</p>
   </blockquote>
-  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
   <header class="flexi-code__header">
   <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
-  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+  <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
   <pre class="flexi-code__pre"><code class="flexi-code__code">This is example markdown.
@@ -668,11 +677,11 @@ FlexiCodeBlocks
     "source": "exampleInclude.js"
 }
 --------------- Expected Markup ---------------
-<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_language-javascript flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_language-javascript flexi-code_has_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
 <header class="flexi-code__header">
 <span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
-<svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+<svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
 </header>
 <pre class="flexi-code__pre"><code class="flexi-code__code"><span class="token keyword">function</span> <span class="token function">exampleFunction</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
