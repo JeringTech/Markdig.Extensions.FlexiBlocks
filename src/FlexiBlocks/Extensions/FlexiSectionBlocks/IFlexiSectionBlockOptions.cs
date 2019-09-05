@@ -3,7 +3,7 @@
     /// <summary>
     /// An abstraction for <see cref="FlexiSectionBlock"/> options.
     /// </summary>
-    public interface IFlexiSectionBlockOptions : IRenderedBlockOptions<IFlexiSectionBlockOptions>
+    public interface IFlexiSectionBlockOptions : IRenderedRootBlockOptions<IFlexiSectionBlockOptions>
     {
         /// <summary>
         /// Gets the <see cref="FlexiSectionBlock"/>'s root element's type.
@@ -11,19 +11,19 @@
         SectioningContentElement Element { get; }
 
         /// <summary>
-        /// Gets the value specifying whether or not to generate an ID for the <see cref="FlexiSectionBlock"/>.
+        /// Gets the value specifying whether to generate an ID for the <see cref="FlexiSectionBlock"/>.
         /// </summary>
         bool GenerateID { get; }
 
         /// <summary>
-        /// Gets the <see cref="FlexiSectionBlock" />'s link icon as an HTML fragment.
+        /// Gets the <see cref="FlexiSectionBlock"/>'s link icon as an HTML fragment.
         /// </summary>
         string LinkIcon { get; }
 
         /// <summary>
-        /// Gets the value specifying whether or not the <see cref="FlexiSectionBlock"/> is auto-linkable.
+        /// Gets the value specifying whether the <see cref="FlexiSectionBlock"/> is reference-linkable.
         /// </summary>
-        bool AutoLinkable { get; }
+        bool ReferenceLinkable { get; }
 
         /// <summary>
         /// Gets the <see cref="FlexiSectionBlock"/>'s rendering mode.

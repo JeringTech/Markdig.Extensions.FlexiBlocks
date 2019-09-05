@@ -23,7 +23,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             Assert.Equal(expectedResult.Element, result.Element);
             Assert.Equal(expectedResult.GenerateID, result.GenerateID);
             Assert.Equal(expectedResult.LinkIcon, result.LinkIcon);
-            Assert.Equal(expectedResult.AutoLinkable, result.AutoLinkable);
+            Assert.Equal(expectedResult.ReferenceLinkable, result.ReferenceLinkable);
             Assert.Equal(expectedResult.RenderingMode, result.RenderingMode);
             Assert.Equal(expectedResult.Attributes, result.Attributes);
         }
@@ -34,7 +34,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             const SectioningContentElement dummyElement = SectioningContentElement.Aside;
             const bool dummyGenerateID = false;
             const string dummyLinkIcon = "dummyLinkIcon";
-            const bool dummyAutoLinkable = false;
+            const bool dummyReferenceLinkable = false;
             const FlexiSectionBlockRenderingMode dummyRenderingMode = FlexiSectionBlockRenderingMode.Classic;
             const string dummyAttribute1 = "dummyAttribute1";
             const string dummyAttributeValue1 = "dummyAttributeValue1";
@@ -53,7 +53,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                         dummyElement,
                         dummyGenerateID,
                         dummyLinkIcon,
-                        dummyAutoLinkable,
+                        dummyReferenceLinkable,
                         dummyRenderingMode,
                         dummyAttributes1)),
                     $@"{{
@@ -61,7 +61,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
     ""{nameof(FlexiSectionBlockOptions.Element)}"": ""{dummyElement}"",
     ""{nameof(FlexiSectionBlockOptions.GenerateID)}"": ""{dummyGenerateID}"",
     ""{nameof(FlexiSectionBlockOptions.LinkIcon)}"": ""{dummyLinkIcon}"",
-    ""{nameof(FlexiSectionBlockOptions.AutoLinkable)}"": ""{dummyAutoLinkable}"",
+    ""{nameof(FlexiSectionBlockOptions.ReferenceLinkable)}"": ""{dummyReferenceLinkable}"",
     ""{nameof(FlexiSectionBlockOptions.RenderingMode)}"": ""{dummyRenderingMode}"",
     ""{nameof(FlexiSectionBlockOptions.Attributes)}"": {{
         ""{dummyAttribute1}"": ""{dummyAttributeValue1}""

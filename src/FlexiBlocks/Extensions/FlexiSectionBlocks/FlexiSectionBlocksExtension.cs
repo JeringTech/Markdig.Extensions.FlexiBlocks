@@ -12,7 +12,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// <summary>
         /// Creates a <see cref="FlexiSectionBlocksExtension"/>.
         /// </summary>
-        /// <param name="flexiSectionBlockParser">The <see cref="BlockParser{T}"/> for creating <see cref="FlexiSectionBlock"/>s from markdown.</param>
+        /// <param name="flexiSectionBlockParser">The <see cref="BlockParser{T}"/> for parsing <see cref="FlexiSectionBlock"/>s from markdown.</param>
         /// <param name="flexiSectionBlockRenderer">The <see cref="BlockRenderer{T}"/> for rendering <see cref="FlexiSectionBlock"/>s as HTML.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="flexiSectionBlockParser"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="flexiSectionBlockRenderer"/> is <c>null</c>.</exception>

@@ -299,7 +299,7 @@ Parameter name: level",
         }
 
         [Fact]
-        public void GetOrCreateOpenFlexiSectionBlocks_GetsAutoLinkableFlexiSectionBlocksIfItAlreadyExists()
+        public void GetOrCreateOpenFlexiSectionBlocks_GetsReferenceLinkableFlexiSectionBlocksIfItAlreadyExists()
         {
             // Arrange
             var dummyOpenFlexiSectionBlocks = new Stack<Stack<FlexiSectionBlock>>();
