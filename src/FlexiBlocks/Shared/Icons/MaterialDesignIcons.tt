@@ -3,13 +3,12 @@ assembly name="System.Core" #><#@
 assembly name="System.Net.Http" #><#@ 
 import namespace="System.Net.Http" #><#@ 
 import namespace="System.Collections.Generic" #><#
+    // Empty style = default (baseline)
     var icons = new List<Icon>() { 
-        new Icon { Name = "info", Style = "baseline" },
-        new Icon { Name = "warning", Style = "baseline" },
-        new Icon { Name = "error", Style = "baseline" }, 
-        new Icon { Name = "file_copy", Style = "sharp" }, 
-        new Icon { Name = "link", Style = "baseline" },
-        new Icon { Name = "more_vert", Style = "baseline" }
+        new Icon { Name = "info", Style = "" },
+        new Icon { Name = "warning", Style = "" },
+        new Icon { Name = "error", Style = "" }, 
+        new Icon { Name = "link", Style = "" }
     };   
 #>namespace Jering.Markdig.Extensions.FlexiBlocks
 {
@@ -41,7 +40,7 @@ public class Icon
 
 public class Helper
 {
-    private string _materialUrlFormat = "https://material.io/tools/icons/static/icons/{0}-{1}-24px.svg";
+    private string _materialUrlFormat = "https://fonts.gstatic.com/s/i/materialicons{0}/{1}/v1/24px.svg";
     private HttpClient _httpClient;
 
     public Helper()
