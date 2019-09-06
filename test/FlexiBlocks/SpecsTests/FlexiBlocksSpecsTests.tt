@@ -9,9 +9,14 @@ import namespace="System.Threading" #><#
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/IncludeBlocksSpecs.md"), "IncludeBlocks|All"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/OptionsBlocksSpecs.md"), "All"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiAlertBlocksSpecs.md"), "FlexiAlertBlocks|All"),
-	    new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiCodeBlocksSpecs.md"), "FlexiCodeBlocks|All"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiBannerBlocksSpecs.md"), "FlexiBannerBlocks|All"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiCardsBlocksSpecs.md"), "FlexiCardsBlocks|All"),
+	  new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiCodeBlocksSpecs.md"), "FlexiCodeBlocks|All"),
+	  new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiFigureBlocksSpecs.md"), "FlexiFigureBlocks|All"),
+	  new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiQuoteBlocksSpecs.md"), "FlexiQuoteBlocks|All"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiSectionBlocksSpecs.md"), "FlexiSectionBlocks|All"),
-		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiTableBlocksSpecs.md"), "FlexiTableBlocks|All")
+		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiTableBlocksSpecs.md"), "FlexiTableBlocks|All"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiTabsBlocksSpecs.md"), "FlexiTabsBlocks|All")
 	};
 #>using Xunit;
 
