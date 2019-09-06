@@ -6,7 +6,7 @@ using System;
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
     /// <summary>
-    /// A parser that parses <see cref="FlexiCodeBlock"/>s from indented code in markdown.
+    /// A parser that parses <see cref="FlexiCodeBlock"/>s from indented code from markdown.
     /// </summary>
     public class IndentedFlexiCodeBlockParser : ProxyBlockParser<FlexiCodeBlock, ProxyLeafBlock>
     {
@@ -31,7 +31,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <summary>
         /// Opens a <see cref="ProxyLeafBlock"/> if a non-blank line begins with 4 or more spaces.
         /// </summary>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> for the document that contains a non-blank line that begins with 4 or more spaces.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> for the document that contains a non-blank line that begins with 4 or more spaces.</param>
         /// <returns>
         /// <see cref="BlockState.None"/> if the current line is a blank line.
         /// <see cref="BlockState.None"/> if the current line does not have code indent.
@@ -45,7 +45,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <summary>
         /// Continues a <see cref="ProxyLeafBlock"/> if the current line has code indent or is blank.  
         /// </summary>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> for the <see cref="ProxyLeafBlock"/> to try continuing.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> for the <see cref="ProxyLeafBlock"/> to try continuing.</param>
         /// <param name="block">The <see cref="ProxyLeafBlock"/> to try continuing.</param>
         /// <returns>
         /// <see cref="BlockState.None"/> if the current line does not have code indent and is not blank. This closes the <see cref="ProxyLeafBlock"/>.

@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 {
-    public class FencedFlexiCodeBlockParserUnitTests
+    public class TildeFencedFlexiCodeBlockParserUnitTests
     {
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
 
@@ -12,12 +12,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         public void Constructor_SetsOpeningCharacters()
         {
             // Act
-            var testSubject = new FencedFlexiCodeBlockParser(_mockRepository.Create<IFlexiCodeBlockFactory>().Object);
+            var testSubject = new TildeFencedFlexiCodeBlockParser(_mockRepository.Create<IFlexiCodeBlockFactory>().Object);
 
             // Assert
-            Assert.Equal(2, testSubject.OpeningCharacters.Length);
-            Assert.Equal('`', testSubject.OpeningCharacters[0]);
-            Assert.Equal('~', testSubject.OpeningCharacters[1]);
+            Assert.Single(testSubject.OpeningCharacters);
+            Assert.Equal('~', testSubject.OpeningCharacters[0]);
         }
     }
 }

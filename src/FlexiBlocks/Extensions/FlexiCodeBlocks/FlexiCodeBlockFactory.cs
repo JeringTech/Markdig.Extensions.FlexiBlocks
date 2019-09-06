@@ -27,20 +27,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <summary>
         /// Creates a <see cref="ProxyFencedLeafBlock"/> from fenced code.
         /// </summary>
-        /// <param name="openingFenceIndent">The indent of the fenced code's opening fence.</param>
-        /// <param name="openingFenceCharCount">The number of characters in the fenced code's opening fence.</param>
-        /// <param name="fenceChar">The character used in the fenced code's fences.</param>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> processing the fenced code.</param>
-        /// <param name="blockParser">The <see cref="BlockParser"/> parsing the fenced code.</param>
+        /// <param name="openingFenceIndent">The indent of the opening fence.</param>
+        /// <param name="openingFenceCharCount">The number of characters in the opening fence.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <see cref="ProxyFencedLeafBlock"/>.</param>
+        /// <param name="blockParser">The <see cref="BlockParser"/> parsing the <see cref="ProxyFencedLeafBlock"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="blockProcessor"/> is <c>null</c>.</exception>
-        public ProxyFencedLeafBlock CreateProxyFencedBlock(int openingFenceIndent, int openingFenceCharCount, char fenceChar, BlockProcessor blockProcessor, BlockParser blockParser)
+        public ProxyFencedLeafBlock CreateProxyFencedBlock(int openingFenceIndent, int openingFenceCharCount, BlockProcessor blockProcessor, BlockParser blockParser)
         {
             if (blockProcessor == null)
             {
                 throw new ArgumentNullException(nameof(blockProcessor));
             }
 
-            return new ProxyFencedLeafBlock(openingFenceIndent, openingFenceCharCount, fenceChar, nameof(FlexiCodeBlock), blockParser)
+            return new ProxyFencedLeafBlock(openingFenceIndent, openingFenceCharCount, nameof(FlexiCodeBlock), blockParser)
             {
                 Column = blockProcessor.Column,
                 Span = new SourceSpan(blockProcessor.Start, blockProcessor.Line.End)
@@ -52,7 +51,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// Creates a <see cref="FlexiCodeBlock"/> from a <see cref="ProxyFencedLeafBlock"/>.
         /// </summary>
         /// <param name="proxyFencedBlock">The <see cref="ProxyFencedLeafBlock"/> containing data for the <see cref="FlexiCodeBlock"/>.</param>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> processing the <see cref="FlexiCodeBlock"/>.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <see cref="FlexiCodeBlock"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="blockProcessor"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="proxyFencedBlock"/> is <c>null</c>.</exception>
         /// <exception cref="OptionsException">Thrown if an option is invalid.</exception>
@@ -90,7 +89,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 throw new ArgumentNullException(nameof(proxyLeafBlock));
             }
 
-            (IFlexiCodeBlockOptions flexiCodeBlockOptions, IFlexiCodeBlocksExtensionOptions flexiCodeBlocksExtensionOptions) = _optionsService.CreateOptions(blockProcessor);
+            (IFlexiCodeBlockOptions flexiCodeBlockOptions, IFlexiCodeBlocksExtensionOptions _) = _optionsService.CreateOptions(blockProcessor);
 
             // Code
             StringLineGroup lines = proxyLeafBlock.Lines;
@@ -202,19 +201,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             if (lineNumbers != null)
             {
                 NumberedLineRange currentNumberedLineRange = lineNumbers[0];
-                (int currentNormalizedStart, int currentNormalizedEnd) = currentNumberedLineRange.GetNormalizedStartAndEnd(codeNumLines);
+                (int currentNormalizedStartLine, int currentNormalizedEndLine) = currentNumberedLineRange.GetNormalizedStartAndEndLines(codeNumLines);
                 int currentStartNumber = currentNumberedLineRange.StartNumber;
-                int lastNormalizedEnd = currentNormalizedEnd;
-                int lastEndNumber = currentStartNumber + (currentNormalizedEnd - currentNormalizedStart);
+                int lastNormalizedEndLine = currentNormalizedEndLine;
+                int lastEndNumber = currentStartNumber + (currentNormalizedEndLine - currentNormalizedStartLine);
 
                 int numNumberedLineRanges = lineNumbers.Count;
                 for (int i = 1; i < numNumberedLineRanges; i++)
                 {
                     currentNumberedLineRange = lineNumbers[i];
-                    (currentNormalizedStart, currentNormalizedEnd) = currentNumberedLineRange.GetNormalizedStartAndEnd(codeNumLines);
+                    (currentNormalizedStartLine, currentNormalizedEndLine) = currentNumberedLineRange.GetNormalizedStartAndEndLines(codeNumLines);
                     currentStartNumber = currentNumberedLineRange.StartNumber;
 
-                    if (currentNormalizedStart <= lastNormalizedEnd || currentStartNumber <= lastEndNumber)
+                    if (currentNormalizedStartLine <= lastNormalizedEndLine || currentStartNumber <= lastEndNumber)
                     {
                         throw new OptionsException(nameof(IFlexiCodeBlockOptions.LineNumbers),
                             string.Format(Strings.OptionsException_FlexiCodeBlocks_OverlappingLineNumbers,
@@ -222,8 +221,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                                 currentNumberedLineRange));
                     }
 
-                    lastNormalizedEnd = currentNormalizedEnd;
-                    lastEndNumber = currentStartNumber + (currentNormalizedEnd - currentNormalizedStart);
+                    lastNormalizedEndLine = currentNormalizedEndLine;
+                    lastEndNumber = currentStartNumber + (currentNormalizedEndLine - currentNormalizedStartLine);
                 }
             }
         }

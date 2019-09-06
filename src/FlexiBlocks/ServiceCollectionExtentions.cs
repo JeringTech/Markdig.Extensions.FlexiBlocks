@@ -148,8 +148,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             services.TryAddSingleton<IBlockExtension<FlexiCodeBlock>, FlexiCodeBlocksExtension>();
             services.TryAddSingleton<BlockRenderer<FlexiCodeBlock>, FlexiCodeBlockRenderer>();
             services.TryAddSingleton<IFlexiCodeBlockFactory, FlexiCodeBlockFactory>();
-            services.TryAddSingleton<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>, FencedFlexiCodeBlockParser>();
             services.TryAddSingleton<ProxyBlockParser<FlexiCodeBlock, ProxyLeafBlock>, IndentedFlexiCodeBlockParser>();
+
+            // TryAddSingleton will only add 1 implementation per interface. Since we're injecting these in an IEnumerable, we must 
+            // add them using AddSingleton. To avoid adding implementations of the same type multiple times, we ensure they have not been
+            // registered.
+            Type proxyBlockParserType = typeof(ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>);
+            Type tildeFencedFlexiCodeBlockParser = typeof(TildeFencedFlexiCodeBlockParser);
+            if (!services.Any(serviceDescriptor => serviceDescriptor.ServiceType == proxyBlockParserType && serviceDescriptor.ImplementationType == tildeFencedFlexiCodeBlockParser))
+            {
+                services.AddSingleton(proxyBlockParserType, tildeFencedFlexiCodeBlockParser);
+            }
+
+            Type backtickFencedFlexiCodeBlockParser = typeof(BacktickFencedFlexiCodeBlockParser);
+            if (!services.Any(serviceDescriptor => serviceDescriptor.ServiceType == proxyBlockParserType && serviceDescriptor.ImplementationType == backtickFencedFlexiCodeBlockParser))
+            {
+                services.AddSingleton(proxyBlockParserType, backtickFencedFlexiCodeBlockParser);
+            }
 
             return services;
         }

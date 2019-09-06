@@ -13,13 +13,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <summary>
         /// Creates a <see cref="NumberedLineRange"/>.
         /// </summary>
-        /// <param name="start">
+        /// <param name="startLine">
         /// <para>The line number of the <see cref="NumberedLineRange"/>'s start line.</para>
         /// <para>If this value is <c>-n</c>, the start line is the nth last line. For example, if this value is <c>-2</c>, the start line is the 2nd last line.</para>
         /// <para>This value must not be <c>0</c>.</para>
         /// <para>Defaults to <c>1</c>.</para>
         /// </param>
-        /// <param name="end">
+        /// <param name="endLine">
         /// <para>The line number of the <see cref="NumberedLineRange"/>'s end line.</para>
         /// <para>If this value is <c>-n</c>, the end line is the nth last line. For example, if this value is <c>-2</c>, the end line is the 2nd last line.</para>
         /// <para>This value must not be <c>0</c> or an integer representing a line before the start line.</para>
@@ -31,14 +31,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <para>This value must be greater than 0.</para>
         /// <para>Defaults to <c>1</c>.</para>
         /// </param>
-        /// <exception cref="OptionsException">Thrown if <paramref name="start"/> is 0.</exception>
-        /// <exception cref="OptionsException">Thrown if <paramref name="end"/> is 0.</exception>
+        /// <exception cref="OptionsException">Thrown if <paramref name="startLine"/> is 0.</exception>
+        /// <exception cref="OptionsException">Thrown if <paramref name="endLine"/> is 0.</exception>
         /// <exception cref="OptionsException">Thrown if the end line is a line before the start line.</exception>
         /// <exception cref="OptionsException">Thrown if <paramref name="startNumber"/> is less than 1.</exception>
         public NumberedLineRange(
-            int start = _defaultStart,
-            int end = _defaultEnd,
-            int startNumber = _defaultStartNumber) : base(start, end)
+            int startLine = _defaultStartLine,
+            int endLine = _defaultEndLine,
+            int startNumber = _defaultStartNumber) : base(startLine, endLine)
         {
             if (startNumber < 1)
             {
