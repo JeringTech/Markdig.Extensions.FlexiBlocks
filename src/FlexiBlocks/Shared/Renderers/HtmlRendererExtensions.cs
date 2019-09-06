@@ -7,27 +7,198 @@ using System.Collections.ObjectModel;
 namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     /// <summary>
-    /// Extensions for <see cref="HtmlRenderer"/>.
+    /// <para>Extensions for <see cref="HtmlRenderer"/>.</para>
+    /// <para>Overloads are used except when different methods would have the same signatures, e.g a WriteStartTag method that take an attributes string and 
+    /// one that takes a classes string.</para>
     /// </summary>
     public static class HtmlRendererExtensions
     {
         /// <summary>
-        /// <a>https://www.w3.org/TR/html5/infrastructure.html#space-characters</a>.
+        /// https://www.w3.org/TR/html5/infrastructure.html#space-characters
         /// </summary>
-        private static readonly ImmutableHashSet<char> SPACE_CHARS = ImmutableHashSet.Create(new char[] { ' ', '\t', '\r', '\n', '\f' });
+        private static readonly ImmutableHashSet<char> _spaceChars = ImmutableHashSet.Create(new char[] { ' ', '\t', '\r', '\n', '\f' });
+
+        private static readonly char[] _digits = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
         /// <summary>
-        /// If <paramref name="hasOption"/> is true, writes " {<paramref name="blockName"/>}_has-{<paramref name="optionName"/>}". 
-        /// Otherwise, writes " {<paramref name="blockName"/>}_no-{<paramref name="optionName"/>}". 
+        /// Writes an integer.
         /// </summary>
-        public static HtmlRenderer WriteHasOptionClass(this HtmlRenderer htmlRenderer, bool hasOption, string blockName, string optionName)
+        public static HtmlRenderer WriteInt(this HtmlRenderer htmlRenderer, int integer)
+        {
+            if (integer < 0)
+            {
+                htmlRenderer.Write('-');
+                integer = -integer;
+            }
+
+            // https://stackoverflow.com/questions/4483886/how-can-i-get-a-count-of-the-total-number-of-digits-in-a-number
+            int firstDivisor;
+            if (integer < 10)
+            {
+                firstDivisor = 1;
+            }
+            else if (integer < 100)
+            {
+                firstDivisor = 10;
+            }
+            else if (integer < 1000)
+            {
+                firstDivisor = 100;
+            }
+            else if (integer < 10000)
+            {
+                firstDivisor = 1000;
+            }
+            else if (integer < 100000)
+            {
+                firstDivisor = 10000;
+            }
+            else if (integer < 1000000)
+            {
+                firstDivisor = 100000;
+            }
+            else if (integer < 10000000)
+            {
+                firstDivisor = 1000000;
+            }
+            else if (integer < 100000000)
+            {
+                firstDivisor = 10000000;
+            }
+            else if (integer < 1000000000)
+            {
+                firstDivisor = 100000000;
+            }
+            else
+            {
+                firstDivisor = 1000000000;
+            }
+
+            for (int i = firstDivisor; i > 0; i /= 10)
+            {
+                htmlRenderer.Write(_digits[integer / i]);
+                integer %= i;
+            }
+
+            return htmlRenderer;
+        }
+
+        /// <summary>
+        /// Writes and HTML attribute.
+        /// </summary>
+        public static HtmlRenderer WriteAttribute(this HtmlRenderer htmlRenderer, string attributeName, string value)
         {
             return htmlRenderer.
-                Write(' '). // Never the first class
-                Write(blockName).
-                Write('_').
-                Write(hasOption ? "has-" : "no-"). // Boolean modifier
-                Write(optionName);
+                Write(' '). // Never the first attribute (all elements have class attribute)
+                Write(attributeName).
+                Write("=\"").
+                Write(value).
+                Write('"');
+        }
+
+        /// <summary>
+        /// Writes and HTML attribute conditionally.
+        /// </summary>
+        public static HtmlRenderer WriteAttribute(this HtmlRenderer htmlRenderer, bool condition, string attributeName, string value)
+        {
+            return condition ? htmlRenderer.WriteAttribute(attributeName, value) : htmlRenderer;
+        }
+
+        /// <summary>
+        /// Writes an HTML attribute value if it exists in a dictionary of attributes.
+        /// </summary>
+        public static HtmlRenderer WriteAttributeValue(this HtmlRenderer htmlRenderer, ReadOnlyDictionary<string, string> attributes, string attributeKey)
+        {
+            string value = null;
+
+            return attributes?.TryGetValue(attributeKey, out value) == true ? htmlRenderer.Write(' ').Write(value) : htmlRenderer;
+        }
+
+        /// <summary>
+        /// Writes HTML attributes.
+        /// </summary>
+        public static HtmlRenderer WriteAttributes(this HtmlRenderer htmlRenderer, ReadOnlyDictionary<string, string> attributes)
+        {
+            if (attributes == null)
+            {
+                return htmlRenderer;
+            }
+
+            foreach (KeyValuePair<string, string> attribute in attributes)
+            {
+                htmlRenderer.
+                    Write(' ').
+                    Write(attribute.Key).
+                    Write("=\"").
+                    WriteEscape(attribute.Value).
+                    Write('"');
+            }
+
+            return htmlRenderer;
+        }
+
+        /// <summary>
+        /// Writes HTML attributes excluding the specified attribute.
+        /// </summary>
+        public static HtmlRenderer WriteAttributesExcept(this HtmlRenderer htmlRenderer, ReadOnlyDictionary<string, string> attributes, string excluded)
+        {
+            return htmlRenderer.WriteAttributesExcept(attributes, excluded, null); // Keys can't be null (Dictionary throws if you try to add a key-value pair with null key)
+        }
+
+        /// <summary>
+        /// Writes HTML attributes excluding the specified attributes.
+        /// </summary>
+        public static HtmlRenderer WriteAttributesExcept(this HtmlRenderer htmlRenderer, ReadOnlyDictionary<string, string> attributes, string excluded1, string excluded2)
+        {
+            if (attributes == null)
+            {
+                return htmlRenderer;
+            }
+
+            foreach (KeyValuePair<string, string> attribute in attributes)
+            {
+                string key = attribute.Key;
+
+                if (key == excluded1 || key == excluded2)
+                {
+                    continue;
+                }
+
+                htmlRenderer.
+                    Write(' ').
+                    Write(key).
+                    Write("=\"").
+                    WriteEscape(attribute.Value).
+                    Write('"');
+            }
+
+            return htmlRenderer;
+        }
+
+        /// <summary>
+        /// If <paramref name="hasFeature"/> is true, writes " {<paramref name="blockName"/>}_has_{<paramref name="featureName"/>}". 
+        /// Otherwise, writes " {<paramref name="blockName"/>}_no_{<paramref name="featureName"/>}". 
+        /// </summary>
+        public static HtmlRenderer WriteHasFeatureClass(this HtmlRenderer htmlRenderer, bool hasFeature, string blockName, string featureName)
+        {
+            return htmlRenderer.WriteBlockKeyValueModifierClass(blockName, hasFeature ? "has" : "no", featureName);
+        }
+
+        /// <summary>
+        /// If <paramref name="hasFeature"/> is true, writes " {<paramref name="blockName"/>}__{<paramref name="elementName"/>}_has_{<paramref name="featureName"/>}". 
+        /// Otherwise, writes " {<paramref name="blockName"/>}__{<paramref name="elementName"/>}_no_{<paramref name="featureName"/>}". 
+        /// </summary>
+        public static HtmlRenderer WriteHasFeatureClass(this HtmlRenderer htmlRenderer, bool hasFeature, string blockName, string elementName, string featureName)
+        {
+            return htmlRenderer.WriteElementKeyValueModifierClass(blockName, elementName, hasFeature ? "has" : "no", featureName);
+        }
+
+        /// <summary>
+        /// If <paramref name="isType"/> is true, writes " {<paramref name="blockName"/>}__{<paramref name="elementName"/>}_is_{<paramref name="typeName"/>}". 
+        /// </summary>
+        public static HtmlRenderer WriteIsTypeClass(this HtmlRenderer htmlRenderer, bool isType, string blockName, string elementName, string typeName)
+        {
+            return isType ? htmlRenderer.WriteElementKeyValueModifierClass(blockName, elementName, "is", typeName) : htmlRenderer;
         }
 
         /// <summary>
@@ -47,9 +218,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         public static HtmlRenderer WriteEndTagLine(this HtmlRenderer htmlRenderer, string tagName)
         {
             return htmlRenderer.
-                Write("</").
-                Write(tagName).
-                WriteLine(">");
+                WriteEndTag(tagName).
+                WriteLine();
         }
 
         /// <summary>
@@ -57,16 +227,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// </summary>
         public static HtmlRenderer WriteEndTagLine(this HtmlRenderer htmlRenderer, bool condition, string tagName)
         {
-            if (!condition)
-            {
-                return htmlRenderer;
-            }
-
-            return htmlRenderer.WriteEndTagLine(tagName);
+            return condition ? htmlRenderer.WriteEndTagLine(tagName) : htmlRenderer;
         }
 
         /// <summary>
-        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>-<paramref name="elementName"/>}\" &gt;".
+        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>}__{<paramref name="elementName"/>}\"&gt;".
         /// </summary>
         public static HtmlRenderer WriteStartTag(this HtmlRenderer htmlRenderer,
             string tagName,
@@ -82,7 +247,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
-        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>-<paramref name="elementName"/>}\"&gt;\n".
+        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>}__{<paramref name="elementName"/>}\"&gt;\n".
         /// </summary>
         public static HtmlRenderer WriteStartTagLine(this HtmlRenderer htmlRenderer,
             string tagName,
@@ -90,17 +255,47 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             string elementName)
         {
             return htmlRenderer.
+                WriteStartTag(tagName, blockName, elementName).
+                WriteLine();
+        }
+
+        /// <summary>
+        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>}__{<paramref name="elementName"/>} {<paramref name="classes"/>}\"&gt;".
+        /// </summary>
+        public static HtmlRenderer WriteStartTagWithClasses(this HtmlRenderer htmlRenderer,
+            string tagName,
+            string blockName,
+            string elementName,
+            string classes)
+        {
+            return htmlRenderer.
                 Write('<').
                 Write(tagName).
                 Write(" class=\"").
                 WriteElementClass(blockName, elementName).
-                WriteLine("\">");
+                Write(' ').
+                Write(classes).
+                Write("\">");
         }
 
         /// <summary>
-        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>-<paramref name="elementName"/>}\" {<paramref name="attributes"/>}&gt;\n".
+        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>}__{<paramref name="elementName"/>} {<paramref name="classes"/>}\"&gt;\n".
         /// </summary>
-        public static HtmlRenderer WriteStartTagLine(this HtmlRenderer htmlRenderer,
+        public static HtmlRenderer WriteStartTagLineWithClasses(this HtmlRenderer htmlRenderer,
+            string tagName,
+            string blockName,
+            string elementName,
+            string classes)
+        {
+            return htmlRenderer.
+                WriteStartTagWithClasses(tagName, blockName, elementName, classes).
+                WriteLine();
+        }
+
+        /// <summary>
+        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>}__{<paramref name="elementName"/>}\" {<paramref name="attributes"/>}&gt;".
+        /// </summary>
+        public static HtmlRenderer WriteStartTagWithAttributes(this HtmlRenderer htmlRenderer,
             string tagName,
             string blockName,
             string elementName,
@@ -113,11 +308,101 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 WriteElementClass(blockName, elementName).
                 Write("\" ").
                 Write(attributes).
+                Write(">");
+        }
+
+        /// <summary>
+        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>}__{<paramref name="elementName"/>}\" {<paramref name="attributes"/>}&gt;\n".
+        /// </summary>
+        public static HtmlRenderer WriteStartTagLineWithAttributes(this HtmlRenderer htmlRenderer,
+            string tagName,
+            string blockName,
+            string elementName,
+            string attributes)
+        {
+            return htmlRenderer.
+                WriteStartTagWithAttributes(tagName, blockName, elementName, attributes).
+                WriteLine();
+        }
+
+        /// <summary>
+        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>}__{<paramref name="elementName"/>} {<paramref name="blockName"/>}__{<paramref name="elementName"/>}_{<paramref name="modifier"/>}\" {<paramref name="attributes"/>}&gt;".
+        /// </summary>
+        public static HtmlRenderer WriteStartTagWithModifierClassAndAttributes(this HtmlRenderer htmlRenderer,
+            string tagName,
+            string blockName,
+            string elementName,
+            string modifier,
+            string attributes)
+        {
+            return htmlRenderer.
+                Write('<').
+                Write(tagName).
+                Write(" class=\"").
+                WriteElementClass(blockName, elementName).
+                WriteElementModifierClass(blockName, elementName, modifier).
+                Write("\" ").
+                Write(attributes).
+                Write(">");
+        }
+
+        /// <summary>
+        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>}__{<paramref name="elementName"/>} {<paramref name="blockName"/>}__{<paramref name="elementName"/>}_{<paramref name="modifier"/>}\" {<paramref name="attributes"/>}&gt;\n".
+        /// </summary>
+        public static HtmlRenderer WriteStartTagLineWithModifierClassAndAttributes(this HtmlRenderer htmlRenderer,
+            string tagName,
+            string blockName,
+            string elementName,
+            string modifier,
+            string attributes)
+        {
+            return htmlRenderer.
+                WriteStartTagWithModifierClassAndAttributes(tagName, blockName, elementName, modifier, attributes).
+                WriteLine();
+        }
+
+        /// <summary>
+        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>}__{<paramref name="elementName"/>} {<paramref name="blockName"/>}__{<paramref name="elementName"/>}_{<paramref name="modifier"/>}\"&gt;\n".
+        /// </summary>
+        public static HtmlRenderer WriteStartTagLineWithModifierClass(this HtmlRenderer htmlRenderer,
+            string tagName,
+            string blockName,
+            string elementName,
+            string modifier)
+        {
+            return htmlRenderer.
+                Write('<').
+                Write(tagName).
+                Write(" class=\"").
+                WriteElementClass(blockName, elementName).
+                WriteElementModifierClass(blockName, elementName, modifier).
+                WriteLine("\">");
+        }
+
+        /// <summary>
+        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>__<paramref name="elementName"/>} {<paramref name="classes"/>}\" {<paramref name="attributes"/>}&gt;\n".
+        /// </summary>
+        public static HtmlRenderer WriteStartTagLineWithClassesAndAttributes(this HtmlRenderer htmlRenderer,
+            string tagName,
+            string blockName,
+            string elementName,
+            string classes,
+            string attributes)
+        {
+            return htmlRenderer.
+                Write('<').
+                Write(tagName).
+                Write(" class=\"").
+                WriteElementClass(blockName, elementName).
+                Write(' ').
+                Write(classes).
+                Write("\" ").
+                Write(attributes).
                 WriteLine(">");
         }
 
         /// <summary>
-        /// Writes <a href="https://en.bem.info/methodology/naming-convention/#element-name">BEM element class</a>, "{<paramref name="blockName"/>}__{<paramref name="elementName"/>}". 
+        /// Writes <a href="https://en.bem.info/methodology/naming-convention/#element-name">BEM element class</a>, " {<paramref name="blockName"/>}__{<paramref name="elementName"/>}". 
         /// </summary>
         public static HtmlRenderer WriteElementClass(this HtmlRenderer htmlRenderer, string blockName, string elementName)
         {
@@ -125,6 +410,41 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 Write(blockName).
                 Write("__").
                 Write(elementName);
+        }
+
+        /// <summary>
+        /// Writes <a href="https://en.bem.info/methodology/naming-convention/#element-modifier-name">BEM element modifier class</a>, " {<paramref name="blockName"/>}__{<paramref name="elementName"/>}_{<paramref name="modifier"/>}". 
+        /// </summary>
+        public static HtmlRenderer WriteElementModifierClass(this HtmlRenderer htmlRenderer, string blockName, string elementName, string modifier)
+        {
+            return htmlRenderer.
+                Write(' '). // Never the first class
+                WriteElementClass(blockName, elementName).
+                Write('_').
+                Write(modifier);
+        }
+
+        /// <summary>
+        /// Writes <a href="https://en.bem.info/methodology/naming-convention/#element-modifier-name">BEM element modifier class</a>, " {<paramref name="blockName"/>}__{<paramref name="elementName"/>}_{<paramref name="modifier"/>}" if condition is true. 
+        /// </summary>
+        public static HtmlRenderer WriteElementModifierClass(this HtmlRenderer htmlRenderer, bool condition, string blockName, string elementName, string modifier)
+        {
+            return condition ? htmlRenderer.WriteElementModifierClass(blockName, elementName, modifier) : htmlRenderer;
+        }
+
+        /// <summary>
+        /// Writes <a href="https://en.bem.info/methodology/quick-start/#key-value">BEM key-value modifier class, " {<paramref name="blockName"/>}__{<paramref name="elementName"/>}_{<paramref name="modifierKey"/>}_{<paramref name="modifierValue"/>}".</a>
+        /// </summary>
+        public static HtmlRenderer WriteElementKeyValueModifierClass(this HtmlRenderer htmlRenderer,
+            string blockName,
+            string elementName,
+            string modifierKey,
+            string modifierValue)
+        {
+            return htmlRenderer.
+                WriteElementModifierClass(blockName, elementName, modifierKey).
+                Write('_').
+                Write(modifierValue);
         }
 
         /// <summary>
@@ -144,7 +464,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <summary>
         /// Writes <a href="https://en.bem.info/methodology/quick-start/#key-value">BEM key-value modifier class, " {<paramref name="blockName"/>}_{<paramref name="modifierKey"/>}_{<paramref name="modifierValue"/>}".</a>
         /// </summary>
-
         public static HtmlRenderer WriteBlockKeyValueModifierClass(this HtmlRenderer htmlRenderer, string blockName, string modifierKey, string modifierValue)
         {
             return htmlRenderer.
@@ -157,40 +476,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
-        /// Writes <a href="https://en.bem.info/methodology/quick-start/#key-value">BEM key-value modifier class, " {<paramref name="blockName"/>}__{<paramref name="elementName"/>}_{<paramref name="modifierKey"/>}_{<paramref name="modifierValue"/>}".</a>
-        /// </summary>
-
-        public static HtmlRenderer WriteElementKeyValueModifierClass(this HtmlRenderer htmlRenderer,
-            string blockName,
-            string elementName,
-            string modifierKey,
-            string modifierValue)
-        {
-            return htmlRenderer.
-                Write(' '). // Never the first class
-                WriteElementClass(blockName, elementName).
-                Write('_').
-                Write(modifierKey).
-                Write('_').
-                Write(modifierValue);
-        }
-
-        /// <summary>
-        /// <para>Writes <paramref name="text"/> if <paramref name="condition"/> is true.</para> 
-        /// <para>If <paramref name="text"/> is <c>null</c> an empty string is written in its place.</para>
+        /// <para>Writes <paramref name="part"/> if <paramref name="condition"/> is true.</para> 
+        /// <para>If <paramref name="part"/> is <c>null</c> an empty string is written in its place.</para>
         /// </summary>
         public static HtmlRenderer Write(this HtmlRenderer htmlRenderer,
             bool condition,
-            string text)
+            string part)
         {
-            if (!condition)
-            {
-                return htmlRenderer;
-            }
-
-            htmlRenderer.Write(text);
-
-            return htmlRenderer;
+            return condition ? htmlRenderer.Write(part) : htmlRenderer;
         }
 
         /// <summary>
@@ -202,16 +495,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             char part1,
             string part2)
         {
-            if (!condition)
-            {
-                return htmlRenderer;
-            }
+            return condition ? htmlRenderer.Write(part1).Write(part2) :  htmlRenderer;
+        }
 
-            htmlRenderer.
-                Write(part1).
-                Write(part2);
-
-            return htmlRenderer;
+        /// <summary>
+        /// Writes <paramref name="part1"/> and <paramref name="part2"/> sequentially if <paramref name="condition"/> is true.
+        /// </summary>
+        public static HtmlRenderer Write(this HtmlRenderer htmlRenderer,
+            bool condition,
+            string part1,
+            string part2)
+        {
+            return condition ? htmlRenderer.Write(part1).Write(part2) : htmlRenderer;
         }
 
         /// <summary>
@@ -263,138 +558,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
-        /// Writes HTML attributes.
-        /// </summary>
-        /// <param name="htmlRenderer">The renderer to write to.</param>
-        /// <param name="attributes">
-        /// <para>The attributes to write.</para>
-        /// <para>If this value is <c>null</c>, nothing is written.</para>
-        /// </param>
-        public static HtmlRenderer WriteAttributes(this HtmlRenderer htmlRenderer, ReadOnlyDictionary<string, string> attributes)
-        {
-            if (attributes == null)
-            {
-                return htmlRenderer;
-            }
-
-            foreach (KeyValuePair<string, string> attribute in attributes)
-            {
-                htmlRenderer.
-                    Write(' ').
-                    Write(attribute.Key).
-                    Write("=\"").
-                    WriteEscape(attribute.Value).
-                    Write('"');
-            }
-
-            return htmlRenderer;
-        }
-
-        /// <summary>
-        /// <para>Writes HTML attributes excluding the class attribute.</para>
-        /// <para>Why exclude class attributes? HTML attributes are written to root elements of FlexiBlocks. Root elements have at least one default class for consistency with 
-        /// <a href="https://en.bem.info/">BEM methodology</a>. Default classes may be generated in real time. To write both default classes and user specified classes efficiently 
-        /// (without extra string allocations), renderers may have to write class attributes.</para>
-        /// </summary>
-        /// <param name="htmlRenderer">The renderer to write to.</param>
-        /// <param name="attributes">
-        /// <para>The attributes to write.</para>
-        /// <para>If this value is <c>null</c>, nothing is written.</para>
-        /// </param>
-        public static HtmlRenderer WriteAttributesExcludingClass(this HtmlRenderer htmlRenderer, ReadOnlyDictionary<string, string> attributes)
-        {
-            if (attributes == null)
-            {
-                return htmlRenderer;
-            }
-
-            foreach (KeyValuePair<string, string> attribute in attributes)
-            {
-                string key = attribute.Key;
-
-                if (key == "class")
-                {
-                    continue;
-                }
-
-                htmlRenderer.
-                    Write(' ').
-                    Write(key).
-                    Write("=\"").
-                    WriteEscape(attribute.Value).
-                    Write('"');
-            }
-
-            return htmlRenderer;
-        }
-
-        /// <summary>
-        /// Writes HTML attributes excluding the class and ID attributes.
-        /// </summary>
-        public static HtmlRenderer WriteAttributesExcludingClassAndID(this HtmlRenderer htmlRenderer, ReadOnlyDictionary<string, string> attributes)
-        {
-            if (attributes == null)
-            {
-                return htmlRenderer;
-            }
-
-            foreach (KeyValuePair<string, string> attribute in attributes)
-            {
-                string key = attribute.Key;
-
-                if (key == "class" || key == "id")
-                {
-                    continue;
-                }
-
-                htmlRenderer.
-                    Write(' ').
-                    Write(key).
-                    Write("=\"").
-                    WriteEscape(attribute.Value).
-                    Write('"');
-            }
-
-            return htmlRenderer;
-        }
-
-        /// <summary>
         /// <para>Conditionally writes an HTML fragment, adding a class attribute to its first tag.</para>
         /// <para>If the HTML fragment has no elements, no class attribute is added.</para>
         /// </summary>
-        /// <param name="htmlRenderer">The renderer to write to.</param>
-        /// <param name="condition">If this is false, nothing is written.</param>
-        /// <param name="htmlFragment">
-        /// <para>The HTML fragment to write.</para>
-        /// <para>This value must be a valid HTML fragment (https://www.w3.org/TR/html5/syntax) for class attribute addition to work as expected.</para>
-        /// </param>
-        /// <param name="classValuePart1">
-        /// <para>Part 1 of the class attribute's value.</para>
-        /// <para>If this value is <c>null</c>, it is not written.</para>
-        /// <para>If this value and <paramref name="classValuePart2" /> are both <c>null</c>, no class attribute is written.</para>
-        /// </param>
-        /// <param name="classValuePart2">
-        /// <para>Part 2 of the class attribute's value.</para>
-        /// <para>If this value is <c>null</c>, it is not written.</para>
-        /// <para>If this value and <paramref name="classValuePart1" /> are both <c>null</c>, no class attribute is written.</para>
-        /// </param>
-        public static HtmlRenderer WriteHtmlFragmentWithClass(this HtmlRenderer htmlRenderer,
+        public static HtmlRenderer WriteHtmlFragment(this HtmlRenderer htmlRenderer,
             bool condition,
             string htmlFragment,
-            string classValuePart1,
-            string classValuePart2)
+            string blockName,
+            string elementName)
         {
             if (!condition)
             {
                 return htmlRenderer;
-            }
-
-            bool writeClassValuePart1 = classValuePart1 != null;
-            bool writeClassValuePart2 = classValuePart2 != null;
-
-            if (!writeClassValuePart1 && !writeClassValuePart2)
-            {
-                return htmlRenderer.Write(htmlFragment);
             }
 
             (int startIndex, int _, int tagNameEndIndex) = FindFirstTag(htmlFragment);
@@ -410,18 +585,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             return htmlRenderer.
                 Write(htmlFragment, 0, firstIndexAfterTagName).
                 Write(" class=\"").
-                Write(classValuePart1).
-                Write(classValuePart2).
+                WriteElementClass(blockName, elementName).
                 Write("\"").
                 Write(htmlFragment, firstIndexAfterTagName, htmlFragment.Length - firstIndexAfterTagName);
         }
 
         /// <summary>
-        /// Writes children with the a specified implicit paragraphs setting.
+        /// Writes children with the specified implicit paragraphs setting.
         /// </summary>
-        /// <param name="htmlRenderer">The renderer to write to.</param>
-        /// <param name="containerBlock">The block containing children to write.</param>
-        /// <param name="implicitParagraphs">The boolean value specifying whether or not to render &lt;p&gt; elements.</param>
         public static HtmlRenderer WriteChildren(this HtmlRenderer htmlRenderer, ContainerBlock containerBlock, bool implicitParagraphs)
         {
             bool initialImplicitParagraph = htmlRenderer.ImplicitParagraph;
@@ -430,6 +601,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             htmlRenderer.WriteChildren(containerBlock);
 
             htmlRenderer.ImplicitParagraph = initialImplicitParagraph;
+
+            return htmlRenderer;
+        }
+
+        /// <summary>
+        /// Writes <see cref="LeafBlock.Inline"/> with the specified enable HTML for inlinesetting.
+        /// </summary>
+        public static HtmlRenderer WriteLeafInline(this HtmlRenderer htmlRenderer, LeafBlock leafBlock, bool enableHtmlForInline)
+        {
+            bool initialEnableHtmlForInline = htmlRenderer.EnableHtmlForInline;
+            htmlRenderer.EnableHtmlForInline = enableHtmlForInline;
+
+            htmlRenderer.WriteLeafInline(leafBlock);
+
+            htmlRenderer.EnableHtmlForInline = initialEnableHtmlForInline;
 
             return htmlRenderer;
         }
@@ -459,7 +645,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 }
                 else if (startIndex > -1)
                 {
-                    if (nameEnd == -1 && SPACE_CHARS.Contains(c))
+                    if (nameEnd == -1 && _spaceChars.Contains(c))
                     {
                         nameEnd = i - 1;
                     }
