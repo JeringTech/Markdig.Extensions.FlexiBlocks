@@ -11,87 +11,87 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <summary>
         /// Default start line line number.
         /// </summary>
-        protected const int _defaultStart = 1;
+        protected const int _defaultStartLine = 1;
 
         /// <summary>
         /// Default end line line number.
         /// </summary>
-        protected const int _defaultEnd = -1;
+        protected const int _defaultEndLine = -1;
 
         /// <summary>
         /// Creates a <see cref="LineRange"/>.
         /// </summary>
-        /// <param name="start">
+        /// <param name="startLine">
         /// <para>The line number of the <see cref="LineRange"/>'s start line.</para>
         /// <para>If this value is <c>-n</c>, the start line is the nth last line. For example, if this value is <c>-2</c>, the start line is the 2nd last line.</para>
         /// <para>This value must not be <c>0</c>.</para>
         /// <para>Defaults to <c>1</c>.</para>
         /// </param>
-        /// <param name="end">
+        /// <param name="endLine">
         /// <para>The line number of the <see cref="LineRange"/>'s end line.</para>
         /// <para>If this value is <c>-n</c>, the end line is the nth last line. For example, if this value is <c>-2</c>, the end line is the 2nd last line.</para>
         /// <para>This value must not be <c>0</c> or an integer representing a line before the start line.</para>
         /// <para>Defaults to <c>-1</c>.</para>
         /// </param>
-        /// <exception cref="OptionsException">Thrown if <paramref name="start"/> is 0.</exception>
-        /// <exception cref="OptionsException">Thrown if <paramref name="end"/> is 0.</exception>
+        /// <exception cref="OptionsException">Thrown if <paramref name="startLine"/> is 0.</exception>
+        /// <exception cref="OptionsException">Thrown if <paramref name="endLine"/> is 0.</exception>
         /// <exception cref="OptionsException">Thrown if the end line is a line before the start line.</exception>
-        public LineRange(int start = _defaultStart, int end = _defaultEnd)
+        public LineRange(int startLine = _defaultStartLine, int endLine = _defaultEndLine)
         {
-            if (start == 0)
+            if (startLine == 0)
             {
-                throw new OptionsException(nameof(Start),
-                    string.Format(Strings.OptionsException_Shared_InvalidValue, start));
+                throw new OptionsException(nameof(StartLine),
+                    string.Format(Strings.OptionsException_Shared_InvalidValue, startLine));
             }
 
-            if (end == 0)
+            if (endLine == 0)
             {
-                throw new OptionsException(nameof(End),
-                    string.Format(Strings.OptionsException_Shared_InvalidValue, end));
+                throw new OptionsException(nameof(EndLine),
+                    string.Format(Strings.OptionsException_Shared_InvalidValue, endLine));
             }
 
-            if (end > 0 && start > 0 && end < start ||
-                end < 0 && start < 0 && end < start)
+            if (endLine > 0 && startLine > 0 && endLine < startLine ||
+                endLine < 0 && startLine < 0 && endLine < startLine)
             {
                 throw new OptionsException(string.Format(Strings.OptionsException_LineRange_EndLineBeStartLineOrALineAfterIt,
-                    start, end));
+                    startLine, endLine));
             }
 
-            Start = start;
-            End = end;
+            StartLine = startLine;
+            EndLine = endLine;
         }
 
         /// <summary>
         /// Gets the line number of the <see cref="LineRange"/>'s start line.
         /// </summary>
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(_defaultStart)]
-        public int Start { get; private set; }
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(_defaultStartLine)]
+        public int StartLine { get; private set; }
 
         /// <summary>
         /// Gets the line number of the <see cref="LineRange"/>'s end line.
         /// </summary>
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(_defaultEnd)]
-        public int End { get; private set; }
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate), DefaultValue(_defaultEndLine)]
+        public int EndLine { get; private set; }
 
         /// <summary>
         /// <para>Gets the line numbers of the <see cref="LineRange"/>'s start and end lines normalized for a given number of lines.</para>
         /// <para>Normalization converts negative values and <c>0</c> to positive values.</para>
         /// </summary>
         /// <param name="numLines">The number of lines to normalize for.</param>
-        /// <exception cref="OptionsException">Thrown if start and end cannot be normalized for the specified number of lines.</exception>
-        public (int normalizedStart, int normalizedEnd) GetNormalizedStartAndEnd(int numLines)
+        /// <exception cref="OptionsException">Thrown if start and end lines cannot be normalized for the specified number of lines.</exception>
+        public (int normalizedStartLine, int normalizedEndLine) GetNormalizedStartAndEndLines(int numLines)
         {
-            int normalizedStart = Start > 0 ? Start : numLines + Start + 1;
-            int normalizedEnd = End > 0 ? End : End == 0 ? numLines : numLines + End + 1;
+            int normalizedStartLine = StartLine > 0 ? StartLine : numLines + StartLine + 1;
+            int normalizedEndLine = EndLine > 0 ? EndLine : EndLine == 0 ? numLines : numLines + EndLine + 1;
 
-            if (normalizedStart < 1 || normalizedStart > numLines ||
-                normalizedEnd < normalizedStart || normalizedEnd > numLines)
+            if (normalizedStartLine < 1 || normalizedStartLine > numLines ||
+                normalizedEndLine < normalizedStartLine || normalizedEndLine > numLines)
             {
                 throw new OptionsException(string.Format(Strings.OptionsException_LineRange_UnableToNormalize, ToString(),
-                    numLines, normalizedStart, normalizedEnd));
+                    numLines, normalizedStartLine, normalizedEndLine));
             }
 
-            return (normalizedStart, normalizedEnd);
+            return (normalizedStartLine, normalizedEndLine);
         }
 
         /// <summary>
@@ -107,14 +107,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <exception cref="OptionsException">Thrown if start and end cannot be normalized for the specified number of lines.</exception>
         public int GetRelativePosition(int lineNumber, int numLines)
         {
-            (int normalizedStart, int normalizedEnd) = GetNormalizedStartAndEnd(numLines);
+            (int normalizedStartLine, int normalizedEndLine) = GetNormalizedStartAndEndLines(numLines);
 
-            if (lineNumber < normalizedStart)
+            if (lineNumber < normalizedStartLine)
             {
                 return 1;
             }
 
-            if (lineNumber > normalizedEnd)
+            if (lineNumber > normalizedEndLine)
             {
                 return -1;
             }
@@ -127,7 +127,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// </summary>
         public override string ToString()
         {
-            return $"{nameof(Start)}: {Start}, {nameof(End)}: {End}";
+            return $"{nameof(StartLine)}: {StartLine}, {nameof(EndLine)}: {EndLine}";
         }
 
         /// <summary>
@@ -138,8 +138,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         public override bool Equals(object obj)
         {
             return obj is LineRange range &&
-                   Start == range.Start &&
-                   End == range.End;
+                   StartLine == range.StartLine &&
+                   EndLine == range.EndLine;
         }
 
         /// <summary>
@@ -149,8 +149,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         public override int GetHashCode()
         {
             int hashCode = -1676728671;
-            hashCode = hashCode * -1521134295 + Start.GetHashCode();
-            return hashCode * -1521134295 + End.GetHashCode();
+            hashCode = hashCode * -1521134295 + StartLine.GetHashCode();
+            return hashCode * -1521134295 + EndLine.GetHashCode();
         }
     }
 }
