@@ -16,7 +16,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         public void Constructor_ThrowsArgumentNullExceptionIfFencedBlockFactoryIsNull()
         {
             // Act and assert
-            Assert.Throws<ArgumentNullException>(() => new ExposedFencedBlockParser(null));
+            Assert.Throws<ArgumentNullException>(() => new ExposedFencedBlockParser(null, 'a', false, FenceTrailingCharacters.All));
         }
 
         [Fact]
@@ -39,14 +39,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         public void TryOpenBlock_ReturnsBlockStateNoneIfLineDoesNotContainAnOpeningFence()
         {
             // Arrange
-            const char dummyFenceChar = '~';
-            var dummyLine = new StringSlice(dummyFenceChar.ToString());
+            const string dummyText = "dummyText";
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Line = dummyLine;
+            dummyBlockProcessor.Line = new StringSlice(dummyText);
             Mock<ExposedFencedBlockParser> mockTestSubject = CreateMockExposedFencedBlockParser();
             mockTestSubject.CallBase = true;
             int dummyFenceCharCount;
-            mockTestSubject.Setup(t => t.LineContainsOpeningFence(dummyLine, dummyFenceChar, out dummyFenceCharCount)).Returns(false);
+            mockTestSubject.Setup(t => t.LineContainsOpeningFence(It.Is<StringSlice>(s => s.Text == dummyText), out dummyFenceCharCount)).Returns(false);
 
             // Act
             BlockState result = mockTestSubject.Object.ExposedTryOpenBlock(dummyBlockProcessor);
@@ -60,21 +59,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         public void TryOpenBlock_ReturnsContinueDiscardAndAddsNewProxyFencedBlockToNewBlocksIfLineContainsAnOpeningFence()
         {
             // Arrange
-            const char dummyFenceChar = '~';
             int dummyFenceCharCount = 3;
             const int dummyIndent = 2;
-            var dummyLine = new StringSlice(dummyFenceChar.ToString());
+            const string dummyText = "dummyText";
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Line = dummyLine;
+            dummyBlockProcessor.Line = new StringSlice(dummyText);
             dummyBlockProcessor.Column = dummyIndent;
-            Mock<DummyProxyFencedBlock> dummyProxyFencedBlock = _mockRepository.Create<DummyProxyFencedBlock>(null);
+            DummyProxyFencedBlock dummyProxyFencedBlock = _mockRepository.Create<DummyProxyFencedBlock>(null).Object;
             Mock<IFencedBlockFactory<Block, DummyProxyFencedBlock>> mockFencedBlockFactory = _mockRepository.Create<IFencedBlockFactory<Block, DummyProxyFencedBlock>>();
             Mock<ExposedFencedBlockParser> mockTestSubject = CreateMockExposedFencedBlockParser(mockFencedBlockFactory.Object);
             mockFencedBlockFactory.
-                Setup(f => f.CreateProxyFencedBlock(dummyIndent, dummyFenceCharCount, dummyFenceChar, dummyBlockProcessor, mockTestSubject.Object)).
-                Returns(dummyProxyFencedBlock.Object);
+                Setup(f => f.CreateProxyFencedBlock(dummyIndent, dummyFenceCharCount, dummyBlockProcessor, mockTestSubject.Object)).
+                Returns(dummyProxyFencedBlock);
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(t => t.LineContainsOpeningFence(dummyLine, dummyFenceChar, out dummyFenceCharCount)).Returns(true);
+            mockTestSubject.Setup(t => t.LineContainsOpeningFence(It.Is<StringSlice>(s => s.Text == dummyText), out dummyFenceCharCount)).Returns(true);
 
             // Act
             BlockState result = mockTestSubject.Object.ExposedTryOpenBlock(dummyBlockProcessor);
@@ -82,7 +80,38 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             // Assert
             _mockRepository.VerifyAll();
             Assert.Equal(BlockState.ContinueDiscard, result);
-            Assert.Same(dummyProxyFencedBlock.Object, dummyBlockProcessor.NewBlocks.Peek());
+            Assert.Same(dummyProxyFencedBlock, dummyBlockProcessor.NewBlocks.Peek());
+        }
+
+        [Fact]
+        public void TryOpenBlock_ThrowsBlockExceptionIfAnExceptionIsThrownWhileCreatingProxyFencedBlock()
+        {
+            // Arrange
+            int dummyFenceCharCount = 3;
+            const int dummyLineIndex = 6;
+            const int dummyIndent = 2;
+            const string dummyText = "dummyText";
+            BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
+            dummyBlockProcessor.Line = new StringSlice(dummyText);
+            dummyBlockProcessor.Column = dummyIndent;
+            dummyBlockProcessor.LineIndex = dummyLineIndex;
+            DummyProxyFencedBlock dummyProxyFencedBlock = _mockRepository.Create<DummyProxyFencedBlock>(null).Object;
+            Mock<IFencedBlockFactory<Block, DummyProxyFencedBlock>> mockFencedBlockFactory = _mockRepository.Create<IFencedBlockFactory<Block, DummyProxyFencedBlock>>();
+            var dummyException = new Exception();
+            Mock<ExposedFencedBlockParser> mockTestSubject = CreateMockExposedFencedBlockParser(mockFencedBlockFactory.Object);
+            mockFencedBlockFactory.
+                Setup(f => f.CreateProxyFencedBlock(dummyIndent, dummyFenceCharCount, dummyBlockProcessor, mockTestSubject.Object)).
+                Throws(dummyException);
+            mockTestSubject.CallBase = true;
+            mockTestSubject.Setup(t => t.LineContainsOpeningFence(It.Is<StringSlice>(s => s.Text == dummyText), out dummyFenceCharCount)).Returns(true);
+
+            // Act and assert
+            BlockException result = Assert.Throws<BlockException>(() => mockTestSubject.Object.ExposedTryOpenBlock(dummyBlockProcessor));
+            Assert.Equal(string.Format(Strings.BlockException_BlockException_InvalidBlock, nameof(Block), dummyLineIndex + 1, dummyIndent,
+                    Strings.BlockException_Shared_ExceptionOccurredWhileCreatingBlock),
+                result.Message);
+            Assert.Same(dummyException, result.InnerException);
+            _mockRepository.VerifyAll();
         }
 
         [Fact]
@@ -108,17 +137,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         public void TryContinueBlock_ReturnsBlockStateContinueAndUpdatesLineStartIfLineDoesNotContainAClosingFence()
         {
             // Arrange
-            const char dummyFenceChar = '~';
+            const string dummyText = "dummyText";
             const int dummyOpeningFenceCharCount = 4;
             Mock<DummyProxyFencedBlock> mockProxyFencedBlock = _mockRepository.Create<DummyProxyFencedBlock>(null);
-            mockProxyFencedBlock.Setup(p => p.FenceChar).Returns(dummyFenceChar);
             mockProxyFencedBlock.Setup(p => p.OpeningFenceCharCount).Returns(dummyOpeningFenceCharCount);
-            var dummyLine = new StringSlice();
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Line = dummyLine;
+            dummyBlockProcessor.Line = new StringSlice(dummyText);
             Mock<ExposedFencedBlockParser> mockTestSubject = CreateMockExposedFencedBlockParser();
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(t => t.LineContainsClosingFence(dummyLine, dummyFenceChar, dummyOpeningFenceCharCount)).Returns(false);
+            mockTestSubject.Setup(t => t.LineContainsClosingFence(It.Is<StringSlice>(s => s.Text == dummyText), dummyOpeningFenceCharCount)).Returns(false);
             mockTestSubject.Setup(t => t.UpdateLineStart(dummyBlockProcessor, mockProxyFencedBlock.Object));
 
             // Act
@@ -133,18 +160,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         public void TryContinueBlock_ReturnsBlockStateBreadDiscardAndUpdatesSpanEndIfLineContainsAClosingFence()
         {
             // Arrange
-            const char dummyFenceChar = '~';
-            const int dummyOpeningFenceCharCount = 4;
+            const string dummyText = "dummyText";
+            const int dummyOpeningFenceCharCount = 3;
             Mock<DummyProxyFencedBlock> mockProxyFencedBlock = _mockRepository.Create<DummyProxyFencedBlock>(null);
-            mockProxyFencedBlock.Setup(p => p.FenceChar).Returns(dummyFenceChar);
             mockProxyFencedBlock.Setup(p => p.OpeningFenceCharCount).Returns(dummyOpeningFenceCharCount);
             const int dummyLineEnd = 10;
-            var dummyLine = new StringSlice("", 0, dummyLineEnd);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Line = dummyLine;
+            dummyBlockProcessor.Line = new StringSlice(dummyText, 0, dummyLineEnd);
             Mock<ExposedFencedBlockParser> mockTestSubject = CreateMockExposedFencedBlockParser();
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(t => t.LineContainsClosingFence(dummyLine, dummyFenceChar, dummyOpeningFenceCharCount)).Returns(true);
+            mockTestSubject.Setup(t => t.LineContainsClosingFence(It.Is<StringSlice>(s => s.Text == dummyText), dummyOpeningFenceCharCount)).Returns(true);
 
             // Act
             BlockState result = mockTestSubject.Object.ExposedTryContinueBlock(dummyBlockProcessor, mockProxyFencedBlock.Object);
@@ -210,17 +235,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 
         [Theory]
         [MemberData(nameof(LineContainsOpeningFence_ReturnsTrueIfLineContainsAnOpeningFenceAndFalseOtherwise_Data))]
-        public void LineContainsOpeningFence_ReturnsTrueIfLineContainsAnOpeningFenceAndFalseOtherwise(string dummyLineText,
+        public void LineContainsOpeningFence_ReturnsTrueIfLineContainsAnOpeningFenceAndFalseOtherwise(FenceTrailingCharacters dummyFenceTrailingCharacters,
+            string dummyLineText,
             char dummyFenceChar,
             bool expectedContains,
             int expectedFenceCharCount)
         {
             // Arrange
             var dummyLine = new StringSlice(dummyLineText);
-            ExposedFencedBlockParser testSubject = CreateExposedFencedBlockParser();
+            ExposedFencedBlockParser testSubject = CreateExposedFencedBlockParser(fenceChar: dummyFenceChar, fenceTrailingCharacters: dummyFenceTrailingCharacters);
 
             // Act
-            bool resultContains = testSubject.LineContainsOpeningFence(dummyLine, dummyFenceChar, out int resultFenceCharCount);
+            bool resultContains = testSubject.LineContainsOpeningFence(dummyLine, out int resultFenceCharCount);
 
             // Assert
             Assert.Equal(expectedContains, resultContains);
@@ -231,40 +257,35 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         {
             return new object[][]
             {
-                // Standard fence
-                new object[]{"```", '`', true, 3},
-                // Fence with trailing whitespace
-                new object[]{"***   ", '*', true, 3},
-                // Backtick fence with trailing non-whitespace chars
-                new object[]{"```info string ", '`', true, 3},
-                // Tilde fence with trailing non-whitespace chars
-                new object[]{"~~~info string ~#%(*& 123434", '~', true, 3},
-                // Fence with lots of chars
-                new object[]{"~~~~~~~~~~", '~', true, 10},
-                // Line has insufficent chars
-                new object[]{"1", '1', false, 0},
-                // Insufficent fence chars
-                new object[]{"** ", '*', false, 2},
-                // Line with inline code
-                new object[]{"``` inline code`", '`', false, 3},
-                // Non-backtick fence with trailing non-whitespace chars
-                new object[]{"+++info string ", '+', false, 3}
+                // Insufficient fence characters
+                new object[]{FenceTrailingCharacters.All, "1", '1', false, 1},
+                // No trailing characters
+                new object[]{FenceTrailingCharacters.All, "```", '`', true, 3},
+                // All characters
+                new object[]{FenceTrailingCharacters.All, "`````` 8&a` ", '`', true, 6},
+                // Whitespace characters only
+                new object[]{FenceTrailingCharacters.Whitespace, "****   ", '*', true, 4},
+                new object[]{FenceTrailingCharacters.Whitespace, "***  fh ", '*', false, 3},
+                // All characters but fence character
+                new object[]{FenceTrailingCharacters.AllButFenceCharacter, "``` d(h`", '`', false, 3},
+                new object[]{FenceTrailingCharacters.AllButFenceCharacter, "``` j^4 ", '`', true, 3},
             };
         }
 
         [Theory]
         [MemberData(nameof(LineContainsClosingFence_ReturnsTrueIfLineContainsAClosingFenceAndFalseOtherwise_Data))]
-        public void LineContainsClosingFence_ReturnsTrueIfLineContainsAClosingFenceAndFalseOtherwise(string dummyLineText,
+        public void LineContainsClosingFence_ReturnsTrueIfLineContainsAClosingFenceAndFalseOtherwise(bool dummyMatchingFencesRequired,
+            string dummyLineText,
             char dummyFenceChar,
             int dummyOpeningFenceCharCount,
             bool expectedResult)
         {
             // Arrange
             var dummyLine = new StringSlice(dummyLineText);
-            ExposedFencedBlockParser testSubject = CreateExposedFencedBlockParser();
+            ExposedFencedBlockParser testSubject = CreateExposedFencedBlockParser(fenceChar: dummyFenceChar, matchingFencesRequired: dummyMatchingFencesRequired);
 
             // Act
-            bool result = testSubject.LineContainsClosingFence(dummyLine, dummyFenceChar, dummyOpeningFenceCharCount);
+            bool result = testSubject.LineContainsClosingFence(dummyLine, dummyOpeningFenceCharCount);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -274,36 +295,50 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         {
             return new object[][]
             {
-                // Standard fence
-                new object[]{"```", '`', 3, true},
-                // Fence with trailing whitespace
-                new object[]{"***   ", '*', 3, true},
-                // Fence with more chars than opening fence
-                new object[]{"`````", '`', 4, true},
-                // Fence with lots of chars
-                new object[]{"~~~~~~~~~~", '~', 5, true},
-                // Line with insufficent chars
-                new object[]{"-----", '-', 6, false},
-                // Insufficient fence chars
-                new object[]{"111   ", '1', 4, false},
-                // Fence has trailing non-whitespace chars
-                new object[]{"+++ non-whitespace chars", '+', 3, false}
+                // Matching fences required
+                new object[]{true, "```", '`', 3, true},
+                new object[]{true, "`````", '`', 3, false},
+                new object[]{true, "`", '`', 3, false},
+                new object[]{true, "***   ", '*', 3, true}, // Trailing whitespace
+                new object[]{true, "+++ h3* ", '+', 3, false}, // Trailing non-whitespace characters
+                // Matching fences not required
+                new object[]{false, "```", '`', 3, true},
+                new object[]{false, "`````", '`', 3, true},
+                new object[]{false, "`", '`', 3, false},
+                new object[]{false, "***   ", '*', 3, true}, // Trailing whitespace
+                new object[]{false, "+++ h3* ", '+', 3, false} // Trailing non-whitespace characters
             };
         }
 
-        private ExposedFencedBlockParser CreateExposedFencedBlockParser(IFencedBlockFactory<Block, DummyProxyFencedBlock> fencedBlockFactory = null)
+        private ExposedFencedBlockParser CreateExposedFencedBlockParser(IFencedBlockFactory<Block, DummyProxyFencedBlock> FencedBlockFactory = null,
+            char fenceChar = default,
+            bool matchingFencesRequired = default,
+            FenceTrailingCharacters fenceTrailingCharacters = default)
         {
-            return new ExposedFencedBlockParser(fencedBlockFactory ?? _mockRepository.Create<IFencedBlockFactory<Block, DummyProxyFencedBlock>>().Object);
+            return new ExposedFencedBlockParser(FencedBlockFactory ?? _mockRepository.Create<IFencedBlockFactory<Block, DummyProxyFencedBlock>>().Object,
+                fenceChar,
+                matchingFencesRequired,
+                fenceTrailingCharacters);
         }
 
-        private Mock<ExposedFencedBlockParser> CreateMockExposedFencedBlockParser(IFencedBlockFactory<Block, DummyProxyFencedBlock> fencedBlockFactory = null)
+        private Mock<ExposedFencedBlockParser> CreateMockExposedFencedBlockParser(IFencedBlockFactory<Block, DummyProxyFencedBlock> FencedBlockFactory = null,
+            char fenceChar = default,
+            bool matchingFencesRequired = default,
+            FenceTrailingCharacters fenceTrailingCharacters = default)
         {
-            return _mockRepository.Create<ExposedFencedBlockParser>(fencedBlockFactory ?? _mockRepository.Create<IFencedBlockFactory<Block, DummyProxyFencedBlock>>().Object);
+            return _mockRepository.Create<ExposedFencedBlockParser>(FencedBlockFactory ?? _mockRepository.Create<IFencedBlockFactory<Block, DummyProxyFencedBlock>>().Object,
+                fenceChar,
+                matchingFencesRequired,
+                fenceTrailingCharacters);
         }
 
         public class ExposedFencedBlockParser : FencedBlockParser<Block, DummyProxyFencedBlock>
         {
-            public ExposedFencedBlockParser(IFencedBlockFactory<Block, DummyProxyFencedBlock> fencedBlockFactory) : base(fencedBlockFactory)
+            public ExposedFencedBlockParser(IFencedBlockFactory<Block, DummyProxyFencedBlock> FencedBlockFactory,
+                char fenceChar,
+                bool matchingFencesRequired,
+                FenceTrailingCharacters fenceTrailingCharacters) :
+                base(FencedBlockFactory, fenceChar, matchingFencesRequired, fenceTrailingCharacters)
             {
             }
 
