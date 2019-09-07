@@ -2,8 +2,6 @@
 using Markdig.Syntax;
 using Moq;
 using Moq.Protected;
-using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
@@ -93,12 +91,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             public bool ExposedCloseBlock(BlockProcessor blockProcessor, TProxy proxyBlock)
             {
                 return CloseBlock(blockProcessor, proxyBlock);
-            }
-
-            public BlockState ExposedTryContinueBlock(BlockProcessor _, TProxy __)
-            {
-                // Do nothing
-                return BlockState.None;
             }
 
             protected override BlockState TryOpenBlock(BlockProcessor blockProcessor)
