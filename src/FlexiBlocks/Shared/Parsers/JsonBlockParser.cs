@@ -30,9 +30,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <summary>
         /// Opens a <typeparamref name="TProxy"/> if a line begins with at least 3 fence characters.
         /// </summary>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> for the document that contains a line with a fence character as its first character.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> for the document that contains a line with a fence character as its first character.</param>
         /// <returns>
-        /// <see cref="BlockState.None"/> if the current line has code indent or if the current line does not contain an opening fence.
+        /// <see cref="BlockState.None"/> if the current line has code indent.
+        /// <see cref="BlockState.None"/> if the current line does not contain an opening fence.
         /// <see cref="BlockState.ContinueDiscard"/> if the current line contains an opening fence and a <typeparamref name="TProxy"/> is opened.
         ///</returns>
         protected override BlockState TryOpenBlock(BlockProcessor blockProcessor)
@@ -61,7 +62,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <summary>
         /// Continues a <typeparamref name="TProxy"/> if the current line is not a closing fence.  
         /// </summary>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> for the <typeparamref name="TProxy"/> to try continuing.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> for the <typeparamref name="TProxy"/> to try continuing.</param>
         /// <param name="block">The <typeparamref name="TProxy"/> to try continuing.</param>
         /// <returns>
         /// <see cref="BlockState.BreakDiscard"/> if the current line contains a closing fence and the <typeparamref name="TProxy"/> is closed.

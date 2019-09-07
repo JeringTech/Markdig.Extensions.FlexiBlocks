@@ -36,7 +36,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             OptionsBlock optionsBlock = TryGetOptionsBlock(blockProcessor);
             if (optionsBlock == null)
             {
-                return defaultBlockOptions;
+                return defaultBlockOptions; // Returns null if defaultBlockOptions is null
             }
 
             return Create(defaultBlockOptions, optionsBlock);
