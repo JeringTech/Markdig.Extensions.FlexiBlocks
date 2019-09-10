@@ -16,10 +16,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 
         [Theory]
         [MemberData(nameof(GetPhrases_GetsPhrases_Data))]
-        public void GetPhrases_GetsPhrases(string dummyRegex, int[] dummyIncluded, string dummyText, List<Phrase> expectedResult)
+        public void GetPhrases_GetsPhrases(string dummyRegex, int[] dummyIncludedMatches, string dummyText, List<Phrase> expectedResult)
         {
             // Arrange
-            var testSubject = new PhraseGroup(dummyRegex, dummyIncluded);
+            var testSubject = new PhraseGroup(dummyRegex, dummyIncludedMatches);
             var result = new List<Phrase>();
 
             // Act
@@ -58,17 +58,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             // Act and assert
             OptionsException result = Assert.Throws<OptionsException>(() => testSubject.GetPhrases(dummyText, dummyPhrases));
             Assert.Equal(string.Format(Strings.OptionsException_OptionsException_InvalidOption,
-                            nameof(PhraseGroup.Included),
+                            nameof(PhraseGroup.IncludedMatches),
                             string.Format(Strings.OptionsException_PhraseGroup_IncludedMatchIndexOutOfRange, testSubject, 3, 3)),
                         result.Message);
         }
 
         [Theory]
         [MemberData(nameof(ToString_ReturnsPhraseGroupAsString_Data))]
-        public void ToString_ReturnsPhraseGroupAsString(string dummyRegex, int[] dummyIncluded, string expectedResult)
+        public void ToString_ReturnsPhraseGroupAsString(string dummyRegex, int[] dummyIncludedMatches, string expectedResult)
         {
             // Arrange
-            var lineRange = new PhraseGroup(dummyRegex, dummyIncluded);
+            var lineRange = new PhraseGroup(dummyRegex, dummyIncludedMatches);
 
             // Act
             string result = lineRange.ToString();
@@ -80,12 +80,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         public static IEnumerable<object[]> ToString_ReturnsPhraseGroupAsString_Data()
         {
             const string dummyRegex = "dummyRegex";
-            var dummyIncluded = new int[] { 1, 2, 3 };
+            var dummyIncludedMatches = new int[] { 1, 2, 3 };
 
             return new object[][]
             {
-                new object[]{ dummyRegex, null, $"{nameof(PhraseGroup.Regex)}: {dummyRegex}, {nameof(PhraseGroup.Included)}: null"},
-                new object[]{ dummyRegex, dummyIncluded, $"{nameof(PhraseGroup.Regex)}: {dummyRegex}, {nameof(PhraseGroup.Included)}: [{string.Join(",", dummyIncluded)}]"}
+                new object[]{ dummyRegex, null, $"{nameof(PhraseGroup.Regex)}: {dummyRegex}, {nameof(PhraseGroup.IncludedMatches)}: null"},
+                new object[]{ dummyRegex, dummyIncludedMatches, $"{nameof(PhraseGroup.Regex)}: {dummyRegex}, {nameof(PhraseGroup.IncludedMatches)}: [{string.Join(",", dummyIncludedMatches)}]"}
             };
         }
 
@@ -105,24 +105,24 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         public static IEnumerable<object[]> Equals_ReturnsTrueIfObjIsAnIdenticalPhraseGroupOtherwiseReturnsFalse_Data()
         {
             const string dummyRegex = "dummyRegex";
-            var dummyIncluded = new int[] { 1, 2, 3 };
+            var dummyIncludedMatches = new int[] { 1, 2, 3 };
 
             return new object[][]
             {
                 // Same
-                new object[]{new PhraseGroup(dummyRegex, dummyIncluded),
-                    new PhraseGroup(dummyRegex, dummyIncluded),
+                new object[]{new PhraseGroup(dummyRegex, dummyIncludedMatches),
+                    new PhraseGroup(dummyRegex, dummyIncludedMatches),
                     true },
                 // Different types
-                new object[]{new PhraseGroup(dummyRegex, dummyIncluded),
+                new object[]{new PhraseGroup(dummyRegex, dummyIncludedMatches),
                     "not a line range",
                     false },
                 // Same included, different regex
-                new object[]{new PhraseGroup(dummyRegex, dummyIncluded),
-                    new PhraseGroup(string.Empty, dummyIncluded),
+                new object[]{new PhraseGroup(dummyRegex, dummyIncludedMatches),
+                    new PhraseGroup(string.Empty, dummyIncludedMatches),
                     false },
                 // Same regex, different included
-                new object[]{new PhraseGroup(dummyRegex, dummyIncluded),
+                new object[]{new PhraseGroup(dummyRegex, dummyIncludedMatches),
                     new PhraseGroup(dummyRegex, new int[] {4, 5, 6 }),
                     false }
             };
@@ -141,20 +141,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         public static IEnumerable<object[]> GetHashCode_ReturnsSameHashCodeForIdenticalPhraseGroups_Data()
         {
             const string dummyRegex = "dummyRegex";
-            var dummyIncluded = new int[] { 1, 2, 3 };
+            var dummyIncludedMatches = new int[] { 1, 2, 3 };
 
             return new object[][]
             {
                 // Same
-                new object[]{new PhraseGroup(dummyRegex, dummyIncluded),
-                    new PhraseGroup(dummyRegex, dummyIncluded),
+                new object[]{new PhraseGroup(dummyRegex, dummyIncludedMatches),
+                    new PhraseGroup(dummyRegex, dummyIncludedMatches),
                     true },
                 // Same included, different regex
-                new object[]{new PhraseGroup(dummyRegex, dummyIncluded),
-                    new PhraseGroup(string.Empty, dummyIncluded),
+                new object[]{new PhraseGroup(dummyRegex, dummyIncludedMatches),
+                    new PhraseGroup(string.Empty, dummyIncludedMatches),
                     false },
                 // Same regex, different included
-                new object[]{new PhraseGroup(dummyRegex, dummyIncluded),
+                new object[]{new PhraseGroup(dummyRegex, dummyIncludedMatches),
                     new PhraseGroup(dummyRegex, new int[] {4, 5, 6 }),
                     false }
             };

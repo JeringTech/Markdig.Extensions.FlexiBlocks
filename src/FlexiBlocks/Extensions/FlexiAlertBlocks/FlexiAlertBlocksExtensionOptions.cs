@@ -22,7 +22,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         );
 
         /// <summary>
-        /// Creates a <see cref="FlexiAlertBlocksExtensionOptions" />.
+        /// Creates a <see cref="FlexiAlertBlocksExtensionOptions"/>.
         /// </summary>
         /// <param name="defaultBlockOptions">
         /// <para>Default <see cref="IFlexiAlertBlockOptions"/> for all <see cref="FlexiAlertBlock"/>s.</para>

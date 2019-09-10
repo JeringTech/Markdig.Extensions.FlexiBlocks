@@ -47,8 +47,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
         /// <para>Defaults to <see cref="IncludeType.Code"/>.</para>
         /// </param>
         /// <param name="cache">
-        /// <para>The value specifying whether or not to cache the <see cref="IncludeBlock"/>'s content on disk.</para>
-        /// <para>If this value is true, on-disk caching is enabled, otherwise, it is disabled.</para>
+        /// <para>The value specifying whether to cache the <see cref="IncludeBlock"/>'s content on disk.</para>
+        /// <para>If this value is true and the <see cref="IncludeBlock"/>'s source is remote, the source's content is cached on disk.</para>
         /// <para>Caching-on-disk slows down the first markdown-to-HTML run on a system, but significantly speeds up subsequent runs:</para>
         /// <para>If on-disk caching is enabled and content from remote source "x" is included, on the first run, all content in "x" is retrieved from a server and
         /// cached in memory as well as on disk.</para>

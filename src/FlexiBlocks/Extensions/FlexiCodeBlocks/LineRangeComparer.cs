@@ -30,21 +30,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// </returns>
         public int Compare(LineRange x, LineRange y)
         {
-            (int xStart, int xEnd) = x.GetNormalizedStartAndEnd(_numLines);
-            (int yStart, int yEnd) = y.GetNormalizedStartAndEnd(_numLines);
+            (int xStartLine, int xEndLine) = x.GetNormalizedStartAndEndLines(_numLines);
+            (int yStartLine, int yEndLine) = y.GetNormalizedStartAndEndLines(_numLines);
 
-            if (xStart < yStart)
+            if (xStartLine < yStartLine)
             {
                 return -1;
             }
 
-            if (xStart > yStart ||
-                xEnd < yEnd) // If two line ranges start at the same index, we want the longer line range ordered before the shorter one so we can skip the shorter one when rendering
+            if (xStartLine > yStartLine ||
+                xEndLine < yEndLine) // If two line ranges start at the same index, we want the longer line range ordered before the shorter one so we can skip the shorter one when rendering
             {
                 return 1;
             }
 
-            if (xEnd > yEnd)
+            if (xEndLine > yEndLine)
             {
                 return -1;
             }

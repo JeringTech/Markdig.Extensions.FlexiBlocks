@@ -215,11 +215,38 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The {0} must have &quot;{1}&quot; part(s), found &quot;{2}&quot; part(s)..
+        /// </summary>
+        internal static string BlockException_MultipartBlockParser_IncorrectNumberOfParts {
+            get {
+                return ResourceManager.GetString("BlockException_MultipartBlockParser_IncorrectNumberOfParts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OptionsBlock must be consumed..
         /// </summary>
         internal static string BlockException_OptionsBlockParser_UnconsumedBlock {
             get {
                 return ResourceManager.GetString("BlockException_OptionsBlockParser_UnconsumedBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} must exist within a {1}..
+        /// </summary>
+        internal static string BlockException_Shared_BlockCanOnlyExistWithinASpecificTypeOfBlock {
+            get {
+                return ResourceManager.GetString("BlockException_Shared_BlockCanOnlyExistWithinASpecificTypeOfBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} must only contain {1}s. A {2} was found. .
+        /// </summary>
+        internal static string BlockException_Shared_BlockMustOnlyContainASpecificTypeOfBlock {
+            get {
+                return ResourceManager.GetString("BlockException_Shared_BlockMustOnlyContainASpecificTypeOfBlock", resourceCulture);
             }
         }
         
@@ -333,6 +360,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to normalize &quot;{0}&quot; for {1} links..
+        /// </summary>
+        internal static string OptionsException_FlexiQuoteBlockFactory_UnableToNormalize {
+            get {
+                return ResourceManager.GetString("OptionsException_FlexiQuoteBlockFactory_UnableToNormalize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid for tables with cells that have rowspan or colspan..
         /// </summary>
         internal static string OptionsException_FlexiTableBlockFactory_TypeInvalidForTablesWithCellsThatHaveRowspanOrColspan {
@@ -416,7 +452,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid value for option &quot;{0}&quot;: {1}.
+        ///   Looks up a localized string similar to Invalid value for option &quot;{0}&quot;: &quot;{1}&quot;.
         /// </summary>
         internal static string OptionsException_OptionsException_InvalidOption {
             get {

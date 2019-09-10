@@ -5,7 +5,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     /// <summary>
     /// An abstraction for <see cref="FlexiCodeBlock"/> options.
     /// </summary>
-    public interface IFlexiCodeBlockOptions : IRenderedBlockOptions<IFlexiCodeBlockOptions>
+    public interface IFlexiCodeBlockOptions : IRenderedRootBlockOptions<IFlexiCodeBlockOptions>
     {
         /// <summary>
         /// Gets the <see cref="FlexiCodeBlock"/>'s title.
@@ -13,7 +13,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         string Title { get; }
 
         /// <summary>
-        /// Gets the <see cref="FlexiCodeBlock" />'s copy icon as an HTML fragment.
+        /// Gets the <see cref="FlexiCodeBlock"/>'s copy icon as an HTML fragment.
         /// </summary>
         string CopyIcon { get; }
 

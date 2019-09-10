@@ -8,18 +8,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
     public interface IProxyFencedBlock : IProxyBlock
     {
         /// <summary>
-        /// Gets the indentation of this fenced <see cref="IBlock"/>'s opening fence.
+        /// Gets the indentation of the fenced <see cref="IBlock"/>'s opening fence.
         /// </summary>
         int OpeningFenceIndent { get; }
 
         /// <summary>
-        /// Gets the character count of this fenced <see cref="IBlock"/>'s opening fence.
+        /// Gets the character count of the fenced <see cref="IBlock"/>'s opening fence.
         /// </summary>
         int OpeningFenceCharCount { get; }
-
-        /// <summary>
-        /// Gets the character used in this fenced <see cref="IBlock"/>'s fences.
-        /// </summary>
-        char FenceChar { get; }
     }
 }

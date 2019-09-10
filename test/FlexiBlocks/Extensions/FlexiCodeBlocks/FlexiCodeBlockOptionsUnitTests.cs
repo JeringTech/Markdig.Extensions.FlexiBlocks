@@ -87,22 +87,22 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
     ""{nameof(FlexiCodeBlockOptions.SyntaxHighlighter)}"": ""{dummySyntaxHighlighter}"",
     ""{nameof(FlexiCodeBlockOptions.LineNumbers)}"": [
         {{ 
-            ""{nameof(NumberedLineRange.Start)}"": {dummyNumberedLineRange1.Start},
-            ""{nameof(NumberedLineRange.End)}"": {dummyNumberedLineRange1.End},
-            ""{nameof(NumberedLineRange.Start)}"": {dummyNumberedLineRange1.Start}
+            ""{nameof(NumberedLineRange.StartLine)}"": {dummyNumberedLineRange1.StartLine},
+            ""{nameof(NumberedLineRange.EndLine)}"": {dummyNumberedLineRange1.EndLine},
+            ""{nameof(NumberedLineRange.StartLine)}"": {dummyNumberedLineRange1.StartLine}
         }}
     ],
     ""{nameof(FlexiCodeBlockOptions.OmittedLinesIcon)}"": ""{dummyOmittedLinesIcon}"",
     ""{nameof(FlexiCodeBlockOptions.HighlightedLines)}"": [
         {{ 
-            ""{nameof(LineRange.Start)}"": {dummyLineRange1.Start},
-            ""{nameof(LineRange.End)}"": {dummyLineRange1.End}
+            ""{nameof(LineRange.StartLine)}"": {dummyLineRange1.StartLine},
+            ""{nameof(LineRange.EndLine)}"": {dummyLineRange1.EndLine}
         }}
     ],
     ""{nameof(FlexiCodeBlockOptions.HighlightedPhrases)}"": [
         {{ 
             ""{nameof(PhraseGroup.Regex)}"": ""{dummyPhraseGroup1.Regex}"",
-            ""{nameof(PhraseGroup.Included)}"": [{string.Join(",", dummyPhraseGroup1.Included)}]
+            ""{nameof(PhraseGroup.IncludedMatches)}"": [{string.Join(",", dummyPhraseGroup1.IncludedMatches)}]
         }}
     ],
     ""{nameof(FlexiCodeBlockOptions.RenderingMode)}"": ""{dummyRenderingMode}"",
@@ -126,21 +126,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     $@"{{
     ""{nameof(FlexiCodeBlockOptions.LineNumbers)}"": [
         {{ 
-            ""{nameof(NumberedLineRange.Start)}"": {dummyNumberedLineRange2.Start},
-            ""{nameof(NumberedLineRange.End)}"": {dummyNumberedLineRange2.End},
+            ""{nameof(NumberedLineRange.StartLine)}"": {dummyNumberedLineRange2.StartLine},
+            ""{nameof(NumberedLineRange.EndLine)}"": {dummyNumberedLineRange2.EndLine},
             ""{nameof(NumberedLineRange.StartNumber)}"": {dummyNumberedLineRange2.StartNumber}
         }}
     ],
     ""{nameof(FlexiCodeBlockOptions.HighlightedLines)}"": [
         {{ 
-            ""{nameof(LineRange.Start)}"": {dummyLineRange2.Start},
-            ""{nameof(LineRange.End)}"": {dummyLineRange2.End}
+            ""{nameof(LineRange.StartLine)}"": {dummyLineRange2.StartLine},
+            ""{nameof(LineRange.EndLine)}"": {dummyLineRange2.EndLine}
         }}
     ],
     ""{nameof(FlexiCodeBlockOptions.HighlightedPhrases)}"": [
         {{ 
             ""{nameof(PhraseGroup.Regex)}"": ""{dummyPhraseGroup2.Regex}"",
-            ""{nameof(PhraseGroup.Included)}"": [{string.Join(",", dummyPhraseGroup2.Included)}]
+            ""{nameof(PhraseGroup.IncludedMatches)}"": [{string.Join(",", dummyPhraseGroup2.IncludedMatches)}]
         }}
     ],
     ""{nameof(FlexiCodeBlockOptions.Attributes)}"": {{

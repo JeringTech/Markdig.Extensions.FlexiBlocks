@@ -5,7 +5,7 @@ using System;
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
     /// <summary>
-    /// A parser that parses <see cref="FlexiAlertBlock"/>s in markdown.
+    /// A parser that parses <see cref="FlexiAlertBlock"/>s from markdown.
     /// </summary>
     public class FlexiAlertBlockParser : BlockParser<FlexiAlertBlock>
     {
@@ -28,7 +28,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// </summary>
         /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the document that contains a line with first non-white-space character '!'.</param>
         /// <returns>
-        /// <see cref="BlockState.None"/> if the current line has code indent or does not start with the expected characters. 
+        /// <see cref="BlockState.None"/> if the current line has code indent.
+        /// <see cref="BlockState.None"/> if the current line does not start with the expected characters. 
         /// <see cref="BlockState.Continue"/> if a <see cref="FlexiAlertBlock"/> is opened.
         /// </returns>
         protected override BlockState TryOpenBlock(BlockProcessor blockProcessor)
@@ -42,7 +43,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <see cref="FlexiAlertBlock"/> to try continuing.</param>
         /// <param name="block">The <see cref="FlexiAlertBlock"/> to try continuing.</param>
         /// <returns>
-        /// <see cref="BlockState.None"/> if the current line has code indent or if the current line does not begin with the expected characters.
+        /// <see cref="BlockState.None"/> if the current line has code indent.
+        /// <see cref="BlockState.None"/> if the current line does not begin with the expected characters.
         /// <see cref="BlockState.BreakDiscard"/> if the current line is blank, indicating that the <see cref="FlexiAlertBlock"/> has ended and should be closed.
         /// <see cref="BlockState.Continue"/> if the <see cref="FlexiAlertBlock"/> remains open.
         /// </returns>

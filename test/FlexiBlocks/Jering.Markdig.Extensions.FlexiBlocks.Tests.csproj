@@ -14,13 +14,13 @@
         </PackageReference>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
         <PackageReference Include="Moq" Version="4.10.1" />
+        <PackageReference Include="Roslynator.Analyzers" Version="2.0.0" ExcludeAssets="Runtime" />
+        <PackageReference Include="Roslynator.CodeFixes" Version="2.0.0" ExcludeAssets="Runtime" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
           <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Roslynator.Analyzers" Version="2.0.0" ExcludeAssets="Runtime" />
-        <PackageReference Include="Roslynator.CodeFixes" Version="2.0.0" ExcludeAssets="Runtime" />
     </ItemGroup>
 
     <ItemGroup>
@@ -66,5 +66,5 @@
             <DependentUpon>FlexiBlocksSpecsTests.tt</DependentUpon>
         </Compile>
     </ItemGroup>
-
+  
 </Project>

@@ -63,7 +63,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
         /// <summary>
         /// Creates a <see cref="ProxyJsonBlock"/>.
         /// </summary>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> processing the <see cref="ProxyJsonBlock"/>.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <see cref="ProxyJsonBlock"/>.</param>
         /// <param name="blockParser">The <see cref="BlockParser"/> parsing the <see cref="ProxyJsonBlock"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="blockProcessor"/> is <c>null</c>.</exception>
         public ProxyJsonBlock CreateProxyJsonBlock(BlockProcessor blockProcessor, BlockParser blockParser)
@@ -85,7 +85,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
         /// Creates an <see cref="IncludeBlock"/>.
         /// </summary>
         /// <param name="proxyJsonBlock">The <see cref="ProxyJsonBlock"/> containing data for the <see cref="IncludeBlock"/>.</param>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> processing the <see cref="IncludeBlock"/>.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <see cref="IncludeBlock"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="proxyJsonBlock"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="blockProcessor"/> is <c>null</c>.</exception>
         /// <exception cref="OptionsException">Thrown if an option is invalid.</exception>
@@ -373,10 +373,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
                 (string startString, string endString) = clipping.GetNormalizedStartAndEndStrings();
                 bool startStringSpecified = startString != null;
                 bool endStringSpecified = endString != null;
-                (int normalizedStart, int normalizedEnd) normalizedStartAndEnd = default;
+                (int normalizedStartLine, int normalizedEndLine) normalizedStartAndEndLines = default;
                 if (!startStringSpecified || !endStringSpecified)
                 {
-                    normalizedStartAndEnd = clipping.GetNormalizedStartAndEnd(contentNumLines);
+                    normalizedStartAndEndLines = clipping.GetNormalizedStartAndEndLines(contentNumLines);
                 }
                 if (startStringSpecified)
                 {
@@ -398,7 +398,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
                 }
                 else
                 {
-                    startLineNumber = normalizedStartAndEnd.normalizedStart;
+                    startLineNumber = normalizedStartAndEndLines.normalizedStartLine;
                 }
 
                 // If we encounter an invalid block in the included content, this ensures the BlockException thrown has the right line number in the included content's source.
@@ -436,7 +436,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
                             break;
                         }
                     }
-                    else if (lineNumber == normalizedStartAndEnd.normalizedEnd)
+                    else if (lineNumber == normalizedStartAndEndLines.normalizedEndLine)
                     {
                         break;
                     }

@@ -14,7 +14,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// </summary>
         /// <param name="blockName">The <see cref="FlexiAlertBlock"/>'s BEM block name.</param>
         /// <param name="type">The <see cref="FlexiAlertBlock"/>'s type.</param>
-        /// <param name="icon">The <see cref="FlexiAlertBlock" />'s icon as an HTML fragment.</param>
+        /// <param name="icon">The <see cref="FlexiAlertBlock"/>'s icon as an HTML fragment.</param>
         /// <param name="attributes">HTML attributes for the <see cref="FlexiAlertBlock"/>'s root element.</param>
         /// <param name="blockParser">The <see cref="BlockParser"/> parsing the <see cref="FlexiAlertBlock"/>.</param>
         public FlexiAlertBlock(string blockName,
@@ -40,7 +40,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         public virtual string Type { get; }
 
         /// <summary>
-        /// Gets the <see cref="FlexiAlertBlock" />'s icon as an HTML fragment.
+        /// Gets the <see cref="FlexiAlertBlock"/>'s icon as an HTML fragment.
         /// </summary>
         public virtual string Icon { get; }
 

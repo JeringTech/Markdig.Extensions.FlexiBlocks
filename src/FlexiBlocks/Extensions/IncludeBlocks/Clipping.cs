@@ -19,13 +19,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
         /// <summary>
         /// Creates a <see cref="Clipping"/>.
         /// </summary>
-        /// <param name="start">
+        /// <param name="startLine">
         /// <para>The line number of the <see cref="Clipping"/>'s start line.</para>
         /// <para>If this value is <c>-n</c>, the start line is the nth last line. For example, if this value is <c>-2</c>, the start line is the 2nd last line.</para>
         /// <para>This value must not be <c>0</c>.</para>
         /// <para>Defaults to <c>1</c>.</para>
         /// </param>
-        /// <param name="end">
+        /// <param name="endLine">
         /// <para>The line number of the <see cref="Clipping"/>'s end line.</para>
         /// <para>If this value is <c>-n</c>, the end line is the nth last line. For example, if this value is <c>-2</c>, the end line is the 2nd last line.</para>
         /// <para>This value must not be <c>0</c> or an integer representing a line before the start line.</para>
@@ -33,7 +33,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
         /// </param>
         /// <param name="region">
         /// <para>The name of the region that the <see cref="Clipping"/> contains.</para>
-        /// <para>This value is an alternative to <paramref name="start"/> and <paramref name="end"/> and takes precedence over them.</para>
+        /// <para>This value is an alternative to <paramref name="startLine"/> and <paramref name="endLine"/> and takes precedence over them.</para>
         /// <para>It is shorthand for specifying <paramref name="startString"/> and <paramref name="endString"/> - 
         /// if this value is not <c>null</c>, whitespace or an empty string, <paramref name="startString"/> is set to "#region &lt;<paramref name="region"/>&gt;" and <paramref name="endString"/> is
         /// set to "#endregion".</para>
@@ -41,14 +41,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
         /// </param>
         /// <param name="startString">
         /// <para>The substring that the line immediately preceding the <see cref="Clipping"/> contains.</para>
-        /// <para>This value is an alternative to <paramref name="start"/>.</para>
-        /// <para>If this value is not <c>null</c>, whitespace or an empty string, it takes precedence over <paramref name="start"/> and <paramref name="region"/>.</para>
+        /// <para>This value is an alternative to <paramref name="startLine"/>.</para>
+        /// <para>If this value is not <c>null</c>, whitespace or an empty string, it takes precedence over <paramref name="startLine"/> and <paramref name="region"/>.</para>
         /// <para>Defaults to <c>null</c>.</para>
         /// </param>
         /// <param name="endString">
         /// <para>The substring that the line immediately after the <see cref="Clipping"/> contains.</para>
-        /// <para>This value is an alternative to <paramref name="end"/>.</para>
-        /// <para>If this value is not <c>null</c>, whitespace or an empty string, it takes precedence over <paramref name="end"/> and <paramref name="region"/>.</para>
+        /// <para>This value is an alternative to <paramref name="endLine"/>.</para>
+        /// <para>If this value is not <c>null</c>, whitespace or an empty string, it takes precedence over <paramref name="endLine"/> and <paramref name="region"/>.</para>
         /// <para>Defaults to <c>null</c>.</para>
         /// </param>
         /// <param name="dedent">
@@ -79,14 +79,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
         /// <para>This value is ignored if the <see cref="IncludeBlock"/> this <see cref="Clipping"/> belongs to has <see cref="IIncludeBlockOptions.Type"/> <see cref="IncludeType.Markdown"/> .</para>
         /// <para>Defaults to <c>null</c>.</para>
         /// </param>
-        /// <exception cref="OptionsException">Thrown if <paramref name="start"/> is 0.</exception>
-        /// <exception cref="OptionsException">Thrown if <paramref name="end"/> is 0.</exception>
+        /// <exception cref="OptionsException">Thrown if <paramref name="startLine"/> is 0.</exception>
+        /// <exception cref="OptionsException">Thrown if <paramref name="endLine"/> is 0.</exception>
         /// <exception cref="OptionsException">Thrown if the end line is a line before the start line.</exception>
         /// <exception cref="OptionsException">Thrown if <paramref name="dedent"/> is negative.</exception>
         /// <exception cref="OptionsException">Thrown if <paramref name="indent"/> is negative.</exception>
         /// <exception cref="OptionsException">Thrown if <paramref name="collapse"/> is not in the range [0, 1].</exception>
-        public Clipping(int start = _defaultStart,
-            int end = _defaultEnd,
+        public Clipping(int startLine = _defaultStartLine,
+            int endLine = _defaultEndLine,
             string region = default,
             string startString = default,
             string endString = default,
@@ -94,7 +94,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
             int indent = _defaultIndent,
             float collapse = _defaultCollapse,
             string before = default,
-            string after = default) : base(start, end)
+            string after = default) : base(startLine, endLine)
         {
             if (dedent < 0)
             {

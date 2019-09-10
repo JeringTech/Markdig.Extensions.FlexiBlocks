@@ -5,6 +5,7 @@ using Markdig.Renderers;
 using Markdig.Renderers.Html;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
@@ -17,30 +18,57 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         [Fact]
         public void Constructor_ThrowsArgumentNullExceptionIfIndentedFlexiCodeBlockParserIsNull()
         {
+            // Arrange
+            var dummyFencedFlexiCodeBlockParsers = new List<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>> {
+                _mockRepository.Create<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>>().Object,
+                _mockRepository.Create<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>>().Object
+            };
+
             // Act and assert
             Assert.Throws<ArgumentNullException>(() => new FlexiCodeBlocksExtension(
                 null,
-                _mockRepository.Create<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>>().Object,
+                dummyFencedFlexiCodeBlockParsers,
                 _mockRepository.Create<BlockRenderer<FlexiCodeBlock>>().Object));
         }
 
         [Fact]
-        public void Constructor_ThrowsArgumentNullExceptionIfFencedFlexiCodeBlockParserIsNull()
+        public void Constructor_ThrowsNullReferenceExceptionIfFencedFlexiCodeBlockParsersIsNull()
         {
             // Act and assert
             Assert.Throws<ArgumentNullException>(() => new FlexiCodeBlocksExtension(
                 _mockRepository.Create<ProxyBlockParser<FlexiCodeBlock, ProxyLeafBlock>>().Object,
                 null,
+                _mockRepository.Create<BlockRenderer<FlexiCodeBlock>>().Object));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsIndexOutOfRangeExceptionIfFencedFlexiCodeBlockParsersContainsLessThanTwoElements()
+        {
+            // Arrange
+            var dummyFencedFlexiCodeBlockParsers = new List<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>> {
+                _mockRepository.Create<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>>().Object
+            };
+
+            // Act and assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => new FlexiCodeBlocksExtension(
+                _mockRepository.Create<ProxyBlockParser<FlexiCodeBlock, ProxyLeafBlock>>().Object,
+                dummyFencedFlexiCodeBlockParsers,
                 _mockRepository.Create<BlockRenderer<FlexiCodeBlock>>().Object));
         }
 
         [Fact]
         public void Constructor_ThrowsArgumentNullExceptionIfFlexiCodeBlockRendererIsNull()
         {
+            // Arrange
+            var dummyFencedFlexiCodeBlockParsers = new List<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>> {
+                _mockRepository.Create<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>>().Object,
+                _mockRepository.Create<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>>().Object
+            };
+
             // Act and assert
             Assert.Throws<ArgumentNullException>(() => new FlexiCodeBlocksExtension(
                 _mockRepository.Create<ProxyBlockParser<FlexiCodeBlock, ProxyLeafBlock>>().Object,
-                _mockRepository.Create<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>>().Object,
+                dummyFencedFlexiCodeBlockParsers,
                 null));
         }
 
@@ -77,19 +105,22 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         }
 
         private ExposedFlexiCodeBlocksExtension CreateExposedFlexiCodeBlocksExtension(ProxyBlockParser<FlexiCodeBlock, ProxyLeafBlock> indentedFlexiCodeBlockParser = null,
-                ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock> fencedFlexiCodeBlockParser = null,
+                IEnumerable<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>> fencedFlexiCodeBlockParsers = null,
                 BlockRenderer<FlexiCodeBlock> flexiCodeBlockRenderer = null)
         {
             return new ExposedFlexiCodeBlocksExtension(indentedFlexiCodeBlockParser ?? _mockRepository.Create<ProxyBlockParser<FlexiCodeBlock, ProxyLeafBlock>>().Object,
-                fencedFlexiCodeBlockParser ?? _mockRepository.Create<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>>().Object,
+                fencedFlexiCodeBlockParsers ?? new List<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>> {
+                    _mockRepository.Create<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>>().Object,
+                    _mockRepository.Create<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>>().Object
+                },
                 flexiCodeBlockRenderer ?? _mockRepository.Create<BlockRenderer<FlexiCodeBlock>>().Object);
         }
 
         private class ExposedFlexiCodeBlocksExtension : FlexiCodeBlocksExtension
         {
             public ExposedFlexiCodeBlocksExtension(ProxyBlockParser<FlexiCodeBlock, ProxyLeafBlock> indentedFlexiCodeBlockParser,
-                ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock> fencedFlexiCodeBlockParser,
-                BlockRenderer<FlexiCodeBlock> flexiCodeBlockRenderer) : base(indentedFlexiCodeBlockParser, fencedFlexiCodeBlockParser, flexiCodeBlockRenderer)
+                IEnumerable<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>> fencedFlexiCodeBlockParsers,
+                BlockRenderer<FlexiCodeBlock> flexiCodeBlockRenderer) : base(indentedFlexiCodeBlockParser, fencedFlexiCodeBlockParsers, flexiCodeBlockRenderer)
             {
             }
 

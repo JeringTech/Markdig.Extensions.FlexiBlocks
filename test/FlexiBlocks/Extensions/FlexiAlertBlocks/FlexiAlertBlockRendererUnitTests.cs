@@ -79,7 +79,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                 // BlockName is assigned as a class of the root element and all default classes are prepended with it
                 new object[]{
                     CreateFlexiAlertBlock(dummyBlockName),
-                    $@"<div class=""{dummyBlockName} {dummyBlockName}_type_ {dummyBlockName}_no-icon"">
+                    $@"<div class=""{dummyBlockName} {dummyBlockName}_type_ {dummyBlockName}_no_icon"">
 <div class=""{dummyBlockName}__content"">
 </div>
 </div>
@@ -88,26 +88,26 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                 // If type is specified, a language modifier class is rendered
                 new object[]{
                     CreateFlexiAlertBlock(type: dummyType),
-                    $@"<div class="" _type_{dummyType} _no-icon"">
+                    $@"<div class="" _type_{dummyType} _no_icon"">
 <div class=""__content"">
 </div>
 </div>
 "
                 },
-                // If icon is valid HTML, it is rendered with a default class and a _has-icon class is rendered
+                // If icon is valid HTML, it is rendered with a default class and a _has_icon class is rendered
                 new object[]{
                     CreateFlexiAlertBlock(icon: dummyIcon),
-                    $@"<div class="" _type_ _has-icon"">
+                    $@"<div class="" _type_ _has_icon"">
 {dummyIconWithClass}
 <div class=""__content"">
 </div>
 </div>
 "
                 },
-                // If icon is null, whitespace or an empty string, no icon is rendered and a _no-icon class is rendered (null case already verified in other tests)
+                // If icon is null, whitespace or an empty string, no icon is rendered and a _no_icon class is rendered (null case already verified in other tests)
                 new object[]{
                     CreateFlexiAlertBlock(icon: " "),
-                    @"<div class="" _type_ _no-icon"">
+                    @"<div class="" _type_ _no_icon"">
 <div class=""__content"">
 </div>
 </div>
@@ -115,7 +115,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                 },
                 new object[]{
                     CreateFlexiAlertBlock(icon: string.Empty),
-                    @"<div class="" _type_ _no-icon"">
+                    @"<div class="" _type_ _no_icon"">
 <div class=""__content"">
 </div>
 </div>
@@ -124,7 +124,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                 // If attributes specified, they're written
                 new object[]{
                     CreateFlexiAlertBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { dummyAttributeKey1, dummyAttributeValue1 }, { dummyAttributeKey2, dummyAttributeValue2 } })),
-                    $@"<div class="" _type_ _no-icon"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
+                    $@"<div class="" _type_ _no_icon"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
 <div class=""__content"">
 </div>
 </div>
@@ -133,7 +133,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                 // If classes are specified, they're appended to default classes
                 new object[]{
                     CreateFlexiAlertBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { "class", dummyClass } })),
-                    $@"<div class="" _type_ _no-icon {dummyClass}"">
+                    $@"<div class="" _type_ _no_icon {dummyClass}"">
 <div class=""__content"">
 </div>
 </div>
@@ -142,7 +142,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiAlertBlocks
                 // Children are rendered
                 new object[]{
                     dummyFlexiAlertBlockWithChild,
-                    $@"<div class="" _type_ _no-icon"">
+                    $@"<div class="" _type_ _no_icon"">
 <div class=""__content"">
 <p>{dummyChildText}</p>
 </div>

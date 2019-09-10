@@ -13,8 +13,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
     /// </summary>
     public class FlexiSectionHeadingBlockFactory : IFlexiSectionHeadingBlockFactory
     {
-        internal const string AUTO_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS = "flexiSectionHeadingBlocks";
-        internal const string GENERATED_IDS = "generatedIDs";
+        internal const string REFERENCE_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS_KEY = "flexiSectionHeadingBlocks";
+        internal const string GENERATED_IDS_KEY = "generatedIDs";
 
         /// <inheritdoc />
         public FlexiSectionHeadingBlock Create(BlockProcessor blockProcessor, IFlexiSectionBlockOptions flexiSectionBlockOptions, BlockParser blockParser)
@@ -33,46 +33,46 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
             // Add line to block
             flexiSectionHeadingBlock.AppendLine(ref line, column, lineIndex, blockProcessor.CurrentLineStartPosition);
 
-            // ID generation and auto-linking
-            SetupIDGenerationAndAutoLinking(flexiSectionHeadingBlock, flexiSectionBlockOptions, blockProcessor);
+            // ID generation and reference-linking
+            SetupIDGenerationAndReferenceLinking(flexiSectionHeadingBlock, flexiSectionBlockOptions, blockProcessor);
 
             return flexiSectionHeadingBlock;
         }
 
-        internal virtual void SetupIDGenerationAndAutoLinking(FlexiSectionHeadingBlock flexiSectionHeadingBlock,
+        internal virtual void SetupIDGenerationAndReferenceLinking(FlexiSectionHeadingBlock flexiSectionHeadingBlock,
             IFlexiSectionBlockOptions flexiSectionBlockOptions,
             BlockProcessor blockProcessor)
         {
-            if (flexiSectionBlockOptions.GenerateID && // Can only auto link to FlexiSectionBlock GenerateID is true
-                flexiSectionBlockOptions.AutoLinkable)
+            if (flexiSectionBlockOptions.GenerateID && // Can only reference-link to FlexiSectionBlock GenerateID is true
+                flexiSectionBlockOptions.ReferenceLinkable)
             {
-                GetOrCreateAutoLinkableFlexiSectionHeadingBlocks(blockProcessor.Document).Add(flexiSectionHeadingBlock);
+                GetOrCreateReferenceLinkableFlexiSectionHeadingBlocks(blockProcessor.Document).Add(flexiSectionHeadingBlock);
             }
         }
 
-        internal virtual List<FlexiSectionHeadingBlock> GetOrCreateAutoLinkableFlexiSectionHeadingBlocks(MarkdownDocument markdownDocument)
+        internal virtual List<FlexiSectionHeadingBlock> GetOrCreateReferenceLinkableFlexiSectionHeadingBlocks(MarkdownDocument markdownDocument)
         {
-            if (!(markdownDocument.GetData(AUTO_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS) is List<FlexiSectionHeadingBlock> autoLinkableFlexiSectionHeadingBlocks))
+            if (!(markdownDocument.GetData(REFERENCE_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS_KEY) is List<FlexiSectionHeadingBlock> referenceLinkableFlexiSectionHeadingBlocks))
             {
-                autoLinkableFlexiSectionHeadingBlocks = new List<FlexiSectionHeadingBlock>();
-                markdownDocument.SetData(AUTO_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS, autoLinkableFlexiSectionHeadingBlocks);
+                referenceLinkableFlexiSectionHeadingBlocks = new List<FlexiSectionHeadingBlock>();
+                markdownDocument.SetData(REFERENCE_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS_KEY, referenceLinkableFlexiSectionHeadingBlocks);
                 // If user messes with data, handler could be attached multiple times. To avoid issues, handler is written to avoid corrupting 
                 // LinkReferenceDefinitions even if called more than once.
                 markdownDocument.ProcessInlinesBegin += DocumentOnProcessInlinesBegin;
             }
 
-            return autoLinkableFlexiSectionHeadingBlocks;
+            return referenceLinkableFlexiSectionHeadingBlocks;
         }
 
         /// <summary>
-        /// Inserts <see cref="LinkReferenceDefinition"/>s into the <see cref="MarkdownDocument"/>'s <see cref="LinkReferenceDefinition" />s,
-        /// allowing for auto linking to sections via heading content.
+        /// Inserts <see cref="LinkReferenceDefinition"/>s into the <see cref="MarkdownDocument"/>'s <see cref="LinkReferenceDefinition"/>s,
+        /// allowing for reference-linking to sections via heading content.
         /// </summary>
         internal virtual void DocumentOnProcessInlinesBegin(InlineProcessor inlineProcessor, Inline _)
         {
             Dictionary<string, int> generatedIDs = GetOrCreateGeneratedIDs(inlineProcessor.Document);
 
-            foreach (FlexiSectionHeadingBlock autoLinkableFlexiSectionHeadingBlock in (List<FlexiSectionHeadingBlock>)inlineProcessor.Document.GetData(AUTO_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS)) // TODO may throw if user messes with data
+            foreach (FlexiSectionHeadingBlock referenceLinkableFlexiSectionHeadingBlock in (List<FlexiSectionHeadingBlock>)inlineProcessor.Document.GetData(REFERENCE_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS_KEY)) // TODO may throw if user messes with data
             {
                 var headingWriter = new StringWriter();
                 var stripRenderer = new HtmlRenderer(headingWriter)
@@ -82,9 +82,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
                 };
 
                 // Generate key
-                inlineProcessor.ProcessInlineLeaf(autoLinkableFlexiSectionHeadingBlock);
-                autoLinkableFlexiSectionHeadingBlock.ProcessInlines = false; // Don't process it again
-                stripRenderer.WriteLeafInline(autoLinkableFlexiSectionHeadingBlock);
+                inlineProcessor.ProcessInlineLeaf(referenceLinkableFlexiSectionHeadingBlock);
+                referenceLinkableFlexiSectionHeadingBlock.ProcessInlines = false; // Don't process it again
+                stripRenderer.WriteLeafInline(referenceLinkableFlexiSectionHeadingBlock);
                 string label = headingWriter.ToString();
 
                 // Set ID
@@ -96,7 +96,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
                     label = $"{label} {numDuplicates}";
                 }
                 generatedIDs.Add(id, 0);
-                autoLinkableFlexiSectionHeadingBlock.GeneratedID = id;
+                referenceLinkableFlexiSectionHeadingBlock.GeneratedID = id;
 
                 // Avoid overriding existing LinkReferenceDefinitions
                 if (!inlineProcessor.Document.TryGetLinkReferenceDefinition(label, out LinkReferenceDefinition linkReferenceDefinition))
@@ -110,10 +110,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
 
         internal virtual Dictionary<string, int> GetOrCreateGeneratedIDs(MarkdownDocument markdownDocument)
         {
-            if (!(markdownDocument.GetData(GENERATED_IDS) is Dictionary<string, int> generatedIDs))
+            if (!(markdownDocument.GetData(GENERATED_IDS_KEY) is Dictionary<string, int> generatedIDs))
             {
                 generatedIDs = new Dictionary<string, int>();
-                markdownDocument.SetData(GENERATED_IDS, generatedIDs);
+                markdownDocument.SetData(GENERATED_IDS_KEY, generatedIDs);
             }
 
             return generatedIDs;

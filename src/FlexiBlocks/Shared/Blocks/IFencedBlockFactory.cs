@@ -15,22 +15,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <summary>
         /// Creates a <typeparamref name="TProxy"/>.
         /// </summary>
-        /// <param name="openingFenceIndent">The indent of the fenced <see cref="Block"/>'s opening fence.</param>
-        /// <param name="openingFenceCharCount">The number of characters in the fenced <see cref="Block"/>'s opening fence.</param>
-        /// <param name="fenceChar">The character used in the fenced <see cref="Block"/>'s fences.</param>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> processing the fenced <see cref="Block"/>.</param>
-        /// <param name="blockParser">The <see cref="BlockParser"/> parsing the fenced <see cref="Block"/>.</param>
+        /// <param name="openingFenceIndent">The indent of the opening fence.</param>
+        /// <param name="openingFenceCharCount">The number of characters in the opening fence.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <typeparamref name="TProxy"/>.</param>
+        /// <param name="blockParser">The <see cref="BlockParser"/> parsing the <typeparamref name="TProxy"/>.</param>
         TProxy CreateProxyFencedBlock(int openingFenceIndent,
             int openingFenceCharCount,
-            char fenceChar,
             BlockProcessor blockProcessor,
             BlockParser blockParser);
 
         /// <summary>
         /// Creates a <typeparamref name="TMain"/>.
         /// </summary>
-        /// <param name="proxyFencedBlock">The <see cref="IProxyFencedBlock"/> containing data for the fenced <see cref="Block"/>.</param>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> processing the fenced <see cref="Block"/>.</param>
+        /// <param name="proxyFencedBlock">The <see cref="IProxyFencedBlock"/> containing data for the <typeparamref name="TMain"/>.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <typeparamref name="TMain"/>.</param>
         TMain Create(TProxy proxyFencedBlock, BlockProcessor blockProcessor);
     }
 }

@@ -37,7 +37,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             string result = numberedLineRange.ToString();
 
             // Assert
-            Assert.Equal("Start: 1, End: 5, StartNumber: 10", result);
+            Assert.Equal("StartLine: 1, EndLine: 5, StartNumber: 10", result);
         }
 
         [Theory]
@@ -55,8 +55,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 
         public static IEnumerable<object[]> Equals_ReturnsTrueIfObjIsAnIdenticalNumberedLineRangeOtherwiseReturnsFalse_Data()
         {
-            const int dummyStart = 4; // Arbitrary
-            const int dummyEnd = 25; // Arbitrary
+            const int dummyStartLine = 4; // Arbitrary
+            const int dummyEndLine = 25; // Arbitrary
             const int dummyStartNumber = 123; // Arbitrary
 
             return new object[][]
@@ -69,10 +69,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     true },
                 // False if the NumberedLineRanges differ in any way
                 new object[]{new NumberedLineRange(),
-                    new NumberedLineRange(dummyStart),
+                    new NumberedLineRange(dummyStartLine),
                     false },
                 new object[]{new NumberedLineRange(),
-                    new NumberedLineRange(end: dummyEnd),
+                    new NumberedLineRange(endLine: dummyEndLine),
                     false },
                 new object[]{new NumberedLineRange(),
                     new NumberedLineRange(startNumber: dummyStartNumber),
@@ -92,8 +92,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 
         public static IEnumerable<object[]> GetHashCode_ReturnsSameHashCodeForIdenticalNumberedLineRanges_Data()
         {
-            const int dummyStart = 4; // Arbitrary
-            const int dummyEnd = 25; // Arbitrary
+            const int dummyStartLine = 4; // Arbitrary
+            const int dummyEndLine = 25; // Arbitrary
             const int dummyStartNumber = 123; // Arbitrary
 
             return new object[][]
@@ -102,10 +102,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     new NumberedLineRange(),
                     true },
                 new object[]{new NumberedLineRange(),
-                    new NumberedLineRange(dummyStart),
+                    new NumberedLineRange(dummyStartLine),
                     false },
                 new object[]{new NumberedLineRange(),
-                    new NumberedLineRange(end: dummyEnd),
+                    new NumberedLineRange(endLine: dummyEndLine),
                     false },
                 new object[]{new NumberedLineRange(),
                     new NumberedLineRange(startNumber: dummyStartNumber),

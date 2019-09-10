@@ -12,10 +12,5 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// Gets the HTML attributes for the rendered <see cref="IBlock"/>'s root element.
         /// </summary>
         ReadOnlyDictionary<string, string> Attributes { get; }
-
-        /// <summary>
-        /// Gets the rendered <see cref="IBlock"/>'s <a href="https://en.bem.info/methodology/naming-convention/#block-name">BEM block name</a>.
-        /// </summary>
-        string BlockName { get; }
     }
 }

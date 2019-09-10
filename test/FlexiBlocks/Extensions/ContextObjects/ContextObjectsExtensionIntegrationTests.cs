@@ -150,10 +150,5 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.ContextObjects
                 // Do nothing
             }
         }
-
-        private ContextObjectsExtension CreateContextObjectsExtension(ContextObjectsStore contextObjectsStore = null)
-        {
-            return new ContextObjectsExtension(contextObjectsStore);
-        }
     }
 }

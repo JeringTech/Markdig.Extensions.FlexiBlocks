@@ -7,6 +7,11 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
 using Markdig;
 using System;
 using System.IO;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
 {
@@ -17,8 +22,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
     {
         private MarkdownPipeline _pipeline;
 
-        [GlobalSetup(Target = nameof(IncludeBlock_ParseAndRender))]
-        public void IncludeBlock_ParseAndRender_Setup()
+        // IncludeBlocks
+        [GlobalSetup(Target = nameof(IncludeBlocks_ParseAndRender))]
+        public void IncludeBlocks_ParseAndRender_Setup()
         {
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
@@ -26,20 +32,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
                 UseOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
-            WritePreview(nameof(IncludeBlocksExtension), IncludeBlock_ParseAndRender());
+            WritePreview(nameof(IncludeBlocksExtension), IncludeBlocks_ParseAndRender());
         }
 
         [Benchmark]
-        public string IncludeBlock_ParseAndRender()
+        public string IncludeBlocks_ParseAndRender()
         {
             return Markdown.ToHtml(@"+{
     ""source"": ""https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.js"",
-    ""clippings"":[{""start"": 7, ""endString"": ""#endregion utility methods"", ""dedent"": 1, ""collapse"": 0.5}]
+    ""clippings"":[{""startLine"": 7, ""endString"": ""#endregion utility methods"", ""dedent"": 1, ""collapse"": 0.5}]
 }", _pipeline);
         }
 
-        [GlobalSetup(Target = nameof(FlexiAlertBlock_ParseAndRender))]
-        public void FlexiAlertBlock_ParseAndRender_Setup()
+        // FlexiAlertBlocks
+        [GlobalSetup(Target = nameof(FlexiAlertBlocks_ParseAndRender))]
+        public void FlexiAlertBlocks_ParseAndRender_Setup()
         {
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
@@ -47,18 +54,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
                 UseOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
-            WritePreview(nameof(FlexiAlertBlocksExtension), FlexiAlertBlock_ParseAndRender());
+            WritePreview(nameof(FlexiAlertBlocksExtension), FlexiAlertBlocks_ParseAndRender());
         }
 
         [Benchmark]
-        public string FlexiAlertBlock_ParseAndRender()
+        public string FlexiAlertBlocks_ParseAndRender()
         {
             return Markdown.ToHtml(@"@{ ""type"": ""warning"" }
 ! This is a warning.", _pipeline);
         }
 
-        [GlobalSetup(Target = nameof(FlexiCodeBlock_ParseAndRender))]
-        public void FlexiCodeBlock_ParseAndRender_Setup()
+        // FlexiCodeBlocks
+        // TODO really slow
+        [GlobalSetup(Target = nameof(FlexiCodeBlocks_ParseAndRender))]
+        public void FlexiCodeBlocks_ParseAndRender_Setup()
         {
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
@@ -66,39 +75,38 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
                 UseOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
-            WritePreview(nameof(FlexiCodeBlocksExtension), FlexiCodeBlock_ParseAndRender());
+            WritePreview(nameof(FlexiCodeBlocksExtension), FlexiCodeBlocks_ParseAndRender());
         }
 
-        // TODO slow
         [Benchmark]
-        public string FlexiCodeBlock_ParseAndRender()
+        public string FlexiCodeBlocks_ParseAndRender()
         {
             return Markdown.ToHtml(@"@{
     ""language"": ""csharp"",
     ""lineNumbers"": [
         {
-            ""start"": 1,
-            ""end"": 8,
+            ""startLine"": 1,
+            ""endLine"": 8,
             ""startNumber"": 1
         },
         {
-            ""start"": 11,
-            ""end"": -1,
+            ""startLine"": 11,
+            ""endLine"": -1,
             ""startNumber"": 32
         }
     ],
     ""highlightedLines"": [
         {
-            ""start"": 3,
-            ""end"": 7
+            ""startLine"": 3,
+            ""endLine"": 7
         },
         {
-            ""start"": 12,
-            ""end"": 16
+            ""startLine"": 12,
+            ""endLine"": 16
         }
     ],
     ""highlightedPhrases"": [
-        { ""regex"": ""public .*?\\)"", ""included"": [1] }
+        { ""regex"": ""public .*?\\)"", ""includedMatches"": [1] }
     ]
 }
 ```
@@ -122,8 +130,11 @@ public class ExampleClass
 ```", _pipeline);
         }
 
-        [GlobalSetup(Target = nameof(FlexiSectionBlock_ParseAndRender))]
-        public void FlexiSectionBlock_ParseAndRender_Setup()
+        // FlexiSectionBlocks
+        // TODO allocates way more than expected.
+        // Try pooling using ConcurrentBags.
+        [GlobalSetup(Target = nameof(FlexiSectionBlocks_ParseAndRender))]
+        public void FlexiSectionBlocks_ParseAndRender_Setup()
         {
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
@@ -131,13 +142,11 @@ public class ExampleClass
                 UseOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
-            WritePreview(nameof(FlexiSectionBlocksExtension), FlexiSectionBlock_ParseAndRender());
+            WritePreview(nameof(FlexiSectionBlocksExtension), FlexiSectionBlocks_ParseAndRender());
         }
 
-        // TODO allocates way more than expected.
-        // Try pooling using ConcurrentBags.
         [Benchmark]
-        public string FlexiSectionBlock_ParseAndRender()
+        public string FlexiSectionBlocks_ParseAndRender()
         {
             return Markdown.ToHtml(@"@{
     ""element"": ""article""
@@ -150,8 +159,9 @@ public class ExampleClass
 ## foo", _pipeline);
         }
 
-        [GlobalSetup(Target = nameof(FlexiTableBlock_ParseAndRender))]
-        public void FlexiTableBlock_ParseAndRender_Setup()
+        // FlexiTableBlocks
+        [GlobalSetup(Target = nameof(FlexiTableBlocks_ParseAndRender))]
+        public void FlexiTableBlocks_ParseAndRender_Setup()
         {
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
@@ -159,11 +169,11 @@ public class ExampleClass
                 UseOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
-            WritePreview(nameof(FlexiTableBlocksExtension), FlexiTableBlock_ParseAndRender());
+            WritePreview(nameof(FlexiTableBlocksExtension), FlexiTableBlocks_ParseAndRender());
         }
 
         [Benchmark]
-        public string FlexiTableBlock_ParseAndRender()
+        public string FlexiTableBlocks_ParseAndRender()
         {
             return Markdown.ToHtml(@"
 +-----+-----+
@@ -174,6 +184,141 @@ public class ExampleClass
 | > 2 | ``` |
 |     | 3   |
 |     | ``` |", _pipeline);
+        }
+
+        // FlexiBannerBlocks
+        [GlobalSetup(Target = nameof(FlexiBannerBlocks_ParseAndRender))]
+        public void FlexiBannerBlocks_ParseAndRender_Setup()
+        {
+            var pipelineBuilder = new MarkdownPipelineBuilder();
+            pipelineBuilder.
+                UseFlexiBannerBlocks().
+                UseOptionsBlocks();
+            _pipeline = pipelineBuilder.Build();
+
+            WritePreview(nameof(FlexiBannerBlocksExtension), FlexiBannerBlocks_ParseAndRender());
+        }
+
+        [Benchmark]
+        public string FlexiBannerBlocks_ParseAndRender()
+        {
+            return Markdown.ToHtml(@"+++ banner
+Title
++++
+Blurb
++++", _pipeline);
+        }
+
+        // FlexiCardsBlocks
+        [GlobalSetup(Target = nameof(FlexiCardsBlocks_ParseAndRender))]
+        public void FlexiCardsBlocks_ParseAndRender_Setup()
+        {
+            var pipelineBuilder = new MarkdownPipelineBuilder();
+            pipelineBuilder.
+                UseFlexiCardsBlocks().
+                UseOptionsBlocks();
+            _pipeline = pipelineBuilder.Build();
+
+            WritePreview(nameof(FlexiCardsBlocksExtension), FlexiCardsBlocks_ParseAndRender());
+        }
+
+        [Benchmark]
+        public string FlexiCardsBlocks_ParseAndRender()
+        {
+            return Markdown.ToHtml(@"[[[
++++ card
+Title
++++
+Content
++++
+Footnote
++++
+
++++ card
+Title
++++
+Content
++++
+Footnote
++++
+[[[", _pipeline);
+        }
+
+        // FlexiFigureBlocks
+        [GlobalSetup(Target = nameof(FlexiFigureBlocks_ParseAndRender))]
+        public void FlexiFigureBlocks_ParseAndRender_Setup()
+        {
+            var pipelineBuilder = new MarkdownPipelineBuilder();
+            pipelineBuilder.
+                UseFlexiFigureBlocks().
+                UseOptionsBlocks();
+            _pipeline = pipelineBuilder.Build();
+
+            WritePreview(nameof(FlexiFigureBlocksExtension), FlexiFigureBlocks_ParseAndRender());
+        }
+
+        [Benchmark]
+        public string FlexiFigureBlocks_ParseAndRender()
+        {
+            return Markdown.ToHtml(@"+++ figure
+Content
++++
+Caption
++++", _pipeline);
+        }
+
+        // FlexiQuoteBlocks
+        [GlobalSetup(Target = nameof(FlexiQuoteBlocks_ParseAndRender))]
+        public void FlexiQuoteBlocks_ParseAndRender_Setup()
+        {
+            var pipelineBuilder = new MarkdownPipelineBuilder();
+            pipelineBuilder.
+                UseFlexiQuoteBlocks().
+                UseOptionsBlocks();
+            _pipeline = pipelineBuilder.Build();
+
+            WritePreview(nameof(FlexiQuoteBlocksExtension), FlexiQuoteBlocks_ParseAndRender());
+        }
+
+        [Benchmark]
+        public string FlexiQuoteBlocks_ParseAndRender()
+        {
+            return Markdown.ToHtml(@"+++ quote
+Quote
++++
+Citation
++++", _pipeline);
+        }
+
+        // FlexiTabsBlocks
+        [GlobalSetup(Target = nameof(FlexiTabsBlocks_ParseAndRender))]
+        public void FlexiTabsBlocks_ParseAndRender_Setup()
+        {
+            var pipelineBuilder = new MarkdownPipelineBuilder();
+            pipelineBuilder.
+                UseFlexiTabsBlocks().
+                UseOptionsBlocks();
+            _pipeline = pipelineBuilder.Build();
+
+            WritePreview(nameof(FlexiTabsBlocksExtension), FlexiTabsBlocks_ParseAndRender());
+        }
+
+        [Benchmark]
+        public string FlexiTabsBlocks_ParseAndRender()
+        {
+            return Markdown.ToHtml(@"///
++++ tab
+Title
++++
+Content
++++
+
++++ tab
+Title
++++
+Content
++++
+///", _pipeline);
         }
 
         private void WritePreview(string extensionName, string preview)

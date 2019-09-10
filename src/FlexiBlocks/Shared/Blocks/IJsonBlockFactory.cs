@@ -15,7 +15,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// <summary>
         /// Creates a <typeparamref name="TProxy"/>.
         /// </summary>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> processing the <typeparamref name="TProxy"/>.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <typeparamref name="TProxy"/>.</param>
         /// <param name="blockParser">The <see cref="BlockParser"/> parsing the <typeparamref name="TProxy"/>.</param>
         TProxy CreateProxyJsonBlock(BlockProcessor blockProcessor, BlockParser blockParser);
 
@@ -23,7 +23,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// Creates a <typeparamref name="TMain"/>.
         /// </summary>
         /// <param name="proxyJsonBlock">The <typeparamref name="TProxy"/> containing data for the <typeparamref name="TMain"/>.</param>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> processing the <typeparamref name="TMain"/>.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <typeparamref name="TMain"/>.</param>
         TMain Create(TProxy proxyJsonBlock, BlockProcessor blockProcessor);
     }
 }

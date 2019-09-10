@@ -1,5 +1,5 @@
 ﻿# OptionsBlocks
-OptionsBlocks contain options for other blocks.  
+An OptionsBlock contains options for another block.  
 
 We often require per-block options when working with markdown. For example, we might want line numbers for one code block but not another.
 Attempts have been made to facilitate this, such as using [query string](https://github.com/middleman/middleman-syntax#markdown) like syntax:
@@ -24,7 +24,7 @@ You can use OptionsBlocks to specify per-block options for all kinds of blocks. 
 - Easy to learn and remember: An OptionsBlock is just JSON prepended with `@`.
 - Easy to add to existing blocks: Enabling OptionBlocks for a block requires little more than defining a simple options type to deserialize the JSON to.
 
-## Syntax
+## Basics
 In markdown, an OptionsBlock is JSON prepended with `@`. An OptionsBlock must immediately precede the block it applies to. Its first line must begin with `@{`, whitespace is not 
 allowed between the opening `@` and `{`.
 
@@ -43,11 +43,11 @@ public string ExampleFunction(string arg)
 }
 ```
 --------------- Expected Markup ---------------
-<div class="flexi-code flexi-code_has-title flexi-code_has-copy-icon flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
+<div class="flexi-code flexi-code_has_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
 <header class="flexi-code__header">
 <span class="flexi-code__title">ExampleDocument.cs</span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
-<svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 1H2v16h2V3h12V1zm-1 4l6 6v12H6V5h9zm-1 7h5.5L14 6.5V12z"/></svg>
+<svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
 </header>
 <pre class="flexi-code__pre"><code class="flexi-code__code">public string ExampleFunction(string arg)
@@ -70,7 +70,7 @@ FlexiAlertBlocks
 }
 ! This is a FlexiAlertBlock.
 --------------- Expected Markup ---------------
-<div class="flexi-alert flexi-alert_type_warning flexi-alert_has-icon">
+<div class="flexi-alert flexi-alert_type_warning flexi-alert_has_icon">
 <svg class="flexi-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
 <div class="flexi-alert__content">
 <p>This is a FlexiAlertBlock.</p>
@@ -181,7 +181,7 @@ FlexiSectionBlocks
 }
 # foo
 --------------- Expected Markup ---------------
-<nav class="flexi-section flexi-section_level_1 flexi-section_has-link-icon" id="foo">
+<nav class="flexi-section flexi-section_level_1 flexi-section_has_link-icon" id="foo">
 <header class="flexi-section__header">
 <h1 class="flexi-section__heading">foo</h1>
 <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
@@ -189,7 +189,7 @@ FlexiSectionBlocks
 </button>
 </header>
 </nav>
-<article class="flexi-section flexi-section_level_1 flexi-section_has-link-icon" id="foo-1">
+<article class="flexi-section flexi-section_level_1 flexi-section_has_link-icon" id="foo-1">
 <header class="flexi-section__header">
 <h1 class="flexi-section__heading">foo</h1>
 <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">

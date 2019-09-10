@@ -28,7 +28,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             Mock<IFlexiSectionBlockOptions> dummyFlexiSectionBlockOptions = _mockRepository.Create<IFlexiSectionBlockOptions>();
             Mock<FlexiSectionHeadingBlockFactory> mockTestSubject = CreateMockFlexiSectionHeadingBlockFactory();
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(t => t.SetupIDGenerationAndAutoLinking(It.IsAny<FlexiSectionHeadingBlock>(),
+            mockTestSubject.Setup(t => t.SetupIDGenerationAndReferenceLinking(It.IsAny<FlexiSectionHeadingBlock>(),
                 dummyFlexiSectionBlockOptions.Object,
                 dummyBlockProcessor));
 
@@ -45,67 +45,67 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
         }
 
         [Fact]
-        public void SetupIDGenerationAndAutoLinking_AddsFlexiSectionHeadingBlockToAutoLinkableFlexiSectionHeadingBlocksIfGenerateIDAndAutoLinkableAreTrue()
+        public void SetupIDGenerationAndReferenceLinking_AddsFlexiSectionHeadingBlockToReferenceLinkableFlexiSectionHeadingBlocksIfGenerateIDAndReferenceLinkableAreTrue()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             FlexiSectionHeadingBlock dummyFlexiSectionHeadingBlock = CreateFlexiSectionHeadingBlock();
             Mock<IFlexiSectionBlockOptions> mockFlexiSectionBlockOptions = _mockRepository.Create<IFlexiSectionBlockOptions>();
             mockFlexiSectionBlockOptions.Setup(f => f.GenerateID).Returns(true);
-            mockFlexiSectionBlockOptions.Setup(f => f.AutoLinkable).Returns(true);
-            var dummyAutoLinkableFlexiSectionHeadingBlocks = new List<FlexiSectionHeadingBlock>();
+            mockFlexiSectionBlockOptions.Setup(f => f.ReferenceLinkable).Returns(true);
+            var dummyReferenceLinkableFlexiSectionHeadingBlocks = new List<FlexiSectionHeadingBlock>();
             Mock<FlexiSectionHeadingBlockFactory> mockTestSubject = CreateMockFlexiSectionHeadingBlockFactory();
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(t => t.GetOrCreateAutoLinkableFlexiSectionHeadingBlocks(dummyBlockProcessor.Document)).Returns(dummyAutoLinkableFlexiSectionHeadingBlocks);
+            mockTestSubject.Setup(t => t.GetOrCreateReferenceLinkableFlexiSectionHeadingBlocks(dummyBlockProcessor.Document)).Returns(dummyReferenceLinkableFlexiSectionHeadingBlocks);
 
             // Act
-            mockTestSubject.Object.SetupIDGenerationAndAutoLinking(dummyFlexiSectionHeadingBlock, mockFlexiSectionBlockOptions.Object, dummyBlockProcessor);
+            mockTestSubject.Object.SetupIDGenerationAndReferenceLinking(dummyFlexiSectionHeadingBlock, mockFlexiSectionBlockOptions.Object, dummyBlockProcessor);
 
             // Assert
             _mockRepository.VerifyAll();
-            Assert.Single(dummyAutoLinkableFlexiSectionHeadingBlocks);
-            Assert.Same(dummyFlexiSectionHeadingBlock, dummyAutoLinkableFlexiSectionHeadingBlocks[0]);
+            Assert.Single(dummyReferenceLinkableFlexiSectionHeadingBlocks);
+            Assert.Same(dummyFlexiSectionHeadingBlock, dummyReferenceLinkableFlexiSectionHeadingBlocks[0]);
         }
 
         [Fact]
-        public void GetOrCreateAutoLinkableFlexiSectionHeadingBlocks_GetsAutoLinkableFlexiSectionHeadingBlocksIfItAlreadyExists()
+        public void GetOrCreateReferenceLinkableFlexiSectionHeadingBlocks_GetsReferenceLinkableFlexiSectionHeadingBlocksIfItAlreadyExists()
         {
             // Arrange
-            var dummyAutoLinkableFlexiSectionHeadingBlocks = new List<FlexiSectionHeadingBlock>();
+            var dummyReferenceLinkableFlexiSectionHeadingBlocks = new List<FlexiSectionHeadingBlock>();
             var dummyMarkdownDocument = new MarkdownDocument();
-            dummyMarkdownDocument.SetData(FlexiSectionHeadingBlockFactory.AUTO_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS, dummyAutoLinkableFlexiSectionHeadingBlocks);
+            dummyMarkdownDocument.SetData(FlexiSectionHeadingBlockFactory.REFERENCE_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS_KEY, dummyReferenceLinkableFlexiSectionHeadingBlocks);
             FlexiSectionHeadingBlockFactory testSubject = CreateFlexiSectionHeadingBlockFactory();
 
             // Act
-            List<FlexiSectionHeadingBlock> result = testSubject.GetOrCreateAutoLinkableFlexiSectionHeadingBlocks(dummyMarkdownDocument);
+            List<FlexiSectionHeadingBlock> result = testSubject.GetOrCreateReferenceLinkableFlexiSectionHeadingBlocks(dummyMarkdownDocument);
 
             // Assert
-            Assert.Same(dummyAutoLinkableFlexiSectionHeadingBlocks, result);
+            Assert.Same(dummyReferenceLinkableFlexiSectionHeadingBlocks, result);
         }
 
         [Fact]
-        public void GetOrCreateAutoLinkableFlexiSectionHeadingBlocks_CreatesAutoLinkableFlexiSectionHeadingBlocksIfItDoesNotAlreadyExist()
+        public void GetOrCreateReferenceLinkableFlexiSectionHeadingBlocks_CreatesReferenceLinkableFlexiSectionHeadingBlocksIfItDoesNotAlreadyExist()
         {
             // Arrange
             var dummyMarkdownDocument = new MarkdownDocument();
             FlexiSectionHeadingBlockFactory testSubject = CreateFlexiSectionHeadingBlockFactory();
 
             // Act
-            List<FlexiSectionHeadingBlock> result = testSubject.GetOrCreateAutoLinkableFlexiSectionHeadingBlocks(dummyMarkdownDocument);
+            List<FlexiSectionHeadingBlock> result = testSubject.GetOrCreateReferenceLinkableFlexiSectionHeadingBlocks(dummyMarkdownDocument);
 
             // Assert
             Assert.NotNull(result);
-            Assert.Same(result, dummyMarkdownDocument.GetData(FlexiSectionHeadingBlockFactory.AUTO_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS));
+            Assert.Same(result, dummyMarkdownDocument.GetData(FlexiSectionHeadingBlockFactory.REFERENCE_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS_KEY));
         }
 
         [Theory]
-        [MemberData(nameof(DocumentOnProcessInlinesBegin_CreatesAndAddsASectionLinkReferenceDefinitionForEachAutoLinkableFlexiSectionHeadingBlock_Data))]
-        public void DocumentOnProcessInlinesBegin_CreatesAndAddsASectionLinkReferenceDefinitionForEachAutoLinkableFlexiSectionHeadingBlock(List<FlexiSectionHeadingBlock> dummyAutoLinkableFlexiSectionHeadingBlocks,
+        [MemberData(nameof(DocumentOnProcessInlinesBegin_CreatesAndAddsALinkReferenceDefinitionForEachReferenceLinkableFlexiSectionHeadingBlock_Data))]
+        public void DocumentOnProcessInlinesBegin_CreatesAndAddsALinkReferenceDefinitionForEachReferenceLinkableFlexiSectionHeadingBlock(List<FlexiSectionHeadingBlock> dummyReferenceLinkableFlexiSectionHeadingBlocks,
             List<(string expectedLabel, string expectedUrl)> expectedLabelAndUrls)
         {
             // Arrange
             InlineProcessor dummyInlineProcessor = MarkdigTypesFactory.CreateInlineProcessor();
-            dummyInlineProcessor.Document.SetData(FlexiSectionHeadingBlockFactory.AUTO_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS, dummyAutoLinkableFlexiSectionHeadingBlocks);
+            dummyInlineProcessor.Document.SetData(FlexiSectionHeadingBlockFactory.REFERENCE_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS_KEY, dummyReferenceLinkableFlexiSectionHeadingBlocks);
             FlexiSectionHeadingBlockFactory testSubject = CreateFlexiSectionHeadingBlockFactory();
 
             // Act
@@ -113,17 +113,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
 
             // Assert
             Dictionary<string, LinkReferenceDefinition> linkReferenceDefinitions =
-                (dummyInlineProcessor.Document.GetData(typeof(LinkReferenceDefinitionGroup)) as LinkReferenceDefinitionGroup).Links;
+                (dummyInlineProcessor.Document.GetData(typeof(LinkReferenceDefinitionGroup)) as LinkReferenceDefinitionGroup)?.Links;
             Assert.Equal(expectedLabelAndUrls.Count, linkReferenceDefinitions.Count); // One expectedLabel + expectedUrl pair for each FlexiSectionHeadingBlock
             for (int i = 0; i < expectedLabelAndUrls.Count; i++)
             {
-                FlexiSectionHeadingBlock dummyAutoLinkableFlexiSectionHeadingBlock = dummyAutoLinkableFlexiSectionHeadingBlocks[i];
+                FlexiSectionHeadingBlock dummyReferenceLinkableFlexiSectionHeadingBlock = dummyReferenceLinkableFlexiSectionHeadingBlocks[i];
 
-                Assert.False(dummyAutoLinkableFlexiSectionHeadingBlock.ProcessInlines);
+                Assert.False(dummyReferenceLinkableFlexiSectionHeadingBlock.ProcessInlines);
 
                 (string expectedLabel, string expectedID) = expectedLabelAndUrls[i];
 
-                Assert.Equal(expectedID, dummyAutoLinkableFlexiSectionHeadingBlock.GeneratedID);
+                Assert.Equal(expectedID, dummyReferenceLinkableFlexiSectionHeadingBlock.GeneratedID);
                 Assert.True(linkReferenceDefinitions.ContainsKey(expectedLabel));
                 LinkReferenceDefinition linkReferenceDefinition = linkReferenceDefinitions[expectedLabel];
                 Assert.Equal(expectedLabel, linkReferenceDefinition.Label);
@@ -131,7 +131,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             }
         }
 
-        public static IEnumerable<object[]> DocumentOnProcessInlinesBegin_CreatesAndAddsASectionLinkReferenceDefinitionForEachAutoLinkableFlexiSectionHeadingBlock_Data()
+        public static IEnumerable<object[]> DocumentOnProcessInlinesBegin_CreatesAndAddsALinkReferenceDefinitionForEachReferenceLinkableFlexiSectionHeadingBlock_Data()
         {
             return new object[][]
             {
@@ -177,7 +177,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             FlexiSectionHeadingBlock dummyFlexiSectionHeadingBlock = CreateFlexiSectionHeadingBlock();
             dummyFlexiSectionHeadingBlock.Lines = new StringLineGroup(dummyLabel);
             var dummyLinkReferenceDefinition = new LinkReferenceDefinition();
-            dummyInlineProcessor.Document.SetData(FlexiSectionHeadingBlockFactory.AUTO_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS,
+            dummyInlineProcessor.Document.SetData(FlexiSectionHeadingBlockFactory.REFERENCE_LINKABLE_FLEXI_SECTION_HEADING_BLOCKS_KEY,
                 new List<FlexiSectionHeadingBlock> { dummyFlexiSectionHeadingBlock });
             dummyInlineProcessor.Document.SetLinkReferenceDefinition(dummyLabel, dummyLinkReferenceDefinition);
             FlexiSectionHeadingBlockFactory testSubject = CreateFlexiSectionHeadingBlockFactory();
@@ -187,7 +187,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
 
             // Assert
             Dictionary<string, LinkReferenceDefinition> linkReferenceDefinitions =
-                (dummyInlineProcessor.Document.GetData(typeof(LinkReferenceDefinitionGroup)) as LinkReferenceDefinitionGroup).Links;
+                (dummyInlineProcessor.Document.GetData(typeof(LinkReferenceDefinitionGroup)) as LinkReferenceDefinitionGroup)?.Links;
             Assert.Single(linkReferenceDefinitions);
             Assert.Same(dummyLinkReferenceDefinition, linkReferenceDefinitions.Values.First()); // Doesn't get replaced
         }
@@ -198,7 +198,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             // Arrange
             var dummyGeneratedIDs = new Dictionary<string, int>();
             var dummyMarkdownDocument = new MarkdownDocument();
-            dummyMarkdownDocument.SetData(FlexiSectionHeadingBlockFactory.GENERATED_IDS, dummyGeneratedIDs);
+            dummyMarkdownDocument.SetData(FlexiSectionHeadingBlockFactory.GENERATED_IDS_KEY, dummyGeneratedIDs);
             FlexiSectionHeadingBlockFactory testSubject = CreateFlexiSectionHeadingBlockFactory();
 
             // Act
@@ -220,7 +220,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
 
             // Assert
             Assert.NotNull(result);
-            Assert.Same(result, dummyMarkdownDocument.GetData(FlexiSectionHeadingBlockFactory.GENERATED_IDS));
+            Assert.Same(result, dummyMarkdownDocument.GetData(FlexiSectionHeadingBlockFactory.GENERATED_IDS_KEY));
         }
 
         private static FlexiSectionHeadingBlock CreateFlexiSectionHeadingBlock(BlockParser blockParser = default,

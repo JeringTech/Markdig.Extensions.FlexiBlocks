@@ -14,7 +14,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// </summary>
         /// <param name="blockName">The <see cref="FlexiSectionBlock"/>'s BEM block name.</param>
         /// <param name="element">The <see cref="FlexiSectionBlock"/> root element type.</param>
-        /// <param name="linkIcon">The <see cref="FlexiSectionBlock" />'s link icon as an HTML fragment.</param>
+        /// <param name="linkIcon">The <see cref="FlexiSectionBlock"/>'s link icon as an HTML fragment.</param>
         /// <param name="renderingMode">The <see cref="FlexiSectionBlock"/>'s rendering mode.</param>
         /// <param name="level">The <see cref="FlexiSectionBlock"/>'s level.</param>
         /// <param name="attributes">The HTML attributes for the <see cref="FlexiSectionBlock"/>'s root element.</param>
@@ -46,7 +46,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         public SectioningContentElement Element { get; }
 
         /// <summary>
-        /// Gets the <see cref="FlexiSectionBlock" />'s link icon as an HTML fragment.
+        /// Gets the <see cref="FlexiSectionBlock"/>'s link icon as an HTML fragment.
         /// </summary>
         public virtual string LinkIcon { get; }
 

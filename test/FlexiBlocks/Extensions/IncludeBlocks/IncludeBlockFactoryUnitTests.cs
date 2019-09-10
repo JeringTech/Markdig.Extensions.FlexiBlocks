@@ -805,7 +805,7 @@ after";
                     new object[]
                     {
                         defaultDummyContent,
-                        new Clipping[] { new Clipping(end: 5)},
+                        new Clipping[] { new Clipping(endLine: 5)},
                         new string[] { "line1", "line2", "line3", "line4", "line5" }
                     },
                     // Line numbers - all lines with -1 end
@@ -875,7 +875,7 @@ after";
                     new object[]
                     {
                         defaultDummyContent,
-                        new Clipping[] { new Clipping(end: 5, startString: "line4")},
+                        new Clipping[] { new Clipping(endLine: 5, startString: "line4")},
                         new string[] { "line5" }
                     },
                     // line numbers and strings - subset of lines, strings take precedence (end defaults to -1)
@@ -890,9 +890,9 @@ after";
                     {
                         defaultDummyContent,
                         new Clipping[] {
-                            new Clipping(end: 2),
+                            new Clipping(endLine: 2),
                             new Clipping(startString: "line2", endString: "line5"),
-                            new Clipping(end: 5, startString: "line4")
+                            new Clipping(endLine: 5, startString: "line4")
                         },
                         new string[] { "line1", "line2", "line3", "line4", "line5" }
                     },
@@ -901,9 +901,9 @@ after";
                     {
                         defaultDummyContent,
                         new Clipping[] {
-                            new Clipping(end: 3),
+                            new Clipping(endLine: 3),
                             new Clipping(startString: "line1", endString: "line5"),
-                            new Clipping(end: 5, startString: "line3")
+                            new Clipping(endLine: 5, startString: "line3")
                         },
                         new string[] { "line1", "line2", "line3", "line2", "line3", "line4", "line4", "line5" }
                     },

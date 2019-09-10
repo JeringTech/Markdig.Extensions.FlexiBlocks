@@ -4,6 +4,8 @@ using Markdig.Renderers;
 using Markdig.Renderers.Html;
 using Markdig.Syntax;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
@@ -16,24 +18,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// Creates a <see cref="FlexiCodeBlocksExtension"/>.
         /// </summary>
         /// <param name="indentedFlexiCodeBlockParser">The <see cref="ProxyBlockParser{TMain, TProxy}"/> for creating <see cref="FlexiCodeBlock"/>s from indented code in markdown.</param>
-        /// <param name="fencedFlexiCodeBlockParser">The <see cref="ProxyBlockParser{TMain, TProxy}"/> for creating <see cref="FlexiCodeBlock"/>s from fenced code in markdown.</param>
+        /// <param name="fencedFlexiCodeBlockParsers">The <see cref="ProxyBlockParser{TMain, TProxy}"/>s for creating <see cref="FlexiCodeBlock"/>s from fenced code in markdown.</param>
         /// <param name="flexiCodeBlockRenderer">The <see cref="BlockRenderer{T}"/> for rendering <see cref="FlexiCodeBlock"/>s as HTML.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="indentedFlexiCodeBlockParser"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="fencedFlexiCodeBlockParser"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="fencedFlexiCodeBlockParsers"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="fencedFlexiCodeBlockParsers"/> does not contain at least two elements.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="flexiCodeBlockRenderer"/> is <c>null</c>.</exception>
         public FlexiCodeBlocksExtension(ProxyBlockParser<FlexiCodeBlock, ProxyLeafBlock> indentedFlexiCodeBlockParser,
-            ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock> fencedFlexiCodeBlockParser,
+            IEnumerable<ProxyBlockParser<FlexiCodeBlock, ProxyFencedLeafBlock>> fencedFlexiCodeBlockParsers,
             BlockRenderer<FlexiCodeBlock> flexiCodeBlockRenderer) :
-            base(flexiCodeBlockRenderer, indentedFlexiCodeBlockParser, fencedFlexiCodeBlockParser)
+            base(flexiCodeBlockRenderer,
+                new BlockParser[] { indentedFlexiCodeBlockParser, fencedFlexiCodeBlockParsers.ElementAt(0), fencedFlexiCodeBlockParsers.ElementAt(1) }) // Throws if fencedFlexiCodeBlockParsers is null or has < 2 elements
         {
             if (indentedFlexiCodeBlockParser == null)
             {
                 throw new ArgumentNullException(nameof(indentedFlexiCodeBlockParser));
-            }
-
-            if (fencedFlexiCodeBlockParser == null)
-            {
-                throw new ArgumentNullException(nameof(fencedFlexiCodeBlockParser));
             }
 
             if (flexiCodeBlockRenderer == null)

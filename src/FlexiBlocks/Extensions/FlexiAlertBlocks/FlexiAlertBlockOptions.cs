@@ -12,13 +12,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
     /// 
     /// <para>This class is immutable.</para>
     /// </summary>
-    public class FlexiAlertBlockOptions : RenderedBlockOptions<IFlexiAlertBlockOptions>, IFlexiAlertBlockOptions
+    public class FlexiAlertBlockOptions : RenderedRootBlockOptions<IFlexiAlertBlockOptions>, IFlexiAlertBlockOptions
     {
         /// <summary>
         /// Creates a <see cref="FlexiAlertBlockOptions"/>.
         /// </summary>
         /// <param name="blockName">
-        /// <para>The <see cref="FlexiAlertBlock" />'s <a href="https://en.bem.info/methodology/naming-convention/#block-name">BEM block name</a>.</para>
+        /// <para>The <see cref="FlexiAlertBlock"/>'s <a href="https://en.bem.info/methodology/naming-convention/#block-name">BEM block name</a>.</para>
         /// <para>In compliance with <a href="https://en.bem.info">BEM methodology</a>, this value is the <see cref="FlexiAlertBlock"/>'s root element's class as well as the prefix for all other classes in the block.</para>
         /// <para>This value should contain only valid <a href="https://www.w3.org/TR/CSS21/syndata.html#characters">CSS class characters</a>.</para>
         /// <para>If this value is <c>null</c>, whitespace or an empty string, the <see cref="FlexiAlertBlock"/>'s block name is "flexi-alert".</para>
@@ -36,7 +36,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <para>Defaults to "info".</para>
         /// </param>
         /// <param name="icon">
-        /// <para>The <see cref="FlexiAlertBlock" />'s icon as an HTML fragment.</para>
+        /// <para>The <see cref="FlexiAlertBlock"/>'s icon as an HTML fragment.</para>
         /// <para>A class attribute with value "&lt;<paramref name="blockName"/>&gt;__icon" is added to this fragment's first start tag.</para>
         /// <para>If this value is <c>null</c>, whitespace or an empty string, an attempt is made to retrieve an icon for the <see cref="FlexiAlertBlock"/>'s type from 
         /// <see cref="FlexiAlertBlocksExtensionOptions.Icons"/>, failing which no icon is rendered.</para>

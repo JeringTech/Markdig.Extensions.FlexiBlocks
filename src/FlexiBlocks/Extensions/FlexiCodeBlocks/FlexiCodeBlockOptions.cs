@@ -13,13 +13,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     /// 
     /// <para>This class is immutable.</para>
     /// </summary>
-    public class FlexiCodeBlockOptions : RenderedBlockOptions<IFlexiCodeBlockOptions>, IFlexiCodeBlockOptions
+    public class FlexiCodeBlockOptions : RenderedRootBlockOptions<IFlexiCodeBlockOptions>, IFlexiCodeBlockOptions
     {
         /// <summary>
         /// Creates a <see cref="FlexiCodeBlockOptions"/>.
         /// </summary>
         /// <param name="blockName">
-        /// <para>The <see cref="FlexiCodeBlock" />'s <a href="https://en.bem.info/methodology/naming-convention/#block-name">BEM block name</a>.</para>
+        /// <para>The <see cref="FlexiCodeBlock"/>'s <a href="https://en.bem.info/methodology/naming-convention/#block-name">BEM block name</a>.</para>
         /// <para>In compliance with <a href="https://en.bem.info">BEM methodology</a>, this value is the <see cref="FlexiCodeBlock"/>'s root element's class as well as the prefix for all other classes in the block.</para>
         /// <para>This value should contain only valid <a href="https://www.w3.org/TR/CSS21/syndata.html#characters">CSS class characters</a>.</para>
         /// <para>If this value is <c>null</c>, whitespace or an empty string, the <see cref="FlexiCodeBlock"/>'s block name is "flexi-code".</para>
@@ -34,7 +34,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <para>The <see cref="FlexiCodeBlock"/>'s copy button icon as an HTML fragment.</para>
         /// <para>The class "&lt;<paramref name="blockName"/>&gt;__copy-icon" is assigned to this fragment's first start tag.</para>
         /// <para>If this value is <c>null</c>, whitespace or an empty string, no copy icon is rendered.</para>
-        /// <para>Defaults to the <a href="https://material.io/tools/icons/?icon=file_copy&amp;style=baseline">Material Design file copy icon</a>.</para>
+        /// <para>Defaults to a copy file icon.</para>
         /// </param>
         /// <param name="language">
         /// <para>The programming language of the <see cref="FlexiCodeBlock"/>'s code.</para>
@@ -67,7 +67,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <para>The <see cref="FlexiCodeBlock"/>'s omitted lines icon as an HTML fragment.</para>
         /// <para>The class "&lt;<paramref name="blockName"/>&gt;__omitted-lines-icon" is assigned to this fragment's first start tag.</para>
         /// <para>If this value is <c>null</c>, whitespace or an empty string, no omitted lines icons are rendered.</para>
-        /// <para>Defaults to the <a href="https://material.io/tools/icons/?search=vert&amp;icon=more_vert&amp;style=baseline">Material Design more vert icon</a>.</para>
+        /// <para>Defaults to a vertical ellipsis icon.</para>
         /// </param>
         /// <param name="highlightedLines">
         /// <para>The <see cref="LineRange"/>s specifying lines to highlight.</para>
@@ -95,11 +95,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         public FlexiCodeBlockOptions(
             string blockName = "flexi-code",
             string title = default,
-            string copyIcon = MaterialDesignIcons.MATERIAL_DESIGN_FILE_COPY,
+            string copyIcon = CustomIcons.CUSTOM_COPY,
             string language = default,
             SyntaxHighlighter syntaxHighlighter = SyntaxHighlighter.Prism,
             IList<NumberedLineRange> lineNumbers = default,
-            string omittedLinesIcon = MaterialDesignIcons.MATERIAL_DESIGN_MORE_VERT,
+            string omittedLinesIcon = CustomIcons.CUSTOM_MORE_VERT,
             IList<LineRange> highlightedLines = default,
             IList<PhraseGroup> highlightedPhrases = default,
             FlexiCodeBlockRenderingMode renderingMode = FlexiCodeBlockRenderingMode.Standard,

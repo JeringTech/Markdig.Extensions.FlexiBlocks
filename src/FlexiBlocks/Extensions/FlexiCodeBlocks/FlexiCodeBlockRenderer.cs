@@ -96,22 +96,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 hasHighlightedPhrases = highlightedPhrases?.Count > 0;
 
             // Root element
-            string classValue = null;
             htmlRenderer.
-                Write("<div").
-                Write(" class=\"").
+                Write("<div class=\"").
                 Write(blockName).
-                WriteHasOptionClass(renderTitle, blockName, "title").
-                WriteHasOptionClass(renderCopyIcon, blockName, "copy-icon").
+                WriteHasFeatureClass(renderTitle, blockName, "title").
+                WriteHasFeatureClass(renderCopyIcon, blockName, "copy-icon").
                 Write(assignLanguageClass, ' ', blockName, "_language-", language).
-                WriteHasOptionClass(highlightSyntax, blockName, "syntax-highlights").
-                WriteHasOptionClass(hasLineNumbers, blockName, "line-numbers").
-                WriteHasOptionClass(renderOmittedLinesIcon, blockName, "omitted-lines-icon").
-                WriteHasOptionClass(hasHighlightedLines, blockName, "highlighted-lines").
-                WriteHasOptionClass(hasHighlightedPhrases, blockName, "highlighted-phrases").
-                Write(attributes?.TryGetValue("class", out classValue) == true, ' ', classValue).
+                WriteHasFeatureClass(highlightSyntax, blockName, "syntax-highlights").
+                WriteHasFeatureClass(hasLineNumbers, blockName, "line-numbers").
+                WriteHasFeatureClass(renderOmittedLinesIcon, blockName, "omitted-lines-icon").
+                WriteHasFeatureClass(hasHighlightedLines, blockName, "highlighted-lines").
+                WriteHasFeatureClass(hasHighlightedPhrases, blockName, "highlighted-phrases").
+                WriteAttributeValue(attributes, "class").
                 Write('"').
-                WriteAttributesExcludingClass(attributes).
+                WriteAttributesExcept(attributes, "class").
                 WriteLine(">");
 
             // Header
@@ -120,8 +118,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 WriteStartTag("span", blockName, "title").
                 Write(renderTitle, title).
                 WriteEndTagLine("span").
-                WriteStartTagLine("button", blockName, "copy-button", "title=\"Copy code\" aria-label=\"Copy code\"").
-                WriteHtmlFragmentWithClass(renderCopyIcon, copyIcon, blockName, "__copy-icon").
+                WriteStartTagLineWithAttributes("button", blockName, "copy-button", "title=\"Copy code\" aria-label=\"Copy code\"").
+                WriteHtmlFragment(renderCopyIcon, copyIcon, blockName, "copy-icon").
                 EnsureLine().
                 WriteEndTagLine("button").
                 WriteEndTagLine("header");
@@ -371,7 +369,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 
                     i = nextIndex;
                     currentCodeCharIndex++;
-                    currentChar = '\n';
                 }
 
                 HandleLineEnd();
@@ -412,7 +409,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                     }
                     else
                     {
-                        htmlRenderer.WriteHtmlFragmentWithClass(renderOmittedLinesIcon, omittedLinesIcon, blockName, "__omitted-lines-icon");
+                        htmlRenderer.WriteHtmlFragment(renderOmittedLinesIcon, omittedLinesIcon, blockName, "omitted-lines-icon");
                     }
 
                     WriteEndTag();

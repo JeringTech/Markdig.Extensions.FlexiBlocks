@@ -7,7 +7,7 @@ using System.Linq;
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
 {
     /// <summary>
-    /// A parser that parses <see cref="FlexiTableBlock"/>s from advanced tables in markdown.
+    /// A parser that parses <see cref="FlexiTableBlock"/>s from advanced tables from markdown.
     /// </summary>
     public class AdvancedFlexiTableBlockParser : FlexiTableBlockParser
     {
@@ -24,7 +24,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
         /// <summary>
         /// Opens a <see cref="ProxyTableBlock"/> if a line is a column definitions line.
         /// </summary>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> for the document that contains a line starting with '+'.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> for the document that contains a line starting with '+'.</param>
         /// <returns>
         /// <see cref="BlockState.None"/> if the current line has code indent.
         /// <see cref="BlockState.None"/> if the current line is not a column definitions line.
@@ -60,7 +60,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
         /// <summary>
         /// Continues a <see cref="ProxyTableBlock"/> if the current line is a content line or a separator line.  
         /// </summary>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> processing the <see cref="ProxyTableBlock"/> to try continuing.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <see cref="ProxyTableBlock"/> to try continuing.</param>
         /// <param name="block">The <see cref="ProxyTableBlock"/> to try continuing.</param>
         /// <returns>
         /// <see cref="BlockState.Break"/> if the current line does not start with '|' or '+'. This closes the <see cref="ProxyTableBlock"/>.

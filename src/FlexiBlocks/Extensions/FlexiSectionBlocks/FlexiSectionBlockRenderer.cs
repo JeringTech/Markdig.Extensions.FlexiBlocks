@@ -67,7 +67,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
             bool renderGeneratedID = !string.IsNullOrWhiteSpace(generatedID);
 
             // Root element
-            string classValue = null;
             string elementName = _elementNames[flexiSectionBlock.Element];
             int levelIndex = flexiSectionBlock.Level - 1;
             htmlRenderer.
@@ -76,17 +75,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
                 Write(" class=\"").
                 Write(blockName).
                 WriteBlockKeyValueModifierClass(blockName, "level", _levels[levelIndex]).
-                WriteHasOptionClass(renderLinkIcon, blockName, "link-icon").
-                Write(attributes?.TryGetValue("class", out classValue) == true, ' ', classValue).
+                WriteHasFeatureClass(renderLinkIcon, blockName, "link-icon").
+                WriteAttributeValue(attributes, "class").
                 Write('"').
                 Write(renderGeneratedID, ' ', "id=\"", generatedID, "\"");
             if (renderGeneratedID)
             {
-                htmlRenderer.WriteAttributesExcludingClassAndID(attributes); // Generated ID takes precedence
+                htmlRenderer.WriteAttributesExcept(attributes, "class", "id"); // Generated ID takes precedence
             }
             else
             {
-                htmlRenderer.WriteAttributesExcludingClass(attributes);
+                htmlRenderer.WriteAttributesExcept(attributes, "class");
             }
             htmlRenderer.WriteLine(">");
 
@@ -97,8 +96,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
                 WriteStartTag(headingTag, blockName, "heading").
                 WriteLeafInline(flexiSectionHeadingBlock).
                 WriteEndTagLine(headingTag).
-                WriteStartTagLine("button", blockName, "link-button", "title=\"Copy link\" aria-label=\"Copy link\"").
-                WriteHtmlFragmentWithClass(renderLinkIcon, linkIcon, blockName, "__link-icon").
+                WriteStartTagLineWithAttributes("button", blockName, "link-button", "title=\"Copy link\" aria-label=\"Copy link\"").
+                WriteHtmlFragment(renderLinkIcon, linkIcon, blockName, "link-icon").
                 EnsureLine().
                 WriteEndTagLine("button").
                 WriteEndTag("header");

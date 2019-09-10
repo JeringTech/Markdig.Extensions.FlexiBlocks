@@ -6,154 +6,154 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
     public class LineRangeUnitTests
     {
         [Fact]
-        public void Constructor_ThrowsOptionsExceptionIfStartIs0()
+        public void Constructor_ThrowsOptionsExceptionIfStartLineIs0()
         {
             // Arrange
-            const int dummyStart = 0;
+            const int dummyStartLine = 0;
 
             // Act and assert
-            OptionsException result = Assert.Throws<OptionsException>(() => new LineRange(dummyStart));
+            OptionsException result = Assert.Throws<OptionsException>(() => new LineRange(dummyStartLine));
             Assert.Equal(string.Format(Strings.OptionsException_OptionsException_InvalidOption,
-                    nameof(LineRange.Start),
+                    nameof(LineRange.StartLine),
                     string.Format(Strings.OptionsException_Shared_InvalidValue,
-                        dummyStart)),
+                        dummyStartLine)),
                 result.Message);
         }
 
         [Fact]
-        public void Constructor_ThrowsOptionsExceptionIfEndIs0()
+        public void Constructor_ThrowsOptionsExceptionIfEndLineIs0()
         {
             // Arrange
-            const int dummyEnd = 0;
+            const int dummyEndLine = 0;
 
             // Act and assert
-            OptionsException result = Assert.Throws<OptionsException>(() => new LineRange(end: dummyEnd));
+            OptionsException result = Assert.Throws<OptionsException>(() => new LineRange(endLine: dummyEndLine));
             Assert.Equal(string.Format(Strings.OptionsException_OptionsException_InvalidOption,
-                    nameof(LineRange.End),
+                    nameof(LineRange.EndLine),
                     string.Format(Strings.OptionsException_Shared_InvalidValue,
-                        dummyEnd)),
+                        dummyEndLine)),
                 result.Message);
         }
 
         [Theory]
-        [MemberData(nameof(Constructor_ThrowsOptionsExceptionIfStartAndEndAreAnInvalidCombination_Data))]
-        public void Constructor_ThrowsOptionsExceptionIfStartAndEndAreAnInvalidCombination(int dummyStart, int dummyEnd)
+        [MemberData(nameof(Constructor_ThrowsOptionsExceptionIfStartAndEndLinesAreAnInvalidCombination_Data))]
+        public void Constructor_ThrowsOptionsExceptionIfStartAndEndLinesAreAnInvalidCombination(int dummyStartLine, int dummyEndLine)
         {
             // Act and assert
-            OptionsException result = Assert.Throws<OptionsException>(() => new LineRange(dummyStart, dummyEnd));
-            Assert.Equal(string.Format(Strings.OptionsException_LineRange_EndLineBeStartLineOrALineAfterIt, dummyStart, dummyEnd), result.Message);
+            OptionsException result = Assert.Throws<OptionsException>(() => new LineRange(dummyStartLine, dummyEndLine));
+            Assert.Equal(string.Format(Strings.OptionsException_LineRange_EndLineBeStartLineOrALineAfterIt, dummyStartLine, dummyEndLine), result.Message);
         }
 
-        public static IEnumerable<object[]> Constructor_ThrowsOptionsExceptionIfStartAndEndAreAnInvalidCombination_Data()
+        public static IEnumerable<object[]> Constructor_ThrowsOptionsExceptionIfStartAndEndLinesAreAnInvalidCombination_Data()
         {
             return new object[][]
             {
-                // end > 0 && start > 0 && end < start
+                // end line > 0 && start line > 0 && end line < start line
                 new object[]{ 124, 63 },
-                // end < 0 && start < 0 && end < start
+                // end line < 0 && start line < 0 && end line < start line
                 new object[]{ -10, -11 }
             };
         }
 
         [Theory]
-        [MemberData(nameof(Constructor_DoesNotThrowAnyExceptionIfStartAndEndAreAValidCombination_Data))]
-        public void Constructor_DoesNotThrowAnyExceptionIfStartAndEndAreAValidCombination(int dummyStart, int dummyEnd)
+        [MemberData(nameof(Constructor_DoesNotThrowAnyExceptionIfStartAndEndLinesAreAValidCombination_Data))]
+        public void Constructor_DoesNotThrowAnyExceptionIfStartAndEndLinesAreAValidCombination(int dummyStartLine, int dummyEndLine)
         {
             // Act
-            var result = new LineRange(dummyStart, dummyEnd);
+            var result = new LineRange(dummyStartLine, dummyEndLine);
 
             // Assert
-            Assert.Equal(dummyStart, result.Start);
-            Assert.Equal(dummyEnd, result.End);
+            Assert.Equal(dummyStartLine, result.StartLine);
+            Assert.Equal(dummyEndLine, result.EndLine);
         }
 
-        public static IEnumerable<object[]> Constructor_DoesNotThrowAnyExceptionIfStartAndEndAreAValidCombination_Data()
+        public static IEnumerable<object[]> Constructor_DoesNotThrowAnyExceptionIfStartAndEndLinesAreAValidCombination_Data()
         {
             return new object[][]
             {
-                // start > 0 && end < 0
+                // start line> 0 && end line< 0
                 new object[]{ 1231, -12 },
-                // start < 0 && end > 0
+                // start line< 0 && end line> 0
                 new object[]{-42, 5},
-                // start > 0 && end > 0 && end > start
+                // start line> 0 && end line> 0 && end line> start line
                 new object[]{ 10, 124 },
-                // start < 0 && end < 0 && end > start
+                // start line< 0 && end line< 0 && end line> start line
                 new object[]{ -12, -3 },
             };
         }
 
         [Theory]
-        [MemberData(nameof(GetNormalizedStartAndEnd_ThrowsOptionsExceptionIfNormalizedStartAndEndAreAnInvalidCombination_Data))]
-        public void GetNormalizedStartAndEnd_ThrowsOptionsExceptionIfNormalizedStartAndEndAreAnInvalidCombination(int dummyStart,
-            int dummyEnd,
+        [MemberData(nameof(GetNormalizedStartAndEndLines_ThrowsOptionsExceptionIfNormalizedStartAndEndLinesAreAnInvalidCombination_Data))]
+        public void GetNormalizedStartAndEndLines_ThrowsOptionsExceptionIfNormalizedStartAndEndLinesAreAnInvalidCombination(int dummyStartLine,
+            int dummyEndLine,
             int dummyNumLines,
-            int expectedNormalizedStart,
-            int expectedNormalizedEnd)
+            int expectedNormalizedStartLine,
+            int expectedNormalizedEndLine)
         {
             // Arrange
-            var testSubject = new LineRange(dummyStart, dummyEnd);
+            var testSubject = new LineRange(dummyStartLine, dummyEndLine);
 
             // Act and assert
-            OptionsException result = Assert.Throws<OptionsException>(() => testSubject.GetNormalizedStartAndEnd(dummyNumLines));
-            Assert.Equal(string.Format(Strings.OptionsException_LineRange_UnableToNormalize, testSubject, dummyNumLines, expectedNormalizedStart, expectedNormalizedEnd),
+            OptionsException result = Assert.Throws<OptionsException>(() => testSubject.GetNormalizedStartAndEndLines(dummyNumLines));
+            Assert.Equal(string.Format(Strings.OptionsException_LineRange_UnableToNormalize, testSubject, dummyNumLines, expectedNormalizedStartLine, expectedNormalizedEndLine),
                 result.Message);
         }
 
-        public static IEnumerable<object[]> GetNormalizedStartAndEnd_ThrowsOptionsExceptionIfNormalizedStartAndEndAreAnInvalidCombination_Data()
+        public static IEnumerable<object[]> GetNormalizedStartAndEndLines_ThrowsOptionsExceptionIfNormalizedStartAndEndLinesAreAnInvalidCombination_Data()
         {
             return new object[][]
             {
-                // Normalized start < 1
+                // Normalized start line < 1
                 new object[]{-4, 5, 3, 0, 5},
-                // Normalized start > num lines
+                // Normalized start line > num lines
                 new object[]{6, 7, 4, 6, 7},
-                // Normalized end < normalized start
+                // Normalized end line < normalized start line
                 new object[]{3, -5, 5, 3, 1},
-                // Normalized end > num lines
+                // Normalized end line > num lines
                 new object[]{3, 10, 5, 3, 10}
             };
         }
 
         [Theory]
-        [MemberData(nameof(GetNormalizedStartAndEnd_GetsNormalizedStartAndEnd_Data))]
-        public void GetNormalizedStartAndEnd_GetsNormalizedStartAndEnd(int dummyStart,
-            int dummyEnd,
+        [MemberData(nameof(GetNormalizedStartAndEndLines_GetsNormalizedStartAndEndLines_Data))]
+        public void GetNormalizedStartAndEndLines_GetsNormalizedStartAndEndLines(int dummyStartLine,
+            int dummyEndLine,
             int dummyNumLines,
-            int expectedNormalizedStart,
-            int expectedNormalizedEnd)
+            int expectedNormalizedStartLine,
+            int expectedNormalizedEndLine)
         {
             // Arrange
-            var testSubject = new LineRange(dummyStart, dummyEnd);
+            var testSubject = new LineRange(dummyStartLine, dummyEndLine);
 
             // Act
-            (int normalizedStart, int normalizedEnd) = testSubject.GetNormalizedStartAndEnd(dummyNumLines);
+            (int normalizedStartLine, int normalizedEndLine) = testSubject.GetNormalizedStartAndEndLines(dummyNumLines);
 
             // Assert
-            Assert.Equal(expectedNormalizedStart, normalizedStart);
-            Assert.Equal(expectedNormalizedEnd, normalizedEnd);
+            Assert.Equal(expectedNormalizedStartLine, normalizedStartLine);
+            Assert.Equal(expectedNormalizedEndLine, normalizedEndLine);
         }
 
-        public static IEnumerable<object[]> GetNormalizedStartAndEnd_GetsNormalizedStartAndEnd_Data()
+        public static IEnumerable<object[]> GetNormalizedStartAndEndLines_GetsNormalizedStartAndEndLines_Data()
         {
             return new object[][]
             {
-                // Normalized start == normalized end
+                // Normalized start line == normalized end line
                 new object[]{6, -5, 10, 6, 6},
-                // Normalized start < normalized end
+                // Normalized start line < normalized end line
                 new object[]{-4, -3, 8, 5, 6}
             };
         }
 
         [Theory]
         [MemberData(nameof(GetRelativePosition_GetsRelativePosition_Data))]
-        public void GetRelativePosition_GetsRelativePosition(int dummyStart,
-            int dummyEnd,
+        public void GetRelativePosition_GetsRelativePosition(int dummyStartLine,
+            int dummyEndLine,
             int dummyLineNumber,
             int dummyNumLines,
             int expectedResult)
         {
             // Arrange
-            var testSubject = new LineRange(dummyStart, dummyEnd);
+            var testSubject = new LineRange(dummyStartLine, dummyEndLine);
 
             // Act
             int result = testSubject.GetRelativePosition(dummyLineNumber, dummyNumLines);
@@ -187,7 +187,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             string result = lineRange.ToString();
 
             // Assert
-            Assert.Equal("Start: 2, End: 4", result);
+            Assert.Equal("StartLine: 2, EndLine: 4", result);
         }
 
         [Theory]
@@ -205,8 +205,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 
         public static IEnumerable<object[]> Equals_ReturnsTrueIfObjIsAnIdenticalLineRangeOtherwiseReturnsFalse_Data()
         {
-            const int dummyStart = 4; // Arbitrary
-            const int dummyEnd = 25; // Arbitrary
+            const int dummyStartLine = 4; // Arbitrary
+            const int dummyEndLine = 25; // Arbitrary
 
             return new object[][]
             {
@@ -218,10 +218,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                     true },
                 // False if the LineRanges differ in any way
                 new object[]{new LineRange(),
-                    new LineRange(dummyStart),
+                    new LineRange(dummyStartLine),
                     false },
                 new object[]{new LineRange(),
-                    new LineRange(end: dummyEnd),
+                    new LineRange(endLine: dummyEndLine),
                     false },
             };
         }
@@ -238,8 +238,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 
         public static IEnumerable<object[]> GetHashCode_ReturnsSameHashCodeForIdenticalLineRanges_Data()
         {
-            const int dummyStart = 4; // Arbitrary
-            const int dummyEnd = 25; // Arbitrary
+            const int dummyStartLine = 4; // Arbitrary
+            const int dummyEndLine = 25; // Arbitrary
 
             return new object[][]
             {
@@ -247,10 +247,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                     new LineRange(),
                     true },
                 new object[]{new LineRange(),
-                    new LineRange(dummyStart),
+                    new LineRange(dummyStartLine),
                     false },
                 new object[]{new LineRange(),
-                    new LineRange(end: dummyEnd),
+                    new LineRange(endLine: dummyEndLine),
                     false }
             };
         }

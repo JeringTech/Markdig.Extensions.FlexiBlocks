@@ -52,6 +52,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                 new object[]{new BlockParser[0]}
             };
         }
+
         [Fact]
         public void Setup_Parsers_DoesNotInsertNullIntoMarkdownPipelineBuilder()
         {

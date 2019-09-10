@@ -16,7 +16,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks
         /// <summary>
         /// Creates a <see cref="ProxyJsonBlock"/>.
         /// </summary>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> processing the <see cref="ProxyJsonBlock"/>.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <see cref="ProxyJsonBlock"/>.</param>
         /// <param name="blockParser">The <see cref="BlockParser"/> parsing the <see cref="ProxyJsonBlock"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="blockProcessor"/> is <c>null</c>.</exception>
         public ProxyJsonBlock CreateProxyJsonBlock(BlockProcessor blockProcessor, BlockParser blockParser)
@@ -38,7 +38,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks
         /// Creates an <see cref="OptionsBlock"/>.
         /// </summary>
         /// <param name="proxyJsonBlock">The <see cref="ProxyJsonBlock"/> containing data for the <see cref="OptionsBlock"/>.</param>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor" /> processing the <see cref="OptionsBlock"/>.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <see cref="OptionsBlock"/>.</param>
         /// <exception cref="BlockException">Thrown if there is an unconsumed <see cref="OptionsBlock"/>.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="proxyJsonBlock"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="blockProcessor"/> is <c>null</c>.</exception>

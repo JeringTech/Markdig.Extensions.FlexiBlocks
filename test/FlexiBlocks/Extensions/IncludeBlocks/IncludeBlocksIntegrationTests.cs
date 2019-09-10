@@ -164,7 +164,7 @@ Source: {0}, Line Number: 1"
                     @"+{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent1.md"",
-""clippings"": [{""start"": 2, ""end"": 2}]
+""clippings"": [{""startLine"": 2, ""endLine"": 2}]
 }
 
 +{
@@ -203,13 +203,13 @@ Source: {0}, Line Number: 6"
                     @"+{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent1.md"",
-""clippings"": [{""start"": 2, ""end"": 2}]
+""clippings"": [{""startLine"": 2, ""endLine"": 2}]
 }
 
 +{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent1.md"",
-""clippings"": [{""start"": 6}]
+""clippings"": [{""startLine"": 6}]
 }",
                     7,
                     @"+{
@@ -220,7 +220,7 @@ Source: {0}, Line Number: 6"
 +{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent2.md"",
-""clippings"": [{""start"": 6}]
+""clippings"": [{""startLine"": 6}]
 }",
                     6,
                     @"+{

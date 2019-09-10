@@ -28,7 +28,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             FlexiCodeBlockFactory testSubject = CreateFlexiCodeBlockFactory();
 
             // Act and assert
-            Assert.Throws<ArgumentNullException>(() => testSubject.CreateProxyFencedBlock(0, 0, 'a', null, dummyBlockParser.Object));
+            Assert.Throws<ArgumentNullException>(() => testSubject.CreateProxyFencedBlock(0, 0, null, dummyBlockParser.Object));
         }
 
         [Fact]
@@ -37,7 +37,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             // Arrange
             const int dummyOpeningFenceIndent = 5;
             const int dummyOpeningFenceCharCount = 6;
-            const char dummyFenceChar = 'a';
             const int dummyColumn = 2;
             const int dummyLineStart = 7;
             const int dummyLineEnd = 99;
@@ -50,14 +49,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             // Act
             ProxyFencedLeafBlock result = testSubject.CreateProxyFencedBlock(dummyOpeningFenceIndent,
                 dummyOpeningFenceCharCount,
-                dummyFenceChar,
                 dummyBlockProcessor,
                 dummyBlockParser.Object);
 
             // Assert
             Assert.Equal(dummyOpeningFenceIndent, result.OpeningFenceIndent);
             Assert.Equal(dummyOpeningFenceCharCount, result.OpeningFenceCharCount);
-            Assert.Equal(dummyFenceChar, result.FenceChar);
             Assert.Equal(dummyColumn, result.Column);
             Assert.Equal(dummyLineStart, result.Span.Start);
             Assert.Equal(dummyLineEnd, result.Span.End);
@@ -80,7 +77,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         public void Create_FromProxyFencedLeafBlock_CreatesFlexiCodeBlock()
         {
             // Arrange
-            var dummyProxyFencedLeafBlock = new ProxyFencedLeafBlock(0, 0, 'a', null, null);
+            var dummyProxyFencedLeafBlock = new ProxyFencedLeafBlock(0, 0, null, null);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             FlexiCodeBlock dummyFlexiCodeBlock = CreateFlexiCodeBlock();
             Mock<FlexiCodeBlockFactory> mockTestSubject = CreateMockFlexiCodeBlockFactory();
@@ -308,9 +305,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             // Arrange
             var dummyLineRanges = new ReadOnlyCollection<LineRange>(new List<LineRange>()
             {
-                new LineRange(end: 9),
-                new LineRange(start: 8, end: 10),
-                new LineRange(start: 12, end: 15)
+                new LineRange(endLine: 9),
+                new LineRange(startLine: 8, endLine: 10),
+                new LineRange(startLine: 12, endLine: 15)
             });
             FlexiCodeBlockFactory testSubject = CreateFlexiCodeBlockFactory();
 
@@ -326,9 +323,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         public void TryCreateSortedLineRanges_ReturnsSortedCollectionIfLineRangesIsNotInOrder()
         {
             // Arrange
-            var dummyLineRange1 = new LineRange(end: 9);
-            var dummyLineRange2 = new LineRange(start: 8, end: 10);
-            var dummyLineRange3 = new LineRange(start: 12, end: 15);
+            var dummyLineRange1 = new LineRange(endLine: 9);
+            var dummyLineRange2 = new LineRange(startLine: 8, endLine: 10);
+            var dummyLineRange3 = new LineRange(startLine: 12, endLine: 15);
             var dummyLineRanges = new ReadOnlyCollection<LineRange>(new List<LineRange>()
             {
                 dummyLineRange2,
