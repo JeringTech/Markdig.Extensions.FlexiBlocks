@@ -25,7 +25,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
     /// <summary>
     /// <see cref="IServiceCollection"/> extensions for FlexiBlocks.
     /// </summary>
-    public static class ServiceCollectionExtentions
+    public static class ServiceCollectionExtensions
     {
         /// <summary>
         /// Adds services for FlexiBlocks.
@@ -115,7 +115,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             services.TryAddSingleton<BlockParser<FlexiBannerBlock>, FlexiBannerBlockParser>();
             services.TryAddSingleton<BlockRenderer<FlexiBannerBlock>, FlexiBannerBlockRenderer>();
             services.TryAddSingleton<IMultipartBlockFactory<FlexiBannerBlock>, FlexiBannerBlockFactory>();
-            services.TryAddSingleton<PartBlockParser>();
+            services.TryAddSingleton<PlainBlockParser>();
 
             return services;
         }
@@ -132,7 +132,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             services.TryAddSingleton<IFencedBlockFactory<FlexiCardsBlock, ProxyFlexiCardsBlock>, FlexiCardsBlockFactory>();
             services.TryAddSingleton<BlockRenderer<FlexiCardsBlock>, FlexiCardsBlockRenderer>();
             services.TryAddSingleton<IMultipartBlockFactory<FlexiCardBlock>, FlexiCardBlockFactory>();
-            services.TryAddSingleton<PartBlockParser>();
+            services.TryAddSingleton<PlainBlockParser>();
 
             return services;
         }
@@ -179,7 +179,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             services.TryAddSingleton<BlockParser<FlexiFigureBlock>, FlexiFigureBlockParser>();
             services.TryAddSingleton<BlockRenderer<FlexiFigureBlock>, FlexiFigureBlockRenderer>();
             services.TryAddSingleton<IMultipartBlockFactory<FlexiFigureBlock>, FlexiFigureBlockFactory>();
-            services.TryAddSingleton<PartBlockParser>();
+            services.TryAddSingleton<PlainBlockParser>();
 
             return services;
         }
@@ -194,7 +194,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             services.TryAddSingleton<BlockParser<FlexiQuoteBlock>, FlexiQuoteBlockParser>();
             services.TryAddSingleton<BlockRenderer<FlexiQuoteBlock>, FlexiQuoteBlockRenderer>();
             services.TryAddSingleton<IMultipartBlockFactory<FlexiQuoteBlock>, FlexiQuoteBlockFactory>();
-            services.TryAddSingleton<PartBlockParser>();
+            services.TryAddSingleton<PlainBlockParser>();
 
             return services;
         }
@@ -255,7 +255,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             services.TryAddSingleton<IFencedBlockFactory<FlexiTabsBlock, ProxyFlexiTabsBlock>, FlexiTabsBlockFactory>();
             services.TryAddSingleton<BlockRenderer<FlexiTabsBlock>, FlexiTabsBlockRenderer>();
             services.TryAddSingleton<IMultipartBlockFactory<FlexiTabBlock>, FlexiTabBlockFactory>();
-            services.TryAddSingleton<PartBlockParser>();
+            services.TryAddSingleton<PlainBlockParser>();
 
             return services;
         }
