@@ -3,7 +3,24 @@ This project uses [semantic versioning](http://semver.org/spec/v2.0.0.html). Ref
 *[Semantic Versioning in Practice](https://www.jering.tech/articles/semantic-versioning-in-practice)*
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/1.0.0-alpha.0...HEAD)
+## [Unreleased](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/1.0.0-alpha.1...HEAD)
+
+## [1.0.0-alpha.1](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/1.0.0-alpha.0...1.0.0-alpha.1) - Sep 10, 2019
+### Additions
+- Added the following extensions:
+  - FlexiQuoteBlocks
+  - FlexiFigureBlocks
+  - FlexiBannerBlocks
+  - FlexiCardsBlocks
+  - FlexiTabsBlocks
+- Added shared types for multipart-blocks.
+### Changes
+- IncludeBlocks
+  - `Clipping.Start` and `Clipping.End` renamed to `Clipping.StartLine` and `Clipping.EndLine`.
+- FlexiCodeBlocks 
+  - `LineRange.Start` and `LineRange.End` renamed to `LineRange.StartLine` and `LineRange.EndLine`.
+  - `NumberedLineRange.Start` and `NumberedLineRange.End` renamed to `NumberedLineRange.StartLine` and `NumberedLineRange.EndLine`.
+  - `PhraseGroup.Included` renamed to `PhraseGroup.IncludedMatches`.
 
 ## [1.0.0-alpha.0](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/0.15.0...1.0.0-alpha.0) - Aug 7, 2019
 ### Changes
