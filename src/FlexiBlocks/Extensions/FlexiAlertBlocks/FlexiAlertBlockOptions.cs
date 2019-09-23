@@ -1,4 +1,4 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -7,7 +7,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
     /// <summary>
     /// <para>The default implementation of <see cref="IFlexiAlertBlockOptions"/>.</para>
     /// 
-    /// <para>Initialization-wise, this class is primarily populated from JSON in <see cref="OptionsBlock"/>s. Hence the Newtonsoft.JSON attributes. 
+    /// <para>Initialization-wise, this class is primarily populated from JSON in <see cref="FlexiOptionsBlock"/>s. Hence the Newtonsoft.JSON attributes. 
     /// Developers can also manually instantiate this class, typically for use as extension-wide default options.</para>
     /// 
     /// <para>This class is immutable.</para>
@@ -30,8 +30,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// "&lt;<paramref name="blockName"/>&gt;_type_&lt;<paramref name="type"/>&gt;".</para>
         /// <para>As such, this value should contain only valid <a href="https://www.w3.org/TR/CSS21/syndata.html#characters">CSS class characters</a>.</para>
         /// <para>This value is also used to retrieve an icon if <paramref name="icon"/> is <c>null</c>, whitespace or an empty string.</para>
-        /// <para>Icons for custom types can be defined in <see cref="FlexiAlertBlocksExtensionOptions.Icons"/>, which contains icons for types "info", 
-        /// "warning" and "critical-warning" by default.</para>
+        /// <para>Icons for custom types can be defined in <see cref="IFlexiAlertBlocksExtensionOptions.Icons"/>. The default implementation of <see cref="IFlexiAlertBlocksExtensionOptions.Icons"/>
+        /// contains icons for types "info", "warning" and "critical-warning".</para>
         /// <para>If this value is <c>null</c>, whitespace or an empty string, the <see cref="FlexiAlertBlock"/>'s type is "info".</para>
         /// <para>Defaults to "info".</para>
         /// </param>
@@ -39,7 +39,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         /// <para>The <see cref="FlexiAlertBlock"/>'s icon as an HTML fragment.</para>
         /// <para>A class attribute with value "&lt;<paramref name="blockName"/>&gt;__icon" is added to this fragment's first start tag.</para>
         /// <para>If this value is <c>null</c>, whitespace or an empty string, an attempt is made to retrieve an icon for the <see cref="FlexiAlertBlock"/>'s type from 
-        /// <see cref="FlexiAlertBlocksExtensionOptions.Icons"/>, failing which no icon is rendered.</para>
+        /// <see cref="IFlexiAlertBlocksExtensionOptions.Icons"/>, failing which no icon is rendered.</para>
         /// <para>Defaults to <c>null</c>.</para>
         /// </param>
         /// <param name="attributes">

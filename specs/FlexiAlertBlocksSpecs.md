@@ -19,11 +19,10 @@ MarkdownPipeline markdownPipeline = markdownPipelineBuilder.Build();
 
 string markdown = "! This is a FlexiAlertBlock."
 string html = Markdown.ToHtml(markdown, markdownPipeline);
-string expectedHtml = @"<div class=""flexi-alert flexi-alert_type_info"">
+string expectedHtml = @"<div class=""flexi-alert flexi-alert_type_info flexi-alert_has-icon"">
 <svg class=""flexi-alert__icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path d=""M0 0h24v24H0z"" fill=""none""/><path d=""M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z""/></svg>
 <div class=""flexi-alert__content"">
-<p>This is a FlexiAlertBlock.
-This is important information.</p>
+<p>This is a FlexiAlertBlock.</p>
 </div>
 </div>";
 
@@ -38,7 +37,7 @@ In markdown, a FlexiAlertBlock is a sequence of lines each starting with `!`. Fo
 ! This is a FlexiAlertBlock.
 ! This is important information.
 --------------- Expected Markup ---------------
-<div class="flexi-alert flexi-alert_type_info flexi-alert_has_icon">
+<div class="flexi-alert flexi-alert_type_info flexi-alert_has-icon">
 <svg class="flexi-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
 <div class="flexi-alert__content">
 <p>This is a FlexiAlertBlock.
@@ -59,7 +58,7 @@ The space after the starting `!` of each line is optional:
 !This line will render identically to the next line.
 ! This line will render identically to the previous line.
 --------------- Expected Markup ---------------
-<div class="flexi-alert flexi-alert_type_info flexi-alert_has_icon">
+<div class="flexi-alert flexi-alert_type_info flexi-alert_has-icon">
 <svg class="flexi-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
 <div class="flexi-alert__content">
 <p>This line will render identically to the next line.
@@ -77,7 +76,7 @@ Starting `!`s can be preceded by up to three spaces:
   ! These lines belong to the same FlexiAlertBlock.
    ! These lines belong to the same FlexiAlertBlock.
 --------------- Expected Markup ---------------
-<div class="flexi-alert flexi-alert_type_info flexi-alert_has_icon">
+<div class="flexi-alert flexi-alert_type_info flexi-alert_has-icon">
 <svg class="flexi-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
 <div class="flexi-alert__content">
 <p>These lines belong to the same FlexiAlertBlock.
@@ -96,7 +95,7 @@ These lines belong to the same FlexiAlertBlock.</p>
 contains multiple
 lazy continuation lines.
 --------------- Expected Markup ---------------
-<div class="flexi-alert flexi-alert_type_info flexi-alert_has_icon">
+<div class="flexi-alert flexi-alert_type_info flexi-alert_has-icon">
 <svg class="flexi-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
 <div class="flexi-alert__content">
 <p>This FlexiAlertBlock
@@ -114,13 +113,13 @@ A blank line closes a FlexiAlertBlock:
 
 ! This is another FlexiAlertBlock.
 --------------- Expected Markup ---------------
-<div class="flexi-alert flexi-alert_type_info flexi-alert_has_icon">
+<div class="flexi-alert flexi-alert_type_info flexi-alert_has-icon">
 <svg class="flexi-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
 <div class="flexi-alert__content">
 <p>This is a FlexiAlertBlock.</p>
 </div>
 </div>
-<div class="flexi-alert flexi-alert_type_info flexi-alert_has_icon">
+<div class="flexi-alert flexi-alert_type_info flexi-alert_has-icon">
 <svg class="flexi-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
 <div class="flexi-alert__content">
 <p>This is another FlexiAlertBlock.</p>
@@ -146,7 +145,7 @@ If you want the first line to begin with `[`, add a space between `!` and `[` in
 --------------- Markdown ---------------
 ! [This is a FlexiAlertBlock]
 --------------- Expected Markup ---------------
-<div class="flexi-alert flexi-alert_type_info flexi-alert_has_icon">
+<div class="flexi-alert flexi-alert_type_info flexi-alert_has-icon">
 <svg class="flexi-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
 <div class="flexi-alert__content">
 <p>[This is a FlexiAlertBlock]</p>
@@ -161,7 +160,7 @@ A line beginning with `![` *within* a FlexiAlertBlock is treated as a lazy conti
 ! This is a FlexiAlertBlock
 ![This is an image in a FlexiAlertBlock](/url)
 --------------- Expected Markup ---------------
-<div class="flexi-alert flexi-alert_type_info flexi-alert_has_icon">
+<div class="flexi-alert flexi-alert_type_info flexi-alert_has-icon">
 <svg class="flexi-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
 <div class="flexi-alert__content">
 <p>This is a FlexiAlertBlock
@@ -172,7 +171,7 @@ A line beginning with `![` *within* a FlexiAlertBlock is treated as a lazy conti
 
 ## Options
 ### `FlexiAlertBlockOptions`
-Options for a FlexiAlertBlock. To specify `FlexiAlertBlockOptions` for a FlexiAlertBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/OptionsBlocksSpecs.md#options) extension must be enabled.
+Options for a FlexiAlertBlock. To specify `FlexiAlertBlockOptions` for a FlexiAlertBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#options) extension must be enabled.
 
 #### Properties
 
@@ -186,12 +185,12 @@ Options for a FlexiAlertBlock. To specify `FlexiAlertBlockOptions` for a FlexiAl
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "blockName": "alert" }
+  o{ "blockName": "alert" }
   ! This is a FlexiAlertBlock.
   --------------- Expected Markup ---------------
-  <div class="alert alert_type_info alert_has_icon">
+  <div class="alert alert_type_info alert_has-icon">
   <svg class="alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
   <div class="alert__content">
   <p>This is a FlexiAlertBlock.</p>
@@ -206,19 +205,19 @@ Options for a FlexiAlertBlock. To specify `FlexiAlertBlockOptions` for a FlexiAl
   "<`BlockName`>_type_<`Type`>".
   As such, this value should contain only valid [CSS class characters](https://www.w3.org/TR/CSS21/syndata.html#characters).
   This value is also used to retrieve an icon if `Icon` is `null`, whitespace or an empty string.
-  Icons for custom types can be defined in `FlexiAlertBlocksExtensionOptions.Icons`, which contains icons for types "info",
-  "warning" and "critical-warning" by default.
+  Icons for custom types can be defined in `IFlexiAlertBlocksExtensionOptions.Icons`. The default implementation of `IFlexiAlertBlocksExtensionOptions.Icons`
+  contains icons for types "info", "warning" and "critical-warning".
   If this value is `null`, whitespace or an empty string, the `FlexiAlertBlock`'s type is "info".
 - Default: "info"
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "type": "warning" }
+  o{ "type": "warning" }
   ! This is a FlexiAlertBlock.
   --------------- Expected Markup ---------------
-  <div class="flexi-alert flexi-alert_type_warning flexi-alert_has_icon">
+  <div class="flexi-alert flexi-alert_type_warning flexi-alert_has-icon">
   <svg class="flexi-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
   <div class="flexi-alert__content">
   <p>This is a FlexiAlertBlock.</p>
@@ -231,17 +230,17 @@ Options for a FlexiAlertBlock. To specify `FlexiAlertBlockOptions` for a FlexiAl
 - Description: The `FlexiAlertBlock`'s icon as an HTML fragment.
   A class attribute with value "<`BlockName`>__icon" is added to this fragment's first start tag.
   If this value is `null`, whitespace or an empty string, an attempt is made to retrieve an icon for the `FlexiAlertBlock`'s type from
-  `FlexiAlertBlocksExtensionOptions.Icons`, failing which no icon is rendered.
+  `IFlexiAlertBlocksExtensionOptions.Icons`, failing which no icon is rendered.
 - Default: `null`
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "icon": "<svg><use xlink:href=\"#alert-icon\"/></svg>" }
+  o{ "icon": "<svg><use xlink:href=\"#alert-icon\"/></svg>" }
   ! This is a FlexiAlertBlock.
   --------------- Expected Markup ---------------
-  <div class="flexi-alert flexi-alert_type_info flexi-alert_has_icon">
+  <div class="flexi-alert flexi-alert_type_info flexi-alert_has-icon">
   <svg class="flexi-alert__icon"><use xlink:href="#alert-icon"/></svg>
   <div class="flexi-alert__content">
   <p>This is a FlexiAlertBlock.</p>
@@ -251,15 +250,15 @@ Options for a FlexiAlertBlock. To specify `FlexiAlertBlockOptions` for a FlexiAl
   No icon is rendered if this value is `null`, whitespace or an empty string and there is no default icon for the `FlexiAlertBlock`'s type:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{
+  o{
       "icon": null,
       "type": "no-default-icon"
   }
   ! This is a FlexiAlertBlock.
   --------------- Expected Markup ---------------
-  <div class="flexi-alert flexi-alert_type_no-default-icon flexi-alert_no_icon">
+  <div class="flexi-alert flexi-alert_type_no-default-icon flexi-alert_no-icon">
   <div class="flexi-alert__content">
   <p>This is a FlexiAlertBlock.</p>
   </div>
@@ -276,9 +275,9 @@ Options for a FlexiAlertBlock. To specify `FlexiAlertBlockOptions` for a FlexiAl
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{
+  o{
       "attributes": {
           "id" : "my-custom-id",
           "class" : "my-custom-class"
@@ -286,7 +285,7 @@ Options for a FlexiAlertBlock. To specify `FlexiAlertBlockOptions` for a FlexiAl
   }
   ! This is a FlexiAlertBlock.
   --------------- Expected Markup ---------------
-  <div class="flexi-alert flexi-alert_type_info flexi-alert_has_icon my-custom-class" id="my-custom-id">
+  <div class="flexi-alert flexi-alert_type_info flexi-alert_has-icon my-custom-class" id="my-custom-id">
   <svg class="flexi-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
   <div class="flexi-alert__content">
   <p>This is a FlexiAlertBlock.</p>
@@ -324,7 +323,7 @@ Options for the FlexiAlertBlocks extension. There are two ways to specify these 
   --------------- Markdown ---------------
   ! This is a FlexiAlertBlock.
   --------------- Expected Markup ---------------
-  <div class="flexi-alert flexi-alert_type_info flexi-alert_has_icon block">
+  <div class="flexi-alert flexi-alert_type_info flexi-alert_has-icon block">
   <svg class="flexi-alert__icon"><use xlink:href="#alert-icon"/></svg>
   <div class="flexi-alert__content">
   <p>This is a FlexiAlertBlock.</p>
@@ -334,7 +333,7 @@ Options for the FlexiAlertBlocks extension. There are two ways to specify these 
   `defaultBlockOptions` has lower precedence than block specific options:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Extension Options ---------------
   {
       "flexiAlertBlocks": {
@@ -346,18 +345,18 @@ Options for the FlexiAlertBlocks extension. There are two ways to specify these 
   --------------- Markdown ---------------
   ! This is a FlexiAlertBlock
 
-  @{
+  o{
       "blockName": "special-alert"
   }
   ! This is a FlexiAlertBlock with block specific options.
   --------------- Expected Markup ---------------
-  <div class="alert alert_type_info alert_has_icon">
+  <div class="alert alert_type_info alert_has-icon">
   <svg class="alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
   <div class="alert__content">
   <p>This is a FlexiAlertBlock</p>
   </div>
   </div>
-  <div class="special-alert special-alert_type_info special-alert_has_icon">
+  <div class="special-alert special-alert_type_info special-alert_has-icon">
   <svg class="special-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
   <div class="special-alert__content">
   <p>This is a FlexiAlertBlock with block specific options.</p>
@@ -373,33 +372,66 @@ Options for the FlexiAlertBlocks extension. There are two ways to specify these 
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Extension Options ---------------
   {
       "flexiAlertBlocks": {
           "icons": {
-              "closer-look": "<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>",
-              "help": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z\"/></svg>"
+              "closer-look": "<svg><use xlink:href=\"#closer-look-icon\"/></svg>",
+              "help": "<svg><use xlink:href=\"#help-icon\"/></svg>"
           }
       }
   }
   --------------- Markdown ---------------
-  @{ "type": "closer-look" }
+  o{ "type": "closer-look" }
   ! This is a closer look at some topic.
 
-  @{ "type": "help" }
+  o{ "type": "help" }
   ! This is a helpful tip.
   --------------- Expected Markup ---------------
-  <div class="flexi-alert flexi-alert_type_closer-look flexi-alert_has_icon">
-  <svg class="flexi-alert__icon" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+  <div class="flexi-alert flexi-alert_type_closer-look flexi-alert_has-icon">
+  <svg class="flexi-alert__icon"><use xlink:href="#closer-look-icon"/></svg>
   <div class="flexi-alert__content">
   <p>This is a closer look at some topic.</p>
   </div>
   </div>
-  <div class="flexi-alert flexi-alert_type_help flexi-alert_has_icon">
-  <svg class="flexi-alert__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+  <div class="flexi-alert flexi-alert_type_help flexi-alert_has-icon">
+  <svg class="flexi-alert__icon"><use xlink:href="#help-icon"/></svg>
   <div class="flexi-alert__content">
   <p>This is a helpful tip.</p>
+  </div>
+  </div>
+  ````````````````````````````````
+  Default icons:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  FlexiOptionsBlocks
+  --------------- Markdown ---------------
+  o{ "type": "info" }
+  ! Info
+
+  o{ "type": "warning" }
+  ! Warning
+
+  o{ "type": "critical-warning" }
+  ! Critical warning
+  --------------- Expected Markup ---------------
+  <div class="flexi-alert flexi-alert_type_info flexi-alert_has-icon">
+  <svg class="flexi-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+  <div class="flexi-alert__content">
+  <p>Info</p>
+  </div>
+  </div>
+  <div class="flexi-alert flexi-alert_type_warning flexi-alert_has-icon">
+  <svg class="flexi-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+  <div class="flexi-alert__content">
+  <p>Warning</p>
+  </div>
+  </div>
+  <div class="flexi-alert flexi-alert_type_critical-warning flexi-alert_has-icon">
+  <svg class="flexi-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+  <div class="flexi-alert__content">
+  <p>Critical warning</p>
   </div>
   </div>
   ````````````````````````````````

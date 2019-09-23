@@ -12,7 +12,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
     /// </summary>
     public class FlexiAlertBlocksExtensionOptions : ExtensionOptions<IFlexiAlertBlockOptions>, IFlexiAlertBlocksExtensionOptions
     {
-        private static readonly ReadOnlyDictionary<string, string> _defaultHtmlFragments = new ReadOnlyDictionary<string, string>(
+        private static readonly ReadOnlyDictionary<string, string> _defaultIcons = new ReadOnlyDictionary<string, string>(
             new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { "info", MaterialDesignIcons.MATERIAL_DESIGN_INFO },
@@ -39,7 +39,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
         {
             Icons = icons is ReadOnlyDictionary<string, string> ? icons as ReadOnlyDictionary<string, string> :
                 icons != null ? new ReadOnlyDictionary<string, string>(icons) :
-                _defaultHtmlFragments;
+                _defaultIcons;
         }
 
         /// <summary>
