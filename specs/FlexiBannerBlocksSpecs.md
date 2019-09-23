@@ -23,9 +23,9 @@ Title
 Blurb
 +++";
 string html = Markdown.ToHtml(markdown, markdownPipeline);
-string expectedHtml = @"<div class=\"flexi-banner flexi-banner_no_logo-icon flexi-banner_no_background-icon\">
-<h1 class=\"flexi-banner__title\">Title</h1>
-<p class=\"flexi-banner__blurb\">Blurb</p>
+string expectedHtml = @"<div class=""flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon"">
+<h1 class=""flexi-banner__title"">Title</h1>
+<p class=""flexi-banner__blurb"">Blurb</p>
 </div>";
 
 Assert.Equal(expectedHtml, html)
@@ -41,7 +41,7 @@ Title
 Blurb
 +++
 --------------- Expected Markup ---------------
-<div class="flexi-banner flexi-banner_no_logo-icon flexi-banner_no_background-icon">
+<div class="flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon">
 <h1 class="flexi-banner__title">Title</h1>
 <p class="flexi-banner__blurb">Blurb</p>
 </div>
@@ -59,7 +59,7 @@ Both parts can only contain inline markdown such as text with empasis ([Commonma
 **Blurb**
 +++
 --------------- Expected Markup ---------------
-<div class="flexi-banner flexi-banner_no_logo-icon flexi-banner_no_background-icon">
+<div class="flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon">
 <h1 class="flexi-banner__title"><em>Title</em></h1>
 <p class="flexi-banner__blurb"><strong>Blurb</strong></p>
 </div>
@@ -67,7 +67,7 @@ Both parts can only contain inline markdown such as text with empasis ([Commonma
 
 ## Options
 ### `FlexiBannerBlockOptions`
-Options for a FlexiBannerBlock. To specify `FlexiBannerBlockOptions` for a FlexiBannerBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/OptionsBlocksSpecs.md#options) extension must be enabled.
+Options for a FlexiBannerBlock. To specify `FlexiBannerBlockOptions` for a FlexiBannerBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#options) extension must be enabled.
 
 #### Properties
 
@@ -81,16 +81,16 @@ Options for a FlexiBannerBlock. To specify `FlexiBannerBlockOptions` for a Flexi
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "blockName": "banner" }
+  o{ "blockName": "banner" }
   +++ banner
   Title
   +++
   Blurb
   +++
   --------------- Expected Markup ---------------
-  <div class="banner banner_no_logo-icon banner_no_background-icon">
+  <div class="banner banner_no-logo-icon banner_no-background-icon">
   <h1 class="banner__title">Title</h1>
   <p class="banner__blurb">Blurb</p>
   </div>
@@ -105,16 +105,16 @@ Options for a FlexiBannerBlock. To specify `FlexiBannerBlockOptions` for a Flexi
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "logoIcon": "<svg><use xlink:href=\"#logo-icon\"/></svg>" }
+  o{ "logoIcon": "<svg><use xlink:href=\"#logo-icon\"/></svg>" }
   +++ banner
   Title
   +++
   Blurb
   +++
   --------------- Expected Markup ---------------
-  <div class="flexi-banner flexi-banner_has_logo-icon flexi-banner_no_background-icon">
+  <div class="flexi-banner flexi-banner_has-logo-icon flexi-banner_no-background-icon">
   <svg class="flexi-banner__logo-icon"><use xlink:href="#logo-icon"/></svg>
   <h1 class="flexi-banner__title">Title</h1>
   <p class="flexi-banner__blurb">Blurb</p>
@@ -130,16 +130,16 @@ Options for a FlexiBannerBlock. To specify `FlexiBannerBlockOptions` for a Flexi
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "backgroundIcon": "<svg><use xlink:href=\"#background-icon\"/></svg>" }
+  o{ "backgroundIcon": "<svg><use xlink:href=\"#background-icon\"/></svg>" }
   +++ banner
   Title
   +++
   Blurb
   +++
   --------------- Expected Markup ---------------
-  <div class="flexi-banner flexi-banner_no_logo-icon flexi-banner_has_background-icon">
+  <div class="flexi-banner flexi-banner_no-logo-icon flexi-banner_has-background-icon">
   <svg class="flexi-banner__background-icon"><use xlink:href="#background-icon"/></svg>
   <h1 class="flexi-banner__title">Title</h1>
   <p class="flexi-banner__blurb">Blurb</p>
@@ -156,9 +156,9 @@ Options for a FlexiBannerBlock. To specify `FlexiBannerBlockOptions` for a Flexi
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{
+  o{
       "attributes": {
           "id" : "my-custom-id",
           "class" : "my-custom-class"
@@ -170,7 +170,7 @@ Options for a FlexiBannerBlock. To specify `FlexiBannerBlockOptions` for a Flexi
   Blurb
   +++
   --------------- Expected Markup ---------------
-  <div class="flexi-banner flexi-banner_no_logo-icon flexi-banner_no_background-icon my-custom-class" id="my-custom-id">
+  <div class="flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon my-custom-class" id="my-custom-id">
   <h1 class="flexi-banner__title">Title</h1>
   <p class="flexi-banner__blurb">Blurb</p>
   </div>
@@ -211,7 +211,7 @@ Options for the FlexiBannerBlocks extension. There are two ways to specify these
   Blurb
   +++
   --------------- Expected Markup ---------------
-  <div class="flexi-banner flexi-banner_has_logo-icon flexi-banner_has_background-icon block">
+  <div class="flexi-banner flexi-banner_has-logo-icon flexi-banner_has-background-icon block">
   <svg class="flexi-banner__background-icon"><use xlink:href="#background-icon"/></svg>
   <svg class="flexi-banner__logo-icon"><use xlink:href="#logo-icon"/></svg>
   <h1 class="flexi-banner__title">Title</h1>
@@ -221,7 +221,7 @@ Options for the FlexiBannerBlocks extension. There are two ways to specify these
   `defaultBlockOptions` has lower precedence than block specific options:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Extension Options ---------------
   {
       "flexiBannerBlocks": {
@@ -237,19 +237,24 @@ Options for the FlexiBannerBlocks extension. There are two ways to specify these
   Blurb
   +++
 
-  @{ "blockName": "special-banner" }
+  o{ "blockName": "special-banner" }
   +++ banner
   Title
   +++
   Blurb
   +++
   --------------- Expected Markup ---------------
-  <div class="banner banner_no_logo-icon banner_no_background-icon">
+  <div class="banner banner_no-logo-icon banner_no-background-icon">
   <h1 class="banner__title">Title</h1>
   <p class="banner__blurb">Blurb</p>
   </div>
-  <div class="special-banner special-banner_no_logo-icon special-banner_no_background-icon">
+  <div class="special-banner special-banner_no-logo-icon special-banner_no-background-icon">
   <h1 class="special-banner__title">Title</h1>
   <p class="special-banner__blurb">Blurb</p>
   </div>
   ````````````````````````````````
+
+## Incomplete Features
+
+### Configurable Heading Level
+Banners could be used within articles, in place of default section headings.

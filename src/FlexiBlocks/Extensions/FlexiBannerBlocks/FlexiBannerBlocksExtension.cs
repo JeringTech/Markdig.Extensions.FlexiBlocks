@@ -2,7 +2,6 @@ using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks
 {
-    // TODO consider heading level option
     /// <summary>
     /// A Markdig extension for <see cref="FlexiBannerBlock"/>s.
     /// </summary>

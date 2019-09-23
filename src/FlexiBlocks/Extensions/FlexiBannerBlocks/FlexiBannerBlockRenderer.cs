@@ -28,17 +28,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks
 
             string blockName = block.BlockName;
             string logoIcon = block.LogoIcon;
-            bool renderLogoIcon = !string.IsNullOrWhiteSpace(logoIcon);
             string backgroundIcon = block.BackgroundIcon;
-            bool renderBackgroundIcon = !string.IsNullOrWhiteSpace(backgroundIcon);
+            bool hasLogoIcon = !string.IsNullOrWhiteSpace(logoIcon),
+                 hasBackgroundIcon = !string.IsNullOrWhiteSpace(backgroundIcon);
             ReadOnlyDictionary<string, string> attributes = block.Attributes;
 
             // Root element
             htmlRenderer.
                 Write("<div class=\"").
                 Write(blockName).
-                WriteHasFeatureClass(renderLogoIcon, blockName, "logo-icon").
-                WriteHasFeatureClass(renderBackgroundIcon, blockName, "background-icon").
+                WriteHasFeatureClass(hasLogoIcon, blockName, "logo-icon").
+                WriteHasFeatureClass(hasBackgroundIcon, blockName, "background-icon").
                 WriteAttributeValue(attributes, "class").
                 Write('"').
                 WriteAttributesExcept(attributes, "class").
@@ -46,13 +46,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks
 
             // Background
             htmlRenderer.
-                WriteHtmlFragment(renderBackgroundIcon, backgroundIcon, blockName, "background-icon").
-                EnsureLine();
+                WriteHtmlFragmentLine(hasBackgroundIcon, backgroundIcon, blockName, "background-icon");
 
             // Logo
             htmlRenderer.
-                WriteHtmlFragment(renderLogoIcon, logoIcon, blockName, "logo-icon").
-                EnsureLine();
+                WriteHtmlFragmentLine(hasLogoIcon, logoIcon, blockName, "logo-icon");
 
             // Title
             htmlRenderer.

@@ -91,26 +91,26 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                 // BlockName is assigned as a class of the root element and all default classes are prepended with it
                 new object[]{
                     CreateFlexiBannerBlock(dummyBlockName),
-                    $@"<div class=""{dummyBlockName} {dummyBlockName}_no_logo-icon {dummyBlockName}_no_background-icon"">
+                    $@"<div class=""{dummyBlockName} {dummyBlockName}_no-logo-icon {dummyBlockName}_no-background-icon"">
 <h1 class=""{dummyBlockName}__title""></h1>
 <p class=""{dummyBlockName}__blurb""></p>
 </div>
 "
                 },
-                // If logo icon is valid HTML, it is rendered with a default class and a _has_logo-icon class is rendered
+                // If logo icon is valid HTML, it is rendered with a default class and a _has-logo-icon class is rendered
                 new object[]{
                     CreateFlexiBannerBlock(logoIcon: dummyLogoIcon),
-                    $@"<div class="" _has_logo-icon _no_background-icon"">
+                    $@"<div class="" _has-logo-icon _no-background-icon"">
 {dummyLogoIconWithClass}
 <h1 class=""__title""></h1>
 <p class=""__blurb""></p>
 </div>
 "
                 },
-                // If logo icon is null, whitespace or an empty string, no icon is rendered and a _no_logo-icon class is rendered (null case already verified in other tests)
+                // If logo icon is null, whitespace or an empty string, no icon is rendered and a _no-logo-icon class is rendered (null case already verified in other tests)
                 new object[]{
                     CreateFlexiBannerBlock(logoIcon: " "),
-                    @"<div class="" _no_logo-icon _no_background-icon"">
+                    @"<div class="" _no-logo-icon _no-background-icon"">
 <h1 class=""__title""></h1>
 <p class=""__blurb""></p>
 </div>
@@ -118,26 +118,26 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                 },
                 new object[]{
                     CreateFlexiBannerBlock(logoIcon: string.Empty),
-                    @"<div class="" _no_logo-icon _no_background-icon"">
+                    @"<div class="" _no-logo-icon _no-background-icon"">
 <h1 class=""__title""></h1>
 <p class=""__blurb""></p>
 </div>
 "
                 },
-                // If background icon is valid HTML, it is rendered with a default class and a _has_background-icon class is rendered
+                // If background icon is valid HTML, it is rendered with a default class and a _has-background-icon class is rendered
                 new object[]{
                     CreateFlexiBannerBlock(backgroundIcon: dummyBackgroundIcon),
-                    $@"<div class="" _no_logo-icon _has_background-icon"">
+                    $@"<div class="" _no-logo-icon _has-background-icon"">
 {dummyBackgroundIconWithClass}
 <h1 class=""__title""></h1>
 <p class=""__blurb""></p>
 </div>
 "
                 },
-                // If background icon is null, whitespace or an empty string, no icon is rendered and a _no_background-icon class is rendered (null case already verified in other tests)
+                // If background icon is null, whitespace or an empty string, no icon is rendered and a _no-background-icon class is rendered (null case already verified in other tests)
                 new object[]{
                     CreateFlexiBannerBlock(backgroundIcon: " "),
-                    @"<div class="" _no_logo-icon _no_background-icon"">
+                    @"<div class="" _no-logo-icon _no-background-icon"">
 <h1 class=""__title""></h1>
 <p class=""__blurb""></p>
 </div>
@@ -145,7 +145,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                 },
                 new object[]{
                     CreateFlexiBannerBlock(backgroundIcon: string.Empty),
-                    @"<div class="" _no_logo-icon _no_background-icon"">
+                    @"<div class="" _no-logo-icon _no-background-icon"">
 <h1 class=""__title""></h1>
 <p class=""__blurb""></p>
 </div>
@@ -154,7 +154,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                 // If attributes are specified, they're written
                 new object[]{
                     CreateFlexiBannerBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { dummyAttributeKey1, dummyAttributeValue1 }, { dummyAttributeKey2, dummyAttributeValue2 } })),
-                    $@"<div class="" _no_logo-icon _no_background-icon"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
+                    $@"<div class="" _no-logo-icon _no-background-icon"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
 <h1 class=""__title""></h1>
 <p class=""__blurb""></p>
 </div>
@@ -163,7 +163,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                 // If classes are specified, they're appended to default classes
                 new object[]{
                     CreateFlexiBannerBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { "class", dummyClass } })),
-                    $@"<div class="" _no_logo-icon _no_background-icon {dummyClass}"">
+                    $@"<div class="" _no-logo-icon _no-background-icon {dummyClass}"">
 <h1 class=""__title""></h1>
 <p class=""__blurb""></p>
 </div>
@@ -172,7 +172,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                 // Title part is rendered
                 new object[]{
                     CreateFlexiBannerBlock(titlePart: dummyTitlePartBlock),
-                    $@"<div class="" _no_logo-icon _no_background-icon"">
+                    $@"<div class="" _no-logo-icon _no-background-icon"">
 <h1 class=""__title"">{dummyTitle}</h1>
 <p class=""__blurb""></p>
 </div>
@@ -181,7 +181,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                 // Blurb part is rendered
                 new object[]{
                     CreateFlexiBannerBlock(blurbPart: dummyBlurbPartBlock),
-                    $@"<div class="" _no_logo-icon _no_background-icon"">
+                    $@"<div class="" _no-logo-icon _no-background-icon"">
 <h1 class=""__title""></h1>
 <p class=""__blurb"">{dummyBlurb}</p>
 </div>
