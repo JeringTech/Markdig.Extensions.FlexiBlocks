@@ -29,7 +29,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiIncludeBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiIncludeBlocksExtension), FlexiIncludeBlocks_ParseAndRender());
@@ -51,7 +51,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiAlertBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiAlertBlocksExtension), FlexiAlertBlocks_ParseAndRender());
@@ -60,7 +60,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
         [Benchmark]
         public string FlexiAlertBlocks_ParseAndRender()
         {
-            return Markdown.ToHtml(@"@{ ""type"": ""warning"" }
+            return Markdown.ToHtml(@"o{ ""type"": ""warning"" }
 ! This is a warning.", _pipeline);
         }
 
@@ -72,7 +72,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiCodeBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiCodeBlocksExtension), FlexiCodeBlocks_ParseAndRender());
@@ -81,7 +81,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
         [Benchmark]
         public string FlexiCodeBlocks_ParseAndRender()
         {
-            return Markdown.ToHtml(@"@{
+            return Markdown.ToHtml(@"o{
     ""language"": ""csharp"",
     ""lineNumbers"": [
         {
@@ -139,7 +139,7 @@ public class ExampleClass
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiSectionBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiSectionBlocksExtension), FlexiSectionBlocks_ParseAndRender());
@@ -148,7 +148,7 @@ public class ExampleClass
         [Benchmark]
         public string FlexiSectionBlocks_ParseAndRender()
         {
-            return Markdown.ToHtml(@"@{
+            return Markdown.ToHtml(@"o{
     ""element"": ""article""
 }
 # foo
@@ -166,7 +166,7 @@ public class ExampleClass
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiTableBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiTableBlocksExtension), FlexiTableBlocks_ParseAndRender());
@@ -193,7 +193,7 @@ public class ExampleClass
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiBannerBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiBannerBlocksExtension), FlexiBannerBlocks_ParseAndRender());
@@ -216,7 +216,7 @@ Blurb
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiCardsBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiCardsBlocksExtension), FlexiCardsBlocks_ParseAndRender());
@@ -251,7 +251,7 @@ Footnote
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiFigureBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiFigureBlocksExtension), FlexiFigureBlocks_ParseAndRender());
@@ -274,7 +274,7 @@ Caption
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiQuoteBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiQuoteBlocksExtension), FlexiQuoteBlocks_ParseAndRender());
@@ -297,7 +297,7 @@ Citation
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiTabsBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiTabsBlocksExtension), FlexiTabsBlocks_ParseAndRender());

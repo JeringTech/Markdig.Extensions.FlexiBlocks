@@ -55,7 +55,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         }
 
         [Fact]
-        public void CreateOptions_FromOptionsBlock_CreatesOptions()
+        public void CreateOptions_FromFlexiOptionsBlock_CreatesOptions()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();

@@ -1,17 +1,17 @@
 ﻿using Markdig.Parsers;
 using System;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks
 {
     /// <summary>
-    /// The implementation of <see cref="IJsonBlockFactory{TMain, TProxy}"/> for creating <see cref="OptionsBlock"/>s.
+    /// The implementation of <see cref="IJsonBlockFactory{TMain, TProxy}"/> for creating <see cref="FlexiOptionsBlock"/>s.
     /// </summary>
-    public class OptionsBlockFactory : IJsonBlockFactory<OptionsBlock, ProxyJsonBlock>
+    public class FlexiOptionsBlockFactory : IJsonBlockFactory<FlexiOptionsBlock, ProxyJsonBlock>
     {
         /// <summary>
-        /// The key for storing the most recently created <see cref="OptionsBlock"/>.
+        /// The key for storing the most recently created <see cref="FlexiOptionsBlock"/>.
         /// </summary>
-        public const string PENDING_OPTIONS_BLOCK = "lastOptionsBlock";
+        public const string PENDING_FLEXI_OPTIONS_BLOCK = "pendingFlexiOptionsBlock";
 
         /// <summary>
         /// Creates a <see cref="ProxyJsonBlock"/>.
@@ -26,7 +26,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks
                 throw new ArgumentNullException(nameof(blockProcessor));
             }
 
-            return new ProxyJsonBlock(nameof(OptionsBlock), blockParser)
+            return new ProxyJsonBlock(nameof(FlexiOptionsBlock), blockParser)
             {
                 Column = blockProcessor.Column,
                 Span = { Start = blockProcessor.Start } // JsonBlockParser.ParseLine will update the span's end
@@ -35,14 +35,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks
         }
 
         /// <summary>
-        /// Creates an <see cref="OptionsBlock"/>.
+        /// Creates a <see cref="FlexiOptionsBlock"/>.
         /// </summary>
-        /// <param name="proxyJsonBlock">The <see cref="ProxyJsonBlock"/> containing data for the <see cref="OptionsBlock"/>.</param>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <see cref="OptionsBlock"/>.</param>
-        /// <exception cref="BlockException">Thrown if there is an unconsumed <see cref="OptionsBlock"/>.</exception>
+        /// <param name="proxyJsonBlock">The <see cref="ProxyJsonBlock"/> containing data for the <see cref="FlexiOptionsBlock"/>.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <see cref="FlexiOptionsBlock"/>.</param>
+        /// <exception cref="BlockException">Thrown if there is an unconsumed <see cref="FlexiOptionsBlock"/>.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="proxyJsonBlock"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="blockProcessor"/> is <c>null</c>.</exception>
-        public OptionsBlock Create(ProxyJsonBlock proxyJsonBlock, BlockProcessor blockProcessor)
+        public FlexiOptionsBlock Create(ProxyJsonBlock proxyJsonBlock, BlockProcessor blockProcessor)
         {
             if (proxyJsonBlock == null)
             {
@@ -54,13 +54,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks
                 throw new ArgumentNullException(nameof(blockProcessor));
             }
 
-            if (blockProcessor.Document.GetData(PENDING_OPTIONS_BLOCK) is OptionsBlock pendingOptionsBlock)
+            if (blockProcessor.Document.GetData(PENDING_FLEXI_OPTIONS_BLOCK) is FlexiOptionsBlock pendingFlexiOptionsBlock)
             {
-                // There is an unconsumed OptionsBlock
-                throw new BlockException(pendingOptionsBlock, Strings.BlockException_OptionsBlockParser_UnconsumedBlock);
+                // There is an unconsumed FlexiOptionsBlock
+                throw new BlockException(pendingFlexiOptionsBlock, Strings.BlockException_FlexiOptionsBlockParser_UnconsumedBlock);
             }
 
-            var optionsBlock = new OptionsBlock(proxyJsonBlock.Parser)
+            var flexiOptionsBlock = new FlexiOptionsBlock(proxyJsonBlock.Parser)
             {
                 Lines = proxyJsonBlock.Lines,
                 Line = proxyJsonBlock.Line,
@@ -73,7 +73,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks
             // when extensions like FlexiSections are used. If a container block only ends when a new container block
             // is encountered, an options block can end up being a child of the container block that precedes the container block the options apply to.
             // Searching through the tree of blocks is a brittle approach. This simple approach is relatively robust.
-            blockProcessor.Document.SetData(PENDING_OPTIONS_BLOCK, optionsBlock);
+            blockProcessor.Document.SetData(PENDING_FLEXI_OPTIONS_BLOCK, flexiOptionsBlock);
 
             return null; // Block is already in Document, it does not need to be added to tree
         }

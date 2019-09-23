@@ -1,5 +1,5 @@
-﻿# OptionsBlocks
-An OptionsBlock contains options for another block.  
+﻿# FlexiOptionsBlocks
+A FlexiOptionsBlock contains options for another block.  
 
 We often require per-block options when working with markdown. For example, we might want line numbers for one code block but not another.
 Attempts have been made to facilitate this, such as using [query string](https://github.com/middleman/middleman-syntax#markdown) like syntax:
@@ -19,22 +19,22 @@ or [custom syntaxes](https://michelf.ca/projects/php-markdown/extra/#spe-attr):
 
 These existing solutions work, but they require custom parsing logic and are typically specific to one kind of block.  
 
-You can use OptionsBlocks to specify per-block options for all kinds of blocks. We designed OptionsBlocks with the following goals:
+You can use FlexiOptionsBlocks to specify per-block options for all kinds of blocks. We designed FlexiOptionsBlocks with the following goals:
 
-- Easy to learn and remember: An OptionsBlock is just JSON prepended with `@`.
+- Easy to learn and remember: A FlexiOptionsBlock is just JSON prepended with `o`.
 - Easy to add to existing blocks: Enabling OptionBlocks for a block requires little more than defining a simple options type to deserialize the JSON to.
 
 ## Basics
-In markdown, an OptionsBlock is JSON prepended with `@`. An OptionsBlock must immediately precede the block it applies to. Its first line must begin with `@{`, whitespace is not 
-allowed between the opening `@` and `{`.
+In markdown, a FlexiOptionsBlock is JSON prepended with `o`. A FlexiOptionsBlock must immediately precede the block it applies to. Its first line must begin with `o{`, whitespace is not 
+allowed between the opening `o` and `{`.
 
-The following is an example OptionsBlock. Here, we use it to specify a title for a 
+The following is an example FlexiOptionsBlock. Here, we use it to specify a title for a 
 [FlexiCodeBlock](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiCodeBlocksSpecs.md):
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiCodeBlocks
 --------------- Markdown ---------------
-@{ "title": "ExampleDocument.cs" }
+o{ "title": "ExampleDocument.cs" }
 ```
 public string ExampleFunction(string arg)
 {
@@ -43,7 +43,7 @@ public string ExampleFunction(string arg)
 }
 ```
 --------------- Expected Markup ---------------
-<div class="flexi-code flexi-code_has_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+<div class="flexi-code flexi-code_has-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
 <span class="flexi-code__title">ExampleDocument.cs</span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
@@ -59,18 +59,18 @@ public string ExampleFunction(string arg)
 </div>
 ````````````````````````````````
 
-The JSON can span any number of lines, as long as it is valid. The following is an OptionsBlock for a
+The JSON can span any number of lines, as long as it is valid. The following is a FlexiOptionsBlock for a
 [FlexiAlertBlock](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiAlertBlocksSpecs.md): 
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiAlertBlocks
 --------------- Markdown ---------------
-@{
+o{
     "type": "warning"
 }
 ! This is a FlexiAlertBlock.
 --------------- Expected Markup ---------------
-<div class="flexi-alert flexi-alert_type_warning flexi-alert_has_icon">
+<div class="flexi-alert flexi-alert_type_warning flexi-alert_has-icon">
 <svg class="flexi-alert__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
 <div class="flexi-alert__content">
 <p>This is a FlexiAlertBlock.</p>
@@ -79,13 +79,13 @@ FlexiAlertBlocks
 ````````````````````````````````
 
 Options types for FlexiBlocks have an `Attributes` property of type `IDictionary<string, string>`. Key-value
-pairs in this dictionary are assigned to outermost elements as attributes. The following is an OptionsBlock for a
+pairs in this dictionary are assigned to outermost elements as attributes. The following is a FlexiOptionsBlock for a
 [FlexiTableBlock](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiTableBlocksSpecs.md): 
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiTableBlocks
 --------------- Markdown ---------------
-@{
+o{
     "attributes": {
         "id" : "table-1"
     }
@@ -161,7 +161,7 @@ MyMarkdownPipelineBuilder.UseFlexiSectionBlocks(myFlexiSectionBlocksExtensionOpt
 ```
 
 The extension options instance contains a default [FlexiSectionBlockOptions](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiSectionBlocksSpecs.md#flexisectionblockoptions) instance.
-The following is an OptionsBlock for a [FlexiSectionBlock](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiSectionBlocksSpecs.md): 
+The following is a FlexiOptionsBlock for a [FlexiSectionBlock](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiSectionBlocksSpecs.md): 
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
 FlexiSectionBlocks
@@ -176,12 +176,12 @@ FlexiSectionBlocks
 --------------- Markdown ---------------
 # foo
 
-@{
+o{
     "element": "article"
 }
 # foo
 --------------- Expected Markup ---------------
-<nav class="flexi-section flexi-section_level_1 flexi-section_has_link-icon" id="foo">
+<nav class="flexi-section flexi-section_level_1 flexi-section_has-link-icon" id="foo">
 <header class="flexi-section__header">
 <h1 class="flexi-section__heading">foo</h1>
 <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
@@ -189,7 +189,7 @@ FlexiSectionBlocks
 </button>
 </header>
 </nav>
-<article class="flexi-section flexi-section_level_1 flexi-section_has_link-icon" id="foo-1">
+<article class="flexi-section flexi-section_level_1 flexi-section_has-link-icon" id="foo-1">
 <header class="flexi-section__header">
 <h1 class="flexi-section__heading">foo</h1>
 <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">

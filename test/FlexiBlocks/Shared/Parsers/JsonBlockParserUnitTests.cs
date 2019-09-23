@@ -72,7 +72,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         {
             // Arrange
             const BlockState expectedResult = BlockState.Continue;
-            var dummyLine = new StringSlice("@{dummy");
+            var dummyLine = new StringSlice("o{dummy");
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = dummyLine;
             var dummyProxyJsonBlock = new ProxyJsonBlock(null, null);
@@ -98,7 +98,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         {
             // Arrange
             const BlockState expectedResult = BlockState.Continue;
-            var dummyLine = new StringSlice("@{dummy");
+            var dummyLine = new StringSlice("o{dummy");
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             dummyBlockProcessor.Line = dummyLine;
             var dummyProxyJsonBlock = new ProxyJsonBlock(null, null);

@@ -1,7 +1,7 @@
 ﻿using Jering.IocServices.Newtonsoft.Json;
 using Jering.Markdig.Extensions.FlexiBlocks.ContextObjects;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
-using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks;
@@ -35,7 +35,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             return services.
                 AddContextObjects().
                 AddFlexiIncludeBlocks().
-                AddOptionsBlocks().
+                AddFlexiOptionsBlocks().
                 AddFlexiAlertBlocks().
                 AddFlexiBannerBlocks().
                 AddFlexiCardsBlocks().
@@ -80,13 +80,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
-        /// Adds services for the <see cref="OptionsBlocksExtension"/>.
+        /// Adds services for the <see cref="FlexiOptionsBlocksExtension"/>.
         /// </summary>
-        public static IServiceCollection AddOptionsBlocks(this IServiceCollection services)
+        public static IServiceCollection AddFlexiOptionsBlocks(this IServiceCollection services)
         {
-            services.TryAddSingleton<IBlockExtension<OptionsBlock>, OptionsBlocksExtension>();
-            services.TryAddSingleton<ProxyBlockParser<OptionsBlock, ProxyJsonBlock>, OptionsBlockParser>();
-            services.TryAddSingleton<IJsonBlockFactory<OptionsBlock, ProxyJsonBlock>, OptionsBlockFactory>();
+            services.TryAddSingleton<IBlockExtension<FlexiOptionsBlock>, FlexiOptionsBlocksExtension>();
+            services.TryAddSingleton<ProxyBlockParser<FlexiOptionsBlock, ProxyJsonBlock>, FlexiOptionsBlockParser>();
+            services.TryAddSingleton<IJsonBlockFactory<FlexiOptionsBlock, ProxyJsonBlock>, FlexiOptionsBlockFactory>();
 
             return services;
         }
