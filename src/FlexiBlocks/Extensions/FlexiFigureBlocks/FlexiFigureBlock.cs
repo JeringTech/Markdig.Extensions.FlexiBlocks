@@ -51,6 +51,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks
         public virtual bool RenderName { get; }
 
         /// <summary>
+        /// Gets the HTML attributes for the <see cref="FlexiFigureBlock"/>'s root element.
+        /// </summary>
+        public virtual ReadOnlyDictionary<string, string> Attributes { get; }
+
+        /// <summary>
         /// Gets the content of the link label for linking to the <see cref="FlexiFigureBlock"/>.
         /// </summary>
         public virtual string LinkLabelContent { get; }
@@ -59,10 +64,5 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks
         /// Gets the <see cref="FlexiFigureBlock"/>'s ID.
         /// </summary>
         public virtual string ID { get; }
-
-        /// <summary>
-        /// Gets the HTML attributes for the <see cref="FlexiFigureBlock"/>'s root element.
-        /// </summary>
-        public virtual ReadOnlyDictionary<string, string> Attributes { get; }
     }
 }
