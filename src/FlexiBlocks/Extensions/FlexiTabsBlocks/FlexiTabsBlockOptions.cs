@@ -1,4 +1,4 @@
-using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -7,7 +7,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks
     /// <summary>
     /// <para>The default implementation of <see cref="IFlexiTabsBlockOptions"/>.</para>
     /// 
-    /// <para>Initialization-wise, this class is primarily populated from JSON in <see cref="OptionsBlock"/>s. Hence the Newtonsoft.JSON attributes. 
+    /// <para>Initialization-wise, this class is primarily populated from JSON in <see cref="FlexiOptionsBlock"/>s. Hence the Newtonsoft.JSON attributes. 
     /// Developers can also manually instantiate this class, typically for use as extension-wide default options.</para>
     /// 
     /// <para>This class is immutable.</para>

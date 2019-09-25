@@ -102,7 +102,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks
             htmlRenderer.
                 Write("<div class=\"").
                 WriteElementClass(blockName, "tab-panel").
-                WriteElementModifierClass(index > 0, blockName, "tab-panel", "hidden").
+                WriteElementBooleanModifierClass(index > 0, blockName, "tab-panel", "hidden").
                 WriteAttributeValue(attributes, "class").
                 Write('"').
                 WriteAttributesExcept(attributes, "class").
