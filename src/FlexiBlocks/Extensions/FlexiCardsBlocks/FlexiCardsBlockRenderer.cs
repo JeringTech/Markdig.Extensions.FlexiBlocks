@@ -62,10 +62,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks
         {
             ReadOnlyDictionary<string, string> attributes = cardBlock.Attributes;
             string url = cardBlock.Url;
-            bool isAnchor = !string.IsNullOrWhiteSpace(url);
-            string cardTagName = isAnchor ? "a" : "div";
             string backgroundIcon = cardBlock.BackgroundIcon;
-            bool renderBackgroundIcon = !string.IsNullOrWhiteSpace(backgroundIcon);
+            bool isLink = !string.IsNullOrWhiteSpace(url),
+                 hasBackgroundIcon = !string.IsNullOrWhiteSpace(backgroundIcon);
+            string cardTagName = isLink ? "a" : "div";
 
             // Root element
             htmlRenderer.
@@ -73,18 +73,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks
                 Write(cardTagName).
                 Write(" class=\"").
                 WriteElementClass(blockName, "card").
-                WriteIsTypeClass(isAnchor, blockName, "card", "link").
-                WriteHasFeatureClass(renderBackgroundIcon, blockName, "card", "background-icon").
+                WriteIsTypeClass(isLink, blockName, "card", "link").
+                WriteHasFeatureClass(hasBackgroundIcon, blockName, "card", "background-icon").
                 WriteAttributeValue(attributes, "class").
                 Write('"').
-                WriteAttribute(isAnchor, "href", url).
+                WriteEscapedUrlAttribute(isLink, "href", url).
                 WriteAttributesExcept(attributes, "class", "href").
                 WriteLine(">");
 
             // Background
             htmlRenderer.
-                WriteHtmlFragment(renderBackgroundIcon, backgroundIcon, blockName, "card-background-icon").
-                EnsureLine();
+                WriteHtmlFragmentLine(hasBackgroundIcon, backgroundIcon, blockName, "card-background-icon");
 
             // Title
             htmlRenderer.
