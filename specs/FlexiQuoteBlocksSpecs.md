@@ -24,13 +24,13 @@ This is a quote!
 Author, in ""[Work](work-url.com)""
 +++";
 string html = Markdown.ToHtml(markdown, markdownPipeline);
-string expectedHtml = @"<div class=\"flexi-quote flexi-quote_has_icon\">
-<svg class=\"flexi-quote__icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 14 10\"><path d=\"M13,0h-3L8,4v6h6V4h-3L13,0z M5,0H2L0,4v6h6V4H3L5,0z\"/></svg>
-<div class=\"flexi-quote__content\">
-<blockquote class=\"flexi-quote__blockquote\" cite=\"work-url.com\">
+string expectedHtml = @"<div class=""flexi-quote flexi-quote_has-icon"">
+<svg class=""flexi-quote__icon"" xmlns=""http://www.w3.org/2000/svg"" viewBox=""0 0 14 10""><path d=""M13,0h-3L8,4v6h6V4h-3L13,0z M5,0H2L0,4v6h6V4H3L5,0z""/></svg>
+<div class=""flexi-quote__content"">
+<blockquote class=""flexi-quote__blockquote"" cite=""work-url.com"">
 <p>This is a quote!</p>
 </blockquote>
-<p class=\"flexi-quote__citation\">— Author, in <cite><a href=\"work-url.com\">Work</a></cite></p>
+<p class=""flexi-quote__citation"">— Author, in <cite><a href=""work-url.com"">Work</a></cite></p>
 </div>
 </div>";
 
@@ -48,7 +48,7 @@ This is a quote!
 Author, in Work
 +++
 --------------- Expected Markup ---------------
-<div class="flexi-quote flexi-quote_has_icon">
+<div class="flexi-quote flexi-quote_has-icon">
 <svg class="flexi-quote__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10"><path d="M13,0h-3L8,4v6h6V4h-3L13,0z M5,0H2L0,4v6h6V4H3L5,0z"/></svg>
 <div class="flexi-quote__content">
 <blockquote class="flexi-quote__blockquote">
@@ -76,13 +76,12 @@ Code you'd like to quote
 *Author*, in **Work**
 +++
 --------------- Expected Markup ---------------
-<div class="flexi-quote flexi-quote_has_icon">
+<div class="flexi-quote flexi-quote_has-icon">
 <svg class="flexi-quote__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10"><path d="M13,0h-3L8,4v6h6V4h-3L13,0z M5,0H2L0,4v6h6V4H3L5,0z"/></svg>
 <div class="flexi-quote__content">
 <blockquote class="flexi-quote__blockquote">
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -108,7 +107,7 @@ This is a quote!
 Author, in ""Work""
 +++
 --------------- Expected Markup ---------------
-<div class="flexi-quote flexi-quote_has_icon">
+<div class="flexi-quote flexi-quote_has-icon">
 <svg class="flexi-quote__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10"><path d="M13,0h-3L8,4v6h6V4h-3L13,0z M5,0H2L0,4v6h6V4H3L5,0z"/></svg>
 <div class="flexi-quote__content">
 <blockquote class="flexi-quote__blockquote">
@@ -128,7 +127,7 @@ This is a quote!
 [Author](author-url.com), in ""[Work](work-url.com)""
 +++
 --------------- Expected Markup ---------------
-<div class="flexi-quote flexi-quote_has_icon">
+<div class="flexi-quote flexi-quote_has-icon">
 <svg class="flexi-quote__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10"><path d="M13,0h-3L8,4v6h6V4h-3L13,0z M5,0H2L0,4v6h6V4H3L5,0z"/></svg>
 <div class="flexi-quote__content">
 <blockquote class="flexi-quote__blockquote" cite="work-url.com">
@@ -143,7 +142,7 @@ This is a quote!
 
 ## Options
 ### `FlexiQuoteBlockOptions`
-Options for a FlexiQuoteBlock. To specify `FlexiQuoteBlockOptions` for a FlexiQuoteBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/OptionsBlocksSpecs.md#options) extension must be enabled.
+Options for a FlexiQuoteBlock. To specify `FlexiQuoteBlockOptions` for a FlexiQuoteBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#options) extension must be enabled.
 
 #### Properties
 
@@ -157,16 +156,16 @@ Options for a FlexiQuoteBlock. To specify `FlexiQuoteBlockOptions` for a FlexiQu
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "blockName": "quote" }
+  o{ "blockName": "quote" }
   +++ quote
   This is a quote!
   +++
   Author, in Work
   +++
   --------------- Expected Markup ---------------
-  <div class="quote quote_has_icon">
+  <div class="quote quote_has-icon">
   <svg class="quote__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10"><path d="M13,0h-3L8,4v6h6V4h-3L13,0z M5,0H2L0,4v6h6V4H3L5,0z"/></svg>
   <div class="quote__content">
   <blockquote class="quote__blockquote">
@@ -186,16 +185,16 @@ Options for a FlexiQuoteBlock. To specify `FlexiQuoteBlockOptions` for a FlexiQu
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "icon": "<svg><use xlink:href=\"#alert-icon\"/></svg>" }
+  o{ "icon": "<svg><use xlink:href=\"#alert-icon\"/></svg>" }
   +++ quote
   This is a quote!
   +++
   Author, in Work
   +++
   --------------- Expected Markup ---------------
-  <div class="flexi-quote flexi-quote_has_icon">
+  <div class="flexi-quote flexi-quote_has-icon">
   <svg class="flexi-quote__icon"><use xlink:href="#alert-icon"/></svg>
   <div class="flexi-quote__content">
   <blockquote class="flexi-quote__blockquote">
@@ -208,16 +207,16 @@ Options for a FlexiQuoteBlock. To specify `FlexiQuoteBlockOptions` for a FlexiQu
   No icon is rendered if this value is `null`, whitespace or an empty string:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "icon": null }
+  o{ "icon": null }
   +++ quote
   This is a quote!
   +++
   Author, in Work
   +++
   --------------- Expected Markup ---------------
-  <div class="flexi-quote flexi-quote_no_icon">
+  <div class="flexi-quote flexi-quote_no-icon">
   <div class="flexi-quote__content">
   <blockquote class="flexi-quote__blockquote">
   <p>This is a quote!</p>
@@ -238,23 +237,23 @@ Options for a FlexiQuoteBlock. To specify `FlexiQuoteBlockOptions` for a FlexiQu
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{"citeLink": 1}
+  o{"citeLink": 1}
   +++ quote
   This is a quote!
   +++
   [Author](author-url.com), in ""[Work](work-url.com)"" from ""[Guide](guide-url.com)""
   +++
 
-  @{"citeLink": -2}
+  o{"citeLink": -2}
   +++ quote
   This is a quote!
   +++
   [Author](author-url.com), in ""[Work](work-url.com)"" from ""[Guide](guide-url.com)""
   +++
   --------------- Expected Markup ---------------
-  <div class="flexi-quote flexi-quote_has_icon">
+  <div class="flexi-quote flexi-quote_has-icon">
   <svg class="flexi-quote__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10"><path d="M13,0h-3L8,4v6h6V4h-3L13,0z M5,0H2L0,4v6h6V4H3L5,0z"/></svg>
   <div class="flexi-quote__content">
   <blockquote class="flexi-quote__blockquote" cite="work-url.com">
@@ -263,7 +262,7 @@ Options for a FlexiQuoteBlock. To specify `FlexiQuoteBlockOptions` for a FlexiQu
   <p class="flexi-quote__citation">— <a href="author-url.com">Author</a>, in <cite><a href="work-url.com">Work</a></cite> from <cite><a href="guide-url.com">Guide</a></cite></p>
   </div>
   </div>
-  <div class="flexi-quote flexi-quote_has_icon">
+  <div class="flexi-quote flexi-quote_has-icon">
   <svg class="flexi-quote__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10"><path d="M13,0h-3L8,4v6h6V4h-3L13,0z M5,0H2L0,4v6h6V4H3L5,0z"/></svg>
   <div class="flexi-quote__content">
   <blockquote class="flexi-quote__blockquote" cite="work-url.com">
@@ -284,9 +283,9 @@ Options for a FlexiQuoteBlock. To specify `FlexiQuoteBlockOptions` for a FlexiQu
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{
+  o{
       "attributes": {
           "id" : "my-custom-id",
           "class" : "my-custom-class"
@@ -298,7 +297,7 @@ Options for a FlexiQuoteBlock. To specify `FlexiQuoteBlockOptions` for a FlexiQu
   Author, in Work
   +++
   --------------- Expected Markup ---------------
-  <div class="flexi-quote flexi-quote_has_icon my-custom-class" id="my-custom-id">
+  <div class="flexi-quote flexi-quote_has-icon my-custom-class" id="my-custom-id">
   <svg class="flexi-quote__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10"><path d="M13,0h-3L8,4v6h6V4h-3L13,0z M5,0H2L0,4v6h6V4H3L5,0z"/></svg>
   <div class="flexi-quote__content">
   <blockquote class="flexi-quote__blockquote">
@@ -344,7 +343,7 @@ Options for the FlexiQuoteBlocks extension. There are two ways to specify these 
   ""[Work](work-url.com)"" by [Author](author-url.com)
   +++
   --------------- Expected Markup ---------------
-  <div class="flexi-quote flexi-quote_has_icon block">
+  <div class="flexi-quote flexi-quote_has-icon block">
   <svg class="flexi-quote__icon"><use xlink:href="#quote-icon"/></svg>
   <div class="flexi-quote__content">
   <blockquote class="flexi-quote__blockquote" cite="work-url.com">
@@ -357,7 +356,7 @@ Options for the FlexiQuoteBlocks extension. There are two ways to specify these 
   `defaultBlockOptions` has lower precedence than block specific options:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Extension Options ---------------
   {
       "flexiQuoteBlocks": {
@@ -373,14 +372,14 @@ Options for the FlexiQuoteBlocks extension. There are two ways to specify these 
   Author, in Work
   +++
 
-  @{ "blockName": "special-quote" }
+  o{ "blockName": "special-quote" }
   +++ quote
   This is a quote!
   +++
   Author, in Work
   +++
   --------------- Expected Markup ---------------
-  <div class="quote quote_has_icon">
+  <div class="quote quote_has-icon">
   <svg class="quote__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10"><path d="M13,0h-3L8,4v6h6V4h-3L13,0z M5,0H2L0,4v6h6V4H3L5,0z"/></svg>
   <div class="quote__content">
   <blockquote class="quote__blockquote">
@@ -389,7 +388,7 @@ Options for the FlexiQuoteBlocks extension. There are two ways to specify these 
   <p class="quote__citation">— Author, in Work</p>
   </div>
   </div>
-  <div class="special-quote special-quote_has_icon">
+  <div class="special-quote special-quote_has-icon">
   <svg class="special-quote__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10"><path d="M13,0h-3L8,4v6h6V4h-3L13,0z M5,0H2L0,4v6h6V4H3L5,0z"/></svg>
   <div class="special-quote__content">
   <blockquote class="special-quote__blockquote">
@@ -400,3 +399,7 @@ Options for the FlexiQuoteBlocks extension. There are two ways to specify these 
   </div>
   ````````````````````````````````
 
+## Incomplete Features
+
+### EM Dash Should Hang
+Styling issue, we need to change generated markup to make it happen though. Hanging punctuation: https://justcreative.com/2010/02/17/illustrator-type-tips/.

@@ -40,11 +40,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks
         public virtual string Icon { get; }
 
         /// <summary>
-        /// Gets the index of the link in the <see cref="FlexiQuoteBlock"/>'s citation that points to the work where its quote comes from.
-        /// </summary>
-        public virtual int CiteLink { get; }
-
-        /// <summary>
         /// Gets or sets the URL of the work where the <see cref="FlexiQuoteBlock"/>'s quote comes from.
         /// </summary>
         public virtual string CiteUrl { get; set; }
@@ -53,5 +48,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks
         /// Gets the HTML attributes for the <see cref="FlexiQuoteBlock"/>'s root element.
         /// </summary>
         public virtual ReadOnlyDictionary<string, string> Attributes { get; }
+
+        /// <summary>
+        /// Gets the index of the link in the <see cref="FlexiQuoteBlock"/>'s citation that points to the work where its quote comes from.
+        /// </summary>
+        public virtual int CiteLink { get; }
     }
 }
