@@ -51,5 +51,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// Gets the <see cref="FlexiCodeBlock"/>'s rendering mode.
         /// </summary>
         FlexiCodeBlockRenderingMode RenderingMode { get; }
+
+        /// <summary>
+        /// Gets the value specifying whether to render the <see cref="FlexiCodeBlock"/>'s header.
+        /// </summary>
+        bool RenderHeader { get; }
     }
 }

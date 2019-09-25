@@ -156,6 +156,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             const string dummyBlockName = "dummyBlockName";
             const string dummyTitle = "dummyTitle";
             const string dummyCopyIcon = "dummyCopyIcon";
+            const bool dummyRenderHeader = false;
             const string dummyLanguage = "dummyLanguage";
             var dummyLines = new StringLineGroup(2);
             dummyLines.Add(new StringSlice("dummy"));
@@ -181,6 +182,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             mockFlexiCodeBlockOptions.Setup(f => f.BlockName).Returns(dummyBlockName);
             mockFlexiCodeBlockOptions.Setup(f => f.Title).Returns(dummyTitle);
             mockFlexiCodeBlockOptions.Setup(f => f.CopyIcon).Returns(dummyCopyIcon);
+            mockFlexiCodeBlockOptions.Setup(f => f.RenderHeader).Returns(dummyRenderHeader);
             mockFlexiCodeBlockOptions.Setup(f => f.Language).Returns(dummyLanguage);
             mockFlexiCodeBlockOptions.Setup(f => f.SyntaxHighlighter).Returns(dummySyntaxHighlighter);
             mockFlexiCodeBlockOptions.Setup(f => f.LineNumbers).Returns(dummyLineNumbers);
@@ -213,6 +215,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             Assert.Equal(dummyBlockName, result.BlockName);
             Assert.Equal(dummyTitle, result.Title);
             Assert.Equal(dummyCopyIcon, result.CopyIcon);
+            Assert.Equal(dummyRenderHeader, result.RenderHeader);
             Assert.Equal(dummyLanguage, result.Language);
             Assert.Equal(dummyLines.ToString(), result.Code);
             Assert.Equal(dummyLines.Count, result.CodeNumLines);
@@ -489,6 +492,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
         private FlexiCodeBlock CreateFlexiCodeBlock(string blockName = default,
             string title = default,
             string copyIcon = default,
+            bool renderHeader = true,
             string language = default,
             string code = default,
             int codeNumLines = default,
@@ -501,8 +505,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             ReadOnlyDictionary<string, string> attributes = default,
             BlockParser blockParser = default)
         {
-            return new FlexiCodeBlock(blockName, title, copyIcon, language, code, codeNumLines, syntaxHighlighter, lineNumbers, omittedLinesIcon,
-                highlightedLines, highlightedPhrases, renderingMode, attributes, blockParser);
+            return new FlexiCodeBlock(blockName, title, copyIcon, renderHeader, language, code, codeNumLines, syntaxHighlighter, lineNumbers,
+                omittedLinesIcon, highlightedLines, highlightedPhrases, renderingMode, attributes, blockParser);
         }
     }
 }

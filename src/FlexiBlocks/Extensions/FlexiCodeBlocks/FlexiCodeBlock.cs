@@ -12,9 +12,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <summary>
         /// Creates a <see cref="FlexiCodeBlock"/>.
         /// </summary>
-        /// <param name="blockName">T</param>
+        /// <param name="blockName">The <see cref="FlexiCodeBlock"/>'s BEM block name.</param>
         /// <param name="title">The <see cref="FlexiCodeBlock"/>'s title.</param>
         /// <param name="copyIcon">The <see cref="FlexiCodeBlock"/>'s copy icon as an HTML fragment.</param>
+        /// <param name="renderHeader">The value specifying whether to render the <see cref="FlexiCodeBlock"/>'s header.</param>
         /// <param name="language">The programming langauge of the <see cref="FlexiCodeBlock"/>'s code.</param>
         /// <param name="code">The <see cref="FlexiCodeBlock"/>'s code.</param>
         /// <param name="codeNumLines">The number of lines the <see cref="FlexiCodeBlock"/>'s code spans.</param>
@@ -30,6 +31,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             string blockName,
             string title,
             string copyIcon,
+            bool renderHeader,
             string language,
             string code,
             int codeNumLines,
@@ -45,6 +47,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             BlockName = blockName;
             Title = title;
             CopyIcon = copyIcon;
+            RenderHeader = renderHeader;
             Language = language;
             Code = code;
             CodeNumLines = codeNumLines;
@@ -73,19 +76,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         public string CopyIcon { get; }
 
         /// <summary>
+        /// Gets the value specifying whether to render the <see cref="FlexiCodeBlock"/>'s header.
+        /// </summary>
+        public bool RenderHeader { get; }
+
+        /// <summary>
         /// Gets the programming langauge of the <see cref="FlexiCodeBlock"/>'s code.
         /// </summary>
         public string Language { get; }
-
-        /// <summary>
-        /// Gets the <see cref="FlexiCodeBlock"/>'s code.
-        /// </summary>
-        public string Code { get; }
-
-        /// <summary>
-        /// Gets the number of lines the <see cref="FlexiCodeBlock"/>'s code spans.
-        /// </summary>
-        public int CodeNumLines { get; }
 
         /// <summary>
         /// Gets the syntax highlighter to highlight the <see cref="FlexiCodeBlock"/>'s code with.
@@ -113,13 +111,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         public ReadOnlyCollection<Phrase> HighlightedPhrases { get; }
 
         /// <summary>
+        /// Gets the HTML attributes for the <see cref="FlexiCodeBlock"/>'s root element.
+        /// </summary>
+        public ReadOnlyDictionary<string, string> Attributes { get; }
+
+        /// <summary>
         /// Gets the <see cref="FlexiCodeBlock"/>'s rendering mode.
         /// </summary>
         public FlexiCodeBlockRenderingMode RenderingMode { get; }
 
         /// <summary>
-        /// Gets the HTML attributes for the <see cref="FlexiCodeBlock"/>'s root element.
+        /// Gets the <see cref="FlexiCodeBlock"/>'s code.
         /// </summary>
-        public ReadOnlyDictionary<string, string> Attributes { get; }
+        public string Code { get; }
+
+        /// <summary>
+        /// Gets the number of lines the <see cref="FlexiCodeBlock"/>'s code spans.
+        /// </summary>
+        public int CodeNumLines { get; }
     }
 }

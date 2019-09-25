@@ -86,25 +86,27 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 omittedLinesIcon = flexiCodeBlock.OmittedLinesIcon,
                 code = flexiCodeBlock.Code;
             SyntaxHighlighter syntaxHighlighter = flexiCodeBlock.SyntaxHighlighter;
-            bool renderTitle = !string.IsNullOrWhiteSpace(title),
-                renderCopyIcon = !string.IsNullOrWhiteSpace(copyIcon),
-                assignLanguageClass = !string.IsNullOrWhiteSpace(language),
-                highlightSyntax = syntaxHighlighter != SyntaxHighlighter.None && assignLanguageClass,
+            bool hasTitle = !string.IsNullOrWhiteSpace(title),
+                hasCopyIcon = !string.IsNullOrWhiteSpace(copyIcon),
+                hasLanguage = !string.IsNullOrWhiteSpace(language),
+                hasSyntaxHighlights = syntaxHighlighter != SyntaxHighlighter.None && hasLanguage,
                 hasLineNumbers = lineNumbers?.Count > 0,
-                renderOmittedLinesIcon = !string.IsNullOrWhiteSpace(omittedLinesIcon),
+                hasOmittedLinesIcon = !string.IsNullOrWhiteSpace(omittedLinesIcon),
                 hasHighlightedLines = highlightedLines?.Count > 0,
-                hasHighlightedPhrases = highlightedPhrases?.Count > 0;
+                hasHighlightedPhrases = highlightedPhrases?.Count > 0,
+                hasHeader = flexiCodeBlock.RenderHeader;
 
             // Root element
             htmlRenderer.
                 Write("<div class=\"").
                 Write(blockName).
-                WriteHasFeatureClass(renderTitle, blockName, "title").
-                WriteHasFeatureClass(renderCopyIcon, blockName, "copy-icon").
-                Write(assignLanguageClass, ' ', blockName, "_language-", language).
-                WriteHasFeatureClass(highlightSyntax, blockName, "syntax-highlights").
+                WriteHasFeatureClass(hasTitle, blockName, "title").
+                WriteHasFeatureClass(hasCopyIcon, blockName, "copy-icon").
+                WriteHasFeatureClass(hasHeader, blockName, "header").
+                WriteBlockKeyValueModifierClass(hasLanguage, blockName, "language", language).
+                WriteHasFeatureClass(hasSyntaxHighlights, blockName, "syntax-highlights").
                 WriteHasFeatureClass(hasLineNumbers, blockName, "line-numbers").
-                WriteHasFeatureClass(renderOmittedLinesIcon, blockName, "omitted-lines-icon").
+                WriteHasFeatureClass(hasOmittedLinesIcon, blockName, "omitted-lines-icon").
                 WriteHasFeatureClass(hasHighlightedLines, blockName, "highlighted-lines").
                 WriteHasFeatureClass(hasHighlightedPhrases, blockName, "highlighted-phrases").
                 WriteAttributeValue(attributes, "class").
@@ -113,16 +115,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 WriteLine(">");
 
             // Header
-            htmlRenderer.
-                WriteStartTagLine("header", blockName, "header").
-                WriteStartTag("span", blockName, "title").
-                Write(renderTitle, title).
-                WriteEndTagLine("span").
-                WriteStartTagLineWithAttributes("button", blockName, "copy-button", "title=\"Copy code\" aria-label=\"Copy code\"").
-                WriteHtmlFragment(renderCopyIcon, copyIcon, blockName, "copy-icon").
-                EnsureLine().
-                WriteEndTagLine("button").
-                WriteEndTagLine("header");
+            if (hasHeader)
+            {
+                htmlRenderer.
+                    WriteStartTagLine("header", blockName, "header").
+                    WriteElementLine(hasTitle, "span", blockName, "title", title).
+                    WriteStartTagLineWithAttributes("button", blockName, "copy-button", "title=\"Copy code\" aria-label=\"Copy code\"").
+                    WriteHtmlFragmentLine(hasCopyIcon, copyIcon, blockName, "copy-icon").
+                    WriteEndTagLine("button").
+                    WriteEndTagLine("header");
+            }
 
             // Code
             htmlRenderer.
@@ -130,7 +132,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 WriteStartTag("code", blockName, "code");
 
             // Code - Syntax Highlighting
-            if (highlightSyntax)
+            if (hasSyntaxHighlights)
             {
                 // All code up the stack from HighlightAsync calls ConfigureAwait(false), so there is no need to run these calls in the thread pool.
                 // Use GetAwaiter and GetResult to avoid an AggregateException - https://blog.stephencleary.com/2014/12/a-tour-of-task-part-6-results.html
@@ -142,7 +144,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             {
                 if (code?.Length > 0)
                 {
-                    if (highlightSyntax)
+                    if (hasSyntaxHighlights)
                     {
                         htmlRenderer.Write(code); // Already escaped
                     }
@@ -218,7 +220,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             {
                 currentChar = code[i];
 
-                if (highlightSyntax && currentChar == '<') // Syntax element tags
+                if (hasSyntaxHighlights && currentChar == '<') // Syntax element tags
                 {
                     HandleSyntaxElementTag();
                     continue;
@@ -230,7 +232,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 {
                     HandleEndOfLineChar();
                 }
-                else if (!highlightSyntax) // If code has not been syntax highlighted, it may have unescaped characters
+                else if (!hasSyntaxHighlights) // If code has not been syntax highlighted, it may have unescaped characters
                 {
                     WriteUnescaped();
                 }
@@ -320,7 +322,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                     {
                         inHighlightedPhrase = false;
 
-                        if (highlightSyntax)
+                        if (hasSyntaxHighlights)
                         {
                             // If syntax elements end at the same code index, close them first so that we don't end up with empty elements
                             int nextIndex = i + 1;
@@ -409,7 +411,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                     }
                     else
                     {
-                        htmlRenderer.WriteHtmlFragment(renderOmittedLinesIcon, omittedLinesIcon, blockName, "omitted-lines-icon");
+                        htmlRenderer.WriteHtmlFragment(hasOmittedLinesIcon, omittedLinesIcon, blockName, "omitted-lines-icon");
                     }
 
                     WriteEndTag();

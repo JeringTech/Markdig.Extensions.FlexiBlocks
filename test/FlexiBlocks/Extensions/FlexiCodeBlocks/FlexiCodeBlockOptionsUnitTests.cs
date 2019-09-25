@@ -23,6 +23,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             Assert.Equal(expectedResult.BlockName, result.BlockName);
             Assert.Equal(expectedResult.Title, result.Title);
             Assert.Equal(expectedResult.CopyIcon, result.CopyIcon);
+            Assert.Equal(expectedResult.RenderHeader, result.RenderHeader);
             Assert.Equal(expectedResult.Language, result.Language);
             Assert.Equal(expectedResult.SyntaxHighlighter, result.SyntaxHighlighter);
             Assert.Equal(expectedResult.LineNumbers, result.LineNumbers);
@@ -38,6 +39,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             const string dummyBlockName = "dummyBlockName";
             const string dummyTitle = "dummyTitle";
             const string dummyCopyIcon = "dummyCopyIcon";
+            const bool dummyRenderHeader = false;
             const string dummyLanguage = "dummyLanguage";
             const SyntaxHighlighter dummySyntaxHighlighter = SyntaxHighlighter.HighlightJS;
             var dummyNumberedLineRange1 = new NumberedLineRange(1, startNumber: 1);
@@ -71,6 +73,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                         dummyBlockName,
                         dummyTitle,
                         dummyCopyIcon,
+                        dummyRenderHeader,
                         dummyLanguage,
                         dummySyntaxHighlighter,
                         dummyLineNumbers1,
@@ -83,6 +86,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
     ""{nameof(FlexiCodeBlockOptions.BlockName)}"": ""{dummyBlockName}"",
     ""{nameof(FlexiCodeBlockOptions.Title)}"": ""{dummyTitle}"",
     ""{nameof(FlexiCodeBlockOptions.CopyIcon)}"": ""{dummyCopyIcon}"",
+    ""{nameof(FlexiCodeBlockOptions.RenderHeader)}"": ""{dummyRenderHeader}"",
     ""{nameof(FlexiCodeBlockOptions.Language)}"": ""{dummyLanguage}"",
     ""{nameof(FlexiCodeBlockOptions.SyntaxHighlighter)}"": ""{dummySyntaxHighlighter}"",
     ""{nameof(FlexiCodeBlockOptions.LineNumbers)}"": [
