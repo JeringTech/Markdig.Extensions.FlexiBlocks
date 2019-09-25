@@ -1,4 +1,4 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -7,7 +7,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
     /// <summary>
     /// <para>The default implementation of <see cref="IFlexiSectionBlockOptions"/>.</para>
     /// 
-    /// <para>Initialization-wise, this class is primarily populated from JSON in <see cref="OptionsBlock"/>s. Hence the Newtonsoft.JSON attributes. 
+    /// <para>Initialization-wise, this class is primarily populated from JSON in <see cref="FlexiOptionsBlock"/>s. Hence the Newtonsoft.JSON attributes. 
     /// Developers can also manually instantiate this class, typically for use as extension-wide default options.</para>
     /// 
     /// <para>This class is immutable.</para>
@@ -43,7 +43,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// <para>The <see cref="FlexiSectionBlock"/>'s link icon as an HTML fragment.</para>
         /// <para>A class attribute with value "&lt;<paramref name="blockName"/>&gt;__link-icon" is added to this fragment's first start tag.</para>
         /// <para>If this value is <c>null</c>, whitespace or an empty string, no link icon is rendered.</para>
-        /// <para>Defaults to the <a href="https://material.io/tools/icons/?icon=file_copy&amp;style=baseline">Material Design link icon</a>.</para>
+        /// <para>Defaults to the <a href="https://material.io/tools/icons/?icon=link&amp;style=baseline">Material Design link icon</a>.</para>
         /// </param>
         /// <param name="referenceLinkable">
         /// <para>The value specifying whether the <see cref="FlexiSectionBlock"/> is <a href="https://spec.commonmark.org/0.28/#reference-link">reference-linkable</a>.</para>

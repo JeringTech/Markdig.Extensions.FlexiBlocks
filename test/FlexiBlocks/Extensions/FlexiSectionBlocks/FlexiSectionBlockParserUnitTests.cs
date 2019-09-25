@@ -98,7 +98,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             mockFlexiSectionBlockFactory.Setup(f => f.Create(dummyLevel, dummyBlockProcessor, mockTestSubject.Object)).Throws(dummyOptionsException);
 
             // Act and assert
-            BlockException result = Assert.Throws<BlockException>(() =>  mockTestSubject.Object.ExposedTryOpenBlock(dummyBlockProcessor));
+            BlockException result = Assert.Throws<BlockException>(() => mockTestSubject.Object.ExposedTryOpenBlock(dummyBlockProcessor));
             _mockRepository.VerifyAll();
             Assert.Equal(string.Format(Strings.BlockException_BlockException_InvalidBlock,
                     nameof(FlexiSectionBlock),

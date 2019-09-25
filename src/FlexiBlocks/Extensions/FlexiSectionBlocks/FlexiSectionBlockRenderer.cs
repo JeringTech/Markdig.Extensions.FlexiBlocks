@@ -59,12 +59,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         internal virtual void WriteStandard(HtmlRenderer htmlRenderer, FlexiSectionBlock flexiSectionBlock)
         {
             var flexiSectionHeadingBlock = flexiSectionBlock[0] as FlexiSectionHeadingBlock;
-            string blockName = flexiSectionBlock.BlockName;
-            string linkIcon = flexiSectionBlock.LinkIcon;
-            bool renderLinkIcon = !string.IsNullOrWhiteSpace(linkIcon);
+            string blockName = flexiSectionBlock.BlockName,
+                   linkIcon = flexiSectionBlock.LinkIcon,
+                   generatedID = flexiSectionHeadingBlock.GeneratedID;
+            bool hasLinkIcon = !string.IsNullOrWhiteSpace(linkIcon),
+                 hasGeneratedID = !string.IsNullOrWhiteSpace(generatedID);
             ReadOnlyDictionary<string, string> attributes = flexiSectionBlock.Attributes;
-            string generatedID = flexiSectionHeadingBlock.GeneratedID;
-            bool renderGeneratedID = !string.IsNullOrWhiteSpace(generatedID);
 
             // Root element
             string elementName = _elementNames[flexiSectionBlock.Element];
@@ -75,11 +75,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
                 Write(" class=\"").
                 Write(blockName).
                 WriteBlockKeyValueModifierClass(blockName, "level", _levels[levelIndex]).
-                WriteHasFeatureClass(renderLinkIcon, blockName, "link-icon").
+                WriteHasFeatureClass(hasLinkIcon, blockName, "link-icon").
                 WriteAttributeValue(attributes, "class").
                 Write('"').
-                Write(renderGeneratedID, ' ', "id=\"", generatedID, "\"");
-            if (renderGeneratedID)
+                Write(hasGeneratedID, ' ', "id=\"", generatedID, "\"");
+            if (hasGeneratedID)
             {
                 htmlRenderer.WriteAttributesExcept(attributes, "class", "id"); // Generated ID takes precedence
             }
@@ -97,8 +97,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
                 WriteLeafInline(flexiSectionHeadingBlock).
                 WriteEndTagLine(headingTag).
                 WriteStartTagLineWithAttributes("button", blockName, "link-button", "title=\"Copy link\" aria-label=\"Copy link\"").
-                WriteHtmlFragment(renderLinkIcon, linkIcon, blockName, "link-icon").
-                EnsureLine().
+                WriteHtmlFragmentLine(hasLinkIcon, linkIcon, blockName, "link-icon").
                 WriteEndTagLine("button").
                 WriteEndTag("header");
 
