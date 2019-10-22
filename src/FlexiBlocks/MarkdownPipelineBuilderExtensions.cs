@@ -3,6 +3,7 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiPictureBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks;
@@ -91,6 +92,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             IFlexiCardsBlocksExtensionOptions flexiCardsBlocksExtensionOptions = null,
             IFlexiCodeBlocksExtensionOptions flexiCodeBlocksExtensionOptions = null,
             IFlexiFigureBlocksExtensionOptions flexiFigureBlocksExtensionOptions = null,
+            IFlexiPictureBlocksExtensionOptions flexiPictureBlocksExtensionOptions = null,
             IFlexiQuoteBlocksExtensionOptions flexiQuoteBlocksExtensionOptions = null,
             IFlexiSectionBlocksExtensionOptions flexiSectionBlocksExtensionOptions = null,
             IFlexiTableBlocksExtensionOptions flexiTableBlocksExtensionOptions = null,
@@ -105,6 +107,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 UseFlexiCardsBlocks(flexiCardsBlocksExtensionOptions).
                 UseFlexiCodeBlocks(flexiCodeBlocksExtensionOptions).
                 UseFlexiFigureBlocks(flexiFigureBlocksExtensionOptions).
+                UseFlexiPictureBlocks(flexiPictureBlocksExtensionOptions).
                 UseFlexiQuoteBlocks(flexiQuoteBlocksExtensionOptions).
                 UseFlexiSectionBlocks(flexiSectionBlocksExtensionOptions).
                 UseFlexiTableBlocks(flexiTableBlocksExtensionOptions).
@@ -249,6 +252,26 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             if (!pipelineBuilder.Extensions.Contains<IBlockExtension<FlexiFigureBlock>>())
             {
                 pipelineBuilder.Extensions.Add(GetOrCreateServiceProvider().GetRequiredService<IBlockExtension<FlexiFigureBlock>>());
+            }
+
+            if (options != null)
+            {
+                AddContextObjectWithTypeAsKey(pipelineBuilder, options);
+            }
+
+            return pipelineBuilder;
+        }
+
+        /// <summary>
+        /// Adds the <see cref="FlexiPictureBlocksExtension"/> to the pipeline.
+        /// </summary>
+        /// <param name="pipelineBuilder">The pipeline builder for the pipeline.</param>
+        /// <param name="options">Options for the <see cref="FlexiPictureBlocksExtension"/>.</param>
+        public static MarkdownPipelineBuilder UseFlexiPictureBlocks(this MarkdownPipelineBuilder pipelineBuilder, IFlexiPictureBlocksExtensionOptions options = null)
+        {
+            if (!pipelineBuilder.Extensions.Contains<IBlockExtension<FlexiPictureBlock>>())
+            {
+                pipelineBuilder.Extensions.Add(GetOrCreateServiceProvider().GetRequiredService<IBlockExtension<FlexiPictureBlock>>());
             }
 
             if (options != null)

@@ -12,6 +12,7 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiPictureBlocks;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
 {
@@ -265,6 +266,28 @@ Content
 +++
 Caption
 +++", _pipeline);
+        }
+
+        // FlexiPictureBlocks
+        [GlobalSetup(Target = nameof(FlexiPictureBlocks_ParseAndRender))]
+        public void FlexiPictureBlocks_ParseAndRender_Setup()
+        {
+            var pipelineBuilder = new MarkdownPipelineBuilder();
+            pipelineBuilder.
+                UseFlexiPictureBlocks(new FlexiPictureBlocksExtensionOptions(localMediaDirectory: Directory.GetCurrentDirectory())).
+                UseFlexiOptionsBlocks();
+            _pipeline = pipelineBuilder.Build();
+
+            WritePreview(nameof(FlexiPictureBlocksExtension), FlexiPictureBlocks_ParseAndRender());
+        }
+
+        [Benchmark]
+        public string FlexiPictureBlocks_ParseAndRender()
+        {
+            return Markdown.ToHtml(@"p{
+    ""src"": ""/url/exampleImage.png"",
+    ""alt"": ""Alternative text""
+}", _pipeline);
         }
 
         // FlexiQuoteBlocks

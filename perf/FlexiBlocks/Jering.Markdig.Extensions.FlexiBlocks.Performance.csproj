@@ -12,6 +12,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Content Include="exampleImage.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="BenchmarkDotNet" Version="0.10.14" />
     </ItemGroup>
 

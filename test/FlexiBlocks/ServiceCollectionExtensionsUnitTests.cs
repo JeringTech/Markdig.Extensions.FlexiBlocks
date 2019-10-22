@@ -4,6 +4,7 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiPictureBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
@@ -111,6 +112,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 
             // Act and assert
             serviceProvider.GetRequiredService<IBlockExtension<FlexiFigureBlock>>(); // As long as this doesn't throw, all required services have been added
+        }
+
+        [Fact]
+        public void AddFlexiPictureBlocks_AddsServicesForTheFlexiPictureBlocksExtension()
+        {
+            // Arrange
+            var services = new ServiceCollection();
+            services.AddFlexiPictureBlocks();
+            ServiceProvider serviceProvider = services.BuildServiceProvider();
+
+            // Act and assert
+            serviceProvider.GetRequiredService<IBlockExtension<FlexiPictureBlock>>(); // As long as this doesn't throw, all required services have been added
         }
 
         [Fact]

@@ -19,6 +19,7 @@ using Jering.IocServices.System.IO;
 using Jering.IocServices.System.Net.Http;
 using System.Linq;
 using System;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiPictureBlocks;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks
 {
@@ -41,6 +42,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 AddFlexiCardsBlocks().
                 AddFlexiCodeBlocks().
                 AddFlexiFigureBlocks().
+                AddFlexiPictureBlocks().
                 AddFlexiQuoteBlocks().
                 AddFlexiSectionBlocks().
                 AddFlexiTableBlocks().
@@ -180,6 +182,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             services.TryAddSingleton<BlockRenderer<FlexiFigureBlock>, FlexiFigureBlockRenderer>();
             services.TryAddSingleton<IMultipartBlockFactory<FlexiFigureBlock>, FlexiFigureBlockFactory>();
             services.TryAddSingleton<PlainBlockParser>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds services for the <see cref="FlexiPictureBlocksExtension"/>.
+        /// </summary>
+        public static IServiceCollection AddFlexiPictureBlocks(this IServiceCollection services)
+        {
+            services.AddOptionsService<IFlexiPictureBlocksExtensionOptions, FlexiPictureBlocksExtensionOptions, IFlexiPictureBlockOptions>();
+            services.TryAddSingleton<IDirectoryService, DirectoryService>();
+            services.TryAddSingleton<IFileService, FileService>();
+            services.TryAddSingleton<IImageService, ImageService>();
+            services.TryAddSingleton<IBlockExtension<FlexiPictureBlock>, FlexiPictureBlocksExtension>();
+            services.TryAddSingleton<ProxyBlockParser<FlexiPictureBlock, ProxyJsonBlock>, FlexiPictureBlockParser>();
+            services.TryAddSingleton<BlockRenderer<FlexiPictureBlock>, FlexiPictureBlockRenderer>();
+            services.TryAddSingleton<IJsonBlockFactory<FlexiPictureBlock, ProxyJsonBlock>, FlexiPictureBlockFactory>();
 
             return services;
         }
