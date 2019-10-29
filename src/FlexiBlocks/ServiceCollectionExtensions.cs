@@ -20,6 +20,7 @@ using Jering.IocServices.System.Net.Http;
 using System.Linq;
 using System;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiPictureBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiVideoBlocks;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks
 {
@@ -46,7 +47,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 AddFlexiQuoteBlocks().
                 AddFlexiSectionBlocks().
                 AddFlexiTableBlocks().
-                AddFlexiTabsBlocks();
+                AddFlexiTabsBlocks().
+                AddFlexiVideoBlocks();
         }
 
         /// <summary>
@@ -275,6 +277,24 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             services.TryAddSingleton<BlockRenderer<FlexiTabsBlock>, FlexiTabsBlockRenderer>();
             services.TryAddSingleton<IMultipartBlockFactory<FlexiTabBlock>, FlexiTabBlockFactory>();
             services.TryAddSingleton<PlainBlockParser>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds services for the <see cref="FlexiVideoBlocksExtension"/>.
+        /// </summary>
+        public static IServiceCollection AddFlexiVideoBlocks(this IServiceCollection services)
+        {
+            services.AddOptionsService<IFlexiVideoBlocksExtensionOptions, FlexiVideoBlocksExtensionOptions, IFlexiVideoBlockOptions>();
+            services.TryAddSingleton<IFileService, FileService>();
+            services.TryAddSingleton<IProcessService, ProcessService>();
+            services.TryAddSingleton<IDirectoryService, DirectoryService>();
+            services.TryAddSingleton<IBlockExtension<FlexiVideoBlock>, FlexiVideoBlocksExtension>();
+            services.TryAddSingleton<ProxyBlockParser<FlexiVideoBlock, ProxyJsonBlock>, FlexiVideoBlockParser>();
+            services.TryAddSingleton<BlockRenderer<FlexiVideoBlock>, FlexiVideoBlockRenderer>();
+            services.TryAddSingleton<IJsonBlockFactory<FlexiVideoBlock, ProxyJsonBlock>, FlexiVideoBlockFactory>();
+            services.TryAddSingleton<IVideoService, VideoService>();
 
             return services;
         }

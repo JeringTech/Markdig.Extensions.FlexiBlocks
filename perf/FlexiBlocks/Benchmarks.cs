@@ -13,6 +13,7 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiPictureBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiVideoBlocks;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
 {
@@ -342,6 +343,34 @@ Title
 Content
 +++
 ///", _pipeline);
+        }
+
+        // TODO FlexiVideoBlocks is extremely slow (100ms+ per operation) when file operations are enabled. 
+        // We need to do two things:
+        // - Cache metadata and posters. To do this in a performant manner, we'll have to add a guid to the video filenames.
+        // - Optimize FFmpeg
+        //   - If we need both metadata and poster, use a single process
+        //   - Are our FFmpeg arguments efficient?
+        // FlexiVideoBlocks
+        [GlobalSetup(Target = nameof(FlexiVideoBlocks_ParseAndRender))]
+        public void FlexiVideoBlocks_ParseAndRender_Setup()
+        {
+            var pipelineBuilder = new MarkdownPipelineBuilder();
+            pipelineBuilder.
+                UseFlexiVideoBlocks(new FlexiVideoBlocksExtensionOptions(localMediaDirectory: Directory.GetCurrentDirectory())).
+                UseFlexiOptionsBlocks();
+            _pipeline = pipelineBuilder.Build();
+
+            WritePreview(nameof(FlexiVideoBlocksExtension), FlexiVideoBlocks_ParseAndRender());
+        }
+
+        [Benchmark]
+        public string FlexiVideoBlocks_ParseAndRender()
+        {
+            return Markdown.ToHtml(@"v{
+    ""src"": ""/url/exampleVideo.mp4"",
+    ""generatePoster"": true
+}", _pipeline);
         }
 
         private void WritePreview(string extensionName, string preview)
