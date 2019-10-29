@@ -60,45 +60,45 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -141,14 +141,14 @@
   <data name="ArgumentException_ContentRetrieverService_RemoteUriDoesNotExist" xml:space="preserve">
     <value>The remote URI "{0}" does not exist.</value>
   </data>
-  <data name="OptionsException_IncludeBlockFactory_ValueMustBeAValidUri" xml:space="preserve">
+  <data name="OptionsException_Shared_ValueMustBeAValidUri" xml:space="preserve">
     <value>The value "{0}" is invalid, expected a valid URI.</value>
   </data>
   <data name="BlockException_BlockException_InvalidBlock" xml:space="preserve">
     <value>The {0} at line "{1}", column "{2}", is invalid:
 {3}</value>
   </data>
-  <data name="OptionsException_IncludeBlockFactory_ValueMustBeAnAbsoluteUri" xml:space="preserve">
+  <data name="OptionsException_Shared_ValueMustBeAnAbsoluteUri" xml:space="preserve">
     <value>The value "{0}" is invalid, expected an absolute URI.</value>
   </data>
   <data name="OptionsException_Shared_ValueMustBeAValidEnumValue" xml:space="preserve">
@@ -157,8 +157,8 @@
   <data name="OptionsException_BlockOptionsFactory_InvalidJson" xml:space="preserve">
     <value>Invalid JSON "{0}". Refer to the inner exception for more details.</value>
   </data>
-  <data name="BlockException_OptionsBlockParser_UnconsumedBlock" xml:space="preserve">
-    <value>OptionsBlock must be consumed.</value>
+  <data name="BlockException_FlexiOptionsBlockParser_UnconsumedBlock" xml:space="preserve">
+    <value>FlexiOptionsBlock must be consumed.</value>
   </data>
   <data name="BlockException_BlockException_ExceptionOccurredWhileProcessingBlock" xml:space="preserve">
     <value>An exception occurred while processing the block. Refer to the inner exception for more details.</value>
@@ -166,18 +166,18 @@
   <data name="BlockException_BlockParser_ExceptionOccurredWhileAttemptingToOpenBlock" xml:space="preserve">
     <value>An exception occurred in "{0}" while attempting to open a block. Refer to the inner exception for more details.</value>
   </data>
-  <data name="InvalidOperationException_IncludeBlockFactory_CycleFound" xml:space="preserve">
-    <value>The following IncludeBlocks cycle was found: 
+  <data name="InvalidOperationException_FlexiIncludeBlockFactory_CycleFound" xml:space="preserve">
+    <value>The following FlexiIncludeBlocks cycle was found: 
 {0}</value>
   </data>
-  <data name="OptionsException_IncludeBlockFactory_NoLineContainsEndString" xml:space="preserve">
+  <data name="OptionsException_FlexiIncludeBlockFactory_NoLineContainsEndString" xml:space="preserve">
     <value>No line after the start line contains the string "{0}".</value>
   </data>
-  <data name="OptionsException_IncludeBlockFactory_NoLineContainsStartString" xml:space="preserve">
+  <data name="OptionsException_FlexiIncludeBlockFactory_NoLineContainsStartString" xml:space="preserve">
     <value>No line contains the string "{0}".</value>
   </data>
-  <data name="OptionsException_IncludeBlockFactory_ValueMustBeAUriWithASupportedScheme" xml:space="preserve">
-    <value>The value "{0}" with scheme "{1}" is invalid. Expected a URI with scheme FILE, HTTP or HTTPS.</value>
+  <data name="OptionsException_Shared_ValueMustBeAUriWithASupportedScheme" xml:space="preserve">
+    <value>The value "{0}" with scheme "{1}" is invalid. Expected a URI with scheme {2}.</value>
   </data>
   <data name="OptionsException_Shared_ValueMustBeWithinRange" xml:space="preserve">
     <value>The value "{0}" is invalid, expected a number within the range {1}.</value>
@@ -188,11 +188,11 @@
   <data name="InvalidOperationException_DiskCacheService_UnexpectedDiskCacheException" xml:space="preserve">
     <value>An unexpected exception occurred when attempting to retrieve the source for "{0}", from the disk cache at "{1}". Refer to the inner exception for more information.</value>
   </data>
-  <data name="ArgumentException_ContentRetrieverService_InvalidLocalUri" xml:space="preserve">
+  <data name="ArgumentException_Shared_InvalidLocalUri" xml:space="preserve">
     <value>The local URI "{0}" is invalid. Refer to the inner exception for more details.</value>
   </data>
-  <data name="BlockException_IncludeBlockFactory_ExceptionOccurredWhileProcessingContent" xml:space="preserve">
-    <value>An exception occurred while processing content from the IncludeBlock's source, "{0}". Refer to the inner exception for more details.</value>
+  <data name="BlockException_FlexiIncludeBlockFactory_ExceptionOccurredWhileProcessingContent" xml:space="preserve">
+    <value>An exception occurred while processing content from the FlexiIncludeBlock's source, "{0}". Refer to the inner exception for more details.</value>
   </data>
   <data name="LogWarning_ContentRetrieverService_FailureStatusCode" xml:space="preserve">
     <value>Http request to "{0}" failed with status code "{1}", {2} tries remaining.</value>
@@ -274,5 +274,49 @@
   </data>
   <data name="OptionsException_FlexiQuoteBlockFactory_UnableToNormalize" xml:space="preserve">
     <value>Unable to normalize "{0}" for {1} links.</value>
+  </data>
+  <data name="OptionsException_Shared_ValueMustPointToAFile" xml:space="preserve">
+    <value>The value "{0}" is invalid, expected a URI that points to a file.</value>
+  </data>
+  <data name="OptionsException_Shared_ValueMustNotBeNullWhitespaceOrAnEmptyString" xml:space="preserve">
+    <value>The value must not be null, whitespace or an empty string.</value>
+  </data>
+  <data name="InvalidOperationException_VideoService_FfmpegRequired" xml:space="preserve">
+    <value>FFmpeg is required for file operations like retrieving a video's duration and dimensions or generating a poster:
+
+1. Download FFmpeg from https://ffmpeg.org.
+2. Add the executable's directory to the path environment variable.
+
+Alternatively, disable file operations by setting "EnableFileOperations" to false for all FlexiVideoBlocks.</value>
+  </data>
+  <data name="InvalidOperationException_ProcessService_ExecutableRunFailed" xml:space="preserve">
+    <value>The attempt to run "{0}" with arguments "{1}" failed with exit code "{2}" and the following error output:
+{3}</value>
+  </data>
+  <data name="OptionsException_Shared_FileNotFoundInDirectory" xml:space="preserve">
+    <value>The file "{0}" was not found in directory "{1}".</value>
+  </data>
+  <data name="OptionsException_Shared_MultipleFilesFoundInDirectory" xml:space="preserve">
+    <value>Expected 1 file, but "{0}" files with name "{1}" were found in directory "{2}":
+{3}</value>
+  </data>
+  <data name="OptionsException_Shared_UnableToRetrieveFilesFromDirectory" xml:space="preserve">
+    <value>Unable to retrieve files from directory "{0}". Refer to the inner exception for more details.</value>
+  </data>
+  <data name="OptionsException_Shared_UriContainsInvalidCharacters" xml:space="preserve">
+    <value>The URI "{0}" contains invalid characters.</value>
+  </data>
+  <data name="InvalidOperationsException_ImageService_ExceptionThrownWhileAttemptingToReadDimensionsFromLocalImageFile" xml:space="preserve">
+    <value>Unable to read dimensions from the local image file "{0}". Refer to the inner exception for more details.</value>
+  </data>
+  <data name="InvalidOperationException_ImageService_UnableToReadDimensionsFromImageFile" xml:space="preserve">
+    <value>Unable to read dimensions from local image file "{0}". The file is either corrupted or encoded in an unsupported format.</value>
+  </data>
+  <data name="InvalidOperationException_ProcessService_ExceptionThrownWhileAttemptingToRunExecutable" xml:space="preserve">
+    <value>The attempt to run "{0}" with arguments "{1}" and timeout "{2}" failed. Refer to the inner exception for more details.</value>
+  </data>
+  <data name="InvalidOperationException_VideoService_InvalidVideoMetadata" xml:space="preserve">
+    <value>The video "{0}" has invalid metadata. The following was returned when trying to retrieve its width, height and duration: 
+{1}</value>
   </data>
 </root>

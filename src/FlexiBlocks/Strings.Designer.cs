@@ -70,15 +70,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The local URI &quot;{0}&quot; is invalid. Refer to the inner exception for more details..
-        /// </summary>
-        internal static string ArgumentException_ContentRetrieverService_InvalidLocalUri {
-            get {
-                return ResourceManager.GetString("ArgumentException_ContentRetrieverService_InvalidLocalUri", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Access to the remote URI &quot;{0}&quot; is forbidden..
         /// </summary>
         internal static string ArgumentException_ContentRetrieverService_RemoteUriAccessForbidden {
@@ -102,6 +93,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         internal static string ArgumentException_ContentRetrieverService_UnsupportedScheme {
             get {
                 return ResourceManager.GetString("ArgumentException_ContentRetrieverService_UnsupportedScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The local URI &quot;{0}&quot; is invalid. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string ArgumentException_Shared_InvalidLocalUri {
+            get {
+                return ResourceManager.GetString("ArgumentException_Shared_InvalidLocalUri", resourceCulture);
             }
         }
         
@@ -206,11 +206,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception occurred while processing content from the IncludeBlock&apos;s source, &quot;{0}&quot;. Refer to the inner exception for more details..
+        ///   Looks up a localized string similar to An exception occurred while processing content from the FlexiIncludeBlock&apos;s source, &quot;{0}&quot;. Refer to the inner exception for more details..
         /// </summary>
-        internal static string BlockException_IncludeBlockFactory_ExceptionOccurredWhileProcessingContent {
+        internal static string BlockException_FlexiIncludeBlockFactory_ExceptionOccurredWhileProcessingContent {
             get {
-                return ResourceManager.GetString("BlockException_IncludeBlockFactory_ExceptionOccurredWhileProcessingContent", resourceCulture);
+                return ResourceManager.GetString("BlockException_FlexiIncludeBlockFactory_ExceptionOccurredWhileProcessingContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FlexiOptionsBlock must be consumed..
+        /// </summary>
+        internal static string BlockException_FlexiOptionsBlockParser_UnconsumedBlock {
+            get {
+                return ResourceManager.GetString("BlockException_FlexiOptionsBlockParser_UnconsumedBlock", resourceCulture);
             }
         }
         
@@ -220,15 +229,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         internal static string BlockException_MultipartBlockParser_IncorrectNumberOfParts {
             get {
                 return ResourceManager.GetString("BlockException_MultipartBlockParser_IncorrectNumberOfParts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to OptionsBlock must be consumed..
-        /// </summary>
-        internal static string BlockException_OptionsBlockParser_UnconsumedBlock {
-            get {
-                return ResourceManager.GetString("BlockException_OptionsBlockParser_UnconsumedBlock", resourceCulture);
             }
         }
         
@@ -278,12 +278,75 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following IncludeBlocks cycle was found: 
+        ///   Looks up a localized string similar to The following FlexiIncludeBlocks cycle was found: 
         ///{0}.
         /// </summary>
-        internal static string InvalidOperationException_IncludeBlockFactory_CycleFound {
+        internal static string InvalidOperationException_FlexiIncludeBlockFactory_CycleFound {
             get {
-                return ResourceManager.GetString("InvalidOperationException_IncludeBlockFactory_CycleFound", resourceCulture);
+                return ResourceManager.GetString("InvalidOperationException_FlexiIncludeBlockFactory_CycleFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to read dimensions from local image file &quot;{0}&quot;. The file is either corrupted or encoded in an unsupported format..
+        /// </summary>
+        internal static string InvalidOperationException_ImageService_UnableToReadDimensionsFromImageFile {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_ImageService_UnableToReadDimensionsFromImageFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The attempt to run &quot;{0}&quot; with arguments &quot;{1}&quot; and timeout &quot;{2}&quot; failed. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string InvalidOperationException_ProcessService_ExceptionThrownWhileAttemptingToRunExecutable {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_ProcessService_ExceptionThrownWhileAttemptingToRunExecu" +
+                        "table", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The attempt to run &quot;{0}&quot; with arguments &quot;{1}&quot; failed with exit code &quot;{2}&quot; and the following error output:
+        ///{3}.
+        /// </summary>
+        internal static string InvalidOperationException_ProcessService_ExecutableRunFailed {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_ProcessService_ExecutableRunFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FFmpeg is required for file operations like retrieving a video&apos;s duration and dimensions or generating a poster:
+        ///
+        ///1. Download FFmpeg from https://ffmpeg.org.
+        ///2. Add the executable&apos;s directory to the path environment variable.
+        ///
+        ///Alternatively, disable file operations by setting &quot;EnableFileOperations&quot; to false for all FlexiVideoBlocks..
+        /// </summary>
+        internal static string InvalidOperationException_VideoService_FfmpegRequired {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_VideoService_FfmpegRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The video &quot;{0}&quot; has invalid metadata. The following was returned when trying to retrieve its width, height and duration: 
+        ///{1}.
+        /// </summary>
+        internal static string InvalidOperationException_VideoService_InvalidVideoMetadata {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_VideoService_InvalidVideoMetadata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to read dimensions from the local image file &quot;{0}&quot;. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string InvalidOperationsException_ImageService_ExceptionThrownWhileAttemptingToReadDimensionsFromLocalImageFile {
+            get {
+                return ResourceManager.GetString("InvalidOperationsException_ImageService_ExceptionThrownWhileAttemptingToReadDimen" +
+                        "sionsFromLocalImageFile", resourceCulture);
             }
         }
         
@@ -360,6 +423,24 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No line after the start line contains the string &quot;{0}&quot;..
+        /// </summary>
+        internal static string OptionsException_FlexiIncludeBlockFactory_NoLineContainsEndString {
+            get {
+                return ResourceManager.GetString("OptionsException_FlexiIncludeBlockFactory_NoLineContainsEndString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No line contains the string &quot;{0}&quot;..
+        /// </summary>
+        internal static string OptionsException_FlexiIncludeBlockFactory_NoLineContainsStartString {
+            get {
+                return ResourceManager.GetString("OptionsException_FlexiIncludeBlockFactory_NoLineContainsStartString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to normalize &quot;{0}&quot; for {1} links..
         /// </summary>
         internal static string OptionsException_FlexiQuoteBlockFactory_UnableToNormalize {
@@ -385,51 +466,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
             get {
                 return ResourceManager.GetString("OptionsException_FlexiTableBlockFactory_TypeInvalidForTablesWithMultipleHeaderRow" +
                         "s", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No line after the start line contains the string &quot;{0}&quot;..
-        /// </summary>
-        internal static string OptionsException_IncludeBlockFactory_NoLineContainsEndString {
-            get {
-                return ResourceManager.GetString("OptionsException_IncludeBlockFactory_NoLineContainsEndString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No line contains the string &quot;{0}&quot;..
-        /// </summary>
-        internal static string OptionsException_IncludeBlockFactory_NoLineContainsStartString {
-            get {
-                return ResourceManager.GetString("OptionsException_IncludeBlockFactory_NoLineContainsStartString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid, expected an absolute URI..
-        /// </summary>
-        internal static string OptionsException_IncludeBlockFactory_ValueMustBeAnAbsoluteUri {
-            get {
-                return ResourceManager.GetString("OptionsException_IncludeBlockFactory_ValueMustBeAnAbsoluteUri", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The value &quot;{0}&quot; with scheme &quot;{1}&quot; is invalid. Expected a URI with scheme FILE, HTTP or HTTPS..
-        /// </summary>
-        internal static string OptionsException_IncludeBlockFactory_ValueMustBeAUriWithASupportedScheme {
-            get {
-                return ResourceManager.GetString("OptionsException_IncludeBlockFactory_ValueMustBeAUriWithASupportedScheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid, expected a valid URI..
-        /// </summary>
-        internal static string OptionsException_IncludeBlockFactory_ValueMustBeAValidUri {
-            get {
-                return ResourceManager.GetString("OptionsException_IncludeBlockFactory_ValueMustBeAValidUri", resourceCulture);
             }
         }
         
@@ -479,6 +515,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file &quot;{0}&quot; was not found in directory &quot;{1}&quot;..
+        /// </summary>
+        internal static string OptionsException_Shared_FileNotFoundInDirectory {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_FileNotFoundInDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid..
         /// </summary>
         internal static string OptionsException_Shared_InvalidValue {
@@ -488,11 +533,66 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expected 1 file, but &quot;{0}&quot; files with name &quot;{1}&quot; were found in directory &quot;{2}&quot;:
+        ///{3}.
+        /// </summary>
+        internal static string OptionsException_Shared_MultipleFilesFoundInDirectory {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_MultipleFilesFoundInDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to retrieve files from directory &quot;{0}&quot;. Refer to the inner exception for more details..
+        /// </summary>
+        internal static string OptionsException_Shared_UnableToRetrieveFilesFromDirectory {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_UnableToRetrieveFilesFromDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The URI &quot;{0}&quot; contains invalid characters..
+        /// </summary>
+        internal static string OptionsException_Shared_UriContainsInvalidCharacters {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_UriContainsInvalidCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid, expected an absolute URI..
+        /// </summary>
+        internal static string OptionsException_Shared_ValueMustBeAnAbsoluteUri {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_ValueMustBeAnAbsoluteUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; with scheme &quot;{1}&quot; is invalid. Expected a URI with scheme {2}..
+        /// </summary>
+        internal static string OptionsException_Shared_ValueMustBeAUriWithASupportedScheme {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_ValueMustBeAUriWithASupportedScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The value &quot;{0}&quot; is not within the range of valid values for the enum {1}..
         /// </summary>
         internal static string OptionsException_Shared_ValueMustBeAValidEnumValue {
             get {
                 return ResourceManager.GetString("OptionsException_Shared_ValueMustBeAValidEnumValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid, expected a valid URI..
+        /// </summary>
+        internal static string OptionsException_Shared_ValueMustBeAValidUri {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_ValueMustBeAValidUri", resourceCulture);
             }
         }
         
@@ -529,6 +629,24 @@ namespace Jering.Markdig.Extensions.FlexiBlocks {
         internal static string OptionsException_Shared_ValueMustNotBeNull {
             get {
                 return ResourceManager.GetString("OptionsException_Shared_ValueMustNotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value must not be null, whitespace or an empty string..
+        /// </summary>
+        internal static string OptionsException_Shared_ValueMustNotBeNullWhitespaceOrAnEmptyString {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_ValueMustNotBeNullWhitespaceOrAnEmptyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; is invalid, expected a URI that points to a file..
+        /// </summary>
+        internal static string OptionsException_Shared_ValueMustPointToAFile {
+            get {
+                return ResourceManager.GetString("OptionsException_Shared_ValueMustPointToAFile", resourceCulture);
             }
         }
     }
