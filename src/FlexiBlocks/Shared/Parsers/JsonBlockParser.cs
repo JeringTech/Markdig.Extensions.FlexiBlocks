@@ -53,7 +53,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             TProxy proxyJsonBlock = _jsonBlockFactory.CreateProxyJsonBlock(blockProcessor, this);
             blockProcessor.NewBlocks.Push(proxyJsonBlock);
 
-            // Dispose of @ (JSON starts at the curly bracket)
+            // Dispose of first char (JSON starts at the curly bracket)
             blockProcessor.NextChar();
 
             return ParseLine(blockProcessor.Line, proxyJsonBlock);

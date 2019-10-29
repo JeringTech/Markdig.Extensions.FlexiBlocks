@@ -1,9 +1,11 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.ContextObjects;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiPictureBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks;
@@ -11,11 +13,9 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiVideoBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig;
+using Markdig.Extensions.Citations;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks;
-using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
-using Markdig.Extensions.Citations;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks
 {
