@@ -7,12 +7,21 @@
         <Authors>JeremyTCD</Authors>
         <Description>Jering.Markdig.Extensions.FlexiBlocks is a collection of Markdig extensions for configurable markdown.
 
-    • FlexiAlertBlocks: Render alerts with configurable icons and more.
-    • FlexiCodeBlocks: Render code with configurable syntax highlighting, line numbers and more.
+    • FlexiAlertBlocks: Alerts with configurable icons and more.
+    • FlexiBannerBlocks: Headlines you'd like to draw attention to.
+    • FlexiCardsBlocks: Cards for displaying and/or linking to information.
+    • FlexiCodeBlocks: Code with syntax highlighting, line numbers and more.
+    • FlexiFigureBlocks: Figures with smartly generated IDs for easy linking.
     • FlexiIncludeBlocks: Include content from both local and remote sources.
     • FlexiOptionsBlocks: Create your own configurable markdown extensions.
+    • FlexiPictureBlocks: Images with lazy loading and fullscreen mode.
+    • FlexiQuoteBlocks: Quotes with HTML spec compliant markup structure.
     • FlexiSectionsBlocks: Split articles into sections demarcated by ATX headings and render headings with configurable icons.
-    • FlexiTableBlocks: Render responsive tables.</Description>
+    • FlexiTableBlocks: Responsive tables.
+    • FlexiTabsBlocks: Tabs built with accessibility in mind.
+    • FlexiVideoBlocks: Videos with lazy loading, fullscreen mode and customizable controls.
+  
+Note: Some functionality, like picture lazy loading, requires frontend scripts and styles. We're working on packaging frontend assets for easy usage.</Description>
         <Copyright>© 2018 Jering. All rights reserved.</Copyright>
         <PackageProjectUrl>https://www.jering.tech/utilities/jering.markdig.extensions.flexiblocks/index</PackageProjectUrl>
         <RepositoryUrl>https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks</RepositoryUrl>
@@ -35,18 +44,19 @@
         <PackageReference Include="Jering.IocServices.System.Net.Http" Version="0.3.0" />
         <PackageReference Include="Jering.Web.SyntaxHighlighters.HighlightJS" Version="3.2.1" />
         <PackageReference Include="Jering.Web.SyntaxHighlighters.Prism" Version="4.2.1" />
-        <PackageReference Include="Markdig" Version="0.16.0"/>
+        <PackageReference Include="Markdig" Version="0.16.0" />
         <!-- Requires libcurl-openssl for build to work on Linux "sudo apt install libcurl3 libcurl-openssl1.0-dev"-->
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19367-01">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Roslynator.Analyzers" Version="2.0.0" PrivateAssets="all" ExcludeAssets="Runtime">
+        <PackageReference Include="Roslynator.Analyzers" Version="2.1.0" PrivateAssets="all" ExcludeAssets="Runtime">
           <IncludeAssets>compile; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Roslynator.CodeFixes" Version="2.0.0" PrivateAssets="all" ExcludeAssets="Runtime">
           <IncludeAssets>compile; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0007" />
         <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
     </ItemGroup>
 
