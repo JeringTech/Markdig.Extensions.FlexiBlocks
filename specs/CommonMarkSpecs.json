@@ -879,7 +879,7 @@
         "example": 110,
         "start_line": 1909
     },
-    // FlexiCodeBlocks allows code language to be specified using OptionsBlocks, the extension does not parse info-strings.
+    // FlexiCodeBlocks allows code language to be specified using FlexiOptionsBlocks, the extension does not parse info-strings.
     // CommonMark does not mandate parsing/rendering of info-strings.
     {
         "end_line": 1940,
@@ -889,7 +889,7 @@
         "example": 111,
         "start_line": 1929
     },
-    // FlexiCodeBlocks allows code language to be specified using OptionsBlocks, the extension does not parse info-strings.
+    // FlexiCodeBlocks allows code language to be specified using FlexiOptionsBlocks, the extension does not parse info-strings.
     // CommonMark does not mandate parsing/rendering of info-strings.
     {
         "end_line": 1954,
@@ -899,7 +899,7 @@
         "example": 112,
         "start_line": 1943
     },
-    // FlexiCodeBlocks allows code language to be specified using OptionsBlocks, the extension does not parse info-strings.
+    // FlexiCodeBlocks allows code language to be specified using FlexiOptionsBlocks, the extension does not parse info-strings.
     // CommonMark does not mandate parsing/rendering of info-strings.
     {
         "end_line": 1962,
@@ -2405,7 +2405,7 @@
         "example": 300,
         "start_line": 5502
     },
-    // FlexiCodeBlocks allows code language to be specified using OptionsBlocks, the extension does not parse info-strings.
+    // FlexiCodeBlocks allows code language to be specified using FlexiOptionsBlocks, the extension does not parse info-strings.
     // CommonMark does not mandate parsing/rendering of info-strings.
     {
         "end_line": 5518,
@@ -2487,7 +2487,7 @@
         "example": 310,
         "start_line": 5627
     },
-    // FlexiCodeBlocks allows code language to be specified using OptionsBlocks, the extension does not parse info-strings.
+    // FlexiCodeBlocks allows code language to be specified using FlexiOptionsBlocks, the extension does not parse info-strings.
     // CommonMark does not mandate parsing/rendering of info-strings.
     {
         "end_line": 5643,
