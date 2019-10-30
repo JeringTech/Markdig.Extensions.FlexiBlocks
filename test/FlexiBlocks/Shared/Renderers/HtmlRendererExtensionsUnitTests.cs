@@ -13,6 +13,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
     {
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
 
+        #region Numbers
         [Theory]
         [MemberData(nameof(WriteInt_WritesInt_Data))]
         public void WriteInt_WritesInt(int dummyInt, string expectedResult)
@@ -46,7 +47,102 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                 new object[]{-1904857690, "-1904857690"},
             };
         }
+        #endregion
 
+        #region Elements
+        [Fact]
+        public void WriteElementLine_WithoutCondition_WritesElementLine()
+        {
+            // Arrange
+            const string dummyTagName = "dummyTagName";
+            const string dummyBlockName = "dummyBlockName";
+            const string dummyElementName = "dummyElementName";
+            const string dummyContent = "content";
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteElementLine(dummyTagName, dummyBlockName, dummyElementName, dummyContent);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal($"<{dummyTagName} class=\"{dummyBlockName}__{dummyElementName}\">{dummyContent}</{dummyTagName}>\n", result);
+        }
+
+        [Theory]
+        [MemberData(nameof(WriteElementLine_WithCondition_WritesElementLine_Data))]
+        public void WriteElementLine_WithCondition_WritesElementLine(bool dummyCondition,
+            string dummyTagName,
+            string dummyBlockName,
+            string dummyElementName,
+            string dummyContent,
+            string expectedResult)
+        {
+            // Arrange
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteElementLine(dummyCondition, dummyTagName, dummyBlockName, dummyElementName, dummyContent);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        public static IEnumerable<object[]> WriteElementLine_WithCondition_WritesElementLine_Data()
+        {
+            const string dummyTagName = "dummyTagName";
+            const string dummyBlockName = "dummyBlockName";
+            const string dummyElementName = "dummyElementName";
+            const string dummyContent = "content";
+
+            return new object[][]
+            {
+                new object[]{ true, dummyTagName, dummyBlockName, dummyElementName, dummyContent, $"<{dummyTagName} class=\"{dummyBlockName}__{dummyElementName}\">{dummyContent}</{dummyTagName}>\n" },
+                new object[]{ false, dummyTagName, dummyBlockName, dummyElementName, dummyContent, string.Empty },
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(WriteElement_WithCondition_WritesElement_Data))]
+        public void WriteElement_WithCondition_WritesElement(bool dummyCondition,
+            string dummyTagName,
+            string dummyBlockName,
+            string dummyElementName,
+            string dummyContent1,
+            string dummyContent2,
+            string expectedResult)
+        {
+            // Arrange
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteElement(dummyCondition, dummyTagName, dummyBlockName, dummyElementName, dummyContent1, dummyContent2);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        public static IEnumerable<object[]> WriteElement_WithCondition_WritesElement_Data()
+        {
+            const string dummyTagName = "dummyTagName";
+            const string dummyBlockName = "dummyBlockName";
+            const string dummyElementName = "dummyElementName";
+            const string dummyContent1 = "content1";
+            const string dummyContent2 = "content2";
+
+            return new object[][]
+            {
+                new object[]{ true, dummyTagName, dummyBlockName, dummyElementName, dummyContent1, dummyContent2, $"<{dummyTagName} class=\"{dummyBlockName}__{dummyElementName}\">{dummyContent1}{dummyContent2}</{dummyTagName}>" },
+                new object[]{ false, dummyTagName, dummyBlockName, dummyElementName, dummyContent1, dummyContent2, string.Empty },
+            };
+        }
+        #endregion
+
+        #region Attributes
         [Fact]
         public void WriteAttribute_WithoutCondition_WritesAttribute()
         {
@@ -65,8 +161,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         }
 
         [Theory]
-        [MemberData(nameof(WriteAttribute_WithCondition_WritesAttributeConditionally_Data))]
-        public void WriteAttribute_WithCondition_WritesAttributeConditionally(bool dummyCondition, string dummyAttributeName, string dummyValue, string expectedResult)
+        [MemberData(nameof(WriteAttribute_StringContentStringValue_WithCondition_WritesAttributeConditionally_Data))]
+        public void WriteAttribute_StringContentStringValue_WithCondition_WritesAttributeConditionally(bool dummyCondition, string dummyAttributeName, string dummyValue, string expectedResult)
         {
             // Arrange
             var dummyStringWriter = new StringWriter();
@@ -80,7 +176,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             Assert.Equal(expectedResult, result);
         }
 
-        public static IEnumerable<object[]> WriteAttribute_WithCondition_WritesAttributeConditionally_Data()
+        public static IEnumerable<object[]> WriteAttribute_StringContentStringValue_WithCondition_WritesAttributeConditionally_Data()
         {
             const string dummyAttributeName = "dummyAttributeName";
             const string dummyValue = "dummyValue";
@@ -88,7 +184,137 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             return new object[][]
             {
                 new object[]{ true, dummyAttributeName, dummyValue, $" {dummyAttributeName}=\"{dummyValue}\"" },
-                new object[]{ false, string.Empty, string.Empty, string.Empty }
+                new object[]{ false, dummyAttributeName, dummyValue, string.Empty }
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(WriteAttribute_StringContentIntValue_WithCondition_WritesAttributeConditionally_Data))]
+        public void WriteAttribute_StringContentIntValue_WithCondition_WritesAttributeConditionally(bool dummyCondition, string dummyAttributeName, int dummyValue, string expectedResult)
+        {
+            // Arrange
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteAttribute(dummyCondition, dummyAttributeName, dummyValue);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        public static IEnumerable<object[]> WriteAttribute_StringContentIntValue_WithCondition_WritesAttributeConditionally_Data()
+        {
+            const string dummyAttributeName = "dummyAttributeName";
+            const int dummyValue = 123;
+
+            return new object[][]
+            {
+                new object[]{ true, dummyAttributeName, dummyValue, $" {dummyAttributeName}=\"{dummyValue}\"" },
+                new object[]{ false, dummyAttributeName, dummyValue, string.Empty }
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(WriteAttribute_StringContentDoubleValue_WithCondition_WritesAttributeConditionally_Data))]
+        public void WriteAttribute_StringContentDoubleValue_WithCondition_WritesAttributeConditionally(bool dummyCondition, string dummyAttributeName, double dummyValue, string expectedResult)
+        {
+            // Arrange
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteAttribute(dummyCondition, dummyAttributeName, dummyValue);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        public static IEnumerable<object[]> WriteAttribute_StringContentDoubleValue_WithCondition_WritesAttributeConditionally_Data()
+        {
+            const string dummyAttributeName = "dummyAttributeName";
+            const double dummyValue = 123.456;
+
+            return new object[][]
+            {
+                new object[]{ true, dummyAttributeName, dummyValue, $" {dummyAttributeName}=\"{dummyValue}\"" },
+                new object[]{ false, dummyAttributeName, dummyValue, string.Empty }
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(WriteStyleAttribute_WritesStyleAttribute_Data))]
+        public void WriteStyleAttribute_WritesStyleAttribute(bool dummyCondition, string dummyStyleName, double dummyValuePart1, string dummyValuePart2, string expectedResult)
+        {
+            // Arrange
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteStyleAttribute(dummyCondition, dummyStyleName, dummyValuePart1, dummyValuePart2);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        public static IEnumerable<object[]> WriteStyleAttribute_WritesStyleAttribute_Data()
+        {
+            const string dummyStyleName = "dummyStyleName";
+            const double dummyValuePart1 = 123.456;
+            const string dummyValuePart2 = "dummyValuePart2";
+
+            return new object[][]
+            {
+                new object[]{ true, dummyStyleName, dummyValuePart1, dummyValuePart2, $" style=\"{dummyStyleName}:{dummyValuePart1.ToString()}{dummyValuePart2}\"" },
+                new object[]{ false, dummyStyleName, dummyValuePart1, dummyValuePart2, string.Empty }
+            };
+        }
+
+        [Fact]
+        public void WriteEscapedUrlAttribute_WithoutCondition_WritesEscapedUrlAttribute()
+        {
+            // Arrange
+            const string dummyAttributeName = "dummyAttributeName";
+            const string dummyValue = "http://host.com/test?arg=val&\"&";
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteEscapedUrlAttribute(dummyAttributeName, dummyValue);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal($" {dummyAttributeName}=\"http://host.com/test?arg=val&amp;%22&amp;\"", result);
+        }
+
+        [Theory]
+        [MemberData(nameof(WriteEscapedUrlAttribute_WithCondition_WritesStyleAttribute_Data))]
+        public void WriteEscapedUrlAttribute_WithCondition_WritesStyleAttribute(bool dummyCondition, string dummyAttributeName, string dummyValue, string expectedResult)
+        {
+            // Arrange
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteEscapedUrlAttribute(dummyCondition, dummyAttributeName, dummyValue);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        public static IEnumerable<object[]> WriteEscapedUrlAttribute_WithCondition_WritesStyleAttribute_Data()
+        {
+            const string dummyAttributeName = "dummyAttributeName";
+            const string dummyValue = "http://host.com/test?arg=val&\"&";
+
+            return new object[][]
+            {
+                new object[]{ true, dummyAttributeName, dummyValue, $" {dummyAttributeName}=\"http://host.com/test?arg=val&amp;%22&amp;\"" },
+                new object[]{ false, dummyAttributeName, dummyValue, string.Empty }
             };
         }
 
@@ -235,10 +461,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                     $" {dummyNotExcluded}=\"{dummyNotExcludedValue}\""}
             };
         }
+        #endregion
 
+        #region Classes
         [Theory]
-        [MemberData(nameof(WriteHasFeatureClass_BlockModifierClass_WritesHasFeatureClass_Data))]
-        public void WriteHasFeatureClass_BlockModifierClass_WritesHasFeatureClass(bool dummyHasFeature, string dummyBlockName, string dummyFeatureName, string expectedResult)
+        [MemberData(nameof(WriteHasFeatureClass_BlockClass_WritesHasFeatureClass_Data))]
+        public void WriteHasFeatureClass_BlockClass_WritesHasFeatureClass(bool dummyHasFeature, string dummyBlockName, string dummyFeatureName, string expectedResult)
         {
             // Arrange
             var dummyStringWriter = new StringWriter();
@@ -252,21 +480,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             Assert.Equal(expectedResult, result);
         }
 
-        public static IEnumerable<object[]> WriteHasFeatureClass_BlockModifierClass_WritesHasFeatureClass_Data()
+        public static IEnumerable<object[]> WriteHasFeatureClass_BlockClass_WritesHasFeatureClass_Data()
         {
             const string dummyBlockName = "dummyBlockName";
             const string dummyFeatureName = "dummyFeatureName";
 
             return new object[][]
             {
-                new object[]{true, dummyBlockName, dummyFeatureName, $" {dummyBlockName}_has_{dummyFeatureName}"},
-                new object[]{false, dummyBlockName, dummyFeatureName, $" {dummyBlockName}_no_{dummyFeatureName}" }
+                new object[]{true, dummyBlockName, dummyFeatureName, $" {dummyBlockName}_has-{dummyFeatureName}"},
+                new object[]{false, dummyBlockName, dummyFeatureName, $" {dummyBlockName}_no-{dummyFeatureName}" }
             };
         }
 
         [Theory]
-        [MemberData(nameof(WriteHasFeatureClass_ElementModifierClass_WritesHasFeatureClass_Data))]
-        public void WriteHasFeatureClass_ElementModifierClass_WritesHasFeatureClass(bool dummyHasFeature, string dummyBlockName, string dummyElementName, string dummyFeatureName, string expectedResult)
+        [MemberData(nameof(WriteHasFeatureClass_ElementClass_WritesHasFeatureClass_Data))]
+        public void WriteHasFeatureClass_ElementClass_WritesHasFeatureClass(bool dummyHasFeature, string dummyBlockName, string dummyElementName, string dummyFeatureName, string expectedResult)
         {
             // Arrange
             var dummyStringWriter = new StringWriter();
@@ -280,7 +508,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             Assert.Equal(expectedResult, result);
         }
 
-        public static IEnumerable<object[]> WriteHasFeatureClass_ElementModifierClass_WritesHasFeatureClass_Data()
+        public static IEnumerable<object[]> WriteHasFeatureClass_ElementClass_WritesHasFeatureClass_Data()
         {
             const string dummyBlockName = "dummyBlockName";
             const string dummyElementName = "dummyElementName";
@@ -288,14 +516,42 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 
             return new object[][]
             {
-                new object[]{true, dummyBlockName, dummyElementName, dummyFeatureName, $" {dummyBlockName}__{dummyElementName}_has_{dummyFeatureName}"},
-                new object[]{false, dummyBlockName, dummyElementName, dummyFeatureName, $" {dummyBlockName}__{dummyElementName}_no_{dummyFeatureName}" }
+                new object[]{true, dummyBlockName, dummyElementName, dummyFeatureName, $" {dummyBlockName}__{dummyElementName}_has-{dummyFeatureName}"},
+                new object[]{false, dummyBlockName, dummyElementName, dummyFeatureName, $" {dummyBlockName}__{dummyElementName}_no-{dummyFeatureName}" }
             };
         }
 
         [Theory]
-        [MemberData(nameof(WriteIsTypeClass_ElementModifierClass_WritesIsTypeClass_Data))]
-        public void WriteIsTypeClass_ElementModifierClass_WritesIsTypeClass(bool dummyIsType, string dummyBlockName, string dummyElementName, string dummyTypeName, string expectedResult)
+        [MemberData(nameof(WriteIsTypeClass_BlockClass_WritesIsTypeClass_Data))]
+        public void WriteIsTypeClass_BlockClass_WritesIsTypeClass(bool dummyIsType, string dummyBlockName, string dummyTypeName, string expectedResult)
+        {
+            // Arrange
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteIsTypeClass(dummyIsType, dummyBlockName, dummyTypeName);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        public static IEnumerable<object[]> WriteIsTypeClass_BlockClass_WritesIsTypeClass_Data()
+        {
+            const string dummyBlockName = "dummyBlockName";
+            const string dummyTypeName = "dummyTypeName";
+
+            return new object[][]
+            {
+                new object[]{true, dummyBlockName, dummyTypeName, $" {dummyBlockName}_is-{dummyTypeName}"},
+                new object[]{false, dummyBlockName, dummyTypeName, $" {dummyBlockName}_not-{dummyTypeName}" }
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(WriteIsTypeClass_ElementClass_WritesIsTypeClass_Data))]
+        public void WriteIsTypeClass_ElementClass_WritesIsTypeClass(bool dummyIsType, string dummyBlockName, string dummyElementName, string dummyTypeName, string expectedResult)
         {
             // Arrange
             var dummyStringWriter = new StringWriter();
@@ -309,7 +565,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             Assert.Equal(expectedResult, result);
         }
 
-        public static IEnumerable<object[]> WriteIsTypeClass_ElementModifierClass_WritesIsTypeClass_Data()
+        public static IEnumerable<object[]> WriteIsTypeClass_ElementClass_WritesIsTypeClass_Data()
         {
             const string dummyBlockName = "dummyBlockName";
             const string dummyElementName = "dummyElementName";
@@ -317,11 +573,169 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 
             return new object[][]
             {
-                new object[]{true, dummyBlockName, dummyElementName, dummyTypeName, $" {dummyBlockName}__{dummyElementName}_is_{dummyTypeName}"},
-                new object[]{false, dummyBlockName, dummyElementName, dummyTypeName, string.Empty }
+                new object[]{true, dummyBlockName, dummyElementName, dummyTypeName, $" {dummyBlockName}__{dummyElementName}_is-{dummyTypeName}"},
+                new object[]{false, dummyBlockName, dummyElementName, dummyTypeName, $" {dummyBlockName}__{dummyElementName}_not-{dummyTypeName}" }
             };
         }
 
+        [Fact]
+        public void WriteElementClass_WritesElementClass()
+        {
+            // Arrange
+            const string dummyBlockName = "dummyBlockName";
+            const string dummyElementName = "dummyElementName";
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteElementClass(dummyBlockName, dummyElementName);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal($"{dummyBlockName}__{dummyElementName}", result);
+        }
+
+        [Fact]
+        public void WriteElementBooleanModifierClass_OnePart_WritesElementBooleanModifierClass()
+        {
+            // Arrange
+            const string dummyBlockName = "dummyBlockName";
+            const string dummyElementName = "dummyElementName";
+            const string dummyModifier = "dummyModifier";
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteElementBooleanModifierClass(dummyBlockName, dummyElementName, dummyModifier);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal($" {dummyBlockName}__{dummyElementName}_{dummyModifier}", result);
+        }
+
+        [Fact]
+        public void WriteElementBooleanModifierClass_TwoParts_WritesElementBooleanModifierClass()
+        {
+            // Arrange
+            const string dummyBlockName = "dummyBlockName";
+            const string dummyElementName = "dummyElementName";
+            const string dummyModifierPart1 = "dummyModifierPart1";
+            const string dummyModifierPart2 = "dummyModifierPart2";
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteElementBooleanModifierClass(dummyBlockName, dummyElementName, dummyModifierPart1, dummyModifierPart2);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal($" {dummyBlockName}__{dummyElementName}_{dummyModifierPart1}-{dummyModifierPart2}", result);
+        }
+
+        [Theory]
+        [MemberData(nameof(WriteElementBooleanModifierClass_WithCondition_OnePart_WritesElementModifierClassConditionally_Data))]
+        public void WriteElementBooleanModifierClass_WithCondition_OnePart_WritesElementModifierClassConditionally(bool dummyCondition, string dummyBlockName, string dummyElementName, string dummyModifier, string expectedResult)
+        {
+            // Arrange
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteElementBooleanModifierClass(dummyCondition, dummyBlockName, dummyElementName, dummyModifier);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        public static IEnumerable<object[]> WriteElementBooleanModifierClass_WithCondition_OnePart_WritesElementModifierClassConditionally_Data()
+        {
+            const string dummyBlockName = "dummyBlockName";
+            const string dummyElementName = "dummyElementName";
+            const string dummyModifier = "dummyModifier";
+
+            return new object[][]
+            {
+                new object[]{ true, dummyBlockName, dummyElementName, dummyModifier, $" {dummyBlockName}__{dummyElementName}_{dummyModifier}" },
+                new object[]{ false, dummyBlockName, dummyElementName, dummyModifier, string.Empty }
+            };
+        }
+
+        [Fact]
+        public void WriteElementKeyValueModifierClass_WritesElementKeyValueModifierClass()
+        {
+            // Arrange
+            const string dummyElementName = "dummyElementName";
+            const string dummyBlockName = "dummyBlockName";
+            const string dummyModifierKey = "dummyModifierKey";
+            const string dummyModifierValue = "dummyModifierValue";
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteElementKeyValueModifierClass(dummyBlockName, dummyElementName, dummyModifierKey, dummyModifierValue);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal($" {dummyBlockName}__{dummyElementName}_{dummyModifierKey}_{dummyModifierValue}", result);
+        }
+
+        [Fact]
+        public void WriteBlockBooleanModifierClass_WritesBlockBooleanModifierClass()
+        {
+            // Arrange
+            const string dummyBlockName = "dummyBlockName";
+            const string dummyModifierPart1 = "dummyModifierPart1";
+            const string dummyModifierPart2 = "dummyModifierPart2";
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteBlockBooleanModifierClass(dummyBlockName, dummyModifierPart1, dummyModifierPart2);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal($" {dummyBlockName}_{dummyModifierPart1}-{dummyModifierPart2}", result);
+        }
+
+        [Fact]
+        public void WriteBlockKeyValueModifierClass_WithStringModifierValue_WritesBlockKeyValueModifierClass()
+        {
+            // Arrange
+            const string dummyBlockName = "dummyBlockName";
+            const string dummyModifierKey = "dummyModifierKey";
+            const string dummyModifierValue = "dummyModifierValue";
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteBlockKeyValueModifierClass(dummyBlockName, dummyModifierKey, dummyModifierValue);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal($" {dummyBlockName}_{dummyModifierKey}_{dummyModifierValue}", result);
+        }
+
+        [Fact]
+        public void WriteBlockKeyValueModifierClass_WithCharModifierValue_WritesBlockKeyValueModifierClass()
+        {
+            // Arrange
+            const string dummyBlockName = "dummyBlockName";
+            const string dummyModifierKey = "dummyModifierKey";
+            const char dummyModifierValue = 'a';
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteBlockKeyValueModifierClass(dummyBlockName, dummyModifierKey, dummyModifierValue);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal($" {dummyBlockName}_{dummyModifierKey}_{dummyModifierValue}", result);
+        }
+        #endregion
+
+        #region Tags
         [Fact]
         public void WriteEndTag_WritesEndTag()
         {
@@ -571,126 +985,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             // Assert
             Assert.Equal($"<{dummyTagName} class=\"{dummyBlockName}__{dummyElementName} {dummyClasses}\" {dummyAttributes}>\n", result, ignoreLineEndingDifferences: true);
         }
+        #endregion
 
-        [Fact]
-        public void WriteElementClass_WritesElementClass()
-        {
-            // Arrange
-            const string dummyBlockName = "dummyBlockName";
-            const string dummyElementName = "dummyElementName";
-            var dummyStringWriter = new StringWriter();
-            var testSubject = new HtmlRenderer(dummyStringWriter);
-
-            // Act
-            testSubject.WriteElementClass(dummyBlockName, dummyElementName);
-            string result = dummyStringWriter.ToString();
-
-            // Assert
-            Assert.Equal($"{dummyBlockName}__{dummyElementName}", result);
-        }
-
-        [Fact]
-        public void WriteElementModifierClass_WritesElementModifierClass()
-        {
-            // Arrange
-            const string dummyBlockName = "dummyBlockName";
-            const string dummyElementName = "dummyElementName";
-            const string dummyModifier = "dummyModifier";
-            var dummyStringWriter = new StringWriter();
-            var testSubject = new HtmlRenderer(dummyStringWriter);
-
-            // Act
-            testSubject.WriteElementModifierClass(dummyBlockName, dummyElementName, dummyModifier);
-            string result = dummyStringWriter.ToString();
-
-            // Assert
-            Assert.Equal($" {dummyBlockName}__{dummyElementName}_{dummyModifier}", result);
-        }
-
-        [Theory]
-        [MemberData(nameof(WriteElementModifierClass_WithCondition_WritesElementModifierClassConditionally_Data))]
-        public void WriteElementModifierClass_WithCondition_WritesElementModifierClassConditionally(bool dummyCondition, string dummyBlockName, string dummyElementName, string dummyModifier, string expectedResult)
-        {
-            // Arrange
-            var dummyStringWriter = new StringWriter();
-            var testSubject = new HtmlRenderer(dummyStringWriter);
-
-            // Act
-            testSubject.WriteElementModifierClass(dummyCondition, dummyBlockName, dummyElementName, dummyModifier);
-            string result = dummyStringWriter.ToString();
-
-            // Assert
-            Assert.Equal(expectedResult, result);
-        }
-
-        public static IEnumerable<object[]> WriteElementModifierClass_WithCondition_WritesElementModifierClassConditionally_Data()
-        {
-            const string dummyBlockName = "dummyBlockName";
-            const string dummyElementName = "dummyElementName";
-            const string dummyModifier = "dummyModifier";
-
-            return new object[][]
-            {
-                new object[]{ true, dummyBlockName, dummyElementName, dummyModifier, $" {dummyBlockName}__{dummyElementName}_{dummyModifier}" },
-                new object[]{ false, dummyBlockName, dummyElementName, dummyModifier, string.Empty }
-            };
-        }
-
-        [Fact]
-        public void WriteElementKeyValueModifierClass_WritesElementKeyValueModifierClass()
-        {
-            // Arrange
-            const string dummyElementName = "dummyElementName";
-            const string dummyBlockName = "dummyBlockName";
-            const string dummyModifierKey = "dummyModifierKey";
-            const string dummyModifierValue = "dummyModifierValue";
-            var dummyStringWriter = new StringWriter();
-            var testSubject = new HtmlRenderer(dummyStringWriter);
-
-            // Act
-            testSubject.WriteElementKeyValueModifierClass(dummyBlockName, dummyElementName, dummyModifierKey, dummyModifierValue);
-            string result = dummyStringWriter.ToString();
-
-            // Assert
-            Assert.Equal($" {dummyBlockName}__{dummyElementName}_{dummyModifierKey}_{dummyModifierValue}", result);
-        }
-
-        [Fact]
-        public void WriteBlockKeyValueModifierClass_WithCharModifierValue_WritesBlockKeyValueModifierClassWithCharModifierValue()
-        {
-            // Arrange
-            const string dummyBlockName = "dummyBlockName";
-            const string dummyModifierKey = "dummyModifierKey";
-            const char dummyModifierValue = 'a';
-            var dummyStringWriter = new StringWriter();
-            var testSubject = new HtmlRenderer(dummyStringWriter);
-
-            // Act
-            testSubject.WriteBlockKeyValueModifierClass(dummyBlockName, dummyModifierKey, dummyModifierValue);
-            string result = dummyStringWriter.ToString();
-
-            // Assert
-            Assert.Equal($" {dummyBlockName}_{dummyModifierKey}_{dummyModifierValue}", result);
-        }
-
-        [Fact]
-        public void WriteBlockKeyValueModifierClass_WithStringModifierValue_WritesBlockKeyValueModifierClassWithStringModifierValue()
-        {
-            // Arrange
-            const string dummyBlockName = "dummyBlockName";
-            const string dummyModifierKey = "dummyModifierKey";
-            const string dummyModifierValue = "dummyModifierValue";
-            var dummyStringWriter = new StringWriter();
-            var testSubject = new HtmlRenderer(dummyStringWriter);
-
-            // Act
-            testSubject.WriteBlockKeyValueModifierClass(dummyBlockName, dummyModifierKey, dummyModifierValue);
-            string result = dummyStringWriter.ToString();
-
-            // Assert
-            Assert.Equal($" {dummyBlockName}_{dummyModifierKey}_{dummyModifierValue}", result);
-        }
-
+        #region Raw
         [Theory]
         [MemberData(nameof(Write_WithCondition_OnePart_WritesConditionally_Data))]
         public void Write_WithCondition_OnePart_WritesConditionally(bool dummyCondition, string dummyText, string expectedResult)
@@ -847,9 +1144,27 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             };
         }
 
+        [Fact]
+        public void WriteLine_WritesLine()
+        {
+            // Arrange
+            const string dummyPart = "dummyPart";
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteLine(dummyPart);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal($"{dummyPart}\n", result);
+        }
+        #endregion
+
+        #region HTML Fragments
         [Theory]
-        [MemberData(nameof(WriteHtmlFragmentWithClass_WritesHtmlFragmentWithClassConditionally_Data))]
-        public void WriteHtmlFragmentWithClass_WritesHtmlFragmentWithClassConditionally(bool dummyCondition,
+        [MemberData(nameof(WriteHtmlFragment_WritesHtmlFragmentConditionally_Data))]
+        public void WriteHtmlFragment_WritesHtmlFragmentConditionally(bool dummyCondition,
             string dummyHtmlFragment,
             string dummyBlockName,
             string dummyElementName,
@@ -867,7 +1182,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             Assert.Equal(expectedHtml, result);
         }
 
-        public static IEnumerable<object[]> WriteHtmlFragmentWithClass_WritesHtmlFragmentWithClassConditionally_Data()
+        public static IEnumerable<object[]> WriteHtmlFragment_WritesHtmlFragmentConditionally_Data()
         {
             const string dummyBlockName = "dummyBlockName";
             const string dummyElementName = "dummyElementName";
@@ -876,6 +1191,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             {
                 // Single element
                 new object[]{true, "<test></test>", dummyBlockName, dummyElementName, $"<test class=\"{dummyBlockName}__{dummyElementName}\"></test>"},
+                // Outer element already has classes
+                new object[]{true, "<test class=\"dummy-class-1 dummy-class-2\"></test>", dummyBlockName, dummyElementName, $"<test class=\"{dummyBlockName}__{dummyElementName} dummy-class-1 dummy-class-2\"></test>"},
                 // Multiple nested elements
                 new object[]{true, "<test><test></test></test>", dummyBlockName, dummyElementName, $"<test class=\"{dummyBlockName}__{dummyElementName}\"><test></test></test>"},
                 // Series of elements
@@ -896,6 +1213,95 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                 new object[]{false, "<test></test>", dummyBlockName, dummyElementName, string.Empty}
             };
         }
+
+        [Theory]
+        [MemberData(nameof(WriteHtmlFragmentLine_WritesHtmlFragmentLineConditionally_Data))]
+        public void WriteHtmlFragmentLine_WritesHtmlFragmentLineConditionally(bool dummyCondition,
+            string dummyHtmlFragment,
+            string dummyBlockName,
+            string dummyElementName,
+            string expectedHtml)
+        {
+            // Arrange
+            var stringWriter = new StringWriter();
+            var htmlRenderer = new HtmlRenderer(stringWriter);
+
+            // Act
+            htmlRenderer.WriteHtmlFragmentLine(dummyCondition, dummyHtmlFragment, dummyBlockName, dummyElementName);
+            string result = stringWriter.ToString();
+
+            // Assert
+            Assert.Equal(expectedHtml, result);
+        }
+
+        public static IEnumerable<object[]> WriteHtmlFragmentLine_WritesHtmlFragmentLineConditionally_Data()
+        {
+            const string dummyBlockName = "dummyBlockName";
+            const string dummyElementName = "dummyElementName";
+
+            return new object[][]
+            {
+                // Single element
+                new object[]{true, "<test></test>", dummyBlockName, dummyElementName, $"<test class=\"{dummyBlockName}__{dummyElementName}\"></test>\n"},
+                // Outer element already has classes
+                new object[]{true, "<test class=\"dummy-class-1 dummy-class-2\"></test>", dummyBlockName, dummyElementName, $"<test class=\"{dummyBlockName}__{dummyElementName} dummy-class-1 dummy-class-2\"></test>\n"},
+                // Multiple nested elements
+                new object[]{true, "<test><test></test></test>", dummyBlockName, dummyElementName, $"<test class=\"{dummyBlockName}__{dummyElementName}\"><test></test></test>\n"},
+                // Series of elements
+                new object[]{true, "<test></test><test></test>", dummyBlockName, dummyElementName, $"<test class=\"{dummyBlockName}__{dummyElementName}\"></test><test></test>\n"},
+                // Characters and spaces before first element
+                new object[]{true, "this is a valid HTML fragment <test></test>", dummyBlockName, dummyElementName, $"this is a valid HTML fragment <test class=\"{dummyBlockName}__{dummyElementName}\"></test>\n"},
+                // Self closing tag
+                new object[]{true, "<test/>", dummyBlockName, dummyElementName, $"<test class=\"{dummyBlockName}__{dummyElementName}\"/>\n"},
+                // No elements                
+                new object[]{true, "this is a valid HTML fragment", dummyBlockName, dummyElementName, "this is a valid HTML fragment\n"},
+                // Null block name
+                new object[]{true, "<test></test>", null, dummyElementName, $"<test class=\"__{dummyElementName}\"></test>\n"},
+                // Null element name
+                new object[]{true, "<test></test>", dummyBlockName, null, $"<test class=\"{dummyBlockName}__\"></test>\n"},
+                // Null block and element names
+                new object[]{true, "<test></test>", null, null, "<test class=\"__\"></test>\n"},
+                // Condition false
+                new object[]{false, "<test></test>", dummyBlockName, dummyElementName, string.Empty}
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(FindFirstTag_FindsFirstTag_Data))]
+        public void FindFirstTag_FindsFirstTag(string dummyHtmlFragment, (int, int, int, int) expectedResult)
+        {
+            // Act
+            (int, int, int, int) result = HtmlRendererExtensions.FindFirstTag(dummyHtmlFragment);
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        public static IEnumerable<object[]> FindFirstTag_FindsFirstTag_Data()
+        {
+            return new object[][]
+            {
+                        // Start tag
+                        new object[]{"<dummyTag>", (0, 9, 8, -1)},
+                        // Start tag with class
+                        new object[]{"<dummyTag class=\"dummy-class\">", (0, 29, 8, 17)},
+                        // Self closing tag
+                        new object[]{ "<dummyTag/>", (0, 10, 8, -1)},
+                        // Start tag with attributes
+                        new object[]{ "<dummyTag attributes=\"value\">", (0, 28, 8, -1)},
+                        // Start tag with leading characters
+                        new object[]{ "leading characters <dummyTag>", (19, 28, 27, -1)},
+                        // Incomplete start tag
+                        new object[]{ "<dummyTag", (-1, -1, -1, -1)},
+                        // Fragment with no start tag
+                        new object[]{ "fragment", (-1, -1, -1, -1)},
+                        // Start tag with random whitespace characters
+                        new object[]{ @"<dummyTag
+attributes = ""value""
+/>", (0, 32, 8, -1)}
+    };
+}
+        #endregion
 
         [Theory]
         [MemberData(nameof(WriteChildren_WithSpecifiedImplicitParagraphsSetting_Data))]
@@ -961,40 +1367,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             {
                 new object[] {true, new LinkInline(dummyUrl, dummyTitle), $"<a href=\"{dummyUrl}\" title=\"{dummyTitle}\"></a>"},
                 new object[] {false, new LinkInline(dummyUrl, dummyTitle), string.Empty}
-            };
-        }
-
-        [Theory]
-        [MemberData(nameof(FindFirstTag_FindsFirstTag_Data))]
-        public void FindFirstTag_FindsFirstTag(string dummyHtmlFragment, (int, int, int) expectedResult)
-        {
-            // Act
-            (int, int, int) result = HtmlRendererExtensions.FindFirstTag(dummyHtmlFragment);
-
-            // Assert
-            Assert.Equal(expectedResult, result);
-        }
-
-        public static IEnumerable<object[]> FindFirstTag_FindsFirstTag_Data()
-        {
-            return new object[][]
-            {
-                // Start tag
-                new object[]{"<dummyTag>", (0, 9, 8)},
-                // Self closing tag
-                new object[]{ "<dummyTag/>", (0, 10, 8)},
-                // Start tag with attributes
-                new object[]{ "<dummyTag attributes=\"value\">", (0, 28, 8)},
-                // Start tag with leading characters
-                new object[]{ "leading characters <dummyTag>", (19, 28, 27)},
-                // Incomplete start tag
-                new object[]{ "<dummyTag", (-1, -1, -1)},
-                // Fragment with no start tag
-                new object[]{ "fragment", (-1, -1, -1)},
-                // Start tag with random whitespace characters
-                new object[]{ @"<dummyTag
-attributes = ""value""
-/>", (0, 32, 8)}
             };
         }
     }
