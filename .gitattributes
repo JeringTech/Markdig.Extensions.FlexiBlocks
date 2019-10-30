@@ -40,7 +40,6 @@
 *.filters    text eol=crlf
 *.vcxitems   text eol=crlf
 
-
 #*.sln       merge=binary
 #*.csproj    merge=binary
 #*.vbproj    merge=binary
@@ -58,3 +57,13 @@
 #*.props     merge=binary
 #*.filters   merge=binary
 #*.vcxitems  merge=binary
+
+###############################################################################
+# Media
+###############################################################################
+*.png binary
+*.jpg binary
+*.gif binary
+*.mp4 binary
+*.webm binary
+*.ogg binary
