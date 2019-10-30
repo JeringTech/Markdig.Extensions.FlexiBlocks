@@ -15,12 +15,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "specs", "specs", "{F41F9DD0
 		specs\FlexiCardsBlocksSpecs.md = specs\FlexiCardsBlocksSpecs.md
 		Specs\FlexiCodeBlocksSpecs.md = Specs\FlexiCodeBlocksSpecs.md
 		specs\FlexiFigureBlocksSpecs.md = specs\FlexiFigureBlocksSpecs.md
+		specs\FlexiIncludeBlocksSpecs.md = specs\FlexiIncludeBlocksSpecs.md
+		specs\FlexiOptionsBlocksSpecs.md = specs\FlexiOptionsBlocksSpecs.md
+		specs\FlexiPictureBlocksSpecs.md = specs\FlexiPictureBlocksSpecs.md
 		specs\FlexiQuoteBlocksSpecs.md = specs\FlexiQuoteBlocksSpecs.md
 		Specs\FlexiSectionBlocksSpecs.md = Specs\FlexiSectionBlocksSpecs.md
 		Specs\FlexiTableBlocksSpecs.md = Specs\FlexiTableBlocksSpecs.md
 		specs\FlexiTabsBlocksSpecs.md = specs\FlexiTabsBlocksSpecs.md
-		specs\IncludeBlocksSpecs.md = specs\IncludeBlocksSpecs.md
-		specs\OptionsBlocksSpecs.md = specs\OptionsBlocksSpecs.md
+		specs\FlexiVideoBlocksSpecs.md = specs\FlexiVideoBlocksSpecs.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C050C90B-0201-435F-AADB-F3A329778318}"
@@ -34,6 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		specs\CommonMarkSpecs.json = specs\CommonMarkSpecs.json
 		Jering.Markdig.Extensions.FlexiBlocks.ruleset = Jering.Markdig.Extensions.FlexiBlocks.ruleset
 		License.md = License.md
+		Notes.txt = Notes.txt
 		ReadMe.md = ReadMe.md
 		ThirdPartyLicenses.md = ThirdPartyLicenses.md
 	EndProjectSection
