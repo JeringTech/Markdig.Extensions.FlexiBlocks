@@ -1,6 +1,6 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
-using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
-using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig;
 using Markdig.Parsers;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,36 +9,36 @@ using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
     // Integration tests that don't fit in amongst the specs.
-    public class IncludeBlocksIntegrationTests : IClassFixture<IncludeBlocksIntegrationTestsFixture>
+    public class FlexiIncludeBlocksIntegrationTests : IClassFixture<FlexiIncludeBlocksIntegrationTestsFixture>
     {
-        private readonly IncludeBlocksIntegrationTestsFixture _fixture;
+        private readonly FlexiIncludeBlocksIntegrationTestsFixture _fixture;
 
-        public IncludeBlocksIntegrationTests(IncludeBlocksIntegrationTestsFixture fixture)
+        public FlexiIncludeBlocksIntegrationTests(FlexiIncludeBlocksIntegrationTestsFixture fixture)
         {
             _fixture = fixture;
         }
 
         [Fact]
-        public void IncludeBlocks_ConstructsAndExposesIncludeBlockTrees()
+        public void FlexiIncludeBlocks_ConstructsAndExposesFlexiIncludeBlockTrees()
         {
             // Arrange
             const string dummySource1 = "./dummyContent1.md";
             const string dummySource2 = "./dummyContent2.md";
             const string dummySource3 = "./dummyContent3.md";
-            string dummyRootContent = $@"+{{
+            string dummyRootContent = $@"i{{
 ""type"": ""markdown"",
 ""source"": ""{dummySource1}"",
 }}
 
-+{{
+i{{
 ""type"": ""markdown"",
 ""source"": ""{dummySource2}""
 }}";
             const string dummyContent1 = "This is dummy markdown";
-            string dummyContent2 = $@"+{{
+            string dummyContent2 = $@"i{{
 ""type"": ""markdown"",
 ""source"": ""{dummySource3}"",
 }}";
@@ -52,38 +52,38 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
 
             // Need to dispose of services after each test so that the in-memory cache doesn't affect results
             var services = new ServiceCollection();
-            services.AddIncludeBlocks();
+            services.AddFlexiIncludeBlocks();
             using (ServiceProvider serviceProvider = services.BuildServiceProvider())
             {
                 var dummyMarkdownPipelineBuilder = new MarkdownPipelineBuilder();
-                dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<IBlockExtension<IncludeBlock>>());
+                dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<IBlockExtension<FlexiIncludeBlock>>());
                 MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
                 var dummyMarkdownParserContext = new MarkdownParserContext();
-                dummyMarkdownParserContext.Properties[typeof(IIncludeBlocksExtensionOptions)] = new IncludeBlocksExtensionOptions(baseUri: _fixture.TempDirectory + "/");
+                dummyMarkdownParserContext.Properties[typeof(IFlexiIncludeBlocksExtensionOptions)] = new FlexiIncludeBlocksExtensionOptions(baseUri: _fixture.TempDirectory + "/");
 
                 // Act
                 MarkdownParser.Parse(dummyRootContent, dummyMarkdownPipeline, dummyMarkdownParserContext);
 
                 // Assert
-                dummyMarkdownParserContext.Properties.TryGetValue(IncludeBlockFactory.INCLUDE_BLOCK_TREES_KEY, out object treesObject);
-                var includeBlockTrees = treesObject as List<IncludeBlock>;
-                Assert.NotNull(includeBlockTrees);
-                Assert.Equal(2, includeBlockTrees.Count);
-                // First IncludeBlock includes source 1
-                Assert.Equal(dummySource1AbsolutePath, includeBlockTrees[0].Source.AbsolutePath);
-                // Second IncludeBlock includes source 2, which includes source 3
-                Assert.Equal(dummySource2AbsolutePath, includeBlockTrees[1].Source.AbsolutePath);
-                Assert.Single(includeBlockTrees[1].Children);
-                Assert.Equal(dummySource3AbsolutePath, includeBlockTrees[1].Children[0].Source.AbsolutePath);
-                Assert.Equal(includeBlockTrees[1], includeBlockTrees[1].Children[0].ParentIncludeBlock);
+                dummyMarkdownParserContext.Properties.TryGetValue(FlexiIncludeBlockFactory.FLEXI_INCLUDE_BLOCK_TREES_KEY, out object treesObject);
+                var flexiIncludeBlockTrees = treesObject as List<FlexiIncludeBlock>;
+                Assert.NotNull(flexiIncludeBlockTrees);
+                Assert.Equal(2, flexiIncludeBlockTrees.Count);
+                // First FlexiIncludeBlock includes source 1
+                Assert.Equal(dummySource1AbsolutePath, flexiIncludeBlockTrees[0].Source.AbsolutePath);
+                // Second FlexiIncludeBlock includes source 2, which includes source 3
+                Assert.Equal(dummySource2AbsolutePath, flexiIncludeBlockTrees[1].Source.AbsolutePath);
+                Assert.Single(flexiIncludeBlockTrees[1].Children);
+                Assert.Equal(dummySource3AbsolutePath, flexiIncludeBlockTrees[1].Children[0].Source.AbsolutePath);
+                Assert.Equal(flexiIncludeBlockTrees[1], flexiIncludeBlockTrees[1].Children[0].ParentFlexiIncludeBlock);
             }
         }
 
         [Theory]
-        [MemberData(nameof(IncludeBlocks_ThrowsBlockExceptionIfACycleIsFound_Data))]
-        public void IncludeBlocks_ThrowsBlockExceptionIfACycleIsFound(string dummyRootContent, int dummyEntryInvalidIncludeBlockLineNumber,
-            string dummyContent1, int dummyContent1InvalidIncludeBlockLineNumber,
-            string dummyContent2, int dummyContent2InvalidIncludeBlockLineNumber,
+        [MemberData(nameof(FlexiIncludeBlocks_ThrowsBlockExceptionIfACycleIsFound_Data))]
+        public void FlexiIncludeBlocks_ThrowsBlockExceptionIfACycleIsFound(string dummyRootContent, int dummyEntryInvalidFlexiIncludeBlockLineNumber,
+            string dummyContent1, int dummyContent1InvalidFlexiIncludeBlockLineNumber,
+            string dummyContent2, int dummyContent2InvalidFlexiIncludeBlockLineNumber,
             string dummyContent3,
             string expectedCycleDescription)
         {
@@ -97,58 +97,58 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
 
             // Need to dispose of services after each test so that the in-memory cache doesn't affect results
             var services = new ServiceCollection();
-            services.AddIncludeBlocks();
+            services.AddFlexiIncludeBlocks();
             using (ServiceProvider serviceProvider = services.BuildServiceProvider())
             {
-                // TODO use service provider to manually add extension instead of UseIncludeBlocks!
+                // TODO use service provider to manually add extension instead of UseFlexiIncludeBlocks!
                 var dummyMarkdownPipelineBuilder = new MarkdownPipelineBuilder();
-                dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<IBlockExtension<IncludeBlock>>());
+                dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<IBlockExtension<FlexiIncludeBlock>>());
                 MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
                 var dummyMarkdownParserContext = new MarkdownParserContext();
-                dummyMarkdownParserContext.Properties[typeof(IIncludeBlocksExtensionOptions)] = new IncludeBlocksExtensionOptions(baseUri: _fixture.TempDirectory + "/");
+                dummyMarkdownParserContext.Properties[typeof(IFlexiIncludeBlocksExtensionOptions)] = new FlexiIncludeBlocksExtensionOptions(baseUri: _fixture.TempDirectory + "/");
 
                 // Act and assert
                 BlockException result = Assert.Throws<BlockException>(() => MarkdownParser.Parse(dummyRootContent, dummyMarkdownPipeline, dummyMarkdownParserContext));
-                Assert.Equal(string.Format(Strings.BlockException_BlockException_InvalidBlock, nameof(IncludeBlock), dummyEntryInvalidIncludeBlockLineNumber, 0,
-                        string.Format(Strings.BlockException_IncludeBlockFactory_ExceptionOccurredWhileProcessingContent,
+                Assert.Equal(string.Format(Strings.BlockException_BlockException_InvalidBlock, nameof(FlexiIncludeBlock), dummyEntryInvalidFlexiIncludeBlockLineNumber, 0,
+                        string.Format(Strings.BlockException_FlexiIncludeBlockFactory_ExceptionOccurredWhileProcessingContent,
                             dummySource1Uri.AbsoluteUri)),
                     result.Message);
-                Assert.Equal(string.Format(Strings.BlockException_BlockException_InvalidBlock, nameof(IncludeBlock), dummyContent1InvalidIncludeBlockLineNumber, 0,
-                        string.Format(Strings.BlockException_IncludeBlockFactory_ExceptionOccurredWhileProcessingContent,
+                Assert.Equal(string.Format(Strings.BlockException_BlockException_InvalidBlock, nameof(FlexiIncludeBlock), dummyContent1InvalidFlexiIncludeBlockLineNumber, 0,
+                        string.Format(Strings.BlockException_FlexiIncludeBlockFactory_ExceptionOccurredWhileProcessingContent,
                             dummySource2Uri.AbsoluteUri)),
                     result.InnerException.Message);
-                Assert.Equal(string.Format(Strings.BlockException_BlockException_InvalidBlock, nameof(IncludeBlock), dummyContent2InvalidIncludeBlockLineNumber, 0,
-                        string.Format(Strings.BlockException_IncludeBlockFactory_ExceptionOccurredWhileProcessingContent,
+                Assert.Equal(string.Format(Strings.BlockException_BlockException_InvalidBlock, nameof(FlexiIncludeBlock), dummyContent2InvalidFlexiIncludeBlockLineNumber, 0,
+                        string.Format(Strings.BlockException_FlexiIncludeBlockFactory_ExceptionOccurredWhileProcessingContent,
                             dummySource1Uri.AbsoluteUri)),
                     result.InnerException.InnerException.Message);
-                Assert.Equal(string.Format(Strings.BlockException_BlockException_InvalidBlock, nameof(IncludeBlock), dummyContent1InvalidIncludeBlockLineNumber, 0,
+                Assert.Equal(string.Format(Strings.BlockException_BlockException_InvalidBlock, nameof(FlexiIncludeBlock), dummyContent1InvalidFlexiIncludeBlockLineNumber, 0,
                         Strings.BlockException_BlockException_ExceptionOccurredWhileProcessingBlock),
                     result.InnerException.InnerException.InnerException.Message);
-                Assert.Equal(string.Format(Strings.InvalidOperationException_IncludeBlockFactory_CycleFound,
+                Assert.Equal(string.Format(Strings.InvalidOperationException_FlexiIncludeBlockFactory_CycleFound,
                         string.Format(expectedCycleDescription, dummySource1Uri.AbsoluteUri, dummySource2Uri.AbsoluteUri)),
                     result.InnerException.InnerException.InnerException.InnerException.Message,
                     ignoreLineEndingDifferences: true);
             }
         }
 
-        public static IEnumerable<object[]> IncludeBlocks_ThrowsBlockExceptionIfACycleIsFound_Data()
+        public static IEnumerable<object[]> FlexiIncludeBlocks_ThrowsBlockExceptionIfACycleIsFound_Data()
         {
             return new object[][]
             {
                 // Basic circular include
                 new object[]
                 {
-                    @"+{
+                    @"i{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent1.md""
 }",
                     1,
-                    @"+{
+                    @"i{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent2.md""
 }",
                     1,
-                    @"+{
+                    @"i{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent1.md""
 }",
@@ -161,33 +161,33 @@ Source: {0}, Line Number: 1"
                 // Valid includes don't affect identification of circular includes
                 new object[]
                 {
-                    @"+{
+                    @"i{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent1.md"",
 ""clippings"": [{""startLine"": 2, ""endLine"": 2}]
 }
 
-+{
+i{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent1.md""
 }",
                     7,
-                    @"+{
+                    @"i{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent3.md""
 }
 
-+{
+i{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent2.md""
 }",
                     6,
-                    @"+{
+                    @"i{
 ""type"": ""Code"",
 ""source"": ""./dummyContent1.md""
 }
 
-+{
+i{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent1.md""
 }",
@@ -200,35 +200,35 @@ Source: {0}, Line Number: 6"
                 // Circular includes that uses clippings are caught
                 new object[]
                 {
-                    @"+{
+                    @"i{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent1.md"",
 ""clippings"": [{""startLine"": 2, ""endLine"": 2}]
 }
 
-+{
+i{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent1.md"",
 ""clippings"": [{""startLine"": 6}]
 }",
                     7,
-                    @"+{
+                    @"i{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent3.md""
 }
 
-+{
+i{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent2.md"",
 ""clippings"": [{""startLine"": 6}]
 }",
                     6,
-                    @"+{
+                    @"i{
 ""type"": ""Code"",
 ""source"": ""./dummyContent1.md""
 }
 
-+{
+i{
 ""type"": ""markdown"",
 ""source"": ""./dummyContent1.md""
 }",
@@ -242,18 +242,18 @@ Source: {0}, Line Number: 6"
         }
 
         [Fact]
-        public void IncludeBlocks_ThrowsBlockExceptionIfAnIncludedContentHasAnInvalidBlock()
+        public void FlexiIncludeBlocks_ThrowsBlockExceptionIfAnIncludedContentHasAnInvalidBlock()
         {
             // Arrange
             const int dummyRenderingMode = 12;
             const string dummyRootContent = @"
-+{
+i{
     ""type"": ""markdown"",
     ""source"": ""./dummyContent1.md""
 }";
             string dummyContent1 = $@"This is valid markdown.
 
-@{{
+o{{
     ""renderingMode"": ""{dummyRenderingMode}""
 }}
 ```
@@ -263,8 +263,8 @@ This is a FlexiCodeBlock with an invalid option.
             // Need to dispose of services after each test so that the in-memory cache doesn't affect results
             var services = new ServiceCollection();
             services.
-                AddOptionsBlocks().
-                AddIncludeBlocks().
+                AddFlexiOptionsBlocks().
+                AddFlexiIncludeBlocks().
                 AddFlexiCodeBlocks();
 
             // Write to file
@@ -274,19 +274,19 @@ This is a FlexiCodeBlock with an invalid option.
             using (ServiceProvider serviceProvider = services.BuildServiceProvider())
             {
                 var dummyMarkdownPipelineBuilder = new MarkdownPipelineBuilder();
-                dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<IBlockExtension<IncludeBlock>>());
-                dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<IBlockExtension<OptionsBlock>>());
+                dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<IBlockExtension<FlexiIncludeBlock>>());
+                dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<IBlockExtension<FlexiOptionsBlock>>());
                 dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<IBlockExtension<FlexiCodeBlock>>());
                 MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
                 var dummyMarkdownParserContext = new MarkdownParserContext();
-                dummyMarkdownParserContext.Properties[typeof(IIncludeBlocksExtensionOptions)] = new IncludeBlocksExtensionOptions(baseUri: _fixture.TempDirectory + "/");
+                dummyMarkdownParserContext.Properties[typeof(IFlexiIncludeBlocksExtensionOptions)] = new FlexiIncludeBlocksExtensionOptions(baseUri: _fixture.TempDirectory + "/");
 
                 // Act and assert
                 BlockException result = Assert.Throws<BlockException>(() => MarkdownParser.Parse(dummyRootContent, dummyMarkdownPipeline, dummyMarkdownParserContext));
                 // From bottom to top, this is the exception chain: 
-                // OptionsException > BlockException for invalid FlexiCodeBlock > BlockException for invalid IncludeBlock
-                Assert.Equal(string.Format(Strings.BlockException_BlockException_InvalidBlock, nameof(IncludeBlock), 2, 0,
-                        string.Format(Strings.BlockException_IncludeBlockFactory_ExceptionOccurredWhileProcessingContent, dummySource1Uri.AbsoluteUri)),
+                // OptionsException > BlockException for invalid FlexiCodeBlock > BlockException for invalid FlexiIncludeBlock
+                Assert.Equal(string.Format(Strings.BlockException_BlockException_InvalidBlock, nameof(FlexiIncludeBlock), 2, 0,
+                        string.Format(Strings.BlockException_FlexiIncludeBlockFactory_ExceptionOccurredWhileProcessingContent, dummySource1Uri.AbsoluteUri)),
                     result.Message);
                 Assert.IsType<BlockException>(result.InnerException);
                 Assert.Equal(string.Format(Strings.BlockException_BlockException_InvalidBlock, nameof(FlexiCodeBlock), 6, 0,
@@ -301,11 +301,11 @@ This is a FlexiCodeBlock with an invalid option.
         }
     }
 
-    public class IncludeBlocksIntegrationTestsFixture : IDisposable
+    public class FlexiIncludeBlocksIntegrationTestsFixture : IDisposable
     {
-        public string TempDirectory { get; } = Path.Combine(Path.GetTempPath(), nameof(IncludeBlocksIntegrationTests));
+        public string TempDirectory { get; } = Path.Combine(Path.GetTempPath(), nameof(FlexiIncludeBlocksIntegrationTests));
 
-        public IncludeBlocksIntegrationTestsFixture()
+        public FlexiIncludeBlocksIntegrationTestsFixture()
         {
             TryDeleteDirectory();
             Directory.CreateDirectory(TempDirectory);

@@ -1,7 +1,7 @@
 ﻿using Markdig.Helpers;
 using System;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     /// <summary>
     /// An abstraction for editing leading whitespace of <see cref="StringSlice"/>s.

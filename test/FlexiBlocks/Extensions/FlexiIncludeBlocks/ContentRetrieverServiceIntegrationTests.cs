@@ -1,5 +1,5 @@
 ﻿using Jering.IocServices.System.Net.Http;
-using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading;
 using Xunit;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
     //These integration tests ensure that ContentRetrieverService utilizes its dependencies correctly, with an emphasis on caching of sources
     public class ContentRetrieverServiceIntegrationTests : IClassFixture<ContentRetrieverServiceIntegrationTestsFixture>, IDisposable

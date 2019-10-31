@@ -1,5 +1,5 @@
 ﻿using Jering.IocServices.System.IO;
-using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
     public class DiskCacheServiceUnitTests : IClassFixture<DiskCacheServiceUnitTestsFixture>
     {
@@ -363,14 +363,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         public void GetCacheIdentifier_GetsIdentifier()
         {
             // Arrange
-            const string dummyAbsoluteUri = "file://C:/dummy/absolute/path";
+            const string dummyAbsoluteUri = "file:///host/dummy/absolute/path";
             DiskCacheService testSubject = CreateDiskCacheService();
 
             // Act
             string result = testSubject.GetCacheIdentifier(dummyAbsoluteUri);
 
             // Assert
-            Assert.Equal("B09E67B0F1899D8BB5C8D1F087DDC9CF", result);
+            Assert.Equal("19AB76B0543B5B7F9707E392C5C5EE47", result);
         }
 
         private Mock<DiskCacheService> CreateMockDiskCacheService(IFileService fileService = null, IDirectoryService directoryService = null, ILoggerFactory loggerFactory = null)

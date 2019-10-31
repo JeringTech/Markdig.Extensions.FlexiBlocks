@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     /// <summary>
     /// An abstraction for retrieving content from sources.

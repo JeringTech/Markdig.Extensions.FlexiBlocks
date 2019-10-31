@@ -9,14 +9,14 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     /// <summary>
-    /// The implementation of <see cref="IJsonBlockFactory{TMain, TProxy}"/> for creating <see cref="IncludeBlock"/>s.
+    /// The implementation of <see cref="IJsonBlockFactory{TMain, TProxy}"/> for creating <see cref="FlexiIncludeBlock"/>s.
     /// </summary>
-    public class IncludeBlockFactory : IJsonBlockFactory<IncludeBlock, ProxyJsonBlock>
+    public class FlexiIncludeBlockFactory : IJsonBlockFactory<FlexiIncludeBlock, ProxyJsonBlock>
     {
-        internal const string CLOSING_INCLUDE_BLOCKS_KEY = "closingIncludeBlocksKey";
+        internal const string CLOSING_FLEXI_INCLUDE_BLOCKS_KEY = "closingFlexiIncludeBlocksKey";
         // We only support a subset of schemes. For the full list of schemes, see https://docs.microsoft.com/en-sg/dotnet/api/system.uri.scheme?view=netstandard-2.0#System_Uri_Scheme
         private static readonly string[] _supportedSchemes = new string[] { "file", "http", "https" };
         private static readonly StringSlice _codeBlockFence = new StringSlice("```");
@@ -25,21 +25,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
 
         private readonly IContextObjectsService _contextObjectsService;
         private readonly IDirectoryService _directoryService;
-        private readonly IOptionsService<IIncludeBlockOptions, IIncludeBlocksExtensionOptions> _optionsService;
+        private readonly IOptionsService<IFlexiIncludeBlockOptions, IFlexiIncludeBlocksExtensionOptions> _optionsService;
         private readonly IContentRetrieverService _contentRetrieverService;
         private readonly ILeadingWhitespaceEditorService _leadingWhitespaceEditorService;
 
         /// <summary>
-        /// The key for the <see cref="List{T}"/> containing <see cref="IncludeBlock"/> trees.
+        /// The key for the <see cref="List{T}"/> containing <see cref="FlexiIncludeBlock"/> trees.
         /// </summary>
-        public const string INCLUDE_BLOCK_TREES_KEY = "includeBlocksTreesKey";
+        public const string FLEXI_INCLUDE_BLOCK_TREES_KEY = "flexiIncludeBlocksTreesKey";
 
         /// <summary>
-        /// Creates an <see cref="IncludeBlockFactory"/>.
+        /// Creates a <see cref="FlexiIncludeBlockFactory"/>.
         /// </summary>
-        /// <param name="contextObjectsService">The service for storing <see cref="IncludeBlock"/> trees.</param>
+        /// <param name="contextObjectsService">The service for storing <see cref="FlexiIncludeBlock"/> trees.</param>
         /// <param name="directoryService">The service for validating cache directories.</param>
-        /// <param name="optionsService">The service for creating <see cref="IIncludeBlockOptions"/> and <see cref="IIncludeBlocksExtensionOptions"/>.</param>
+        /// <param name="optionsService">The service for creating <see cref="IFlexiIncludeBlockOptions"/> and <see cref="IFlexiIncludeBlocksExtensionOptions"/>.</param>
         /// <param name="contentRetrieverService">The service that handles content retrieval.</param>
         /// <param name="leadingWhitespaceEditorService">The service for editing of leading whitespace.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="contextObjectsService"/> is <c>null</c>.</exception>
@@ -47,9 +47,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="optionsService"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="contentRetrieverService"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="leadingWhitespaceEditorService"/> is <c>null</c>.</exception>
-        public IncludeBlockFactory(IContextObjectsService contextObjectsService,
+        public FlexiIncludeBlockFactory(IContextObjectsService contextObjectsService,
             IDirectoryService directoryService,
-            IOptionsService<IIncludeBlockOptions, IIncludeBlocksExtensionOptions> optionsService,
+            IOptionsService<IFlexiIncludeBlockOptions, IFlexiIncludeBlocksExtensionOptions> optionsService,
             IContentRetrieverService contentRetrieverService,
             ILeadingWhitespaceEditorService leadingWhitespaceEditorService)
         {
@@ -73,7 +73,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
                 throw new ArgumentNullException(nameof(blockProcessor));
             }
 
-            return new ProxyJsonBlock(nameof(IncludeBlock), blockParser)
+            return new ProxyJsonBlock(nameof(FlexiIncludeBlock), blockParser)
             {
                 Column = blockProcessor.Column,
                 Span = { Start = blockProcessor.Start } // JsonBlockParser.ParseLine will update the span's end
@@ -82,43 +82,43 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
         }
 
         /// <summary>
-        /// Creates an <see cref="IncludeBlock"/>.
+        /// Creates a <see cref="FlexiIncludeBlock"/>.
         /// </summary>
-        /// <param name="proxyJsonBlock">The <see cref="ProxyJsonBlock"/> containing data for the <see cref="IncludeBlock"/>.</param>
-        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <see cref="IncludeBlock"/>.</param>
+        /// <param name="proxyJsonBlock">The <see cref="ProxyJsonBlock"/> containing data for the <see cref="FlexiIncludeBlock"/>.</param>
+        /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <see cref="FlexiIncludeBlock"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="proxyJsonBlock"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="blockProcessor"/> is <c>null</c>.</exception>
         /// <exception cref="OptionsException">Thrown if an option is invalid.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if an <see cref="IncludeBlock"/> cycle is found.</exception>
-        /// <exception cref="BlockException">Thrown if an exception is thrown while processing the <see cref="IncludeBlock"/>'s included content.</exception>
-        public IncludeBlock Create(ProxyJsonBlock proxyJsonBlock, BlockProcessor blockProcessor)
+        /// <exception cref="InvalidOperationException">Thrown if a <see cref="FlexiIncludeBlock"/> cycle is found.</exception>
+        /// <exception cref="BlockException">Thrown if an exception is thrown while processing the <see cref="FlexiIncludeBlock"/>'s included content.</exception>
+        public FlexiIncludeBlock Create(ProxyJsonBlock proxyJsonBlock, BlockProcessor blockProcessor)
         {
-            (IIncludeBlockOptions includeBlockOptions, IIncludeBlocksExtensionOptions includeBlocksExtensionOptions) = _optionsService.
+            (IFlexiIncludeBlockOptions flexiIncludeBlockOptions, IFlexiIncludeBlocksExtensionOptions flexiIncludeBlocksExtensionOptions) = _optionsService.
                 CreateOptions(blockProcessor, proxyJsonBlock);
 
             // Source
-            string source = includeBlockOptions.Source;
+            string source = flexiIncludeBlockOptions.Source;
             ValidateSource(source);
 
             // Type
-            IncludeType type = includeBlockOptions.Type;
+            FlexiIncludeType type = flexiIncludeBlockOptions.Type;
             ValidateType(type);
 
             // Cache directory
-            string cacheDirectory = ResolveAndValidateCacheDirectory(includeBlockOptions.Cache, includeBlockOptions.CacheDirectory);
+            string cacheDirectory = ResolveAndValidateCacheDirectory(flexiIncludeBlockOptions.Cache, flexiIncludeBlockOptions.CacheDirectory);
 
             // Parent
-            IncludeBlock parent = ResolveParent(blockProcessor);
+            FlexiIncludeBlock parent = ResolveParent(blockProcessor);
 
             // Containing source
             string containingSource = ResolveContainingSource(parent);
 
             // Source absolute URI
-            Uri sourceAbsoluteUri = ResolveSourceAbsoluteUri(source, includeBlocksExtensionOptions.BaseUri, parent);
+            Uri sourceAbsoluteUri = ResolveSourceAbsoluteUri(source, flexiIncludeBlocksExtensionOptions.BaseUri, parent);
 
             // Create block
-            var includeBlock = new IncludeBlock(sourceAbsoluteUri,
-                includeBlockOptions.Clippings,
+            var flexiIncludeBlock = new FlexiIncludeBlock(sourceAbsoluteUri,
+                flexiIncludeBlockOptions.Clippings,
                 type,
                 cacheDirectory,
                 parent,
@@ -129,9 +129,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
                 Line = proxyJsonBlock.Line,
                 Span = proxyJsonBlock.Span
             };
-            parent?.Children.Add(includeBlock);
+            parent?.Children.Add(flexiIncludeBlock);
 
-            ProcessIncludeBlock(includeBlock, proxyJsonBlock, blockProcessor);
+            ProcessFlexiIncludeBlock(flexiIncludeBlock, proxyJsonBlock, blockProcessor);
 
             return null;
         }
@@ -140,18 +140,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
         {
             if (source == null)
             {
-                throw new OptionsException(nameof(IIncludeBlockOptions.Source), Strings.OptionsException_Shared_ValueMustNotBeNull);
+                throw new OptionsException(nameof(IFlexiIncludeBlockOptions.Source), Strings.OptionsException_Shared_ValueMustNotBeNull);
             }
         }
 
-        internal virtual void ValidateType(IncludeType type)
+        internal virtual void ValidateType(FlexiIncludeType type)
         {
-            if (!Enum.IsDefined(typeof(IncludeType), type))
+            if (!Enum.IsDefined(typeof(FlexiIncludeType), type))
             {
-                throw new OptionsException(nameof(IIncludeBlockOptions.Type),
+                throw new OptionsException(nameof(IFlexiIncludeBlockOptions.Type),
                         string.Format(Strings.OptionsException_Shared_ValueMustBeAValidEnumValue,
                             type,
-                            nameof(IncludeType)));
+                            nameof(FlexiIncludeType)));
             }
         }
 
@@ -166,7 +166,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
 
                 if (!_directoryService.Exists(cacheDirectory))
                 {
-                    throw new OptionsException(nameof(IIncludeBlockOptions.CacheDirectory), string.Format(Strings.OptionsException_Shared_DirectoryDoesNotExist, cacheDirectory));
+                    throw new OptionsException(nameof(IFlexiIncludeBlockOptions.CacheDirectory), string.Format(Strings.OptionsException_Shared_DirectoryDoesNotExist, cacheDirectory));
                 }
 
                 return cacheDirectory;
@@ -177,28 +177,29 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
             }
         }
 
-        internal virtual IncludeBlock ResolveParent(BlockProcessor blockProcessor)
+        internal virtual FlexiIncludeBlock ResolveParent(BlockProcessor blockProcessor)
         {
-            Stack<IncludeBlock> closingIncludeBlocks = GetOrCreateClosingIncludeBlocks(blockProcessor);
-            return closingIncludeBlocks.FirstOrDefault();
+            Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks = GetOrCreateClosingFlexiIncludeBlocks(blockProcessor);
+            return closingFlexiIncludeBlocks.FirstOrDefault();
         }
 
-        internal virtual string ResolveContainingSource(IncludeBlock parent)
+        internal virtual string ResolveContainingSource(FlexiIncludeBlock parent)
         {
             return parent?.Source.AbsoluteUri;
         }
 
-        internal virtual Uri ResolveSourceAbsoluteUri(string source, string rootBaseUri, IncludeBlock parent)
+        internal virtual Uri ResolveSourceAbsoluteUri(string source, string rootBaseUri, FlexiIncludeBlock parent)
         {
             if (Uri.TryCreate(source, UriKind.Absolute, out Uri sourceAbsoluteUri))
             {
                 // Invalid scheme
                 if (!_supportedSchemes.Contains(sourceAbsoluteUri.Scheme))
                 {
-                    throw new OptionsException(nameof(IIncludeBlockOptions.Source),
-                        string.Format(Strings.OptionsException_IncludeBlockFactory_ValueMustBeAUriWithASupportedScheme,
+                    throw new OptionsException(nameof(IFlexiIncludeBlockOptions.Source),
+                        string.Format(Strings.OptionsException_Shared_ValueMustBeAUriWithASupportedScheme,
                             source,
-                            sourceAbsoluteUri.Scheme));
+                            sourceAbsoluteUri.Scheme,
+                            "FILE, HTTP or HTTPS"));
                 }
             }
             else if (parent != null) // Source is relative so parent's absolute source URI should be used as base
@@ -206,12 +207,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
                 if (!Uri.TryCreate(parent.Source, source, out sourceAbsoluteUri))
                 {
                     // Source is neither a valid absolute URI nor a valid relative URI
-                    throw new OptionsException(nameof(IIncludeBlockOptions.Source),
-                        string.Format(Strings.OptionsException_IncludeBlockFactory_ValueMustBeAValidUri,
+                    throw new OptionsException(nameof(IFlexiIncludeBlockOptions.Source),
+                        string.Format(Strings.OptionsException_Shared_ValueMustBeAValidUri,
                             source));
                 }
             }
-            else // Source is relative, include block is in root content - root base URI should be used as base
+            else // Source is relative, FlexiIncludeBlock is in root content - root base URI should be used as base
             {
                 // Normalize rootBaseUri. A base URI must be absolute, see http://www.ietf.org/rfc/rfc3986.txt, section 5.1.
                 //
@@ -230,25 +231,26 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
                 {
                     if (!Uri.TryCreate(rootBaseUri, UriKind.Absolute, out baseAbsoluteUri))
                     {
-                        throw new OptionsException(nameof(IIncludeBlocksExtensionOptions.BaseUri),
-                            string.Format(Strings.OptionsException_IncludeBlockFactory_ValueMustBeAnAbsoluteUri,
+                        throw new OptionsException(nameof(IFlexiIncludeBlocksExtensionOptions.BaseUri),
+                            string.Format(Strings.OptionsException_Shared_ValueMustBeAnAbsoluteUri,
                                 rootBaseUri));
                     }
 
                     if (!_supportedSchemes.Contains(baseAbsoluteUri.Scheme)) // Invalid scheme
                     {
-                        throw new OptionsException(nameof(IIncludeBlocksExtensionOptions.BaseUri),
-                            string.Format(Strings.OptionsException_IncludeBlockFactory_ValueMustBeAUriWithASupportedScheme,
+                        throw new OptionsException(nameof(IFlexiIncludeBlocksExtensionOptions.BaseUri),
+                            string.Format(Strings.OptionsException_Shared_ValueMustBeAUriWithASupportedScheme,
                                 rootBaseUri,
-                                baseAbsoluteUri.Scheme));
+                                baseAbsoluteUri.Scheme,
+                                "FILE, HTTP or HTTPS"));
                     }
                 }
 
                 if (!Uri.TryCreate(baseAbsoluteUri, source, out sourceAbsoluteUri))
                 {
                     // Source is neither a valid absolute URI nor a valid relative URI
-                    throw new OptionsException(nameof(IIncludeBlockOptions.Source),
-                        string.Format(Strings.OptionsException_IncludeBlockFactory_ValueMustBeAValidUri,
+                    throw new OptionsException(nameof(IFlexiIncludeBlockOptions.Source),
+                        string.Format(Strings.OptionsException_Shared_ValueMustBeAValidUri,
                             source));
                 }
             }
@@ -256,20 +258,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
             return sourceAbsoluteUri;
         }
 
-        internal virtual void ProcessIncludeBlock(IncludeBlock includeBlock, ProxyJsonBlock proxyJsonBlock, BlockProcessor blockProcessor)
+        internal virtual void ProcessFlexiIncludeBlock(FlexiIncludeBlock flexiIncludeBlock, ProxyJsonBlock proxyJsonBlock, BlockProcessor blockProcessor)
         {
-            // If the IncludeBlock's type is markdown, we need to ensure we don't have a cycle of includes.  
-            bool isMarkdown = includeBlock.Type == IncludeType.Markdown;
-            Stack<IncludeBlock> closingIncludeBlocks = null;
+            // If the FlexiIncludeBlock's type is markdown, we need to ensure we don't have a cycle of includes.  
+            bool isMarkdown = flexiIncludeBlock.Type == FlexiIncludeType.Markdown;
+            Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks = null;
             if (isMarkdown)
             {
-                closingIncludeBlocks = GetOrCreateClosingIncludeBlocks(blockProcessor);
-                CheckForCycle(closingIncludeBlocks, includeBlock);
-                closingIncludeBlocks.Push(includeBlock);
+                closingFlexiIncludeBlocks = GetOrCreateClosingFlexiIncludeBlocks(blockProcessor);
+                CheckForCycle(closingFlexiIncludeBlocks, flexiIncludeBlock);
+                closingFlexiIncludeBlocks.Push(flexiIncludeBlock);
             }
 
             // Retrieve source
-            ReadOnlyCollection<string> content = _contentRetrieverService.GetContent(includeBlock.Source, includeBlock.CacheDirectory);
+            ReadOnlyCollection<string> content = _contentRetrieverService.GetContent(flexiIncludeBlock.Source, flexiIncludeBlock.CacheDirectory);
 
             // Parent of new blocks
             ContainerBlock parentOfNewBlocks = proxyJsonBlock.Parent;
@@ -278,71 +280,71 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
             try
             {
                 // Convert content into blocks and add them to parentOfNewBlocks
-                ProcessContent(blockProcessor, includeBlock, parentOfNewBlocks, content);
+                ProcessContent(blockProcessor, flexiIncludeBlock, parentOfNewBlocks, content);
             }
             catch (Exception exception)
             {
-                // IncludeBlocks can reference sources other than the entry markdown document. If an exception is thrown while processing content from such sources,
+                // FlexiIncludeBlocks can reference sources other than the entry markdown document. If an exception is thrown while processing content from such sources,
                 // we must provide context. Specifically, we must specify which source and where within the source the unrecoverable situation was encountered.
-                throw new BlockException(includeBlock,
-                    string.Format(Strings.BlockException_IncludeBlockFactory_ExceptionOccurredWhileProcessingContent, includeBlock.Source.AbsoluteUri),
+                throw new BlockException(flexiIncludeBlock,
+                    string.Format(Strings.BlockException_FlexiIncludeBlockFactory_ExceptionOccurredWhileProcessingContent, flexiIncludeBlock.Source.AbsoluteUri),
                     exception);
             }
 
-            // Remove IncludeBlock from stack used to check for cycles
+            // Remove FlexiIncludeBlock from stack used to check for cycles
             if (isMarkdown)
             {
-                closingIncludeBlocks.Pop();
+                closingFlexiIncludeBlocks.Pop();
             }
 
-            // Add to trees if IncludeBlock is a root block
-            TryAddToIncludeBlockTrees(includeBlock, blockProcessor);
+            // Add to trees if FlexiIncludeBlock is a root block
+            TryAddToFlexiIncludeBlockTrees(flexiIncludeBlock, blockProcessor);
         }
 
-        internal virtual Stack<IncludeBlock> GetOrCreateClosingIncludeBlocks(BlockProcessor blockProcessor)
+        internal virtual Stack<FlexiIncludeBlock> GetOrCreateClosingFlexiIncludeBlocks(BlockProcessor blockProcessor)
         {
-            if (!(blockProcessor.Document.GetData(CLOSING_INCLUDE_BLOCKS_KEY) is Stack<IncludeBlock> closingIncludeBlocks))
+            if (!(blockProcessor.Document.GetData(CLOSING_FLEXI_INCLUDE_BLOCKS_KEY) is Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks))
             {
-                closingIncludeBlocks = new Stack<IncludeBlock>();
-                blockProcessor.Document.SetData(CLOSING_INCLUDE_BLOCKS_KEY, closingIncludeBlocks);
+                closingFlexiIncludeBlocks = new Stack<FlexiIncludeBlock>();
+                blockProcessor.Document.SetData(CLOSING_FLEXI_INCLUDE_BLOCKS_KEY, closingFlexiIncludeBlocks);
             }
 
-            return closingIncludeBlocks;
+            return closingFlexiIncludeBlocks;
         }
 
-        internal virtual void CheckForCycle(Stack<IncludeBlock> closingIncludeBlocks, IncludeBlock includeBlock)
+        internal virtual void CheckForCycle(Stack<FlexiIncludeBlock> closingFlexiIncludeBlocks, FlexiIncludeBlock flexiIncludeBlock)
         {
-            if (closingIncludeBlocks.Count == 0)
+            if (closingFlexiIncludeBlocks.Count == 0)
             {
                 return;
             }
 
-            string containingSource = includeBlock.ContainingSource;
-            int line = includeBlock.Line;
-            foreach (IncludeBlock closingIncludeBlock in closingIncludeBlocks)
+            string containingSource = flexiIncludeBlock.ContainingSource;
+            int line = flexiIncludeBlock.Line;
+            foreach (FlexiIncludeBlock closingFlexiIncludeBlock in closingFlexiIncludeBlocks)
             {
-                if (closingIncludeBlock.ContainingSource == containingSource &&
-                    closingIncludeBlock.Line == line)
+                if (closingFlexiIncludeBlock.ContainingSource == containingSource &&
+                    closingFlexiIncludeBlock.Line == line)
                 {
                     // Cycle found
-                    string cycleDescription = PrintIncludeBlockForCycleDescription(includeBlock);
-                    foreach (IncludeBlock cycleIncludeBlock in closingIncludeBlocks)
+                    string cycleDescription = PrintFlexiIncludeBlockForCycleDescription(flexiIncludeBlock);
+                    foreach (FlexiIncludeBlock cycleFlexiIncludeBlock in closingFlexiIncludeBlocks)
                     {
-                        cycleDescription = PrintIncludeBlockForCycleDescription(cycleIncludeBlock) + " >\n" + cycleDescription;
+                        cycleDescription = PrintFlexiIncludeBlockForCycleDescription(cycleFlexiIncludeBlock) + " >\n" + cycleDescription;
 
-                        if (cycleIncludeBlock == closingIncludeBlock)
+                        if (cycleFlexiIncludeBlock == closingFlexiIncludeBlock)
                         {
                             break;
                         }
                     }
 
-                    throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_IncludeBlockFactory_CycleFound, cycleDescription));
+                    throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_FlexiIncludeBlockFactory_CycleFound, cycleDescription));
                 }
             }
         }
 
         internal virtual void ProcessContent(BlockProcessor blockProcessor,
-            IncludeBlock includeBlock,
+            FlexiIncludeBlock flexiIncludeBlock,
             ContainerBlock parentOfNewBlocks,
             ReadOnlyCollection<string> content)
         {
@@ -352,7 +354,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
             childProcessor.Open(parentOfNewBlocks);
 
             // If content is code, start with ```
-            bool isCode = includeBlock.Type == IncludeType.Code;
+            bool isCode = flexiIncludeBlock.Type == FlexiIncludeType.Code;
             if (isCode)
             {
                 childProcessor.ProcessLine(_codeBlockFence);
@@ -361,7 +363,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
             // TODO this has the potential to be really slow if content has lots of lines and we've got lots of clippings using start/end strings
             // Clippings - need not be sequential, they can also overlap
             int contentNumLines = content.Count;
-            foreach (Clipping clipping in includeBlock.Clippings ?? _defaultClippings)
+            foreach (Clipping clipping in flexiIncludeBlock.Clippings ?? _defaultClippings)
             {
                 string before = clipping.Before;
                 if (isCode && before != null)
@@ -393,7 +395,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
                     if (startLineNumber == -1)
                     {
                         throw new OptionsException(nameof(Clipping.StartString),
-                            string.Format(Strings.OptionsException_IncludeBlockFactory_NoLineContainsStartString, startString));
+                            string.Format(Strings.OptionsException_FlexiIncludeBlockFactory_NoLineContainsStartString, startString));
                     }
                 }
                 else
@@ -427,7 +429,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
                         if (lineNumber == contentNumLines)
                         {
                             throw new OptionsException(nameof(Clipping.EndString),
-                                string.Format(Strings.OptionsException_IncludeBlockFactory_NoLineContainsEndString, endString));
+                                string.Format(Strings.OptionsException_FlexiIncludeBlockFactory_NoLineContainsEndString, endString));
                         }
 
                         // Check if next line contains the end line substring
@@ -463,38 +465,38 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
             childProcessor.ReleaseChild();
         }
 
-        // IncludeBlockTrees is useful for keeping track of sources referenced by root sources. It 
+        // FlexiIncludeBlockTrees is useful for keeping track of sources referenced by root sources. It 
         // must be retrievable after markdown processing, e.g after Markdown.ToHtml returns. This means
         // we can't save it in MarkdownDocument data. Instead we must save it as a context object.
         //
         // Returns null if there is no context object store (either a MarkdownParserContext or a ContextObjectsStore).
-        internal virtual void TryAddToIncludeBlockTrees(IncludeBlock includeBlock, BlockProcessor blockProcessor)
+        internal virtual void TryAddToFlexiIncludeBlockTrees(FlexiIncludeBlock flexiIncludeBlock, BlockProcessor blockProcessor)
         {
-            if (includeBlock.ParentIncludeBlock != null) // Not the root of a tree
+            if (flexiIncludeBlock.ParentFlexiIncludeBlock != null) // Not the root of a tree
             {
                 return;
             }
 
-            if (!_contextObjectsService.TryGetContextObject(INCLUDE_BLOCK_TREES_KEY, blockProcessor, out object includeBlockTreesObject) ||
-                !(includeBlockTreesObject is List<IncludeBlock> includeBlockTrees))
+            if (!_contextObjectsService.TryGetContextObject(FLEXI_INCLUDE_BLOCK_TREES_KEY, blockProcessor, out object flexiIncludeBlockTreesObject) ||
+                !(flexiIncludeBlockTreesObject is List<FlexiIncludeBlock> flexiIncludeBlockTrees))
             {
                 // TODO if we're unable to add, we might end up instantiating tons of lists unnecessarily,
                 // ContextObjectsService should have a ContextObjectsSupported method.
-                includeBlockTrees = new List<IncludeBlock>();
-                if (!_contextObjectsService.TryAddContextObject(INCLUDE_BLOCK_TREES_KEY, includeBlockTrees, blockProcessor))
+                flexiIncludeBlockTrees = new List<FlexiIncludeBlock>();
+                if (!_contextObjectsService.TryAddContextObject(FLEXI_INCLUDE_BLOCK_TREES_KEY, flexiIncludeBlockTrees, blockProcessor))
                 {
                     return; // No context object store
                 }
             }
 
-            includeBlockTrees.Add(includeBlock);
+            flexiIncludeBlockTrees.Add(flexiIncludeBlock);
         }
 
-        private string PrintIncludeBlockForCycleDescription(IncludeBlock includeBlock)
+        private string PrintFlexiIncludeBlockForCycleDescription(FlexiIncludeBlock flexiIncludeBlock)
         {
-            // A cycle can't start at a root IncludeBlock (rootIncludeBlock.ContainingSource == null, never == currentIncludeBlock.ContainingSource),
+            // A cycle can't start at a root FlexiIncludeBlock (rootFlexiIncludeBlock.ContainingSource == null, never == currentFlexiIncludeBlock.ContainingSource),
             // so we don't need to handle case where ContainingSource is null.
-            return $"Source: {includeBlock.ContainingSource}, Line Number: {includeBlock.Line + 1}";
+            return $"Source: {flexiIncludeBlock.ContainingSource}, Line Number: {flexiIncludeBlock.Line + 1}";
         }
     }
 }

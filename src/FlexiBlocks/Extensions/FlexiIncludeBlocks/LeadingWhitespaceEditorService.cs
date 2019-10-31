@@ -1,7 +1,7 @@
 ﻿using Markdig.Helpers;
 using System;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     /// <summary>
     /// The default implementation of <see cref="ILeadingWhitespaceEditorService"/>.

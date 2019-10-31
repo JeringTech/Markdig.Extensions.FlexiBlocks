@@ -1,5 +1,4 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.ContextObjects;
-using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks;
@@ -10,6 +9,7 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -30,15 +30,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         }
 
         [Fact]
-        public void AddIncludeBlocks_AddsServicesForTheIncludeBlocksExtension()
+        public void AddFlexiIncludeBlocks_AddsServicesForTheFlexiIncludeBlocksExtension()
         {
             // Arrange
             var services = new ServiceCollection();
-            services.AddIncludeBlocks();
+            services.AddFlexiIncludeBlocks();
             ServiceProvider serviceProvider = services.BuildServiceProvider();
 
             // Act and assert
-            serviceProvider.GetRequiredService<IBlockExtension<IncludeBlock>>(); // As long as this doesn't throw, all required services have been added
+            serviceProvider.GetRequiredService<IBlockExtension<FlexiIncludeBlock>>(); // As long as this doesn't throw, all required services have been added
         }
 
         [Fact]

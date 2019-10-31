@@ -1,9 +1,9 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
+﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     /// <summary>
-    /// Include types.
+    /// <see cref="FlexiIncludeBlock"/> types.
     /// </summary>
-    public enum IncludeType
+    public enum FlexiIncludeType
     {
         /// <summary>
         /// Code.

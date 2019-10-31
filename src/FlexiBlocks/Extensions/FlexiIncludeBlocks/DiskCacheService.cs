@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     /// <summary>
     /// <para>The default implementation of <see cref="IDiskCacheService"/>.</para>

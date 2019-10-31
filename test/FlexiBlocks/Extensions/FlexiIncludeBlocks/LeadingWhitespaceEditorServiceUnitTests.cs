@@ -1,10 +1,10 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Markdig.Helpers;
 using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
     public class LeadingWhitespaceEditorServiceUnitTests
     {

@@ -6,7 +6,6 @@ import namespace="System.Text.RegularExpressions" #><#@
 import namespace="System.Collections.Generic" #><#@ 
 import namespace="System.Threading" #><#
     var specFiles = new KeyValuePair<string, string>[] {
-		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/IncludeBlocksSpecs.md"), "IncludeBlocks|All"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/OptionsBlocksSpecs.md"), "All"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiAlertBlocksSpecs.md"), "FlexiAlertBlocks|All"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiBannerBlocksSpecs.md"), "FlexiBannerBlocks|All"),
@@ -14,6 +13,7 @@ import namespace="System.Threading" #><#
 	  new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiCodeBlocksSpecs.md"), "FlexiCodeBlocks|All"),
 	  new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiFigureBlocksSpecs.md"), "FlexiFigureBlocks|All"),
 	  new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiQuoteBlocksSpecs.md"), "FlexiQuoteBlocks|All"),
+		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiIncludeBlocksSpecs.md"), "FlexiIncludeBlocks|All"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiSectionBlocksSpecs.md"), "FlexiSectionBlocks|All"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiTableBlocksSpecs.md"), "FlexiTableBlocks|All"),
 		new KeyValuePair<string, string>(Host.ResolvePath("../../../specs/FlexiTabsBlocksSpecs.md"), "FlexiTabsBlocks|All")

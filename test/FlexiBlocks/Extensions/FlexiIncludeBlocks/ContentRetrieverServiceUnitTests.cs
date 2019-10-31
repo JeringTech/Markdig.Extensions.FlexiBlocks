@@ -1,6 +1,6 @@
 ﻿using Jering.IocServices.System.IO;
 using Jering.IocServices.System.Net.Http;
-using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading;
 using Xunit;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
     public class ContentRetrieverServiceUnitTests : IClassFixture<ContentRetrieverServiceUnitTestsFixture>
     {
@@ -264,7 +264,7 @@ Parameter name: source",
             // Act and assert
             ArgumentException result = Assert.Throws<ArgumentException>(() => testSubject.GetContentFromLocalSource(dummySource));
             _mockRepository.VerifyAll();
-            Assert.Equal($@"{string.Format(Strings.ArgumentException_ContentRetrieverService_InvalidLocalUri, dummySource.AbsolutePath)}
+            Assert.Equal($@"{string.Format(Strings.ArgumentException_Shared_InvalidLocalUri, dummySource.AbsolutePath)}
 Parameter name: source",
                 result.Message,
                 ignoreLineEndingDifferences: true);

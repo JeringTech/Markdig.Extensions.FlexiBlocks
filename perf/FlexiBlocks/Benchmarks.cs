@@ -1,5 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
-using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
@@ -22,23 +22,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
     {
         private MarkdownPipeline _pipeline;
 
-        // IncludeBlocks
-        [GlobalSetup(Target = nameof(IncludeBlocks_ParseAndRender))]
-        public void IncludeBlocks_ParseAndRender_Setup()
+        // FlexiIncludeBlocks
+        [GlobalSetup(Target = nameof(FlexiIncludeBlocks_ParseAndRender))]
+        public void FlexiIncludeBlocks_ParseAndRender_Setup()
         {
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
-                UseIncludeBlocks().
+                UseFlexiIncludeBlocks().
                 UseOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
-            WritePreview(nameof(IncludeBlocksExtension), IncludeBlocks_ParseAndRender());
+            WritePreview(nameof(FlexiIncludeBlocksExtension), FlexiIncludeBlocks_ParseAndRender());
         }
 
         [Benchmark]
-        public string IncludeBlocks_ParseAndRender()
+        public string FlexiIncludeBlocks_ParseAndRender()
         {
-            return Markdown.ToHtml(@"+{
+            return Markdown.ToHtml(@"i{
     ""source"": ""https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.js"",
     ""clippings"":[{""startLine"": 7, ""endString"": ""#endregion utility methods"", ""dedent"": 1, ""collapse"": 0.5}]
 }", _pipeline);

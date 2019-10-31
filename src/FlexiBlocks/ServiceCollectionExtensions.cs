@@ -1,6 +1,6 @@
 ﻿using Jering.IocServices.Newtonsoft.Json;
 using Jering.Markdig.Extensions.FlexiBlocks.ContextObjects;
-using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks;
@@ -34,7 +34,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         {
             return services.
                 AddContextObjects().
-                AddIncludeBlocks().
+                AddFlexiIncludeBlocks().
                 AddOptionsBlocks().
                 AddFlexiAlertBlocks().
                 AddFlexiBannerBlocks().
@@ -60,18 +60,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
-        /// Adds services for the <see cref="IncludeBlocksExtension"/>.
+        /// Adds services for the <see cref="FlexiIncludeBlocksExtension"/>.
         /// </summary>
-        public static IServiceCollection AddIncludeBlocks(this IServiceCollection services)
+        public static IServiceCollection AddFlexiIncludeBlocks(this IServiceCollection services)
         {
             services.AddLogging();
-            services.AddOptionsService<IIncludeBlocksExtensionOptions, IncludeBlocksExtensionOptions, IIncludeBlockOptions>();
+            services.AddOptionsService<IFlexiIncludeBlocksExtensionOptions, FlexiIncludeBlocksExtensionOptions, IFlexiIncludeBlockOptions>();
             services.TryAddSingleton<IFileService, FileService>();
             services.TryAddSingleton<IDirectoryService, DirectoryService>();
             services.TryAddSingleton<IHttpClientService, HttpClientService>();
-            services.TryAddSingleton<IBlockExtension<IncludeBlock>, IncludeBlocksExtension>();
-            services.TryAddSingleton<ProxyBlockParser<IncludeBlock, ProxyJsonBlock>, IncludeBlockParser>();
-            services.TryAddSingleton<IJsonBlockFactory<IncludeBlock, ProxyJsonBlock>, IncludeBlockFactory>();
+            services.TryAddSingleton<IBlockExtension<FlexiIncludeBlock>, FlexiIncludeBlocksExtension>();
+            services.TryAddSingleton<ProxyBlockParser<FlexiIncludeBlock, ProxyJsonBlock>, FlexiIncludeBlockParser>();
+            services.TryAddSingleton<IJsonBlockFactory<FlexiIncludeBlock, ProxyJsonBlock>, FlexiIncludeBlockFactory>();
             services.TryAddSingleton<IDiskCacheService, DiskCacheService>();
             services.TryAddSingleton<IContentRetrieverService, ContentRetrieverService>();
             services.TryAddSingleton<ILeadingWhitespaceEditorService, LeadingWhitespaceEditorService>();

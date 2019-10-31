@@ -1,6 +1,6 @@
 ﻿using Jering.IocServices.System.IO;
 using Jering.Markdig.Extensions.FlexiBlocks.ContextObjects;
-using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
@@ -11,9 +11,9 @@ using System.Collections.ObjectModel;
 using System.IO;
 using Xunit;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
 {
-    public class IncludeBlockFactoryUnitTests
+    public class FlexiIncludeBlockFactoryUnitTests
     {
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
 
@@ -21,9 +21,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         public void Constructor_ThrowsArgumentNullExceptionIfContextObjectsServiceIsNull()
         {
             // Act and assert
-            Assert.Throws<ArgumentNullException>(() => new IncludeBlockFactory(null,
+            Assert.Throws<ArgumentNullException>(() => new FlexiIncludeBlockFactory(null,
                 _mockRepository.Create<IDirectoryService>().Object,
-                _mockRepository.Create<IOptionsService<IIncludeBlockOptions, IIncludeBlocksExtensionOptions>>().Object,
+                _mockRepository.Create<IOptionsService<IFlexiIncludeBlockOptions, IFlexiIncludeBlocksExtensionOptions>>().Object,
                 _mockRepository.Create<IContentRetrieverService>().Object,
                 _mockRepository.Create<ILeadingWhitespaceEditorService>().Object));
         }
@@ -32,9 +32,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         public void Constructor_ThrowsArgumentNullExceptionIfDirectoryServiceIsNull()
         {
             // Act and assert
-            Assert.Throws<ArgumentNullException>(() => new IncludeBlockFactory(_mockRepository.Create<IContextObjectsService>().Object,
+            Assert.Throws<ArgumentNullException>(() => new FlexiIncludeBlockFactory(_mockRepository.Create<IContextObjectsService>().Object,
                 null,
-                _mockRepository.Create<IOptionsService<IIncludeBlockOptions, IIncludeBlocksExtensionOptions>>().Object,
+                _mockRepository.Create<IOptionsService<IFlexiIncludeBlockOptions, IFlexiIncludeBlocksExtensionOptions>>().Object,
                 _mockRepository.Create<IContentRetrieverService>().Object,
                 _mockRepository.Create<ILeadingWhitespaceEditorService>().Object));
         }
@@ -43,7 +43,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         public void Constructor_ThrowsArgumentNullExceptionIfOptionsServiceIsNull()
         {
             // Act and assert
-            Assert.Throws<ArgumentNullException>(() => new IncludeBlockFactory(_mockRepository.Create<IContextObjectsService>().Object,
+            Assert.Throws<ArgumentNullException>(() => new FlexiIncludeBlockFactory(_mockRepository.Create<IContextObjectsService>().Object,
                 _mockRepository.Create<IDirectoryService>().Object,
                 null,
                 _mockRepository.Create<IContentRetrieverService>().Object,
@@ -54,9 +54,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         public void Constructor_ThrowsArgumentNullExceptionIfContentRetrieverServiceIsNull()
         {
             // Act and assert
-            Assert.Throws<ArgumentNullException>(() => new IncludeBlockFactory(_mockRepository.Create<IContextObjectsService>().Object,
+            Assert.Throws<ArgumentNullException>(() => new FlexiIncludeBlockFactory(_mockRepository.Create<IContextObjectsService>().Object,
                 _mockRepository.Create<IDirectoryService>().Object,
-                _mockRepository.Create<IOptionsService<IIncludeBlockOptions, IIncludeBlocksExtensionOptions>>().Object,
+                _mockRepository.Create<IOptionsService<IFlexiIncludeBlockOptions, IFlexiIncludeBlocksExtensionOptions>>().Object,
                 null,
                 _mockRepository.Create<ILeadingWhitespaceEditorService>().Object));
         }
@@ -65,9 +65,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         public void Constructor_ThrowsArgumentNullExceptionIfLeadingWhitespaceEditorServiceIsNull()
         {
             // Act and assert
-            Assert.Throws<ArgumentNullException>(() => new IncludeBlockFactory(_mockRepository.Create<IContextObjectsService>().Object,
+            Assert.Throws<ArgumentNullException>(() => new FlexiIncludeBlockFactory(_mockRepository.Create<IContextObjectsService>().Object,
                 _mockRepository.Create<IDirectoryService>().Object,
-                _mockRepository.Create<IOptionsService<IIncludeBlockOptions, IIncludeBlocksExtensionOptions>>().Object,
+                _mockRepository.Create<IOptionsService<IFlexiIncludeBlockOptions, IFlexiIncludeBlocksExtensionOptions>>().Object,
                 _mockRepository.Create<IContentRetrieverService>().Object,
                 null));
         }
@@ -76,7 +76,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         public void CreateProxyJsonBlock_ThrowsArgumentNullExceptionIfBlockProcessorIsNull()
         {
             // Arrange
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act and assert
             Assert.Throws<ArgumentNullException>(() => testSubject.CreateProxyJsonBlock(null, _mockRepository.Create<BlockParser>().Object));
@@ -92,7 +92,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
             dummyBlockProcessor.Column = dummyColumn;
             dummyBlockProcessor.Line = new StringSlice("", dummyLineStart, 10);
             Mock<BlockParser> dummyBlockParser = _mockRepository.Create<BlockParser>();
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act
             ProxyJsonBlock result = testSubject.CreateProxyJsonBlock(dummyBlockProcessor, dummyBlockParser.Object);
@@ -100,26 +100,26 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
             // Assert
             Assert.Equal(result.Column, dummyColumn);
             Assert.Equal(result.Span.Start, dummyLineStart);
-            Assert.Equal(nameof(IncludeBlock), result.MainTypeName);
+            Assert.Equal(nameof(FlexiIncludeBlock), result.MainTypeName);
             Assert.Same(dummyBlockParser.Object, result.Parser);
         }
 
         [Fact]
-        public void Create_CreatesIncludeBlock()
+        public void Create_CreatesFlexiIncludeBlock()
         {
             // Arrange
             const int dummyColumn = 3;
             const int dummyLine = 5;
             var dummySpan = new SourceSpan(1, 5);
             const string dummySource = "dummySource";
-            const IncludeType dummyType = IncludeType.Markdown;
+            const FlexiIncludeType dummyType = FlexiIncludeType.Markdown;
             const bool dummyCache = false;
             const string dummyCacheDirectory = "dummyCacheDirectory";
             const string dummyResolvedCacheDirectory = "dummyResolvedCacheDirectory";
             const string dummyContainingSource = "dummyContainingSource";
             const string dummyBaseUri = "dummyBaseUri";
             var dummySourceAbsoluteUri = new Uri("C:/test");
-            IncludeBlock dummyParent = CreateIncludeBlock();
+            FlexiIncludeBlock dummyParent = CreateFlexiIncludeBlock();
             Mock<BlockParser> dummyBlockParser = _mockRepository.Create<BlockParser>();
             var dummyProxyJsonBlock = new ProxyJsonBlock(null, dummyBlockParser.Object)
             {
@@ -129,18 +129,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
             };
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var dummyClippings = new ReadOnlyCollection<Clipping>(new List<Clipping>());
-            Mock<IIncludeBlockOptions> mockIncludeBlockOptions = _mockRepository.Create<IIncludeBlockOptions>();
-            mockIncludeBlockOptions.Setup(i => i.Source).Returns(dummySource);
-            mockIncludeBlockOptions.Setup(i => i.Type).Returns(dummyType);
-            mockIncludeBlockOptions.Setup(i => i.Cache).Returns(dummyCache);
-            mockIncludeBlockOptions.Setup(i => i.CacheDirectory).Returns(dummyCacheDirectory);
-            mockIncludeBlockOptions.Setup(i => i.Clippings).Returns(dummyClippings);
-            Mock<IIncludeBlocksExtensionOptions> mockIncludeBlocksExtensionOptions = _mockRepository.Create<IIncludeBlocksExtensionOptions>();
-            mockIncludeBlocksExtensionOptions.Setup(i => i.BaseUri).Returns(dummyBaseUri);
-            Mock<IOptionsService<IIncludeBlockOptions, IIncludeBlocksExtensionOptions>> mockOptionsService = _mockRepository.
-                Create<IOptionsService<IIncludeBlockOptions, IIncludeBlocksExtensionOptions>>();
-            mockOptionsService.Setup(o => o.CreateOptions(dummyBlockProcessor, dummyProxyJsonBlock)).Returns((mockIncludeBlockOptions.Object, mockIncludeBlocksExtensionOptions.Object));
-            Mock<IncludeBlockFactory> mockTestSubject = CreateMockIncludeBlockFactory(optionsService: mockOptionsService.Object);
+            Mock<IFlexiIncludeBlockOptions> mockFlexiIncludeBlockOptions = _mockRepository.Create<IFlexiIncludeBlockOptions>();
+            mockFlexiIncludeBlockOptions.Setup(i => i.Source).Returns(dummySource);
+            mockFlexiIncludeBlockOptions.Setup(i => i.Type).Returns(dummyType);
+            mockFlexiIncludeBlockOptions.Setup(i => i.Cache).Returns(dummyCache);
+            mockFlexiIncludeBlockOptions.Setup(i => i.CacheDirectory).Returns(dummyCacheDirectory);
+            mockFlexiIncludeBlockOptions.Setup(i => i.Clippings).Returns(dummyClippings);
+            Mock<IFlexiIncludeBlocksExtensionOptions> mockFlexiIncludeBlocksExtensionOptions = _mockRepository.Create<IFlexiIncludeBlocksExtensionOptions>();
+            mockFlexiIncludeBlocksExtensionOptions.Setup(i => i.BaseUri).Returns(dummyBaseUri);
+            Mock<IOptionsService<IFlexiIncludeBlockOptions, IFlexiIncludeBlocksExtensionOptions>> mockOptionsService = _mockRepository.
+                Create<IOptionsService<IFlexiIncludeBlockOptions, IFlexiIncludeBlocksExtensionOptions>>();
+            mockOptionsService.Setup(o => o.CreateOptions(dummyBlockProcessor, dummyProxyJsonBlock)).Returns((mockFlexiIncludeBlockOptions.Object, mockFlexiIncludeBlocksExtensionOptions.Object));
+            Mock<FlexiIncludeBlockFactory> mockTestSubject = CreateMockFlexiIncludeBlockFactory(optionsService: mockOptionsService.Object);
             mockTestSubject.CallBase = true;
             mockTestSubject.Setup(t => t.ValidateSource(dummySource));
             mockTestSubject.Setup(t => t.ValidateType(dummyType));
@@ -148,18 +148,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
             mockTestSubject.Setup(t => t.ResolveParent(dummyBlockProcessor)).Returns(dummyParent);
             mockTestSubject.Setup(t => t.ResolveContainingSource(dummyParent)).Returns(dummyContainingSource);
             mockTestSubject.Setup(t => t.ResolveSourceAbsoluteUri(dummySource, dummyBaseUri, dummyParent)).Returns(dummySourceAbsoluteUri);
-            mockTestSubject.Setup(t => t.ProcessIncludeBlock(It.Is<IncludeBlock>(includeBlock =>
-                    includeBlock.Source == dummySourceAbsoluteUri &&
-                    includeBlock.Clippings == dummyClippings &&
-                    includeBlock.Type == dummyType &&
-                    includeBlock.CacheDirectory == dummyResolvedCacheDirectory &&
-                    includeBlock.ParentIncludeBlock == dummyParent &&
-                    includeBlock.ContainingSource == dummyContainingSource &&
-                    includeBlock.Parser == dummyBlockParser.Object &&
-                    includeBlock.ParentIncludeBlock.Children[0] == includeBlock &&
-                    includeBlock.Column == dummyColumn &&
-                    includeBlock.Span == dummySpan &&
-                    includeBlock.Line == dummyLine),
+            mockTestSubject.Setup(t => t.ProcessFlexiIncludeBlock(It.Is<FlexiIncludeBlock>(flexiIncludeBlock =>
+                    flexiIncludeBlock.Source == dummySourceAbsoluteUri &&
+                    flexiIncludeBlock.Clippings == dummyClippings &&
+                    flexiIncludeBlock.Type == dummyType &&
+                    flexiIncludeBlock.CacheDirectory == dummyResolvedCacheDirectory &&
+                    flexiIncludeBlock.ParentFlexiIncludeBlock == dummyParent &&
+                    flexiIncludeBlock.ContainingSource == dummyContainingSource &&
+                    flexiIncludeBlock.Parser == dummyBlockParser.Object &&
+                    flexiIncludeBlock.ParentFlexiIncludeBlock.Children[0] == flexiIncludeBlock &&
+                    flexiIncludeBlock.Column == dummyColumn &&
+                    flexiIncludeBlock.Span == dummySpan &&
+                    flexiIncludeBlock.Line == dummyLine),
                 dummyProxyJsonBlock,
                 dummyBlockProcessor));
 
@@ -174,11 +174,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         public void ValidateSource_ThrowsOptionsExceptionIfSourceIsNull()
         {
             // Arrange
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act and assert
             OptionsException result = Assert.Throws<OptionsException>(() => testSubject.ValidateSource(null));
-            Assert.Equal(string.Format(Strings.OptionsException_OptionsException_InvalidOption, nameof(IIncludeBlockOptions.Source),
+            Assert.Equal(string.Format(Strings.OptionsException_OptionsException_InvalidOption, nameof(IFlexiIncludeBlockOptions.Source),
                     Strings.OptionsException_Shared_ValueMustNotBeNull),
                 result.Message);
         }
@@ -187,13 +187,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         public void ValidateType_ThrowsOptionsExceptionIfTypeIsNotAValidEnumValue()
         {
             // Arrange
-            const IncludeType dummyIncludeType = (IncludeType)98;
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            const FlexiIncludeType dummyType = (FlexiIncludeType)98;
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act and assert
-            OptionsException result = Assert.Throws<OptionsException>(() => testSubject.ValidateType(dummyIncludeType));
-            Assert.Equal(string.Format(Strings.OptionsException_OptionsException_InvalidOption, nameof(IIncludeBlockOptions.Type),
-                    string.Format(Strings.OptionsException_Shared_ValueMustBeAValidEnumValue, dummyIncludeType, nameof(IncludeType))),
+            OptionsException result = Assert.Throws<OptionsException>(() => testSubject.ValidateType(dummyType));
+            Assert.Equal(string.Format(Strings.OptionsException_OptionsException_InvalidOption, nameof(IFlexiIncludeBlockOptions.Type),
+                    string.Format(Strings.OptionsException_Shared_ValueMustBeAValidEnumValue, dummyType, nameof(FlexiIncludeType))),
                 result.Message);
         }
 
@@ -202,7 +202,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         public void ResolveAndValidateCacheDirectory_ResolvesCacheDirectory(bool dummyCache, string dummyCacheDirectory, string expectedResult)
         {
             // Arrange
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act
             string result = testSubject.ResolveAndValidateCacheDirectory(dummyCache, dummyCacheDirectory);
@@ -233,7 +233,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
             const string dummyCacheDirectory = "dummyCacheDirectory";
             Mock<IDirectoryService> mockDirectoryService = _mockRepository.Create<IDirectoryService>();
             mockDirectoryService.Setup(d => d.Exists(dummyCacheDirectory)).Returns(true);
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory(directoryService: mockDirectoryService.Object);
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory(directoryService: mockDirectoryService.Object);
 
             // Act
             string result = testSubject.ResolveAndValidateCacheDirectory(true, dummyCacheDirectory);
@@ -250,28 +250,28 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
             const string dummyCacheDirectory = "dummyCacheDirectory";
             Mock<IDirectoryService> mockDirectoryService = _mockRepository.Create<IDirectoryService>();
             mockDirectoryService.Setup(d => d.Exists(dummyCacheDirectory)).Returns(false);
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory(directoryService: mockDirectoryService.Object);
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory(directoryService: mockDirectoryService.Object);
 
             // Act and assert
             OptionsException result = Assert.Throws<OptionsException>(() => testSubject.ResolveAndValidateCacheDirectory(true, dummyCacheDirectory));
             _mockRepository.VerifyAll();
-            Assert.Equal(string.Format(Strings.OptionsException_OptionsException_InvalidOption, nameof(IIncludeBlockOptions.CacheDirectory),
+            Assert.Equal(string.Format(Strings.OptionsException_OptionsException_InvalidOption, nameof(IFlexiIncludeBlockOptions.CacheDirectory),
                     string.Format(Strings.OptionsException_Shared_DirectoryDoesNotExist, dummyCacheDirectory)),
                 result.Message);
         }
 
         [Theory]
         [MemberData(nameof(ResolveParent_ResolvesParent_Data))]
-        public void ResolveParent_ResolvesParent(Stack<IncludeBlock> dummyClosingIncludeBlocks, IncludeBlock expectedResult)
+        public void ResolveParent_ResolvesParent(Stack<FlexiIncludeBlock> dummyClosingFlexiIncludeBlocks, FlexiIncludeBlock expectedResult)
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            Mock<IncludeBlockFactory> testSubject = CreateMockIncludeBlockFactory();
+            Mock<FlexiIncludeBlockFactory> testSubject = CreateMockFlexiIncludeBlockFactory();
             testSubject.CallBase = true;
-            testSubject.Setup(t => t.GetOrCreateClosingIncludeBlocks(dummyBlockProcessor)).Returns(dummyClosingIncludeBlocks);
+            testSubject.Setup(t => t.GetOrCreateClosingFlexiIncludeBlocks(dummyBlockProcessor)).Returns(dummyClosingFlexiIncludeBlocks);
 
             // Act
-            IncludeBlock result = testSubject.Object.ResolveParent(dummyBlockProcessor);
+            FlexiIncludeBlock result = testSubject.Object.ResolveParent(dummyBlockProcessor);
 
             // Assert
             _mockRepository.VerifyAll();
@@ -280,24 +280,24 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
 
         public static IEnumerable<object[]> ResolveParent_ResolvesParent_Data()
         {
-            IncludeBlock dummyIncludeBlock = CreateIncludeBlock();
-            IncludeBlock dummyParent = CreateIncludeBlock();
+            FlexiIncludeBlock dummyFlexiIncludeBlock = CreateFlexiIncludeBlock();
+            FlexiIncludeBlock dummyParent = CreateFlexiIncludeBlock();
 
             return new object[][]
             {
-                // No closing IncludeBlocks
-                new object[]{new Stack<IncludeBlock>(), null},
-                // Multiple closing include blocks, returns top of stack
-                new object[]{new Stack<IncludeBlock>(new List<IncludeBlock> { dummyIncludeBlock, dummyParent }), dummyParent}
+                // No closing FlexiIncludeBlocks
+                new object[]{new Stack<FlexiIncludeBlock>(), null},
+                // Multiple closing FlexiIncludeBlocks, returns top of stack
+                new object[]{new Stack<FlexiIncludeBlock>(new List<FlexiIncludeBlock> { dummyFlexiIncludeBlock, dummyParent }), dummyParent}
             };
         }
 
         [Theory]
         [MemberData(nameof(ResolveContainingSource_ResolvesContainingSource_Data))]
-        public void ResolveContainingSource_ResolvesContainingSource(IncludeBlock dummyParent, string expectedResult)
+        public void ResolveContainingSource_ResolvesContainingSource(FlexiIncludeBlock dummyParent, string expectedResult)
         {
             // Arrange
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act
             string result = testSubject.ResolveContainingSource(dummyParent);
@@ -315,24 +315,25 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
                 // No parent
                 new object[]{null, null},
                 // Has parent
-                new object[]{CreateIncludeBlock(source: dummySource), dummySource.AbsoluteUri}
+                new object[]{CreateFlexiIncludeBlock(source: dummySource), dummySource.AbsoluteUri}
             };
         }
 
         [Theory]
         [MemberData(nameof(ResolveSourceAbsoluteUri_ThrowsOptionsExceptionIfSourceSchemeIsUnsupported_Data))]
-        public void ResolveSourceAbsoluteUri_ThrowsOptionsExceptionIfSourceSchemeIsUnsupported(string dummySource, string expectedScheme)
+        public void ResolveSourceAbsoluteUri_ThrowsOptionsExceptionIfSourceSchemeIsUnsupported(string dummySource, string dummyScheme)
         {
             // Arrange
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act and assert
             OptionsException result = Assert.Throws<OptionsException>(() => testSubject.ResolveSourceAbsoluteUri(dummySource, default, default));
             Assert.Equal(string.Format(Strings.OptionsException_OptionsException_InvalidOption,
-                    nameof(IIncludeBlockOptions.Source),
-                    string.Format(Strings.OptionsException_IncludeBlockFactory_ValueMustBeAUriWithASupportedScheme,
+                    nameof(IFlexiIncludeBlockOptions.Source),
+                    string.Format(Strings.OptionsException_Shared_ValueMustBeAUriWithASupportedScheme,
                         dummySource,
-                        expectedScheme)),
+                        dummyScheme,
+                        "FILE, HTTP or HTTPS")),
                 result.Message);
         }
 
@@ -351,13 +352,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         public void ResolveSourceAbsoluteUri_ThrowsOptionsExceptionIfRootBaseUriIsNotNullOrAnAbsoluteUri(string dummyRootBaseUri)
         {
             // Arrange
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act and assert
             OptionsException result = Assert.Throws<OptionsException>(() => testSubject.ResolveSourceAbsoluteUri("relative/uri", dummyRootBaseUri, null));
             Assert.Equal(string.Format(Strings.OptionsException_OptionsException_InvalidOption,
-                    nameof(IIncludeBlocksExtensionOptions.BaseUri),
-                    string.Format(Strings.OptionsException_IncludeBlockFactory_ValueMustBeAnAbsoluteUri,
+                    nameof(IFlexiIncludeBlocksExtensionOptions.BaseUri),
+                    string.Format(Strings.OptionsException_Shared_ValueMustBeAnAbsoluteUri,
                         dummyRootBaseUri)),
                 result.Message);
         }
@@ -380,16 +381,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         public void ResolveSourceAbsoluteUri_ThrowsOptionsExceptionIfRootBaseUriSchemeIsUnsupported(string dummyRootBaseUri, string expectedScheme)
         {
             // Arrange
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act and assert
             OptionsException result = Assert.
                 Throws<OptionsException>(() => testSubject.ResolveSourceAbsoluteUri("relative/uri", dummyRootBaseUri, null));
             Assert.Equal(string.Format(Strings.OptionsException_OptionsException_InvalidOption,
-                    nameof(IIncludeBlocksExtensionOptions.BaseUri),
-                    string.Format(Strings.OptionsException_IncludeBlockFactory_ValueMustBeAUriWithASupportedScheme,
+                    nameof(IFlexiIncludeBlocksExtensionOptions.BaseUri),
+                    string.Format(Strings.OptionsException_Shared_ValueMustBeAUriWithASupportedScheme,
                         dummyRootBaseUri,
-                        expectedScheme)),
+                        expectedScheme,
+                        "FILE, HTTP or HTTPS")),
                 result.Message);
         }
 
@@ -407,11 +409,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         [MemberData(nameof(ResolveSourceAbsoluteUri_ReturnsSourceAbsoluteUri_Data))]
         public void ResolveSourceAbsoluteUri_ReturnsSourceAbsoluteUri(string dummySource,
             string dummyRootBaseUri,
-            IncludeBlock dummyParent,
+            FlexiIncludeBlock dummyParent,
             string expectedAbsoluteSource)
         {
             // Arrange
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act
             Uri result = testSubject.ResolveSourceAbsoluteUri(dummySource, dummyRootBaseUri, dummyParent);
@@ -442,7 +444,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
                 {
                     dummyRelativeSource,
                     null,
-                    CreateIncludeBlock(dummyAbsoluteSourceUri),
+                    CreateFlexiIncludeBlock(dummyAbsoluteSourceUri),
                     dummyCombinedUri.AbsoluteUri
                 },
                 // Relative source with rootBaseUri and no parent
@@ -465,7 +467,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         }
 
         [Fact]
-        public void ProcessIncludeBlock_IfIncludeTypeIsMarkdownChecksForCycleGetsContentAndProcessesIt()
+        public void ProcessFlexiIncludeBlock_IfFlexiIncludeTypeIsMarkdownChecksForCycleGetsContentAndProcessesIt()
         {
             // Arrange
             const string dummyCacheDirectory = "dummyCacheDirectory";
@@ -473,32 +475,32 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
             Mock<ContainerBlock> dummyParentOfNewBlocks = _mockRepository.Create<ContainerBlock>(null);
             dummyParentOfNewBlocks.Object.Add(dummyProxyJsonBlock);
             var dummySource = new Uri("C:/dummy/source.txt"); // This constructor requires an absolute URI - https://docs.microsoft.com/en-us/dotnet/api/system.uri.-ctor?view=netframework-4.8#overloads
-            IncludeBlock dummyIncludeBlock = CreateIncludeBlock(dummySource, type: IncludeType.Markdown, cacheDirectory: dummyCacheDirectory);
-            var dummyClosingIncludeBlocks = new Stack<IncludeBlock>(new IncludeBlock[0]);
+            FlexiIncludeBlock dummyFlexiIncludeBlock = CreateFlexiIncludeBlock(dummySource, type: FlexiIncludeType.Markdown, cacheDirectory: dummyCacheDirectory);
+            var dummyClosingFlexiIncludeBlocks = new Stack<FlexiIncludeBlock>(new FlexiIncludeBlock[0]);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var dummyContent = new ReadOnlyCollection<string>(new List<string>());
             Mock<IContentRetrieverService> mockContentRetrieverService = _mockRepository.Create<IContentRetrieverService>();
             mockContentRetrieverService.
                 Setup(s => s.GetContent(dummySource, dummyCacheDirectory, default)).
                 Returns(dummyContent);
-            Mock<IncludeBlockFactory> mockTestSubject = CreateMockIncludeBlockFactory(contentRetrieverService: mockContentRetrieverService.Object);
+            Mock<FlexiIncludeBlockFactory> mockTestSubject = CreateMockFlexiIncludeBlockFactory(contentRetrieverService: mockContentRetrieverService.Object);
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(t => t.GetOrCreateClosingIncludeBlocks(dummyBlockProcessor)).Returns(dummyClosingIncludeBlocks);
-            mockTestSubject.Setup(t => t.CheckForCycle(dummyClosingIncludeBlocks, dummyIncludeBlock));
-            mockTestSubject.Setup(t => t.ProcessContent(dummyBlockProcessor, dummyIncludeBlock, dummyParentOfNewBlocks.Object, dummyContent));
-            mockTestSubject.Setup(t => t.TryAddToIncludeBlockTrees(dummyIncludeBlock, dummyBlockProcessor));
+            mockTestSubject.Setup(t => t.GetOrCreateClosingFlexiIncludeBlocks(dummyBlockProcessor)).Returns(dummyClosingFlexiIncludeBlocks);
+            mockTestSubject.Setup(t => t.CheckForCycle(dummyClosingFlexiIncludeBlocks, dummyFlexiIncludeBlock));
+            mockTestSubject.Setup(t => t.ProcessContent(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyParentOfNewBlocks.Object, dummyContent));
+            mockTestSubject.Setup(t => t.TryAddToFlexiIncludeBlockTrees(dummyFlexiIncludeBlock, dummyBlockProcessor));
 
             // Act
-            mockTestSubject.Object.ProcessIncludeBlock(dummyIncludeBlock, dummyProxyJsonBlock, dummyBlockProcessor);
+            mockTestSubject.Object.ProcessFlexiIncludeBlock(dummyFlexiIncludeBlock, dummyProxyJsonBlock, dummyBlockProcessor);
 
             // Assert
             _mockRepository.VerifyAll();
-            Assert.Empty(dummyClosingIncludeBlocks); // Removed once the block is replaced
+            Assert.Empty(dummyClosingFlexiIncludeBlocks); // Removed once the block is replaced
             Assert.Empty(dummyParentOfNewBlocks.Object); // ProxyJsonBlock gets removed
         }
 
         [Fact]
-        public void ProcessIncludeBlock_IfIncludeTypeIsCodeGetsContentAndProcessesIt()
+        public void ProcessFlexiIncludeBlock_IfFlexiIncludeTypeIsCodeGetsContentAndProcessesIt()
         {
             // Arrange
             const string dummyCacheDirectory = "dummyCacheDirectory";
@@ -506,20 +508,20 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
             Mock<ContainerBlock> dummyParentOfNewBlocks = _mockRepository.Create<ContainerBlock>(null);
             dummyParentOfNewBlocks.Object.Add(dummyProxyJsonBlock);
             var dummySource = new Uri("C:/dummy/source.txt"); // This constructor requires an absolute URI - https://docs.microsoft.com/en-us/dotnet/api/system.uri.-ctor?view=netframework-4.8#overloads
-            IncludeBlock dummyIncludeBlock = CreateIncludeBlock(dummySource, type: IncludeType.Code, cacheDirectory: dummyCacheDirectory);
+            FlexiIncludeBlock dummyFlexiIncludeBlock = CreateFlexiIncludeBlock(dummySource, type: FlexiIncludeType.Code, cacheDirectory: dummyCacheDirectory);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             var dummyContent = new ReadOnlyCollection<string>(new List<string>());
             Mock<IContentRetrieverService> mockContentRetrieverService = _mockRepository.Create<IContentRetrieverService>();
             mockContentRetrieverService.
                 Setup(s => s.GetContent(dummySource, dummyCacheDirectory, default)).
                 Returns(dummyContent);
-            Mock<IncludeBlockFactory> mockTestSubject = CreateMockIncludeBlockFactory(contentRetrieverService: mockContentRetrieverService.Object);
+            Mock<FlexiIncludeBlockFactory> mockTestSubject = CreateMockFlexiIncludeBlockFactory(contentRetrieverService: mockContentRetrieverService.Object);
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(t => t.ProcessContent(dummyBlockProcessor, dummyIncludeBlock, dummyParentOfNewBlocks.Object, dummyContent));
-            mockTestSubject.Setup(t => t.TryAddToIncludeBlockTrees(dummyIncludeBlock, dummyBlockProcessor));
+            mockTestSubject.Setup(t => t.ProcessContent(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyParentOfNewBlocks.Object, dummyContent));
+            mockTestSubject.Setup(t => t.TryAddToFlexiIncludeBlockTrees(dummyFlexiIncludeBlock, dummyBlockProcessor));
 
             // Act
-            mockTestSubject.Object.ProcessIncludeBlock(dummyIncludeBlock, dummyProxyJsonBlock, dummyBlockProcessor);
+            mockTestSubject.Object.ProcessFlexiIncludeBlock(dummyFlexiIncludeBlock, dummyProxyJsonBlock, dummyBlockProcessor);
 
             // Assert
             _mockRepository.VerifyAll();
@@ -527,7 +529,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         }
 
         [Fact]
-        public void ProcessIncludeBlock_WrapsExceptionsInBlockExceptionsForCompleteContext()
+        public void ProcessFlexiIncludeBlock_WrapsExceptionsInBlockExceptionsForCompleteContext()
         {
             // Arrange
             const int dummyLine = 6;
@@ -537,69 +539,69 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
             Mock<ContainerBlock> dummyParentOfNewBlocks = _mockRepository.Create<ContainerBlock>(null);
             dummyParentOfNewBlocks.Object.Add(dummyProxyJsonBlock);
             var dummySource = new Uri("C:/dummy/source.txt"); // This constructor requires an absolute URI - https://docs.microsoft.com/en-us/dotnet/api/system.uri.-ctor?view=netframework-4.8#overloads
-            IncludeBlock dummyIncludeBlock = CreateIncludeBlock(dummySource, type: IncludeType.Code, cacheDirectory: dummyCacheDirectory);
-            dummyIncludeBlock.Line = dummyLine;
-            dummyIncludeBlock.Column = dummyColumn;
+            FlexiIncludeBlock dummyFlexiIncludeBlock = CreateFlexiIncludeBlock(dummySource, type: FlexiIncludeType.Code, cacheDirectory: dummyCacheDirectory);
+            dummyFlexiIncludeBlock.Line = dummyLine;
+            dummyFlexiIncludeBlock.Column = dummyColumn;
             var dummyContent = new ReadOnlyCollection<string>(new List<string>());
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<IContentRetrieverService> mockContentRetrieverService = _mockRepository.Create<IContentRetrieverService>();
             mockContentRetrieverService.Setup(s => s.GetContent(dummySource, dummyCacheDirectory, default)).Returns(dummyContent);
             var dummyException = new BlockException();
-            Mock<IncludeBlockFactory> mockTestSubject = CreateMockIncludeBlockFactory(contentRetrieverService: mockContentRetrieverService.Object);
+            Mock<FlexiIncludeBlockFactory> mockTestSubject = CreateMockFlexiIncludeBlockFactory(contentRetrieverService: mockContentRetrieverService.Object);
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(t => t.ProcessContent(dummyBlockProcessor, dummyIncludeBlock, dummyParentOfNewBlocks.Object, dummyContent)).Throws(dummyException);
+            mockTestSubject.Setup(t => t.ProcessContent(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyParentOfNewBlocks.Object, dummyContent)).Throws(dummyException);
 
             // Act and assert
-            BlockException result = Assert.Throws<BlockException>(() => mockTestSubject.Object.ProcessIncludeBlock(dummyIncludeBlock, dummyProxyJsonBlock, dummyBlockProcessor));
+            BlockException result = Assert.Throws<BlockException>(() => mockTestSubject.Object.ProcessFlexiIncludeBlock(dummyFlexiIncludeBlock, dummyProxyJsonBlock, dummyBlockProcessor));
             _mockRepository.VerifyAll();
             Assert.Same(dummyException, result.InnerException);
-            Assert.Equal(string.Format(Strings.BlockException_BlockException_InvalidBlock, nameof(IncludeBlock), dummyLine + 1, dummyColumn,
-                    string.Format(Strings.BlockException_IncludeBlockFactory_ExceptionOccurredWhileProcessingContent, dummySource.AbsoluteUri)),
+            Assert.Equal(string.Format(Strings.BlockException_BlockException_InvalidBlock, nameof(FlexiIncludeBlock), dummyLine + 1, dummyColumn,
+                    string.Format(Strings.BlockException_FlexiIncludeBlockFactory_ExceptionOccurredWhileProcessingContent, dummySource.AbsoluteUri)),
                 result.Message,
                 ignoreLineEndingDifferences: true);
         }
 
         [Fact]
-        public void GetOrCreateClosingIncludeBlocks_GetsClosingIncludeBlockIfItAlreadyExists()
+        public void GetOrCreateClosingFlexiIncludeBlocks_GetsClosingFlexiIncludeBlockIfItAlreadyExists()
         {
             // Arrange
-            var dummyClosingIncludeBlocks = new Stack<IncludeBlock>();
+            var dummyClosingFlexiIncludeBlocks = new Stack<FlexiIncludeBlock>();
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Document.SetData(IncludeBlockFactory.CLOSING_INCLUDE_BLOCKS_KEY, dummyClosingIncludeBlocks);
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            dummyBlockProcessor.Document.SetData(FlexiIncludeBlockFactory.CLOSING_FLEXI_INCLUDE_BLOCKS_KEY, dummyClosingFlexiIncludeBlocks);
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act
-            Stack<IncludeBlock> result = testSubject.GetOrCreateClosingIncludeBlocks(dummyBlockProcessor);
+            Stack<FlexiIncludeBlock> result = testSubject.GetOrCreateClosingFlexiIncludeBlocks(dummyBlockProcessor);
 
             // Assert
-            Assert.Same(dummyClosingIncludeBlocks, result);
+            Assert.Same(dummyClosingFlexiIncludeBlocks, result);
         }
 
         [Fact]
-        public void GetOrCreateClosingIncludeBlocks_CreatesClosingIncludeBlocksIfAnObjectWithTheWrongTypeIsFound()
+        public void GetOrCreateClosingFlexiIncludeBlocks_CreatesClosingFlexiIncludeBlocksIfAnObjectWithTheWrongTypeIsFound()
         {
             // Arrange
             var dummyObject = new object();
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Document.SetData(IncludeBlockFactory.CLOSING_INCLUDE_BLOCKS_KEY, dummyObject);
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            dummyBlockProcessor.Document.SetData(FlexiIncludeBlockFactory.CLOSING_FLEXI_INCLUDE_BLOCKS_KEY, dummyObject);
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act
-            Stack<IncludeBlock> result = testSubject.GetOrCreateClosingIncludeBlocks(dummyBlockProcessor);
+            Stack<FlexiIncludeBlock> result = testSubject.GetOrCreateClosingFlexiIncludeBlocks(dummyBlockProcessor);
 
             // Assert
             Assert.NotNull(result);
         }
 
         [Fact]
-        public void GetOrCreateClosingIncludeBlocks_CreatesClosingIncludeBlocksIfItDoesntAlreadyExist()
+        public void GetOrCreateClosingFlexiIncludeBlocks_CreatesClosingFlexiIncludeBlocksIfItDoesntAlreadyExist()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act
-            Stack<IncludeBlock> result = testSubject.GetOrCreateClosingIncludeBlocks(dummyBlockProcessor);
+            Stack<FlexiIncludeBlock> result = testSubject.GetOrCreateClosingFlexiIncludeBlocks(dummyBlockProcessor);
 
             // Assert
             Assert.NotNull(result);
@@ -609,37 +611,37 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
         public void CheckForCycle_ThrowsInvalidOperationExceptionIfACycleIsFound()
         {
             // Arrange
-            IncludeBlock dummyIncludeBlock1 = CreateIncludeBlock();
-            dummyIncludeBlock1.Line = 32;
-            IncludeBlock dummyIncludeBlock2 = CreateIncludeBlock(containingSource: "dummySource2");
-            dummyIncludeBlock2.Line = 12;
-            IncludeBlock dummyIncludeBlock3 = CreateIncludeBlock(containingSource: "dummySource3");
-            dummyIncludeBlock3.Line = 5;
-            var dummyClosingIncludeBlocks = new Stack<IncludeBlock>(new List<IncludeBlock> { dummyIncludeBlock1, dummyIncludeBlock2, dummyIncludeBlock3 });
-            IncludeBlock dummyIncludeBlock = CreateIncludeBlock(containingSource: dummyIncludeBlock2.ContainingSource); // Same block as dummyIncludeBlock2
-            dummyIncludeBlock.Line = dummyIncludeBlock2.Line;
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlock dummyFlexiIncludeBlock1 = CreateFlexiIncludeBlock();
+            dummyFlexiIncludeBlock1.Line = 32;
+            FlexiIncludeBlock dummyFlexiIncludeBlock2 = CreateFlexiIncludeBlock(containingSource: "dummySource2");
+            dummyFlexiIncludeBlock2.Line = 12;
+            FlexiIncludeBlock dummyFlexiIncludeBlock3 = CreateFlexiIncludeBlock(containingSource: "dummySource3");
+            dummyFlexiIncludeBlock3.Line = 5;
+            var dummyClosingFlexiIncludeBlocks = new Stack<FlexiIncludeBlock>(new List<FlexiIncludeBlock> { dummyFlexiIncludeBlock1, dummyFlexiIncludeBlock2, dummyFlexiIncludeBlock3 });
+            FlexiIncludeBlock dummyFlexiIncludeBlock = CreateFlexiIncludeBlock(containingSource: dummyFlexiIncludeBlock2.ContainingSource); // Same block as dummyFlexiIncludeBlock2
+            dummyFlexiIncludeBlock.Line = dummyFlexiIncludeBlock2.Line;
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act and assert
-            InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => testSubject.CheckForCycle(dummyClosingIncludeBlocks, dummyIncludeBlock));
-            Assert.Equal(string.Format(Strings.InvalidOperationException_IncludeBlockFactory_CycleFound,
-                    $"Source: {dummyIncludeBlock2.ContainingSource}, Line Number: {dummyIncludeBlock2.Line + 1} >\n" +
-                    $"Source: {dummyIncludeBlock3.ContainingSource}, Line Number: {dummyIncludeBlock3.Line + 1} >\n" +
-                    $"Source: {dummyIncludeBlock.ContainingSource}, Line Number: {dummyIncludeBlock.Line + 1}"),
+            InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => testSubject.CheckForCycle(dummyClosingFlexiIncludeBlocks, dummyFlexiIncludeBlock));
+            Assert.Equal(string.Format(Strings.InvalidOperationException_FlexiIncludeBlockFactory_CycleFound,
+                    $"Source: {dummyFlexiIncludeBlock2.ContainingSource}, Line Number: {dummyFlexiIncludeBlock2.Line + 1} >\n" +
+                    $"Source: {dummyFlexiIncludeBlock3.ContainingSource}, Line Number: {dummyFlexiIncludeBlock3.Line + 1} >\n" +
+                    $"Source: {dummyFlexiIncludeBlock.ContainingSource}, Line Number: {dummyFlexiIncludeBlock.Line + 1}"),
                 result.Message);
         }
 
         [Theory]
-        [MemberData(nameof(ProcessContent_CreatesCodeBlockIfIncludeBlockTypeIsCode_Data))]
-        public void ProcessContent_CreatesCodeBlockIfIncludeBlockTypeIsCode(IncludeBlock dummyIncludeBlock, string[] dummyContentArray, string expectedCode)
+        [MemberData(nameof(ProcessContent_CreatesCodeBlockIfFlexiIncludeBlockTypeIsCode_Data))]
+        public void ProcessContent_CreatesCodeBlockIfFlexiIncludeBlockTypeIsCode(FlexiIncludeBlock dummyFlexiIncludeBlock, string[] dummyContentArray, string expectedCode)
         {
             // Arrange
             var dummyContent = new ReadOnlyCollection<string>(dummyContentArray);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act
-            testSubject.ProcessContent(dummyBlockProcessor, dummyIncludeBlock, dummyBlockProcessor.Document, dummyContent);
+            testSubject.ProcessContent(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyBlockProcessor.Document, dummyContent);
 
             // Assert
             Assert.Single(dummyBlockProcessor.Document);
@@ -648,7 +650,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.IncludeBlocks
             Assert.Equal(expectedCode, resultCodeBlock.Lines.ToString(), ignoreLineEndingDifferences: true);
         }
 
-        public static IEnumerable<object[]> ProcessContent_CreatesCodeBlockIfIncludeBlockTypeIsCode_Data()
+        public static IEnumerable<object[]> ProcessContent_CreatesCodeBlockIfFlexiIncludeBlockTypeIsCode_Data()
         {
             var dummyContentArray = new string[] { "dummy", "content" };
             // Multiline before/after works
@@ -661,14 +663,14 @@ after";
             {
                 // Default clipping
                 new object[]{
-                    CreateIncludeBlock(type: IncludeType.Code),
+                    CreateFlexiIncludeBlock(type: FlexiIncludeType.Code),
                     dummyContentArray,
                     string.Join("\n", dummyContentArray)
                 },
                 // Clipping with non-null before and after
                 new object[]
                 {
-                    CreateIncludeBlock(clippings: new ReadOnlyCollection<Clipping>(new List<Clipping>{ new Clipping(before: dummyBefore, after: dummyAfter) }), type: IncludeType.Code),
+                    CreateFlexiIncludeBlock(clippings: new ReadOnlyCollection<Clipping>(new List<Clipping>{ new Clipping(before: dummyBefore, after: dummyAfter) }), type: FlexiIncludeType.Code),
                     dummyContentArray,
                     $"{dummyBefore}\n{string.Join("\n", dummyContentArray)}\n{dummyAfter}"
                 }
@@ -676,7 +678,7 @@ after";
         }
 
         [Fact]
-        public void ProcessContent_CreatesBlocksIfIncludeBlockTypeIsMarkdown()
+        public void ProcessContent_CreatesBlocksIfFlexiIncludeBlockTypeIsMarkdown()
         {
             // Arrange
             const string dummyHeading = "dummyHeading";
@@ -688,10 +690,10 @@ after";
                 "> dummyBlockquote"
             });
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act
-            testSubject.ProcessContent(dummyBlockProcessor, CreateIncludeBlock(type: IncludeType.Markdown), dummyBlockProcessor.Document, dummyContent);
+            testSubject.ProcessContent(dummyBlockProcessor, CreateFlexiIncludeBlock(type: FlexiIncludeType.Markdown), dummyBlockProcessor.Document, dummyContent);
 
             // Assert
             Assert.Equal(3, dummyBlockProcessor.Document.Count);
@@ -715,16 +717,16 @@ after";
             // Arrange
             var dummyContent = new ReadOnlyCollection<string>(new string[] { "dummy", "content" });
             const string dummyStartString = "dummyStartString";
-            IncludeBlock dummyIncludeBlock = CreateIncludeBlock(clippings: new ReadOnlyCollection<Clipping>(new List<Clipping> { new Clipping(startString: dummyStartString) }));
+            FlexiIncludeBlock dummyFlexiIncludeBlock = CreateFlexiIncludeBlock(clippings: new ReadOnlyCollection<Clipping>(new List<Clipping> { new Clipping(startString: dummyStartString) }));
             Mock<ContainerBlock> dummyParentOfNewBlocks = _mockRepository.Create<ContainerBlock>(null);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act and assert
-            OptionsException result = Assert.Throws<OptionsException>(() => testSubject.ProcessContent(dummyBlockProcessor, dummyIncludeBlock, dummyParentOfNewBlocks.Object, dummyContent));
+            OptionsException result = Assert.Throws<OptionsException>(() => testSubject.ProcessContent(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyParentOfNewBlocks.Object, dummyContent));
             Assert.Equal(string.Format(Strings.OptionsException_OptionsException_InvalidOption,
                     nameof(Clipping.StartString),
-                    string.Format(Strings.OptionsException_IncludeBlockFactory_NoLineContainsStartString, dummyStartString)),
+                    string.Format(Strings.OptionsException_FlexiIncludeBlockFactory_NoLineContainsStartString, dummyStartString)),
                 result.Message);
         }
 
@@ -733,16 +735,16 @@ after";
         {
             var dummyContent = new ReadOnlyCollection<string>(new string[] { "dummy", "content" });
             const string dummyEndString = "dummyEndString";
-            IncludeBlock dummyIncludeBlock = CreateIncludeBlock(clippings: new ReadOnlyCollection<Clipping>(new List<Clipping> { new Clipping(endString: dummyEndString) }));
+            FlexiIncludeBlock dummyFlexiIncludeBlock = CreateFlexiIncludeBlock(clippings: new ReadOnlyCollection<Clipping>(new List<Clipping> { new Clipping(endString: dummyEndString) }));
             Mock<ContainerBlock> dummyParentOfNewBlocks = _mockRepository.Create<ContainerBlock>(null);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act and assert
-            OptionsException result = Assert.Throws<OptionsException>(() => testSubject.ProcessContent(dummyBlockProcessor, dummyIncludeBlock, dummyParentOfNewBlocks.Object, dummyContent));
+            OptionsException result = Assert.Throws<OptionsException>(() => testSubject.ProcessContent(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyParentOfNewBlocks.Object, dummyContent));
             Assert.Equal(string.Format(Strings.OptionsException_OptionsException_InvalidOption,
                     nameof(Clipping.EndString),
-                    string.Format(Strings.OptionsException_IncludeBlockFactory_NoLineContainsEndString, dummyEndString)),
+                    string.Format(Strings.OptionsException_FlexiIncludeBlockFactory_NoLineContainsEndString, dummyEndString)),
                 result.Message);
         }
 
@@ -754,7 +756,7 @@ after";
             const float dummyCollapse = 0.3f;
             const string dummyContent = "dummyContent";
             var dummyIndented = new StringSlice("dummyIndented");
-            IncludeBlock dummyIncludeBlock = CreateIncludeBlock(clippings: new ReadOnlyCollection<Clipping>(new List<Clipping>
+            FlexiIncludeBlock dummyFlexiIncludeBlock = CreateFlexiIncludeBlock(clippings: new ReadOnlyCollection<Clipping>(new List<Clipping>
             {
                 new Clipping(dedent: dummyDedent, indent: dummyIndent, collapse: dummyCollapse)
             }));
@@ -764,10 +766,10 @@ after";
             mockLeadingWhitespaceEditorService.Setup(l => l.Indent(It.Is<StringSlice>(slice => slice.ToString() == dummyContent), dummyIndent)).Returns(dummyIndented);
             mockLeadingWhitespaceEditorService.Setup(l => l.Dedent(ref dummyIndented, dummyDedent));
             mockLeadingWhitespaceEditorService.Setup(l => l.Collapse(ref dummyIndented, dummyCollapse));
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory(leadingWhitespaceEditorService: mockLeadingWhitespaceEditorService.Object);
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory(leadingWhitespaceEditorService: mockLeadingWhitespaceEditorService.Object);
 
             // Act
-            testSubject.ProcessContent(dummyBlockProcessor, dummyIncludeBlock, dummyParentOfNewBlocks.Object, new ReadOnlyCollection<string>(new string[] { dummyContent }));
+            testSubject.ProcessContent(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyParentOfNewBlocks.Object, new ReadOnlyCollection<string>(new string[] { dummyContent }));
 
             // Assert
             _mockRepository.VerifyAll();
@@ -781,12 +783,12 @@ after";
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            IncludeBlock dummyIncludeBlock = CreateIncludeBlock(clippings: new ReadOnlyCollection<Clipping>(dummyClippings));
+            FlexiIncludeBlock dummyFlexiIncludeBlock = CreateFlexiIncludeBlock(clippings: new ReadOnlyCollection<Clipping>(dummyClippings));
             Mock<ContainerBlock> dummyParentOfNewBlocks = _mockRepository.Create<ContainerBlock>(null);
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act
-            testSubject.ProcessContent(dummyBlockProcessor, dummyIncludeBlock, dummyParentOfNewBlocks.Object, new ReadOnlyCollection<string>(dummyContent));
+            testSubject.ProcessContent(dummyBlockProcessor, dummyFlexiIncludeBlock, dummyParentOfNewBlocks.Object, new ReadOnlyCollection<string>(dummyContent));
 
             // Assert
             Assert.Single(dummyParentOfNewBlocks.Object);
@@ -911,153 +913,153 @@ after";
         }
 
         [Fact]
-        public void TryAddToIncludeBlockTrees_DoesNothingIfIncludeBlockHasNoParentIncludeBlock()
+        public void TryAddToFlexiIncludeBlockTrees_DoesNothingIfFlexiIncludeBlockHasNoParentFlexiIncludeBlock()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            IncludeBlock dummyIncludeBlock = CreateIncludeBlock(parentIncludeBlock: CreateIncludeBlock());
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory();
+            FlexiIncludeBlock dummyFlexiIncludeBlock = CreateFlexiIncludeBlock(parentFlexiIncludeBlock: CreateFlexiIncludeBlock());
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory();
 
             // Act
-            testSubject.TryAddToIncludeBlockTrees(dummyIncludeBlock, dummyBlockProcessor);
+            testSubject.TryAddToFlexiIncludeBlockTrees(dummyFlexiIncludeBlock, dummyBlockProcessor);
 
             // Assert
             _mockRepository.VerifyNoOtherCalls();
         }
 
         [Fact]
-        public void TryAddToIncludeBlockTrees_AddsIncludeBlockTreeToExistingIncludeBlockTrees()
+        public void TryAddToFlexiIncludeBlockTrees_AddsFlexiIncludeBlockTreeToExistingFlexiIncludeBlockTrees()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            IncludeBlock dummyIncludeBlock = CreateIncludeBlock();
-            var dummyIncludeBlockTrees = new List<IncludeBlock>();
+            FlexiIncludeBlock dummyFlexiIncludeBlock = CreateFlexiIncludeBlock();
+            var dummyFlexiIncludeBlockTrees = new List<FlexiIncludeBlock>();
             Mock<IContextObjectsService> mockContextObjectsService = _mockRepository.Create<IContextObjectsService>();
-            object dummyOut = dummyIncludeBlockTrees;
-            mockContextObjectsService.Setup(c => c.TryGetContextObject(IncludeBlockFactory.INCLUDE_BLOCK_TREES_KEY, dummyBlockProcessor, out dummyOut)).Returns(true);
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory(contextObjectsService: mockContextObjectsService.Object);
+            object dummyOut = dummyFlexiIncludeBlockTrees;
+            mockContextObjectsService.Setup(c => c.TryGetContextObject(FlexiIncludeBlockFactory.FLEXI_INCLUDE_BLOCK_TREES_KEY, dummyBlockProcessor, out dummyOut)).Returns(true);
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory(contextObjectsService: mockContextObjectsService.Object);
 
             // Act
-            testSubject.TryAddToIncludeBlockTrees(dummyIncludeBlock, dummyBlockProcessor);
+            testSubject.TryAddToFlexiIncludeBlockTrees(dummyFlexiIncludeBlock, dummyBlockProcessor);
 
             // Assert
-            Assert.Single(dummyIncludeBlockTrees);
-            Assert.Same(dummyIncludeBlock, dummyIncludeBlockTrees[0]);
+            Assert.Single(dummyFlexiIncludeBlockTrees);
+            Assert.Same(dummyFlexiIncludeBlock, dummyFlexiIncludeBlockTrees[0]);
         }
 
         [Fact]
-        public void TryAddToIncludeBlockTrees_CreatesIncludeBlockTreesIfItDoesntAlreadyExistAndAddsItToContextObjects()
+        public void TryAddToFlexiIncludeBlockTrees_CreatesFlexiIncludeBlockTreesIfItDoesntAlreadyExistAndAddsItToContextObjects()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            IncludeBlock dummyIncludeBlock = CreateIncludeBlock();
-            List<IncludeBlock> resultIncludeBlockTrees = null;
+            FlexiIncludeBlock dummyFlexiIncludeBlock = CreateFlexiIncludeBlock();
+            List<FlexiIncludeBlock> resultFlexiIncludeBlockTrees = null;
             Mock<IContextObjectsService> mockContextObjectsService = _mockRepository.Create<IContextObjectsService>();
             object dummyOut = null;
-            mockContextObjectsService.Setup(c => c.TryGetContextObject(IncludeBlockFactory.INCLUDE_BLOCK_TREES_KEY, dummyBlockProcessor, out dummyOut)).Returns(false);
+            mockContextObjectsService.Setup(c => c.TryGetContextObject(FlexiIncludeBlockFactory.FLEXI_INCLUDE_BLOCK_TREES_KEY, dummyBlockProcessor, out dummyOut)).Returns(false);
             mockContextObjectsService.
-                Setup(c => c.TryAddContextObject(IncludeBlockFactory.INCLUDE_BLOCK_TREES_KEY,
-                    It.IsAny<List<IncludeBlock>>(),
+                Setup(c => c.TryAddContextObject(FlexiIncludeBlockFactory.FLEXI_INCLUDE_BLOCK_TREES_KEY,
+                    It.IsAny<List<FlexiIncludeBlock>>(),
                     dummyBlockProcessor)).
                 Returns(true).
-                Callback<string, List<IncludeBlock>, BlockProcessor>((_, includeBlockTrees, __) => resultIncludeBlockTrees = includeBlockTrees);
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory(contextObjectsService: mockContextObjectsService.Object);
+                Callback<object, object, BlockProcessor>((_, flexiIncludeBlockTrees, __) => resultFlexiIncludeBlockTrees = flexiIncludeBlockTrees as List<FlexiIncludeBlock>);
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory(contextObjectsService: mockContextObjectsService.Object);
 
             // Act
-            testSubject.TryAddToIncludeBlockTrees(dummyIncludeBlock, dummyBlockProcessor);
+            testSubject.TryAddToFlexiIncludeBlockTrees(dummyFlexiIncludeBlock, dummyBlockProcessor);
 
             // Assert
-            Assert.NotNull(resultIncludeBlockTrees);
-            Assert.Single(resultIncludeBlockTrees);
-            Assert.Same(dummyIncludeBlock, resultIncludeBlockTrees[0]);
+            Assert.NotNull(resultFlexiIncludeBlockTrees);
+            Assert.Single(resultFlexiIncludeBlockTrees);
+            Assert.Same(dummyFlexiIncludeBlock, resultFlexiIncludeBlockTrees[0]);
         }
 
         [Fact]
-        public void TryAddToIncludeBlockTrees_CreatesIncludeBlockTreesIfOutObjectIsNotAnIncludeBlockListAndAddsIncludeBlockTreesToContextObjects()
+        public void TryAddToFlexiIncludeBlockTrees_CreatesFlexiIncludeBlockTreesIfOutObjectIsNotAnFlexiIncludeBlockListAndAddsFlexiIncludeBlockTreesToContextObjects()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            IncludeBlock dummyIncludeBlock = CreateIncludeBlock();
-            List<IncludeBlock> resultIncludeBlockTrees = null;
+            FlexiIncludeBlock dummyFlexiIncludeBlock = CreateFlexiIncludeBlock();
+            List<FlexiIncludeBlock> resultFlexiIncludeBlockTrees = null;
             Mock<IContextObjectsService> mockContextObjectsService = _mockRepository.Create<IContextObjectsService>();
             var dummyOut = new object();
-            mockContextObjectsService.Setup(c => c.TryGetContextObject(IncludeBlockFactory.INCLUDE_BLOCK_TREES_KEY, dummyBlockProcessor, out dummyOut)).Returns(true);
+            mockContextObjectsService.Setup(c => c.TryGetContextObject(FlexiIncludeBlockFactory.FLEXI_INCLUDE_BLOCK_TREES_KEY, dummyBlockProcessor, out dummyOut)).Returns(true);
             mockContextObjectsService.
-                Setup(c => c.TryAddContextObject(IncludeBlockFactory.INCLUDE_BLOCK_TREES_KEY,
-                    It.IsAny<List<IncludeBlock>>(),
+                Setup(c => c.TryAddContextObject(FlexiIncludeBlockFactory.FLEXI_INCLUDE_BLOCK_TREES_KEY,
+                    It.IsAny<List<FlexiIncludeBlock>>(),
                     dummyBlockProcessor)).
                 Returns(true).
-                Callback<string, List<IncludeBlock>, BlockProcessor>((_, includeBlockTrees, __) => resultIncludeBlockTrees = includeBlockTrees);
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory(contextObjectsService: mockContextObjectsService.Object);
+                Callback<object, object, BlockProcessor>((_, flexiIncludeBlockTrees, __) => resultFlexiIncludeBlockTrees = flexiIncludeBlockTrees as List<FlexiIncludeBlock>);
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory(contextObjectsService: mockContextObjectsService.Object);
 
             // Act
-            testSubject.TryAddToIncludeBlockTrees(dummyIncludeBlock, dummyBlockProcessor);
+            testSubject.TryAddToFlexiIncludeBlockTrees(dummyFlexiIncludeBlock, dummyBlockProcessor);
 
             // Assert
-            Assert.NotNull(resultIncludeBlockTrees);
-            Assert.Single(resultIncludeBlockTrees);
-            Assert.Same(dummyIncludeBlock, resultIncludeBlockTrees[0]);
+            Assert.NotNull(resultFlexiIncludeBlockTrees);
+            Assert.Single(resultFlexiIncludeBlockTrees);
+            Assert.Same(dummyFlexiIncludeBlock, resultFlexiIncludeBlockTrees[0]);
         }
 
         [Fact]
-        public void TryAddToIncludeBlockTrees_DoesNothingIfUnableToAddNewIncludeBlockTreesToContextObjects()
+        public void TryAddToFlexiIncludeBlockTrees_DoesNothingIfUnableToAddNewFlexiIncludeBlockTreesToContextObjects()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            IncludeBlock dummyIncludeBlock = CreateIncludeBlock();
-            List<IncludeBlock> resultIncludeBlockTrees = null;
+            FlexiIncludeBlock dummyFlexiIncludeBlock = CreateFlexiIncludeBlock();
+            List<FlexiIncludeBlock> resultFlexiIncludeBlockTrees = null;
             Mock<IContextObjectsService> mockContextObjectsService = _mockRepository.Create<IContextObjectsService>();
             object dummyOut = null;
-            mockContextObjectsService.Setup(c => c.TryGetContextObject(IncludeBlockFactory.INCLUDE_BLOCK_TREES_KEY, dummyBlockProcessor, out dummyOut)).Returns(false);
+            mockContextObjectsService.Setup(c => c.TryGetContextObject(FlexiIncludeBlockFactory.FLEXI_INCLUDE_BLOCK_TREES_KEY, dummyBlockProcessor, out dummyOut)).Returns(false);
             mockContextObjectsService.
-                Setup(c => c.TryAddContextObject(IncludeBlockFactory.INCLUDE_BLOCK_TREES_KEY,
-                    It.IsAny<List<IncludeBlock>>(),
+                Setup(c => c.TryAddContextObject(FlexiIncludeBlockFactory.FLEXI_INCLUDE_BLOCK_TREES_KEY,
+                    It.IsAny<List<FlexiIncludeBlock>>(),
                     dummyBlockProcessor)).
                 Returns(false).
-                Callback<string, List<IncludeBlock>, BlockProcessor>((_, includeBlockTrees, __) => resultIncludeBlockTrees = includeBlockTrees);
-            IncludeBlockFactory testSubject = CreateIncludeBlockFactory(contextObjectsService: mockContextObjectsService.Object);
+                Callback<object, object, BlockProcessor>((_, flexiIncludeBlockTrees, __) => resultFlexiIncludeBlockTrees = flexiIncludeBlockTrees as List<FlexiIncludeBlock>);
+            FlexiIncludeBlockFactory testSubject = CreateFlexiIncludeBlockFactory(contextObjectsService: mockContextObjectsService.Object);
 
             // Act
-            testSubject.TryAddToIncludeBlockTrees(dummyIncludeBlock, dummyBlockProcessor);
+            testSubject.TryAddToFlexiIncludeBlockTrees(dummyFlexiIncludeBlock, dummyBlockProcessor);
 
             // Assert
-            Assert.NotNull(resultIncludeBlockTrees);
-            Assert.Empty(resultIncludeBlockTrees);
+            Assert.NotNull(resultFlexiIncludeBlockTrees);
+            Assert.Empty(resultFlexiIncludeBlockTrees);
         }
 
-        private static IncludeBlock CreateIncludeBlock(Uri source = default,
+        private static FlexiIncludeBlock CreateFlexiIncludeBlock(Uri source = default,
         ReadOnlyCollection<Clipping> clippings = default,
-        IncludeType type = default,
+        FlexiIncludeType type = default,
         string cacheDirectory = default,
-        IncludeBlock parentIncludeBlock = default,
+        FlexiIncludeBlock parentFlexiIncludeBlock = default,
         string containingSource = default,
         BlockParser parser = default)
         {
-            return new IncludeBlock(source, clippings, type, cacheDirectory, parentIncludeBlock, containingSource, parser);
+            return new FlexiIncludeBlock(source, clippings, type, cacheDirectory, parentFlexiIncludeBlock, containingSource, parser);
         }
 
-        private Mock<IncludeBlockFactory> CreateMockIncludeBlockFactory(IContextObjectsService contextObjectsService = null,
+        private Mock<FlexiIncludeBlockFactory> CreateMockFlexiIncludeBlockFactory(IContextObjectsService contextObjectsService = null,
             IDirectoryService directoryService = null,
-            IOptionsService<IIncludeBlockOptions, IIncludeBlocksExtensionOptions> optionsService = null,
+            IOptionsService<IFlexiIncludeBlockOptions, IFlexiIncludeBlocksExtensionOptions> optionsService = null,
             IContentRetrieverService contentRetrieverService = null,
             ILeadingWhitespaceEditorService leadingWhitespaceEditorService = null)
         {
-            return _mockRepository.Create<IncludeBlockFactory>(contextObjectsService ?? _mockRepository.Create<IContextObjectsService>().Object,
+            return _mockRepository.Create<FlexiIncludeBlockFactory>(contextObjectsService ?? _mockRepository.Create<IContextObjectsService>().Object,
                 directoryService ?? _mockRepository.Create<IDirectoryService>().Object,
-                optionsService ?? _mockRepository.Create<IOptionsService<IIncludeBlockOptions, IIncludeBlocksExtensionOptions>>().Object,
+                optionsService ?? _mockRepository.Create<IOptionsService<IFlexiIncludeBlockOptions, IFlexiIncludeBlocksExtensionOptions>>().Object,
                 contentRetrieverService ?? _mockRepository.Create<IContentRetrieverService>().Object,
                 leadingWhitespaceEditorService ?? _mockRepository.Create<ILeadingWhitespaceEditorService>().Object);
         }
 
-        private IncludeBlockFactory CreateIncludeBlockFactory(IContextObjectsService contextObjectsService = null,
+        private FlexiIncludeBlockFactory CreateFlexiIncludeBlockFactory(IContextObjectsService contextObjectsService = null,
             IDirectoryService directoryService = null,
-            IOptionsService<IIncludeBlockOptions, IIncludeBlocksExtensionOptions> optionsService = null,
+            IOptionsService<IFlexiIncludeBlockOptions, IFlexiIncludeBlocksExtensionOptions> optionsService = null,
             IContentRetrieverService contentRetrieverService = null,
             ILeadingWhitespaceEditorService leadingWhitespaceEditorService = null)
         {
-            return new IncludeBlockFactory(contextObjectsService ?? _mockRepository.Create<IContextObjectsService>().Object,
+            return new FlexiIncludeBlockFactory(contextObjectsService ?? _mockRepository.Create<IContextObjectsService>().Object,
                 directoryService ?? _mockRepository.Create<IDirectoryService>().Object,
-                optionsService ?? _mockRepository.Create<IOptionsService<IIncludeBlockOptions, IIncludeBlocksExtensionOptions>>().Object,
+                optionsService ?? _mockRepository.Create<IOptionsService<IFlexiIncludeBlockOptions, IFlexiIncludeBlocksExtensionOptions>>().Object,
                 contentRetrieverService ?? _mockRepository.Create<IContentRetrieverService>().Object,
                 leadingWhitespaceEditorService ?? _mockRepository.Create<ILeadingWhitespaceEditorService>().Object);
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     /// <summary>
     /// Represents a clipping from a sequence of lines.
@@ -58,8 +58,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
         /// </param>
         /// <param name="indent">
         /// <para>The number of leading whitespace characters to add to each line in the <see cref="Clipping"/>.</para>
-        /// <para>Due to Markdig limitations, this value may not work properly if the <see cref="IncludeBlock"/> this <see cref="Clipping"/> belongs to has <see cref="IIncludeBlockOptions.Type"/>
-        /// <see cref="IncludeType.Markdown"/>.</para>
+        /// <para>Due to Markdig limitations, this value may not work properly if the <see cref="FlexiIncludeBlock"/> this <see cref="Clipping"/> belongs to has <see cref="IFlexiIncludeBlockOptions.Type"/>
+        /// <see cref="FlexiIncludeType.Markdown"/>.</para>
         /// <para>This value must not be negative.</para>
         /// <para>Defaults to 0.</para>
         /// </param>
@@ -71,12 +71,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
         /// </param>
         /// <param name="before">
         /// <para>The content to be prepended to the <see cref="Clipping"/>.</para>
-        /// <para>This value is ignored if the <see cref="IncludeBlock"/> this <see cref="Clipping"/> belongs to has <see cref="IIncludeBlockOptions.Type"/> <see cref="IncludeType.Markdown"/>.</para>
+        /// <para>This value is ignored if the <see cref="FlexiIncludeBlock"/> this <see cref="Clipping"/> belongs to has <see cref="IFlexiIncludeBlockOptions.Type"/> <see cref="FlexiIncludeType.Markdown"/>.</para>
         /// <para>Defaults to <c>null</c>.</para>
         /// </param>
         /// <param name="after">
         /// <para>The content to be appended to the <see cref="Clipping"/>.</para>
-        /// <para>This value is ignored if the <see cref="IncludeBlock"/> this <see cref="Clipping"/> belongs to has <see cref="IIncludeBlockOptions.Type"/> <see cref="IncludeType.Markdown"/> .</para>
+        /// <para>This value is ignored if the <see cref="FlexiIncludeBlock"/> this <see cref="Clipping"/> belongs to has <see cref="IFlexiIncludeBlockOptions.Type"/> <see cref="FlexiIncludeType.Markdown"/> .</para>
         /// <para>Defaults to <c>null</c>.</para>
         /// </param>
         /// <exception cref="OptionsException">Thrown if <paramref name="startLine"/> is 0.</exception>

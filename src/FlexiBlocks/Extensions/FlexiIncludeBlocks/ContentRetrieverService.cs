@@ -10,7 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 
-namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks
 {
     /// <summary>
     /// <para>The default implementation of <see cref="IContentRetrieverService"/>.</para>
@@ -101,7 +101,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks
             }
             catch (Exception exception)
             {
-                throw new ArgumentException(string.Format(Strings.ArgumentException_ContentRetrieverService_InvalidLocalUri, source.AbsolutePath), nameof(source), exception);
+                throw new ArgumentException(string.Format(Strings.ArgumentException_Shared_InvalidLocalUri, source.AbsolutePath), nameof(source), exception);
             }
         }
 
