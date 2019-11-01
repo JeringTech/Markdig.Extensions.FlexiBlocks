@@ -3,7 +3,22 @@ This project uses [semantic versioning](http://semver.org/spec/v2.0.0.html). Ref
 *[Semantic Versioning in Practice](https://www.jering.tech/articles/semantic-versioning-in-practice)*
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/1.0.0-alpha.1...HEAD)
+## [Unreleased](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/1.0.0-alpha.2...HEAD)
+
+## [1.0.0-alpha.2](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/1.0.0-alpha.1...1.0.0-alpha.2) - Nov 1, 2019
+### Additions
+- Added the following extensions:
+  - FlexiVideoBlocks ([4db5d66](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/commit/4db5d66b4380bc2c3be8093570659f960b2ade5e))
+  - FlexiPictureBlocks ([575e73a](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/commit/575e73aa0e193b5e3afb77b59188f6f226298acf))
+- Added shared types for media blocks. ([b14f017](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/commit/b14f017898ef62010df29bcdb75f95dac1b8680f))
+### Changes
+- FlexiIncludeBlocks ([5955dc2](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/commit/5955dc2de01c13142f2fc755c96864771865c7df))
+  - Renamed IncludeBlocks to FlexiIncludeBlocks.
+  - Changed syntax from `+{...}` to `i{...}`.
+- FlexiOptionsBlocks ([ba5940c](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/commit/ba5940c7d59f7fdfdb8db3aa8af6bc12b3cf5345))
+  - Renamed OptionsBlocks to FlexiOptionsBlocks.
+  - Changed syntax from `@{...}` to `o{...}`.
+- All `has/no/is/not_*` classes changed to `has/no/is/not-*`. They're now proper BEM boolean modifier classes.
 
 ## [1.0.0-alpha.1](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/1.0.0-alpha.0...1.0.0-alpha.1) - Sep 10, 2019
 ### Additions
