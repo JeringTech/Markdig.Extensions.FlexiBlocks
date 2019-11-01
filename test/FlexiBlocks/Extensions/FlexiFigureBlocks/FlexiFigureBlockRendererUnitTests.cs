@@ -92,68 +92,68 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiFigureBlocks
                 // BlockName is assigned as a class of the root element and all default classes are prepended with it
                 new object[]{
                     CreateFlexiFigureBlock(dummyBlockName),
-                    $@"<figure class=""{dummyBlockName} {dummyBlockName}_no_name"">
+                    $@"<figure class=""{dummyBlockName} {dummyBlockName}_no-name"">
 <div class=""{dummyBlockName}__content"">
 </div>
-<figcaption class=""{dummyBlockName}__caption""><span class=""{dummyBlockName}__name""></span></figcaption>
+<figcaption class=""{dummyBlockName}__caption""></figcaption>
 </figure>
 "
                 },
                 // If attributes are specified, they're written
                 new object[]{
                     CreateFlexiFigureBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { dummyAttributeKey1, dummyAttributeValue1 }, { dummyAttributeKey2, dummyAttributeValue2 } })),
-                    $@"<figure class="" _no_name"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
+                    $@"<figure class="" _no-name"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
 <div class=""__content"">
 </div>
-<figcaption class=""__caption""><span class=""__name""></span></figcaption>
+<figcaption class=""__caption""></figcaption>
 </figure>
 "
                 },
                 // If classes are specified, they're appended to default classes
                 new object[]{
                     CreateFlexiFigureBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { "class", dummyClass } })),
-                    $@"<figure class="" _no_name {dummyClass}"">
+                    $@"<figure class="" _no-name {dummyClass}"">
 <div class=""__content"">
 </div>
-<figcaption class=""__caption""><span class=""__name""></span></figcaption>
+<figcaption class=""__caption""></figcaption>
 </figure>
 "
                 },
                 // If ID (FlexiFigureBlock property) is specified, it is written
                 new object[]{
                     CreateFlexiFigureBlock(id: dummyID),
-                    $@"<figure class="" _no_name"" id=""{dummyID}"">
+                    $@"<figure class="" _no-name"" id=""{dummyID}"">
 <div class=""__content"">
 </div>
-<figcaption class=""__caption""><span class=""__name""></span></figcaption>
+<figcaption class=""__caption""></figcaption>
 </figure>
 "
                 },
                 // ID in attributes is never written
                 new object[]{
                     CreateFlexiFigureBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { "id", dummyID } })),
-                    @"<figure class="" _no_name"">
+                    @"<figure class="" _no-name"">
 <div class=""__content"">
 </div>
-<figcaption class=""__caption""><span class=""__name""></span></figcaption>
+<figcaption class=""__caption""></figcaption>
 </figure>
 "
                 },
                 // Content part is rendered
                 new object[]{
                     CreateFlexiFigureBlock(contentPart: dummyContentPartBlock),
-                    $@"<figure class="" _no_name"">
+                    $@"<figure class="" _no-name"">
 <div class=""__content"">
 <p>{dummyContent}</p>
 </div>
-<figcaption class=""__caption""><span class=""__name""></span></figcaption>
+<figcaption class=""__caption""></figcaption>
 </figure>
 "
                 },
                 // If RenderName is true and Name is not null, whitespace or an empty string, Name is rendered in caption
                 new object[]{
                     CreateFlexiFigureBlock(name: dummyName, renderName: true),
-                    $@"<figure class="" _has_name"">
+                    $@"<figure class="" _has-name"">
 <div class=""__content"">
 </div>
 <figcaption class=""__caption""><span class=""__name"">{dummyName}. </span></figcaption>
@@ -163,39 +163,39 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiFigureBlocks
                 // If RenderName is false, Name isn't rendered even if Name is not null, whitespace or an empty string
                 new object[]{
                     CreateFlexiFigureBlock(name: dummyName, renderName: false),
-                    @"<figure class="" _no_name"">
+                    @"<figure class="" _no-name"">
 <div class=""__content"">
 </div>
-<figcaption class=""__caption""><span class=""__name""></span></figcaption>
+<figcaption class=""__caption""></figcaption>
 </figure>
 "
                 },
                 // If Name is null, whitespace or an empty string, Name isn't is rendered even if RenderName is true (null case already verified in other tests)
                 new object[]{
                     CreateFlexiFigureBlock(name: " ", renderName: true),
-                    @"<figure class="" _no_name"">
+                    @"<figure class="" _no-name"">
 <div class=""__content"">
 </div>
-<figcaption class=""__caption""><span class=""__name""></span></figcaption>
+<figcaption class=""__caption""></figcaption>
 </figure>
 "
                 },
                 new object[]{
                     CreateFlexiFigureBlock(name: string.Empty, renderName: true),
-                    @"<figure class="" _no_name"">
+                    @"<figure class="" _no-name"">
 <div class=""__content"">
 </div>
-<figcaption class=""__caption""><span class=""__name""></span></figcaption>
+<figcaption class=""__caption""></figcaption>
 </figure>
 "
                 },
                 // Caption part is rendered
                 new object[]{
                     CreateFlexiFigureBlock(captionPart: dummyCaptionPartBlock),
-                    $@"<figure class="" _no_name"">
+                    $@"<figure class="" _no-name"">
 <div class=""__content"">
 </div>
-<figcaption class=""__caption""><span class=""__name""></span>{dummyCaption}</figcaption>
+<figcaption class=""__caption"">{dummyCaption}</figcaption>
 </figure>
 "
                 }

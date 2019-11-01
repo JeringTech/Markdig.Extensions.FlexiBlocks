@@ -131,7 +131,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks
         }
 
         internal virtual string ResolveLinkLabelContent(bool referenceLinkable, bool linkLabelContentSpecified, string name, string linkLabelContent)
-    {
+        {
             if (!referenceLinkable)
             {
                 return null;

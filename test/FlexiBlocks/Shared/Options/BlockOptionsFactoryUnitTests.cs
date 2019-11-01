@@ -1,5 +1,5 @@
 ﻿using Jering.IocServices.Newtonsoft.Json;
-using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
@@ -22,7 +22,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         }
 
         [Fact]
-        public void Create_FromOptionsBlock_ThrowsArgumentNullExceptionIfBlockProcessorIsNull()
+        public void Create_FromFlexiOptionsBlock_ThrowsArgumentNullExceptionIfBlockProcessorIsNull()
         {
             // Arrange
             BlockOptionsFactory<IDummyOptions> testSubject = CreateBlockOptionsFactory();
@@ -32,14 +32,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         }
 
         [Fact]
-        public void Create_FromOptionsBlock_ReturnsDefaultBlockOptionsIfThereIsNoOptionsBlock()
+        public void Create_FromFlexiOptionsBlock_ReturnsDefaultBlockOptionsIfThereIsNoFlexiOptionsBlock()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<IDummyOptions> dummyOptions = _mockRepository.Create<IDummyOptions>();
             Mock<BlockOptionsFactory<IDummyOptions>> mockTestSubject = CreateMockBlockOptionsFactory();
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(t => t.TryGetOptionsBlock(dummyBlockProcessor)).Returns((OptionsBlock)null);
+            mockTestSubject.Setup(t => t.TryGetFlexiOptionsBlock(dummyBlockProcessor)).Returns((FlexiOptionsBlock)null);
 
             // Act
             IDummyOptions result = mockTestSubject.Object.Create(dummyOptions.Object, dummyBlockProcessor);
@@ -50,17 +50,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         }
 
         [Fact]
-        public void Create_FromOptionsBlock_CreatesOptions()
+        public void Create_FromFlexiOptionsBlock_CreatesOptions()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             Mock<IDummyOptions> dummyClonedDummyOptions = _mockRepository.Create<IDummyOptions>();
             Mock<IDummyOptions> dummyOptions = _mockRepository.Create<IDummyOptions>();
-            var dummyOptionsBlock = new OptionsBlock(null);
+            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null);
             Mock<BlockOptionsFactory<IDummyOptions>> mockTestSubject = CreateMockBlockOptionsFactory();
             mockTestSubject.CallBase = true;
-            mockTestSubject.Setup(t => t.TryGetOptionsBlock(dummyBlockProcessor)).Returns(dummyOptionsBlock);
-            mockTestSubject.Setup(t => t.Create(dummyOptions.Object, dummyOptionsBlock)).Returns(dummyClonedDummyOptions.Object);
+            mockTestSubject.Setup(t => t.TryGetFlexiOptionsBlock(dummyBlockProcessor)).Returns(dummyFlexiOptionsBlock);
+            mockTestSubject.Setup(t => t.Create(dummyOptions.Object, dummyFlexiOptionsBlock)).Returns(dummyClonedDummyOptions.Object);
 
             // Act
             IDummyOptions result = mockTestSubject.Object.Create(dummyOptions.Object, dummyBlockProcessor);
@@ -141,34 +141,34 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         }
 
         [Fact]
-        public void TryGetOptionsBlock_ReturnsNullIfAnOptionsBlockDoesNotExist()
+        public void TryGetFlexiOptionsBlock_ReturnsNullIfAnFlexiOptionsBlockDoesNotExist()
         {
             // Arrange
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
             BlockOptionsFactory<IDummyOptions> testSubject = CreateBlockOptionsFactory();
 
             // Act
-            OptionsBlock result = testSubject.TryGetOptionsBlock(dummyBlockProcessor);
+            FlexiOptionsBlock result = testSubject.TryGetFlexiOptionsBlock(dummyBlockProcessor);
 
             // Assert
             Assert.Null(result);
         }
 
         [Fact]
-        public void TryGetOptionsBlock_IfSuccessfulReturnsOptionsBlockAndRemovesItFromDocumentData()
+        public void TryGetFlexiOptionsBlock_IfSuccessfulReturnsFlexiOptionsBlockAndRemovesItFromDocumentData()
         {
             // Arrange
-            var dummyOptionsBlock = new OptionsBlock(null);
+            var dummyFlexiOptionsBlock = new FlexiOptionsBlock(null);
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            dummyBlockProcessor.Document.SetData(OptionsBlockFactory.PENDING_OPTIONS_BLOCK, dummyOptionsBlock);
+            dummyBlockProcessor.Document.SetData(FlexiOptionsBlockFactory.PENDING_FLEXI_OPTIONS_BLOCK, dummyFlexiOptionsBlock);
             BlockOptionsFactory<IDummyOptions> testSubject = CreateBlockOptionsFactory();
 
             // Act
-            OptionsBlock result = testSubject.TryGetOptionsBlock(dummyBlockProcessor);
+            FlexiOptionsBlock result = testSubject.TryGetFlexiOptionsBlock(dummyBlockProcessor);
 
             // Assert
-            Assert.Same(dummyOptionsBlock, result);
-            Assert.Null(dummyBlockProcessor.Document.GetData(OptionsBlockFactory.PENDING_OPTIONS_BLOCK));
+            Assert.Same(dummyFlexiOptionsBlock, result);
+            Assert.Null(dummyBlockProcessor.Document.GetData(FlexiOptionsBlockFactory.PENDING_FLEXI_OPTIONS_BLOCK));
         }
 
         public BlockOptionsFactory<IDummyOptions> CreateBlockOptionsFactory(IJsonSerializerService jsonSerializerService = null)

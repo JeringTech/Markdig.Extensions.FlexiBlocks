@@ -1,5 +1,5 @@
 ﻿using Jering.IocServices.Newtonsoft.Json;
-using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using Newtonsoft.Json;
@@ -32,14 +32,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 throw new ArgumentNullException(nameof(blockProcessor));
             }
 
-            // Get OptionsBlock
-            OptionsBlock optionsBlock = TryGetOptionsBlock(blockProcessor);
-            if (optionsBlock == null)
+            // Get FlexiOptionsBlock
+            FlexiOptionsBlock flexiOptionsBlock = TryGetFlexiOptionsBlock(blockProcessor);
+            if (flexiOptionsBlock == null)
             {
                 return defaultBlockOptions; // Returns null if defaultBlockOptions is null
             }
 
-            return Create(defaultBlockOptions, optionsBlock);
+            return Create(defaultBlockOptions, flexiOptionsBlock);
         }
 
         /// <inheritdoc />
@@ -73,16 +73,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
-        /// Returns <c>null</c> if unable to retrieve an <see cref="OptionsBlock"/>.
+        /// Returns <c>null</c> if unable to retrieve a <see cref="FlexiOptionsBlock"/>.
         /// </summary>
-        internal virtual OptionsBlock TryGetOptionsBlock(BlockProcessor processor)
+        internal virtual FlexiOptionsBlock TryGetFlexiOptionsBlock(BlockProcessor processor)
         {
             MarkdownDocument markdownDocument = processor.Document;
-            if (markdownDocument.GetData(OptionsBlockFactory.PENDING_OPTIONS_BLOCK) is OptionsBlock OptionsBlock)
+            if (markdownDocument.GetData(FlexiOptionsBlockFactory.PENDING_FLEXI_OPTIONS_BLOCK) is FlexiOptionsBlock FlexiOptionsBlock)
             {
-                markdownDocument.RemoveData(OptionsBlockFactory.PENDING_OPTIONS_BLOCK);
+                markdownDocument.RemoveData(FlexiOptionsBlockFactory.PENDING_FLEXI_OPTIONS_BLOCK);
 
-                return OptionsBlock;
+                return FlexiOptionsBlock;
             }
 
             return null;

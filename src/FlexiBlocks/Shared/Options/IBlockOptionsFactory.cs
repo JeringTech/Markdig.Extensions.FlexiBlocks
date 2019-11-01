@@ -1,4 +1,4 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using System;
@@ -13,16 +13,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
     {
         /// <summary>
         /// <para>Creates an <see cref="IBlockOptions{T}"/> for an <see cref="IBlock"/>.</para>
-        /// <para>Attempts to populate the <see cref="IBlockOptions{T}"/> with options from an <see cref="OptionsBlock"/>.</para>
+        /// <para>Attempts to populate the <see cref="IBlockOptions{T}"/> with options from a <see cref="FlexiOptionsBlock"/>.</para>
         /// </summary>
         /// <param name="defaultBlockOptions">
         /// <para>The default <see cref="IBlockOptions{T}"/>.</para>
-        /// <para>If an <see cref="OptionsBlock"/> is found, this value is cloned and values in the clone with alternatives in the <see cref="OptionsBlock"/> are overriden.</para>
+        /// <para>If a <see cref="FlexiOptionsBlock"/> is found, this value is cloned and values in the clone with alternatives in the <see cref="FlexiOptionsBlock"/> are overriden.</para>
         /// </param>
         /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <see cref="IBlock"/> this method is creating options for.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="blockProcessor"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="defaultBlockOptions"/> is <c>null</c>.</exception>
-        /// <exception cref="BlockException">Thrown if the <see cref="OptionsBlock"/>'s JSON cannot be deserialized.</exception>
+        /// <exception cref="BlockException">Thrown if the <see cref="FlexiOptionsBlock"/>'s JSON cannot be deserialized.</exception>
         T Create(T defaultBlockOptions, BlockProcessor blockProcessor);
 
         /// <summary>

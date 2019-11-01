@@ -1,4 +1,4 @@
-using Markdig.Renderers;
+﻿using Markdig.Renderers;
 using Markdig.Syntax;
 using System.Collections.ObjectModel;
 
@@ -27,17 +27,17 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks
                 return;
             }
 
-            string blockName = block.BlockName;
-            string icon = block.Icon;
-            bool renderIcon = !string.IsNullOrWhiteSpace(icon);
-            string citeUrl = block.CiteUrl;
+            string blockName = block.BlockName,
+                   icon = block.Icon,
+                   citeUrl = block.CiteUrl;
+            bool hasIcon = !string.IsNullOrWhiteSpace(icon);
             ReadOnlyDictionary<string, string> attributes = block.Attributes;
 
             // Root element
             htmlRenderer.
                 Write("<div class=\"").
                 Write(blockName).
-                WriteHasFeatureClass(renderIcon, blockName, "icon").
+                WriteHasFeatureClass(hasIcon, blockName, "icon").
                 WriteAttributeValue(attributes, "class").
                 Write('"').
                 WriteAttributesExcept(attributes, "class").
@@ -45,8 +45,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks
 
             // Icon
             htmlRenderer.
-                WriteHtmlFragment(renderIcon, icon, blockName, "icon").
-                EnsureLine();
+                WriteHtmlFragmentLine(hasIcon, icon, blockName, "icon");
 
             // Content
             htmlRenderer.
@@ -65,7 +64,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks
             // Citation
             htmlRenderer.
                 WriteStartTag("p", blockName, "citation").
-                Write("� ").
+                Write("— ").
                 WriteLeafInline(block[1] as LeafBlock, true).
                 WriteEndTagLine("p").
                 WriteEndTagLine("div").

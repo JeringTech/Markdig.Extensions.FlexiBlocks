@@ -121,6 +121,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 blockName,
                 flexiCodeBlockOptions.Title,
                 flexiCodeBlockOptions.CopyIcon,
+                flexiCodeBlockOptions.RenderHeader,
                 flexiCodeBlockOptions.Language,
                 code,
                 codeNumLines,

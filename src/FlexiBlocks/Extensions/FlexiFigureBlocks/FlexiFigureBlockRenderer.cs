@@ -27,18 +27,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks
                 return;
             }
 
-            string blockName = block.BlockName;
             ReadOnlyDictionary<string, string> attributes = block.Attributes;
-            string name = block.Name;
-            bool renderName = block.RenderName && !string.IsNullOrWhiteSpace(name);
-            string id = block.ID;
+            string blockName = block.BlockName,
+                   name = block.Name,
+                   id = block.ID;
+            bool hasName = block.RenderName && !string.IsNullOrWhiteSpace(name);
 
             // Root element
             htmlRenderer.
                 Write("<figure").
                 Write(" class=\"").
                 Write(blockName).
-                WriteHasFeatureClass(renderName, blockName, "name").
+                WriteHasFeatureClass(hasName, blockName, "name").
                 WriteAttributeValue(attributes, "class").
                 Write("\"").
                 WriteAttribute(!string.IsNullOrWhiteSpace(id), "id", id).
@@ -54,9 +54,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks
             // Caption
             htmlRenderer.
                 WriteStartTag("figcaption", blockName, "caption").
-                WriteStartTag("span", blockName, "name").
-                Write(renderName, name, ". ").
-                WriteEndTag("span").
+                WriteElement(hasName, "span", blockName, "name", name, ". ").
                 WriteLeafInline(block[1] as LeafBlock).
                 WriteEndTagLine("figcaption").
                 WriteEndTagLine("figure");

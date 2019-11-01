@@ -41,19 +41,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         public virtual string BlockName { get; }
 
         /// <summary>
-        /// Gets the <see cref="FlexiSectionBlock"/> root element type.
-        /// </summary>
-        public SectioningContentElement Element { get; }
-
-        /// <summary>
         /// Gets the <see cref="FlexiSectionBlock"/>'s link icon as an HTML fragment.
         /// </summary>
         public virtual string LinkIcon { get; }
-
-        /// <summary>
-        /// Gets the <see cref="FlexiSectionBlock"/>'s rendering mode.
-        /// </summary>
-        public FlexiSectionBlockRenderingMode RenderingMode { get; }
 
         /// <summary>
         /// Gets the <see cref="FlexiSectionBlock"/>'s level.
@@ -64,5 +54,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
         /// Gets the HTML attributes for the <see cref="FlexiSectionBlock"/>'s root element.
         /// </summary>
         public virtual ReadOnlyDictionary<string, string> Attributes { get; }
+
+        /// <summary>
+        /// Gets the <see cref="FlexiSectionBlock"/> root element type.
+        /// </summary>
+        public SectioningContentElement Element { get; }
+
+        /// <summary>
+        /// Gets the <see cref="FlexiSectionBlock"/>'s rendering mode.
+        /// </summary>
+        public FlexiSectionBlockRenderingMode RenderingMode { get; }
     }
 }

@@ -30,7 +30,7 @@ public string ExampleFunction(string arg)
 }
 ```"
 string html = Markdown.ToHtml(markdown, markdownPipeline);
-string expectedHtml = @"<div class=""flexi-code flexi-code_no_title flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases"">
+string expectedHtml = @"<div class=""flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases"">
 <header class=""flexi-code__header"">
 <span class=""flexi-code__title""></span>
 <button class=""flexi-code__copy-button"" title=""Copy code"" aria-label=""Copy code"">
@@ -41,7 +41,8 @@ string expectedHtml = @"<div class=""flexi-code flexi-code_no_title flexi-code_n
 {
     // Example comment
     return arg + &quot;dummyString&quot;;
-}</code></pre>
+}
+</code></pre>
 </div>";
 
 Assert.Equal(expectedHtml, html)
@@ -61,9 +62,8 @@ public string ExampleFunction(string arg)
 }
 ```
 --------------- Expected Markup ---------------
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -97,9 +97,8 @@ Like [CommonMark](https://spec.commonmark.org/0.28/) code blocks, a FlexiCodeBlo
 </html>
 ~~~
 --------------- Expected Markup ---------------
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -124,9 +123,8 @@ The following is an indented FlexiCodeBlock:
         return arg + "dummyString";
     }
 --------------- Expected Markup ---------------
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -141,7 +139,7 @@ The following is an indented FlexiCodeBlock:
 
 ## Options
 ### `FlexiCodeBlockOptions`
-Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCodeBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/OptionsBlocksSpecs.md#options) extension must be enabled.
+Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCodeBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#options) extension must be enabled.
 
 #### Properties
 
@@ -155,9 +153,9 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{
+  o{
       "blockName": "code"
   }
   ```
@@ -168,9 +166,8 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   }
   ```
   --------------- Expected Markup ---------------
-  <div class="code code_no_title code_has_copy-icon code_no_syntax-highlights code_no_line-numbers code_has_omitted-lines-icon code_no_highlighted-lines code_no_highlighted-phrases">
+  <div class="code code_no-title code_has-copy-icon code_has-header code_no-syntax-highlights code_no-line-numbers code_has-omitted-lines-icon code_no-highlighted-lines code_no-highlighted-phrases">
   <header class="code__header">
-  <span class="code__title"></span>
   <button class="code__copy-button" title="Copy code" aria-label="Copy code">
   <svg class="code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
@@ -192,9 +189,9 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "title" : "ExampleDocument.cs" }
+  o{ "title" : "ExampleDocument.cs" }
   ```
   public string ExampleFunction(string arg)
   {
@@ -203,7 +200,7 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   }
   ```
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_has_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+  <div class="flexi-code flexi-code_has-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
   <span class="flexi-code__title">ExampleDocument.cs</span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
@@ -228,9 +225,9 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "copyIcon": "<svg><use xlink:href=\"#material-design-copy\"/></svg>" }
+  o{ "copyIcon": "<svg><use xlink:href=\"#material-design-copy\"/></svg>" }
   ```
   public string ExampleFunction(string arg)
   {
@@ -239,9 +236,8 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   }
   ```
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
   <svg class="flexi-code__copy-icon"><use xlink:href="#material-design-copy"/></svg>
   </button>
@@ -257,9 +253,9 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   No copy icon is are rendered if this value is `null`, whitespace or an empty string:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "copyIcon": null }
+  o{ "copyIcon": null }
   ```
   public string ExampleFunction(string arg)
   {
@@ -268,12 +264,40 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   }
   ```
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no_title flexi-code_no_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+  <div class="flexi-code flexi-code_no-title flexi-code_no-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
   </button>
   </header>
+  <pre class="flexi-code__pre"><code class="flexi-code__code">public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + &quot;dummyString&quot;;
+  }
+  </code></pre>
+  </div>
+  ````````````````````````````````
+
+##### `RenderHeader`
+- Type: `bool`
+- Description: The value specifying whether to render the `FlexiCodeBlock`'s header.
+  If `false`, the header element, which contains the `FlexiCodeBlock`'s title and copy button, is not rendered.
+- Default: `true`
+- Examples:
+  ```````````````````````````````` none
+  --------------- Extra Extensions ---------------
+  FlexiOptionsBlocks
+  --------------- Markdown ---------------
+  o{ "renderHeader": "false" }
+  ```
+  public string ExampleFunction(string arg)
+  {
+      // Example comment
+      return arg + "dummyString";
+  }
+  ```
+  --------------- Expected Markup ---------------
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_no-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <pre class="flexi-code__pre"><code class="flexi-code__code">public string ExampleFunction(string arg)
   {
       // Example comment
@@ -289,16 +313,16 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   If `SyntaxHighlighter` is not `SyntaxHighlighter.None`, this value is passed to the chosen syntax highlighter.
   Therefore, this value must be a language alias supported by the chosen syntax highlighter.
   [Valid language aliases for Prism.](https://prismjs.com/index.html#languages-list)
-  [Valid language aliases for HighlightJS](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases).
-  The class "<`BlockName`>__code_language-<language>" is assigned to the `FlexiCodeBlock`'s root element.
+  [Valid language aliases for HighlightJS](https://github.com/highlightjs/highlight.js/tree/master/src/languages).
+  The class "<`BlockName`>__code_language_<language>" is assigned to the `FlexiCodeBlock`'s root element.
   If this value is `null`, whitespace or an empty string, syntax highlighting is disabled and no language class is assigned to the root element.
 - Default: `null`
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "language": "csharp" }
+  o{ "language": "csharp" }
   ```
   public string ExampleFunction(string arg)
   {
@@ -307,9 +331,8 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   }
   ```
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_language-csharp flexi-code_has_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_language_csharp flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
@@ -328,13 +351,14 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
 - Description: The syntax highlighter to highlight the `FlexiCodeBlock`'s code with.
   If this value is `SyntaxHighlighter.None`, or `Language` is `null`, whitespace or an empty string,
   syntax highlighting is disabled.
+  Syntax highlighting requires [Node.js](https://nodejs.org/en/) to be installed and on the path environment variable.
 - Default: `SyntaxHighlighter.Prism`
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{
+  o{
       "syntaxHighlighter": "highlightJS",
       "language": "typescript"
   }
@@ -345,9 +369,8 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   }
   ```
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_language-typescript flexi-code_has_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_language_typescript flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
@@ -374,9 +397,9 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{
+  o{
       "lineNumbers": [
           { "startLine": 2, "endLine": 8, "startNumber": 4 },
           { "startLine": 10, "endLine": -2, "startNumber": 32 }
@@ -401,9 +424,8 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
 
   ```
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_has_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_has-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
@@ -437,9 +459,9 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{
+  o{
       "omittedLinesIcon": "<svg><use xlink:href=\"#material-design-more-vert\"/></svg>",
       "lineNumbers": [{"endLine": 2}, {"startLine": 4, "startNumber":10}]
   }
@@ -450,9 +472,8 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   }
   ```
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_has_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_has-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
@@ -467,9 +488,9 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   No omitted lines icons are rendered if this value is `null`, white space or an empty string:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{
+  o{
       "omittedLinesIcon": null,
       "lineNumbers": [{"endLine": 2}, {"startLine": 4, "startNumber":10}]
   }
@@ -480,9 +501,8 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   }
   ```
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_has_line-numbers flexi-code_no_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_has-line-numbers flexi-code_no-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
@@ -503,9 +523,9 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{
+  o{
       "highlightedLines": [
           { "endLine": 1 },
           { "startLine": 3, "endLine": 4 }
@@ -519,9 +539,8 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   }
   ```
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_has_highlighted-lines flexi-code_no_highlighted-phrases">
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_has-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
@@ -545,9 +564,9 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{
+  o{
       "highlightedPhrases": [
           { "regex": "return (.*?);", "includedMatches": [1] },
           { "regex": "string arg" }
@@ -570,9 +589,8 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   }
   ```
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_has_highlighted-phrases">
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_has-highlighted-phrases">
   <header class="flexi-code__header">
-  <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
@@ -611,9 +629,8 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   }
   ```
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
@@ -630,9 +647,9 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   rendered in CommonMark Spec examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "renderingMode": "classic" }
+  o{ "renderingMode": "classic" }
   ```
   public string ExampleFunction(string arg)
   {
@@ -659,9 +676,9 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{
+  o{
       "attributes": {
           "id" : "code-1",
           "class" : "block"
@@ -675,9 +692,8 @@ Options for a FlexiCodeBlock. To specify `FlexiCodeBlockOptions` for a FlexiCode
   }
   ```
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases block" id="code-1">
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases block" id="code-1">
   <header class="flexi-code__header">
-  <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
@@ -696,14 +712,14 @@ Represents a range of lines.
 
 #### Properties
 
-##### `Start`
+##### `StartLine`
 - Type: `int`
 - Description: The line number of the `LineRange`'s start line.
   If this value is `-n`, the start line is the nth last line. For example, if this value is `-2`, the start line is the 2nd last line.
   This value must not be `0`.
 - Default: `1`
 
-##### `End`
+##### `EndLine`
 - Type: `int`
 - Description: The line number of the `LineRange`'s end line.
   If this value is `-n`, the end line is the nth last line. For example, if this value is `-2`, the end line is the 2nd last line.
@@ -799,7 +815,7 @@ Options for the FlexiCodeBlocks extension. There are two ways to specify these o
   </html>
   ```
   --------------- Expected Markup ---------------
-  <div class="code code_has_title code_has_copy-icon code_language-html code_has_syntax-highlights code_has_line-numbers code_has_omitted-lines-icon code_has_highlighted-lines code_has_highlighted-phrases block">
+  <div class="code code_has-title code_has-copy-icon code_has-header code_language_html code_has-syntax-highlights code_has-line-numbers code_has-omitted-lines-icon code_has-highlighted-lines code_has-highlighted-phrases block">
   <header class="code__header">
   <span class="code__title">ExampleDocument.cs</span>
   <button class="code__copy-button" title="Copy code" aria-label="Copy code">
@@ -821,7 +837,7 @@ Options for the FlexiCodeBlocks extension. There are two ways to specify these o
   `defaultBlockOptions` has lower precedence than block specific options:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Extension Options ---------------
   {
       "flexiCodeBlocks": {
@@ -839,7 +855,7 @@ Options for the FlexiCodeBlocks extension. There are two ways to specify these o
   }
   ```
 
-  @{
+  o{
       "lineNumbers": [
           {
               "startLine": 2, "startNumber": 25
@@ -855,9 +871,8 @@ Options for the FlexiCodeBlocks extension. There are two ways to specify these o
   }
   ```
   --------------- Expected Markup ---------------
-  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_has_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_has-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
@@ -869,9 +884,8 @@ Options for the FlexiCodeBlocks extension. There are two ways to specify these o
   <span class="flexi-code__line-prefix">5</span><span class="flexi-code__line">}</span>
   </code></pre>
   </div>
-  <div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_has_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+  <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_has-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <span class="flexi-code__title"></span>
   <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
@@ -892,9 +906,9 @@ Syntax and phrase elements that intersect line elements get split. Order of elem
 
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
-OptionsBlocks
+FlexiOptionsBlocks
 --------------- Markdown ---------------
-@{
+o{
     "language": "csharp",
     "highlightedLines": [
         { "startLine": 3, "endLine": 3 },
@@ -918,9 +932,8 @@ OptionsBlocks
 */
 ```
 --------------- Expected Markup ---------------
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_language-csharp flexi-code_has_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_has_highlighted-lines flexi-code_has_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_language_csharp flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_has-highlighted-lines flexi-code_has-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -943,9 +956,9 @@ If a phrase element intersects a syntax element and one isn't contained by the o
 
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
-OptionsBlocks
+FlexiOptionsBlocks
 --------------- Markdown ---------------
-@{
+o{
     "language": "csharp",
     "highlightedPhrases": [
         { "regex": "comment\\s+re" },
@@ -960,9 +973,8 @@ public string ExampleFunction(string arg)
 }
 ```
 --------------- Expected Markup ---------------
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_language-csharp flexi-code_has_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_has_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_language_csharp flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_has-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -980,9 +992,9 @@ Intersecting and adjacent phrases are combined:
 
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
-OptionsBlocks
+FlexiOptionsBlocks
 --------------- Markdown ---------------
-@{
+o{
     "highlightedPhrases": [
         { "regex": "comment\\s+re" },
         { "regex": "(return )(arg)" },
@@ -998,9 +1010,8 @@ public string ExampleFunction(string arg)
 }
 ```
 --------------- Expected Markup ---------------
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_has_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_has-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -1017,9 +1028,9 @@ public string ExampleFunction(string arg)
 Contained elements never get split:
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
-OptionsBlocks
+FlexiOptionsBlocks
 --------------- Markdown ---------------
-@{
+o{
     "language": "csharp",
     "highlightedPhrases": [
         { "regex": "string ExampleFunction" },
@@ -1035,9 +1046,8 @@ public string ExampleFunction(string arg)
 }
 ```
 --------------- Expected Markup ---------------
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_language-csharp flexi-code_has_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_has_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_language_csharp flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_has-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -1057,18 +1067,17 @@ If syntax highlighting is enabled, the chosen syntax highlighter performs the en
 
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
-OptionsBlocks
+FlexiOptionsBlocks
 --------------- Markdown ---------------
-@{
+o{
     "language": "html"
 }
 ```
 <div class="my-class">&</div>
 ```
 --------------- Expected Markup ---------------
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_language-html flexi-code_has_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_language_html flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -1081,9 +1090,9 @@ OptionsBlocks
 HighlightJS encodes '<', '&' and '>' characters:
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
-OptionsBlocks
+FlexiOptionsBlocks
 --------------- Markdown ---------------
-@{
+o{
     "language": "html",
     "syntaxHighlighter": "highlightjs"
 }
@@ -1091,9 +1100,8 @@ OptionsBlocks
 <div class="my-class">&</div>
 ```
 --------------- Expected Markup ---------------
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_language-html flexi-code_has_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_language_html flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -1106,15 +1114,14 @@ OptionsBlocks
 If syntax highlighting is disabled, '<', '&', '"", and '>' characters are encoded:
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
-OptionsBlocks
+FlexiOptionsBlocks
 --------------- Markdown ---------------
 ```
 <div class="my-class">&</div>
 ```
 --------------- Expected Markup ---------------
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -1127,18 +1134,17 @@ OptionsBlocks
 Encoding does not affect highlighted phrases (regex expressions are evaluated before encoding):
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
-OptionsBlocks
+FlexiOptionsBlocks
 --------------- Markdown ---------------
-@{
+o{
     "highlightedPhrases": [{ "regex": "div" }]
 }
 ```
 <div class="my-class">&</div>
 ```
 --------------- Expected Markup ---------------
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_has_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_has-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -1147,3 +1153,7 @@ OptionsBlocks
 </code></pre>
 </div>
 ````````````````````````````````
+
+## Incomplete Features
+
+Integrate Try.Net - https://dotnet.microsoft.com/platform/try-dotnet.

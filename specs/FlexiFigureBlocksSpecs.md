@@ -23,11 +23,11 @@ This is a figure!
 Caption
 +++";
 string html = Markdown.ToHtml(markdown, markdownPipeline);
-string expectedHtml = @"<figure class=\"flexi-figure flexi-figure_has_name\" id=\"figure-1\">
-<div class=\"flexi-figure__content\">
+string expectedHtml = @"<figure class=""flexi-figure flexi-figure_has-name"" id=""figure-1"">
+<div class=""flexi-figure__content"">
 <p>This is a figure!</p>
 </div>
-<figcaption class=\"flexi-figure__caption\"><span class=\"flexi-figure__name\">Figure 1. </span>Caption</figcaption>
+<figcaption class=""flexi-figure__caption""><span class=""flexi-figure__name"">Figure 1. </span>Caption</figcaption>
 </figure>";
 
 Assert.Equal(expectedHtml, html)
@@ -44,7 +44,7 @@ This is a figure!
 Caption
 +++
 --------------- Expected Markup ---------------
-<figure class="flexi-figure flexi-figure_has_name" id="figure-1">
+<figure class="flexi-figure flexi-figure_has-name" id="figure-1">
 <div class="flexi-figure__content">
 <p>This is a figure!</p>
 </div>
@@ -68,11 +68,10 @@ This is a figure!
 **Caption**
 +++
 --------------- Expected Markup ---------------
-<figure class="flexi-figure flexi-figure_has_name" id="figure-1">
+<figure class="flexi-figure flexi-figure_has-name" id="figure-1">
 <div class="flexi-figure__content">
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -108,19 +107,19 @@ This is the third figure!
 Caption
 +++
 --------------- Expected Markup ---------------
-<figure class="flexi-figure flexi-figure_has_name" id="figure-1">
+<figure class="flexi-figure flexi-figure_has-name" id="figure-1">
 <div class="flexi-figure__content">
 <p>This is the first figure!</p>
 </div>
 <figcaption class="flexi-figure__caption"><span class="flexi-figure__name">Figure 1. </span>Caption</figcaption>
 </figure>
-<figure class="flexi-figure flexi-figure_has_name" id="figure-2">
+<figure class="flexi-figure flexi-figure_has-name" id="figure-2">
 <div class="flexi-figure__content">
 <p>This is the second figure!</p>
 </div>
 <figcaption class="flexi-figure__caption"><span class="flexi-figure__name">Figure 2. </span>Caption</figcaption>
 </figure>
-<figure class="flexi-figure flexi-figure_has_name" id="figure-3">
+<figure class="flexi-figure flexi-figure_has-name" id="figure-3">
 <div class="flexi-figure__content">
 <p>This is the third figure!</p>
 </div>
@@ -156,13 +155,13 @@ Caption
 --------------- Expected Markup ---------------
 <p><a href="#figure-1">figure 1</a>
 <a href="#figure-2">figure 2</a></p>
-<figure class="flexi-figure flexi-figure_has_name" id="figure-1">
+<figure class="flexi-figure flexi-figure_has-name" id="figure-1">
 <div class="flexi-figure__content">
 <p>This is the first figure!</p>
 </div>
 <figcaption class="flexi-figure__caption"><span class="flexi-figure__name">Figure 1. </span>Caption</figcaption>
 </figure>
-<figure class="flexi-figure flexi-figure_has_name" id="figure-2">
+<figure class="flexi-figure flexi-figure_has-name" id="figure-2">
 <div class="flexi-figure__content">
 <p>This is the second figure!</p>
 </div>
@@ -174,7 +173,7 @@ Caption
 
 ## Options
 ### `FlexiFigureBlockOptions`
-Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a FlexiFigureBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/OptionsBlocksSpecs.md#options) extension must be enabled.
+Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a FlexiFigureBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#options) extension must be enabled.
 
 #### Properties
 
@@ -188,16 +187,16 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "blockName": "figure" }
+  o{ "blockName": "figure" }
   +++ figure
   This is a figure!
   +++
   Caption
   +++
   --------------- Expected Markup ---------------
-  <figure class="figure figure_has_name" id="figure-1">
+  <figure class="figure figure_has-name" id="figure-1">
   <div class="figure__content">
   <p>This is a figure!</p>
   </div>
@@ -231,7 +230,7 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
   --------------- Expected Markup ---------------
   <p><a href="#figure-1">figure 1</a>
   <a href="#figure-1">Figure 1</a></p>
-  <figure class="flexi-figure flexi-figure_has_name" id="figure-1">
+  <figure class="flexi-figure flexi-figure_has-name" id="figure-1">
   <div class="flexi-figure__content">
   <p>This is a figure!</p>
   </div>
@@ -243,9 +242,9 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
   If this value is false, the `FlexiFigureBlock` is not reference-linkable:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "referenceLinkable": false }
+  o{ "referenceLinkable": false }
   +++ figure
   This is a figure!
   +++
@@ -254,7 +253,7 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
 
   [figure 1]
   --------------- Expected Markup ---------------
-  <figure class="flexi-figure flexi-figure_has_name" id="figure-1">
+  <figure class="flexi-figure flexi-figure_has-name" id="figure-1">
   <div class="flexi-figure__content">
   <p>This is a figure!</p>
   </div>
@@ -265,9 +264,9 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
   If `GenerateID` is false and no ID is specified in `Attributes`, the `FlexiFigureBlock` is not reference-linkable:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "generateID": false }
+  o{ "generateID": false }
   +++ figure
   This is a figure!
   +++
@@ -276,7 +275,7 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
 
   [figure 1]
   --------------- Expected Markup ---------------
-  <figure class="flexi-figure flexi-figure_has_name">
+  <figure class="flexi-figure flexi-figure_has-name">
   <div class="flexi-figure__content">
   <p>This is a figure!</p>
   </div>
@@ -287,9 +286,9 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
   If `GenerateID` is false and an ID is specified in `Attributes`, the `FlexiFigureBlock` is reference-linkable:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ 
+  o{ 
       "generateID": false,
       "attributes": { "id": "custom-id" }
   }
@@ -301,7 +300,7 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
 
   [figure 1]
   --------------- Expected Markup ---------------
-  <figure class="flexi-figure flexi-figure_has_name" id="custom-id">
+  <figure class="flexi-figure flexi-figure_has-name" id="custom-id">
   <div class="flexi-figure__content">
   <p>This is a figure!</p>
   </div>
@@ -321,9 +320,9 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{"linkLabelContent": "my figure"}
+  o{"linkLabelContent": "my figure"}
   +++ figure
   This is the first figure!
   +++
@@ -339,13 +338,13 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
   [my figure]
   [figure 2]
   --------------- Expected Markup ---------------
-  <figure class="flexi-figure flexi-figure_has_name" id="figure-1">
+  <figure class="flexi-figure flexi-figure_has-name" id="figure-1">
   <div class="flexi-figure__content">
   <p>This is the first figure!</p>
   </div>
   <figcaption class="flexi-figure__caption"><span class="flexi-figure__name">Figure 1. </span>Caption</figcaption>
   </figure>
-  <figure class="flexi-figure flexi-figure_has_name" id="figure-2">
+  <figure class="flexi-figure flexi-figure_has-name" id="figure-2">
   <div class="flexi-figure__content">
   <p>This is the second figure!</p>
   </div>
@@ -358,7 +357,7 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
   to the previous example. We need to update the label "figure 2", but we do not need to update the label "my figure":
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
   +++ figure
   This is the new first figure!
@@ -366,7 +365,7 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
   Caption
   +++
 
-  @{"linkLabelContent": "my figure"}
+  o{"linkLabelContent": "my figure"}
   +++ figure
   This is the first figure!
   +++
@@ -383,19 +382,19 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
   [my figure]
   [figure 3]
   --------------- Expected Markup ---------------
-  <figure class="flexi-figure flexi-figure_has_name" id="figure-1">
+  <figure class="flexi-figure flexi-figure_has-name" id="figure-1">
   <div class="flexi-figure__content">
   <p>This is the new first figure!</p>
   </div>
   <figcaption class="flexi-figure__caption"><span class="flexi-figure__name">Figure 1. </span>Caption</figcaption>
   </figure>
-  <figure class="flexi-figure flexi-figure_has_name" id="figure-2">
+  <figure class="flexi-figure flexi-figure_has-name" id="figure-2">
   <div class="flexi-figure__content">
   <p>This is the first figure!</p>
   </div>
   <figcaption class="flexi-figure__caption"><span class="flexi-figure__name">Figure 2. </span>Caption</figcaption>
   </figure>
-  <figure class="flexi-figure flexi-figure_has_name" id="figure-3">
+  <figure class="flexi-figure flexi-figure_has-name" id="figure-3">
   <div class="flexi-figure__content">
   <p>This is the second figure!</p>
   </div>
@@ -424,7 +423,7 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
   Caption
   +++
   --------------- Expected Markup ---------------
-  <figure class="flexi-figure flexi-figure_has_name" id="figure-1">
+  <figure class="flexi-figure flexi-figure_has-name" id="figure-1">
   <div class="flexi-figure__content">
   <p>This is a figure!</p>
   </div>
@@ -434,16 +433,16 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
   If this value is false, no ID is generated:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "generateID": false }
+  o{ "generateID": false }
   +++ figure
   This is a figure!
   +++
   Caption
   +++
   --------------- Expected Markup ---------------
-  <figure class="flexi-figure flexi-figure_has_name">
+  <figure class="flexi-figure flexi-figure_has-name">
   <div class="flexi-figure__content">
   <p>This is a figure!</p>
   </div>
@@ -455,9 +454,9 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
   to update CSS selectors every time `FlexiFigureBlock` positions change:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ 
+  o{ 
       "attributes": {
         "id" : "my-custom-id"
       }
@@ -468,7 +467,7 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
   Caption
   +++
   --------------- Expected Markup ---------------
-  <figure class="flexi-figure flexi-figure_has_name" id="my-custom-id">
+  <figure class="flexi-figure flexi-figure_has-name" id="my-custom-id">
   <div class="flexi-figure__content">
   <p>This is a figure!</p>
   </div>
@@ -492,7 +491,7 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
   Caption
   +++
   --------------- Expected Markup ---------------
-  <figure class="flexi-figure flexi-figure_has_name" id="figure-1">
+  <figure class="flexi-figure flexi-figure_has-name" id="figure-1">
   <div class="flexi-figure__content">
   <p>This is a figure!</p>
   </div>
@@ -502,20 +501,20 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
   If this value is false, the `FlexiFigureBlock`'s name isn't rendered:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{"renderName": false}
+  o{"renderName": false}
   +++ figure
   This is a figure!
   +++
   Caption
   +++
   --------------- Expected Markup ---------------
-  <figure class="flexi-figure flexi-figure_no_name" id="figure-1">
+  <figure class="flexi-figure flexi-figure_no-name" id="figure-1">
   <div class="flexi-figure__content">
   <p>This is a figure!</p>
   </div>
-  <figcaption class="flexi-figure__caption"><span class="flexi-figure__name"></span>Caption</figcaption>
+  <figcaption class="flexi-figure__caption">Caption</figcaption>
   </figure>
   ````````````````````````````````
 
@@ -530,9 +529,9 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{
+  o{
       "attributes": {
           "id" : "my-figure",
           "class" : "block"
@@ -544,7 +543,7 @@ Options for a FlexiFigureBlock. To specify `FlexiFigureBlockOptions` for a Flexi
   Caption
   +++
   --------------- Expected Markup ---------------
-  <figure class="flexi-figure flexi-figure_has_name block" id="my-figure">
+  <figure class="flexi-figure flexi-figure_has-name block" id="my-figure">
   <div class="flexi-figure__content">
   <p>This is a figure!</p>
   </div>
@@ -584,17 +583,17 @@ Options for the FlexiFigureBlocks extension. There are two ways to specify these
   Caption
   +++
   --------------- Expected Markup ---------------
-  <figure class="figure figure_no_name" id="figure-1">
+  <figure class="figure figure_no-name" id="figure-1">
   <div class="figure__content">
   <p>This is a figure!</p>
   </div>
-  <figcaption class="figure__caption"><span class="figure__name"></span>Caption</figcaption>
+  <figcaption class="figure__caption">Caption</figcaption>
   </figure>
   ````````````````````````````````
   Default `FlexiFigureBlockOptions` have lower precedence than block specific options:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Extension Options ---------------
   {
       "flexiFigureBlocks": {
@@ -604,7 +603,7 @@ Options for the FlexiFigureBlocks extension. There are two ways to specify these
       }
   }
   --------------- Markdown ---------------
-  @{
+  o{
       "renderName": true
   }
   +++ figure
@@ -619,16 +618,33 @@ Options for the FlexiFigureBlocks extension. There are two ways to specify these
   Caption
   +++
   --------------- Expected Markup ---------------
-  <figure class="flexi-figure flexi-figure_has_name" id="figure-1">
+  <figure class="flexi-figure flexi-figure_has-name" id="figure-1">
   <div class="flexi-figure__content">
   <p>This is a figure!</p>
   </div>
   <figcaption class="flexi-figure__caption"><span class="flexi-figure__name">Figure 1. </span>Caption</figcaption>
   </figure>
-  <figure class="flexi-figure flexi-figure_no_name" id="figure-2">
+  <figure class="flexi-figure flexi-figure_no-name" id="figure-2">
   <div class="flexi-figure__content">
   <p>This is a figure!</p>
   </div>
-  <figcaption class="flexi-figure__caption"><span class="flexi-figure__name"></span>Caption</figcaption>
+  <figcaption class="flexi-figure__caption">Caption</figcaption>
   </figure>
   ````````````````````````````````
+
+## Incomplete Features
+
+### Continguous Figure Numbers
+We should have contiguous figure numbers across documentation consisting of multiple markdown documents. This would make it easier to refer to figures.
+E.g "Refer to figure 12" vs "Refer to figure 1 in *Setting up your environment*".
+
+To make contiguous figure numbers happen, we can add a start number option to FlexiFigureBlocksExtensionOptions. When we're done processing a document, 
+we'd increment the start number by the number of figures found and pass the new start number FlexiFigureBlocksExtensionOptions for the next document.  
+This approach has some inefficiences - Adding a figure in one document could change figure numbers in many documents. We'd have to re-process all documents 
+every time one changes. Moreover, we won't be able to process documents in parallel.
+
+An alternative would sectioning based numbering: `Figure 1-1.`, `Figure 2-11.`. We can add a figure number prefix option to FlexiFigureBlocksExtensionOptions.
+Callers will have to figure out the order of documents in the documentation and pass figure number prefixes accordingly. 
+
+### Links
+Each figure should have a button for copying its link, like a section.

@@ -1,5 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
-using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
@@ -12,6 +12,8 @@ using Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiPictureBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiVideoBlocks;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
 {
@@ -22,23 +24,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
     {
         private MarkdownPipeline _pipeline;
 
-        // IncludeBlocks
-        [GlobalSetup(Target = nameof(IncludeBlocks_ParseAndRender))]
-        public void IncludeBlocks_ParseAndRender_Setup()
+        // FlexiIncludeBlocks
+        [GlobalSetup(Target = nameof(FlexiIncludeBlocks_ParseAndRender))]
+        public void FlexiIncludeBlocks_ParseAndRender_Setup()
         {
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
-                UseIncludeBlocks().
-                UseOptionsBlocks();
+                UseFlexiIncludeBlocks().
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
-            WritePreview(nameof(IncludeBlocksExtension), IncludeBlocks_ParseAndRender());
+            WritePreview(nameof(FlexiIncludeBlocksExtension), FlexiIncludeBlocks_ParseAndRender());
         }
 
         [Benchmark]
-        public string IncludeBlocks_ParseAndRender()
+        public string FlexiIncludeBlocks_ParseAndRender()
         {
-            return Markdown.ToHtml(@"+{
+            return Markdown.ToHtml(@"i{
     ""source"": ""https://raw.githubusercontent.com/JeringTech/Markdig.Extensions.FlexiBlocks/6998b1c27821d8393ad39beb54f782515c39d98b/test/FlexiBlocks.Tests/exampleInclude.js"",
     ""clippings"":[{""startLine"": 7, ""endString"": ""#endregion utility methods"", ""dedent"": 1, ""collapse"": 0.5}]
 }", _pipeline);
@@ -51,7 +53,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiAlertBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiAlertBlocksExtension), FlexiAlertBlocks_ParseAndRender());
@@ -60,7 +62,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
         [Benchmark]
         public string FlexiAlertBlocks_ParseAndRender()
         {
-            return Markdown.ToHtml(@"@{ ""type"": ""warning"" }
+            return Markdown.ToHtml(@"o{ ""type"": ""warning"" }
 ! This is a warning.", _pipeline);
         }
 
@@ -72,7 +74,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiCodeBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiCodeBlocksExtension), FlexiCodeBlocks_ParseAndRender());
@@ -81,7 +83,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Performance
         [Benchmark]
         public string FlexiCodeBlocks_ParseAndRender()
         {
-            return Markdown.ToHtml(@"@{
+            return Markdown.ToHtml(@"o{
     ""language"": ""csharp"",
     ""lineNumbers"": [
         {
@@ -139,7 +141,7 @@ public class ExampleClass
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiSectionBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiSectionBlocksExtension), FlexiSectionBlocks_ParseAndRender());
@@ -148,7 +150,7 @@ public class ExampleClass
         [Benchmark]
         public string FlexiSectionBlocks_ParseAndRender()
         {
-            return Markdown.ToHtml(@"@{
+            return Markdown.ToHtml(@"o{
     ""element"": ""article""
 }
 # foo
@@ -166,7 +168,7 @@ public class ExampleClass
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiTableBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiTableBlocksExtension), FlexiTableBlocks_ParseAndRender());
@@ -193,7 +195,7 @@ public class ExampleClass
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiBannerBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiBannerBlocksExtension), FlexiBannerBlocks_ParseAndRender());
@@ -216,7 +218,7 @@ Blurb
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiCardsBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiCardsBlocksExtension), FlexiCardsBlocks_ParseAndRender());
@@ -251,7 +253,7 @@ Footnote
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiFigureBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiFigureBlocksExtension), FlexiFigureBlocks_ParseAndRender());
@@ -267,6 +269,28 @@ Caption
 +++", _pipeline);
         }
 
+        // FlexiPictureBlocks
+        [GlobalSetup(Target = nameof(FlexiPictureBlocks_ParseAndRender))]
+        public void FlexiPictureBlocks_ParseAndRender_Setup()
+        {
+            var pipelineBuilder = new MarkdownPipelineBuilder();
+            pipelineBuilder.
+                UseFlexiPictureBlocks(new FlexiPictureBlocksExtensionOptions(localMediaDirectory: Directory.GetCurrentDirectory())).
+                UseFlexiOptionsBlocks();
+            _pipeline = pipelineBuilder.Build();
+
+            WritePreview(nameof(FlexiPictureBlocksExtension), FlexiPictureBlocks_ParseAndRender());
+        }
+
+        [Benchmark]
+        public string FlexiPictureBlocks_ParseAndRender()
+        {
+            return Markdown.ToHtml(@"p{
+    ""src"": ""/url/exampleImage.png"",
+    ""alt"": ""Alternative text""
+}", _pipeline);
+        }
+
         // FlexiQuoteBlocks
         [GlobalSetup(Target = nameof(FlexiQuoteBlocks_ParseAndRender))]
         public void FlexiQuoteBlocks_ParseAndRender_Setup()
@@ -274,7 +298,7 @@ Caption
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiQuoteBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiQuoteBlocksExtension), FlexiQuoteBlocks_ParseAndRender());
@@ -297,7 +321,7 @@ Citation
             var pipelineBuilder = new MarkdownPipelineBuilder();
             pipelineBuilder.
                 UseFlexiTabsBlocks().
-                UseOptionsBlocks();
+                UseFlexiOptionsBlocks();
             _pipeline = pipelineBuilder.Build();
 
             WritePreview(nameof(FlexiTabsBlocksExtension), FlexiTabsBlocks_ParseAndRender());
@@ -319,6 +343,34 @@ Title
 Content
 +++
 ///", _pipeline);
+        }
+
+        // TODO FlexiVideoBlocks is extremely slow (100ms+ per operation) when file operations are enabled. 
+        // We need to do two things:
+        // - Cache metadata and posters. To do this in a performant manner, we'll have to add a guid to the video filenames.
+        // - Optimize FFmpeg
+        //   - If we need both metadata and poster, use a single process
+        //   - Are our FFmpeg arguments efficient?
+        // FlexiVideoBlocks
+        [GlobalSetup(Target = nameof(FlexiVideoBlocks_ParseAndRender))]
+        public void FlexiVideoBlocks_ParseAndRender_Setup()
+        {
+            var pipelineBuilder = new MarkdownPipelineBuilder();
+            pipelineBuilder.
+                UseFlexiVideoBlocks(new FlexiVideoBlocksExtensionOptions(localMediaDirectory: Directory.GetCurrentDirectory())).
+                UseFlexiOptionsBlocks();
+            _pipeline = pipelineBuilder.Build();
+
+            WritePreview(nameof(FlexiVideoBlocksExtension), FlexiVideoBlocks_ParseAndRender());
+        }
+
+        [Benchmark]
+        public string FlexiVideoBlocks_ParseAndRender()
+        {
+            return Markdown.ToHtml(@"v{
+    ""src"": ""/url/exampleVideo.mp4"",
+    ""generatePoster"": true
+}", _pipeline);
         }
 
         private void WritePreview(string extensionName, string preview)

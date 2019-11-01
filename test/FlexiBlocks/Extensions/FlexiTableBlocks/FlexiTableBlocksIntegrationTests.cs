@@ -1,6 +1,6 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
-using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig;
 using Markdig.Parsers;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,13 +17,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
             var services = new ServiceCollection();
             services.AddFlexiTableBlocks();
             services.AddFlexiSectionBlocks();
-            services.AddOptionsBlocks();
-            using(ServiceProvider serviceProvider = services.BuildServiceProvider())
+            services.AddFlexiOptionsBlocks();
+            using (ServiceProvider serviceProvider = services.BuildServiceProvider())
             {
                 var dummyMarkdownPipelineBuilder = new MarkdownPipelineBuilder();
                 dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<IBlockExtension<FlexiTableBlock>>());
                 dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<IBlockExtension<FlexiSectionBlock>>());
-                dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<IBlockExtension<OptionsBlock>>());
+                dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<IBlockExtension<FlexiOptionsBlock>>());
                 MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
                 // Note: "" counts as 1 character
                 const string dummyMarkdown = @"
@@ -34,7 +34,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
 | - cell 2     | cell 2              | > cell 3     |
 | - cell 3     | ```                 | > cell 3     |
 |              |                     |              |
-|              | @{""element"": 100}   |              |
+|              | o{""element"": 100}   |              |
 |              | # Section           |              |
 +--------------+---------------------+--------------+";
 

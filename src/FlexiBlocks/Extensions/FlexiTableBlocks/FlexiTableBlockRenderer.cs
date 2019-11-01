@@ -1,6 +1,5 @@
 ﻿using Markdig.Renderers;
 using System.Collections.ObjectModel;
-using System.IO;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
 {

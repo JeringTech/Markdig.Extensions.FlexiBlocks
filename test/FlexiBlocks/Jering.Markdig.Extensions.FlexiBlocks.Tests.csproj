@@ -9,17 +9,17 @@
 
     <ItemGroup>
         <PackageReference Include="coverlet.msbuild" Version="2.4.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
-        <PackageReference Include="Moq" Version="4.10.1" />
-        <PackageReference Include="Roslynator.Analyzers" Version="2.0.0" ExcludeAssets="Runtime" />
+        <PackageReference Include="Moq" Version="4.13.0" />
+        <PackageReference Include="Roslynator.Analyzers" Version="2.1.0" ExcludeAssets="Runtime" />
         <PackageReference Include="Roslynator.CodeFixes" Version="2.0.0" ExcludeAssets="Runtime" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
 
@@ -29,7 +29,7 @@
 
     <ItemGroup>
         <Content Include="exampleIncludeWithNestedInclude.md">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
         <Content Include="exampleInclude.md">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -37,12 +37,18 @@
         <Content Include="exampleInclude.js">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
+        <Content Include="exampleImage.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="exampleVideo.mp4">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
-    
+
     <ItemGroup>
         <None Update="SpecsTests\CommonMarkSpecsTests.tt">
-          <Generator>TextTemplatingFileGenerator</Generator>
-          <LastGenOutput>CommonMarkSpecsTests.cs</LastGenOutput>
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>CommonMarkSpecsTests.cs</LastGenOutput>
         </None>
         <None Update="SpecsTests\FlexiBlocksSpecsTests.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
@@ -56,9 +62,9 @@
 
     <ItemGroup>
         <Compile Update="SpecsTests\CommonMarkSpecsTests.cs">
-          <DesignTime>True</DesignTime>
-          <AutoGen>True</AutoGen>
-          <DependentUpon>CommonMarkSpecsTests.tt</DependentUpon>
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>CommonMarkSpecsTests.tt</DependentUpon>
         </Compile>
         <Compile Update="SpecsTests\FlexiBlocksSpecsTests.cs">
             <DesignTime>True</DesignTime>
@@ -66,5 +72,5 @@
             <DependentUpon>FlexiBlocksSpecsTests.tt</DependentUpon>
         </Compile>
     </ItemGroup>
-  
+
 </Project>

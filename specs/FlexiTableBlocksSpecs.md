@@ -23,7 +23,7 @@ string markdown = @"+--------------+--------------+
 | header 1     | header 2     |
 +==============+==============+
 | cell 1       | cell 2       |
-+--------------+--------------+"
++--------------+--------------+";
 string html = Markdown.ToHtml(markdown, markdownPipeline);
 string expectedHtml = @"<div class=""flexi-table flexi-table_type_cards"">
 <table class=""flexi-table__table"">
@@ -369,9 +369,9 @@ cell 6
 Multiple header rows are allowed for unresponsive type tables:
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
-OptionsBlocks
+FlexiOptionsBlocks
 --------------- Markdown ---------------
-@{ "type": "unresponsive" }
+o{ "type": "unresponsive" }
 | header 1 | header 2 |
 | header 3 | header 4 |
 |----------|----------|
@@ -575,9 +575,8 @@ cell 1
 header 2
 </div>
 <div class="flexi-table__content">
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -632,9 +631,8 @@ FlexiCodeBlocks
 <a href="url">header 2</a>
 </div>
 <div class="flexi-table__content">
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -983,9 +981,9 @@ If the content of a row separator is not '-'s, the content is added to the cell 
 Row span is only allowed for unresponsive tables:
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
-OptionsBlocks
+FlexiOptionsBlocks
 --------------- Markdown ---------------
-@{ "type": "unresponsive" }
+o{ "type": "unresponsive" }
 +--------------+--------------+
 | header 1     | header 2     |
 +==============+==============+
@@ -1030,9 +1028,9 @@ cell 3
 If there are multiple head separator lines, the second one and on are parsed as content lines:
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
-OptionsBlocks
+FlexiOptionsBlocks
 --------------- Markdown ---------------
-@{ "type": "unresponsive" }
+o{ "type": "unresponsive" }
 +--------------+--------------+
 | header 1     | header 2     |
 +==============+==============+
@@ -1107,9 +1105,9 @@ cell 4
 Multiple header rows are allowed for unresponsive type tables:
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
-OptionsBlocks
+FlexiOptionsBlocks
 --------------- Markdown ---------------
-@{ "type": "unresponsive" }
+o{ "type": "unresponsive" }
 +--------------+--------------+
 | header 1     | header 2     |
 +--------------+--------------+
@@ -1193,9 +1191,9 @@ Cells must be aligned:
 Cells can have column span in unresponsive type tables:
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
-OptionsBlocks
+FlexiOptionsBlocks
 --------------- Markdown ---------------
-@{ "type": "unresponsive" }
+o{ "type": "unresponsive" }
 +--------------+--------------+
 | header 1     | header 2     |
 +==============+==============+
@@ -1228,9 +1226,9 @@ cell 1
 Cells can have both row and column span in unresponsive type tables:
 ```````````````````````````````` none
 --------------- Extra Extensions ---------------
-OptionsBlocks
+FlexiOptionsBlocks
 --------------- Markdown ---------------
-@{ "type": "unresponsive" }
+o{ "type": "unresponsive" }
 +--------------+--------------+--------------+
 | header 1     | header 2     | header 3     |
 +==============+==============+==============+
@@ -1331,9 +1329,8 @@ cell 1
 header 2
 </div>
 <div class="flexi-table__content">
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -1396,9 +1393,8 @@ FlexiCodeBlocks
 <a href="url">header 2</a>
 </div>
 <div class="flexi-table__content">
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -1601,7 +1597,7 @@ FlexiTableBlocks unless you require the above-mentioned features.
 
 ## Options
 ### `FlexiTableBlockOptions`
-Options for a FlexiTableBlock. To specify `FlexiTableBlockOptions` for a FlexiTableBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/OptionsBlocksSpecs.md#options) extension must be enabled.
+Options for a FlexiTableBlock. To specify `FlexiTableBlockOptions` for a FlexiTableBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#options) extension must be enabled.
 
 #### Properties
 
@@ -1615,9 +1611,9 @@ Options for a FlexiTableBlock. To specify `FlexiTableBlockOptions` for a FlexiTa
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "blockName": "table" }
+  o{ "blockName": "table" }
   | header 1 | header 2 |
   |----------|----------|
   | cell 1   | cell 2   |
@@ -1669,9 +1665,9 @@ Options for a FlexiTableBlock. To specify `FlexiTableBlockOptions` for a FlexiTa
   Cards type:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "type": "cards" }
+  o{ "type": "cards" }
   +--------------+--------------+
   | header 1     | header 2     |
   +==============+==============+
@@ -1716,9 +1712,9 @@ Options for a FlexiTableBlock. To specify `FlexiTableBlockOptions` for a FlexiTa
   Fixed titles type: 
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "type": "fixedTitles" }
+  o{ "type": "fixedTitles" }
   | header 1 | header 2 |
   |----------|----------|
   | cell 1   | cell 2   |
@@ -1751,9 +1747,9 @@ Options for a FlexiTableBlock. To specify `FlexiTableBlockOptions` for a FlexiTa
   Unresponsive type:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "type": "unresponsive" }
+  o{ "type": "unresponsive" }
   +--------------+--------------+
   | header 1     | header 2     |
   +==============+==============+
@@ -1796,9 +1792,9 @@ Options for a FlexiTableBlock. To specify `FlexiTableBlockOptions` for a FlexiTa
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{
+  o{
       "attributes": {
           "id" : "my-custom-id",
           "class" : "my-custom-class"
@@ -1907,7 +1903,7 @@ Options for the FlexiTableBlocks extension. There are two ways to specify these 
   `defaultBlockOptions` has lower precedence than block specific options:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Extension Options ---------------
   {
       "flexiTableBlocks": {
@@ -1921,7 +1917,7 @@ Options for the FlexiTableBlocks extension. There are two ways to specify these 
   |----------|----------|
   | cell 1   | cell 2   |
 
-  @{ "type": "cards" }
+  o{ "type": "cards" }
   +--------------+--------------+
   | header 1     | header 2     |
   +==============+==============+
@@ -1987,3 +1983,11 @@ Options for the FlexiTableBlocks extension. There are two ways to specify these 
   </table>
   </div>
   ````````````````````````````````
+
+## Incomplete Features
+
+### Captions and Numbering
+Tables should be numbered and captioned like figures for easy linking. While we can place tables in figures, unlike figure captions, table captions should be located before 
+the associated content.  
+
+Since captions can contain inline markdown, we'll need to further customize the markdown syntax for tables.

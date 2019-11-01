@@ -1,4 +1,4 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using System;
@@ -27,11 +27,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
 
         /// <summary>
         /// <para>Creates a (<typeparamref name="TBlockOptions"/>, <typeparamref name="TExtensionOptions"/>) tuple.</para>
-        /// <para>Attempts to populate the <typeparamref name="TBlockOptions"/> with options from an <see cref="OptionsBlock"/>.</para>
+        /// <para>Attempts to populate the <typeparamref name="TBlockOptions"/> with options from a <see cref="FlexiOptionsBlock"/>.</para>
         /// </summary>
         /// <param name="blockProcessor">The <see cref="BlockProcessor"/> processing the <see cref="IBlock"/> this method is creating options for.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="blockProcessor"/> is <c>null</c>.</exception>
-        /// <exception cref="BlockException">Thrown if an <see cref="OptionsBlock"/> is found and its JSON cannot be deserialized.</exception>
+        /// <exception cref="BlockException">Thrown if a <see cref="FlexiOptionsBlock"/> is found and its JSON cannot be deserialized.</exception>
         (TBlockOptions, TExtensionOptions) CreateOptions(BlockProcessor blockProcessor);
     }
 }

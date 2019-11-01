@@ -1,15 +1,17 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.ContextObjects;
-using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
-using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiPictureBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiVideoBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -30,27 +32,27 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         }
 
         [Fact]
-        public void AddIncludeBlocks_AddsServicesForTheIncludeBlocksExtension()
+        public void AddFlexiIncludeBlocks_AddsServicesForTheFlexiIncludeBlocksExtension()
         {
             // Arrange
             var services = new ServiceCollection();
-            services.AddIncludeBlocks();
+            services.AddFlexiIncludeBlocks();
             ServiceProvider serviceProvider = services.BuildServiceProvider();
 
             // Act and assert
-            serviceProvider.GetRequiredService<IBlockExtension<IncludeBlock>>(); // As long as this doesn't throw, all required services have been added
+            serviceProvider.GetRequiredService<IBlockExtension<FlexiIncludeBlock>>(); // As long as this doesn't throw, all required services have been added
         }
 
         [Fact]
-        public void AddOptionsBlock_AddsServicesForTheOptionsBlocksExtension()
+        public void AddFlexiOptionsBlock_AddsServicesForTheFlexiOptionsBlocksExtension()
         {
             // Arrange
             var services = new ServiceCollection();
-            services.AddOptionsBlocks();
+            services.AddFlexiOptionsBlocks();
             ServiceProvider serviceProvider = services.BuildServiceProvider();
 
             // Act and assert
-            serviceProvider.GetRequiredService<IBlockExtension<OptionsBlock>>(); // As long as this doesn't throw, all required services have been added
+            serviceProvider.GetRequiredService<IBlockExtension<FlexiOptionsBlock>>(); // As long as this doesn't throw, all required services have been added
         }
 
         [Fact]
@@ -114,6 +116,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         }
 
         [Fact]
+        public void AddFlexiPictureBlocks_AddsServicesForTheFlexiPictureBlocksExtension()
+        {
+            // Arrange
+            var services = new ServiceCollection();
+            services.AddFlexiPictureBlocks();
+            ServiceProvider serviceProvider = services.BuildServiceProvider();
+
+            // Act and assert
+            serviceProvider.GetRequiredService<IBlockExtension<FlexiPictureBlock>>(); // As long as this doesn't throw, all required services have been added
+        }
+
+        [Fact]
         public void AddFlexiQuoteBlocks_AddsServicesForTheFlexiQuoteBlocksExtension()
         {
             // Arrange
@@ -159,6 +173,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 
             // Act and assert
             serviceProvider.GetRequiredService<IBlockExtension<FlexiTabsBlock>>(); // As long as this doesn't throw, all required services have been added
+        }
+
+        [Fact]
+        public void AddFlexiVideoBlocks_AddsServicesForTheFlexiVideoBlocksExtension()
+        {
+            // Arrange
+            var services = new ServiceCollection();
+            services.AddFlexiVideoBlocks();
+            ServiceProvider serviceProvider = services.BuildServiceProvider();
+
+            // Act and assert
+            serviceProvider.GetRequiredService<IBlockExtension<FlexiVideoBlock>>(); // As long as this doesn't throw, all required services have been added
         }
     }
 }

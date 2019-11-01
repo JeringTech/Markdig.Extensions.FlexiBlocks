@@ -36,20 +36,20 @@ Footnote 2
 +++
 [[[";
 string html = Markdown.ToHtml(markdown, markdownPipeline);
-string expectedHtml = @"<div class=\"flexi-cards flexi-cards_size_small\">
-<div class=\"flexi-cards__card flexi-cards__card_no_background-icon\">
-<p class=\"flexi-cards__card-title\">Title 1</p>
-<div class=\"flexi-cards__card-content\">
+string expectedHtml = @"<div class=""flexi-cards flexi-cards_size_small"">
+<div class=""flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon"">
+<p class=""flexi-cards__card-title"">Title 1</p>
+<div class=""flexi-cards__card-content"">
 <p>Content 1</p>
 </div>
-<p class=\"flexi-cards__card-footnote\">Footnote 1</p>
+<p class=""flexi-cards__card-footnote"">Footnote 1</p>
 </div>
-<div class=\"flexi-cards__card flexi-cards__card_no_background-icon\">
-<p class=\"flexi-cards__card-title\">Title 2</p>
-<div class=\"flexi-cards__card-content\">
+<div class=""flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon"">
+<p class=""flexi-cards__card-title"">Title 2</p>
+<div class=""flexi-cards__card-content"">
 <p>Content 2</p>
 </div>
-<p class=\"flexi-cards__card-footnote\">Footnote 2</p>
+<p class=""flexi-cards__card-footnote"">Footnote 2</p>
 </div>
 </div>";
 
@@ -82,14 +82,14 @@ Footnote 2
 [[[
 --------------- Expected Markup ---------------
 <div class="flexi-cards flexi-cards_size_small">
-<div class="flexi-cards__card flexi-cards__card_no_background-icon">
+<div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
 <p class="flexi-cards__card-title">Title 1</p>
 <div class="flexi-cards__card-content">
 <p>Content 1</p>
 </div>
 <p class="flexi-cards__card-footnote">Footnote 1</p>
 </div>
-<div class="flexi-cards__card flexi-cards__card_no_background-icon">
+<div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
 <p class="flexi-cards__card-title">Title 2</p>
 <div class="flexi-cards__card-content">
 <p>Content 2</p>
@@ -121,12 +121,11 @@ Content 1
 [[[
 --------------- Expected Markup ---------------
 <div class="flexi-cards flexi-cards_size_small">
-<div class="flexi-cards__card flexi-cards__card_no_background-icon">
+<div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
 <p class="flexi-cards__card-title"><em>Title 1</em></p>
 <div class="flexi-cards__card-content">
-<div class="flexi-code flexi-code_no_title flexi-code_has_copy-icon flexi-code_no_syntax-highlights flexi-code_no_line-numbers flexi-code_has_omitted-lines-icon flexi-code_no_highlighted-lines flexi-code_no_highlighted-phrases">
+<div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<span class="flexi-code__title"></span>
 <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
@@ -142,7 +141,7 @@ Content 1
 
 ## Options
 ### `FlexiCardsBlockOptions`
-Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCardsBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/OptionsBlocksSpecs.md#options) extension must be enabled.
+Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCardsBlock, the [Options](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/blob/master/specs/FlexiOptionsBlocksSpecs.md#options) extension must be enabled.
 
 #### Properties
 
@@ -156,9 +155,9 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "blockName": "cards" }
+  o{ "blockName": "cards" }
   [[[
   +++ card
   Title 1
@@ -170,7 +169,7 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
   [[[
   --------------- Expected Markup ---------------
   <div class="cards cards_size_small">
-  <div class="cards__card cards__card_no_background-icon">
+  <div class="cards__card cards__card_not-link cards__card_no-background-icon">
   <p class="cards__card-title">Title 1</p>
   <div class="cards__card-content">
   <p>Content 1</p>
@@ -188,9 +187,9 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ "cardSize": "medium" }
+  o{ "cardSize": "medium" }
   [[[
   +++ card
   Title 1
@@ -202,7 +201,7 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
   [[[
   --------------- Expected Markup ---------------
   <div class="flexi-cards flexi-cards_size_medium">
-  <div class="flexi-cards__card flexi-cards__card_no_background-icon">
+  <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
   <p class="flexi-cards__card-title">Title 1</p>
   <div class="flexi-cards__card-content">
   <p>Content 1</p>
@@ -220,9 +219,9 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ 
+  o{ 
       "defaultCardOptions": {
           "backgroundIcon": "<svg><use xlink:href=\"#background-icon\"/></svg>"
       }
@@ -238,7 +237,7 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
   [[[
   --------------- Expected Markup ---------------
   <div class="flexi-cards flexi-cards_size_small">
-  <div class="flexi-cards__card flexi-cards__card_has_background-icon">
+  <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon">
   <svg class="flexi-cards__card-background-icon"><use xlink:href="#background-icon"/></svg>
   <p class="flexi-cards__card-title">Title 1</p>
   <div class="flexi-cards__card-content">
@@ -251,9 +250,9 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
   `defaultCardOptions` has lower precedence than card specific options:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{ 
+  o{ 
       "defaultCardOptions": {
           "backgroundIcon": "<svg><use xlink:href=\"#background-icon\"/></svg>"
       }
@@ -267,7 +266,7 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
   Footnote 1
   +++
 
-  @{"backgroundIcon": "<svg><use xlink:href=\"#alternative-icon\"/></svg>"}
+  o{"backgroundIcon": "<svg><use xlink:href=\"#alternative-icon\"/></svg>"}
   +++ card
   Title 2
   +++
@@ -278,7 +277,7 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
   [[[
   --------------- Expected Markup ---------------
   <div class="flexi-cards flexi-cards_size_small">
-  <div class="flexi-cards__card flexi-cards__card_has_background-icon">
+  <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon">
   <svg class="flexi-cards__card-background-icon"><use xlink:href="#background-icon"/></svg>
   <p class="flexi-cards__card-title">Title 1</p>
   <div class="flexi-cards__card-content">
@@ -286,7 +285,7 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
   </div>
   <p class="flexi-cards__card-footnote">Footnote 1</p>
   </div>
-  <div class="flexi-cards__card flexi-cards__card_has_background-icon">
+  <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon">
   <svg class="flexi-cards__card-background-icon"><use xlink:href="#alternative-icon"/></svg>
   <p class="flexi-cards__card-title">Title 2</p>
   <div class="flexi-cards__card-content">
@@ -307,9 +306,9 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
-  @{
+  o{
       "attributes": {
           "id" : "my-custom-id",
           "class" : "my-custom-class"
@@ -326,7 +325,7 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
   [[[
   --------------- Expected Markup ---------------
   <div class="flexi-cards flexi-cards_size_small my-custom-class" id="my-custom-id">
-  <div class="flexi-cards__card flexi-cards__card_no_background-icon">
+  <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
   <p class="flexi-cards__card-title">Title 1</p>
   <div class="flexi-cards__card-content">
   <p>Content 1</p>
@@ -351,10 +350,10 @@ Options for a `FlexiCardBlock`.
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
   [[[
-  @{"url": "/url"}
+  o{"url": "/url?a=1&b=2"}
   +++ card
   Title 1
   +++
@@ -373,14 +372,14 @@ Options for a `FlexiCardBlock`.
   [[[
   --------------- Expected Markup ---------------
   <div class="flexi-cards flexi-cards_size_small">
-  <a class="flexi-cards__card flexi-cards__card_is_link flexi-cards__card_no_background-icon" href="/url">
+  <a class="flexi-cards__card flexi-cards__card_is-link flexi-cards__card_no-background-icon" href="/url?a=1&amp;b=2">
   <p class="flexi-cards__card-title">Title 1</p>
   <div class="flexi-cards__card-content">
   <p>Content 1</p>
   </div>
   <p class="flexi-cards__card-footnote">Footnote 1</p>
   </a>
-  <div class="flexi-cards__card flexi-cards__card_no_background-icon">
+  <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
   <p class="flexi-cards__card-title">Title 2</p>
   <div class="flexi-cards__card-content">
   <p>Content 2</p>
@@ -400,10 +399,10 @@ Options for a `FlexiCardBlock`.
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
   [[[
-  @{"backgroundIcon": "<svg><use xlink:href=\"#background-icon\"/></svg>"}
+  o{"backgroundIcon": "<svg><use xlink:href=\"#background-icon\"/></svg>"}
   +++ card
   Title 1
   +++
@@ -414,7 +413,7 @@ Options for a `FlexiCardBlock`.
   [[[
   --------------- Expected Markup ---------------
   <div class="flexi-cards flexi-cards_size_small">
-  <div class="flexi-cards__card flexi-cards__card_has_background-icon">
+  <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon">
   <svg class="flexi-cards__card-background-icon"><use xlink:href="#background-icon"/></svg>
   <p class="flexi-cards__card-title">Title 1</p>
   <div class="flexi-cards__card-content">
@@ -435,10 +434,10 @@ Options for a `FlexiCardBlock`.
 - Examples:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Markdown ---------------
   [[[
-  @{
+  o{
       "attributes": {
           "id" : "my-custom-id",
           "class" : "my-custom-class"
@@ -454,7 +453,7 @@ Options for a `FlexiCardBlock`.
   [[[
   --------------- Expected Markup ---------------
   <div class="flexi-cards flexi-cards_size_small">
-  <div class="flexi-cards__card flexi-cards__card_no_background-icon my-custom-class" id="my-custom-id">
+  <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon my-custom-class" id="my-custom-id">
   <p class="flexi-cards__card-title">Title 1</p>
   <div class="flexi-cards__card-content">
   <p>Content 1</p>
@@ -506,7 +505,7 @@ Options for the FlexiCardsBlocks extension. There are two ways to specify these 
   [[[
   --------------- Expected Markup ---------------
   <div class="flexi-cards flexi-cards_size_medium block">
-  <div class="flexi-cards__card flexi-cards__card_has_background-icon">
+  <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon">
   <svg class="flexi-cards__card-background-icon"><use xlink:href="#background-icon"/></svg>
   <p class="flexi-cards__card-title">Title 1</p>
   <div class="flexi-cards__card-content">
@@ -519,7 +518,7 @@ Options for the FlexiCardsBlocks extension. There are two ways to specify these 
   `defaultBlockOptions` has lower precedence than block specific options:
   ```````````````````````````````` none
   --------------- Extra Extensions ---------------
-  OptionsBlocks
+  FlexiOptionsBlocks
   --------------- Extension Options ---------------
   {
       "flexiCardsBlocks": {
@@ -533,7 +532,7 @@ Options for the FlexiCardsBlocks extension. There are two ways to specify these 
   }
   --------------- Markdown ---------------
   [[[
-  @{ "backgroundIcon": "<svg><use xlink:href=\"#alternative-icon\"/></svg>" }
+  o{ "backgroundIcon": "<svg><use xlink:href=\"#alternative-icon\"/></svg>" }
   +++ card
   Title 1
   +++
@@ -543,7 +542,7 @@ Options for the FlexiCardsBlocks extension. There are two ways to specify these 
   +++
   [[[
 
-  @{ "blockName": "special-cards" }
+  o{ "blockName": "special-cards" }
   [[[
   +++ card
   Title 2
@@ -555,7 +554,7 @@ Options for the FlexiCardsBlocks extension. There are two ways to specify these 
   [[[
   --------------- Expected Markup ---------------
   <div class="cards cards_size_small">
-  <div class="cards__card cards__card_has_background-icon">
+  <div class="cards__card cards__card_not-link cards__card_has-background-icon">
   <svg class="cards__card-background-icon"><use xlink:href="#alternative-icon"/></svg>
   <p class="cards__card-title">Title 1</p>
   <div class="cards__card-content">
@@ -565,7 +564,7 @@ Options for the FlexiCardsBlocks extension. There are two ways to specify these 
   </div>
   </div>
   <div class="special-cards special-cards_size_small">
-  <div class="special-cards__card special-cards__card_has_background-icon">
+  <div class="special-cards__card special-cards__card_not-link special-cards__card_has-background-icon">
   <svg class="special-cards__card-background-icon"><use xlink:href="#background-icon"/></svg>
   <p class="special-cards__card-title">Title 2</p>
   <div class="special-cards__card-content">
@@ -602,11 +601,11 @@ Footnote 1
 [[[
 --------------- Expected Markup ---------------
 <div class="flexi-cards flexi-cards_size_small">
-<div class="flexi-cards__card flexi-cards__card_no_background-icon">
+<div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
 <p class="flexi-cards__card-title">Title 1</p>
 <div class="flexi-cards__card-content">
 <div class="flexi-cards flexi-cards_size_small">
-<div class="flexi-cards__card flexi-cards__card_no_background-icon">
+<div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
 <p class="flexi-cards__card-title">Nested card</p>
 <div class="flexi-cards__card-content">
 <p>Nested card content</p>

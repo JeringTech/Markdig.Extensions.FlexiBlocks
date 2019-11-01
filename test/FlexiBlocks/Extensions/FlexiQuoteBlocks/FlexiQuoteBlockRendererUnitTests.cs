@@ -93,7 +93,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiQuoteBlocks
                 // BlockName is assigned as a class of the root element and all default classes are prepended with it
                 new object[]{
                     CreateFlexiQuoteBlock(dummyBlockName),
-                    $@"<div class=""{dummyBlockName} {dummyBlockName}_no_icon"">
+                    $@"<div class=""{dummyBlockName} {dummyBlockName}_no-icon"">
 <div class=""{dummyBlockName}__content"">
 <blockquote class=""{dummyBlockName}__blockquote"">
 </blockquote>
@@ -102,10 +102,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiQuoteBlocks
 </div>
 "
                 },
-                // If icon is valid HTML, it is rendered with a default class and a _has_icon class is rendered
+                // If icon is valid HTML, it is rendered with a default class and a _has-icon class is rendered
                 new object[]{
                     CreateFlexiQuoteBlock(icon: dummyIcon),
-                    $@"<div class="" _has_icon"">
+                    $@"<div class="" _has-icon"">
 {dummyIconWithClass}
 <div class=""__content"">
 <blockquote class=""__blockquote"">
@@ -115,10 +115,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiQuoteBlocks
 </div>
 "
                 },
-                // If icon is null, whitespace or an empty string, no icon is rendered and a _no_icon class is rendered (null case already verified in other tests)
+                // If icon is null, whitespace or an empty string, no icon is rendered and a _no-icon class is rendered (null case already verified in other tests)
                 new object[]{
                     CreateFlexiQuoteBlock(icon: " "),
-                    @"<div class="" _no_icon"">
+                    @"<div class="" _no-icon"">
 <div class=""__content"">
 <blockquote class=""__blockquote"">
 </blockquote>
@@ -129,7 +129,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiQuoteBlocks
                 },
                 new object[]{
                     CreateFlexiQuoteBlock(icon: string.Empty),
-                    @"<div class="" _no_icon"">
+                    @"<div class="" _no-icon"">
 <div class=""__content"">
 <blockquote class=""__blockquote"">
 </blockquote>
@@ -141,7 +141,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiQuoteBlocks
                 // If attributes are specified, they're written
                 new object[]{
                     CreateFlexiQuoteBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { dummyAttributeKey1, dummyAttributeValue1 }, { dummyAttributeKey2, dummyAttributeValue2 } })),
-                    $@"<div class="" _no_icon"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
+                    $@"<div class="" _no-icon"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
 <div class=""__content"">
 <blockquote class=""__blockquote"">
 </blockquote>
@@ -153,7 +153,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiQuoteBlocks
                 // If classes are specified, they're appended to default classes
                 new object[]{
                     CreateFlexiQuoteBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { "class", dummyClass } })),
-                    $@"<div class="" _no_icon {dummyClass}"">
+                    $@"<div class="" _no-icon {dummyClass}"">
 <div class=""__content"">
 <blockquote class=""__blockquote"">
 </blockquote>
@@ -165,7 +165,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiQuoteBlocks
                 // If CiteUrl is specified, it is assigned to the blockquote element's cite attribute
                 new object[]{
                     CreateFlexiQuoteBlock(citeUrl: dummyCiteUrl),
-                    $@"<div class="" _no_icon"">
+                    $@"<div class="" _no-icon"">
 <div class=""__content"">
 <blockquote class=""__blockquote"" cite=""{dummyCiteUrl}"">
 </blockquote>
@@ -177,7 +177,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiQuoteBlocks
                 // If CiteUrl is null, whitespace or an empty string, no cite attribute is rendered for the blockquote element (null case already verified in other tests)
                 new object[]{
                     CreateFlexiQuoteBlock(citeUrl: " "),
-                    @"<div class="" _no_icon"">
+                    @"<div class="" _no-icon"">
 <div class=""__content"">
 <blockquote class=""__blockquote"">
 </blockquote>
@@ -188,7 +188,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiQuoteBlocks
                 },
                 new object[]{
                     CreateFlexiQuoteBlock(citeUrl: string.Empty),
-                    @"<div class="" _no_icon"">
+                    @"<div class="" _no-icon"">
 <div class=""__content"">
 <blockquote class=""__blockquote"">
 </blockquote>
@@ -200,7 +200,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiQuoteBlocks
                 // Quote part is rendered
                 new object[]{
                     CreateFlexiQuoteBlock(quotePart: dummyQuotePartBlock),
-                    $@"<div class="" _no_icon"">
+                    $@"<div class="" _no-icon"">
 <div class=""__content"">
 <blockquote class=""__blockquote"">
 <p>{dummyQuote}</p>
@@ -213,7 +213,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiQuoteBlocks
                 // Citation part is rendered
                 new object[]{
                     CreateFlexiQuoteBlock(citationPart: dummyCitationPartBlock),
-                    $@"<div class="" _no_icon"">
+                    $@"<div class="" _no-icon"">
 <div class=""__content"">
 <blockquote class=""__blockquote"">
 </blockquote>

@@ -1,4 +1,4 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
+﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +8,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
     /// <summary>
     /// <para>The default implementation of <see cref="IFlexiCodeBlockOptions"/>.</para>
     /// 
-    /// <para>Initialization-wise, this class is primarily populated from JSON in <see cref="OptionsBlock"/>s. Hence the Newtonsoft.JSON attributes. 
+    /// <para>Initialization-wise, this class is primarily populated from JSON in <see cref="FlexiOptionsBlock"/>s. Hence the Newtonsoft.JSON attributes. 
     /// Developers can also manually instantiate this class, typically for use as extension-wide default options.</para>
     /// 
     /// <para>This class is immutable.</para>
@@ -36,13 +36,18 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <para>If this value is <c>null</c>, whitespace or an empty string, no copy icon is rendered.</para>
         /// <para>Defaults to a copy file icon.</para>
         /// </param>
+        /// <param name="renderHeader">
+        /// <para>The value specifying whether to render the <see cref="FlexiCodeBlock"/>'s header.</para>
+        /// <para>If <c>false</c>, the header element, which contains the <see cref="FlexiCodeBlock"/>'s title and copy button, is not rendered.</para>
+        /// <para>Defaults to <c>true</c>.</para>
+        /// </param>
         /// <param name="language">
         /// <para>The programming language of the <see cref="FlexiCodeBlock"/>'s code.</para>
         /// <para>If <paramref name="syntaxHighlighter"/> is not <see cref="SyntaxHighlighter.None"/>, this value is passed to the chosen syntax highlighter.</para>
         /// <para>Therefore, this value must be a language alias supported by the chosen syntax highlighter.</para>
         /// <para><a href="https://prismjs.com/index.html#languages-list">Valid language aliases for Prism.</a></para>
-        /// <para><a href="http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases">Valid language aliases for HighlightJS</a>.</para>
-        /// <para>The class "&lt;<paramref name="blockName"/>&gt;__code_language-&lt;language&gt;" is assigned to the <see cref="FlexiCodeBlock"/>'s root element.</para>
+        /// <para><a href="https://github.com/highlightjs/highlight.js/tree/master/src/languages">Valid language aliases for HighlightJS</a>.</para>
+        /// <para>The class "&lt;<paramref name="blockName"/>&gt;__code_language_&lt;language&gt;" is assigned to the <see cref="FlexiCodeBlock"/>'s root element.</para>
         /// <para>If this value is <c>null</c>, whitespace or an empty string, syntax highlighting is disabled and no language class is assigned to the root element.</para>
         /// <para>Defaults to <c>null</c>.</para>
         /// </param>
@@ -50,6 +55,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <para>The syntax highlighter to highlight the <see cref="FlexiCodeBlock"/>'s code with.</para>
         /// <para>If this value is <see cref="SyntaxHighlighter.None"/>, or <paramref name="language"/> is <c>null</c>, whitespace or an empty string,
         /// syntax highlighting is disabled.</para>
+        /// <para>Syntax highlighting requires <a href="https://nodejs.org/en/">Node.js</a> to be installed and on the path environment variable.</para>
         /// <para>Defaults to <see cref="SyntaxHighlighter.Prism"/>.</para>
         /// </param>
         /// <param name="lineNumbers">
@@ -96,6 +102,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
             string blockName = "flexi-code",
             string title = default,
             string copyIcon = CustomIcons.CUSTOM_COPY,
+            bool renderHeader = true,
             string language = default,
             SyntaxHighlighter syntaxHighlighter = SyntaxHighlighter.Prism,
             IList<NumberedLineRange> lineNumbers = default,
@@ -107,6 +114,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         {
             Title = title;
             CopyIcon = copyIcon;
+            RenderHeader = renderHeader;
             Language = language;
             SyntaxHighlighter = syntaxHighlighter;
             LineNumbers = lineNumbers == null ? null :
@@ -129,6 +137,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <inheritdoc />
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public virtual string CopyIcon { get; private set; }
+
+        /// <inheritdoc />
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
+        public virtual bool RenderHeader { get; private set; }
 
         /// <inheritdoc />
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]

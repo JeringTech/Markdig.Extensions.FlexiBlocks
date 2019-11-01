@@ -23,7 +23,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 
             string blockName = block.BlockName;
             string icon = block.Icon;
-            bool renderIcon = !string.IsNullOrWhiteSpace(icon);
+            bool hasIcon = !string.IsNullOrWhiteSpace(icon);
             ReadOnlyDictionary<string, string> attributes = block.Attributes;
 
             // Root element
@@ -31,7 +31,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
                 Write("<div class=\"").
                 Write(blockName).
                 WriteBlockKeyValueModifierClass(blockName, "type", block.Type).
-                WriteHasFeatureClass(renderIcon, blockName, "icon").
+                WriteHasFeatureClass(hasIcon, blockName, "icon").
                 WriteAttributeValue(attributes, "class").
                 Write('"').
                 WriteAttributesExcept(attributes, "class").
@@ -39,8 +39,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 
             // Icon
             htmlRenderer.
-                WriteHtmlFragment(renderIcon, icon, blockName, "icon").
-                EnsureLine();
+                WriteHtmlFragmentLine(hasIcon, icon, blockName, "icon");
 
             // Content
             htmlRenderer.

@@ -1,19 +1,21 @@
 ﻿using Jering.Markdig.Extensions.FlexiBlocks.ContextObjects;
-using Jering.Markdig.Extensions.FlexiBlocks.IncludeBlocks;
-using Jering.Markdig.Extensions.FlexiBlocks.OptionsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiPictureBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiVideoBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiIncludeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig;
+using Markdig.Extensions.Citations;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks;
-using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
-using Markdig.Extensions.Citations;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks
 {
@@ -73,41 +75,47 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         /// Adds all FlexiBlocks extensions to the specified <see cref="MarkdownPipelineBuilder"/>.
         /// </summary>
         /// <param name="pipelineBuilder">The <see cref="MarkdownPipelineBuilder"/> to add the extensions to.</param>
-        /// <param name="includeBlocksExtensionOptions">Options for the <see cref="IncludeBlocksExtensionOptions"/>.</param>
+        /// <param name="flexiIncludeBlocksExtensionOptions">Options for the <see cref="FlexiIncludeBlocksExtensionOptions"/>.</param>
         /// <param name="flexiAlertBlocksExtensionOptions">Options for the <see cref="FlexiAlertBlocksExtension"/>.</param>
         /// <param name="flexiBannerBlocksExtensionOptions">Options for the <see cref="FlexiBannerBlocksExtension"/>.</param>
         /// <param name="flexiCardsBlocksExtensionOptions">Options for the <see cref="FlexiCardsBlocksExtension"/>.</param>
         /// <param name="flexiCodeBlocksExtensionOptions">Options for the <see cref="FlexiCodeBlocksExtension"/>.</param>
         /// <param name="flexiFigureBlocksExtensionOptions">Options for the <see cref="FlexiFigureBlocksExtension"/>.</param>
+        /// <param name="flexiPictureBlocksExtensionOptions">Options for the <see cref="FlexiPictureBlocksExtension"/>.</param>
         /// <param name="flexiQuoteBlocksExtensionOptions">Options for the <see cref="FlexiQuoteBlocksExtension"/>.</param>
         /// <param name="flexiSectionBlocksExtensionOptions">Options for the <see cref="FlexiSectionBlocksExtension"/>.</param>
         /// <param name="flexiTableBlocksExtensionOptions">Options for the <see cref="FlexiTableBlocksExtension"/>.</param>
         /// <param name="flexiTabsBlocksExtensionOptions">Options for the <see cref="FlexiTabsBlocksExtension"/>.</param>
+        /// <param name="flexiVideoBlocksExtensionOptions">Options for the <see cref="FlexiVideoBlocksExtension"/>.</param>
         public static MarkdownPipelineBuilder UseFlexiBlocks(this MarkdownPipelineBuilder pipelineBuilder,
-            IIncludeBlocksExtensionOptions includeBlocksExtensionOptions = null,
+            IFlexiIncludeBlocksExtensionOptions flexiIncludeBlocksExtensionOptions = null,
             IFlexiAlertBlocksExtensionOptions flexiAlertBlocksExtensionOptions = null,
             IFlexiBannerBlocksExtensionOptions flexiBannerBlocksExtensionOptions = null,
             IFlexiCardsBlocksExtensionOptions flexiCardsBlocksExtensionOptions = null,
             IFlexiCodeBlocksExtensionOptions flexiCodeBlocksExtensionOptions = null,
             IFlexiFigureBlocksExtensionOptions flexiFigureBlocksExtensionOptions = null,
+            IFlexiPictureBlocksExtensionOptions flexiPictureBlocksExtensionOptions = null,
             IFlexiQuoteBlocksExtensionOptions flexiQuoteBlocksExtensionOptions = null,
             IFlexiSectionBlocksExtensionOptions flexiSectionBlocksExtensionOptions = null,
             IFlexiTableBlocksExtensionOptions flexiTableBlocksExtensionOptions = null,
-            IFlexiTabsBlocksExtensionOptions flexiTabsBlocksExtensionOptions = null)
+            IFlexiTabsBlocksExtensionOptions flexiTabsBlocksExtensionOptions = null,
+            IFlexiVideoBlocksExtensionOptions flexiVideoBlocksExtensionOptions = null)
         {
             return pipelineBuilder.
                 UseContextObjects().
-                UseIncludeBlocks(includeBlocksExtensionOptions).
-                UseOptionsBlocks().
+                UseFlexiIncludeBlocks(flexiIncludeBlocksExtensionOptions).
+                UseFlexiOptionsBlocks().
                 UseFlexiAlertBlocks(flexiAlertBlocksExtensionOptions).
                 UseFlexiBannerBlocks(flexiBannerBlocksExtensionOptions).
                 UseFlexiCardsBlocks(flexiCardsBlocksExtensionOptions).
                 UseFlexiCodeBlocks(flexiCodeBlocksExtensionOptions).
                 UseFlexiFigureBlocks(flexiFigureBlocksExtensionOptions).
+                UseFlexiPictureBlocks(flexiPictureBlocksExtensionOptions).
                 UseFlexiQuoteBlocks(flexiQuoteBlocksExtensionOptions).
                 UseFlexiSectionBlocks(flexiSectionBlocksExtensionOptions).
                 UseFlexiTableBlocks(flexiTableBlocksExtensionOptions).
-                UseFlexiTabsBlocks(flexiTabsBlocksExtensionOptions);
+                UseFlexiTabsBlocks(flexiTabsBlocksExtensionOptions).
+                UseFlexiVideoBlocks(flexiVideoBlocksExtensionOptions);
         }
 
         /// <summary>
@@ -125,15 +133,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
-        /// Adds the <see cref="IncludeBlocksExtension"/> to the pipeline.
+        /// Adds the <see cref="FlexiIncludeBlocksExtension"/> to the pipeline.
         /// </summary>
         /// <param name="pipelineBuilder">The pipeline builder for the pipeline.</param>
-        /// <param name="options">Options for the <see cref="IncludeBlocksExtension"/>.</param>
-        public static MarkdownPipelineBuilder UseIncludeBlocks(this MarkdownPipelineBuilder pipelineBuilder, IIncludeBlocksExtensionOptions options = null)
+        /// <param name="options">Options for the <see cref="FlexiIncludeBlocksExtension"/>.</param>
+        public static MarkdownPipelineBuilder UseFlexiIncludeBlocks(this MarkdownPipelineBuilder pipelineBuilder, IFlexiIncludeBlocksExtensionOptions options = null)
         {
-            if (!pipelineBuilder.Extensions.Contains<IBlockExtension<IncludeBlock>>())
+            if (!pipelineBuilder.Extensions.Contains<IBlockExtension<FlexiIncludeBlock>>())
             {
-                pipelineBuilder.Extensions.Add(GetOrCreateServiceProvider().GetRequiredService<IBlockExtension<IncludeBlock>>());
+                pipelineBuilder.Extensions.Add(GetOrCreateServiceProvider().GetRequiredService<IBlockExtension<FlexiIncludeBlock>>());
             }
 
             if (options != null)
@@ -145,14 +153,14 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
-        /// Adds the <see cref="OptionsBlocksExtension"/> to the pipeline.
+        /// Adds the <see cref="FlexiOptionsBlocksExtension"/> to the pipeline.
         /// </summary>
         /// <param name="pipelineBuilder">The pipeline builder for the pipeline.</param> 
-        public static MarkdownPipelineBuilder UseOptionsBlocks(this MarkdownPipelineBuilder pipelineBuilder)
+        public static MarkdownPipelineBuilder UseFlexiOptionsBlocks(this MarkdownPipelineBuilder pipelineBuilder)
         {
-            if (!pipelineBuilder.Extensions.Contains<IBlockExtension<OptionsBlock>>())
+            if (!pipelineBuilder.Extensions.Contains<IBlockExtension<FlexiOptionsBlock>>())
             {
-                pipelineBuilder.Extensions.Add(GetOrCreateServiceProvider().GetRequiredService<IBlockExtension<OptionsBlock>>());
+                pipelineBuilder.Extensions.Add(GetOrCreateServiceProvider().GetRequiredService<IBlockExtension<FlexiOptionsBlock>>());
             }
 
             return pipelineBuilder;
@@ -259,6 +267,26 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
+        /// Adds the <see cref="FlexiPictureBlocksExtension"/> to the pipeline.
+        /// </summary>
+        /// <param name="pipelineBuilder">The pipeline builder for the pipeline.</param>
+        /// <param name="options">Options for the <see cref="FlexiPictureBlocksExtension"/>.</param>
+        public static MarkdownPipelineBuilder UseFlexiPictureBlocks(this MarkdownPipelineBuilder pipelineBuilder, IFlexiPictureBlocksExtensionOptions options = null)
+        {
+            if (!pipelineBuilder.Extensions.Contains<IBlockExtension<FlexiPictureBlock>>())
+            {
+                pipelineBuilder.Extensions.Add(GetOrCreateServiceProvider().GetRequiredService<IBlockExtension<FlexiPictureBlock>>());
+            }
+
+            if (options != null)
+            {
+                AddContextObjectWithTypeAsKey(pipelineBuilder, options);
+            }
+
+            return pipelineBuilder;
+        }
+
+        /// <summary>
         /// Adds the <see cref="FlexiQuoteBlocksExtension"/> to the pipeline.
         /// </summary>
         /// <param name="pipelineBuilder">The pipeline builder for the pipeline.</param>
@@ -330,6 +358,26 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             if (!pipelineBuilder.Extensions.Contains<IBlockExtension<FlexiTabsBlock>>())
             {
                 pipelineBuilder.Extensions.Add(GetOrCreateServiceProvider().GetRequiredService<IBlockExtension<FlexiTabsBlock>>());
+            }
+
+            if (options != null)
+            {
+                AddContextObjectWithTypeAsKey(pipelineBuilder, options);
+            }
+
+            return pipelineBuilder;
+        }
+
+        /// <summary>
+        /// Adds the <see cref="FlexiVideoBlocksExtension"/> to the pipeline.
+        /// </summary>
+        /// <param name="pipelineBuilder">The pipeline builder for the pipeline.</param>
+        /// <param name="options">Options for the <see cref="FlexiVideoBlocksExtension"/>.</param>
+        public static MarkdownPipelineBuilder UseFlexiVideoBlocks(this MarkdownPipelineBuilder pipelineBuilder, IFlexiVideoBlocksExtensionOptions options = null)
+        {
+            if (!pipelineBuilder.Extensions.Contains<IBlockExtension<FlexiVideoBlock>>())
+            {
+                pipelineBuilder.Extensions.Add(GetOrCreateServiceProvider().GetRequiredService<IBlockExtension<FlexiVideoBlock>>());
             }
 
             if (options != null)

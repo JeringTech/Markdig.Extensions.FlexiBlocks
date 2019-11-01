@@ -158,7 +158,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                 {
                     CreateFlexiSectionBlock(dummyBlockName, level: dummyLevel),
                     CreateFlexiSectionHeadingBlock(),
-                    $@"<section class=""{dummyBlockName} {dummyBlockName}_level_2 {dummyBlockName}_no_link-icon"">
+                    $@"<section class=""{dummyBlockName} {dummyBlockName}_level_2 {dummyBlockName}_no-link-icon"">
 <header class=""{dummyBlockName}__header"">
 <h2 class=""{dummyBlockName}__heading""></h2>
 <button class=""{dummyBlockName}__link-button"" title=""Copy link"" aria-label=""Copy link"">
@@ -167,12 +167,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
 </section>
 "
                 },
-                // If LinkIcon is valid HTML, it is rendered with a default class and a _has_link-icon class is rendered
+                // If LinkIcon is valid HTML, it is rendered with a default class and a _has-link-icon class is rendered
                 new object[]
                 {
                     CreateFlexiSectionBlock(linkIcon: dummyLinkIcon, level: dummyLevel),
                     CreateFlexiSectionHeadingBlock(),
-                    $@"<section class="" _level_2 _has_link-icon"">
+                    $@"<section class="" _level_2 _has-link-icon"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
 <button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
@@ -182,12 +182,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
 </section>
 "
                 },
-                // If LinkIcon is null, whitespace or an empty string, no copy icon is rendered and a _no_link-icon class is rendered (null case verified by other tests)
+                // If LinkIcon is null, whitespace or an empty string, no copy icon is rendered and a _no-link-icon class is rendered (null case verified by other tests)
                 new object[]
                 {
                     CreateFlexiSectionBlock(linkIcon: " ", level: dummyLevel),
                     CreateFlexiSectionHeadingBlock(),
-                    $@"<section class="" _level_2 _no_link-icon"">
+                    @"<section class="" _level_2 _no-link-icon"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
 <button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
@@ -200,7 +200,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                 {
                     CreateFlexiSectionBlock(linkIcon: string.Empty, level: dummyLevel),
                     CreateFlexiSectionHeadingBlock(),
-                    $@"<section class="" _level_2 _no_link-icon"">
+                    @"<section class="" _level_2 _no-link-icon"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
 <button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
@@ -214,7 +214,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                 {
                     CreateFlexiSectionBlock(level: dummyLevel),
                     CreateFlexiSectionHeadingBlock(generatedID: dummyGeneratedID),
-                    $@"<section class="" _level_2 _no_link-icon"" id=""{dummyGeneratedID}"">
+                    $@"<section class="" _level_2 _no-link-icon"" id=""{dummyGeneratedID}"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
 <button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
@@ -229,7 +229,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     CreateFlexiSectionBlock(level: dummyLevel,
                         attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { dummyAttributeKey1, dummyAttributeValue1 }, { dummyAttributeKey2, dummyAttributeValue2 } })),
                     CreateFlexiSectionHeadingBlock(),
-                    $@"<section class="" _level_2 _no_link-icon"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
+                    $@"<section class="" _level_2 _no-link-icon"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
 <button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
@@ -244,7 +244,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     CreateFlexiSectionBlock(level: dummyLevel,
                         attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { "class", dummyClass } })),
                     CreateFlexiSectionHeadingBlock(),
-                    $@"<section class="" _level_2 _no_link-icon {dummyClass}"">
+                    $@"<section class="" _level_2 _no-link-icon {dummyClass}"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
 <button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
@@ -259,7 +259,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     CreateFlexiSectionBlock(level: dummyLevel,
                         attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { "id", dummyID } })),
                     CreateFlexiSectionHeadingBlock(generatedID: dummyGeneratedID),
-                    $@"<section class="" _level_2 _no_link-icon"" id=""{dummyGeneratedID}"">
+                    $@"<section class="" _level_2 _no-link-icon"" id=""{dummyGeneratedID}"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
 <button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
@@ -273,7 +273,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                 {
                     CreateFlexiSectionBlock(element: dummyElement, level: dummyLevel),
                     CreateFlexiSectionHeadingBlock(),
-                    $@"<{dummyElement.ToString().ToLower()} class="" _level_2 _no_link-icon"">
+                    $@"<{dummyElement.ToString().ToLower()} class="" _level_2 _no-link-icon"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
 <button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
@@ -287,7 +287,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                 {
                     CreateFlexiSectionBlock(level: dummyLevel),
                     dummyFlexiSectionHeadingBlockWithContent,
-                    $@"<section class="" _level_2 _no_link-icon"">
+                    $@"<section class="" _level_2 _no-link-icon"">
 <header class=""__header"">
 <h2 class=""__heading"">{dummyHeadingContent}</h2>
 <button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
@@ -320,7 +320,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             string result = dummyStringWriter.ToString();
 
             // Assert
-            Assert.Equal($@"<section class="" _level_2 _no_link-icon"">
+            Assert.Equal($@"<section class="" _level_2 _no-link-icon"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
 <button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">

@@ -141,7 +141,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 currentChar = line.NextChar();
                 while (currentChar != '\0')
                 {
-                    if(currentChar == _fenceChar)
+                    if (currentChar == _fenceChar)
                     {
                         return false;
                     }

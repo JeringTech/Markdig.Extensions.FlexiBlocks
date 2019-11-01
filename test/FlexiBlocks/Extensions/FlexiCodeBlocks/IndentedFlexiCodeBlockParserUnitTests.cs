@@ -92,7 +92,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
             var dummyProxyLeafBlock = new ProxyLeafBlock(null, null);
             dummyProxyLeafBlock.Lines = dummyLines;
             BlockProcessor dummyBlockProcessor = MarkdigTypesFactory.CreateBlockProcessor();
-            var dummyFlexiCodeBlock = new FlexiCodeBlock(default, default, default, default, default, default, default, default, default, default, default, default, default, default);
+            var dummyFlexiCodeBlock = new FlexiCodeBlock(default, default, default, default, default, default, default, default, default, default, default, default, default, default, default);
             Mock<IFlexiCodeBlockFactory> mockFlexiCodeBlockFactory = _mockRepository.Create<IFlexiCodeBlockFactory>();
             mockFlexiCodeBlockFactory.Setup(f => f.Create(dummyProxyLeafBlock, dummyBlockProcessor)).Returns(dummyFlexiCodeBlock);
             ExposedIndentedFlexiCodeBlockParser testSubject = CreateExposedIndentedFlexiCodeBlockParser(mockFlexiCodeBlockFactory.Object);

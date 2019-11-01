@@ -170,9 +170,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                 // BlockName is assigned as a class of the root element and all default classes are prepended with it
                 new object[]{
                     CreateFlexiCodeBlock(dummyBlockName),
-                    $@"<div class=""{dummyBlockName} {dummyBlockName}_no_title {dummyBlockName}_no_copy-icon {dummyBlockName}_no_syntax-highlights {dummyBlockName}_no_line-numbers {dummyBlockName}_no_omitted-lines-icon {dummyBlockName}_no_highlighted-lines {dummyBlockName}_no_highlighted-phrases"">
+                    $@"<div class=""{dummyBlockName} {dummyBlockName}_no-title {dummyBlockName}_no-copy-icon {dummyBlockName}_has-header {dummyBlockName}_no-syntax-highlights {dummyBlockName}_no-line-numbers {dummyBlockName}_no-omitted-lines-icon {dummyBlockName}_no-highlighted-lines {dummyBlockName}_no-highlighted-phrases"">
 <header class=""{dummyBlockName}__header"">
-<span class=""{dummyBlockName}__title""></span>
 <button class=""{dummyBlockName}__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -180,10 +179,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 </div>
 "
                 },
-                // If Title is specified, it is rendered and a _has_title class is rendered
+                // If Title is specified, it is rendered and a _has-title class is rendered
                 new object[]{
                     CreateFlexiCodeBlock(title: dummyTitle),
-                    $@"<div class="" _has_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    $@"<div class="" _has-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
 <span class=""__title"">{dummyTitle}</span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
@@ -193,12 +192,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 </div>
 "
                 },
-                // If Title is null, whitespace or an empty string, no title is rendered and a _no_title class is rendered (null case verified by other tests)
+                // If Title is null, whitespace or an empty string, no title is rendered and a _no-title class is rendered (null case verified by other tests)
                 new object[]{
                     CreateFlexiCodeBlock(title: " "),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -208,9 +206,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                 },
                 new object[]{
                     CreateFlexiCodeBlock(title: string.Empty),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -218,12 +215,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 </div>
 "
                 },
-                // If CopyIcon is valid HTML, it is rendered with a default class and a _has_copy-icon class is rendered
+                // If CopyIcon is valid HTML, it is rendered with a default class and a _has-copy-icon class is rendered
                 new object[]{
                     CreateFlexiCodeBlock(copyIcon: dummyCopyIcon),
-                    $@"<div class="" _no_title _has_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    $@"<div class="" _no-title _has-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 {dummyCopyIconWithClass}
 </button>
@@ -232,12 +228,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 </div>
 "
                 },
-                // If CopyIcon is null, whitespace or an empty string, no copy icon is rendered and a _no_copy-icon class is rendered (null case verified by other tests)
+                // If CopyIcon is null, whitespace or an empty string, no copy icon is rendered and a _no-copy-icon class is rendered (null case verified by other tests)
                 new object[]{
                     CreateFlexiCodeBlock(copyIcon: " "),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -247,9 +242,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                 },
                 new object[]{
                     CreateFlexiCodeBlock(copyIcon: string.Empty),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -257,12 +251,19 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
 </div>
 "
                 },
+                // If RenderHeader is false, header isn't rendered (true case verified by other tests)
+                new object[]{
+                    CreateFlexiCodeBlock(renderHeader: false),
+                    @"<div class="" _no-title _no-copy-icon _no-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
+<pre class=""__pre""><code class=""__code""></code></pre>
+</div>
+"
+                },
                 // If Language is specified, a language modifier class is rendered
                 new object[]{
                     CreateFlexiCodeBlock(language: dummyLanguage),
-                    $@"<div class="" _no_title _no_copy-icon _language-{dummyLanguage} _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    $@"<div class="" _no-title _no-copy-icon _has-header _language_{dummyLanguage} _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -273,9 +274,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                 // Code is rendered with <, >, & and "escaped if there are no line embellishements or syntax highlights
                 new object[]{
                     CreateFlexiCodeBlock(code: dummyCodeWithSpecialChars, codeNumLines: 1),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -287,9 +287,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                 // Code is rendered with <, >, & and " escaped if there are line embellishments and no syntax highlights
                 new object[]{
                     CreateFlexiCodeBlock(code: dummyCodeWithSpecialChars, codeNumLines: 1, highlightedLines: new ReadOnlyCollection<LineRange>(new List<LineRange>(){ new LineRange() })),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _has_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _has-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -301,9 +300,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                 // If Code is null or an empty string, no code is rendered (null case verified by other tests)
                 new object[]{
                     CreateFlexiCodeBlock(code: string.Empty),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -319,9 +317,8 @@ line
 line
 ",
                         codeNumLines: 5, lineNumbers: new ReadOnlyCollection<NumberedLineRange>(new List<NumberedLineRange>(){new NumberedLineRange(2, 2, 21), new NumberedLineRange(4, 4, 1234) })),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _has_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _has-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -340,9 +337,8 @@ line
 ...
 line",
                         codeNumLines: 3, lineNumbers: new ReadOnlyCollection<NumberedLineRange>(new List<NumberedLineRange>(){new NumberedLineRange(endLine:1), new NumberedLineRange(3, 3, 12) })),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _has_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _has-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -364,9 +360,8 @@ line",
                         codeNumLines: 6, lineNumbers: new ReadOnlyCollection<NumberedLineRange>(new List<NumberedLineRange>(){new NumberedLineRange(1, -5, 1),
                         new NumberedLineRange(-4, 4, 3),
                         new NumberedLineRange(-2, -1, 5)})),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _has_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _has-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -386,9 +381,8 @@ line",
 
 ",
                         codeNumLines: 3, lineNumbers: new ReadOnlyCollection<NumberedLineRange>(new List<NumberedLineRange>(){new NumberedLineRange(endLine: 1)})),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _has_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _has-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -405,9 +399,8 @@ line",
 
 line",
                         codeNumLines: 3, lineNumbers: new ReadOnlyCollection<NumberedLineRange>(new List<NumberedLineRange>())),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -418,16 +411,15 @@ line
 </div>
 "
                 },
-                // If omitted lines icon is valid HTML, it is rendered with a default class and a _has_omitted-lines-icon class is rendered
+                // If omitted lines icon is valid HTML, it is rendered with a default class and a _has-omitted-lines-icon class is rendered
                 new object[]{
                     CreateFlexiCodeBlock(code: @"line
 
 line",
                         codeNumLines: 3, lineNumbers: new ReadOnlyCollection<NumberedLineRange>(new List<NumberedLineRange>(){new NumberedLineRange(endLine: 1), new NumberedLineRange(3, startNumber: 5)}),
                         omittedLinesIcon: dummyOmittedLinesIcon),
-                    $@"<div class="" _no_title _no_copy-icon _no_syntax-highlights _has_line-numbers _has_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    $@"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _has-line-numbers _has-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -438,7 +430,7 @@ line",
 </div>
 "
                 },
-                // If omitted lines icon is null, whitespace or an empty string, no omitted lines icon is rendered and a _no_omitted-lines-icon class is rendered (null case verified by other tests)
+                // If omitted lines icon is null, whitespace or an empty string, no omitted lines icon is rendered and a _no-omitted-lines-icon class is rendered (null case verified by other tests)
                 new object[]{
                     CreateFlexiCodeBlock(code: @"line
 
@@ -446,9 +438,8 @@ line",
                         codeNumLines: 3,
                         lineNumbers: new ReadOnlyCollection<NumberedLineRange>(new List<NumberedLineRange>(){new NumberedLineRange(endLine: 1), new NumberedLineRange(3, startNumber: 5)}),
                         omittedLinesIcon: " "),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _has_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _has-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -466,9 +457,8 @@ line",
                         codeNumLines: 3,
                         lineNumbers: new ReadOnlyCollection<NumberedLineRange>(new List<NumberedLineRange>(){new NumberedLineRange(endLine: 1), new NumberedLineRange(3, startNumber: 5)}),
                         omittedLinesIcon: string.Empty),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _has_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _has-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -493,9 +483,8 @@ line
 line",
                         codeNumLines: 10,
                         highlightedLines: new ReadOnlyCollection<LineRange>(new List<LineRange>(){ new LineRange(endLine: 2), new LineRange(4, -6), new LineRange(-4, 7), new LineRange(-2, -1)})),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _has_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _has-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -520,9 +509,8 @@ line
 line",
                         codeNumLines: 3,
                         highlightedLines: new ReadOnlyCollection<LineRange>(new List<LineRange>())),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -536,9 +524,8 @@ line
                 // Phrases are highlighted if HighlightedPhrases is specified and not empty - Phrase at start of code
                 new object[]{
                     CreateFlexiCodeBlock(code: "start end", codeNumLines: 1, highlightedPhrases: new ReadOnlyCollection<Phrase>(new List<Phrase>(){ new Phrase(0, 4)})),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _has_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _has-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -550,9 +537,8 @@ line
                 // Phrases are highlighted if HighlightedPhrases is specified and not empty - Phrase at end of code
                 new object[]{
                     CreateFlexiCodeBlock(code: "start end", codeNumLines: 1, highlightedPhrases: new ReadOnlyCollection<Phrase>(new List<Phrase>(){ new Phrase(6, 8)})),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _has_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _has-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -564,9 +550,8 @@ line
                 // Phrases are highlighted if HighlightedPhrases is specified and not empty - Intersecting phrases are combined
                 new object[]{
                     CreateFlexiCodeBlock(code: "12345", codeNumLines: 1, highlightedPhrases: new ReadOnlyCollection<Phrase>(new List<Phrase>(){ new Phrase(0, 2), new Phrase(2, 4), new Phrase(3, 4),})),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _has_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _has-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -578,9 +563,8 @@ line
                 // Phrases are highlighted if HighlightedPhrases is specified and not empty - Adjacent phrases are combined
                 new object[]{
                     CreateFlexiCodeBlock(code: "abcde", codeNumLines: 1, highlightedPhrases: new ReadOnlyCollection<Phrase>(new List<Phrase>(){ new Phrase(0, 2), new Phrase(3, 4)})),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _has_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _has-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -592,9 +576,8 @@ line
                 // Phrases are highlighted if HighlightedPhrases is specified and not empty - Unaffected by HTML escaping
                 new object[]{
                     CreateFlexiCodeBlock(code: "< &", codeNumLines: 1, highlightedPhrases: new ReadOnlyCollection<Phrase>(new List<Phrase>(){ new Phrase(0, 0), new Phrase(2, 2)})),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _has_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _has-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -606,9 +589,8 @@ line
                 // Phrases are highlighted if HighlightedPhrases is specified and not empty - Can be multiline
                 new object[]{
                     CreateFlexiCodeBlock(code: "This\nis a multiline\nphrase", codeNumLines: 1, highlightedPhrases: new ReadOnlyCollection<Phrase>(new List<Phrase>(){ new Phrase(0, 25)})),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _has_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _has-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -622,9 +604,8 @@ phrase</span>
                 // No phrases are highlighted if HighlightedPhrases is null or empty (null case verified by other tests)
                 new object[]{
                     CreateFlexiCodeBlock(code: "12345", codeNumLines: 1, highlightedPhrases: new ReadOnlyCollection<Phrase>(new List<Phrase>())),
-                    @"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+                    @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -636,9 +617,8 @@ phrase</span>
                 // If attributes specified, they're written
                 new object[]{
                     CreateFlexiCodeBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { dummyAttributeKey1, dummyAttributeValue1 }, { dummyAttributeKey2, dummyAttributeValue2 } })),
-                    $@"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
+                    $@"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -649,9 +629,8 @@ phrase</span>
                 // If classes are specified, they're appended to default classes
                 new object[]{
                     CreateFlexiCodeBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { "class", dummyClass } })),
-                    $@"<div class="" _no_title _no_copy-icon _no_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases {dummyClass}"">
+                    $@"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases {dummyClass}"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -682,9 +661,8 @@ phrase</span>
 
             // Assert
             _mockRepository.VerifyAll();
-            Assert.Equal($@"<div class="" _no_title _no_copy-icon _language-dummyLanguage _has_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+            Assert.Equal($@"<div class="" _no-title _no-copy-icon _has-header _language_dummyLanguage _has-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -714,9 +692,8 @@ phrase</span>
 
             // Assert
             _mockRepository.VerifyAll();
-            Assert.Equal($@"<div class="" _no_title _no_copy-icon _language-dummyLanguage _has_syntax-highlights _no_line-numbers _no_omitted-lines-icon _no_highlighted-lines _no_highlighted-phrases"">
+            Assert.Equal($@"<div class="" _no-title _no-copy-icon _has-header _language_dummyLanguage _has-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<span class=""__title""></span>
 <button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
 </button>
 </header>
@@ -762,6 +739,7 @@ phrase</span>
         private static FlexiCodeBlock CreateFlexiCodeBlock(string blockName = default,
             string title = default,
             string copyIcon = default,
+            bool renderHeader = true, // This is its default value
             string language = default,
             string code = default,
             int codeNumLines = default,
@@ -774,8 +752,8 @@ phrase</span>
             ReadOnlyDictionary<string, string> attributes = default,
             BlockParser blockParser = default)
         {
-            return new FlexiCodeBlock(blockName, title, copyIcon, language, code, codeNumLines, syntaxHighlighter, lineNumbers, omittedLinesIcon,
-                highlightedLines, highlightedPhrases, renderingMode, attributes, blockParser);
+            return new FlexiCodeBlock(blockName, title, copyIcon, renderHeader, language, code, codeNumLines, syntaxHighlighter, lineNumbers,
+                omittedLinesIcon, highlightedLines, highlightedPhrases, renderingMode, attributes, blockParser);
         }
     }
 }

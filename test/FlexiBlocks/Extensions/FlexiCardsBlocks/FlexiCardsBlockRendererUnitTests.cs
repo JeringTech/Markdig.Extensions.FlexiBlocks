@@ -138,7 +138,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                         CreateFlexiCardBlock(titlePart: dummyTitlePartBlock, contentPart: dummyContentPartBlock, footnotePart: dummyFootnotePartBlock)
                     }),
                     $@"<div class="" _size_small"">
-<div class=""__card __card_no_background-icon"">
+<div class=""__card __card_not-link __card_no-background-icon"">
 <p class=""__card-title"">{dummyTitle}</p>
 <div class=""__card-content"">
 <p>{dummyContent}</p>
@@ -170,7 +170,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
 
         public static IEnumerable<object[]> WriteCard_WritesCard_Data()
         {
-            const string dummyUrl = "dummyUrl";
+            const string dummyUrl = "dummyUrl\"&";
+            const string dummyUrlEncoded = "dummyUrl%22&amp;"; // Encodes URL for use as HTML attribute value
             const string dummyBlockName = "dummyBlockName";
             const string dummyAttributeKey1 = "dummyAttributeKey1";
             const string dummyAttributeValue1 = "dummyAttributeValue1";
@@ -208,7 +209,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                 new object[]{
                     CreateFlexiCardBlock(url: dummyUrl),
                     null,
-                    $@"<a class=""__card __card_is_link __card_no_background-icon"" href=""{dummyUrl}"">
+                    $@"<a class=""__card __card_is-link __card_no-background-icon"" href=""{dummyUrlEncoded}"">
 <p class=""__card-title""></p>
 <div class=""__card-content"">
 </div>
@@ -220,7 +221,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                 new object[]{
                     CreateFlexiCardBlock(url: " "),
                     null,
-                    @"<div class=""__card __card_no_background-icon"">
+                    @"<div class=""__card __card_not-link __card_no-background-icon"">
 <p class=""__card-title""></p>
 <div class=""__card-content"">
 </div>
@@ -231,7 +232,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                 new object[]{
                     CreateFlexiCardBlock(url: string.Empty),
                     null,
-                    @"<div class=""__card __card_no_background-icon"">
+                    @"<div class=""__card __card_not-link __card_no-background-icon"">
 <p class=""__card-title""></p>
 <div class=""__card-content"">
 </div>
@@ -243,7 +244,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                 new object[]{
                     CreateFlexiCardBlock(),
                     dummyBlockName,
-                    $@"<div class=""{dummyBlockName}__card {dummyBlockName}__card_no_background-icon"">
+                    $@"<div class=""{dummyBlockName}__card {dummyBlockName}__card_not-link {dummyBlockName}__card_no-background-icon"">
 <p class=""{dummyBlockName}__card-title""></p>
 <div class=""{dummyBlockName}__card-content"">
 </div>
@@ -251,11 +252,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
 </div>
 "
                 },
-                // If background icon is valid HTML, it is rendered with a default class and a _has_background-icon class is rendered
+                // If background icon is valid HTML, it is rendered with a default class and a _has-background-icon class is rendered
                 new object[]{
                     CreateFlexiCardBlock(backgroundIcon: dummyBackgroundIcon),
                     null,
-                    $@"<div class=""__card __card_has_background-icon"">
+                    $@"<div class=""__card __card_not-link __card_has-background-icon"">
 {dummyBackgroundIconWithClass}
 <p class=""__card-title""></p>
 <div class=""__card-content"">
@@ -264,11 +265,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
 </div>
 "
                 },
-                // If background icon is null, whitespace or an empty string, no icon is rendered and a _no_background-icon class is rendered (null case already verified in other tests)
+                // If background icon is null, whitespace or an empty string, no icon is rendered and a _no-background-icon class is rendered (null case already verified in other tests)
                 new object[]{
                     CreateFlexiCardBlock(backgroundIcon: " "),
                     null,
-                    @"<div class=""__card __card_no_background-icon"">
+                    @"<div class=""__card __card_not-link __card_no-background-icon"">
 <p class=""__card-title""></p>
 <div class=""__card-content"">
 </div>
@@ -279,7 +280,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                 new object[]{
                     CreateFlexiCardBlock(backgroundIcon: string.Empty),
                     null,
-                    @"<div class=""__card __card_no_background-icon"">
+                    @"<div class=""__card __card_not-link __card_no-background-icon"">
 <p class=""__card-title""></p>
 <div class=""__card-content"">
 </div>
@@ -291,7 +292,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                 new object[]{
                     CreateFlexiCardBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { dummyAttributeKey1, dummyAttributeValue1 }, { dummyAttributeKey2, dummyAttributeValue2 } })),
                     null,
-                    $@"<div class=""__card __card_no_background-icon"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
+                    $@"<div class=""__card __card_not-link __card_no-background-icon"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
 <p class=""__card-title""></p>
 <div class=""__card-content"">
 </div>
@@ -303,7 +304,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                 new object[]{
                     CreateFlexiCardBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { "class", dummyClass } })),
                     null,
-                    $@"<div class=""__card __card_no_background-icon {dummyClass}"">
+                    $@"<div class=""__card __card_not-link __card_no-background-icon {dummyClass}"">
 <p class=""__card-title""></p>
 <div class=""__card-content"">
 </div>
@@ -315,7 +316,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                 new object[]{
                     CreateFlexiCardBlock(titlePart: dummyTitlePartBlock),
                     null,
-                    $@"<div class=""__card __card_no_background-icon"">
+                    $@"<div class=""__card __card_not-link __card_no-background-icon"">
 <p class=""__card-title"">{dummyTitle}</p>
 <div class=""__card-content"">
 </div>
@@ -327,7 +328,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                 new object[]{
                     CreateFlexiCardBlock(contentPart: dummyContentPartBlock),
                     null,
-                    $@"<div class=""__card __card_no_background-icon"">
+                    $@"<div class=""__card __card_not-link __card_no-background-icon"">
 <p class=""__card-title""></p>
 <div class=""__card-content"">
 <p>{dummyContent}</p>
@@ -340,7 +341,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                 new object[]{
                     CreateFlexiCardBlock(footnotePart: dummyFootnotePartBlock),
                     null,
-                    $@"<div class=""__card __card_no_background-icon"">
+                    $@"<div class=""__card __card_not-link __card_no-background-icon"">
 <p class=""__card-title""></p>
 <div class=""__card-content"">
 </div>
@@ -395,7 +396,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
 
             if (children != null)
             {
-                foreach(FlexiCardBlock child in children)
+                foreach (FlexiCardBlock child in children)
                 {
                     result.Add(child);
                 }
