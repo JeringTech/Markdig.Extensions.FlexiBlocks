@@ -1,4 +1,5 @@
-﻿using Markdig.Renderers;
+﻿using Markdig.Parsers;
+using Markdig.Renderers;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 using Moq;
@@ -51,13 +52,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 
         #region Elements
         [Fact]
-        public void WriteElementLine_WithoutCondition_WritesElementLine()
+        public void WriteElementLine_String_WithoutCondition_WritesElementLine()
         {
             // Arrange
             const string dummyTagName = "dummyTagName";
             const string dummyBlockName = "dummyBlockName";
             const string dummyElementName = "dummyElementName";
-            const string dummyContent = "content";
+            const string dummyContent = "dummyContent";
             var dummyStringWriter = new StringWriter();
             var testSubject = new HtmlRenderer(dummyStringWriter);
 
@@ -70,8 +71,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         }
 
         [Theory]
-        [MemberData(nameof(WriteElementLine_WithCondition_WritesElementLine_Data))]
-        public void WriteElementLine_WithCondition_WritesElementLine(bool dummyCondition,
+        [MemberData(nameof(WriteElementLine_String_WithCondition_WritesElementLine_Data))]
+        public void WriteElementLine_String_WithCondition_WritesElementLine(bool dummyCondition,
             string dummyTagName,
             string dummyBlockName,
             string dummyElementName,
@@ -90,12 +91,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             Assert.Equal(expectedResult, result);
         }
 
-        public static IEnumerable<object[]> WriteElementLine_WithCondition_WritesElementLine_Data()
+        public static IEnumerable<object[]> WriteElementLine_String_WithCondition_WritesElementLine_Data()
         {
             const string dummyTagName = "dummyTagName";
             const string dummyBlockName = "dummyBlockName";
             const string dummyElementName = "dummyElementName";
-            const string dummyContent = "content";
+            const string dummyContent = "dummyContent";
 
             return new object[][]
             {
@@ -105,8 +106,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         }
 
         [Theory]
-        [MemberData(nameof(WriteElement_WithCondition_WritesElement_Data))]
-        public void WriteElement_WithCondition_WritesElement(bool dummyCondition,
+        [MemberData(nameof(WriteElement_TwoStrings_WithCondition_WritesElement_Data))]
+        public void WriteElement_TwoStrings_WithCondition_WritesElement(bool dummyCondition,
             string dummyTagName,
             string dummyBlockName,
             string dummyElementName,
@@ -126,13 +127,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
             Assert.Equal(expectedResult, result);
         }
 
-        public static IEnumerable<object[]> WriteElement_WithCondition_WritesElement_Data()
+        public static IEnumerable<object[]> WriteElement_TwoStrings_WithCondition_WritesElement_Data()
         {
             const string dummyTagName = "dummyTagName";
             const string dummyBlockName = "dummyBlockName";
             const string dummyElementName = "dummyElementName";
-            const string dummyContent1 = "content1";
-            const string dummyContent2 = "content2";
+            const string dummyContent1 = "dummyContent1";
+            const string dummyContent2 = "dummyContent2";
 
             return new object[][]
             {
@@ -140,6 +141,75 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
                 new object[]{ false, dummyTagName, dummyBlockName, dummyElementName, dummyContent1, dummyContent2, string.Empty },
             };
         }
+
+        [Fact]
+        public void WriteElementLine_LeafBlock_WithoutCondition_WritesElementLine()
+        {
+            // Arrange
+            const string dummyTagName = "dummyTagName";
+            const string dummyBlockName = "dummyBlockName";
+            const string dummyElementName = "dummyElementName";
+            const string dummyContent = "dummyContent";
+            var dummyContainerInline = new ContainerInline();
+            dummyContainerInline.AppendChild(new LiteralInline(dummyContent));
+            var dummyLeafBlock = new ParagraphBlock() { Inline = dummyContainerInline };
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteElementLine(dummyTagName, dummyBlockName, dummyElementName, dummyLeafBlock);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal($"<{dummyTagName} class=\"{dummyBlockName}__{dummyElementName}\">{dummyContent}</{dummyTagName}>\n", result);
+        }
+
+        [Theory]
+        [MemberData(nameof(WriteElementLine_ContainerBlock_WithoutCondition_WritesElementLine_Data))]
+        public void WriteElementLine_ContainerBlock_WithoutCondition_WritesElementLine(string dummyTagName,
+            string dummyBlockName,
+            string dummyElementName,
+            string dummyContent,
+            bool dummyImplicitParagraphs,
+            string expectedResult)
+        {
+            // Arrange
+            var dummyContainerInline = new ContainerInline();
+            dummyContainerInline.AppendChild(new LiteralInline(dummyContent));
+            var dummyLeafBlock = new ParagraphBlock() { Inline = dummyContainerInline };
+            var dummyContainerBlock = new DummyContainerBlock(null);
+            dummyContainerBlock.Add(dummyLeafBlock);
+            var dummyStringWriter = new StringWriter();
+            var testSubject = new HtmlRenderer(dummyStringWriter);
+
+            // Act
+            testSubject.WriteElementLine(dummyTagName, dummyBlockName, dummyElementName, dummyContainerBlock, dummyImplicitParagraphs);
+            string result = dummyStringWriter.ToString();
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        public static IEnumerable<object[]> WriteElementLine_ContainerBlock_WithoutCondition_WritesElementLine_Data()
+        {
+            const string dummyTagName = "dummyTagName";
+            const string dummyBlockName = "dummyBlockName";
+            const string dummyElementName = "dummyElementName";
+            const string dummyContent = "dummyContent";
+
+            return new object[][]
+            {
+                new object[]{ dummyTagName, dummyBlockName, dummyElementName, dummyContent, true, $@"<{dummyTagName} class=""{dummyBlockName}__{dummyElementName}"">
+{dummyContent}
+</{dummyTagName}>
+" },
+                new object[]{ dummyTagName, dummyBlockName, dummyElementName, dummyContent, false, $@"<{dummyTagName} class=""{dummyBlockName}__{dummyElementName}"">
+<p>{dummyContent}</p>
+</{dummyTagName}>
+" }
+            };
+        }
+
         #endregion
 
         #region Attributes
@@ -1310,10 +1380,10 @@ attributes = ""value""
             // Arrange
             var dummyContainerInline = new ContainerInline();
             dummyContainerInline.AppendChild(new LiteralInline(dummyText));
-            var dummyParagraphBlock = new ParagraphBlock() { Inline = dummyContainerInline };
+            var dummyLeafBlock = new ParagraphBlock() { Inline = dummyContainerInline };
             Mock<ContainerBlock> dummyContainerBlock = _mockRepository.Create<ContainerBlock>(null);
             dummyContainerBlock.CallBase = true;
-            dummyContainerBlock.Object.Add(dummyParagraphBlock);
+            dummyContainerBlock.Object.Add(dummyLeafBlock);
             var stringWriter = new StringWriter();
             var htmlRenderer = new HtmlRenderer(stringWriter);
             htmlRenderer.ImplicitParagraph = !dummyImplicitParagraphs; // Should get stored and reset after rendering
@@ -1343,13 +1413,13 @@ attributes = ""value""
             // Arrange
             var dummyContainerInline = new ContainerInline();
             dummyContainerInline.AppendChild(dummyInline);
-            var dummyParagraphBlock = new ParagraphBlock() { Inline = dummyContainerInline };
+            var dummyLeafBlock = new ParagraphBlock() { Inline = dummyContainerInline };
             var stringWriter = new StringWriter();
             var htmlRenderer = new HtmlRenderer(stringWriter);
             htmlRenderer.ImplicitParagraph = !dummyEnableHtmlForInline; // Should get stored and reset after rendering
 
             // Act
-            htmlRenderer.WriteLeafInline(dummyParagraphBlock, dummyEnableHtmlForInline);
+            htmlRenderer.WriteLeafInline(dummyLeafBlock, dummyEnableHtmlForInline);
             string result = stringWriter.ToString();
 
             // Arrange
@@ -1368,6 +1438,13 @@ attributes = ""value""
                 new object[] {true, new LinkInline(dummyUrl, dummyTitle), $"<a href=\"{dummyUrl}\" title=\"{dummyTitle}\"></a>"},
                 new object[] {false, new LinkInline(dummyUrl, dummyTitle), string.Empty}
             };
+        }
+
+        public class DummyContainerBlock : ContainerBlock
+        {
+            public DummyContainerBlock(BlockParser parser) : base(parser)
+            {
+            }
         }
     }
 }

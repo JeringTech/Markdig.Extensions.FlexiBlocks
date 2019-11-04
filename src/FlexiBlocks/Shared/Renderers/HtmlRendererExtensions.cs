@@ -89,7 +89,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
 
         #region Elements
         /// <summary>
-        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>__<paramref name="elementName"/>}\"/>}&gt;<paramref name="content"/>&lt;/{<paramref name="tagName"/>}&gt;\n".
+        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>__<paramref name="elementName"/>}\"&gt;{<paramref name="content"/>}&lt;/{<paramref name="tagName"/>}&gt;\n".
         /// </summary>
         public static HtmlRenderer WriteElementLine(this HtmlRenderer htmlRenderer, string tagName, string blockName, string elementName, string content)
         {
@@ -100,7 +100,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
-        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>__<paramref name="elementName"/>}\"/>}&gt;<paramref name="content"/>&lt;/{<paramref name="tagName"/>}&gt;\n" if
+        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>__<paramref name="elementName"/>}\"&gt;{<paramref name="content"/>}&lt;/{<paramref name="tagName"/>}&gt;\n" if
         /// <paramref name="condition"/> is <c>true</c>.
         /// </summary>
         public static HtmlRenderer WriteElementLine(this HtmlRenderer htmlRenderer, bool condition, string tagName, string blockName, string elementName, string content)
@@ -109,7 +109,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
         }
 
         /// <summary>
-        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>__<paramref name="elementName"/>}\"/>}&gt;<paramref name="content1"/><paramref name="content2"/>&lt;/{<paramref name="tagName"/>}&gt;" if
+        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>__<paramref name="elementName"/>}\"&gt;{<paramref name="content1"/>}{<paramref name="content2"/>}&lt;/{<paramref name="tagName"/>}&gt;" if
         /// <paramref name="condition"/> is <c>true</c>.
         /// </summary>
         public static HtmlRenderer WriteElement(this HtmlRenderer htmlRenderer, bool condition, string tagName, string blockName, string elementName, string content1, string content2)
@@ -119,6 +119,29 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 Write(content1).
                 Write(content2).
                 WriteEndTag(tagName) : htmlRenderer;
+        }
+
+        /// <summary>
+        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>__<paramref name="elementName"/>}\"&gt;{<paramref name="leafBlock"/>}&lt;/{<paramref name="tagName"/>}&gt;\n".
+        /// </summary>
+        public static HtmlRenderer WriteElementLine(this HtmlRenderer htmlRenderer, string tagName, string blockName, string elementName, LeafBlock leafBlock)
+        {
+            return htmlRenderer.
+                WriteStartTag(tagName, blockName, elementName).
+                WriteLeafInline(leafBlock).
+                WriteEndTagLine(tagName);
+        }
+
+        /// <summary>
+        /// Writes "&lt;{<paramref name="tagName"/>} class=\"{<paramref name="blockName"/>__<paramref name="elementName"/>}\"&gt;\n{<paramref name="containerBlock"/>}&lt;/{<paramref name="tagName"/>}&gt;\n".
+        /// </summary>
+        public static HtmlRenderer WriteElementLine(this HtmlRenderer htmlRenderer, string tagName, string blockName, string elementName, ContainerBlock containerBlock, bool implicitParagraphs)
+        {
+            return htmlRenderer.
+                WriteStartTagLine(tagName, blockName, elementName).
+                WriteChildren(containerBlock, implicitParagraphs).
+                EnsureLine().
+                WriteEndTagLine(tagName);
         }
         #endregion
 

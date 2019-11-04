@@ -54,15 +54,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks
 
             // Title
             htmlRenderer.
-                WriteStartTag("h1", blockName, "title").
-                WriteLeafInline(block[0] as LeafBlock).
-                WriteEndTagLine("h1");
+                WriteElementLine("h1", blockName, "title", block[0] as LeafBlock);
 
             // Blurb
             htmlRenderer.
-                WriteStartTag("p", blockName, "blurb").
-                WriteLeafInline(block[1] as LeafBlock).
-                WriteEndTagLine("p").
+                WriteElementLine("p", blockName, "blurb", block[1] as LeafBlock).
                 WriteEndTagLine("div");
         }
     }

@@ -144,10 +144,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
             if (renderLabel)
             {
                 htmlRenderer.
-                    WriteStartTagLine("div", blockName, "label").
-                    WriteChildren(labelFlexiTableCellBlock, labelFlexiTableCellBlock.Count == 1). // Don't need a <p> wrapper if there is only 1 leaf block
-                    EnsureLine().
-                    WriteEndTagLine("div").
+                    WriteElementLine("div", blockName, "label", labelFlexiTableCellBlock, labelFlexiTableCellBlock.Count == 1). // Don't need a <p> wrapper if there is only 1 leaf block
                     WriteStartTagLine("div", blockName, "content");
             }
 
