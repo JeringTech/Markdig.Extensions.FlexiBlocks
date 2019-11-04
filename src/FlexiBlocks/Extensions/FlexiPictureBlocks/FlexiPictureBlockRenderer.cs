@@ -62,7 +62,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiPictureBlocks
 
             // Button
             htmlRenderer.
-                WriteStartTagLineWithAttributes("button", blockName, "exit-fullscreen-button", "title=\"Exit fullscreen\" aria-label=\"Exit fullscreen\"").
+                WriteStartTagLineWithAttributes("button", blockName, "exit-fullscreen-button", "aria-label=\"Exit fullscreen\"").
                 WriteHtmlFragmentLine(hasExitFullscreenIcon, exitFullscreenIcon, blockName, "exit-fullscreen-icon").
                 WriteEndTagLine("button");
 

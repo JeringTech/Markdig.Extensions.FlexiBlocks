@@ -63,7 +63,7 @@ string html = Markdown.ToHtml(markdown, markdownPipeline);
 string expectedHtml = @"<section class=""flexi-section flexi-section_level_1 flexi-section_has-link-icon"" id=""foo"">
 <header class=""flexi-section__header"">
 <h1 class=""flexi-section__heading"">foo</h1>
-<button class=""flexi-section__link-button"" title=""Copy link"" aria-label=""Copy link"">
+<button class=""flexi-section__link-button"" aria-label=""Copy link"">
 <svg class=""flexi-section__link-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path d=""M0 0h24v24H0z"" fill=""none""/><path d=""M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z""/></svg>
 </button>
 </header>
@@ -71,7 +71,7 @@ string expectedHtml = @"<section class=""flexi-section flexi-section_level_1 fle
 <section class=""flexi-section flexi-section_level_2 flexi-section_has-link-icon"" id=""bar"">
 <header class=""flexi-section__header"">
 <h2 class=""flexi-section__heading"">bar</h2>
-<button class=""flexi-section__link-button"" title=""Copy link"" aria-label=""Copy link"">
+<button class=""flexi-section__link-button"" aria-label=""Copy link"">
 <svg class=""flexi-section__link-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path d=""M0 0h24v24H0z"" fill=""none""/><path d=""M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z""/></svg>
 </button>
 </header>
@@ -106,7 +106,7 @@ Information on watering herbs..
 <section class="flexi-section flexi-section_level_1 flexi-section_has-link-icon" id="indoor-herb-gardens">
 <header class="flexi-section__header">
 <h1 class="flexi-section__heading">Indoor Herb Gardens</h1>
-<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<button class="flexi-section__link-button" aria-label="Copy link">
 <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
@@ -114,14 +114,14 @@ Information on watering herbs..
 <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="getting-started">
 <header class="flexi-section__header">
 <h2 class="flexi-section__heading">Getting Started</h2>
-<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<button class="flexi-section__link-button" aria-label="Copy link">
 <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
 <section class="flexi-section flexi-section_level_3 flexi-section_has-link-icon" id="growing-herbs-from-cuttings">
 <header class="flexi-section__header">
 <h3 class="flexi-section__heading">Growing Herbs from Cuttings</h3>
-<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<button class="flexi-section__link-button" aria-label="Copy link">
 <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
@@ -131,14 +131,14 @@ Information on watering herbs..
 <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="caring-for-herbs">
 <header class="flexi-section__header">
 <h2 class="flexi-section__heading">Caring for Herbs</h2>
-<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<button class="flexi-section__link-button" aria-label="Copy link">
 <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
 <section class="flexi-section flexi-section_level_3 flexi-section_has-link-icon" id="watering-herbs">
 <header class="flexi-section__header">
 <h3 class="flexi-section__heading">Watering Herbs</h3>
-<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<button class="flexi-section__link-button" aria-label="Copy link">
 <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
@@ -179,7 +179,7 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="section section_level_2 section_has-link-icon" id="foo">
   <header class="section__header">
   <h2 class="section__heading">foo</h2>
-  <button class="section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="section__link-button" aria-label="Copy link">
   <svg class="section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -202,7 +202,7 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <nav class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">foo</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -228,7 +228,7 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo-bar-baz">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">Foo Bar Baz</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -244,14 +244,14 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">foo</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
   <section class="flexi-section flexi-section_level_3 flexi-section_has-link-icon" id="foo-1">
   <header class="flexi-section__header">
   <h3 class="flexi-section__heading"><code>foo</code></h3>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -260,7 +260,7 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo-1-1">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">foo 1</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -277,7 +277,7 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">Foo Bar Baz</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -298,7 +298,7 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo-bar-baz">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">Foo Bar Baz</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -324,7 +324,7 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">foo</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon"><use xlink:href="#material-design-link"/></svg>
   </button>
   </header>
@@ -341,7 +341,7 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="flexi-section flexi-section_level_1 flexi-section_no-link-icon" id="foo">
   <header class="flexi-section__header">
   <h1 class="flexi-section__heading">foo</h1>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   </button>
   </header>
   </section>
@@ -373,7 +373,7 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">foo</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -398,7 +398,7 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">foo</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -423,7 +423,7 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">foo</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -452,14 +452,14 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="rosemary">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">Rosemary</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
   <section class="flexi-section flexi-section_level_3 flexi-section_has-link-icon" id="watering">
   <header class="flexi-section__header">
   <h3 class="flexi-section__heading">Watering</h3>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -469,14 +469,14 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="lemon-balm">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">Lemon Balm</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
   <section class="flexi-section flexi-section_level_3 flexi-section_has-link-icon" id="watering-1">
   <header class="flexi-section__header">
   <h3 class="flexi-section__heading">Watering</h3>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -486,14 +486,14 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="peppermint">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">Peppermint</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
   <section class="flexi-section flexi-section_level_3 flexi-section_has-link-icon" id="watering-2">
   <header class="flexi-section__header">
   <h3 class="flexi-section__heading">Watering</h3>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -515,7 +515,7 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">foo</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -558,7 +558,7 @@ Options for a FlexiSectionBlock. To specify `FlexiSectionBlockOptions` for a Fle
   <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon block" id="section-1">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">foo</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -605,14 +605,14 @@ Options for the FlexiSectionBlocks extension. There are two ways to specify thes
   <nav class="section section_level_1 section_has-link-icon block">
   <header class="section__header">
   <h1 class="section__heading">foo</h1>
-  <button class="section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="section__link-button" aria-label="Copy link">
   <svg class="section__link-icon"><use xlink:href="#material-design-link"/></svg>
   </button>
   </header>
   <nav class="section section_level_2 section_has-link-icon block">
   <header class="section__header">
   <h2 class="section__heading">bar</h2>
-  <button class="section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="section__link-button" aria-label="Copy link">
   <svg class="section__link-icon"><use xlink:href="#material-design-link"/></svg>
   </button>
   </header>
@@ -643,14 +643,14 @@ Options for the FlexiSectionBlocks extension. There are two ways to specify thes
   <article class="flexi-section flexi-section_level_1 flexi-section_has-link-icon" id="foo">
   <header class="flexi-section__header">
   <h1 class="flexi-section__heading">foo</h1>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
   <nav class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="bar">
   <header class="flexi-section__header">
   <h2 class="flexi-section__heading">bar</h2>
-  <button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+  <button class="flexi-section__link-button" aria-label="Copy link">
   <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
   </button>
   </header>
@@ -675,7 +675,7 @@ a new logical-section tree within the blockquote:
 <section class="flexi-section flexi-section_level_1 flexi-section_has-link-icon" id="foo">
 <header class="flexi-section__header">
 <h1 class="flexi-section__heading">foo</h1>
-<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<button class="flexi-section__link-button" aria-label="Copy link">
 <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
@@ -683,14 +683,14 @@ a new logical-section tree within the blockquote:
 <section class="flexi-section flexi-section_level_1 flexi-section_has-link-icon" id="foo-1">
 <header class="flexi-section__header">
 <h1 class="flexi-section__heading">foo</h1>
-<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<button class="flexi-section__link-button" aria-label="Copy link">
 <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
 <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo-2">
 <header class="flexi-section__header">
 <h2 class="flexi-section__heading">foo</h2>
-<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<button class="flexi-section__link-button" aria-label="Copy link">
 <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
@@ -700,7 +700,7 @@ a new logical-section tree within the blockquote:
 <section class="flexi-section flexi-section_level_2 flexi-section_has-link-icon" id="foo-3">
 <header class="flexi-section__header">
 <h2 class="flexi-section__heading">foo</h2>
-<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<button class="flexi-section__link-button" aria-label="Copy link">
 <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>

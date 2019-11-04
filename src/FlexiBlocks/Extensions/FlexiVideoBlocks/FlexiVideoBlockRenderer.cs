@@ -119,7 +119,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiVideoBlocks
             // Controls
             htmlRenderer.
                 WriteStartTagLine("div", blockName, "controls").
-                WriteStartTagLineWithAttributes("button", blockName, "play-pause-button", "title=\"Pause/play\" aria-label=\"Pause/play\"").
+                WriteStartTagLineWithAttributes("button", blockName, "play-pause-button", "aria-label=\"Pause/play\"").
                 WriteHtmlFragmentLine(hasPlayIcon, playIcon, blockName, "play-icon").
                 WriteHtmlFragmentLine(hasPauseIcon, pauseIcon, blockName, "pause-icon").
                 WriteEndTagLine("button").
@@ -137,7 +137,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiVideoBlocks
                 WriteEndTagLine("div").
                 WriteEndTagLine("div").
                 WriteEndTagLine("div").
-                WriteStartTagLineWithAttributes("button", blockName, "fullscreen-button", "title=\"Toggle fullscreen\" aria-label=\"Toggle fullscreen\"").
+                WriteStartTagLineWithAttributes("button", blockName, "fullscreen-button", "aria-label=\"Toggle fullscreen\"").
                 WriteHtmlFragmentLine(hasFullscreenIcon, fullscreenIcon, blockName, "fullscreen-icon").
                 WriteHtmlFragmentLine(hasExitFullscreenIcon, exitFullscreenIcon, blockName, "exit-fullscreen-icon").
                 WriteEndTagLine("button").

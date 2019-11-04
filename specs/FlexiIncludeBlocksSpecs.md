@@ -64,7 +64,7 @@ string markdown = "i{ \"source\": \"exampleInclude.js\" }"; // Root content
 string html = Markdown.ToHtml(markdown, markdownPipeline);
 string expectedHtml = @"<div class=""flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases"">
 <header class=""flexi-code__header"">
-<button class=""flexi-code__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""flexi-code__copy-button"" aria-label=""Copy code"">
 <svg class=""flexi-code__copy-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""18px"" height=""18px"" viewBox=""0 0 18 18""><path fill=""none"" d=""M0,0h18v18H0V0z""/><path d=""M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z""/></svg>
 </button>
 </header>
@@ -89,7 +89,7 @@ i{ "source": "exampleInclude.js" }
 --------------- Expected Markup ---------------
 <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+<button class="flexi-code__copy-button" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
 </header>
@@ -197,7 +197,7 @@ Options for a FlexiIncludeBlock.
   --------------- Expected Markup ---------------
   <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <button class="flexi-code__copy-button" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
@@ -224,7 +224,7 @@ Options for a FlexiIncludeBlock.
   --------------- Expected Markup ---------------
   <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <button class="flexi-code__copy-button" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
@@ -247,7 +247,7 @@ Options for a FlexiIncludeBlock.
   --------------- Expected Markup ---------------
   <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <button class="flexi-code__copy-button" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
@@ -270,7 +270,7 @@ Options for a FlexiIncludeBlock.
   --------------- Expected Markup ---------------
   <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <button class="flexi-code__copy-button" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
@@ -310,7 +310,7 @@ Options for a FlexiIncludeBlock.
   --------------- Expected Markup ---------------
   <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <button class="flexi-code__copy-button" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
@@ -337,7 +337,7 @@ Options for a FlexiIncludeBlock.
   --------------- Expected Markup ---------------
   <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <button class="flexi-code__copy-button" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
@@ -367,7 +367,7 @@ Options for a FlexiIncludeBlock.
   --------------- Expected Markup ---------------
   <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <button class="flexi-code__copy-button" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
@@ -397,7 +397,7 @@ Options for a FlexiIncludeBlock.
   --------------- Expected Markup ---------------
   <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <button class="flexi-code__copy-button" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
@@ -633,7 +633,7 @@ Options for the FlexiIncludeBlocks extension. There are two ways to specify thes
   </blockquote>
   <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
   <header class="flexi-code__header">
-  <button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+  <button class="flexi-code__copy-button" aria-label="Copy code">
   <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
   </button>
   </header>
@@ -693,7 +693,7 @@ i{
 --------------- Expected Markup ---------------
 <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_language_javascript flexi-code_has-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+<button class="flexi-code__copy-button" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
 </header>

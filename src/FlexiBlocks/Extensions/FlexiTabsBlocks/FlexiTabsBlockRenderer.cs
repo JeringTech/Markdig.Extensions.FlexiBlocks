@@ -79,7 +79,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks
                         blockName,
                         "tab",
                         "selected",
-                        "title=\"View panel\" role=\"tab\" aria-selected=\"true\""); // Buttons have tabindex 0 by default
+                        "role=\"tab\" aria-selected=\"true\""); // Buttons have tabindex 0 by default
             }
             else
             {
@@ -87,7 +87,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks
                     WriteStartTagWithAttributes("button",
                         blockName,
                         "tab",
-                        "title=\"View panel\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\"");
+                        "role=\"tab\" aria-selected=\"false\" tabindex=\"-1\"");
             }
 
             htmlRenderer.

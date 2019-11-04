@@ -172,7 +172,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     CreateFlexiCodeBlock(dummyBlockName),
                     $@"<div class=""{dummyBlockName} {dummyBlockName}_no-title {dummyBlockName}_no-copy-icon {dummyBlockName}_has-header {dummyBlockName}_no-syntax-highlights {dummyBlockName}_no-line-numbers {dummyBlockName}_no-omitted-lines-icon {dummyBlockName}_no-highlighted-lines {dummyBlockName}_no-highlighted-phrases"">
 <header class=""{dummyBlockName}__header"">
-<button class=""{dummyBlockName}__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""{dummyBlockName}__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""{dummyBlockName}__pre""><code class=""{dummyBlockName}__code""></code></pre>
@@ -185,7 +185,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     $@"<div class="" _has-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
 <span class=""__title"">{dummyTitle}</span>
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""></code></pre>
@@ -197,7 +197,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     CreateFlexiCodeBlock(title: " "),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""></code></pre>
@@ -208,7 +208,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     CreateFlexiCodeBlock(title: string.Empty),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""></code></pre>
@@ -220,7 +220,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     CreateFlexiCodeBlock(copyIcon: dummyCopyIcon),
                     $@"<div class="" _no-title _has-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 {dummyCopyIconWithClass}
 </button>
 </header>
@@ -233,7 +233,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     CreateFlexiCodeBlock(copyIcon: " "),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""></code></pre>
@@ -244,7 +244,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     CreateFlexiCodeBlock(copyIcon: string.Empty),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""></code></pre>
@@ -264,7 +264,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     CreateFlexiCodeBlock(language: dummyLanguage),
                     $@"<div class="" _no-title _no-copy-icon _has-header _language_{dummyLanguage} _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""></code></pre>
@@ -276,7 +276,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     CreateFlexiCodeBlock(code: dummyCodeWithSpecialChars, codeNumLines: 1),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code"">&lt;&amp;&gt;&quot;
@@ -289,7 +289,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     CreateFlexiCodeBlock(code: dummyCodeWithSpecialChars, codeNumLines: 1, highlightedLines: new ReadOnlyCollection<LineRange>(new List<LineRange>(){ new LineRange() })),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _has-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""><span class=""__line __line_highlighted"">&lt;&amp;&gt;&quot;</span>
@@ -302,7 +302,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCodeBlocks
                     CreateFlexiCodeBlock(code: string.Empty),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""></code></pre>
@@ -319,7 +319,7 @@ line
                         codeNumLines: 5, lineNumbers: new ReadOnlyCollection<NumberedLineRange>(new List<NumberedLineRange>(){new NumberedLineRange(2, 2, 21), new NumberedLineRange(4, 4, 1234) })),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _has-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""><span class=""__line-prefix""></span><span class=""__line __line_omitted-lines"">Lines 1 to 20 omitted for brevity</span>
@@ -339,7 +339,7 @@ line",
                         codeNumLines: 3, lineNumbers: new ReadOnlyCollection<NumberedLineRange>(new List<NumberedLineRange>(){new NumberedLineRange(endLine:1), new NumberedLineRange(3, 3, 12) })),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _has-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""><span class=""__line-prefix"">1</span><span class=""__line"">line</span>
@@ -362,7 +362,7 @@ line",
                         new NumberedLineRange(-2, -1, 5)})),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _has-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""><span class=""__line-prefix"">1</span><span class=""__line"">line</span>
@@ -383,7 +383,7 @@ line",
                         codeNumLines: 3, lineNumbers: new ReadOnlyCollection<NumberedLineRange>(new List<NumberedLineRange>(){new NumberedLineRange(endLine: 1)})),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _has-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""><span class=""__line-prefix"">1</span><span class=""__line"">line</span>
@@ -401,7 +401,7 @@ line",
                         codeNumLines: 3, lineNumbers: new ReadOnlyCollection<NumberedLineRange>(new List<NumberedLineRange>())),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code"">line
@@ -420,7 +420,7 @@ line",
                         omittedLinesIcon: dummyOmittedLinesIcon),
                     $@"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _has-line-numbers _has-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""><span class=""__line-prefix"">1</span><span class=""__line"">line</span>
@@ -440,7 +440,7 @@ line",
                         omittedLinesIcon: " "),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _has-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""><span class=""__line-prefix"">1</span><span class=""__line"">line</span>
@@ -459,7 +459,7 @@ line",
                         omittedLinesIcon: string.Empty),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _has-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""><span class=""__line-prefix"">1</span><span class=""__line"">line</span>
@@ -485,7 +485,7 @@ line",
                         highlightedLines: new ReadOnlyCollection<LineRange>(new List<LineRange>(){ new LineRange(endLine: 2), new LineRange(4, -6), new LineRange(-4, 7), new LineRange(-2, -1)})),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _has-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""><span class=""__line __line_highlighted"">line</span>
@@ -511,7 +511,7 @@ line",
                         highlightedLines: new ReadOnlyCollection<LineRange>(new List<LineRange>())),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code"">line
@@ -526,7 +526,7 @@ line
                     CreateFlexiCodeBlock(code: "start end", codeNumLines: 1, highlightedPhrases: new ReadOnlyCollection<Phrase>(new List<Phrase>(){ new Phrase(0, 4)})),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _has-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""><span class=""__highlighted-phrase"">start</span> end
@@ -539,7 +539,7 @@ line
                     CreateFlexiCodeBlock(code: "start end", codeNumLines: 1, highlightedPhrases: new ReadOnlyCollection<Phrase>(new List<Phrase>(){ new Phrase(6, 8)})),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _has-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code"">start <span class=""__highlighted-phrase"">end</span>
@@ -552,7 +552,7 @@ line
                     CreateFlexiCodeBlock(code: "12345", codeNumLines: 1, highlightedPhrases: new ReadOnlyCollection<Phrase>(new List<Phrase>(){ new Phrase(0, 2), new Phrase(2, 4), new Phrase(3, 4),})),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _has-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""><span class=""__highlighted-phrase"">12345</span>
@@ -565,7 +565,7 @@ line
                     CreateFlexiCodeBlock(code: "abcde", codeNumLines: 1, highlightedPhrases: new ReadOnlyCollection<Phrase>(new List<Phrase>(){ new Phrase(0, 2), new Phrase(3, 4)})),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _has-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""><span class=""__highlighted-phrase"">abcde</span>
@@ -578,7 +578,7 @@ line
                     CreateFlexiCodeBlock(code: "< &", codeNumLines: 1, highlightedPhrases: new ReadOnlyCollection<Phrase>(new List<Phrase>(){ new Phrase(0, 0), new Phrase(2, 2)})),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _has-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""><span class=""__highlighted-phrase"">&lt;</span> <span class=""__highlighted-phrase"">&amp;</span>
@@ -591,7 +591,7 @@ line
                     CreateFlexiCodeBlock(code: "This\nis a multiline\nphrase", codeNumLines: 1, highlightedPhrases: new ReadOnlyCollection<Phrase>(new List<Phrase>(){ new Phrase(0, 25)})),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _has-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""><span class=""__highlighted-phrase"">This
@@ -606,7 +606,7 @@ phrase</span>
                     CreateFlexiCodeBlock(code: "12345", codeNumLines: 1, highlightedPhrases: new ReadOnlyCollection<Phrase>(new List<Phrase>())),
                     @"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code"">12345
@@ -619,7 +619,7 @@ phrase</span>
                     CreateFlexiCodeBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { dummyAttributeKey1, dummyAttributeValue1 }, { dummyAttributeKey2, dummyAttributeValue2 } })),
                     $@"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""></code></pre>
@@ -631,7 +631,7 @@ phrase</span>
                     CreateFlexiCodeBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { "class", dummyClass } })),
                     $@"<div class="" _no-title _no-copy-icon _has-header _no-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases {dummyClass}"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code""></code></pre>
@@ -663,7 +663,7 @@ phrase</span>
             _mockRepository.VerifyAll();
             Assert.Equal($@"<div class="" _no-title _no-copy-icon _has-header _language_dummyLanguage _has-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code"">{dummyHighlightedCode}
@@ -694,7 +694,7 @@ phrase</span>
             _mockRepository.VerifyAll();
             Assert.Equal($@"<div class="" _no-title _no-copy-icon _has-header _language_dummyLanguage _has-syntax-highlights _no-line-numbers _no-omitted-lines-icon _no-highlighted-lines _no-highlighted-phrases"">
 <header class=""__header"">
-<button class=""__copy-button"" title=""Copy code"" aria-label=""Copy code"">
+<button class=""__copy-button"" aria-label=""Copy code"">
 </button>
 </header>
 <pre class=""__pre""><code class=""__code"">{dummyHighlightedCode}

@@ -94,7 +94,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
             htmlRenderer.
                 WriteStartTagLine("header", blockName, "header").
                 WriteElementLine(headingTag, blockName, "heading", flexiSectionHeadingBlock).
-                WriteStartTagLineWithAttributes("button", blockName, "link-button", "title=\"Copy link\" aria-label=\"Copy link\"").
+                WriteStartTagLineWithAttributes("button", blockName, "link-button", "aria-label=\"Copy link\"").
                 WriteHtmlFragmentLine(hasLinkIcon, linkIcon, blockName, "link-icon").
                 WriteEndTagLine("button").
                 WriteEndTag("header");

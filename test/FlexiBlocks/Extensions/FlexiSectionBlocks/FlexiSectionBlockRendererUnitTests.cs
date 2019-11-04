@@ -161,7 +161,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     $@"<section class=""{dummyBlockName} {dummyBlockName}_level_2 {dummyBlockName}_no-link-icon"">
 <header class=""{dummyBlockName}__header"">
 <h2 class=""{dummyBlockName}__heading""></h2>
-<button class=""{dummyBlockName}__link-button"" title=""Copy link"" aria-label=""Copy link"">
+<button class=""{dummyBlockName}__link-button"" aria-label=""Copy link"">
 </button>
 </header>
 </section>
@@ -175,7 +175,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     $@"<section class="" _level_2 _has-link-icon"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
-<button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
+<button class=""__link-button"" aria-label=""Copy link"">
 {dummyLinkIconWithClass}
 </button>
 </header>
@@ -190,7 +190,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     @"<section class="" _level_2 _no-link-icon"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
-<button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
+<button class=""__link-button"" aria-label=""Copy link"">
 </button>
 </header>
 </section>
@@ -203,7 +203,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     @"<section class="" _level_2 _no-link-icon"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
-<button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
+<button class=""__link-button"" aria-label=""Copy link"">
 </button>
 </header>
 </section>
@@ -217,7 +217,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     $@"<section class="" _level_2 _no-link-icon"" id=""{dummyGeneratedID}"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
-<button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
+<button class=""__link-button"" aria-label=""Copy link"">
 </button>
 </header>
 </section>
@@ -232,7 +232,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     $@"<section class="" _level_2 _no-link-icon"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
-<button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
+<button class=""__link-button"" aria-label=""Copy link"">
 </button>
 </header>
 </section>
@@ -247,7 +247,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     $@"<section class="" _level_2 _no-link-icon {dummyClass}"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
-<button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
+<button class=""__link-button"" aria-label=""Copy link"">
 </button>
 </header>
 </section>
@@ -262,7 +262,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     $@"<section class="" _level_2 _no-link-icon"" id=""{dummyGeneratedID}"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
-<button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
+<button class=""__link-button"" aria-label=""Copy link"">
 </button>
 </header>
 </section>
@@ -276,7 +276,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     $@"<{dummyElement.ToString().ToLower()} class="" _level_2 _no-link-icon"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
-<button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
+<button class=""__link-button"" aria-label=""Copy link"">
 </button>
 </header>
 </{dummyElement.ToString().ToLower()}>
@@ -290,7 +290,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
                     $@"<section class="" _level_2 _no-link-icon"">
 <header class=""__header"">
 <h2 class=""__heading"">{dummyHeadingContent}</h2>
-<button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
+<button class=""__link-button"" aria-label=""Copy link"">
 </button>
 </header>
 </section>
@@ -323,7 +323,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks
             Assert.Equal($@"<section class="" _level_2 _no-link-icon"">
 <header class=""__header"">
 <h2 class=""__heading""></h2>
-<button class=""__link-button"" title=""Copy link"" aria-label=""Copy link"">
+<button class=""__link-button"" aria-label=""Copy link"">
 </button>
 </header>
 <p>{dummyChildContent}</p>
