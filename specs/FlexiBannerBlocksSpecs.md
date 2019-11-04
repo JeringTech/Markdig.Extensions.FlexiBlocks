@@ -25,7 +25,7 @@ Blurb
 string html = Markdown.ToHtml(markdown, markdownPipeline);
 string expectedHtml = @"<div class=""flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon"">
 <h1 class=""flexi-banner__title"">Title</h1>
-<p class=""flexi-banner__blurb"">Blurb</p>
+<span class=""flexi-banner__blurb"">Blurb</span>
 </div>";
 
 Assert.Equal(expectedHtml, html)
@@ -43,7 +43,7 @@ Blurb
 --------------- Expected Markup ---------------
 <div class="flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon">
 <h1 class="flexi-banner__title">Title</h1>
-<p class="flexi-banner__blurb">Blurb</p>
+<span class="flexi-banner__blurb">Blurb</span>
 </div>
 ````````````````````````````````
 
@@ -61,7 +61,7 @@ Both parts can only contain inline markdown such as text with empasis ([Commonma
 --------------- Expected Markup ---------------
 <div class="flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon">
 <h1 class="flexi-banner__title"><em>Title</em></h1>
-<p class="flexi-banner__blurb"><strong>Blurb</strong></p>
+<span class="flexi-banner__blurb"><strong>Blurb</strong></span>
 </div>
 ````````````````````````````````
 
@@ -92,7 +92,7 @@ Options for a FlexiBannerBlock. To specify `FlexiBannerBlockOptions` for a Flexi
   --------------- Expected Markup ---------------
   <div class="banner banner_no-logo-icon banner_no-background-icon">
   <h1 class="banner__title">Title</h1>
-  <p class="banner__blurb">Blurb</p>
+  <span class="banner__blurb">Blurb</span>
   </div>
   ````````````````````````````````
 
@@ -117,7 +117,7 @@ Options for a FlexiBannerBlock. To specify `FlexiBannerBlockOptions` for a Flexi
   <div class="flexi-banner flexi-banner_has-logo-icon flexi-banner_no-background-icon">
   <svg class="flexi-banner__logo-icon"><use xlink:href="#logo-icon"/></svg>
   <h1 class="flexi-banner__title">Title</h1>
-  <p class="flexi-banner__blurb">Blurb</p>
+  <span class="flexi-banner__blurb">Blurb</span>
   </div>
   ````````````````````````````````
 
@@ -142,7 +142,7 @@ Options for a FlexiBannerBlock. To specify `FlexiBannerBlockOptions` for a Flexi
   <div class="flexi-banner flexi-banner_no-logo-icon flexi-banner_has-background-icon">
   <svg class="flexi-banner__background-icon"><use xlink:href="#background-icon"/></svg>
   <h1 class="flexi-banner__title">Title</h1>
-  <p class="flexi-banner__blurb">Blurb</p>
+  <span class="flexi-banner__blurb">Blurb</span>
   </div>
   ````````````````````````````````
 
@@ -172,7 +172,7 @@ Options for a FlexiBannerBlock. To specify `FlexiBannerBlockOptions` for a Flexi
   --------------- Expected Markup ---------------
   <div class="flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon my-custom-class" id="my-custom-id">
   <h1 class="flexi-banner__title">Title</h1>
-  <p class="flexi-banner__blurb">Blurb</p>
+  <span class="flexi-banner__blurb">Blurb</span>
   </div>
   ````````````````````````````````
 
@@ -215,7 +215,7 @@ Options for the FlexiBannerBlocks extension. There are two ways to specify these
   <svg class="flexi-banner__background-icon"><use xlink:href="#background-icon"/></svg>
   <svg class="flexi-banner__logo-icon"><use xlink:href="#logo-icon"/></svg>
   <h1 class="flexi-banner__title">Title</h1>
-  <p class="flexi-banner__blurb">Blurb</p>
+  <span class="flexi-banner__blurb">Blurb</span>
   </div>
   ````````````````````````````````
   `defaultBlockOptions` has lower precedence than block specific options:
@@ -246,11 +246,11 @@ Options for the FlexiBannerBlocks extension. There are two ways to specify these
   --------------- Expected Markup ---------------
   <div class="banner banner_no-logo-icon banner_no-background-icon">
   <h1 class="banner__title">Title</h1>
-  <p class="banner__blurb">Blurb</p>
+  <span class="banner__blurb">Blurb</span>
   </div>
   <div class="special-banner special-banner_no-logo-icon special-banner_no-background-icon">
   <h1 class="special-banner__title">Title</h1>
-  <p class="special-banner__blurb">Blurb</p>
+  <span class="special-banner__blurb">Blurb</span>
   </div>
   ````````````````````````````````
 

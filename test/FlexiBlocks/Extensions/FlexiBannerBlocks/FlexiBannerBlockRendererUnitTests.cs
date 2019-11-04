@@ -93,7 +93,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                     CreateFlexiBannerBlock(dummyBlockName),
                     $@"<div class=""{dummyBlockName} {dummyBlockName}_no-logo-icon {dummyBlockName}_no-background-icon"">
 <h1 class=""{dummyBlockName}__title""></h1>
-<p class=""{dummyBlockName}__blurb""></p>
+<span class=""{dummyBlockName}__blurb""></span>
 </div>
 "
                 },
@@ -103,7 +103,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                     $@"<div class="" _has-logo-icon _no-background-icon"">
 {dummyLogoIconWithClass}
 <h1 class=""__title""></h1>
-<p class=""__blurb""></p>
+<span class=""__blurb""></span>
 </div>
 "
                 },
@@ -112,7 +112,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                     CreateFlexiBannerBlock(logoIcon: " "),
                     @"<div class="" _no-logo-icon _no-background-icon"">
 <h1 class=""__title""></h1>
-<p class=""__blurb""></p>
+<span class=""__blurb""></span>
 </div>
 "
                 },
@@ -120,7 +120,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                     CreateFlexiBannerBlock(logoIcon: string.Empty),
                     @"<div class="" _no-logo-icon _no-background-icon"">
 <h1 class=""__title""></h1>
-<p class=""__blurb""></p>
+<span class=""__blurb""></span>
 </div>
 "
                 },
@@ -130,7 +130,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                     $@"<div class="" _no-logo-icon _has-background-icon"">
 {dummyBackgroundIconWithClass}
 <h1 class=""__title""></h1>
-<p class=""__blurb""></p>
+<span class=""__blurb""></span>
 </div>
 "
                 },
@@ -139,7 +139,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                     CreateFlexiBannerBlock(backgroundIcon: " "),
                     @"<div class="" _no-logo-icon _no-background-icon"">
 <h1 class=""__title""></h1>
-<p class=""__blurb""></p>
+<span class=""__blurb""></span>
 </div>
 "
                 },
@@ -147,7 +147,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                     CreateFlexiBannerBlock(backgroundIcon: string.Empty),
                     @"<div class="" _no-logo-icon _no-background-icon"">
 <h1 class=""__title""></h1>
-<p class=""__blurb""></p>
+<span class=""__blurb""></span>
 </div>
 "
                 },
@@ -156,7 +156,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                     CreateFlexiBannerBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { dummyAttributeKey1, dummyAttributeValue1 }, { dummyAttributeKey2, dummyAttributeValue2 } })),
                     $@"<div class="" _no-logo-icon _no-background-icon"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
 <h1 class=""__title""></h1>
-<p class=""__blurb""></p>
+<span class=""__blurb""></span>
 </div>
 "
                 },
@@ -165,7 +165,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                     CreateFlexiBannerBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { "class", dummyClass } })),
                     $@"<div class="" _no-logo-icon _no-background-icon {dummyClass}"">
 <h1 class=""__title""></h1>
-<p class=""__blurb""></p>
+<span class=""__blurb""></span>
 </div>
 "
                 },
@@ -174,7 +174,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                     CreateFlexiBannerBlock(titlePart: dummyTitlePartBlock),
                     $@"<div class="" _no-logo-icon _no-background-icon"">
 <h1 class=""__title"">{dummyTitle}</h1>
-<p class=""__blurb""></p>
+<span class=""__blurb""></span>
 </div>
 "
                 },
@@ -183,7 +183,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiBannerBlocks
                     CreateFlexiBannerBlock(blurbPart: dummyBlurbPartBlock),
                     $@"<div class="" _no-logo-icon _no-background-icon"">
 <h1 class=""__title""></h1>
-<p class=""__blurb"">{dummyBlurb}</p>
+<span class=""__blurb"">{dummyBlurb}</span>
 </div>
 "
                 }

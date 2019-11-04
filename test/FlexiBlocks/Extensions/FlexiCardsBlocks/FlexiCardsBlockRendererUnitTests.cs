@@ -139,11 +139,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                     }),
                     $@"<div class="" _size_small"">
 <div class=""__card __card_not-link __card_no-background-icon"">
-<p class=""__card-title"">{dummyTitle}</p>
+<span class=""__card-title"">{dummyTitle}</span>
 <div class=""__card-content"">
 <p>{dummyContent}</p>
 </div>
-<p class=""__card-footnote"">{dummyFootnote}</p>
+<span class=""__card-footnote"">{dummyFootnote}</span>
 </div>
 </div>
 "
@@ -210,10 +210,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                     CreateFlexiCardBlock(url: dummyUrl),
                     null,
                     $@"<a class=""__card __card_is-link __card_no-background-icon"" href=""{dummyUrlEncoded}"">
-<p class=""__card-title""></p>
+<span class=""__card-title""></span>
 <div class=""__card-content"">
 </div>
-<p class=""__card-footnote""></p>
+<span class=""__card-footnote""></span>
 </a>
 "
                 },
@@ -222,10 +222,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                     CreateFlexiCardBlock(url: " "),
                     null,
                     @"<div class=""__card __card_not-link __card_no-background-icon"">
-<p class=""__card-title""></p>
+<span class=""__card-title""></span>
 <div class=""__card-content"">
 </div>
-<p class=""__card-footnote""></p>
+<span class=""__card-footnote""></span>
 </div>
 "
                 },
@@ -233,10 +233,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                     CreateFlexiCardBlock(url: string.Empty),
                     null,
                     @"<div class=""__card __card_not-link __card_no-background-icon"">
-<p class=""__card-title""></p>
+<span class=""__card-title""></span>
 <div class=""__card-content"">
 </div>
-<p class=""__card-footnote""></p>
+<span class=""__card-footnote""></span>
 </div>
 "
                 },
@@ -245,10 +245,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                     CreateFlexiCardBlock(),
                     dummyBlockName,
                     $@"<div class=""{dummyBlockName}__card {dummyBlockName}__card_not-link {dummyBlockName}__card_no-background-icon"">
-<p class=""{dummyBlockName}__card-title""></p>
+<span class=""{dummyBlockName}__card-title""></span>
 <div class=""{dummyBlockName}__card-content"">
 </div>
-<p class=""{dummyBlockName}__card-footnote""></p>
+<span class=""{dummyBlockName}__card-footnote""></span>
 </div>
 "
                 },
@@ -258,10 +258,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                     null,
                     $@"<div class=""__card __card_not-link __card_has-background-icon"">
 {dummyBackgroundIconWithClass}
-<p class=""__card-title""></p>
+<span class=""__card-title""></span>
 <div class=""__card-content"">
 </div>
-<p class=""__card-footnote""></p>
+<span class=""__card-footnote""></span>
 </div>
 "
                 },
@@ -270,10 +270,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                     CreateFlexiCardBlock(backgroundIcon: " "),
                     null,
                     @"<div class=""__card __card_not-link __card_no-background-icon"">
-<p class=""__card-title""></p>
+<span class=""__card-title""></span>
 <div class=""__card-content"">
 </div>
-<p class=""__card-footnote""></p>
+<span class=""__card-footnote""></span>
 </div>
 "
                 },
@@ -281,10 +281,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                     CreateFlexiCardBlock(backgroundIcon: string.Empty),
                     null,
                     @"<div class=""__card __card_not-link __card_no-background-icon"">
-<p class=""__card-title""></p>
+<span class=""__card-title""></span>
 <div class=""__card-content"">
 </div>
-<p class=""__card-footnote""></p>
+<span class=""__card-footnote""></span>
 </div>
 "
                 },
@@ -293,10 +293,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                     CreateFlexiCardBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { dummyAttributeKey1, dummyAttributeValue1 }, { dummyAttributeKey2, dummyAttributeValue2 } })),
                     null,
                     $@"<div class=""__card __card_not-link __card_no-background-icon"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
-<p class=""__card-title""></p>
+<span class=""__card-title""></span>
 <div class=""__card-content"">
 </div>
-<p class=""__card-footnote""></p>
+<span class=""__card-footnote""></span>
 </div>
 "
                 },
@@ -305,10 +305,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                     CreateFlexiCardBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { "class", dummyClass } })),
                     null,
                     $@"<div class=""__card __card_not-link __card_no-background-icon {dummyClass}"">
-<p class=""__card-title""></p>
+<span class=""__card-title""></span>
 <div class=""__card-content"">
 </div>
-<p class=""__card-footnote""></p>
+<span class=""__card-footnote""></span>
 </div>
 "
                 },
@@ -317,10 +317,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                     CreateFlexiCardBlock(titlePart: dummyTitlePartBlock),
                     null,
                     $@"<div class=""__card __card_not-link __card_no-background-icon"">
-<p class=""__card-title"">{dummyTitle}</p>
+<span class=""__card-title"">{dummyTitle}</span>
 <div class=""__card-content"">
 </div>
-<p class=""__card-footnote""></p>
+<span class=""__card-footnote""></span>
 </div>
 "
                 },
@@ -329,11 +329,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                     CreateFlexiCardBlock(contentPart: dummyContentPartBlock),
                     null,
                     $@"<div class=""__card __card_not-link __card_no-background-icon"">
-<p class=""__card-title""></p>
+<span class=""__card-title""></span>
 <div class=""__card-content"">
 <p>{dummyContent}</p>
 </div>
-<p class=""__card-footnote""></p>
+<span class=""__card-footnote""></span>
 </div>
 "
                 },
@@ -342,10 +342,10 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiCardsBlocks
                     CreateFlexiCardBlock(footnotePart: dummyFootnotePartBlock),
                     null,
                     $@"<div class=""__card __card_not-link __card_no-background-icon"">
-<p class=""__card-title""></p>
+<span class=""__card-title""></span>
 <div class=""__card-content"">
 </div>
-<p class=""__card-footnote"">{dummyFootnote}</p>
+<span class=""__card-footnote"">{dummyFootnote}</span>
 </div>
 "
                 }

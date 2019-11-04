@@ -38,18 +38,18 @@ Footnote 2
 string html = Markdown.ToHtml(markdown, markdownPipeline);
 string expectedHtml = @"<div class=""flexi-cards flexi-cards_size_small"">
 <div class=""flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon"">
-<p class=""flexi-cards__card-title"">Title 1</p>
+<span class=""flexi-cards__card-title"">Title 1</span>
 <div class=""flexi-cards__card-content"">
 <p>Content 1</p>
 </div>
-<p class=""flexi-cards__card-footnote"">Footnote 1</p>
+<span class=""flexi-cards__card-footnote"">Footnote 1</span>
 </div>
 <div class=""flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon"">
-<p class=""flexi-cards__card-title"">Title 2</p>
+<span class=""flexi-cards__card-title"">Title 2</span>
 <div class=""flexi-cards__card-content"">
 <p>Content 2</p>
 </div>
-<p class=""flexi-cards__card-footnote"">Footnote 2</p>
+<span class=""flexi-cards__card-footnote"">Footnote 2</span>
 </div>
 </div>";
 
@@ -83,18 +83,18 @@ Footnote 2
 --------------- Expected Markup ---------------
 <div class="flexi-cards flexi-cards_size_small">
 <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-<p class="flexi-cards__card-title">Title 1</p>
+<span class="flexi-cards__card-title">Title 1</span>
 <div class="flexi-cards__card-content">
 <p>Content 1</p>
 </div>
-<p class="flexi-cards__card-footnote">Footnote 1</p>
+<span class="flexi-cards__card-footnote">Footnote 1</span>
 </div>
 <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-<p class="flexi-cards__card-title">Title 2</p>
+<span class="flexi-cards__card-title">Title 2</span>
 <div class="flexi-cards__card-content">
 <p>Content 2</p>
 </div>
-<p class="flexi-cards__card-footnote">Footnote 2</p>
+<span class="flexi-cards__card-footnote">Footnote 2</span>
 </div>
 </div>
 ````````````````````````````````
@@ -122,7 +122,7 @@ Content 1
 --------------- Expected Markup ---------------
 <div class="flexi-cards flexi-cards_size_small">
 <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-<p class="flexi-cards__card-title"><em>Title 1</em></p>
+<span class="flexi-cards__card-title"><em>Title 1</em></span>
 <div class="flexi-cards__card-content">
 <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
@@ -134,7 +134,7 @@ Content 1
 </code></pre>
 </div>
 </div>
-<p class="flexi-cards__card-footnote"><strong>Footnote 1</strong></p>
+<span class="flexi-cards__card-footnote"><strong>Footnote 1</strong></span>
 </div>
 </div>
 ````````````````````````````````
@@ -170,11 +170,11 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
   --------------- Expected Markup ---------------
   <div class="cards cards_size_small">
   <div class="cards__card cards__card_not-link cards__card_no-background-icon">
-  <p class="cards__card-title">Title 1</p>
+  <span class="cards__card-title">Title 1</span>
   <div class="cards__card-content">
   <p>Content 1</p>
   </div>
-  <p class="cards__card-footnote">Footnote 1</p>
+  <span class="cards__card-footnote">Footnote 1</span>
   </div>
   </div>
   ````````````````````````````````
@@ -202,11 +202,11 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
   --------------- Expected Markup ---------------
   <div class="flexi-cards flexi-cards_size_medium">
   <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-  <p class="flexi-cards__card-title">Title 1</p>
+  <span class="flexi-cards__card-title">Title 1</span>
   <div class="flexi-cards__card-content">
   <p>Content 1</p>
   </div>
-  <p class="flexi-cards__card-footnote">Footnote 1</p>
+  <span class="flexi-cards__card-footnote">Footnote 1</span>
   </div>
   </div>
   ````````````````````````````````
@@ -239,11 +239,11 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
   <div class="flexi-cards flexi-cards_size_small">
   <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon">
   <svg class="flexi-cards__card-background-icon"><use xlink:href="#background-icon"/></svg>
-  <p class="flexi-cards__card-title">Title 1</p>
+  <span class="flexi-cards__card-title">Title 1</span>
   <div class="flexi-cards__card-content">
   <p>Content 1</p>
   </div>
-  <p class="flexi-cards__card-footnote">Footnote 1</p>
+  <span class="flexi-cards__card-footnote">Footnote 1</span>
   </div>
   </div>
   ````````````````````````````````
@@ -279,19 +279,19 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
   <div class="flexi-cards flexi-cards_size_small">
   <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon">
   <svg class="flexi-cards__card-background-icon"><use xlink:href="#background-icon"/></svg>
-  <p class="flexi-cards__card-title">Title 1</p>
+  <span class="flexi-cards__card-title">Title 1</span>
   <div class="flexi-cards__card-content">
   <p>Content 1</p>
   </div>
-  <p class="flexi-cards__card-footnote">Footnote 1</p>
+  <span class="flexi-cards__card-footnote">Footnote 1</span>
   </div>
   <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon">
   <svg class="flexi-cards__card-background-icon"><use xlink:href="#alternative-icon"/></svg>
-  <p class="flexi-cards__card-title">Title 2</p>
+  <span class="flexi-cards__card-title">Title 2</span>
   <div class="flexi-cards__card-content">
   <p>Content 2</p>
   </div>
-  <p class="flexi-cards__card-footnote">Footnote 2</p>
+  <span class="flexi-cards__card-footnote">Footnote 2</span>
   </div>
   </div>
   ````````````````````````````````
@@ -326,11 +326,11 @@ Options for a FlexiCardsBlock. To specify `FlexiCardsBlockOptions` for a FlexiCa
   --------------- Expected Markup ---------------
   <div class="flexi-cards flexi-cards_size_small my-custom-class" id="my-custom-id">
   <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-  <p class="flexi-cards__card-title">Title 1</p>
+  <span class="flexi-cards__card-title">Title 1</span>
   <div class="flexi-cards__card-content">
   <p>Content 1</p>
   </div>
-  <p class="flexi-cards__card-footnote">Footnote 1</p>
+  <span class="flexi-cards__card-footnote">Footnote 1</span>
   </div>
   </div>
   ````````````````````````````````
@@ -373,18 +373,18 @@ Options for a `FlexiCardBlock`.
   --------------- Expected Markup ---------------
   <div class="flexi-cards flexi-cards_size_small">
   <a class="flexi-cards__card flexi-cards__card_is-link flexi-cards__card_no-background-icon" href="/url?a=1&amp;b=2">
-  <p class="flexi-cards__card-title">Title 1</p>
+  <span class="flexi-cards__card-title">Title 1</span>
   <div class="flexi-cards__card-content">
   <p>Content 1</p>
   </div>
-  <p class="flexi-cards__card-footnote">Footnote 1</p>
+  <span class="flexi-cards__card-footnote">Footnote 1</span>
   </a>
   <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-  <p class="flexi-cards__card-title">Title 2</p>
+  <span class="flexi-cards__card-title">Title 2</span>
   <div class="flexi-cards__card-content">
   <p>Content 2</p>
   </div>
-  <p class="flexi-cards__card-footnote">Footnote 2</p>
+  <span class="flexi-cards__card-footnote">Footnote 2</span>
   </div>
   </div>
   ````````````````````````````````
@@ -415,11 +415,11 @@ Options for a `FlexiCardBlock`.
   <div class="flexi-cards flexi-cards_size_small">
   <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon">
   <svg class="flexi-cards__card-background-icon"><use xlink:href="#background-icon"/></svg>
-  <p class="flexi-cards__card-title">Title 1</p>
+  <span class="flexi-cards__card-title">Title 1</span>
   <div class="flexi-cards__card-content">
   <p>Content 1</p>
   </div>
-  <p class="flexi-cards__card-footnote">Footnote 1</p>
+  <span class="flexi-cards__card-footnote">Footnote 1</span>
   </div>
   </div>
   ````````````````````````````````
@@ -454,11 +454,11 @@ Options for a `FlexiCardBlock`.
   --------------- Expected Markup ---------------
   <div class="flexi-cards flexi-cards_size_small">
   <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon my-custom-class" id="my-custom-id">
-  <p class="flexi-cards__card-title">Title 1</p>
+  <span class="flexi-cards__card-title">Title 1</span>
   <div class="flexi-cards__card-content">
   <p>Content 1</p>
   </div>
-  <p class="flexi-cards__card-footnote">Footnote 1</p>
+  <span class="flexi-cards__card-footnote">Footnote 1</span>
   </div>
   </div>
   ````````````````````````````````
@@ -507,11 +507,11 @@ Options for the FlexiCardsBlocks extension. There are two ways to specify these 
   <div class="flexi-cards flexi-cards_size_medium block">
   <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon">
   <svg class="flexi-cards__card-background-icon"><use xlink:href="#background-icon"/></svg>
-  <p class="flexi-cards__card-title">Title 1</p>
+  <span class="flexi-cards__card-title">Title 1</span>
   <div class="flexi-cards__card-content">
   <p>Content 1</p>
   </div>
-  <p class="flexi-cards__card-footnote">Footnote 1</p>
+  <span class="flexi-cards__card-footnote">Footnote 1</span>
   </div>
   </div>
   ````````````````````````````````
@@ -556,21 +556,21 @@ Options for the FlexiCardsBlocks extension. There are two ways to specify these 
   <div class="cards cards_size_small">
   <div class="cards__card cards__card_not-link cards__card_has-background-icon">
   <svg class="cards__card-background-icon"><use xlink:href="#alternative-icon"/></svg>
-  <p class="cards__card-title">Title 1</p>
+  <span class="cards__card-title">Title 1</span>
   <div class="cards__card-content">
   <p>Content 1</p>
   </div>
-  <p class="cards__card-footnote">Footnote 1</p>
+  <span class="cards__card-footnote">Footnote 1</span>
   </div>
   </div>
   <div class="special-cards special-cards_size_small">
   <div class="special-cards__card special-cards__card_not-link special-cards__card_has-background-icon">
   <svg class="special-cards__card-background-icon"><use xlink:href="#background-icon"/></svg>
-  <p class="special-cards__card-title">Title 2</p>
+  <span class="special-cards__card-title">Title 2</span>
   <div class="special-cards__card-content">
   <p>Content 2</p>
   </div>
-  <p class="special-cards__card-footnote">Footnote 2</p>
+  <span class="special-cards__card-footnote">Footnote 2</span>
   </div>
   </div>
   ````````````````````````````````
@@ -602,19 +602,19 @@ Footnote 1
 --------------- Expected Markup ---------------
 <div class="flexi-cards flexi-cards_size_small">
 <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-<p class="flexi-cards__card-title">Title 1</p>
+<span class="flexi-cards__card-title">Title 1</span>
 <div class="flexi-cards__card-content">
 <div class="flexi-cards flexi-cards_size_small">
 <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-<p class="flexi-cards__card-title">Nested card</p>
+<span class="flexi-cards__card-title">Nested card</span>
 <div class="flexi-cards__card-content">
 <p>Nested card content</p>
 </div>
-<p class="flexi-cards__card-footnote">Nested card footnote</p>
+<span class="flexi-cards__card-footnote">Nested card footnote</span>
 </div>
 </div>
 </div>
-<p class="flexi-cards__card-footnote">Footnote 1</p>
+<span class="flexi-cards__card-footnote">Footnote 1</span>
 </div>
 </div>
 ````````````````````````````````

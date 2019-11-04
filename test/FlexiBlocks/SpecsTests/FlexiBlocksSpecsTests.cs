@@ -710,11 +710,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Expected Markup ---------------
             //     <div class="flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon">
             //     <h1 class="flexi-banner__title">Title</h1>
-            //     <p class="flexi-banner__blurb">Blurb</p>
+            //     <span class="flexi-banner__blurb">Blurb</span>
             //     </div>
 
             SpecTestHelper.AssertCompliance("+++ banner\nTitle\n+++\nBlurb\n+++",
-                "<div class=\"flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon\">\n<h1 class=\"flexi-banner__title\">Title</h1>\n<p class=\"flexi-banner__blurb\">Blurb</p>\n</div>",
+                "<div class=\"flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon\">\n<h1 class=\"flexi-banner__title\">Title</h1>\n<span class=\"flexi-banner__blurb\">Blurb</span>\n</div>",
                 extensions,
                 false);
         }
@@ -734,11 +734,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Expected Markup ---------------
             //     <div class="flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon">
             //     <h1 class="flexi-banner__title"><em>Title</em></h1>
-            //     <p class="flexi-banner__blurb"><strong>Blurb</strong></p>
+            //     <span class="flexi-banner__blurb"><strong>Blurb</strong></span>
             //     </div>
 
             SpecTestHelper.AssertCompliance("+++ banner\n*Title*\n+++\n**Blurb**\n+++",
-                "<div class=\"flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon\">\n<h1 class=\"flexi-banner__title\"><em>Title</em></h1>\n<p class=\"flexi-banner__blurb\"><strong>Blurb</strong></p>\n</div>",
+                "<div class=\"flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon\">\n<h1 class=\"flexi-banner__title\"><em>Title</em></h1>\n<span class=\"flexi-banner__blurb\"><strong>Blurb</strong></span>\n</div>",
                 extensions,
                 false);
         }
@@ -761,11 +761,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Expected Markup ---------------
             //     <div class="banner banner_no-logo-icon banner_no-background-icon">
             //     <h1 class="banner__title">Title</h1>
-            //     <p class="banner__blurb">Blurb</p>
+            //     <span class="banner__blurb">Blurb</span>
             //     </div>
 
             SpecTestHelper.AssertCompliance("o{ \"blockName\": \"banner\" }\n+++ banner\nTitle\n+++\nBlurb\n+++",
-                "<div class=\"banner banner_no-logo-icon banner_no-background-icon\">\n<h1 class=\"banner__title\">Title</h1>\n<p class=\"banner__blurb\">Blurb</p>\n</div>",
+                "<div class=\"banner banner_no-logo-icon banner_no-background-icon\">\n<h1 class=\"banner__title\">Title</h1>\n<span class=\"banner__blurb\">Blurb</span>\n</div>",
                 extensions,
                 false);
         }
@@ -789,11 +789,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     <div class="flexi-banner flexi-banner_has-logo-icon flexi-banner_no-background-icon">
             //     <svg class="flexi-banner__logo-icon"><use xlink:href="#logo-icon"/></svg>
             //     <h1 class="flexi-banner__title">Title</h1>
-            //     <p class="flexi-banner__blurb">Blurb</p>
+            //     <span class="flexi-banner__blurb">Blurb</span>
             //     </div>
 
             SpecTestHelper.AssertCompliance("o{ \"logoIcon\": \"<svg><use xlink:href=\\\"#logo-icon\\\"/></svg>\" }\n+++ banner\nTitle\n+++\nBlurb\n+++",
-                "<div class=\"flexi-banner flexi-banner_has-logo-icon flexi-banner_no-background-icon\">\n<svg class=\"flexi-banner__logo-icon\"><use xlink:href=\"#logo-icon\"/></svg>\n<h1 class=\"flexi-banner__title\">Title</h1>\n<p class=\"flexi-banner__blurb\">Blurb</p>\n</div>",
+                "<div class=\"flexi-banner flexi-banner_has-logo-icon flexi-banner_no-background-icon\">\n<svg class=\"flexi-banner__logo-icon\"><use xlink:href=\"#logo-icon\"/></svg>\n<h1 class=\"flexi-banner__title\">Title</h1>\n<span class=\"flexi-banner__blurb\">Blurb</span>\n</div>",
                 extensions,
                 false);
         }
@@ -817,11 +817,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     <div class="flexi-banner flexi-banner_no-logo-icon flexi-banner_has-background-icon">
             //     <svg class="flexi-banner__background-icon"><use xlink:href="#background-icon"/></svg>
             //     <h1 class="flexi-banner__title">Title</h1>
-            //     <p class="flexi-banner__blurb">Blurb</p>
+            //     <span class="flexi-banner__blurb">Blurb</span>
             //     </div>
 
             SpecTestHelper.AssertCompliance("o{ \"backgroundIcon\": \"<svg><use xlink:href=\\\"#background-icon\\\"/></svg>\" }\n+++ banner\nTitle\n+++\nBlurb\n+++",
-                "<div class=\"flexi-banner flexi-banner_no-logo-icon flexi-banner_has-background-icon\">\n<svg class=\"flexi-banner__background-icon\"><use xlink:href=\"#background-icon\"/></svg>\n<h1 class=\"flexi-banner__title\">Title</h1>\n<p class=\"flexi-banner__blurb\">Blurb</p>\n</div>",
+                "<div class=\"flexi-banner flexi-banner_no-logo-icon flexi-banner_has-background-icon\">\n<svg class=\"flexi-banner__background-icon\"><use xlink:href=\"#background-icon\"/></svg>\n<h1 class=\"flexi-banner__title\">Title</h1>\n<span class=\"flexi-banner__blurb\">Blurb</span>\n</div>",
                 extensions,
                 false);
         }
@@ -849,11 +849,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Expected Markup ---------------
             //     <div class="flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon my-custom-class" id="my-custom-id">
             //     <h1 class="flexi-banner__title">Title</h1>
-            //     <p class="flexi-banner__blurb">Blurb</p>
+            //     <span class="flexi-banner__blurb">Blurb</span>
             //     </div>
 
             SpecTestHelper.AssertCompliance("o{\n    \"attributes\": {\n        \"id\" : \"my-custom-id\",\n        \"class\" : \"my-custom-class\"\n    }\n}\n+++ banner\nTitle\n+++\nBlurb\n+++",
-                "<div class=\"flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon my-custom-class\" id=\"my-custom-id\">\n<h1 class=\"flexi-banner__title\">Title</h1>\n<p class=\"flexi-banner__blurb\">Blurb</p>\n</div>",
+                "<div class=\"flexi-banner flexi-banner_no-logo-icon flexi-banner_no-background-icon my-custom-class\" id=\"my-custom-id\">\n<h1 class=\"flexi-banner__title\">Title</h1>\n<span class=\"flexi-banner__blurb\">Blurb</span>\n</div>",
                 extensions,
                 false);
         }
@@ -887,11 +887,11 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     <svg class="flexi-banner__background-icon"><use xlink:href="#background-icon"/></svg>
             //     <svg class="flexi-banner__logo-icon"><use xlink:href="#logo-icon"/></svg>
             //     <h1 class="flexi-banner__title">Title</h1>
-            //     <p class="flexi-banner__blurb">Blurb</p>
+            //     <span class="flexi-banner__blurb">Blurb</span>
             //     </div>
 
             SpecTestHelper.AssertCompliance("+++ banner\nTitle\n+++\nBlurb\n+++",
-                "<div class=\"flexi-banner flexi-banner_has-logo-icon flexi-banner_has-background-icon block\">\n<svg class=\"flexi-banner__background-icon\"><use xlink:href=\"#background-icon\"/></svg>\n<svg class=\"flexi-banner__logo-icon\"><use xlink:href=\"#logo-icon\"/></svg>\n<h1 class=\"flexi-banner__title\">Title</h1>\n<p class=\"flexi-banner__blurb\">Blurb</p>\n</div>",
+                "<div class=\"flexi-banner flexi-banner_has-logo-icon flexi-banner_has-background-icon block\">\n<svg class=\"flexi-banner__background-icon\"><use xlink:href=\"#background-icon\"/></svg>\n<svg class=\"flexi-banner__logo-icon\"><use xlink:href=\"#logo-icon\"/></svg>\n<h1 class=\"flexi-banner__title\">Title</h1>\n<span class=\"flexi-banner__blurb\">Blurb</span>\n</div>",
                 extensions,
                 false,
                 "{\n    \"flexiBannerBlocks\": {\n        \"defaultBlockOptions\": {\n            \"logoIcon\": \"<svg><use xlink:href=\\\"#logo-icon\\\"/></svg>\",\n            \"backgroundIcon\": \"<svg><use xlink:href=\\\"#background-icon\\\"/></svg>\",\n            \"attributes\": {\n                \"class\": \"block\"\n            }\n        }\n    }\n}");
@@ -929,15 +929,15 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Expected Markup ---------------
             //     <div class="banner banner_no-logo-icon banner_no-background-icon">
             //     <h1 class="banner__title">Title</h1>
-            //     <p class="banner__blurb">Blurb</p>
+            //     <span class="banner__blurb">Blurb</span>
             //     </div>
             //     <div class="special-banner special-banner_no-logo-icon special-banner_no-background-icon">
             //     <h1 class="special-banner__title">Title</h1>
-            //     <p class="special-banner__blurb">Blurb</p>
+            //     <span class="special-banner__blurb">Blurb</span>
             //     </div>
 
             SpecTestHelper.AssertCompliance("+++ banner\nTitle\n+++\nBlurb\n+++\n\no{ \"blockName\": \"special-banner\" }\n+++ banner\nTitle\n+++\nBlurb\n+++",
-                "<div class=\"banner banner_no-logo-icon banner_no-background-icon\">\n<h1 class=\"banner__title\">Title</h1>\n<p class=\"banner__blurb\">Blurb</p>\n</div>\n<div class=\"special-banner special-banner_no-logo-icon special-banner_no-background-icon\">\n<h1 class=\"special-banner__title\">Title</h1>\n<p class=\"special-banner__blurb\">Blurb</p>\n</div>",
+                "<div class=\"banner banner_no-logo-icon banner_no-background-icon\">\n<h1 class=\"banner__title\">Title</h1>\n<span class=\"banner__blurb\">Blurb</span>\n</div>\n<div class=\"special-banner special-banner_no-logo-icon special-banner_no-background-icon\">\n<h1 class=\"special-banner__title\">Title</h1>\n<span class=\"special-banner__blurb\">Blurb</span>\n</div>",
                 extensions,
                 false,
                 "{\n    \"flexiBannerBlocks\": {\n        \"defaultBlockOptions\": {\n            \"blockName\": \"banner\"\n        }\n    }\n}");
@@ -973,23 +973,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Expected Markup ---------------
             //     <div class="flexi-cards flexi-cards_size_small">
             //     <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-            //     <p class="flexi-cards__card-title">Title 1</p>
+            //     <span class="flexi-cards__card-title">Title 1</span>
             //     <div class="flexi-cards__card-content">
             //     <p>Content 1</p>
             //     </div>
-            //     <p class="flexi-cards__card-footnote">Footnote 1</p>
+            //     <span class="flexi-cards__card-footnote">Footnote 1</span>
             //     </div>
             //     <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-            //     <p class="flexi-cards__card-title">Title 2</p>
+            //     <span class="flexi-cards__card-title">Title 2</span>
             //     <div class="flexi-cards__card-content">
             //     <p>Content 2</p>
             //     </div>
-            //     <p class="flexi-cards__card-footnote">Footnote 2</p>
+            //     <span class="flexi-cards__card-footnote">Footnote 2</span>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("[[[\n+++ card\nTitle 1\n+++\nContent 1\n+++\nFootnote 1\n+++\n\n+++ card\nTitle 2\n+++\nContent 2\n+++\nFootnote 2\n+++\n[[[",
-                "<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<p class=\"flexi-cards__card-title\">Title 1</p>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<p class=\"flexi-cards__card-footnote\">Footnote 1</p>\n</div>\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<p class=\"flexi-cards__card-title\">Title 2</p>\n<div class=\"flexi-cards__card-content\">\n<p>Content 2</p>\n</div>\n<p class=\"flexi-cards__card-footnote\">Footnote 2</p>\n</div>\n</div>",
+                "<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<span class=\"flexi-cards__card-title\">Title 1</span>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<span class=\"flexi-cards__card-footnote\">Footnote 1</span>\n</div>\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<span class=\"flexi-cards__card-title\">Title 2</span>\n<div class=\"flexi-cards__card-content\">\n<p>Content 2</p>\n</div>\n<span class=\"flexi-cards__card-footnote\">Footnote 2</span>\n</div>\n</div>",
                 extensions,
                 false);
         }
@@ -1017,7 +1017,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Expected Markup ---------------
             //     <div class="flexi-cards flexi-cards_size_small">
             //     <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-            //     <p class="flexi-cards__card-title"><em>Title 1</em></p>
+            //     <span class="flexi-cards__card-title"><em>Title 1</em></span>
             //     <div class="flexi-cards__card-content">
             //     <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
             //     <header class="flexi-code__header">
@@ -1029,12 +1029,12 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     </code></pre>
             //     </div>
             //     </div>
-            //     <p class="flexi-cards__card-footnote"><strong>Footnote 1</strong></p>
+            //     <span class="flexi-cards__card-footnote"><strong>Footnote 1</strong></span>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("[[[\n+++ card\n*Title 1*\n+++\n```\nContent 1\n```\n+++\n**Footnote 1**\n+++\n[[[",
-                "<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<p class=\"flexi-cards__card-title\"><em>Title 1</em></p>\n<div class=\"flexi-cards__card-content\">\n<div class=\"flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases\">\n<header class=\"flexi-code__header\">\n<button class=\"flexi-code__copy-button\" title=\"Copy code\" aria-label=\"Copy code\">\n<svg class=\"flexi-code__copy-icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18px\" height=\"18px\" viewBox=\"0 0 18 18\"><path fill=\"none\" d=\"M0,0h18v18H0V0z\"/><path d=\"M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z\"/></svg>\n</button>\n</header>\n<pre class=\"flexi-code__pre\"><code class=\"flexi-code__code\">Content 1\n</code></pre>\n</div>\n</div>\n<p class=\"flexi-cards__card-footnote\"><strong>Footnote 1</strong></p>\n</div>\n</div>",
+                "<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<span class=\"flexi-cards__card-title\"><em>Title 1</em></span>\n<div class=\"flexi-cards__card-content\">\n<div class=\"flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases\">\n<header class=\"flexi-code__header\">\n<button class=\"flexi-code__copy-button\" title=\"Copy code\" aria-label=\"Copy code\">\n<svg class=\"flexi-code__copy-icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18px\" height=\"18px\" viewBox=\"0 0 18 18\"><path fill=\"none\" d=\"M0,0h18v18H0V0z\"/><path d=\"M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z\"/></svg>\n</button>\n</header>\n<pre class=\"flexi-code__pre\"><code class=\"flexi-code__code\">Content 1\n</code></pre>\n</div>\n</div>\n<span class=\"flexi-cards__card-footnote\"><strong>Footnote 1</strong></span>\n</div>\n</div>",
                 extensions,
                 false);
         }
@@ -1061,16 +1061,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Expected Markup ---------------
             //     <div class="cards cards_size_small">
             //     <div class="cards__card cards__card_not-link cards__card_no-background-icon">
-            //     <p class="cards__card-title">Title 1</p>
+            //     <span class="cards__card-title">Title 1</span>
             //     <div class="cards__card-content">
             //     <p>Content 1</p>
             //     </div>
-            //     <p class="cards__card-footnote">Footnote 1</p>
+            //     <span class="cards__card-footnote">Footnote 1</span>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("o{ \"blockName\": \"cards\" }\n[[[\n+++ card\nTitle 1\n+++\nContent 1\n+++\nFootnote 1\n+++\n[[[",
-                "<div class=\"cards cards_size_small\">\n<div class=\"cards__card cards__card_not-link cards__card_no-background-icon\">\n<p class=\"cards__card-title\">Title 1</p>\n<div class=\"cards__card-content\">\n<p>Content 1</p>\n</div>\n<p class=\"cards__card-footnote\">Footnote 1</p>\n</div>\n</div>",
+                "<div class=\"cards cards_size_small\">\n<div class=\"cards__card cards__card_not-link cards__card_no-background-icon\">\n<span class=\"cards__card-title\">Title 1</span>\n<div class=\"cards__card-content\">\n<p>Content 1</p>\n</div>\n<span class=\"cards__card-footnote\">Footnote 1</span>\n</div>\n</div>",
                 extensions,
                 false);
         }
@@ -1097,16 +1097,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Expected Markup ---------------
             //     <div class="flexi-cards flexi-cards_size_medium">
             //     <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-            //     <p class="flexi-cards__card-title">Title 1</p>
+            //     <span class="flexi-cards__card-title">Title 1</span>
             //     <div class="flexi-cards__card-content">
             //     <p>Content 1</p>
             //     </div>
-            //     <p class="flexi-cards__card-footnote">Footnote 1</p>
+            //     <span class="flexi-cards__card-footnote">Footnote 1</span>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("o{ \"cardSize\": \"medium\" }\n[[[\n+++ card\nTitle 1\n+++\nContent 1\n+++\nFootnote 1\n+++\n[[[",
-                "<div class=\"flexi-cards flexi-cards_size_medium\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<p class=\"flexi-cards__card-title\">Title 1</p>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<p class=\"flexi-cards__card-footnote\">Footnote 1</p>\n</div>\n</div>",
+                "<div class=\"flexi-cards flexi-cards_size_medium\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<span class=\"flexi-cards__card-title\">Title 1</span>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<span class=\"flexi-cards__card-footnote\">Footnote 1</span>\n</div>\n</div>",
                 extensions,
                 false);
         }
@@ -1138,16 +1138,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     <div class="flexi-cards flexi-cards_size_small">
             //     <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon">
             //     <svg class="flexi-cards__card-background-icon"><use xlink:href="#background-icon"/></svg>
-            //     <p class="flexi-cards__card-title">Title 1</p>
+            //     <span class="flexi-cards__card-title">Title 1</span>
             //     <div class="flexi-cards__card-content">
             //     <p>Content 1</p>
             //     </div>
-            //     <p class="flexi-cards__card-footnote">Footnote 1</p>
+            //     <span class="flexi-cards__card-footnote">Footnote 1</span>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("o{ \n    \"defaultCardOptions\": {\n        \"backgroundIcon\": \"<svg><use xlink:href=\\\"#background-icon\\\"/></svg>\"\n    }\n}\n[[[\n+++ card\nTitle 1\n+++\nContent 1\n+++\nFootnote 1\n+++\n[[[",
-                "<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon\">\n<svg class=\"flexi-cards__card-background-icon\"><use xlink:href=\"#background-icon\"/></svg>\n<p class=\"flexi-cards__card-title\">Title 1</p>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<p class=\"flexi-cards__card-footnote\">Footnote 1</p>\n</div>\n</div>",
+                "<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon\">\n<svg class=\"flexi-cards__card-background-icon\"><use xlink:href=\"#background-icon\"/></svg>\n<span class=\"flexi-cards__card-title\">Title 1</span>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<span class=\"flexi-cards__card-footnote\">Footnote 1</span>\n</div>\n</div>",
                 extensions,
                 false);
         }
@@ -1188,24 +1188,24 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     <div class="flexi-cards flexi-cards_size_small">
             //     <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon">
             //     <svg class="flexi-cards__card-background-icon"><use xlink:href="#background-icon"/></svg>
-            //     <p class="flexi-cards__card-title">Title 1</p>
+            //     <span class="flexi-cards__card-title">Title 1</span>
             //     <div class="flexi-cards__card-content">
             //     <p>Content 1</p>
             //     </div>
-            //     <p class="flexi-cards__card-footnote">Footnote 1</p>
+            //     <span class="flexi-cards__card-footnote">Footnote 1</span>
             //     </div>
             //     <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon">
             //     <svg class="flexi-cards__card-background-icon"><use xlink:href="#alternative-icon"/></svg>
-            //     <p class="flexi-cards__card-title">Title 2</p>
+            //     <span class="flexi-cards__card-title">Title 2</span>
             //     <div class="flexi-cards__card-content">
             //     <p>Content 2</p>
             //     </div>
-            //     <p class="flexi-cards__card-footnote">Footnote 2</p>
+            //     <span class="flexi-cards__card-footnote">Footnote 2</span>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("o{ \n    \"defaultCardOptions\": {\n        \"backgroundIcon\": \"<svg><use xlink:href=\\\"#background-icon\\\"/></svg>\"\n    }\n}\n[[[\n+++ card\nTitle 1\n+++\nContent 1\n+++\nFootnote 1\n+++\n\no{\"backgroundIcon\": \"<svg><use xlink:href=\\\"#alternative-icon\\\"/></svg>\"}\n+++ card\nTitle 2\n+++\nContent 2\n+++\nFootnote 2\n+++\n[[[",
-                "<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon\">\n<svg class=\"flexi-cards__card-background-icon\"><use xlink:href=\"#background-icon\"/></svg>\n<p class=\"flexi-cards__card-title\">Title 1</p>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<p class=\"flexi-cards__card-footnote\">Footnote 1</p>\n</div>\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon\">\n<svg class=\"flexi-cards__card-background-icon\"><use xlink:href=\"#alternative-icon\"/></svg>\n<p class=\"flexi-cards__card-title\">Title 2</p>\n<div class=\"flexi-cards__card-content\">\n<p>Content 2</p>\n</div>\n<p class=\"flexi-cards__card-footnote\">Footnote 2</p>\n</div>\n</div>",
+                "<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon\">\n<svg class=\"flexi-cards__card-background-icon\"><use xlink:href=\"#background-icon\"/></svg>\n<span class=\"flexi-cards__card-title\">Title 1</span>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<span class=\"flexi-cards__card-footnote\">Footnote 1</span>\n</div>\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon\">\n<svg class=\"flexi-cards__card-background-icon\"><use xlink:href=\"#alternative-icon\"/></svg>\n<span class=\"flexi-cards__card-title\">Title 2</span>\n<div class=\"flexi-cards__card-content\">\n<p>Content 2</p>\n</div>\n<span class=\"flexi-cards__card-footnote\">Footnote 2</span>\n</div>\n</div>",
                 extensions,
                 false);
         }
@@ -1237,16 +1237,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Expected Markup ---------------
             //     <div class="flexi-cards flexi-cards_size_small my-custom-class" id="my-custom-id">
             //     <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-            //     <p class="flexi-cards__card-title">Title 1</p>
+            //     <span class="flexi-cards__card-title">Title 1</span>
             //     <div class="flexi-cards__card-content">
             //     <p>Content 1</p>
             //     </div>
-            //     <p class="flexi-cards__card-footnote">Footnote 1</p>
+            //     <span class="flexi-cards__card-footnote">Footnote 1</span>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("o{\n    \"attributes\": {\n        \"id\" : \"my-custom-id\",\n        \"class\" : \"my-custom-class\"\n    }\n}\n[[[\n+++ card\nTitle 1\n+++\nContent 1\n+++\nFootnote 1\n+++\n[[[",
-                "<div class=\"flexi-cards flexi-cards_size_small my-custom-class\" id=\"my-custom-id\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<p class=\"flexi-cards__card-title\">Title 1</p>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<p class=\"flexi-cards__card-footnote\">Footnote 1</p>\n</div>\n</div>",
+                "<div class=\"flexi-cards flexi-cards_size_small my-custom-class\" id=\"my-custom-id\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<span class=\"flexi-cards__card-title\">Title 1</span>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<span class=\"flexi-cards__card-footnote\">Footnote 1</span>\n</div>\n</div>",
                 extensions,
                 false);
         }
@@ -1281,23 +1281,23 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Expected Markup ---------------
             //     <div class="flexi-cards flexi-cards_size_small">
             //     <a class="flexi-cards__card flexi-cards__card_is-link flexi-cards__card_no-background-icon" href="/url?a=1&amp;b=2">
-            //     <p class="flexi-cards__card-title">Title 1</p>
+            //     <span class="flexi-cards__card-title">Title 1</span>
             //     <div class="flexi-cards__card-content">
             //     <p>Content 1</p>
             //     </div>
-            //     <p class="flexi-cards__card-footnote">Footnote 1</p>
+            //     <span class="flexi-cards__card-footnote">Footnote 1</span>
             //     </a>
             //     <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-            //     <p class="flexi-cards__card-title">Title 2</p>
+            //     <span class="flexi-cards__card-title">Title 2</span>
             //     <div class="flexi-cards__card-content">
             //     <p>Content 2</p>
             //     </div>
-            //     <p class="flexi-cards__card-footnote">Footnote 2</p>
+            //     <span class="flexi-cards__card-footnote">Footnote 2</span>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("[[[\no{\"url\": \"/url?a=1&b=2\"}\n+++ card\nTitle 1\n+++\nContent 1\n+++\nFootnote 1\n+++\n\n+++ card\nTitle 2\n+++\nContent 2\n+++\nFootnote 2\n+++\n[[[",
-                "<div class=\"flexi-cards flexi-cards_size_small\">\n<a class=\"flexi-cards__card flexi-cards__card_is-link flexi-cards__card_no-background-icon\" href=\"/url?a=1&amp;b=2\">\n<p class=\"flexi-cards__card-title\">Title 1</p>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<p class=\"flexi-cards__card-footnote\">Footnote 1</p>\n</a>\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<p class=\"flexi-cards__card-title\">Title 2</p>\n<div class=\"flexi-cards__card-content\">\n<p>Content 2</p>\n</div>\n<p class=\"flexi-cards__card-footnote\">Footnote 2</p>\n</div>\n</div>",
+                "<div class=\"flexi-cards flexi-cards_size_small\">\n<a class=\"flexi-cards__card flexi-cards__card_is-link flexi-cards__card_no-background-icon\" href=\"/url?a=1&amp;b=2\">\n<span class=\"flexi-cards__card-title\">Title 1</span>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<span class=\"flexi-cards__card-footnote\">Footnote 1</span>\n</a>\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<span class=\"flexi-cards__card-title\">Title 2</span>\n<div class=\"flexi-cards__card-content\">\n<p>Content 2</p>\n</div>\n<span class=\"flexi-cards__card-footnote\">Footnote 2</span>\n</div>\n</div>",
                 extensions,
                 false);
         }
@@ -1325,16 +1325,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     <div class="flexi-cards flexi-cards_size_small">
             //     <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon">
             //     <svg class="flexi-cards__card-background-icon"><use xlink:href="#background-icon"/></svg>
-            //     <p class="flexi-cards__card-title">Title 1</p>
+            //     <span class="flexi-cards__card-title">Title 1</span>
             //     <div class="flexi-cards__card-content">
             //     <p>Content 1</p>
             //     </div>
-            //     <p class="flexi-cards__card-footnote">Footnote 1</p>
+            //     <span class="flexi-cards__card-footnote">Footnote 1</span>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("[[[\no{\"backgroundIcon\": \"<svg><use xlink:href=\\\"#background-icon\\\"/></svg>\"}\n+++ card\nTitle 1\n+++\nContent 1\n+++\nFootnote 1\n+++\n[[[",
-                "<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon\">\n<svg class=\"flexi-cards__card-background-icon\"><use xlink:href=\"#background-icon\"/></svg>\n<p class=\"flexi-cards__card-title\">Title 1</p>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<p class=\"flexi-cards__card-footnote\">Footnote 1</p>\n</div>\n</div>",
+                "<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon\">\n<svg class=\"flexi-cards__card-background-icon\"><use xlink:href=\"#background-icon\"/></svg>\n<span class=\"flexi-cards__card-title\">Title 1</span>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<span class=\"flexi-cards__card-footnote\">Footnote 1</span>\n</div>\n</div>",
                 extensions,
                 false);
         }
@@ -1366,16 +1366,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Expected Markup ---------------
             //     <div class="flexi-cards flexi-cards_size_small">
             //     <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon my-custom-class" id="my-custom-id">
-            //     <p class="flexi-cards__card-title">Title 1</p>
+            //     <span class="flexi-cards__card-title">Title 1</span>
             //     <div class="flexi-cards__card-content">
             //     <p>Content 1</p>
             //     </div>
-            //     <p class="flexi-cards__card-footnote">Footnote 1</p>
+            //     <span class="flexi-cards__card-footnote">Footnote 1</span>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("[[[\no{\n    \"attributes\": {\n        \"id\" : \"my-custom-id\",\n        \"class\" : \"my-custom-class\"\n    }\n}\n+++ card\nTitle 1\n+++\nContent 1\n+++\nFootnote 1\n+++\n[[[",
-                "<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon my-custom-class\" id=\"my-custom-id\">\n<p class=\"flexi-cards__card-title\">Title 1</p>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<p class=\"flexi-cards__card-footnote\">Footnote 1</p>\n</div>\n</div>",
+                "<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon my-custom-class\" id=\"my-custom-id\">\n<span class=\"flexi-cards__card-title\">Title 1</span>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<span class=\"flexi-cards__card-footnote\">Footnote 1</span>\n</div>\n</div>",
                 extensions,
                 false);
         }
@@ -1414,16 +1414,16 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     <div class="flexi-cards flexi-cards_size_medium block">
             //     <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon">
             //     <svg class="flexi-cards__card-background-icon"><use xlink:href="#background-icon"/></svg>
-            //     <p class="flexi-cards__card-title">Title 1</p>
+            //     <span class="flexi-cards__card-title">Title 1</span>
             //     <div class="flexi-cards__card-content">
             //     <p>Content 1</p>
             //     </div>
-            //     <p class="flexi-cards__card-footnote">Footnote 1</p>
+            //     <span class="flexi-cards__card-footnote">Footnote 1</span>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("[[[\n+++ card\nTitle 1\n+++\nContent 1\n+++\nFootnote 1\n+++\n[[[",
-                "<div class=\"flexi-cards flexi-cards_size_medium block\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon\">\n<svg class=\"flexi-cards__card-background-icon\"><use xlink:href=\"#background-icon\"/></svg>\n<p class=\"flexi-cards__card-title\">Title 1</p>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<p class=\"flexi-cards__card-footnote\">Footnote 1</p>\n</div>\n</div>",
+                "<div class=\"flexi-cards flexi-cards_size_medium block\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_has-background-icon\">\n<svg class=\"flexi-cards__card-background-icon\"><use xlink:href=\"#background-icon\"/></svg>\n<span class=\"flexi-cards__card-title\">Title 1</span>\n<div class=\"flexi-cards__card-content\">\n<p>Content 1</p>\n</div>\n<span class=\"flexi-cards__card-footnote\">Footnote 1</span>\n</div>\n</div>",
                 extensions,
                 false,
                 "{\n    \"flexiCardsBlocks\": {\n        \"defaultBlockOptions\": {\n            \"cardSize\": \"medium\",\n            \"defaultCardOptions\": {\n                \"backgroundIcon\": \"<svg><use xlink:href=\\\"#background-icon\\\"/></svg>\"\n            },\n            \"attributes\": {\n                \"class\": \"block\"\n            }\n        }\n    }\n}");
@@ -1474,26 +1474,26 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     <div class="cards cards_size_small">
             //     <div class="cards__card cards__card_not-link cards__card_has-background-icon">
             //     <svg class="cards__card-background-icon"><use xlink:href="#alternative-icon"/></svg>
-            //     <p class="cards__card-title">Title 1</p>
+            //     <span class="cards__card-title">Title 1</span>
             //     <div class="cards__card-content">
             //     <p>Content 1</p>
             //     </div>
-            //     <p class="cards__card-footnote">Footnote 1</p>
+            //     <span class="cards__card-footnote">Footnote 1</span>
             //     </div>
             //     </div>
             //     <div class="special-cards special-cards_size_small">
             //     <div class="special-cards__card special-cards__card_not-link special-cards__card_has-background-icon">
             //     <svg class="special-cards__card-background-icon"><use xlink:href="#background-icon"/></svg>
-            //     <p class="special-cards__card-title">Title 2</p>
+            //     <span class="special-cards__card-title">Title 2</span>
             //     <div class="special-cards__card-content">
             //     <p>Content 2</p>
             //     </div>
-            //     <p class="special-cards__card-footnote">Footnote 2</p>
+            //     <span class="special-cards__card-footnote">Footnote 2</span>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("[[[\no{ \"backgroundIcon\": \"<svg><use xlink:href=\\\"#alternative-icon\\\"/></svg>\" }\n+++ card\nTitle 1\n+++\nContent 1\n+++\nFootnote 1\n+++\n[[[\n\no{ \"blockName\": \"special-cards\" }\n[[[\n+++ card\nTitle 2\n+++\nContent 2\n+++\nFootnote 2\n+++\n[[[",
-                "<div class=\"cards cards_size_small\">\n<div class=\"cards__card cards__card_not-link cards__card_has-background-icon\">\n<svg class=\"cards__card-background-icon\"><use xlink:href=\"#alternative-icon\"/></svg>\n<p class=\"cards__card-title\">Title 1</p>\n<div class=\"cards__card-content\">\n<p>Content 1</p>\n</div>\n<p class=\"cards__card-footnote\">Footnote 1</p>\n</div>\n</div>\n<div class=\"special-cards special-cards_size_small\">\n<div class=\"special-cards__card special-cards__card_not-link special-cards__card_has-background-icon\">\n<svg class=\"special-cards__card-background-icon\"><use xlink:href=\"#background-icon\"/></svg>\n<p class=\"special-cards__card-title\">Title 2</p>\n<div class=\"special-cards__card-content\">\n<p>Content 2</p>\n</div>\n<p class=\"special-cards__card-footnote\">Footnote 2</p>\n</div>\n</div>",
+                "<div class=\"cards cards_size_small\">\n<div class=\"cards__card cards__card_not-link cards__card_has-background-icon\">\n<svg class=\"cards__card-background-icon\"><use xlink:href=\"#alternative-icon\"/></svg>\n<span class=\"cards__card-title\">Title 1</span>\n<div class=\"cards__card-content\">\n<p>Content 1</p>\n</div>\n<span class=\"cards__card-footnote\">Footnote 1</span>\n</div>\n</div>\n<div class=\"special-cards special-cards_size_small\">\n<div class=\"special-cards__card special-cards__card_not-link special-cards__card_has-background-icon\">\n<svg class=\"special-cards__card-background-icon\"><use xlink:href=\"#background-icon\"/></svg>\n<span class=\"special-cards__card-title\">Title 2</span>\n<div class=\"special-cards__card-content\">\n<p>Content 2</p>\n</div>\n<span class=\"special-cards__card-footnote\">Footnote 2</span>\n</div>\n</div>",
                 extensions,
                 false,
                 "{\n    \"flexiCardsBlocks\": {\n        \"defaultBlockOptions\": {\n            \"blockName\": \"cards\",\n            \"defaultCardOptions\": {\n                \"backgroundIcon\": \"<svg><use xlink:href=\\\"#background-icon\\\"/></svg>\"\n            }\n        }\n    }\n}");
@@ -1526,24 +1526,24 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.Specs
             //     --------------- Expected Markup ---------------
             //     <div class="flexi-cards flexi-cards_size_small">
             //     <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-            //     <p class="flexi-cards__card-title">Title 1</p>
+            //     <span class="flexi-cards__card-title">Title 1</span>
             //     <div class="flexi-cards__card-content">
             //     <div class="flexi-cards flexi-cards_size_small">
             //     <div class="flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon">
-            //     <p class="flexi-cards__card-title">Nested card</p>
+            //     <span class="flexi-cards__card-title">Nested card</span>
             //     <div class="flexi-cards__card-content">
             //     <p>Nested card content</p>
             //     </div>
-            //     <p class="flexi-cards__card-footnote">Nested card footnote</p>
+            //     <span class="flexi-cards__card-footnote">Nested card footnote</span>
             //     </div>
             //     </div>
             //     </div>
-            //     <p class="flexi-cards__card-footnote">Footnote 1</p>
+            //     <span class="flexi-cards__card-footnote">Footnote 1</span>
             //     </div>
             //     </div>
 
             SpecTestHelper.AssertCompliance("[[[\n+++ card\nTitle 1\n+++\n[[[[\n+++ card\nNested card\n+++\nNested card content\n+++\nNested card footnote\n+++\n[[[[\n+++\nFootnote 1\n+++\n[[[",
-                "<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<p class=\"flexi-cards__card-title\">Title 1</p>\n<div class=\"flexi-cards__card-content\">\n<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<p class=\"flexi-cards__card-title\">Nested card</p>\n<div class=\"flexi-cards__card-content\">\n<p>Nested card content</p>\n</div>\n<p class=\"flexi-cards__card-footnote\">Nested card footnote</p>\n</div>\n</div>\n</div>\n<p class=\"flexi-cards__card-footnote\">Footnote 1</p>\n</div>\n</div>",
+                "<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<span class=\"flexi-cards__card-title\">Title 1</span>\n<div class=\"flexi-cards__card-content\">\n<div class=\"flexi-cards flexi-cards_size_small\">\n<div class=\"flexi-cards__card flexi-cards__card_not-link flexi-cards__card_no-background-icon\">\n<span class=\"flexi-cards__card-title\">Nested card</span>\n<div class=\"flexi-cards__card-content\">\n<p>Nested card content</p>\n</div>\n<span class=\"flexi-cards__card-footnote\">Nested card footnote</span>\n</div>\n</div>\n</div>\n<span class=\"flexi-cards__card-footnote\">Footnote 1</span>\n</div>\n</div>",
                 extensions,
                 false);
         }
