@@ -58,7 +58,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks
 
             // Blurb
             htmlRenderer.
-                WriteElementLine("span", blockName, "blurb", block[1] as LeafBlock).
+                WriteElementLine("p", blockName, "blurb", block[1] as LeafBlock).
                 WriteEndTagLine("div");
         }
     }

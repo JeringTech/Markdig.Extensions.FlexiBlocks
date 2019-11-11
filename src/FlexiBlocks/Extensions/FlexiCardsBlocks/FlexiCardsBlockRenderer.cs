@@ -87,7 +87,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks
 
             // Title
             htmlRenderer.
-                WriteElementLine("span", blockName, "card-title", cardBlock[0] as LeafBlock);
+                WriteElementLine("p", blockName, "card-title", cardBlock[0] as LeafBlock);
 
             // Content
             htmlRenderer.
@@ -95,7 +95,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks
 
             // Footnote
             htmlRenderer.
-                WriteElementLine("span", blockName, "card-footnote", cardBlock[2] as LeafBlock).
+                WriteElementLine("p", blockName, "card-footnote", cardBlock[2] as LeafBlock).
                 WriteEndTagLine(cardTagName);
         }
     }
