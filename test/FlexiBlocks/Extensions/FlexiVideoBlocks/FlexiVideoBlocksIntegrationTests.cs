@@ -48,7 +48,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""flexi-video__container"" tabindex=""-1"" style=""width:{expectedWidth}px"">
 <div class=""flexi-video__video-outer-container"" style=""width:{expectedWidth}px"">
 <div class=""flexi-video__video-inner-container"" style=""padding-bottom:{480 / expectedWidth * 100}%"">
-<video class=""flexi-video__video"" preload=""none"" poster=""{expectedPoster}"" muted playsInline disablePictureInPicture loop>
+<video class=""flexi-video__video"" preload=""auto"" poster=""{expectedPoster}"" muted playsInline disablePictureInPicture loop>
 <source class=""flexi-video__source"" data-src=""/url/exampleVideo.mp4"" type=""video/mp4"">
 </video>
 </div>
@@ -119,7 +119,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""flexi-video__container"" tabindex=""-1"" style=""width:{dummyWidth}px"">
 <div class=""flexi-video__video-outer-container"" style=""width:{dummyWidth}px"">
 <div class=""flexi-video__video-inner-container"" style=""padding-bottom:{dummyHeight / (double)dummyWidth * 100}%"">
-<video class=""flexi-video__video"" preload=""none"" poster=""{dummyPoster}"" muted playsInline disablePictureInPicture loop>
+<video class=""flexi-video__video"" preload=""auto"" poster=""{dummyPoster}"" muted playsInline disablePictureInPicture loop>
 <source class=""flexi-video__source"" data-src=""{dummySrc}"" type=""video/mp4"">
 </video>
 </div>
@@ -183,7 +183,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""flexi-video__container"" tabindex=""-1"">
 <div class=""flexi-video__video-outer-container"">
 <div class=""flexi-video__video-inner-container"">
-<video class=""flexi-video__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""flexi-video__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""flexi-video__source"" data-src=""{dummySrc}"" type=""video/mp4"">
 </video>
 </div>

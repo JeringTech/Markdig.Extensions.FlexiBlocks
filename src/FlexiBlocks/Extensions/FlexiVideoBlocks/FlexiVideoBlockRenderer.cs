@@ -100,7 +100,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiVideoBlocks
                 Write("<video class=\"").
                 WriteElementClass(blockName, "video").
                 Write('"').
-                WriteAttribute("preload", "none").
+                WriteAttribute("preload", "auto"). // If this is none, video never loads in edge, even if we set preload to auto before calling VideoElement.load()
                 WriteAttribute(hasPoster, "poster", poster). // Above the fold video blocks should have posters
                 Write(" muted playsInline disablePictureInPicture loop").
                 // WriteAttribute(hasWidth, "width", width). // Needed for https://github.com/WICG/intrinsicsize-attribute/issues/16

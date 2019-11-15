@@ -74,7 +74,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
@@ -110,7 +110,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""{dummyBlockName}__container"" tabindex=""-1"">
 <div class=""{dummyBlockName}__video-outer-container"">
 <div class=""{dummyBlockName}__video-inner-container"">
-<video class=""{dummyBlockName}__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""{dummyBlockName}__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""{dummyBlockName}__source"" data-src="""">
 </video>
 </div>
@@ -144,7 +144,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"" style=""width:{dummyWidth}px"">
 <div class=""__video-outer-container"" style=""width:{dummyWidth}px"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
@@ -182,7 +182,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"" style=""padding-bottom:{dummyAspectRatio}%"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
@@ -220,7 +220,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" poster=""{dummyPoster}"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" poster=""{dummyPoster}"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
@@ -261,7 +261,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src=""{dummySrc}"">
 </video>
 </div>
@@ -295,7 +295,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""" type=""{dummyType}"">
 </video>
 </div>
@@ -336,7 +336,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
@@ -378,7 +378,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
@@ -420,7 +420,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
@@ -458,7 +458,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
@@ -500,7 +500,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
@@ -542,7 +542,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
@@ -584,7 +584,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
@@ -626,7 +626,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
@@ -660,7 +660,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>

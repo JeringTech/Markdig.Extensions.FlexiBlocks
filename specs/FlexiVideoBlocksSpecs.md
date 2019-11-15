@@ -26,7 +26,7 @@ string expectedHtml = @"<div class=""flexi-video flexi-video_no-poster flexi-vid
 <div class=""flexi-video__container"" tabindex=""-1"">
 <div class=""flexi-video__video-outer-container"">
 <div class=""flexi-video__video-inner-container"">
-<video class=""flexi-video__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""flexi-video__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""flexi-video__source"" data-src=""/file.mp4"" type=""video/mp4"">
 </video>
 </div>
@@ -80,7 +80,7 @@ v{
 <div class="flexi-video__container" tabindex="-1">
 <div class="flexi-video__video-outer-container">
 <div class="flexi-video__video-inner-container">
-<video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+<video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
 <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
 </video>
 </div>
@@ -146,7 +146,7 @@ Options for a FlexiVideoBlock.
   <div class="video__container" tabindex="-1">
   <div class="video__video-outer-container">
   <div class="video__video-inner-container">
-  <video class="video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -205,7 +205,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -265,7 +265,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="custom/type">
   </video>
   </div>
@@ -327,7 +327,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1" style="width:123px">
   <div class="flexi-video__video-outer-container" style="width:123px">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -390,7 +390,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1" style="width:123px">
   <div class="flexi-video__video-outer-container" style="width:123px">
   <div class="flexi-video__video-inner-container" style="padding-bottom:260.975609756098%">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -441,7 +441,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -501,7 +501,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -551,7 +551,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -622,7 +622,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" poster="/file_poster.png" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" poster="/file_poster.png" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -679,7 +679,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -723,7 +723,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -773,7 +773,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -823,7 +823,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -879,7 +879,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -929,7 +929,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -985,7 +985,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -1035,7 +1035,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -1091,7 +1091,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -1141,7 +1141,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -1197,7 +1197,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -1247,7 +1247,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -1317,7 +1317,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -1392,7 +1392,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -1454,7 +1454,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="video__container" tabindex="-1">
   <div class="video__video-outer-container">
   <div class="video__video-inner-container">
-  <video class="video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -1495,7 +1495,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="special-video__container" tabindex="-1">
   <div class="special-video__video-outer-container">
   <div class="special-video__video-inner-container">
-  <video class="special-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="special-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="special-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -1570,7 +1570,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.3gp" type="video/3gpp">
   </video>
   </div>
@@ -1611,7 +1611,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mov" type="video/quicktime">
   </video>
   </div>
@@ -1668,7 +1668,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
@@ -1709,7 +1709,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.webm" type="video/webm">
   </video>
   </div>
@@ -1750,7 +1750,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.ogg" type="video/ogg">
   </video>
   </div>
