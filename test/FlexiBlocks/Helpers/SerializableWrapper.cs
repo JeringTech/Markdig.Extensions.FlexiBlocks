@@ -11,7 +11,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         // Required by xUnit
         public SerializableWrapper()
         {
-
         }
 
         public SerializableWrapper(T target)

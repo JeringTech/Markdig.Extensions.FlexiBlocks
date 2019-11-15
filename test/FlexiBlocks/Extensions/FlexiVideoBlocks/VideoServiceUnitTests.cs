@@ -28,7 +28,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
             mockTestSubject.CallBase = true;
             mockTestSubject.Setup(t => t.RunFfmpeg("ffprobe", string.Format(VideoService.GET_METADATA_ARGUMENTS_FORMAT, dummyPath), 1000)).Returns(dummyMetadata);
 
-
             // Act and assert
             InvalidOperationException result = Assert.Throws<InvalidOperationException>(() => mockTestSubject.Object.GetVideoDimensionsAndDuration(dummyPath));
             _mockRepository.VerifyAll();
