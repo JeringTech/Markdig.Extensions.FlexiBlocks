@@ -1,4 +1,4 @@
-﻿---
+---
 blockOptions: "../src/FlexiBlocks/Extensions/FlexiCardsBlocks/FlexiCardsBlockOptions.cs"
 utilityTypes: ["../src/FlexiBlocks/Extensions/FlexiCardsBlocks/FlexiCardBlockOptions.cs"]
 extensionOptions: "../src/FlexiBlocks/Extensions/FlexiCardsBlocks/FlexiCardsBlocksExtensionOptions.cs"

@@ -1,4 +1,4 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     // Shared markup
     internal static class CustomMarkup

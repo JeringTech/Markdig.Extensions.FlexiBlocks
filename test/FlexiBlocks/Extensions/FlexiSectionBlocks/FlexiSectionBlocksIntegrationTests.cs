@@ -1,4 +1,4 @@
-﻿using Markdig;
+using Markdig;
 using Xunit;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiSectionBlocks

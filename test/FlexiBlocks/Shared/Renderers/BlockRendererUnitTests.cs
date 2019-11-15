@@ -1,4 +1,4 @@
-﻿using Markdig.Renderers;
+using Markdig.Renderers;
 using Markdig.Syntax;
 using Moq;
 using Moq.Protected;

@@ -1,4 +1,4 @@
-﻿using Markdig;
+using Markdig;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;

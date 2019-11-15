@@ -1,4 +1,4 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
     /// <summary>
     /// <para>The default implementation of <see cref="IFlexiCodeBlocksExtensionOptions"/>.</para>

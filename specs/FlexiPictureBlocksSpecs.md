@@ -1,4 +1,4 @@
-﻿---
+---
 blockOptions: "../src/FlexiBlocks/Extensions/FlexiPictureBlocks/FlexiPictureBlockOptions.cs"
 extensionOptions: "../src/FlexiBlocks/Extensions/FlexiPictureBlocks/FlexiPictureBlocksExtensionOptions.cs"
 requiresOptionsExtension: false

@@ -1,4 +1,4 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
 {
     /// <summary>
     /// <a href="https://html.spec.whatwg.org/multipage/dom.html#sectioning-content">Sectioning content</a> elements.

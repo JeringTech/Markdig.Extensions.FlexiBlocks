@@ -1,4 +1,4 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks;
 using Markdig;
 using Markdig.Parsers;
 using Moq;

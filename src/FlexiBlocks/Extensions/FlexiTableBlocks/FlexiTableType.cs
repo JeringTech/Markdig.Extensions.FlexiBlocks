@@ -1,4 +1,4 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks
 {
     /// <summary>
     /// <see cref="FlexiTableBlock"/> types.

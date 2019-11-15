@@ -1,4 +1,4 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 {
     /// <summary>
     /// An abstraction for <see cref="FlexiAlertBlock"/> options.

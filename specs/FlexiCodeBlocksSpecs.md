@@ -1,4 +1,4 @@
-﻿---
+---
 blockOptions: "../src/FlexiBlocks/Extensions/FlexiCodeBlocks/FlexiCodeBlockOptions.cs"
 utilityTypes: ["../src/FlexiBlocks/Shared/Models/LineRange.cs", "../src/FlexiBlocks/Extensions/FlexiCodeBlocks/NumberedLineRange.cs", "../src/FlexiBlocks/Extensions/FlexiCodeBlocks/PhraseGroup.cs"]
 extensionOptions: "../src/FlexiBlocks/Extensions/FlexiCodeBlocks/FlexiCodeBlocksExtensionOptions.cs"

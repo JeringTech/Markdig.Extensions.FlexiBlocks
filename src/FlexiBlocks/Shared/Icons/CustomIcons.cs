@@ -1,4 +1,4 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     // These icons are based on icons from the material design icons collection. They're licensed under an Apache License Version 2 license - https://www.apache.org/licenses/LICENSE-2.0.html.
     internal static class CustomIcons

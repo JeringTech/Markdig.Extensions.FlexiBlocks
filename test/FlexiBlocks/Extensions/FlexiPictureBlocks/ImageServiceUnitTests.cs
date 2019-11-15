@@ -1,4 +1,4 @@
-﻿using Jering.IocServices.System.IO;
+using Jering.IocServices.System.IO;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiPictureBlocks;
 using Moq;
 using System;

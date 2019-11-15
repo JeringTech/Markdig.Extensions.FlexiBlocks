@@ -1,4 +1,4 @@
-﻿using Jering.Web.SyntaxHighlighters.HighlightJS;
+using Jering.Web.SyntaxHighlighters.HighlightJS;
 using Jering.Web.SyntaxHighlighters.Prism;
 using Markdig.Renderers;
 using System;

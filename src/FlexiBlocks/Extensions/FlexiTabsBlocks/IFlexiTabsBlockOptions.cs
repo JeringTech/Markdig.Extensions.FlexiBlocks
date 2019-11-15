@@ -1,4 +1,4 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTabsBlocks
 {
     /// <summary>
     /// An abstraction for <see cref="FlexiTabsBlock"/> options.

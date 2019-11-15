@@ -1,4 +1,4 @@
-﻿---
+---
 blockOptions: "../src/FlexiBlocks/Extensions/FlexiAlertBlocks/FlexiAlertBlockOptions.cs"
 extensionOptions: "../src/FlexiBlocks/Extensions/FlexiAlertBlocks/FlexiAlertBlocksExtensionOptions.cs"
 ---

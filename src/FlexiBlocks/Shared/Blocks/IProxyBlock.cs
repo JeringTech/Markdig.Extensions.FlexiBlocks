@@ -1,4 +1,4 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Markdig.Syntax;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks

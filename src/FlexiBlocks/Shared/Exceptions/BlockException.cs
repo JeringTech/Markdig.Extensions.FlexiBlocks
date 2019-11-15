@@ -1,4 +1,4 @@
-﻿using Markdig.Syntax;
+using Markdig.Syntax;
 using System;
 using System.Runtime.Serialization;
 

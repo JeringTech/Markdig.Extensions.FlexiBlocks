@@ -1,4 +1,4 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.ContextObjects;
+using Jering.Markdig.Extensions.FlexiBlocks.ContextObjects;
 using Markdig.Parsers;
 using Moq;
 using System;

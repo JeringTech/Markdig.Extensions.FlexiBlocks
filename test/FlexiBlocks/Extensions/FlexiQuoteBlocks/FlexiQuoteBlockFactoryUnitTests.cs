@@ -1,4 +1,4 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;

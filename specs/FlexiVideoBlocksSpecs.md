@@ -1,4 +1,4 @@
-﻿---
+---
 blockOptions: "../src/FlexiBlocks/Extensions/FlexiVideoBlocks/FlexiVideoBlockOptions.cs"
 extensionOptions: "../src/FlexiBlocks/Extensions/FlexiVideoBlocks/FlexiVideoBlocksExtensionOptions.cs"
 requiresOptionsExtension: false

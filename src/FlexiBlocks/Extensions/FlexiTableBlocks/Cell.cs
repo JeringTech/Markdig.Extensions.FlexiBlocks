@@ -1,4 +1,4 @@
-﻿using Markdig.Helpers;
+using Markdig.Helpers;
 using System;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiTableBlocks

@@ -1,4 +1,4 @@
-﻿using Markdig.Parsers;
+using Markdig.Parsers;
 using System.Collections;
 using System.Collections.Generic;
 

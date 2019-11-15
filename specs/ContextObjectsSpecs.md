@@ -1,4 +1,4 @@
-﻿# ContextObjects
+# ContextObjects
 
 This extension facilitates passing contextual data to parsers and renderers when processing markdown. Though it's used by other extensions in this project, you do not need to 
 know how this extension works to use those extensions. It's designed specifically for extensions in this project, which are architected with inversion of control (IOC) in mind

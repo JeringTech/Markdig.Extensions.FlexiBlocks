@@ -1,4 +1,4 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     /// <summary>
     /// The default implementation of <see cref="IBlockOptions{T}"/>.

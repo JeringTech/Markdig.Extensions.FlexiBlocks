@@ -1,4 +1,4 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiQuoteBlocks;
 using Moq;
 using System;
 using Xunit;

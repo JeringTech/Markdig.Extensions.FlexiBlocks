@@ -1,4 +1,4 @@
-﻿---
+---
 blockOptions: "../src/FlexiBlocks/Extensions/FlexiTableBlocks/FlexiTableBlockOptions.cs"
 extensionOptions: "../src/FlexiBlocks/Extensions/FlexiTableBlocks/FlexiTableBlocksExtensionOptions.cs"
 ---

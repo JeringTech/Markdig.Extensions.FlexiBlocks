@@ -1,4 +1,4 @@
-﻿---
+---
 blockOptions: "../src/FlexiBlocks/Extensions/FlexiQuoteBlocks/FlexiQuoteBlockOptions.cs"
 extensionOptions: "../src/FlexiBlocks/Extensions/FlexiQuoteBlocks/FlexiQuoteBlocksExtensionOptions.cs"
 ---

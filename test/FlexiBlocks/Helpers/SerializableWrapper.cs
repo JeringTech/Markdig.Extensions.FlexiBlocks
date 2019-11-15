@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Xunit.Abstractions;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests

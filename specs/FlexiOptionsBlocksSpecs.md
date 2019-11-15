@@ -1,4 +1,4 @@
-﻿# FlexiOptionsBlocks
+# FlexiOptionsBlocks
 A FlexiOptionsBlock contains options for another block.  
 
 We often require per-block options when working with markdown. For example, we might want line numbers for one code block but not another.

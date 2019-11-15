@@ -1,4 +1,4 @@
-﻿using Jering.IocServices.System.IO;
+using Jering.IocServices.System.IO;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using System;

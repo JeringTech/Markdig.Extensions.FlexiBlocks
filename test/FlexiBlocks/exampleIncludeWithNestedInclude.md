@@ -1,4 +1,4 @@
-﻿This is example markdown with an include.
+This is example markdown with an include.
 
 i{
     "type": "markdown",

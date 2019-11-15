@@ -1,4 +1,4 @@
-﻿# Licenses
+# Licenses
 Jering.Markdig.Extensions.FlexiBlocks, copyright © 2018-2019 Jering. All rights reserved.
 
 ## Source Code and Documentation Code-Examples

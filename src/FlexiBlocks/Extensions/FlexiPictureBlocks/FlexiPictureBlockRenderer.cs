@@ -1,4 +1,4 @@
-﻿using Markdig.Renderers;
+using Markdig.Renderers;
 using System.Collections.ObjectModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiPictureBlocks

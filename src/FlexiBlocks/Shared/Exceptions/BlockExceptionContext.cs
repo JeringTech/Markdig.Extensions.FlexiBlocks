@@ -1,4 +1,4 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     /// <summary>
     /// Represents possible contexts of a <see cref="BlockException"/>.

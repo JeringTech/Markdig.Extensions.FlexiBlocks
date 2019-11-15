@@ -1,4 +1,4 @@
-﻿---
+---
 blockOptions: "../src/FlexiBlocks/Extensions/FlexiIncludeBlocks/FlexiIncludeBlockOptions.cs"
 utilityTypes: ["../src/FlexiBlocks/Extensions/FlexiIncludeBlocks/Clipping.cs"]
 extensionOptions: "../src/FlexiBlocks/Extensions/FlexiIncludeBlocks/FlexiIncludeBlocksExtensionOptions.cs"
