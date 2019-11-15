@@ -2,7 +2,7 @@
 root = true
 
 # Files
-[*.cs]
+[*.{cs,md,yml,txt,js,json}]
 
 #### Core EditorConfig Options ####
 
