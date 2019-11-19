@@ -520,17 +520,23 @@ Parameter name: source", dummySource.AbsoluteUri),
             ArgumentException result = Assert.Throws<ArgumentException>(() => testSubject.GetContentFromRemoteSource(dummySource, null, dummyCancellationToken));
             _mockRepository.VerifyAll();
             mockLogger.Verify(l => l.Log(LogLevel.Warning, 0,
-                // object is of type FormattedLogValues
-                It.Is<object>(f => f.ToString() == string.Format(Strings.LogWarning_ContentRetrieverService_FailureStatusCode, dummySource.AbsoluteUri, (int)HttpStatusCode.InternalServerError, 2)),
-                null, It.IsAny<Func<object, Exception, string>>()), Times.Once);
+                    // object is of type FormattedLogValues
+                    It.Is<It.IsAnyType>((f, _) => f.ToString() == string.Format(Strings.LogWarning_ContentRetrieverService_FailureStatusCode, dummySource.AbsoluteUri, (int)HttpStatusCode.InternalServerError, 2)),
+                    null,
+                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                Times.Once);
             mockLogger.Verify(l => l.Log(LogLevel.Warning, 0,
-                // object is of type FormattedLogValues
-                It.Is<object>(f => f.ToString() == string.Format(Strings.LogWarning_ContentRetrieverService_Timeout, dummySource.AbsoluteUri, 1)),
-                null, It.IsAny<Func<object, Exception, string>>()), Times.Once);
+                    // object is of type FormattedLogValues
+                    It.Is<It.IsAnyType>((f, _) => f.ToString() == string.Format(Strings.LogWarning_ContentRetrieverService_Timeout, dummySource.AbsoluteUri, 1)),
+                    null,
+                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                Times.Once);
             mockLogger.Verify(l => l.Log(LogLevel.Warning, 0,
-                // object is of type FormattedLogValues
-                It.Is<object>(f => f.ToString() == string.Format(Strings.LogWarning_ContentRetrieverService_HttpRequestException, dummyHttpRequestException.Message, dummySource.AbsoluteUri, 0)),
-                null, It.IsAny<Func<object, Exception, string>>()), Times.Once);
+                    // object is of type FormattedLogValues
+                    It.Is<It.IsAnyType>((f, _) => f.ToString() == string.Format(Strings.LogWarning_ContentRetrieverService_HttpRequestException, dummyHttpRequestException.Message, dummySource.AbsoluteUri, 0)),
+                    null,
+                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                Times.Once);
             Assert.Equal($@"{string.Format(Strings.ArgumentException_ContentRetrieverService_FailedAfterMultipleAttempts, dummySource.AbsoluteUri)}
 Parameter name: source",
                 result.Message, ignoreLineEndingDifferences: true);

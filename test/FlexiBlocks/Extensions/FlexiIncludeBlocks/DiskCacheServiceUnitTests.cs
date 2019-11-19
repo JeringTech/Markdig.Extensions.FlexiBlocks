@@ -332,15 +332,21 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiIncludeBlocks
             mockFileService.Verify(f => f.Open(dummyFilePath, dummyFileMode, dummyFileAccess, dummyFileShare), Times.Exactly(3));
             Assert.Same(dummyIOException, result);
             mockLogger.Verify(l => l.Log(LogLevel.Warning, 0,
-                // object is of type FormattedLogValues
-                It.Is<object>(f => f.ToString() == string.Format(Strings.LogWarning_DiskCacheService_FileInUse, dummyFilePath, 2)),
-                null, It.IsAny<Func<object, Exception, string>>()), Times.Once);
+                    // object is of type FormattedLogValues
+                    It.Is<It.IsAnyType>((f, _) => f.ToString() == string.Format(Strings.LogWarning_DiskCacheService_FileInUse, dummyFilePath, 2)),
+                    null,
+                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                Times.Once);
             mockLogger.Verify(l => l.Log(LogLevel.Warning, 0,
-                  It.Is<object>(f => f.ToString() == string.Format(Strings.LogWarning_DiskCacheService_FileInUse, dummyFilePath, 1)),
-                  null, It.IsAny<Func<object, Exception, string>>()), Times.Once);
+                    It.Is<It.IsAnyType>((f, _) => f.ToString() == string.Format(Strings.LogWarning_DiskCacheService_FileInUse, dummyFilePath, 1)),
+                    null,
+                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                Times.Once);
             mockLogger.Verify(l => l.Log(LogLevel.Warning, 0,
-                  It.Is<object>(f => f.ToString() == string.Format(Strings.LogWarning_DiskCacheService_FileInUse, dummyFilePath, 0)),
-                  null, It.IsAny<Func<object, Exception, string>>()), Times.Once);
+                    It.Is<It.IsAnyType>((f, _) => f.ToString() == string.Format(Strings.LogWarning_DiskCacheService_FileInUse, dummyFilePath, 0)),
+                    null,
+                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                Times.Once);
         }
 
         [Fact]
