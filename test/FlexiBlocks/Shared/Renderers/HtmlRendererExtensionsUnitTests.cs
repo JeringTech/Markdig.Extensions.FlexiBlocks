@@ -1370,7 +1370,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
 attributes = ""value""
 />", (0, 32, 8, -1)}
     };
-}
+        }
         #endregion
 
         [Theory]
