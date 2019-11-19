@@ -48,13 +48,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""flexi-video__container"" tabindex=""-1"" style=""width:{expectedWidth}px"">
 <div class=""flexi-video__video-outer-container"" style=""width:{expectedWidth}px"">
 <div class=""flexi-video__video-inner-container"" style=""padding-bottom:{480 / expectedWidth * 100}%"">
-<video class=""flexi-video__video"" preload=""none"" poster=""{expectedPoster}"" muted playsInline disablePictureInPicture loop>
+<video class=""flexi-video__video"" preload=""auto"" poster=""{expectedPoster}"" muted playsInline disablePictureInPicture loop>
 <source class=""flexi-video__source"" data-src=""/url/exampleVideo.mp4"" type=""video/mp4"">
 </video>
 </div>
 </div>
 <div class=""flexi-video__controls"">
-<button class=""flexi-video__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""flexi-video__play-pause-button"" aria-label=""Pause/play"">
 <svg class=""flexi-video__play-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path d=""M8 5v14l11-7z""/><path d=""M0 0h24v24H0z"" fill=""none""/></svg>
 <svg class=""flexi-video__pause-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path shape-rendering=""crispEdges"" d=""M6 19h4V5H6v14zm8-14v14h4V5h-4z""/></svg>
 </button>
@@ -68,7 +68,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""flexi-video__progress-buffered""></div>
 </div>
 </div>
-<button class=""flexi-video__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""flexi-video__fullscreen-button"" aria-label=""Toggle fullscreen"">
 <svg class=""flexi-video__fullscreen-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path shape-rendering=""crispEdges"" d=""M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z""/></svg>
 <svg class=""flexi-video__exit-fullscreen-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path shape-rendering=""crispEdges"" d=""M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z""/></svg>
 </button>
@@ -119,13 +119,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""flexi-video__container"" tabindex=""-1"" style=""width:{dummyWidth}px"">
 <div class=""flexi-video__video-outer-container"" style=""width:{dummyWidth}px"">
 <div class=""flexi-video__video-inner-container"" style=""padding-bottom:{dummyHeight / (double)dummyWidth * 100}%"">
-<video class=""flexi-video__video"" preload=""none"" poster=""{dummyPoster}"" muted playsInline disablePictureInPicture loop>
+<video class=""flexi-video__video"" preload=""auto"" poster=""{dummyPoster}"" muted playsInline disablePictureInPicture loop>
 <source class=""flexi-video__source"" data-src=""{dummySrc}"" type=""video/mp4"">
 </video>
 </div>
 </div>
 <div class=""flexi-video__controls"">
-<button class=""flexi-video__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""flexi-video__play-pause-button"" aria-label=""Pause/play"">
 <svg class=""flexi-video__play-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path d=""M8 5v14l11-7z""/><path d=""M0 0h24v24H0z"" fill=""none""/></svg>
 <svg class=""flexi-video__pause-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path shape-rendering=""crispEdges"" d=""M6 19h4V5H6v14zm8-14v14h4V5h-4z""/></svg>
 </button>
@@ -139,7 +139,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""flexi-video__progress-buffered""></div>
 </div>
 </div>
-<button class=""flexi-video__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""flexi-video__fullscreen-button"" aria-label=""Toggle fullscreen"">
 <svg class=""flexi-video__fullscreen-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path shape-rendering=""crispEdges"" d=""M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z""/></svg>
 <svg class=""flexi-video__exit-fullscreen-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path shape-rendering=""crispEdges"" d=""M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z""/></svg>
 </button>
@@ -183,13 +183,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""flexi-video__container"" tabindex=""-1"">
 <div class=""flexi-video__video-outer-container"">
 <div class=""flexi-video__video-inner-container"">
-<video class=""flexi-video__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""flexi-video__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""flexi-video__source"" data-src=""{dummySrc}"" type=""video/mp4"">
 </video>
 </div>
 </div>
 <div class=""flexi-video__controls"">
-<button class=""flexi-video__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""flexi-video__play-pause-button"" aria-label=""Pause/play"">
 <svg class=""flexi-video__play-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path d=""M8 5v14l11-7z""/><path d=""M0 0h24v24H0z"" fill=""none""/></svg>
 <svg class=""flexi-video__pause-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path shape-rendering=""crispEdges"" d=""M6 19h4V5H6v14zm8-14v14h4V5h-4z""/></svg>
 </button>
@@ -203,7 +203,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""flexi-video__progress-buffered""></div>
 </div>
 </div>
-<button class=""flexi-video__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""flexi-video__fullscreen-button"" aria-label=""Toggle fullscreen"">
 <svg class=""flexi-video__fullscreen-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path shape-rendering=""crispEdges"" d=""M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z""/></svg>
 <svg class=""flexi-video__exit-fullscreen-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path shape-rendering=""crispEdges"" d=""M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z""/></svg>
 </button>

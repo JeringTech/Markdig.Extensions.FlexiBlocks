@@ -1,4 +1,4 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.ContextObjects;
+using Jering.Markdig.Extensions.FlexiBlocks.ContextObjects;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiBannerBlocks;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks;

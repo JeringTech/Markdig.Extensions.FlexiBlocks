@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Xunit.Abstractions;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
@@ -11,7 +11,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests
         // Required by xUnit
         public SerializableWrapper()
         {
-
         }
 
         public SerializableWrapper(T target)

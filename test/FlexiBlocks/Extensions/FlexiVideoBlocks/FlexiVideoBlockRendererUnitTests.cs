@@ -74,13 +74,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
 </div>
 <div class=""__controls"">
-<button class=""__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""__play-pause-button"" aria-label=""Pause/play"">
 </button>
 <div class=""__elapsed-time"">
 <span class=""__current-time"">0:00</span>
@@ -92,7 +92,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__progress-buffered""></div>
 </div>
 </div>
-<button class=""__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""__fullscreen-button"" aria-label=""Toggle fullscreen"">
 </button>
 </div>
 <div class=""__error-notice"">
@@ -110,13 +110,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""{dummyBlockName}__container"" tabindex=""-1"">
 <div class=""{dummyBlockName}__video-outer-container"">
 <div class=""{dummyBlockName}__video-inner-container"">
-<video class=""{dummyBlockName}__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""{dummyBlockName}__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""{dummyBlockName}__source"" data-src="""">
 </video>
 </div>
 </div>
 <div class=""{dummyBlockName}__controls"">
-<button class=""{dummyBlockName}__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""{dummyBlockName}__play-pause-button"" aria-label=""Pause/play"">
 </button>
 <div class=""{dummyBlockName}__elapsed-time"">
 <span class=""{dummyBlockName}__current-time"">0:00</span>
@@ -128,7 +128,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""{dummyBlockName}__progress-buffered""></div>
 </div>
 </div>
-<button class=""{dummyBlockName}__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""{dummyBlockName}__fullscreen-button"" aria-label=""Toggle fullscreen"">
 </button>
 </div>
 <div class=""{dummyBlockName}__error-notice"">
@@ -144,13 +144,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"" style=""width:{dummyWidth}px"">
 <div class=""__video-outer-container"" style=""width:{dummyWidth}px"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
 </div>
 <div class=""__controls"">
-<button class=""__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""__play-pause-button"" aria-label=""Pause/play"">
 </button>
 <div class=""__elapsed-time"">
 <span class=""__current-time"">0:00</span>
@@ -162,7 +162,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__progress-buffered""></div>
 </div>
 </div>
-<button class=""__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""__fullscreen-button"" aria-label=""Toggle fullscreen"">
 </button>
 </div>
 <div class=""__error-notice"">
@@ -182,13 +182,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"" style=""padding-bottom:{dummyAspectRatio}%"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
 </div>
 <div class=""__controls"">
-<button class=""__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""__play-pause-button"" aria-label=""Pause/play"">
 </button>
 <div class=""__elapsed-time"">
 <span class=""__current-time"">0:00</span>
@@ -200,7 +200,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__progress-buffered""></div>
 </div>
 </div>
-<button class=""__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""__fullscreen-button"" aria-label=""Toggle fullscreen"">
 </button>
 </div>
 <div class=""__error-notice"">
@@ -220,13 +220,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" poster=""{dummyPoster}"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" poster=""{dummyPoster}"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
 </div>
 <div class=""__controls"">
-<button class=""__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""__play-pause-button"" aria-label=""Pause/play"">
 </button>
 <div class=""__elapsed-time"">
 <span class=""__current-time"">0:00</span>
@@ -238,7 +238,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__progress-buffered""></div>
 </div>
 </div>
-<button class=""__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""__fullscreen-button"" aria-label=""Toggle fullscreen"">
 </button>
 </div>
 <div class=""__error-notice"">
@@ -261,13 +261,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src=""{dummySrc}"">
 </video>
 </div>
 </div>
 <div class=""__controls"">
-<button class=""__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""__play-pause-button"" aria-label=""Pause/play"">
 </button>
 <div class=""__elapsed-time"">
 <span class=""__current-time"">0:00</span>
@@ -279,7 +279,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__progress-buffered""></div>
 </div>
 </div>
-<button class=""__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""__fullscreen-button"" aria-label=""Toggle fullscreen"">
 </button>
 </div>
 <div class=""__error-notice"">
@@ -295,13 +295,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""" type=""{dummyType}"">
 </video>
 </div>
 </div>
 <div class=""__controls"">
-<button class=""__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""__play-pause-button"" aria-label=""Pause/play"">
 </button>
 <div class=""__elapsed-time"">
 <span class=""__current-time"">0:00</span>
@@ -313,7 +313,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__progress-buffered""></div>
 </div>
 </div>
-<button class=""__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""__fullscreen-button"" aria-label=""Toggle fullscreen"">
 </button>
 </div>
 <div class=""__error-notice"">
@@ -336,13 +336,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
 </div>
 <div class=""__controls"">
-<button class=""__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""__play-pause-button"" aria-label=""Pause/play"">
 {dummyIconWithPlayClass}
 </button>
 <div class=""__elapsed-time"">
@@ -355,7 +355,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__progress-buffered""></div>
 </div>
 </div>
-<button class=""__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""__fullscreen-button"" aria-label=""Toggle fullscreen"">
 </button>
 </div>
 <div class=""__error-notice"">
@@ -378,13 +378,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
 </div>
 <div class=""__controls"">
-<button class=""__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""__play-pause-button"" aria-label=""Pause/play"">
 {dummyIconWithPauseClass}
 </button>
 <div class=""__elapsed-time"">
@@ -397,7 +397,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__progress-buffered""></div>
 </div>
 </div>
-<button class=""__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""__fullscreen-button"" aria-label=""Toggle fullscreen"">
 </button>
 </div>
 <div class=""__error-notice"">
@@ -420,13 +420,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
 </div>
 <div class=""__controls"">
-<button class=""__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""__play-pause-button"" aria-label=""Pause/play"">
 </button>
 <div class=""__elapsed-time"">
 <span class=""__current-time"">0:00</span>
@@ -438,7 +438,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__progress-buffered""></div>
 </div>
 </div>
-<button class=""__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""__fullscreen-button"" aria-label=""Toggle fullscreen"">
 </button>
 </div>
 <div class=""__error-notice"">
@@ -458,13 +458,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
 </div>
 <div class=""__controls"">
-<button class=""__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""__play-pause-button"" aria-label=""Pause/play"">
 </button>
 <div class=""__elapsed-time"">
 <span class=""__current-time"">0:00</span>
@@ -476,7 +476,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__progress-buffered""></div>
 </div>
 </div>
-<button class=""__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""__fullscreen-button"" aria-label=""Toggle fullscreen"">
 {dummyIconWithFullscreenClass}
 </button>
 </div>
@@ -500,13 +500,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
 </div>
 <div class=""__controls"">
-<button class=""__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""__play-pause-button"" aria-label=""Pause/play"">
 </button>
 <div class=""__elapsed-time"">
 <span class=""__current-time"">0:00</span>
@@ -518,7 +518,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__progress-buffered""></div>
 </div>
 </div>
-<button class=""__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""__fullscreen-button"" aria-label=""Toggle fullscreen"">
 {dummyIconWithExitFullscreenClass}
 </button>
 </div>
@@ -542,13 +542,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
 </div>
 <div class=""__controls"">
-<button class=""__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""__play-pause-button"" aria-label=""Pause/play"">
 </button>
 <div class=""__elapsed-time"">
 <span class=""__current-time"">0:00</span>
@@ -560,7 +560,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__progress-buffered""></div>
 </div>
 </div>
-<button class=""__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""__fullscreen-button"" aria-label=""Toggle fullscreen"">
 </button>
 </div>
 <div class=""__error-notice"">
@@ -584,13 +584,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
 </div>
 <div class=""__controls"">
-<button class=""__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""__play-pause-button"" aria-label=""Pause/play"">
 </button>
 <div class=""__elapsed-time"">
 <span class=""__current-time"">0:00</span>
@@ -602,7 +602,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__progress-buffered""></div>
 </div>
 </div>
-<button class=""__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""__fullscreen-button"" aria-label=""Toggle fullscreen"">
 </button>
 </div>
 <div class=""__error-notice"">
@@ -626,13 +626,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
 </div>
 <div class=""__controls"">
-<button class=""__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""__play-pause-button"" aria-label=""Pause/play"">
 </button>
 <div class=""__elapsed-time"">
 <span class=""__current-time"">0:00</span>
@@ -644,7 +644,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__progress-buffered""></div>
 </div>
 </div>
-<button class=""__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""__fullscreen-button"" aria-label=""Toggle fullscreen"">
 </button>
 </div>
 <div class=""__error-notice"">
@@ -660,13 +660,13 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__container"" tabindex=""-1"">
 <div class=""__video-outer-container"">
 <div class=""__video-inner-container"">
-<video class=""__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""__source"" data-src="""">
 </video>
 </div>
 </div>
 <div class=""__controls"">
-<button class=""__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""__play-pause-button"" aria-label=""Pause/play"">
 </button>
 <div class=""__elapsed-time"">
 <span class=""__current-time"">0:00</span>
@@ -678,7 +678,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiVideoBlocks
 <div class=""__progress-buffered""></div>
 </div>
 </div>
-<button class=""__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""__fullscreen-button"" aria-label=""Toggle fullscreen"">
 </button>
 </div>
 <div class=""__error-notice"">

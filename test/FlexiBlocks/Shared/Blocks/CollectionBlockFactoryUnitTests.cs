@@ -1,4 +1,4 @@
-﻿using Markdig.Parsers;
+using Markdig.Parsers;
 using Markdig.Syntax;
 using Moq;
 using Xunit;

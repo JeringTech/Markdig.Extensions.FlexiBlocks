@@ -1,4 +1,4 @@
-﻿---
+---
 blockOptions: "../src/FlexiBlocks/Extensions/FlexiPictureBlocks/FlexiPictureBlockOptions.cs"
 extensionOptions: "../src/FlexiBlocks/Extensions/FlexiPictureBlocks/FlexiPictureBlocksExtensionOptions.cs"
 requiresOptionsExtension: false
@@ -24,7 +24,7 @@ string markdown = @"p{
 }";
 string html = Markdown.ToHtml(markdown, markdownPipeline);
 string expectedHtml = @"<div class=""flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner"">
-<button class=""flexi-picture__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""flexi-picture__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 <svg class=""flexi-picture__exit-fullscreen-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path d=""M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z""/><path d=""M0 0h24v24H0z"" fill=""none""/></svg>
 </button>
 <div class=""flexi-picture__container"">
@@ -60,7 +60,7 @@ p{
 }
 --------------- Expected Markup ---------------
 <div class="flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner">
-<button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+<button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
 <svg class="flexi-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
 </button>
 <div class="flexi-picture__container">
@@ -108,7 +108,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="picture picture_has-alt picture_is-lazy picture_no-width picture_no-aspect-ratio picture_has-exit-fullscreen-icon picture_has-error-icon picture_has-spinner">
-  <button class="picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="picture__container">
@@ -145,7 +145,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="flexi-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="flexi-picture__container">
@@ -183,7 +183,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="flexi-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="flexi-picture__container">
@@ -214,7 +214,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_no-alt flexi-picture_is-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="flexi-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="flexi-picture__container">
@@ -257,7 +257,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="flexi-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="flexi-picture__container">
@@ -289,7 +289,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_has-alt flexi-picture_not-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="flexi-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="flexi-picture__container">
@@ -333,7 +333,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_has-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="flexi-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="flexi-picture__container" style="width:123px">
@@ -378,7 +378,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_has-width flexi-picture_has-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="flexi-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="flexi-picture__container" style="width:123px">
@@ -411,7 +411,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="flexi-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="flexi-picture__container">
@@ -450,7 +450,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="flexi-picture__exit-fullscreen-icon"><use xlink:href="#exit-fullscreen-icon"/></svg>
   </button>
   <div class="flexi-picture__container">
@@ -482,7 +482,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_no-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   </button>
   <div class="flexi-picture__container">
   <div class="flexi-picture__error-notice">
@@ -520,7 +520,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="flexi-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="flexi-picture__container">
@@ -552,7 +552,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_no-error-icon flexi-picture_has-spinner">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="flexi-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="flexi-picture__container">
@@ -590,7 +590,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="flexi-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="flexi-picture__container">
@@ -616,7 +616,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_no-spinner">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="flexi-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="flexi-picture__container">
@@ -662,7 +662,7 @@ Options for a FlexiPictureBlock.
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner my-custom-class" id="my-custom-id">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="flexi-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="flexi-picture__container">
@@ -719,7 +719,7 @@ Options for the FlexiPictureBlocks extension. There are two ways to specify thes
   }
   --------------- Expected Markup ---------------
   <div class="flexi-picture flexi-picture_has-alt flexi-picture_is-lazy flexi-picture_no-width flexi-picture_no-aspect-ratio flexi-picture_has-exit-fullscreen-icon flexi-picture_has-error-icon flexi-picture_has-spinner block">
-  <button class="flexi-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="flexi-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="flexi-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="flexi-picture__container">
@@ -764,7 +764,7 @@ Options for the FlexiPictureBlocks extension. There are two ways to specify thes
   }
   --------------- Expected Markup ---------------
   <div class="picture picture_has-alt picture_is-lazy picture_no-width picture_no-aspect-ratio picture_has-exit-fullscreen-icon picture_has-error-icon picture_has-spinner">
-  <button class="picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="picture__container">
@@ -786,7 +786,7 @@ Options for the FlexiPictureBlocks extension. There are two ways to specify thes
   </div>
   </div>
   <div class="special-picture special-picture_has-alt special-picture_is-lazy special-picture_no-width special-picture_no-aspect-ratio special-picture_has-exit-fullscreen-icon special-picture_has-error-icon special-picture_has-spinner">
-  <button class="special-picture__exit-fullscreen-button" title="Exit fullscreen" aria-label="Exit fullscreen">
+  <button class="special-picture__exit-fullscreen-button" aria-label="Exit fullscreen">
   <svg class="special-picture__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="special-picture__container">

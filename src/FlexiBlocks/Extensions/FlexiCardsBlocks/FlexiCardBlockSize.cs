@@ -1,4 +1,4 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks
 {
     /// <summary>
     /// <see cref="FlexiCardBlock"/> size.

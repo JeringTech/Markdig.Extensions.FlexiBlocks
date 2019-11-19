@@ -75,7 +75,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(dummyBlockName),
                     $@"<div class=""{dummyBlockName} {dummyBlockName}_no-alt {dummyBlockName}_is-lazy {dummyBlockName}_no-width {dummyBlockName}_no-aspect-ratio {dummyBlockName}_no-exit-fullscreen-icon {dummyBlockName}_no-error-icon {dummyBlockName}_no-spinner"">
-<button class=""{dummyBlockName}__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""{dummyBlockName}__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""{dummyBlockName}__container"">
 <div class=""{dummyBlockName}__error-notice"">
@@ -93,7 +93,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(exitFullscreenIcon: dummyIcon),
                     $@"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _has-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 {dummyIconWithExitFullscreenClass}
 </button>
 <div class=""__container"">
@@ -112,7 +112,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(exitFullscreenIcon: " "),
                     @"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -129,7 +129,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(exitFullscreenIcon: string.Empty),
                     @"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -147,7 +147,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(width: dummyWidth),
                     $@"<div class="" _no-alt _is-lazy _has-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"" style=""width:{dummyWidth}px"">
 <div class=""__error-notice"">
@@ -165,7 +165,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(width: -1),
                     @"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -183,7 +183,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(errorIcon: dummyIcon),
                     $@"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _has-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -202,7 +202,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(errorIcon: " "),
                     @"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -219,7 +219,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(errorIcon: string.Empty),
                     @"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -237,7 +237,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(spinner: dummySpinner),
                     $@"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _has-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -256,7 +256,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(spinner: " "),
                     @"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -273,7 +273,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(spinner: string.Empty),
                     @"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -291,7 +291,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(aspectRatio: dummyAspectRatio),
                     $@"<div class="" _no-alt _is-lazy _no-width _has-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -309,7 +309,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(aspectRatio: -1),
                     @"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -327,7 +327,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(src: dummySrc),
                     $@"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -345,7 +345,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(lazy: false, src: dummySrc),
                     $@"<div class="" _no-alt _not-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -363,7 +363,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(alt: dummyAlt),
                     $@"<div class="" _has-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -381,7 +381,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(alt: " "),
                     @"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -398,7 +398,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(alt: string.Empty),
                     @"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -416,7 +416,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { dummyAttributeKey1, dummyAttributeValue1 }, { dummyAttributeKey2, dummyAttributeValue2 } })),
                     $@"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner"" {dummyAttributeKey1}=""{dummyAttributeValue1}"" {dummyAttributeKey2}=""{dummyAttributeValue2}"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">
@@ -434,7 +434,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
                 new object[]{
                     CreateFlexiPictureBlock(attributes: new ReadOnlyDictionary<string, string>(new Dictionary<string, string>{ { "class", dummyClass } })),
                     $@"<div class="" _no-alt _is-lazy _no-width _no-aspect-ratio _no-exit-fullscreen-icon _no-error-icon _no-spinner {dummyClass}"">
-<button class=""__exit-fullscreen-button"" title=""Exit fullscreen"" aria-label=""Exit fullscreen"">
+<button class=""__exit-fullscreen-button"" aria-label=""Exit fullscreen"">
 </button>
 <div class=""__container"">
 <div class=""__error-notice"">

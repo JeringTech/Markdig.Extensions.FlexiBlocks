@@ -217,7 +217,6 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiPictureBlocks
             };
         }
 
-
         [Theory]
         [MemberData(nameof(ResolveDimensions_ResolvesDimensionsUsingFileOperationsWhenNecessaryAndFileOperationsAreEnabled_Data))]
         public void ResolveDimensions_ResolvesDimensionsUsingFileOperationsWhenNecessaryAndFileOperationsAreEnabled(double dummySpecifiedWidth,

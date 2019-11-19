@@ -1,4 +1,4 @@
-﻿using Markdig.Parsers;
+using Markdig.Parsers;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCardsBlocks
 {

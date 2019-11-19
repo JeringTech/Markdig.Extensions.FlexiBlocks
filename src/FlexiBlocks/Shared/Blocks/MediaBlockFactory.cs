@@ -1,4 +1,4 @@
-﻿using Jering.IocServices.System.IO;
+using Jering.IocServices.System.IO;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using System;
@@ -10,9 +10,9 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
     /// The implementation of <see cref="IJsonBlockFactory{TMain, TProxy}"/> for creating media blocks.
     /// </summary>
     public abstract class MediaBlockFactory<TBlock, TBlockOptions, TExtensionOptions> : IJsonBlockFactory<TBlock, ProxyJsonBlock>
-        where TBlock: Block
-        where TBlockOptions: IMediaBlockOptions<TBlockOptions>
-        where TExtensionOptions: IMediaBlocksExtensionOptions<TBlockOptions>
+        where TBlock : Block
+        where TBlockOptions : IMediaBlockOptions<TBlockOptions>
+        where TExtensionOptions : IMediaBlocksExtensionOptions<TBlockOptions>
     {
         private static readonly Uri _defaultBaseUri = new Uri("file:///");
         private readonly IDirectoryService _directoryService;

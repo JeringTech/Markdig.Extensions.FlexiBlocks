@@ -137,7 +137,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTabsBlocks
                     $@"<div class="""">
 <div class=""__scrollable-indicators scrollable-indicators scrollable-indicators_axis_horizontal"">
 <div class=""__tab-list scrollable-indicators__scrollable"" role=""tablist"">
-<button class=""__tab __tab_selected"" title=""View panel"" role=""tab"" aria-selected=""true"">{dummyTab}</button>
+<button class=""__tab __tab_selected"" role=""tab"" aria-selected=""true"">{dummyTab}</button>
 </div>
 <div class=""scrollable-indicators__indicator scrollable-indicators__indicator_start""></div>
 <div class=""scrollable-indicators__indicator scrollable-indicators__indicator_end""></div>
@@ -165,7 +165,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTabsBlocks
             string result = dummyStringWriter.ToString();
 
             // Assert
-            Assert.Equal(@"<button class=""__tab"" title=""View panel"" role=""tab"" aria-selected=""false"" tabindex=""-1""></button>
+            Assert.Equal(@"<button class=""__tab"" role=""tab"" aria-selected=""false"" tabindex=""-1""></button>
 ",
                 result,
                 ignoreLineEndingDifferences: true);

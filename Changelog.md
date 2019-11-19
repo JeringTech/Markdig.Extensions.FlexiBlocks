@@ -3,7 +3,16 @@ This project uses [semantic versioning](http://semver.org/spec/v2.0.0.html). Ref
 *[Semantic Versioning in Practice](https://www.jering.tech/articles/semantic-versioning-in-practice)*
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/1.0.0-alpha.2...HEAD)
+## [Unreleased](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/1.0.0-beta.0...HEAD)
+
+## [1.0.0-beta.0](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/1.0.0-alpha.2...1.0.0-beta.0) - Nov 19, 2019
+### Additions
+- Added several HtmlRenderer extension methods. ([637475c](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/commit/637475c1d9e6b369e1167563fc3bcfdd4836fc81))
+### Changes
+- Removed title attributes from all rendered HTML. Title attributes aren't accessible on many devices, e.g touch screen devices, so relying on
+them is discouraged by the specs. ([d43cb4c](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/commit/d43cb4c38b9d4ca21944d590ebb57c4c3696bec8))
+- FlexiVideoBlock video element `preload` attribute set to `auto` instead of `none`. Edge doesn't play videos with `preload` `none` in HTML. ([a93740b](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/commit/a93740b7cbd63c3a101e68c45fd348590d10580a))
+- FlexiCodeBlock syntax highlighters upgraded to Prism 1.17.1 and Highlight.js 9.16.2.
 
 ## [1.0.0-alpha.2](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks/compare/1.0.0-alpha.1...1.0.0-alpha.2) - Nov 1, 2019
 ### Additions

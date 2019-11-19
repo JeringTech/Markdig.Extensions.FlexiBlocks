@@ -1,4 +1,4 @@
-﻿using Jering.IocServices.System.IO;
+using Jering.IocServices.System.IO;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Buffers;

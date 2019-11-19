@@ -1,4 +1,4 @@
-﻿using Markdig;
+using Markdig;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Renderers;

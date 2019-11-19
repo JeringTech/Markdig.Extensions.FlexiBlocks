@@ -1,4 +1,4 @@
-﻿using Jering.IocServices.Newtonsoft.Json;
+using Jering.IocServices.Newtonsoft.Json;
 using Jering.Markdig.Extensions.FlexiBlocks.FlexiOptionsBlocks;
 using Markdig.Helpers;
 using Markdig.Parsers;

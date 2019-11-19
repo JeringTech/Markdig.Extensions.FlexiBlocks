@@ -1,4 +1,4 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     /// <summary>
     /// Part types, see: <a href="https://spec.commonmark.org/0.28/#container-blocks-and-leaf-blocks">Container blocks and leaf blocks</a>.

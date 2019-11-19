@@ -1,4 +1,4 @@
-﻿---
+---
 blockOptions: "../src/FlexiBlocks/Extensions/FlexiVideoBlocks/FlexiVideoBlockOptions.cs"
 extensionOptions: "../src/FlexiBlocks/Extensions/FlexiVideoBlocks/FlexiVideoBlocksExtensionOptions.cs"
 requiresOptionsExtension: false
@@ -26,13 +26,13 @@ string expectedHtml = @"<div class=""flexi-video flexi-video_no-poster flexi-vid
 <div class=""flexi-video__container"" tabindex=""-1"">
 <div class=""flexi-video__video-outer-container"">
 <div class=""flexi-video__video-inner-container"">
-<video class=""flexi-video__video"" preload=""none"" muted playsInline disablePictureInPicture loop>
+<video class=""flexi-video__video"" preload=""auto"" muted playsInline disablePictureInPicture loop>
 <source class=""flexi-video__source"" data-src=""/file.mp4"" type=""video/mp4"">
 </video>
 </div>
 </div>
 <div class=""flexi-video__controls"">
-<button class=""flexi-video__play-pause-button"" title=""Pause/play"" aria-label=""Pause/play"">
+<button class=""flexi-video__play-pause-button"" aria-label=""Pause/play"">
 <svg class=""flexi-video__play-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path d=""M8 5v14l11-7z""/><path d=""M0 0h24v24H0z"" fill=""none""/></svg>
 <svg class=""flexi-video__pause-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path shape-rendering=""crispEdges"" d=""M6 19h4V5H6v14zm8-14v14h4V5h-4z""/></svg>
 </button>
@@ -46,7 +46,7 @@ string expectedHtml = @"<div class=""flexi-video flexi-video_no-poster flexi-vid
 <div class=""flexi-video__progress-buffered""></div>
 </div>
 </div>
-<button class=""flexi-video__fullscreen-button"" title=""Toggle fullscreen"" aria-label=""Toggle fullscreen"">
+<button class=""flexi-video__fullscreen-button"" aria-label=""Toggle fullscreen"">
 <svg class=""flexi-video__fullscreen-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path shape-rendering=""crispEdges"" d=""M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z""/></svg>
 <svg class=""flexi-video__exit-fullscreen-icon"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24""><path shape-rendering=""crispEdges"" d=""M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z""/></svg>
 </button>
@@ -80,13 +80,13 @@ v{
 <div class="flexi-video__container" tabindex="-1">
 <div class="flexi-video__video-outer-container">
 <div class="flexi-video__video-inner-container">
-<video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+<video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
 <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
 </video>
 </div>
 </div>
 <div class="flexi-video__controls">
-<button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+<button class="flexi-video__play-pause-button" aria-label="Pause/play">
 <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
 <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
 </button>
@@ -100,7 +100,7 @@ v{
 <div class="flexi-video__progress-buffered"></div>
 </div>
 </div>
-<button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+<button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
 <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
 <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
 </button>
@@ -146,13 +146,13 @@ Options for a FlexiVideoBlock.
   <div class="video__container" tabindex="-1">
   <div class="video__video-outer-container">
   <div class="video__video-inner-container">
-  <video class="video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="video__controls">
-  <button class="video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="video__play-pause-button" aria-label="Pause/play">
   <svg class="video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -166,7 +166,7 @@ Options for a FlexiVideoBlock.
   <div class="video__progress-buffered"></div>
   </div>
   </div>
-  <button class="video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -205,13 +205,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -225,7 +225,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -265,13 +265,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="custom/type">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -285,7 +285,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -327,13 +327,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1" style="width:123px">
   <div class="flexi-video__video-outer-container" style="width:123px">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -347,7 +347,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -390,13 +390,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1" style="width:123px">
   <div class="flexi-video__video-outer-container" style="width:123px">
   <div class="flexi-video__video-inner-container" style="padding-bottom:260.975609756098%">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -410,7 +410,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -441,13 +441,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -461,7 +461,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -501,13 +501,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -521,7 +521,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -551,13 +551,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -571,7 +571,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -622,13 +622,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" poster="/file_poster.png" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" poster="/file_poster.png" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -642,7 +642,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -679,13 +679,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -699,7 +699,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -723,13 +723,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -743,7 +743,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -773,13 +773,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon"><use xlink:href="#play-icon"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -793,7 +793,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -823,13 +823,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
   <div class="flexi-video__elapsed-time">
@@ -842,7 +842,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -879,13 +879,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon"><use xlink:href="#pause-icon"/></svg>
   </button>
@@ -899,7 +899,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -929,13 +929,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   </button>
   <div class="flexi-video__elapsed-time">
@@ -948,7 +948,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -985,13 +985,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -1005,7 +1005,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon"><use xlink:href="#fullscreen-icon"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -1035,13 +1035,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -1055,7 +1055,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
   </div>
@@ -1091,13 +1091,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -1111,7 +1111,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon"><use xlink:href="#exit-fullscreen-icon"/></svg>
   </button>
@@ -1141,13 +1141,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -1161,7 +1161,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   </button>
   </div>
@@ -1197,13 +1197,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -1217,7 +1217,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -1247,13 +1247,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -1267,7 +1267,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -1317,13 +1317,13 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -1337,7 +1337,7 @@ Options for a FlexiVideoBlock.
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -1392,13 +1392,13 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -1412,7 +1412,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -1454,13 +1454,13 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="video__container" tabindex="-1">
   <div class="video__video-outer-container">
   <div class="video__video-inner-container">
-  <video class="video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="video__controls">
-  <button class="video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="video__play-pause-button" aria-label="Pause/play">
   <svg class="video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -1474,7 +1474,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="video__progress-buffered"></div>
   </div>
   </div>
-  <button class="video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -1495,13 +1495,13 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="special-video__container" tabindex="-1">
   <div class="special-video__video-outer-container">
   <div class="special-video__video-inner-container">
-  <video class="special-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="special-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="special-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="special-video__controls">
-  <button class="special-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="special-video__play-pause-button" aria-label="Pause/play">
   <svg class="special-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="special-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -1515,7 +1515,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="special-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="special-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="special-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="special-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="special-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -1570,13 +1570,13 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.3gp" type="video/3gpp">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -1590,7 +1590,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -1611,13 +1611,13 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mov" type="video/quicktime">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -1631,7 +1631,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -1668,13 +1668,13 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.mp4" type="video/mp4">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -1688,7 +1688,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -1709,13 +1709,13 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.webm" type="video/webm">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -1729,7 +1729,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>
@@ -1750,13 +1750,13 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__container" tabindex="-1">
   <div class="flexi-video__video-outer-container">
   <div class="flexi-video__video-inner-container">
-  <video class="flexi-video__video" preload="none" muted playsInline disablePictureInPicture loop>
+  <video class="flexi-video__video" preload="auto" muted playsInline disablePictureInPicture loop>
   <source class="flexi-video__source" data-src="/file.ogg" type="video/ogg">
   </video>
   </div>
   </div>
   <div class="flexi-video__controls">
-  <button class="flexi-video__play-pause-button" title="Pause/play" aria-label="Pause/play">
+  <button class="flexi-video__play-pause-button" aria-label="Pause/play">
   <svg class="flexi-video__play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
   <svg class="flexi-video__pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
@@ -1770,7 +1770,7 @@ Options for the FlexiVideoBlocks extension. There are two ways to specify these 
   <div class="flexi-video__progress-buffered"></div>
   </div>
   </div>
-  <button class="flexi-video__fullscreen-button" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+  <button class="flexi-video__fullscreen-button" aria-label="Toggle fullscreen">
   <svg class="flexi-video__fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
   <svg class="flexi-video__exit-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path shape-rendering="crispEdges" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
   </button>

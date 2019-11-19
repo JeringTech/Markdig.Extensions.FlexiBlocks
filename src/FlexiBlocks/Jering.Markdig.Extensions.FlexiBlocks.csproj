@@ -22,7 +22,7 @@
     • FlexiVideoBlocks: Videos with lazy loading, fullscreen mode and customizable controls.
   
 Note: Some functionality, like picture lazy loading, requires frontend scripts and styles. We're working on packaging frontend assets for easy usage.</Description>
-        <Copyright>© 2018 Jering. All rights reserved.</Copyright>
+        <Copyright>© 2018-2019 Jering. All rights reserved.</Copyright>
         <PackageProjectUrl>https://www.jering.tech/utilities/jering.markdig.extensions.flexiblocks/index</PackageProjectUrl>
         <RepositoryUrl>https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks</RepositoryUrl>
         <PackageLicenseUrl>$(RepositoryUrl)/blob/master/License.md</PackageLicenseUrl>
@@ -42,22 +42,22 @@ Note: Some functionality, like picture lazy loading, requires frontend scripts a
         <PackageReference Include="Jering.IocServices.Newtonsoft.Json" Version="0.3.0" />
         <PackageReference Include="Jering.IocServices.System.IO" Version="0.3.0" />
         <PackageReference Include="Jering.IocServices.System.Net.Http" Version="0.3.0" />
-        <PackageReference Include="Jering.Web.SyntaxHighlighters.HighlightJS" Version="3.2.1" />
-        <PackageReference Include="Jering.Web.SyntaxHighlighters.Prism" Version="4.2.1" />
+        <PackageReference Include="Jering.Web.SyntaxHighlighters.HighlightJS" Version="3.3.0" />
+        <PackageReference Include="Jering.Web.SyntaxHighlighters.Prism" Version="4.3.0" />
         <PackageReference Include="Markdig" Version="0.16.0" />
         <!-- Requires libcurl-openssl for build to work on Linux "sudo apt install libcurl3 libcurl-openssl1.0-dev"-->
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19367-01">
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19554-01">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Roslynator.Analyzers" Version="2.1.0" PrivateAssets="all" ExcludeAssets="Runtime">
+        <PackageReference Include="Roslynator.Analyzers" Version="2.2.0" PrivateAssets="all" ExcludeAssets="Runtime">
           <IncludeAssets>compile; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Roslynator.CodeFixes" Version="2.0.0" PrivateAssets="all" ExcludeAssets="Runtime">
           <IncludeAssets>compile; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
         <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0007" />
-        <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
+        <PackageReference Include="System.Collections.Immutable" Version="1.6.0" />
     </ItemGroup>
 
     <ItemGroup>

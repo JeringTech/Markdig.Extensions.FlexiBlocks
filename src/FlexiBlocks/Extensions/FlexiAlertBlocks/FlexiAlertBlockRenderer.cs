@@ -1,4 +1,4 @@
-﻿using Markdig.Renderers;
+using Markdig.Renderers;
 using System.Collections.ObjectModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
@@ -43,9 +43,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiAlertBlocks
 
             // Content
             htmlRenderer.
-                WriteStartTagLine("div", blockName, "content").
-                WriteChildren(block, false). // Default blockquotes require explicit paragraphs, we copy that here
-                WriteEndTagLine("div").
+                WriteElementLine("div", blockName, "content", block, false).
                 WriteEndTagLine("div");
         }
     }

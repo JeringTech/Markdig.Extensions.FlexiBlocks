@@ -1,4 +1,4 @@
-﻿---
+---
 blockOptions: "../src/FlexiBlocks/Extensions/FlexiTabsBlocks/FlexiTabsBlockOptions.cs"
 utilityTypes: ["../src/FlexiBlocks/Extensions/FlexiTabsBlocks/FlexiTabBlockOptions.cs"]
 extensionOptions: "../src/FlexiBlocks/Extensions/FlexiTabsBlocks/FlexiTabsBlocksExtensionOptions.cs"
@@ -35,8 +35,8 @@ string html = Markdown.ToHtml(markdown, markdownPipeline);
 string expectedHtml = @"<div class=""flexi-tabs"">
 <div class=""flexi-tabs__scrollable-indicators scrollable-indicators scrollable-indicators_axis_horizontal"">
 <div class=""flexi-tabs__tab-list scrollable-indicators__scrollable"" role=""tablist"">
-<button class=""flexi-tabs__tab flexi-tabs__tab_selected"" title=""View panel"" role=""tab"" aria-selected=""true"">Tab 1</button>
-<button class=""flexi-tabs__tab"" title=""View panel"" role=""tab"" aria-selected=""false"" tabindex=""-1"">Tab 2</button>
+<button class=""flexi-tabs__tab flexi-tabs__tab_selected"" role=""tab"" aria-selected=""true"">Tab 1</button>
+<button class=""flexi-tabs__tab"" role=""tab"" aria-selected=""false"" tabindex=""-1"">Tab 2</button>
 </div>
 <div class=""scrollable-indicators__indicator scrollable-indicators__indicator_start""></div>
 <div class=""scrollable-indicators__indicator scrollable-indicators__indicator_end""></div>
@@ -76,8 +76,8 @@ Panel 2
 <div class="flexi-tabs">
 <div class="flexi-tabs__scrollable-indicators scrollable-indicators scrollable-indicators_axis_horizontal">
 <div class="flexi-tabs__tab-list scrollable-indicators__scrollable" role="tablist">
-<button class="flexi-tabs__tab flexi-tabs__tab_selected" title="View panel" role="tab" aria-selected="true">Tab 1</button>
-<button class="flexi-tabs__tab" title="View panel" role="tab" aria-selected="false" tabindex="-1">Tab 2</button>
+<button class="flexi-tabs__tab flexi-tabs__tab_selected" role="tab" aria-selected="true">Tab 1</button>
+<button class="flexi-tabs__tab" role="tab" aria-selected="false" tabindex="-1">Tab 2</button>
 </div>
 <div class="scrollable-indicators__indicator scrollable-indicators__indicator_start"></div>
 <div class="scrollable-indicators__indicator scrollable-indicators__indicator_end"></div>
@@ -119,8 +119,8 @@ Panel 2
 <div class="flexi-tabs">
 <div class="flexi-tabs__scrollable-indicators scrollable-indicators scrollable-indicators_axis_horizontal">
 <div class="flexi-tabs__tab-list scrollable-indicators__scrollable" role="tablist">
-<button class="flexi-tabs__tab flexi-tabs__tab_selected" title="View panel" role="tab" aria-selected="true"><em>Tab 1</em></button>
-<button class="flexi-tabs__tab" title="View panel" role="tab" aria-selected="false" tabindex="-1"><strong>Tab 2</strong></button>
+<button class="flexi-tabs__tab flexi-tabs__tab_selected" role="tab" aria-selected="true"><em>Tab 1</em></button>
+<button class="flexi-tabs__tab" role="tab" aria-selected="false" tabindex="-1"><strong>Tab 2</strong></button>
 </div>
 <div class="scrollable-indicators__indicator scrollable-indicators__indicator_start"></div>
 <div class="scrollable-indicators__indicator scrollable-indicators__indicator_end"></div>
@@ -133,7 +133,7 @@ Panel 2
 <div class="flexi-tabs__tab-panel flexi-tabs__tab-panel_hidden" tabindex="0" role="tabpanel" aria-label="Tab 2">
 <div class="flexi-code flexi-code_no-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
-<button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+<button class="flexi-code__copy-button" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
 </header>
@@ -174,7 +174,7 @@ Options for a FlexiTabsBlock. To specify `FlexiTabsBlockOptions` for a FlexiTabs
   <div class="tabs">
   <div class="tabs__scrollable-indicators scrollable-indicators scrollable-indicators_axis_horizontal">
   <div class="tabs__tab-list scrollable-indicators__scrollable" role="tablist">
-  <button class="tabs__tab tabs__tab_selected" title="View panel" role="tab" aria-selected="true">Tab 1</button>
+  <button class="tabs__tab tabs__tab_selected" role="tab" aria-selected="true">Tab 1</button>
   </div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_start"></div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_end"></div>
@@ -213,7 +213,7 @@ Options for a FlexiTabsBlock. To specify `FlexiTabsBlockOptions` for a FlexiTabs
   <div class="flexi-tabs">
   <div class="flexi-tabs__scrollable-indicators scrollable-indicators scrollable-indicators_axis_horizontal">
   <div class="flexi-tabs__tab-list scrollable-indicators__scrollable" role="tablist">
-  <button class="flexi-tabs__tab flexi-tabs__tab_selected" title="View panel" role="tab" aria-selected="true">Tab 1</button>
+  <button class="flexi-tabs__tab flexi-tabs__tab_selected" role="tab" aria-selected="true">Tab 1</button>
   </div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_start"></div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_end"></div>
@@ -257,8 +257,8 @@ Options for a FlexiTabsBlock. To specify `FlexiTabsBlockOptions` for a FlexiTabs
   <div class="flexi-tabs">
   <div class="flexi-tabs__scrollable-indicators scrollable-indicators scrollable-indicators_axis_horizontal">
   <div class="flexi-tabs__tab-list scrollable-indicators__scrollable" role="tablist">
-  <button class="flexi-tabs__tab flexi-tabs__tab_selected" title="View panel" role="tab" aria-selected="true">Tab 1</button>
-  <button class="flexi-tabs__tab" title="View panel" role="tab" aria-selected="false" tabindex="-1">Tab 2</button>
+  <button class="flexi-tabs__tab flexi-tabs__tab_selected" role="tab" aria-selected="true">Tab 1</button>
+  <button class="flexi-tabs__tab" role="tab" aria-selected="false" tabindex="-1">Tab 2</button>
   </div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_start"></div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_end"></div>
@@ -301,7 +301,7 @@ Options for a FlexiTabsBlock. To specify `FlexiTabsBlockOptions` for a FlexiTabs
   <div class="flexi-tabs my-custom-class" id="my-custom-id">
   <div class="flexi-tabs__scrollable-indicators scrollable-indicators scrollable-indicators_axis_horizontal">
   <div class="flexi-tabs__tab-list scrollable-indicators__scrollable" role="tablist">
-  <button class="flexi-tabs__tab flexi-tabs__tab_selected" title="View panel" role="tab" aria-selected="true">Tab 1</button>
+  <button class="flexi-tabs__tab flexi-tabs__tab_selected" role="tab" aria-selected="true">Tab 1</button>
   </div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_start"></div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_end"></div>
@@ -346,7 +346,7 @@ Options for a `FlexiTabBlock`.
   <div class="flexi-tabs">
   <div class="flexi-tabs__scrollable-indicators scrollable-indicators scrollable-indicators_axis_horizontal">
   <div class="flexi-tabs__tab-list scrollable-indicators__scrollable" role="tablist">
-  <button class="flexi-tabs__tab flexi-tabs__tab_selected" title="View panel" role="tab" aria-selected="true">Tab 1</button>
+  <button class="flexi-tabs__tab flexi-tabs__tab_selected" role="tab" aria-selected="true">Tab 1</button>
   </div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_start"></div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_end"></div>
@@ -400,7 +400,7 @@ Options for the FlexiTabsBlocks extension. There are two ways to specify these o
   <div class="flexi-tabs tabs-class">
   <div class="flexi-tabs__scrollable-indicators scrollable-indicators scrollable-indicators_axis_horizontal">
   <div class="flexi-tabs__tab-list scrollable-indicators__scrollable" role="tablist">
-  <button class="flexi-tabs__tab flexi-tabs__tab_selected" title="View panel" role="tab" aria-selected="true">Tab 1</button>
+  <button class="flexi-tabs__tab flexi-tabs__tab_selected" role="tab" aria-selected="true">Tab 1</button>
   </div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_start"></div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_end"></div>
@@ -459,7 +459,7 @@ Options for the FlexiTabsBlocks extension. There are two ways to specify these o
   <div class="flexi-tabs tabs-class">
   <div class="flexi-tabs__scrollable-indicators scrollable-indicators scrollable-indicators_axis_horizontal">
   <div class="flexi-tabs__tab-list scrollable-indicators__scrollable" role="tablist">
-  <button class="flexi-tabs__tab flexi-tabs__tab_selected" title="View panel" role="tab" aria-selected="true">Tab 1</button>
+  <button class="flexi-tabs__tab flexi-tabs__tab_selected" role="tab" aria-selected="true">Tab 1</button>
   </div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_start"></div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_end"></div>
@@ -471,7 +471,7 @@ Options for the FlexiTabsBlocks extension. There are two ways to specify these o
   <div class="flexi-tabs alt-tabs-class">
   <div class="flexi-tabs__scrollable-indicators scrollable-indicators scrollable-indicators_axis_horizontal">
   <div class="flexi-tabs__tab-list scrollable-indicators__scrollable" role="tablist">
-  <button class="flexi-tabs__tab flexi-tabs__tab_selected" title="View panel" role="tab" aria-selected="true">Tab 2</button>
+  <button class="flexi-tabs__tab flexi-tabs__tab_selected" role="tab" aria-selected="true">Tab 2</button>
   </div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_start"></div>
   <div class="scrollable-indicators__indicator scrollable-indicators__indicator_end"></div>
@@ -506,7 +506,7 @@ Nested panel
 <div class="flexi-tabs">
 <div class="flexi-tabs__scrollable-indicators scrollable-indicators scrollable-indicators_axis_horizontal">
 <div class="flexi-tabs__tab-list scrollable-indicators__scrollable" role="tablist">
-<button class="flexi-tabs__tab flexi-tabs__tab_selected" title="View panel" role="tab" aria-selected="true">Tab 1</button>
+<button class="flexi-tabs__tab flexi-tabs__tab_selected" role="tab" aria-selected="true">Tab 1</button>
 </div>
 <div class="scrollable-indicators__indicator scrollable-indicators__indicator_start"></div>
 <div class="scrollable-indicators__indicator scrollable-indicators__indicator_end"></div>
@@ -515,7 +515,7 @@ Nested panel
 <div class="flexi-tabs">
 <div class="flexi-tabs__scrollable-indicators scrollable-indicators scrollable-indicators_axis_horizontal">
 <div class="flexi-tabs__tab-list scrollable-indicators__scrollable" role="tablist">
-<button class="flexi-tabs__tab flexi-tabs__tab_selected" title="View panel" role="tab" aria-selected="true">Nested tab</button>
+<button class="flexi-tabs__tab flexi-tabs__tab_selected" role="tab" aria-selected="true">Nested tab</button>
 </div>
 <div class="scrollable-indicators__indicator scrollable-indicators__indicator_start"></div>
 <div class="scrollable-indicators__indicator scrollable-indicators__indicator_end"></div>

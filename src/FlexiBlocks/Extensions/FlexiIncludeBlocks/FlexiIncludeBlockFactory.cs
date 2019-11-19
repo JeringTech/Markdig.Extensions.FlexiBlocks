@@ -1,4 +1,4 @@
-﻿using Jering.IocServices.System.IO;
+using Jering.IocServices.System.IO;
 using Jering.Markdig.Extensions.FlexiBlocks.ContextObjects;
 using Markdig.Helpers;
 using Markdig.Parsers;

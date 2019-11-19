@@ -1,4 +1,4 @@
-﻿using Markdig.Renderers;
+using Markdig.Renderers;
 using Markdig.Syntax;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -93,10 +93,8 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiSectionBlocks
             string headingTag = _headingTags[levelIndex];
             htmlRenderer.
                 WriteStartTagLine("header", blockName, "header").
-                WriteStartTag(headingTag, blockName, "heading").
-                WriteLeafInline(flexiSectionHeadingBlock).
-                WriteEndTagLine(headingTag).
-                WriteStartTagLineWithAttributes("button", blockName, "link-button", "title=\"Copy link\" aria-label=\"Copy link\"").
+                WriteElementLine(headingTag, blockName, "heading", flexiSectionHeadingBlock).
+                WriteStartTagLineWithAttributes("button", blockName, "link-button", "aria-label=\"Copy link\"").
                 WriteHtmlFragmentLine(hasLinkIcon, linkIcon, blockName, "link-icon").
                 WriteEndTagLine("button").
                 WriteEndTag("header");

@@ -1,4 +1,4 @@
-﻿using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
+using Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

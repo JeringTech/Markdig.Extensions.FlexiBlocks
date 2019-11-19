@@ -1,4 +1,4 @@
-﻿# FlexiOptionsBlocks
+# FlexiOptionsBlocks
 A FlexiOptionsBlock contains options for another block.  
 
 We often require per-block options when working with markdown. For example, we might want line numbers for one code block but not another.
@@ -46,7 +46,7 @@ public string ExampleFunction(string arg)
 <div class="flexi-code flexi-code_has-title flexi-code_has-copy-icon flexi-code_has-header flexi-code_no-syntax-highlights flexi-code_no-line-numbers flexi-code_has-omitted-lines-icon flexi-code_no-highlighted-lines flexi-code_no-highlighted-phrases">
 <header class="flexi-code__header">
 <span class="flexi-code__title">ExampleDocument.cs</span>
-<button class="flexi-code__copy-button" title="Copy code" aria-label="Copy code">
+<button class="flexi-code__copy-button" aria-label="Copy code">
 <svg class="flexi-code__copy-icon" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 18 18"><path fill="none" d="M0,0h18v18H0V0z"/><path d="M12,1H2v13h2V3h8V1z M12,4l4,4v9H5V4H12z M11,9h4l-4-4V9z"/></svg>
 </button>
 </header>
@@ -184,7 +184,7 @@ o{
 <nav class="flexi-section flexi-section_level_1 flexi-section_has-link-icon" id="foo">
 <header class="flexi-section__header">
 <h1 class="flexi-section__heading">foo</h1>
-<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<button class="flexi-section__link-button" aria-label="Copy link">
 <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>
@@ -192,7 +192,7 @@ o{
 <article class="flexi-section flexi-section_level_1 flexi-section_has-link-icon" id="foo-1">
 <header class="flexi-section__header">
 <h1 class="flexi-section__heading">foo</h1>
-<button class="flexi-section__link-button" title="Copy link" aria-label="Copy link">
+<button class="flexi-section__link-button" aria-label="Copy link">
 <svg class="flexi-section__link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
 </button>
 </header>

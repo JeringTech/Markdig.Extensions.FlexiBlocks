@@ -1,4 +1,4 @@
-﻿using Jering.Web.SyntaxHighlighters.HighlightJS;
+using Jering.Web.SyntaxHighlighters.HighlightJS;
 using Jering.Web.SyntaxHighlighters.Prism;
 using Markdig.Renderers;
 using System;
@@ -120,7 +120,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
                 htmlRenderer.
                     WriteStartTagLine("header", blockName, "header").
                     WriteElementLine(hasTitle, "span", blockName, "title", title).
-                    WriteStartTagLineWithAttributes("button", blockName, "copy-button", "title=\"Copy code\" aria-label=\"Copy code\"").
+                    WriteStartTagLineWithAttributes("button", blockName, "copy-button", "aria-label=\"Copy code\"").
                     WriteHtmlFragmentLine(hasCopyIcon, copyIcon, blockName, "copy-icon").
                     WriteEndTagLine("button").
                     WriteEndTagLine("header");

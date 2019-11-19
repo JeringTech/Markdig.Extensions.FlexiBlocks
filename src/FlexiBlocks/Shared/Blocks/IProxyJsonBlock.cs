@@ -1,4 +1,4 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks
 {
     /// <summary>
     /// An abstraction for proxy JSON blocks.

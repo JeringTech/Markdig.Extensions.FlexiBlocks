@@ -1,4 +1,4 @@
-﻿using Markdig.Syntax;
+using Markdig.Syntax;
 using Newtonsoft.Json;
 using System;
 

@@ -1,4 +1,4 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
     /// <summary>
     /// <see cref="FlexiCodeBlock"/> rendering modes.

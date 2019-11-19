@@ -1,4 +1,4 @@
-﻿using Jering.IocServices.System.IO;
+using Jering.IocServices.System.IO;
 using SixLabors.ImageSharp;
 using System;
 using System.IO;

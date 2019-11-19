@@ -1,4 +1,4 @@
-﻿using Markdig.Syntax;
+using Markdig.Syntax;
 using System.Collections.ObjectModel;
 
 namespace Jering.Markdig.Extensions.FlexiBlocks

@@ -1,4 +1,4 @@
-﻿namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
+namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
 {
     /// <summary>
     /// Syntax highlighters.

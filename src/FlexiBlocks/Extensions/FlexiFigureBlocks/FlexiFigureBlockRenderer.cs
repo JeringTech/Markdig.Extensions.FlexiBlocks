@@ -47,9 +47,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiFigureBlocks
 
             // Content
             htmlRenderer.
-                WriteStartTagLine("div", blockName, "content").
-                WriteChildren(block[0] as ContainerBlock, false).
-                WriteEndTagLine("div");
+                WriteElementLine("div", blockName, "content", block[0] as ContainerBlock, false);
 
             // Caption
             htmlRenderer.
