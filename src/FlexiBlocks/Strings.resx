@@ -290,8 +290,11 @@
 Alternatively, disable file operations by setting "EnableFileOperations" to false for all FlexiVideoBlocks.</value>
   </data>
   <data name="InvalidOperationException_ProcessService_ExecutableRunFailed" xml:space="preserve">
-    <value>The attempt to run "{0}" with arguments "{1}" failed with exit code "{2}" and the following error output:
-{3}</value>
+    <value>The attempt to run "{0}" with arguments "{1}" failed with exit code "{2}".
+
+Standard output: {3}
+
+Error output: {4}</value>
   </data>
   <data name="OptionsException_Shared_FileNotFoundInDirectory" xml:space="preserve">
     <value>The file "{0}" was not found in directory "{1}".</value>
@@ -313,7 +316,11 @@ Alternatively, disable file operations by setting "EnableFileOperations" to fals
     <value>Unable to read dimensions from local image file "{0}". The file is either corrupted or encoded in an unsupported format.</value>
   </data>
   <data name="InvalidOperationException_ProcessService_ExceptionThrownWhileAttemptingToRunExecutable" xml:space="preserve">
-    <value>The attempt to run "{0}" with arguments "{1}" and timeout "{2}" failed. Refer to the inner exception for more details.</value>
+    <value>The attempt to run "{0}" with arguments "{1}" and timeout "{2}" failed.
+
+Standard output: {3}
+
+Refer to the inner exception for more details.</value>
   </data>
   <data name="InvalidOperationException_VideoService_InvalidVideoMetadata" xml:space="preserve">
     <value>The video "{0}" has invalid metadata. The following was returned when trying to retrieve its width, height and duration: 

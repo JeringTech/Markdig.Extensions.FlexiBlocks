@@ -45,7 +45,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.FlexiCodeBlocks
         /// <para>The programming language of the <see cref="FlexiCodeBlock"/>'s code.</para>
         /// <para>If <paramref name="syntaxHighlighter"/> is not <see cref="SyntaxHighlighter.None"/>, this value is passed to the chosen syntax highlighter.</para>
         /// <para>Therefore, this value must be a language alias supported by the chosen syntax highlighter.</para>
-        /// <para><a href="https://prismjs.com/index.html#languages-list">Valid language aliases for Prism.</a></para>
+        /// <para><a href="https://prismjs.com/index.html#languages-list">Valid language aliases for Prism</a>.</para>
         /// <para><a href="https://github.com/highlightjs/highlight.js/tree/master/src/languages">Valid language aliases for HighlightJS</a>.</para>
         /// <para>The class "&lt;<paramref name="blockName"/>&gt;__code_language_&lt;language&gt;" is assigned to the <see cref="FlexiCodeBlock"/>'s root element.</para>
         /// <para>If this value is <c>null</c>, whitespace or an empty string, syntax highlighting is disabled and no language class is assigned to the root element.</para>

@@ -16,7 +16,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             // Under the hood, Process uses SafeHandles for unmanaged resources, so we don't need to worry
             // about cleaning up if Dispose isn't called (e.g if an exception is thrown and never caught).
             int exitCode;
-            string standardOutput;
+            string standardOutput = null;
             string errorOutput = null;
             Process process = null;
 
@@ -46,7 +46,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
             catch (Exception exception) when (!(exception is Win32Exception))
             {
                 // Failed without exiting, we can provide extra context here, so wrap
-                throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_ProcessService_ExceptionThrownWhileAttemptingToRunExecutable, executable, arguments, timeoutMS), exception);
+                throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_ProcessService_ExceptionThrownWhileAttemptingToRunExecutable, executable, arguments, timeoutMS, standardOutput), exception);
             }
             finally
             {
@@ -58,7 +58,7 @@ namespace Jering.Markdig.Extensions.FlexiBlocks
                 return standardOutput;
             }
 
-            throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_ProcessService_ExecutableRunFailed, executable, arguments, exitCode, errorOutput));
+            throw new InvalidOperationException(string.Format(Strings.InvalidOperationException_ProcessService_ExecutableRunFailed, executable, arguments, exitCode, standardOutput, errorOutput));
         }
     }
 }

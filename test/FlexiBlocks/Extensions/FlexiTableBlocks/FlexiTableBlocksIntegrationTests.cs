@@ -43,5 +43,35 @@ namespace Jering.Markdig.Extensions.FlexiBlocks.Tests.FlexiTableBlocks
                 Assert.Equal(10, result.LineNumber);
             }
         }
+
+        [Fact]
+        public void Temp()
+        {
+            // Arrange
+            var services = new ServiceCollection();
+            services.AddFlexiTableBlocks();
+            services.AddFlexiOptionsBlocks();
+            using (ServiceProvider serviceProvider = services.BuildServiceProvider())
+            {
+                var dummyMarkdownPipelineBuilder = new MarkdownPipelineBuilder();
+                dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<IBlockExtension<FlexiTableBlock>>());
+                dummyMarkdownPipelineBuilder.Extensions.Add(serviceProvider.GetRequiredService<IBlockExtension<FlexiOptionsBlock>>());
+                MarkdownPipeline dummyMarkdownPipeline = dummyMarkdownPipelineBuilder.Build();
+                // Note: "" counts as 1 character
+                const string dummyMarkdown = @"o{ ""type"": ""unresponsive"" }
++--------+-----------:+-------------------:+-----------------:+-------------------:+
+| Run    | Temperature Relative To Control | Relative Humidity Relative To Control |
++        +------------+--------------------+------------------+--------------------+
+|        | Mean       | Standard Deviation | Mean             | Standard Deviation |
++========+============+====================+==================+====================+
+| 7 ACH  | -0.2 °C    | 0                  | 2.68 %           | 0.35               |
++--------+------------+--------------------+------------------+--------------------+
+| 15 ACH | -0.2 °C    | 0                  | 2.97 %           | 0.12               |
++--------+------------+--------------------+------------------+--------------------+";
+
+                // Act
+                string result = Markdown.ToHtml(dummyMarkdown, dummyMarkdownPipeline);
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-Document:
+# Notes
 
 ## Empty Elements
 - Don't render purposeless empty elements. For example, `<span class="title"></span>` has no purpose if it is empty.
